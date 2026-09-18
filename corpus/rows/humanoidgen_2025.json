@@ -13,6 +13,7 @@
   "n_envs": null,
   "real_robot": true,
   "real_trials": 20,
+  "real_trials_kind": "per-condition",
   "sim_episodes": 100,
   "success_criterion": "binary per-task success criterion, itself LLM-generated (e.g. \"all cubes being successfully placed inside the bowl\")",
   "headline_metric": "generation/execution success rate across HGen-Bench's 20 tasks vs. RoboTwin baseline",

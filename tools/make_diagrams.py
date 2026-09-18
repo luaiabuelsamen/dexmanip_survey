@@ -37,37 +37,59 @@ def fig3():
     W,H=820,430
     b=[f'<text class="t" x="24" y="30">Figure 3. One simulation step, and where engines differ</text>',
        f'<text class="s" x="24" y="50">The stages every rigid-body engine runs. Under each, the choices that separate the engines used for hands.</text>',
-       f'<text class="s" x="24" y="66">Dashed red marks where interpenetration is created or hidden from the user.</text>']
+       f'<text class="s" x="24" y="66">Dashed red marks the three stages that make overlap. They do not answer to the same knob.</text>']
     stages=[("broad phase","which pairs might touch"),("narrow phase","contact points and normals"),
             ("constraint assembly","friction cone, limits"),("solver","velocities and impulses"),
             ("integrate","advance state")]
     x,y,bw,bh,gap=28,92,140,46,16
-    for i,(s,sub) in enumerate(stages):
-        b.append(box(x+i*(bw+gap),y,bw,bh,s,sub))
+    for i,(s_,sub) in enumerate(stages):
+        b.append(box(x+i*(bw+gap),y,bw,bh,s_,sub))
         if i<len(stages)-1: b.append(arrow(x+i*(bw+gap)+bw,y+bh/2,x+(i+1)*(bw+gap)-3,y+bh/2))
     detail={
-     0:["PhysX: GPU SAP","MuJoCo: broadphase","Genesis: GPU tiles"],
-     1:["MuJoCo: convex, analytic","PhysX: SDF or convex hull","Dojo: exact, nonconvex"],
-     2:["MuJoCo: soft, pyramidal","Drake SAP: convex, regularised","Dojo: NCP, hard"],
+     0:["PhysX: GPU SAP","MuJoCo: broadphase","Genesis: libccd, islands"],
+     1:["MuJoCo: convex, analytic","PhysX: SDF or convex hull","Dojo: primitives vs planes"],
+     2:["MuJoCo: soft, elliptic cone","Drake SAP: convex, regularised","Dojo: NCP, hard"],
      3:["MuJoCo: PGS/CG/Newton","PhysX: TGS, fixed iters","Dojo: interior point","ComFree: closed form"],
-     4:["semi-implicit Euler","RK4 (Brax)","implicit (MuJoCo)"]}
+     4:["semi-implicit Euler","symplectic Euler (Brax)","RK4 (MuJoCo)"]}
     yy=y+bh+30
     for i in range(5):
         cx=x+i*(bw+gap)
         b.append(f'<line class="ed" x1="{cx+bw/2}" y1="{y+bh}" x2="{cx+bw/2}" y2="{yy-6}" stroke-dasharray="2 3"/>')
         for j,d in enumerate(detail[i]):
             b.append(f'<text class="n" x="{cx+bw/2}" y="{yy+j*15}" text-anchor="middle">{d}</text>')
-    py=yy+80
-    b.append(f'<rect class="box2" x="28" y="{py}" width="764" height="96" rx="4"/>')
-    b.append(f'<text class="h" x="44" y="{py+22}">Where penetration comes from</text>')
-    notes=["Soft contact admits penetration by construction: the contact force is a function of depth, so depth is never zero.",
-           "A fixed iteration budget leaves the constraint unconverged, so a stiff contact under load is resolved as overlap.",
-           "Convex decomposition replaces the mesh, so the object the solver sees is not the object the renderer draws.",
-           "Only some engines expose the resulting depth to the user; where they do not, a policy can exploit it unobserved."]
-    for j,n in enumerate(notes):
-        b.append(f'<text class="n" x="44" y="{py+42+j*16}">&#8226; {n}</text>')
-    b.append(arrow(430,y+bh+4,430,py-6,warn=True))
-    return svg(W,H+80,"".join(b),"A simulation step and where engines differ")
+    py=yy+92
+    # bullets, in the order that matters for a hand: the step, the prescribed
+    # compliance, then solver truncation. Sources: mujoco_convex_contact_2014
+    # Sec. V (mass-independent closed form), contact_models_comparison_2023
+    # Sec. IV-A (conditioning, not stiffness), isaacgym_2021 Table 4 (1/120 s).
+    notes=[["The step, and the biggest term for a hand. Non-penetration is enforced at the velocity level, so any residual approach",
+            "velocity is integrated into overlap of order v&#183;&#916;t. A fingertip closing at 0.5 m/s at Isaac Gym&#8217;s 1/120 s Shadow Hand step",
+            "accrues about 4 mm before the next step&#8217;s constraint acts. A stabiliser removes only a fraction of it per step."],
+           ["The prescribed compliance. A regularised contact rests at a violation equal to the normal load times the compliance",
+            "that was chosen for it. It is zero at zero load, and MuJoCo&#8217;s closed form is independent of the object&#8217;s mass. The depth",
+            "is a setting, and no engine paper in Table 4 states the setting it ships."],
+           ["Solver truncation. A truncated solve degrades with the conditioning of the problem and with redundancy in the contact",
+            "set, not with stiffness, which is prescribed. A grasp guarantees both, being many persistent contacts on a light object."]]
+    bh2=42+sum(len(n) for n in notes)*14+80
+    b.append(f'<rect class="box2" x="28" y="{py}" width="764" height="{bh2}" rx="4"/>')
+    b.append(f'<text class="h" x="44" y="{py+22}">Where penetration comes from, in the order that matters for a hand</text>')
+    ly=py+42
+    for n in notes:
+        for j,ln in enumerate(n):
+            pre="&#8226; " if j==0 else "&#160;&#160;&#160;"
+            b.append(f'<text class="n" x="44" y="{ly}">{pre}{ln}</text>'); ly+=14
+    b.append(f'<line class="ed" x1="44" y1="{ly+2}" x2="776" y2="{ly+2}" stroke-dasharray="2 3"/>')
+    ly+=18
+    b.append(f'<text class="n" x="44" y="{ly}">Not a source of overlap, but a reason a number is ambiguous: an outer convex hull or decomposition contains the visual mesh, so it</text>')
+    ly+=14
+    b.append(f'<text class="n" x="44" y="{ly}">blocks contacts and hides overlap measured against that mesh, while an inscribed primitive admits overlap the solver never sees.</text>')
+    ly+=14
+    b.append(f'<text class="n" x="44" y="{ly}">PhysX 5 uses SDF collision on non-convex bodies and skips the decomposition. A penetration number must name the geometry it used.</text>')
+    ly+=18
+    b.append(f'<text class="h" style="font-size:10px" x="44" y="{ly}">The depth is computable from the poses and the meshes. IsaacGymEnvs&#8217; IndustReal task already gates its policy update on it at 1 mm.</text>')
+    for cx in (410,566,722):
+        b.append(arrow(cx,py-30,cx,py-6,warn=True))
+    return svg(W,py+bh2+34,"".join(b),"A simulation step and where engines differ")
 
 def fig5():
     # Counts: the 25 corpus papers whose notes place a learned controller on two
@@ -77,13 +99,13 @@ def fig5():
     b=[f'<text class="t" x="24" y="30">Figure 5. Four ways to control two dexterous hands</text>',
        f'<text class="s" x="24" y="50">Counts are the 25 corpus papers that put a learned controller on two dexterous hands. Two are counted twice.</text>']
     panels=[("one policy, both hands","observation of both hands and object|one network, joint action vector",
-             "19 of 25","twisting_lids_2024  dexmachina_2025|maniptrans_2025  dexman_2025|robopianist_2023  gr_dexter_2025|and 13 more"),
-            ("two policies, per hand","each hand its own network|centralised critic, or own obs. only",
-             "5 of 25","bidexhands_2022 (MARL baselines)|bidexhd_2024  artigrasp_2023|dynamic_handover_2023|dydexhandover_2025"),
+             "21 of 28","twisting_lids_2024  dexmachina_2025|maniptrans_2025  dexman_2025|gr_dexter_2025  deximit_2026|and 15 more"),
+            ("a network per hand","each hand its own network|centralised critic, or own obs. only",
+             "4 of 28","bidexhd_2024  artigrasp_2023|dynamic_handover_2023|dydexhandover_2025"),
             ("leader and follower","one hand assigned the dominant role|the other reacts to it",
-             "2 of 25","asymdex_2024|dexterous_handover_2025,|whose leader is a scripted arm|and is never learned"),
+             "1 of 28","asymdex_2024|dexterous_handover_2025 is not|counted: its giver is a scripted|arm and its row reads bimanual no"),
             ("relative frame","action expressed between the hands|or in the held object's frame",
-             "1 of 25","asymdex_2024|dexmimicgen_2024 preserves it|offline, when generating data,|not in the policy's observation")]
+             "1 of 28","asymdex_2024, the same paper|dexmimicgen_2024 preserves it|offline when generating data,|not in the policy's observation")]
     x,y,bw,bh=28,72,182,188
     for i,(t_,body,cnt,keys) in enumerate(panels):
         px=x+i*(bw+14)

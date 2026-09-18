@@ -4,37 +4,41 @@
 
 The clearest demonstration that hands are the hard case came from a benchmark that was not about
 hands. Erez et al. built a 35-DOF arm modelled on the Shadow Hand, closed it around a capsule with
-fixed spring-dampers, and asked five engines for the largest timestep at which the object was
-still in the hand at the end of the run. MuJoCo held the grasp at 16 ms, PhysX at 2 ms, ODE at
-0.25 ms and Bullet at 0.03 ms, a spread of a factor of 500
-(`physics_engine_comparison_2015`, Sec. IV-D). On a falling 25-DOF humanoid the same engines
-differ by about a factor of four in speed, and on a pile of 27 capsules the ranking inverts. The
-grasp is the test that separates them. The authors wrote MuJoCo and disclose it, and their
-timesteps are log-spaced, so each is good only to a factor of two.
+fixed spring-dampers, and asked four of the five engines for the largest timestep at which the
+object was still in the hand. MuJoCo held the grasp at 16 ms, PhysX at 2 ms, ODE at 0.25 ms and
+Bullet at 0.03 ms, a spread of a factor of 500 (`physics_engine_comparison_2015`, Sec. IV-D).
+Havok is the fifth and was excluded for want of a working PD controller. Three caveats travel with
+that spread. The engines run a deliberately restricted common model, hinge joints with sphere and
+capsule geometry, no boxes and no meshes (Sec. II). The authors call it "an open question whether
+this model system can be tuned to work better in the gaming engines" (Sec. IV-D). The timesteps
+are log-spaced and good only to a factor of two, and the authors wrote MuJoCo and disclose it.
 
 A grasp is hard for nameable reasons. It is many contacts at once, all persistent, all near
 stiction, on an object much lighter than the mechanism holding it. Persistence and multiplicity
 make the problem hyperstatic, and Le Lidec et al. show that per-contact solvers of the projected
-Gauss-Seidel family, and RaiSim's, then inject spurious internal jamming forces at stiction that
-vanish only once the object slides. The mass ratio makes it ill-conditioned, and in their
-stacked-cube test at a 10^3 to 10^-3 kg ratio those same per-contact methods fail to converge.
-Global methods with proximal regularisation stay robust in both cases
-(`contact_models_comparison_2023`, Sec. IV-A). Locomotion is forgiving by comparison. In their MPC
-task on a Solo-12 quadruped on flat ground the contact model and solver choice "hardly affects"
-the tracked base velocity, and only on rough, slippery terrain do RaiSim and CCP deviate. A
-walking robot makes and breaks a few contacts against ground far heavier than itself. A hand does
-neither.
+Gauss-Seidel family, and RaiSim's, then inject spurious jamming forces at stiction that vanish only
+once the object slides. The mass ratio makes it ill-conditioned, and in their stacked-cube test at a
+10^3 to 10^-3 kg ratio those same methods fail to converge. Global methods with proximal
+regularisation stay robust in both cases (`contact_models_comparison_2023`, Sec. IV-A). What
+degrades a truncated solve is therefore conditioning and redundancy, not stiffness, and a grasp
+supplies both by construction. Locomotion is forgiving by comparison. On flat ground the contact
+model and solver choice "hardly affects" their quadruped's tracked base velocity, and only on
+rough, slippery terrain do RaiSim and CCP deviate. A walking robot makes and breaks a few contacts
+against ground far heavier than itself. A hand does neither.
 
-Speed enters by the same door, because contact resolution is where the cost is, and on MJX it does
-not even scale with the contacts that exist. MuJoCo Playground reports that contact time scales
-with the number of possible contacts rather than the active ones, because JAX requires static
-shapes, which is why its tasks carry hand-tuned `max_contact_points` and `max_geom_pairs`
-overrides (`mujoco_playground_2025`, Sec. VI). For a hand the bound is set for the worst case.
+Speed enters by the same door. MuJoCo Playground reports that contact time scales with the number
+of possible contacts rather than the active ones, because JAX requires static shapes, which is why
+its tasks carry hand-tuned `max_contact_points` and `max_geom_pairs` overrides
+(`mujoco_playground_2025`, Sec. VI). Every override printed in that paper is a locomotion port. A
+hand's bound would have to be set the same way, for the worst case, but no hand configuration is
+printed.
 
-Figure 3 sets out the stages of one simulation step and marks where the engines used for hands
-diverge. Two stages matter below: contact generation, where convex decomposition replaces the mesh
-the renderer draws, and the solver, where a fixed iteration budget leaves a stiff contact
-unconverged and therefore resolved as overlap.
+Figure 3 sets out the stages of one simulation step. Three of them make overlap, and they do not
+answer to the same knob. Integration turns any residual approach velocity into overlap of order v
+times Δt. Constraint assembly fixes the compliance a loaded contact then rests at. A truncated
+solver leaves a residual that grows with conditioning. A fourth item on the figure is not a source
+of overlap at all. It is a mismatch between the geometry the solver uses and the geometry the
+renderer draws, and it runs in both directions.
 
 ## 4.2 Contact models and solvers, engine by engine
 
@@ -43,81 +47,133 @@ unconverged and therefore resolved as overlap.
 Table 4 is the engine-by-engine comparison, one row per simulator, built only from what a note
 confirmed. Le Lidec et al. supply the taxonomy that organises it, checking each formulation
 against the Signorini condition, Coulomb's law, and the maximum dissipation principle. Linear
-complementarity, the family used by Bullet, ODE and PhysX, satisfies Signorini alone, because
+complementarity, the family of Bullet, ODE, PhysX and DART, satisfies Signorini alone, because
 linearising the friction cone to a pyramid biases friction toward its corners. The cone
 complementarity problem satisfies the other two but relaxes Signorini, so contact acts at a
-distance of size Δt·µ·‖c_T‖ and their dragged cube slides above the floor. The full nonlinear
-problem satisfies all three and is non-convex (`contact_models_comparison_2023`, Table II).
+distance of size Δt·µ·‖c_T‖. The full nonlinear problem satisfies all three and is non-convex
+(`contact_models_comparison_2023`, Table II). A contact model is not the algorithm that solves it.
+PhysX linearises the cone, which places its model in the LCP family, and it does not solve an LCP.
+Its Temporal Gauss-Seidel scheme folds substepping into the Gauss-Seidel sweep and exposes
+position and velocity iteration counts separately (`isaacgym_2021`, Sec. 3).
 
-MuJoCo sits outside that taxonomy deliberately. Its contact is soft, convex and
-complementarity-free, and penetration is a state variable rather than an error: the violation
-distance is driven by a critically damped stabiliser, and for an object resting under gravity the
-steady-state depth has a closed form independent of the object's mass
-(`mujoco_convex_contact_2014`, Sec. V). The original paper says why non-penetration is a cost and
-not a constraint, "otherwise the inverse dynamics could not be defined for trajectories that
-happen to have penetration" (`mujoco_2012`, Sec. II-D). The model is built to stay well-defined
-while the bodies overlap. Le Lidec et al., who compete with it, call that compliance a "numerical
-trick designed to circumvent the issues due to hyper-staticity or ill-conditioning at the cost of
-impairing the simulation". Drake's SAP takes the convex middle, bounding penetration at about
-2.5×10^-5 m for a point mass at δt = 10^-2 s (`castro_sap_contact_2021`).
+MuJoCo is inside that taxonomy rather than outside it. Le Lidec et al. classify it as CCP-MuJoCo,
+a convex relaxation solved by a Newton method on the primal QCQP, in the same family as CCP-Drake,
+the SAP-style scheme (Table III). The relaxation makes two errors of opposite sign in one engine.
+A loaded contact carries a violation, and a sliding contact carries force at a positive gap.
+Drake's SAP inherits the same pair, and its gliding effect at distance φ ≈ δt·µ·‖v_t‖
+"unfortunately does not go away as δt → 0" (`castro_sap_contact_2021`, Sec. V-A). Le Lidec et al.
+call that compliance a "numerical trick designed to circumvent the issues due to hyper-staticity
+or ill-conditioning at the cost of impairing the simulation".
+
+The depth a loaded contact carries is a chosen number. In a regularised formulation the
+steady-state violation at a contact is the normal load times the compliance. It is zero at zero
+load and it grows with the load carried. MuJoCo drives that violation coordinate with a critically damped
+stabiliser parameterised by ε and κ, and for an object resting under gravity the steady-state
+depth has a closed form independent of the object's mass (`mujoco_convex_contact_2014`, Sec. V).
+Mass cancels because the regulariser is scaled by the inverse effective inertia at the contact, so
+compliance falls as 1/m exactly as the gravity load rises as m. The closed form did not survive
+the parse of that paper, so the cancellation is quoted and the algebra is not. This is not a
+penalty spring, and depth is not always non-zero. The impulse solves a regularised convex program
+over the whole contact set rather than a per-contact function of the gap, both MuJoCo papers
+reject spring-dampers by name, and the 2012 ball-drop figure is captioned "there is no
+penetration" (`mujoco_2012`, Fig. 2).
 
 The first of two concrete measurements comes from the other end. Dojo solves a hard-contact
 nonlinear complementarity problem with an exact second-order friction cone, by an interior-point
-method converging within 15 iterations. Its Table II drops an Atlas humanoid and reports
-foot-floor penetration against the timestep. MuJoCo penetrates −28 mm at Δt = 0.01 s and −46 mm at
-Δt = 0.001 s, and fails outright at Δt = 0.1 s. Dojo records +1×10^-12 mm at Δt = 0.1 s and
-+8×10^-6 mm at Δt = 0.001 s, so its feet stay above the floor at every step size tested
-(`dojo_2022`, Sec. V-A). That is one scenario, on the authors' own configuration of the competing
-engine, and Dojo demonstrates no dexterous hand anywhere in the paper. The price is in its
-Table V, where MuJoCo is fastest on every system tested, 0.335 s against Dojo's 1.159 s on a
-Franka Panda over 1000 steps. Read Erez's grasp table backwards and the trade is priced: tens of
-millimetres of overlap on a drop test is what buys the 16 ms timestep that holds a grasp where
-Bullet needs 0.03 ms.
+method converging within 15 iterations on the three robots of its convergence study. Its Table II
+drops an Atlas humanoid and reports foot-floor penetration against the timestep. MuJoCo penetrates
+−28 mm at Δt = 0.01 s and −46 mm at Δt = 0.001 s, while Dojo stays above the floor at every step
+tested (`dojo_2022`, Sec. V-A). The MuJoCo column is not a trend. A ten-times-smaller step
+produces more overlap, which no timestep-independent stabiliser does. Either that configuration
+ties the compliance to Δt, or the quantity is an impact transient on a drop. Neither reading is a
+steady-state grasp depth. Drake's SAP bound of 2.5×10^-5 m at δt = 10^-2 s is six orders of
+magnitude below Dojo's MuJoCo cell at the same step, on an engine that is also compliant
+(`castro_sap_contact_2021`, Sec. V-B). The depth is a setting.
 
-The GPU era moved that knob rather than removing it. ComFree-Sim resolves contact in closed form
-in the dual cone of the friction cone, with no complementarity solve, so penetration becomes an
-explicit tuning parameter and the paper reports it. On a drop test of convex primitives about 5 cm
-across at dt = 0.002 s, averaged over all detected contacts, MuJoCo Warp penetrates 1.7 ± 4.9 mm
-and ComFree-Sim ranges from 3.9 ± 6.9 mm to 0.9 ± 1.5 mm as its stiffness and damping are raised.
-Millimetres, on primitives the size of a fingertip, in the GPU backend that both MuJoCo Playground
-and Newton build on.
+Dojo's Table V times 1000 steps of forward simulation with gradients, at a matched Δt = 0.01 s,
+for engines that are not all computing gradients. MuJoCo is fastest on every system, 0.335 ± 0.001
+s against Dojo's 1.159 ± 0.077 s on a Franka Panda, and the authors call the comparison difficult
+because Dojo is stable at five times the step size (Sec. VI-B). What the regularisation buys is
+conditioning, which is what lets a hyperstatic grasp run at a large step. It does not buy the step
+with overlap, and the depth it costs is tuned separately. Erez's contact-free planar chain settles
+that. MuJoCo runs at 243.2 kHz there against Bullet's 22.8 and PhysX's 6.4, and Bullet's
+articulated Featherstone mode at 81.4 kHz beats every Cartesian-coordinate engine
+(`physics_engine_comparison_2015`, Sec. IV-B). Joint coordinates explain the timestep advantage
+and contact compliance cannot.
 
-That brings Table 4's most important column. Two of the 15 engines report a penetration depth
-exposed to the user, Dojo and ComFree-Sim, and both are engines whose paper is about contact
-accuracy. Four are recorded as not exposing it: Brax, Isaac Gym, Isaac Lab and Orbit. Nine rows
-are blank, meaning no parsed source stated it either way. The word "penetration" appears nowhere
-in the Isaac Gym paper, whose tensor API exposes net contact force per rigid body and no depth,
-and Isaac Lab's contact sensor reports force, duration and an average contact point but defines no
-contact-quality metric. Those two simulators carry 41 of the 110 method papers in this corpus. The
-depth is created by the solver on every step and is not handed to the user.
+The GPU era moved the compliance knob rather than removing it. ComFree-Sim resolves contact in
+closed form in the dual cone of the friction cone, so penetration becomes an explicit tuning
+parameter and the paper reports it. On a drop test of convex primitives about 5 cm across at dt =
+0.002 s, MuJoCo Warp penetrates 1.7 ± 4.9 mm and ComFree-Sim runs from 3.9 ± 6.9 mm at k_user =
+0.1 down to 0.9 ± 1.5 mm at k_user = 0.5, though its prose describes the opposite direction from
+its own table (`comfree_sim_2026`, Sec. IV-A). Its impedance acts on the signed gap through the
+"identical" default hyperparameter API as MuJoCo's solver, so the knob it is credited with
+exposing is one MuJoCo users already set. Those are 5 cm primitives under their own weight, not a
+fingertip loaded by a grasp, and depth scales with the normal load. Nobody has published the
+fingertip number. The baseline it measures against is MuJoCo Warp, which Newton builds on and
+which MuJoCo Playground names as its intended replacement for JAX (`mujoco_playground_2025`,
+Sec. VI).
 
-A policy will use what the user cannot see. DexTrack's released configs set PhysX's
-`max_depenetration_velocity`, which bounds how fast overlapping bodies are pushed apart, to either
-10.0 or 1000.0 depending on the task variant, with no explanation in the paper or in a config
-comment. The paper defines a maximum hand-object penetration depth, applies it only to its input
-kinematic references, and presents tolerance of "severe hand-object penetrations" as evidence of
-robustness (`dextrack_2025`, App. B). TopoRetarget is the counterexample, reporting max penetration
-depth and the share of frames above 2 mm over 25 ContactPose grasps: 1.07 mm and 0.00% for its own
-retargeting, against 20.12 mm and 84% of frames for Mink and 22.22 mm and 96% for GeoRT
-(`toporetarget_2026`, Table 1). Those are retargeted reference trajectories, which are placement
-rather than simulated physics, and they are not re-measured after RL tracking. The one method in
-the corpus that measures penetration carefully measures it on the input.
+That brings Table 4's most important column, and the claim it does not support. The column records
+whether a parsed source reported a penetration depth, not what an engine can compute. Two of the
+15 engines report one, Dojo and ComFree-Sim, and both are engines whose paper is about contact
+accuracy. Four are recorded as not reporting it: Brax, Isaac Gym, Isaac Lab and Orbit. Nine rows
+are blank. The word "penetration" appears nowhere in the Isaac Gym paper, and Isaac Lab's contact
+sensor reports force, duration and an average contact point with no contact-quality metric. Those
+two simulators carry 42 of the 112 method papers in this corpus.
 
-The rest of Table 4 is largely empty, and the emptiness is a result. Sixty-eight of its 165 cells,
-41 percent, are values no parsed source stated. Three of 15 engines state a default physics
-timestep, four state a solver iteration count, and seven ship any dexterous hand at all.
+**The tooling exists and the number is still not recorded.** NVIDIA's own IsaacGymEnvs repository
+computes interpenetration depth in simulation. Its IndustReal tasks load plug and socket meshes
+into Warp, sample points on one, query them against the other, and reduce to a per-environment
+maximum interpenetration distance (`code/md/isaacgym_2021.md`, lines 8809 to 8862). The policy
+update is gated on that number. Environments are split on `max_interpen_dists <= interpen_thresh`
+and the surviving reward is scaled by `1 - tanh(max_interpen_dists / interpen_thresh)`, with
+`interpen_thresh: 0.001` commented as the maximum allowed interpenetration between plug and socket
+(lines 3630 and 3753). That is a shipped Isaac Gym task measuring simulated interpenetration per
+environment at a millimetre threshold, during RL, and acting on it. Table 4 records Isaac Gym as
+not exposing penetration and `corpus/rows/isaacgym_2021.json` carries `penetration_exposed:
+false`, which the code parse in the same corpus contradicts. Tactile Genesis makes the point from
+the other side, shipping penetration depth as a sensor on an analytic SDF backend and a BVH
+backend (`tactile_genesis_2026`, App. A.1), while Table 4 leaves the Genesis cell blank. The depth
+is computable from the poses and the meshes in a few lines of Warp, and the field's own benchmark
+repository already does it. Interpenetration in a dexterous rollout is a setting nobody records
+and a measurement nobody takes.
+
+A policy will exploit what nobody looks at. DexTrack's configs carry PhysX's
+`max_depenetration_velocity` at 10.0 or 1000.0 depending on the task variant, with no explanation
+in the paper or in a config comment (`dextrack_2025`). The same parameter appears across unrelated
+stock IsaacGymEnvs tasks at 5.0, 10.0, 100.0 and 1000.0 (`code/md/isaacgym_2021.md`, lines 897,
+1924, 2083, 2448 and 3113), so DexTrack inherited a template rather than choosing per variant. The
+parameter caps the rate at which the solver pushes overlapping bodies apart, so it sets how long
+an overlap persists and how violently it is undone, not how deep the overlap gets. The one knob
+here that governs interpenetration behaviour is being copied without being read. DexTrack's paper
+defines a maximum hand-object penetration depth, applies it only to its input kinematic
+references, and presents tolerance of "severe hand-object penetrations" as evidence of robustness
+(App. B). `toporetarget_2026` is the one corpus method that reports the number carefully, and it
+reports it on retargeted references rather than on a rollout, which section 7 takes up.
+
+The rest of Table 4 is largely empty, and the emptiness is a result. Sixty-eight of its 165 cells
+are values no parsed source stated, which is 68 of the 150 cells outside the engine-key column, or
+45 percent. No engine paper states a default physics timestep. Three report one for a named
+experiment, and the timestep column reports those experiment settings. Isaac Gym's cell is its
+Shadow Hand step, from the only per-task timestep table any engine paper here publishes, which
+runs 1/120 s for Shadow Hand and Allegro, 1/200 s for ANYmal and TriFinger and 1/60 s for Franka
+(`isaacgym_2021`, Table 4). MuJoCo's 0.01 s is the 27-DoF humanoid test's step and ComFree-Sim's
+0.002 s is its benchmark step, against a stated stability limit near 0.02 s. Four engines state a
+solver iteration count and seven ship any dexterous hand at all. The licence column answers a
+question a reader choosing an engine actually has, and thirteen of fifteen rows do not answer it.
 
 {{table:table4_simulators}}
 
 ## 4.3 The GPU-parallel turn
 
 Isaac Gym set the pattern. Physics, observations, rewards and actions stay on the GPU, and PhysX
-uses a Temporal Gauss-Seidel solver rather than a classical PGS or LCP scheme. Its per-task
-timesteps are published, which is rare: the Shadow Hand runs a 1/120 s physics step under a 1/60 s
-control step, or 1/20 s in the OpenAI variant. The result that reorganised the field is that
-reproducing OpenAI's Shadow Hand cube reorientation took under an hour on one A100, against 30
-hours on 6144 CPU cores and 8 V100s (`isaacgym_2021`, Sec. 6.4.1). Thirty-five of the 110 method
-papers in this corpus run on it.
+resolves contacts with the Temporal Gauss-Seidel sweep described above. Its per-task timesteps are
+published, which is rare: the Shadow Hand runs a 1/120 s physics step under a 1/60 s control step,
+or 1/20 s in the OpenAI variant. The result that reorganised the field is that reproducing OpenAI's
+Shadow Hand cube reorientation took under an hour on one A100, against 30 hours on 6144 CPU cores
+and 8 V100s (`isaacgym_2021`, Sec. 6.4.1). Thirty-six of the 112 method papers in this corpus run
+on it.
 
 Orbit and Isaac Lab moved the stack to PhysX 5, and the dexterous offering is thinner than the
 predecessor's: the first-party suite is lifting, grasping and reorienting with the KUKA Allegro
@@ -134,12 +190,16 @@ figures that circulate for Genesis trace to nothing in `genesis_2024`.
 Newton changes how these names should be read. It is explicitly multi-solver: SolverMuJoCo wraps
 MuJoCo Warp, SolverKamino is a proximal-ADMM and dual-variational-inequality contact solver, and
 XPBD and VBD do position-based constraint projection (`newton_2025`). Its contact model is
-solver-dependent, not a property of the engine, which is how Table 4 records it. The consequence
-reaches upward. Isaac Lab's code already exposes a `--physics newton_mjwarp` backend switch in its
-hands demo, and its roadmap announces Newton integration. An experiment reported as Isaac Lab may
-be running PhysX 5 with TGS, or MuJoCo's soft constraint rows under Warp, and those two make
-different contact errors. Naming a simulator no longer names its physics. Papers should report the
-backend and the solver beside the framework.
+solver-dependent, not a property of the engine, which is how Table 4 records it. Isaac Lab's code
+already exposes a `--physics newton_mjwarp` backend switch in its hands demo, and its roadmap
+announces Newton integration. An experiment reported as Isaac Lab may be running PhysX 5 with TGS,
+or MuJoCo's soft constraint rows under Warp, and those two make different contact errors. The name
+also fails to fix the physics inside one engine. MuJoCo's convex solver is a family, interior point
+or projected Newton, conjugate gradient or Gauss-Seidel (`mujoco_2012`, Sec. II-D), and MuJoCo Warp
+supports neither PGS nor the noslip pass. PhysX 4 and PhysX 5 differ in whether non-convex rigid
+bodies get SDF collision, which is a contact-geometry difference between Isaac Gym and Isaac Lab
+under one vendor name (`orbit_2023`, `isaaclab_2025`). Naming a simulator no longer names its
+physics. Papers should report the backend and the solver beside the framework.
 
 ## 4.4 Throughput, and why the reported numbers do not compare
 
@@ -155,22 +215,29 @@ also with no environment count (`orbit_2023`, Sec. VII).
 
 The one number reported cleanly enough to reuse is MuJoCo Playground's, in PPO steps per second on
 a single A100 over five seeds. LeapCubeReorient runs at 76,354 ± 143 and PandaRobotiqPushCube at
-487,341 ± 4,346. Same hardware, same measurement, same codebase, a factor of 6.4 from the task
-alone. The same confound sits inside Isaac Gym's paper on one A100: 700,000 environment steps per
-second for Ant, 200,000 for Humanoid, 150,000 for the Shadow Hand. A training-loop FPS is also
-mostly not a measurement of physics. Playground breaks the fractional cost down on an RTX 4090:
-for CartpoleBalance, physics is 0.02, rendering 0.06, inference 0.01 and the policy update 0.91,
-and the policy update still dominates on the Franka task.
+487,341 ± 4,346. Same hardware, same measurement, same codebase, a factor of 6.4 between two
+environments. It is not a factor from the task in isolation. Playground tunes solver iterations,
+line-search iterations, timestep and contact bounds per environment, with values as far apart as
+one and four solver iterations (`mujoco_playground_2025`, Table III), and it does not print the two
+configurations side by side. That omission is the reporting failure this subsection is about. The
+same confound sits inside Isaac Gym's paper on one A100: 700,000 environment steps per second for
+Ant, 200,000 for Humanoid, 150,000 for the Shadow Hand. A training-loop FPS is also mostly not a
+measurement of physics. Playground breaks the fractional cost down on an RTX 4090: for
+CartpoleBalance, physics is 0.02, rendering 0.06, inference 0.01 and the policy update 0.91, and
+the policy update still dominates on the Franka task.
 
-Cross-framework comparisons add a further free parameter, because the environment count is itself
-tuned per framework. ManiSkill2's PickCube table takes the best result over 16 to 512 environments
-for each system (`maniskill2_2023`, Table 1a), giving ManiSkill2 with a render server 2487 ± 24 FPS at its optimum of 64
-environments against Isaac Gym's 865 ± 35 at its optimum of 512. Its authors add the caveat
-themselves, that a fair comparison remains hard because fidelity differs, and Playground is
-equally explicit that its cross-simulator plot borrows its Isaac Lab and ManiSkill3 numbers from
-the ManiSkill3 paper. Several sources give no number at all: MuJoCo Warp's README points to an
-external nightly dashboard, and Newton's and Genesis's READMEs contain no FPS or speedup
-anywhere.
+Cross-framework comparisons add further free parameters. ManiSkill2's PickCube table takes the best
+result over 16 to 512 environments for each system (`maniskill2_2023`, Table 1a), giving ManiSkill2
+with a render server 2487 ± 24 FPS at its optimum of 64 environments against Isaac Gym's 865 ± 35
+at its optimum of 512. The env-count tuning is the second problem, not the first. The two systems
+are not the same kind of thing. ManiSkill2 runs rigid-body physics on CPU worker processes behind a
+shared GPU render server, and Isaac Gym runs physics on the GPU, a difference its own paper states
+plainly. The measured quantity includes 128×128 rendering at 500 Hz simulation and 20 Hz control
+for both, so this is a visual sample-collection loop rather than two physics engines. Its authors
+add the fidelity caveat themselves, and Playground is equally explicit that its cross-simulator
+plot borrows its Isaac Lab and ManiSkill3 numbers from the ManiSkill3 paper. Several sources give
+no number at all: MuJoCo Warp's README points to an external nightly dashboard, and Newton's and
+Genesis's READMEs contain no FPS or speedup anywhere.
 
 The failure reaches past the engine papers into the methods. Of the 47 corpus method papers that
 name a GPU-batched simulator, 19 state no environment count anywhere, and Isaac Lab's own paper
@@ -204,7 +271,10 @@ signal, so the quantity every other engine treats as an error sets this sensor's
 Against a real GelSight it reports relative marker RMSE of 0.329 in dilation and 0.174 in shear,
 against HydroShear's 0.403 and 0.217, with each simulator tuned to match the real image first
 (`tactile_genesis_2026`, Fig. 2). Its own sim-to-real check is a matched success count rather than
-a fidelity measurement, because the real XHand1 SDK exposes only an aggregate contact pressure.
+a fidelity measurement. The real XHand1 SDK reports a per-taxel raw pressure field as well as an
+aggregate contact pressure, but documents no taxel positions or response characteristics, so the
+raw field cannot be registered to the simulated probe layout and only the aggregate is comparable
+(App. C). The undocumented calibration is the barrier, not a missing signal.
 
 ## 4.6 The sim-to-real gap for hands
 
@@ -216,33 +286,24 @@ fix, without measuring either. DeXtreme lists four candidate causes for its shor
 malfunctioning Allegro thumb used in most trials, and disambiguates none by experiment
 (`dextreme_2022`).
 
-What has been measured is narrower. The size of the gap is known wherever a paper runs the same
-policy in both places. OpenAI's Shadow Hand block reorientation reaches 43.4 ± 13.8 mean
-consecutive successes in simulation and 18.8 ± 17.1 on the physical hand over 10 trials per
-policy (`openai_dexterity_2018`, Table 3). Visual Dexterity reports 96 percent in simulation against 81 percent on the real D'Claw
-for training objects, and 85 against 45 percent for held-out ones, over 20 real trials on each of
-12 objects (`visual_dexterity_2022`, Table 1). Roughly half, and worse as the task hardens.
-
-Three results identify causes with evidence. A humanoid recipe paper ranks its system
+What has been measured is narrower, and section 7 collects the transfer numbers. The one result
+that links a quantified model error to transfer is a humanoid recipe paper, which ranks its system
 identification runs by dynamics-model MSE and pairs each with real success over 10 trials: the
 lowest-MSE model grasps 8 out of 10, the median-MSE model 3 out of 10, the highest-MSE model 0 out
-of 10 (`humanoid_sim2real_recipe_2025`, Table 1). That is the corpus's clearest measured link
-between a quantified model error and transfer. OpenAI's per-category randomisation ablation on the
-physical Shadow Hand gives median consecutive successes of 13 with all randomisations, 8.5 without
-observation noise, 2 without physics randomisations, and 0 with none. DemoStart shows that gap
-size is a function of design choice rather than a fixed property of the simulator: its full method
-scores 99.0 percent in simulation and 64 percent over 100 real episodes, dropping photorealistic
-data moves those to 97.0 and 29, and using one camera moves them to 97.0 and 17
-(`demostart_2024`, Table IV). The simulation number barely moves while the real number collapses.
+of 10 (`humanoid_sim2real_recipe_2025`, Table 1). Where a cause has been pinned down elsewhere it
+is usually perception or actuation, not contact. OpenAI's pose estimator has 3.12 mm error on
+rendered images and 9.27 ± 4.02 mm on 992 real ones, and PDDM reports a camera tracker with 5 mm
+average error and 20 ms latency as the unmodelled source in its real numbers (`pddm_2019`, App. C).
 
-Where a cause has been pinned down it is usually perception or actuation, not contact. OpenAI's
-pose estimator has 3.12 mm error on rendered images and 9.27 ± 4.02 mm on 992 real ones, and PDDM
-reports a camera tracker with 5 mm average error and 20 ms latency as the unmodelled source in its
-real numbers (`pddm_2019`, App. C). The contact side stays unmeasured, and one paper records why.
-DeXtreme replayed real cube states back into simulation with physics enabled and found the replay
-"sometimes resulted in interpenetrations", so the cube's physics parameters could not easily be
-calibrated. The interpenetration the engine does not expose is also what blocks the
-calibration that would let anyone attribute the gap to contact at all. The only direct measurement
-of simulator fidelity against hardware in this corpus is Dojo's, an average final-position gap of
-about 0.5 cm over 5 box-pushing trials. It is a parallel-jaw arm pushing a box, and there is no
-equivalent number for a hand.
+The contact side stays unmeasured, and the one paper that looks at it is usually read backwards.
+DeXtreme's real-to-sim replay interpenetrated because the replayed poses carried the pose
+estimator's error, not because the contact model failed. The paper says so: "there is still some
+sim-to-real gap in pose estimation. This is manifested when we played back the real states in sim
+(real-to-sim) with physics enabled, which sometimes resulted in interpenetrations. Therefore, we
+were not able to easily calibrate physics parameters of the cube" (`dextreme_2022`, Sec. 5). A
+replayed trajectory is a placement, so the overlap it shows bounds the state estimate rather than
+the physics. That is why it could not calibrate the cube, and it is why calibrating contact against
+hardware still has no worked example for a hand. The only direct measurement of simulator fidelity
+against hardware in this corpus is Dojo's, an average final-position gap of about 0.5 cm over 5
+box-pushing trials. It is a parallel-jaw arm pushing a box, and there is no equivalent number for a
+hand.

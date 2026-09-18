@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "sold",
- "source_quality": "vendor page"
+ "source_quality": "vendor page",
+ "control_rate": "USB-to-CAN at 1 Mbit/s, optional Modbus or RS485; rate not stated",
+ "sim_model": "URDF, with PyBullet and Isaac Gym examples in the SDK",
+ "claim_date": "undated page, fetched 2026-09-17",
+ "force_kind": null,
+ "payload": null,
+ "actuators": null,
+ "spec_caveat": null
 }

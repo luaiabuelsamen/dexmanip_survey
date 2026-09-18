@@ -18,6 +18,7 @@
   "n_envs": null,
   "real_robot": true,
   "real_trials": 612,
+  "real_trials_kind": "unclear",
   "sim_episodes": null,
   "success_criterion": "continuous progress score [0,100] plus a binary pairwise preference label, aggregated via a task-aware Bradley-Terry ranking model",
   "headline_metric": "Pearson r and MMRV of the crowd-sourced ranking vs an exhaustive oracle ranking",

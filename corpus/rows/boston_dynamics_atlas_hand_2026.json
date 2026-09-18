@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "prototype",
- "source_quality": "press"
+ "source_quality": "press",
+ "claim_date": "trade press, 2026-01-05 (CES); the Boston Dynamics blog of the same date has no hand content",
+ "force_kind": null,
+ "payload": null,
+ "actuators": null,
+ "control_rate": null,
+ "sim_model": null,
+ "spec_caveat": null
 }

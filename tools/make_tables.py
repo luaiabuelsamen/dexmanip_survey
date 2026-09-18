@@ -10,7 +10,7 @@ for f in glob.glob(str(R / "corpus/rows/*.json")):
 bib = {e["key"]: e for e in json.loads((R / "corpus/bib.json").read_text())}
 EM = " "
 
-def cell(v, width=90):
+def cell(v, width=150):
     if v is None or v == "" or v == []: return EM
     if isinstance(v, bool): return "yes" if v else "no"
     if isinstance(v, list): v = ", ".join(str(x) for x in v)
@@ -81,6 +81,78 @@ def used_by(key, methods, cap=3):
     shown = ", ".join(f"`{k}`" for k in ks[:cap])
     return f"{len(ks)}: {shown}" + (", …" if len(ks) > cap else "")
 
+
+# --- Table 2 and Table 3 -------------------------------------------------------------------
+# One hand row holds several kinds of number that a single column would conflate. "force N" is
+# whatever the source measured and "what the force is" says which quantity that was, because
+# pull-out resistance, pinch force, fingertip normal force and a vendor's unlabelled spec are
+# not comparable. Payload is separate again: no two hands here report it under the same test.
+# Actuator counts are kept apart from actuated DoF, because a servo count is not a DoF count.
+# claim_date carries the date of the claim, per SECTION_BRIEF rule 5; an undated page says so.
+HAND_COLS = [
+    ("key",               "hand",                  28),
+    ("maker",             "maker",                 44),
+    ("dof",               "joints",                12),
+    ("actuated_dof",      "act. DoF",              12),
+    ("actuators",         "actuators",             12),
+    ("actuation",         "actuation",             70),
+    ("weight_g",          "weight g",              12),
+    ("fingertip_force_n", "force N",               12),
+    ("force_kind",        "what the force is",    130),
+    ("payload",           "payload",               90),
+    ("control_rate",      "control rate",          80),
+    ("sim_model",         "URDF or MJCF",          80),
+    ("tactile",           "tactile",               70),
+    ("price_usd",         "price USD",             12),
+    ("open_hardware",     "open HW",                8),
+    ("release_status",    "status",                18),
+    ("source_quality",    "source",                26),
+    ("claim_date",        "claim date",            70),
+    ("used_by",           "corpus methods using it", 90),
+]
+# The emptiness figure is quoted over the specification columns only. The key, maker, provenance
+# and usage columns can never be blank, and counting them dilutes the finding (R1, finding 29).
+HAND_SPEC_COLS = {"dof", "actuated_dof", "actuators", "actuation", "weight_g", "fingertip_force_n",
+                  "force_kind", "payload", "control_rate", "sim_model", "tactile", "price_usd"}
+
+def hand_table(rows, sort=None):
+    """Table 2 or Table 3, with the force column split by quantity and every claim dated.
+
+    Returns the markdown table, its caption, and numbered footnotes carrying each row's
+    spec_caveat, which is where a figure with no reachable source is named as such."""
+    if sort: rows = sorted(rows, key=sort)
+    cols = [c for c, _, _ in HAND_COLS]
+    notes, marks = [], {}
+    for r in rows:
+        if r.get("spec_caveat"):
+            notes.append(f"{len(notes)+1}. `{r['key']}`: {r['spec_caveat']}")
+            marks[r["key"]] = f" [{len(notes)}]"
+    out = ["| " + " | ".join(h for _, h, _ in HAND_COLS) + " |",
+           "|" + "|".join(["---"] * len(HAND_COLS)) + "|"]
+    empty = total = 0
+    for r in rows:
+        vals = [cell(r.get(c), w) for c, _, w in HAND_COLS]
+        vals[0] = f"`{vals[0]}`" + marks.get(r["key"], "")
+        for (c, _, _), v in zip(HAND_COLS, vals):
+            if c in HAND_SPEC_COLS:
+                total += 1
+                empty += (v == EM)
+        out.append("| " + " | ".join(vals) + " |")
+    pct = 100 * empty // max(total, 1)
+    out.append(f"\n*{len(rows)} rows. {empty} of {total} specification cells ({pct}%) over the "
+               f"{len(HAND_SPEC_COLS)} specification columns are values no source stated; the key, maker, "
+               "provenance and usage columns are excluded because they are never blank. Every figure "
+               "here is the maker's or the authors' own claim. Nobody outside the maker has measured "
+               "any DoF, force, weight or price cell in this table, except the rows sourced to a "
+               "peer-reviewed paper with a stated protocol. The force column is not a ranking: read "
+               "'what the force is' first, because pull-out resistance, pinch force, a fingertip "
+               "normal force under an indenter and an unlabelled vendor spec are different "
+               "measurements. A blank cell means no source stated the value.*")
+    if notes:
+        out.append("\nFigures with no reachable source, and other caveats on individual rows:\n")
+        out.extend(notes)
+    return "\n".join(out) + "\n"
+
 if __name__ == "__main__":
     outdir = R / "paper/tables"; outdir.mkdir(exist_ok=True)
     hands = [r for r in ROWS.values() if r.get("class") == "hand"]
@@ -88,10 +160,13 @@ if __name__ == "__main__":
     for h in hands: h["used_by"] = used_by(h["key"], methods_for_use)
     sold = [r for r in hands if r.get("release_status") in ("sold", "open-source", None)]
     unrel = [r for r in hands if r.get("release_status") in ("announced", "prototype", "internal-only")]
-    hc = ["key","maker","dof","actuated_dof","actuation","weight_g","fingertip_force_n","tactile","price_usd","open_hardware","release_status","source_quality","used_by"]
-    hh = ["hand","maker","DoF","act. DoF","actuation","weight g","tip force N","tactile","price USD","open HW","status","source","corpus methods using it"]
-    (outdir/"table2_hands_available.md").write_text("### Table 2. Hands that can be obtained\n\n" + table(sold, hc, hh, sort=lambda r: -(r.get("dof") or 0)))
-    (outdir/"table3_hands_announced.md").write_text("### Table 3. Hands announced but not purchasable\n\n" + table(unrel, hc, hh, sort=lambda r: -(r.get("dof") or 0)))
+    # Sorted by joint count descending. A row whose joint count has no reachable source has a
+    # null there and sorts last, rather than being ranked by a number nobody stated.
+    by_joints = lambda r: -(r.get("dof") or 0)
+    (outdir/"table2_hands_available.md").write_text(
+        "### Table 2. Hands that can be obtained\n\n" + hand_table(sold, sort=by_joints))
+    (outdir/"table3_hands_announced.md").write_text(
+        "### Table 3. Hands announced but not purchasable\n\n" + hand_table(unrel, sort=by_joints))
     sims = [r for r in ROWS.values() if r.get("class") == "simulator"]
     sc = ["key","contact_model","solver","solver_iterations","differentiable","gpu","default_timestep_s","penetration_exposed","throughput","hands_shipped","license"]
     sh = ["engine","contact model","solver","iters","diff.","GPU","dt s","penetration exposed","throughput","hands shipped","licence"]
@@ -103,7 +178,7 @@ if __name__ == "__main__":
     # --- Table 5. Reward-term families across the in-hand reorientation RL methods ---
     rm = json.loads((R / "corpus/reward_matrix.json").read_text())
     fams, labs = rm["_families"], rm["_family_labels"]
-    MARK = {"paper": "paper", "code": "code", "both": "both", None: EM}
+    MARK = {"paper": "paper", "code": "code", "both": "both", "code-zero": "code (0)", None: "\u2003"}
     t5 = ["| method | yr | " + " | ".join(labs[f] for f in fams) + " | terms | code | paper/code mismatch |",
           "|" + "|".join(["---"] * (len(fams) + 5)) + "|"]
     empty = total = 0

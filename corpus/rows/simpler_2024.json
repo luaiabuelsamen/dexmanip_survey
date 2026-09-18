@@ -18,6 +18,7 @@
   "n_envs": null,
   "real_robot": true,
   "real_trials": 1500,
+  "real_trials_kind": "total",
   "sim_episodes": null,
   "success_criterion": "task-specific binary success (e.g. pick coke can: grasp and lift; drawer: opened/closed fully)",
   "headline_metric": "Pearson r and Mean Maximum Rank Violation (MMRV) between simulated and real success rates",

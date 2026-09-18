@@ -20,7 +20,7 @@
  "real_robot": false,
  "real_trials": null,
  "sim_episodes": null,
- "success_criterion": "all Nkp object keypoints (or object center) within tolerance \u03b5* of target; \u03b5*=1 cm for regrasping/reorientation, \u03b5*=7.5 cm for grasp-and-throw; episode ends at N_max=50 consecutive successes or first failure/drop",
+ "success_criterion": "all Nkp object keypoints (or object center) within tolerance ε* of target; ε*=1 cm for regrasping/reorientation, ε*=7.5 cm for grasp-and-throw; episode ends at N_max=50 consecutive successes or first failure/drop",
  "headline_metric": "N_succ (number of consecutive successes per episode)",
  "headline_value": "dual-arm PBT reorientation reaches almost 40 of N_max=50; scaling to |P|=32 over 10^10 steps reaches N_succ>42 for the best agent (Fig. 6); without PBT none of 8 single-GPU seeds reached the target tolerance (Sec. IV)",
  "objects_train": null,

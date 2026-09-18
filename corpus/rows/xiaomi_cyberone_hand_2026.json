@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "prototype",
- "source_quality": "press"
+ "source_quality": "press",
+ "claim_date": "press, 2026-03-30",
+ "force_kind": null,
+ "payload": null,
+ "actuators": null,
+ "control_rate": null,
+ "sim_model": null,
+ "spec_caveat": null
 }

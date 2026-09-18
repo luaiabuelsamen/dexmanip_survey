@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 120,
+ "real_trials_kind": "total",
  "sim_episodes": null,
  "success_criterion": "a goal pose is reached if d(o_t,g) is below the defined success tolerance ε = 2 cm",
  "headline_metric": "Task Progress (percentage of demonstrated goal poses tracked successfully)",

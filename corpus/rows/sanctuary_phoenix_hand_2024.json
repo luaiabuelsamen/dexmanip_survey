@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "internal-only",
- "source_quality": "press"
+ "source_quality": "press",
+ "claim_date": "undated press release; trade reprint 2024-12-17",
+ "force_kind": null,
+ "payload": null,
+ "actuators": null,
+ "control_rate": null,
+ "sim_model": null,
+ "spec_caveat": null
 }

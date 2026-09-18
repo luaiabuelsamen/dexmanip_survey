@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 10,
+ "real_trials_kind": "per-condition",
  "sim_episodes": null,
  "success_criterion": "per task, e.g. \"success when the object flips and lands within 2 cm of the palm's center within 1 minute\" (Flipping)",
  "headline_metric": "task success rate (real Allegro hand, 10 trials/cell)",

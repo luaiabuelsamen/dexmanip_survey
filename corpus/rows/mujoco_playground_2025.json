@@ -19,6 +19,7 @@
  "n_envs": 8192,
  "real_robot": true,
  "real_trials": 10,
+ "real_trials_kind": "per-task",
  "sim_episodes": null,
  "success_criterion": "within 3 cm of the goal position and within 10 degrees of the desired orientation (non-prehensile block-reorientation task, Sec. IV-C2-a)",
  "headline_metric": "consecutive successful rotations before failure (LEAP Hand real-world cube reorientation)",

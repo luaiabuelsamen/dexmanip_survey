@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 1287,
+ "real_trials_kind": "unclear",
  "sim_episodes": null,
  "success_criterion": "\"A grasp is successful if the object is held 10 cm above the table for 20 s.\"",
  "headline_metric": "aggregated zero-shot grasp success rate (Table 1c, 1,287 unseen object/background/lighting combinations)",

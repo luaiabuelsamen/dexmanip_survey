@@ -13,6 +13,7 @@
   "n_envs": null,
   "real_robot": true,
   "real_trials": 20,
+  "real_trials_kind": "per-task",
   "sim_episodes": 100000,
   "success_criterion": "Task-specific human/experimenter-judged success; no metric threshold in metres/radians/seconds defined; reported as success rate over 20 rollouts/trials per task",
   "headline_metric": "Success rate (%) averaged over dexterous task suite",

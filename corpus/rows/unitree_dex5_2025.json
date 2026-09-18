@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "sold",
- "source_quality": "datasheet"
+ "source_quality": "datasheet",
+ "force_kind": "fingertip normal force under a 1 cm diameter cylinder pressed vertically down (vendor footnote)",
+ "payload": "3.5 kg palm down and 4.5 kg palm left, on a 5 cm round hard object",
+ "actuators": 16,
+ "control_rate": "1000 Hz over USB 2.0, with per-joint stiffness and damping commands",
+ "claim_date": "undated page, copyright 2016-2025, fetched 2026-09-17",
+ "sim_model": null,
+ "spec_caveat": null
 }

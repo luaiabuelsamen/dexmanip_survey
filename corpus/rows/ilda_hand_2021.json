@@ -38,5 +38,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "prototype",
- "source_quality": "paper"
+ "source_quality": "paper",
+ "force_kind": "fingertip normal force in the bent pose; 28 N stretched, and 25 N per finger measured while crushing an aluminium can",
+ "payload": "18 kg",
+ "actuators": 15,
+ "control_rate": "CAN to a desktop; loop rate not stated",
+ "claim_date": "paper, accepted 2021-11-05",
+ "sim_model": null,
+ "spec_caveat": null
 }

@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 100,
+ "real_trials_kind": "per-condition",
  "sim_episodes": 1000,
  "success_criterion": "plug insertion: norm(plug_position - SOCKET_POSITION) <= 0.002 (2 mm tolerance)",
  "headline_metric": "task success rate",

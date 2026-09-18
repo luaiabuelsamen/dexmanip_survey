@@ -13,6 +13,7 @@
   "n_envs": null,
   "real_robot": true,
   "real_trials": 20,
+  "real_trials_kind": "per-condition",
   "sim_episodes": null,
   "success_criterion": "(CD+EMD) loss below 0.0125 (Sec. IV-D)",
   "headline_metric": "real-robot success rate on Plasticine Reshaping (4 target letters x 5 trials = 20 trials per hand per condition), plus CD/EMD",

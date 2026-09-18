@@ -21,7 +21,7 @@
  "sim_episodes": null,
  "success_criterion": null,
  "headline_metric": "Rotation Reward (RotR)",
- "headline_value": "Oracle RotR 125.23\u00b116.24 (x), 118.26\u00b113.20 (y), 140.90\u00b117.26 (z) vs Hora 79.13\u00b111.22 / 82.25\u00b114.21 / 99.83\u00b111.72 (Table 1)",
+ "headline_value": "Oracle RotR 125.23±16.24 (x), 118.26±13.20 (y), 140.90±17.26 (z) vs Hora 79.13±11.22 / 82.25±14.21 / 99.83±11.72 (Table 1)",
  "objects_train": null,
  "objects_test_unseen": 15,
  "human_data": "none",

@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 10,
+ "real_trials_kind": "per-task",
  "sim_episodes": null,
  "success_criterion": "binary task success per rollout (Bread Picking, Card Sliding, Music Box Opening); Paper Sliding measured as distance moved to the right (cm)",
  "headline_metric": "task success (10 rollouts/task) vs. offline BC baselines",

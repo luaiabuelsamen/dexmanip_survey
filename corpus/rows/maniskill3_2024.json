@@ -21,6 +21,7 @@
  "n_envs": 4096,
  "real_robot": true,
  "real_trials": 24,
+ "real_trials_kind": "total",
  "sim_episodes": null,
  "success_criterion": null,
  "headline_metric": "sim+render throughput (FPS) and GPU memory usage vs Isaac Lab",

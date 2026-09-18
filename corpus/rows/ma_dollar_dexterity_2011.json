@@ -24,5 +24,5 @@
   "reward_terms": null,
   "code_released": null,
   "paper_code_mismatch": null,
-  "note_gaps": "Source fetch returned HTTP 202 (IEEE Xplore) with no page body; only title and DOI recoverable. No definitions of dexterity, workspace, isotropy, or manipulability measures available."
+  "note_gaps": "Conceptual/opinion paper, no experiments: reports five prior verbal definitions of dexterity, a within-hand manipulation taxonomy (regrasping, in-grasp, finger gaiting, finger pivoting/tracking, rolling, sliding), an arm-vs-hand complexity trade-off (Fig. 1, Table I), and a qualitative review of prior hands (Utah/MIT, UB Hand, Gifu, DLR, Robonaut, Karlsruhe humanoid, Stanford-JPL, Karlsruhe dexterous, turntable manipulator). No quantitative dexterity metric (workspace/isotropy/manipulability) is worked out despite the bib why-field's claim."
 }

@@ -35,5 +35,12 @@
  "price_usd": 14000,
  "open_hardware": false,
  "release_status": "sold",
- "source_quality": "vendor page"
+ "source_quality": "third-party tracker",
+ "payload": "25 kg, tracker's 'Strength' figure, over 25 kg gripping palm-up",
+ "control_rate": "not stated",
+ "sim_model": "URDF exists but is licensed; `maniptrans_2025` withholds it",
+ "claim_date": "undated tracker page, fetched 2026-09-17; the vendor page was not fetched",
+ "spec_caveat": "the 15 N in circulation comes from a survey table, not from the tracker or the vendor; the tracker states no fingertip force",
+ "force_kind": null,
+ "actuators": null
 }

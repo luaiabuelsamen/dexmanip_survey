@@ -29,7 +29,7 @@
  "note_gaps": "No joint-DoF count, weight, fingertip force, or any evaluation is stated anywhere; the note's Evaluation section reads 'None. No metrics, no trials.' Actuator counts (16 finger/thumb servos, 2-3 wrist servos) are given but not a settled total DoF number. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
  "maker": "Rob Knight, The Robot Studio (design); electronics/firmware/ROS 2 by Trent Shumay, IoT Design Shop",
  "dof": null,
- "actuated_dof": 16,
+ "actuated_dof": null,
  "actuation": "tendon (fishing line, Sufix 832 80lb / 0.8mm kiteline); Emax ES3301/ES3302/ES3351/ES3352 micro-servos for fingers, Feetech SCS2332 or PWM servos for the wrist",
  "weight_g": null,
  "fingertip_force_n": null,
@@ -37,9 +37,15 @@
  "price_usd": 300,
  "open_hardware": true,
  "release_status": "open-source",
- "source_quality": "vendor page",
+ "source_quality": "project page and GitHub README",
  "bom_cost_usd": 300,
  "build_time_hours": null,
  "license": "CC BY-NC-SA 4.0 (README); Onshape CAD freely available",
- "sim_model": "URDF"
+ "sim_model": "URDF, in the IoT Design Shop ROS 2 packages",
+ "actuators": 18,
+ "control_rate": "Arduino SCServo or SBUS firmware, BLE; rate not stated",
+ "claim_date": "page posts 2023-08-08 to 2023-10-01; no hardware release date",
+ "spec_caveat": "no joint count is given anywhere, so no DoF figure can be quoted; the servo count is 16 finger and thumb micro-servos plus 2 wrist servos, with a third optional. The $300 is 'additional total cost of components', excluding printing and the wrist servos",
+ "force_kind": null,
+ "payload": null
 }

@@ -21,6 +21,7 @@
  "n_envs": 4096,
  "real_robot": true,
  "real_trials": 60,
+ "real_trials_kind": "total",
  "sim_episodes": null,
  "success_criterion": "successful cube pick-up per trial (Fig. 7, 6 subareas x 10 trials/subarea)",
  "headline_metric": "imitation-learning cube pick-and-place success rate (masked-image policy ablation, Fig. 7)",
@@ -38,7 +39,7 @@
  "actuated_dof": 17,
  "actuation": "tendon-driven (antagonistic fishing-line tendon pairs per joint); wrist uses a GT2 timing belt drive",
  "weight_g": 1200,
- "fingertip_force_n": 19.6,
+ "fingertip_force_n": null,
  "tactile": "yes: FSR-based binary tactile sensing on all 5 fingertips (RP-C7.6-ST), absolute detection threshold as low as 0.05 N",
  "price_usd": null,
  "open_hardware": true,
@@ -47,5 +48,11 @@
  "bom_cost_usd": null,
  "build_time_hours": 8,
  "license": null,
- "sim_model": null
+ "sim_model": "URDF-derived kinematic constants only; no URDF or MJCF file in the released tree",
+ "force_kind": null,
+ "payload": "10.5 kg on all four fingers and 2 kg on the index finger alone, both at a fixed 600 mA motor current",
+ "actuators": 17,
+ "control_rate": "serial to Dynamixel or Feetech motors; rate not stated",
+ "claim_date": "paper, 2025",
+ "spec_caveat": "the 19.6 N previously tabulated as a fingertip force is the newton equivalent of the 2 kg index-finger payload at a control-imposed current limit, and no source states it as a force"
 }

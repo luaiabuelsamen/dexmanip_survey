@@ -30,10 +30,17 @@
  "actuated_dof": 22,
  "actuation": null,
  "weight_g": 1300,
- "fingertip_force_n": "20 N | 12 N (two unlabelled spec-table columns, likely two product configurations)",
+ "fingertip_force_n": "20 / 12",
  "tactile": "'Dynamic Tactile Array' (DTA), camera-type array at the fingertip: resolution 240x240 | 60x60, force resolution 0.02 N | 0.05 N, spatial resolution 1 mm | 2 mm, frame rate 180 fps | 30 fps, force range 0-30 N, latency 20 ms, 6-D F/T; number of sensors per hand not stated",
  "price_usd": null,
  "open_hardware": false,
  "release_status": "sold",
- "source_quality": "vendor page"
+ "source_quality": "vendor page",
+ "force_kind": "vendor spec table with two unlabelled columns, probably two configurations; grip force is listed separately as 150 N / 90 N",
+ "payload": "40 kg / 24 kg (the same two unlabelled columns)",
+ "actuators": 22,
+ "control_rate": "500 Hz over 1000BASE-T Ethernet",
+ "sim_model": "MuJoCo and Isaac Sim models",
+ "claim_date": "undated page, copyright 2026, fetched 2026-09-17",
+ "spec_caveat": "the page footnotes 'Specifications may vary between products', and no column of the spec table is labelled"
 }

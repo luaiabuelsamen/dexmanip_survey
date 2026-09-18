@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": null,
  "release_status": null,
- "source_quality": "unavailable"
+ "source_quality": "unavailable",
+ "claim_date": "no source: both store.agibot.com URLs 404, fetched 2026-09-17",
+ "force_kind": null,
+ "payload": null,
+ "actuators": null,
+ "control_rate": null,
+ "sim_model": null,
+ "spec_caveat": null
 }

@@ -24,7 +24,7 @@
  "sim_episodes": null,
  "success_criterion": null,
  "headline_metric": "opposability workspace volume vs. Allegro (Table II)",
- "headline_value": "1,125,556 mm\u00b3 (LEAP index finger) vs. 409,135 mm\u00b3 (Allegro)",
+ "headline_value": "1,125,556 mm³ (LEAP index finger) vs. 409,135 mm³ (Allegro)",
  "objects_train": null,
  "objects_test_unseen": null,
  "human_data": "Epic-Kitchens video (pretraining for VideoDex behavior cloning)",
@@ -47,5 +47,11 @@
  "bom_cost_usd": 2000,
  "build_time_hours": 4,
  "license": "Code: MIT License; CAD: CC BY-NC-SA (non-commercial use with attribution)",
- "sim_model": "URDF"
+ "sim_model": "URDF claimed in the paper; the released LEAP_Hand_API repo contains no URDF, xacro or MJCF",
+ "force_kind": "pull-out resistance: the outward force a flexed finger resists before slipping or deviating more than 15 degrees (Table III)",
+ "actuators": 16,
+ "control_rate": "up to 500 Hz querying over USB serial; the paper's own sim-to-real policy runs at 20 Hz",
+ "claim_date": "paper, 2023",
+ "payload": null,
+ "spec_caveat": null
 }

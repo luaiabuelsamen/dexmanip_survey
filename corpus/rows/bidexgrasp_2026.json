@@ -19,6 +19,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 260,
+ "real_trials_kind": "total",
  "sim_episodes": null,
  "success_criterion": "object translation/rotation within 5cm/15deg for >=3s after squeeze execution (SUC); SUC-F adds six-direction force disturbances",
  "headline_metric": "SUC-L (lift success rate, %) in sim; real success rate (%)",

@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 20,
+ "real_trials_kind": "per-task",
  "sim_episodes": null,
  "success_criterion": "\"strict binary criteria (e.g., complete lid closure, accurate toy placement)\", each task evaluated over 20 randomized trials with varied initial object positions",
  "headline_metric": "success rate on 7 real-world dexterous manipulation tasks (Table 7, 20 trials/task)",

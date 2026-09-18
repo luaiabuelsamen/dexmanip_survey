@@ -17,6 +17,7 @@
  "n_envs": 8192,
  "real_robot": true,
  "real_trials": 70,
+ "real_trials_kind": "total",
  "sim_episodes": null,
  "success_criterion": "a success is counted when the arm does not drop the object at anytime",
  "headline_metric": "success rate",
@@ -32,5 +33,5 @@
  ],
  "code_released": false,
  "paper_code_mismatch": null,
- "note_gaps": "The exact functional form of r_hand-obj ('a sum of exponentials and an L2 distance') did not survive PDF-to-markdown conversion, and the paper's own stated observation dimensionality (7+16 vs. o_t \u2208 R^16) is internally inconsistent. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "The exact functional form of r_hand-obj ('a sum of exponentials and an L2 distance') did not survive PDF-to-markdown conversion, and the paper's own stated observation dimensionality (7+16 vs. o_t ∈ R^16) is internally inconsistent. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
 }

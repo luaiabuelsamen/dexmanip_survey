@@ -20,6 +20,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 20,
+ "real_trials_kind": "total",
  "sim_episodes": 21000,
  "success_criterion": "binary task-completion success check, task-specific, used to filter generated demonstrations rather than to train a reward-driven policy",
  "headline_metric": "real-world Can Sorting success rate: policy trained on generated vs. source-only demos (Sec. VI-D)",

@@ -13,6 +13,7 @@
  "n_envs": 24576,
  "real_robot": true,
  "real_trials": 50,
+ "real_trials_kind": "total",
  "sim_episodes": null,
  "success_criterion": "successful in-hand reorientation when the object orientation error is within 0.4 radians",
  "headline_metric": "Consecutive Successes (CS)",

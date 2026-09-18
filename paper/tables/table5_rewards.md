@@ -4,10 +4,10 @@
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | `openai_dexterity_2018` | 2018 | paper |   |   |   |   |   | paper |   | paper | 3 | no |   |
 | `openai_rubiks_cube_2019` | 2019 | paper |   |   |   |   |   | paper |   | paper | 3 | no |   |
-| `dextreme_2022` | 2022 | both |   |   |   | both | both | code |   | both | 6 | yes | yes |
+| `dextreme_2022` | 2022 | both |   |   |   | both | both | code (0) |   | both | 6 | yes | yes |
 | `hora_2022` | 2022 | both | both |   | both |   | both |   |   |   | 5 | yes | yes |
-| `visual_dexterity_2022` | 2022 | both |   | both | paper |   | both | both | both | both | 7 | yes | yes |
-| `dexpbt_2023` | 2023 | both |   | both |   | code | paper | code |   | both | 4 | yes | yes |
+| `visual_dexterity_2022` | 2022 | both |   | both | paper |   | both | both | paper | both | 7 | yes | yes |
+| `dexpbt_2023` | 2023 | both |   | both |   | code | paper | code (0) |   | both | 4 | yes | yes |
 | `eureka_2023` | 2023 | paper | paper | paper |   |   |   |   |   |   |   | yes | yes |
 | `robot_synesthesia_2023` | 2023 | paper | paper | paper |   | paper | paper | paper |   |   | 6 | no |   |
 | `rotateit_2023` | 2023 | paper | paper |   | paper |   | paper |   |   |   | 6 |   |   |
@@ -15,7 +15,7 @@
 | `anyrotate_2024` | 2024 | paper | paper |   | paper |   | paper | paper | paper | paper | 10 | no |   |
 | `demostart_2024` | 2024 |   |   |   |   |   |   |   |   | paper | 1 | no |   |
 | `dreureka_2024` | 2024 | paper | paper |   | paper |   |   | paper |   |   | 4 | yes | yes |
-| `penspin_2024` | 2024 | both | both |   | both | code | both |   |   |   | 7 | yes | yes |
+| `penspin_2024` | 2024 | both | both |   | both | code (0) | both |   |   |   | 7 | yes | yes |
 | `dexndm_2025` | 2025 | paper | paper |   | paper |   | paper |   |   | paper | 7 | no |   |
 | `dexremoe_2025` | 2025 | paper | paper |   |   | paper |   |   |   | paper | 5 | no |   |
 | `dexteritygen_2025` | 2025 |   |   |   |   |   |   |   |   |   |   | no |   |

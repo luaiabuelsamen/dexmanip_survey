@@ -1,12 +1,29 @@
 # 6. Bimanual dexterous manipulation
 
-A warning first. Of the 51 corpus method papers whose row records `bimanual: true`, four put two
-parallel-jaw grippers on the robot and no dexterous hand at all: `aloha_act_2023`, `rdt1b_2024`,
-`egomimic_2024` and `h_rdt_2025`. Two more report every bimanual number on grippers and show
-five-fingered hands only qualitatively, `gemini_robotics_2025` and `gemini_robotics_15_2025`.
-Three run a gripper on one embodiment and a hand on another, `ace_teleop_2024`, `dp3_2024` and
+A warning first. Fifty-three corpus method rows record `bimanual: true`, and the flag says only
+that the robot has two end effectors. Thirteen of the 53 put no dexterous hand on the robot at
+all. `aloha_act_2023`, `rdt1b_2024`, `egomimic_2024`, `h_rdt_2025` and `umi_2024` are parallel-jaw
+throughout; `pi0_2024`, `pi05_2025`, `pistar06_2025` and `diffusion_policy_2023` name no hand and
+run grippers on every embodiment; `gemini_robotics_2025` and `gemini_robotics_15_2025` report
+every bimanual number on grippers and show five-fingered hands only qualitatively; and
+`helix_2025` and `groot_n16_2025` name no end effector anywhere on the page. Three more run a
+gripper on one embodiment and a hand on another: `ace_teleop_2024`, `dp3_2024` and
 `open_television_2024`, whose Unitree H1 carries 6-DoF Inspire hands and whose Fourier GR-1
-carries a 1-DoF jaw. Every paper below runs two multi-fingered hands unless said otherwise.
+carries a 1-DoF jaw.
+
+**The denominator for this section is 28**: the method rows whose notes place a learned
+closed-loop controller on two multi-fingered hands. It is the 53 less those 16; less two static
+grasp-synthesis methods, `bimangrasp_2024` and `bidexgrasp_2026`; less three systems with no
+learned policy, `castro_sap_contact_2021`, `dexteleop0_2026` and `pang_global_planning_2022`; and
+less four rows where no learned policy holds both hands: `omnih2o_2024`, whose fingers are mapped
+open-loop from the Vision Pro and sit outside its 19-DoF policy; `okami_2024`, whose headline
+pipeline is open-loop retargeting with a learned policy only in a side experiment;
+`dexdeform_2023`, a skill model refined by trajectory optimisation rather than a closed-loop
+controller; and `omnigrasp_2024`, a simulated human body with no bimanual task.
+`dexterous_handover_2025` never enters, because its row records `bimanual: no`. Benchmarks and
+datasets are outside the 28 by class, `bidexhands_2022`, `bench2dex_2026` and `robopianist_2023`
+being benchmarks and `rp1m_2024` and `humanoidgen_2025` datasets; they are quoted here as evidence
+and never counted. Every paper below runs two multi-fingered hands unless said otherwise.
 
 ## 6.1 Why two hands is not twice one hand
 
@@ -18,10 +35,10 @@ with the number of contacts," and trains each hand alone before pairing them.
 
 Role asymmetry is an assumption almost everyone makes silently. `bidexhd_2024` states it outright:
 "we assume the robot to be right-handed by default, i.e., the left hand handles the target object
-and the right hand handles the tool." `twisting_lids_2024` bakes the same split into its reward,
-putting reference contact keypoints on the bottle base for the left fingertips and on the lid for
-the right. The bias is in the data first, since `taco_2024` recruited 14 right-handed subjects and
-measures the right hand moving consistently faster.
+and the right hand handles the tool," and `twisting_lids_2024` bakes the same split into its
+reward, putting reference contact keypoints on the bottle base for the left fingertips and on the
+lid for the right. The bias is in the data first: `taco_2024` recruited 14 right-handed subjects
+and measures the right hand moving consistently faster.
 
 The arms collide, and the corpus handles this by construction rather than by control.
 `robopianist_2023` ships a forearm-forearm collision term that its own reward table never lists.
@@ -41,27 +58,33 @@ on single-hand sequences to 39.5 percent on bimanual ones.
 
 {{figure:fig5_bimanual}}
 
-Figure 5 sets the four architectures side by side with the counts on the panel borders. The
-denominator is the 25 corpus papers whose notes place a learned controller on two dexterous hands.
-Datasets, static grasp synthesis and the two-gripper papers are excluded.
+Figure 5 sets the four architectures side by side. Every row of the 28 is assigned to exactly one
+of them, read from its note.
 
-Nineteen of 25 use one policy over both hands: the video and teleoperation pipelines
-`dexman_2025`, `deximit_2026`, `bidex_teleop_2024` and `hato_visuotactile_2024`, the piano papers
-`robopianist_2023`, `rp1m_2024` and `pianomime_2024`, the trackers `dexmachina_2025` and
-`maniptrans_2025`, the generator `humanoidgen_2025`, and `gr_dexter_2025` with all four
-`bench2dex_2026` baselines. The concentration is not the outcome of a comparison that was won.
+Twenty-one of the 28 put one policy over both hands, which is three quarters of the set: the
+trackers and tracking-adjacent methods `dexmachina_2025`, `dexman_2025`, `maniptrans_2025`,
+`objdex_2024` and `humanplus_2024`; the reinforcement-learning tasks `dexpbt_2023`,
+`twisting_lids_2024`, `eureka_2023`, `pianomime_2024` and `humanoid_sim2real_recipe_2025`; the
+demonstration pipelines `bidex_teleop_2024`, `dexcap_2024`, `dexwild_2025`, `dexmimicgen_2024`,
+`hato_visuotactile_2024` and `humanoid_policy_human_policy_2025`; and the generalist policies
+`gr_dexter_2025`, `groot_n1_2025`, `dexora_2026`, `metis_2025` and `egoscale_2026`. In every one
+of them a single network takes a concatenated two-hand observation and emits a two-hand action.
+Two rows do not say which they are, `bunny_visionpro_2024` and `deximit_2026`, whose notes describe
+the rig and the data pipeline but never the policy's own decomposition. The concentration is not
+the outcome of a comparison that was won.
 
-Five of 25 give each hand its own network, and the two papers that compare the choice disagree.
-`bidexhands_2022` ships the MARL baselines and finds PPO over the full observation beats HAPPO and
-MAPPO "in most cases," with the gap narrowing on tasks that need both hands, because PPO "can use
-all observations" where MARL sees only part. `bidexhd_2024` concludes the opposite. Its
-independent PPO teachers score 74.59 percent stage-two tracking rate on trained tasks against
-53.88 for a centralised policy over both observations. Both are simulation only, on different
-tasks and hands, so neither settles it. `artigrasp_2023` trains one PPO policy per hand, and
-`dynamic_handover_2023` and `dydexhandover_2025` use MAPPO with one agent per arm-hand system.
+Four of the 28 give each hand its own network, and the two papers that compare the choice
+disagree. `bidexhands_2022`, a benchmark row and so outside the 28, ships the MARL baselines and
+finds PPO over the full observation beats HAPPO and MAPPO "in most cases," with the gap narrowing
+on tasks that need both hands, because PPO "can use all observations" where MARL sees only part.
+`bidexhd_2024` concludes the opposite. Its independent PPO teachers score 74.59 percent stage-two
+tracking rate on trained tasks against 53.88 for a centralised policy over both observations. Both
+are simulation only, on different tasks and hands, so neither settles it. `artigrasp_2023` trains
+one PPO policy per hand, and `dynamic_handover_2023` and `dydexhandover_2025` use MAPPO with one
+agent per arm-hand system.
 
-Two of 25 assign explicit leader and follower roles, and one of 25 expresses the policy in a
-relative frame. `asymdex_2024` is the clearest case of both, and the only corpus paper that puts
+One of the 28 assigns explicit leader and follower roles, and the same one is the only policy
+expressed in a relative frame. `asymdex_2024` is that paper, and the only corpus paper that puts
 either mechanism inside a policy. It gives the dominant hand full finger and wrist control,
 restricts the facilitating hand to a 6-DoF base pose, and writes the dominant hand and the object
 in a frame attached to the object the facilitating hand holds. That cuts the observation from 176
@@ -70,8 +93,10 @@ other corpus paper does. On Block in cup the full method scores 0.7701 over five
 0.1086 for relative frames without asymmetry and 0.0164 for asymmetry without them. Twist Lid
 transfers zero-shot at 18 of 20 real trials. The real rig pairs a 16-DoF Allegro with a 6-DoF
 Ability Hand because only one Allegro was available, so the roles are confounded with the
-hardware. `dexmimicgen_2024` preserves relative pose too, but offline, by applying one shared
-SE(3) transform to both arms' source segments when generating data.
+hardware. Two other rows use a relative quantity without giving either hand a role: `dexwild_2025`
+appends the inter-hand pose to its observation, and `dexmimicgen_2024` applies one shared SE(3)
+transform to both arms' source segments when generating data, which is the mechanism offline
+rather than in a policy.
 
 ## 6.3 Benchmarks and datasets for two hands
 
@@ -113,8 +138,10 @@ those columns are worth reading together.
 Real trials. `asymdex_2024` reports 20 per task, `hato_visuotactile_2024` 10 per condition,
 `dexmimicgen_2024` 20 on a Fourier GR1 and `bidexgrasp_2026` 260 across 30 objects.
 `maniptrans_2025` reaches real Inspire hands by open-loop replay with no trial count and no
-success rate. Ten bimanual method rows have no real robot at all, including `dexmachina_2025`,
-`dexman_2025`, `bidexhd_2024` and all three piano papers.
+success rate. Seven of the 28 have no real robot at all: `artigrasp_2023`, `bidexhd_2024`,
+`dexmachina_2025`, `dexman_2025`, `dexpbt_2023`, `dydexhandover_2025` and `pianomime_2024`. The
+two piano rows outside the denominator, `robopianist_2023` and `rp1m_2024`, are simulation-only as
+well.
 
 Penetration. Most bimanual rows read "not addressed." `bimangrasp_2024` gates on it, failing any
 grasp whose total penetration across hand-object, self and inter-hand exceeds 1.5 mm, and reports
@@ -127,9 +154,8 @@ physics simulation which exhibits no interpenetration."
 
 Comparability. `bimangrasp_2024` reports 54.03 percent success in Isaac Gym at friction 3.
 `bidexgrasp_2026` re-runs the same grasps in MuJoCo at friction 0.6 and gets 26.80 percent, at
-1.52 cm penetration depth. Neither number transfers. `dexmachina_2025` likewise re-implements the
-`maniptrans_2025` curriculum in Genesis and finds "no clear improvements over the no-curriculum
-setting."
+1.52 cm penetration depth. Neither number transfers, and section 5.4's re-implementation result is the same
+lesson on the training side.
 
 ## 6.5 Handover and in-hand transfer
 
@@ -145,8 +171,8 @@ regulariser toward a policy pretrained on human throws, which constrains style a
 
 The third case is weaker still. In `dexterous_handover_2025` only the receiver is learned. The
 giver is a UR5e with an Allegro hand that "holds the object without moving during the whole
-episode." There is one agent, one reward and no second policy, and its row in Table 7 accordingly
-records `bimanual: no`. The 94 percent often attached to this paper needs its conditions. It is
+episode." There is one agent, one reward and no second policy, its row in Table 7 accordingly
+records `bimanual: no`, and it is one of the rows the 28 excludes. The 94 percent often attached to this paper needs its conditions. It is
 Total Success, which counts "Indetermination" cases where the simulator failed to resolve
 collisions and the object clipped through the giver's hand, on the short prism, in simulation,
 over 100 episodes, with no real robot in the paper.

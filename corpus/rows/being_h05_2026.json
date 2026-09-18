@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 20,
+ "real_trials_kind": "per-condition",
  "sim_episodes": null,
  "success_criterion": "binary success/failure per real-robot trial under a 'blind evaluation protocol' via a black-box inference server; LIBERO/RoboCasa use per-task mean success rate",
  "headline_metric": "LIBERO/RoboCasa average success rate; real-robot success rate by task category (Fig. 10)",

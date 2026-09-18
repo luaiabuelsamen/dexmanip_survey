@@ -13,6 +13,7 @@
   "n_envs": null,
   "real_robot": true,
   "real_trials": 15,
+  "real_trials_kind": "per-condition",
   "sim_episodes": null,
   "success_criterion": "SR: ratio of successful throws and catches to total attempts; HR: proportion of objects that successfully hit the catcher's palm",
   "headline_metric": "success rate (known vs. novel objects, sim, Table 1)",

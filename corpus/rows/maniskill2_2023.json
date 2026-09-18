@@ -13,6 +13,7 @@
   "n_envs": null,
   "real_robot": true,
   "real_trials": 50,
+  "real_trials_kind": "total",
   "sim_episodes": null,
   "success_criterion": null,
   "headline_metric": "sample-collection throughput (FPS), PickCube visual-RL benchmark",

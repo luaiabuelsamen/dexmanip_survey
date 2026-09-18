@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 150,
+ "real_trials_kind": "total",
  "sim_episodes": null,
  "success_criterion": "binary per-trial success/failure judged by whether the task's physical goal state was reached within the work volume; trial is a failure if the object falls out of the workspace volume (Table II caption)",
  "headline_metric": "per-task completion time and success rate over 5 consecutive trials, 2 pilots, 15 tasks",

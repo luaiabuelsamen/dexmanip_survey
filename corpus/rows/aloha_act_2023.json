@@ -17,6 +17,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 25,
+ "real_trials_kind": "per-task",
  "sim_episodes": 300,
  "success_criterion": "task-specific behavioural success, e.g. Put On Shoe: shoe clings to foot after both arms release",
  "headline_metric": "task success rate (%), real robot, 25 trials",

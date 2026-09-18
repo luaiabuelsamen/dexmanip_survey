@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 20,
+ "real_trials_kind": "per-condition",
  "sim_episodes": 100,
  "success_criterion": "Pick and Place: object properly placed onto the red plate; Rotate: valve rotated 720 degrees; Pour: all four boxes poured into the bowl",
  "headline_metric": "real-robot task success rate (x/20 trials) vs. visual-pretraining baselines (R3M/PVR/MVP)",

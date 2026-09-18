@@ -30,10 +30,17 @@
  "actuated_dof": 6,
  "actuation": null,
  "weight_g": 383,
- "fingertip_force_n": "pinch >=15 N; full fist grip >=50 N",
+ "fingertip_force_n": 15,
  "tactile": "Touch variant only: multi-dimensional fingertip tactile module with 'Tactile Adaptive Control'; count/type not stated. Basic and Pro variants: none.",
  "price_usd": null,
  "open_hardware": false,
  "release_status": "sold",
- "source_quality": "datasheet"
+ "source_quality": "datasheet",
+ "force_kind": "pinch force, vendor minimum (>=15 N); the same page states a whole-fist grip of >=50 N",
+ "payload": ">=20 kg",
+ "control_rate": "RS485 and CAN FD; EtherCAT on Pro and Touch; rate not stated",
+ "claim_date": "undated page, fetched 2026-09-17",
+ "actuators": null,
+ "sim_model": null,
+ "spec_caveat": null
 }

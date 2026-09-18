@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 35,
+ "real_trials_kind": "per-condition",
  "sim_episodes": null,
  "success_criterion": "Multi-Stage Success Rate: long-horizon tasks decomposed into stages, failures in non-sequential stages do not penalize later independent stages",
  "headline_metric": "per-stage Multi-Stage Success Rate and mean±std thumb contact force (N)",

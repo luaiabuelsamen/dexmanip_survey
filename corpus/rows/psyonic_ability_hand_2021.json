@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "sold",
- "source_quality": "vendor page"
+ "source_quality": "vendor page",
+ "actuators": 6,
+ "control_rate": "BLE, I2C, UART or RS485; rate not stated",
+ "sim_model": "URDF (left, right, large, small, no-FSR) plus MuJoCo and Isaac Sim paths in the vendor repo",
+ "claim_date": "undated page, fetched 2026-09-17",
+ "spec_caveat": "the four-bar finger linkage rests on repository file names and the five fingers on URDF meshes; the vendor page states neither",
+ "force_kind": null,
+ "payload": null
 }

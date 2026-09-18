@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 10,
+ "real_trials_kind": "per-task",
  "sim_episodes": null,
  "success_criterion": "target-reaching task: \"success was recorded when both end-effectors reached their respective target area and remained within the target regions for a short duration\"",
  "headline_metric": "sub-task success rate (10 episodes/task, real robot)",

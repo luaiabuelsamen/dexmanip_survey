@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "announced",
- "source_quality": "vendor page"
+ "source_quality": "vendor page",
+ "force_kind": "distal flexion force, peak vendor claim",
+ "control_rate": "not stated",
+ "claim_date": "vendor page, 2026-07-09",
+ "payload": null,
+ "actuators": null,
+ "sim_model": null,
+ "spec_caveat": null
 }

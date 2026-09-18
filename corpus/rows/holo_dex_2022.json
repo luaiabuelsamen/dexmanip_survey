@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 10,
+ "real_trials_kind": "per-condition",
  "sim_episodes": null,
  "success_criterion": "per task, e.g. \"success if the robot is able to rotate the object by 90 degrees under a minute\" (Planar Rotation)",
  "headline_metric": "task success rate (VINN, 10 trials/task)",

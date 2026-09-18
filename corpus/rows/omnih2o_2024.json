@@ -19,6 +19,7 @@
  "n_envs": 4096,
  "real_robot": true,
  "real_trials": 20,
+ "real_trials_kind": "unclear",
  "sim_episodes": 14000,
  "success_criterion": "average deviation from reference <=0.5m at every point in time",
  "headline_metric": "Succ (%) motion tracking success rate, sim",

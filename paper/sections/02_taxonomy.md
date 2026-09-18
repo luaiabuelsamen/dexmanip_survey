@@ -2,15 +2,16 @@
 
 ## 2.1 Task families
 
-Grasping is the largest family. Fifty-five of the 110 method rows carry the grasp label, and the
-labels are not exclusive, so one paper can sit in several families. Success is a lift that survives a
+The six families below are read off the rows rather than imposed on them, and Sec. 2.1's closing
+paragraph says what they miss. Grasping is the largest. Fifty-seven of the 112 method rows carry
+the grasp label, the labels are not exclusive, and one paper can sit in several families. Success is a lift that survives a
 hold, and the thresholds differ by more than an order of magnitude. `dexgraspvla_2025` requires the
 object "held 10 cm above the table for 20 s", while `omnigrasp_2024` requires it "held at least 0.5 s
 in simulation". What makes grasping hard at scale is the continuum of starting configurations.
 `unidexgrasp_pp_2023` states it in Sec. 4.3, that "we are dealing with an infinite number of tasks
 considering the initial object pose can change continuously".
 
-Functional and tool use is second with 43 rows. It is the family where a stable grasp can still be
+Functional and tool use is second with 45 rows. It is the family where a stable grasp can still be
 the wrong answer. `dexterous_functional_grasping_2023` gives the case in Sec. 2.1, that "grabbing a
 hammer from the head or handle are both equally valid ways of using it", and only one of the two
 lets the tool be used. Success is defined against the tool's function, and the field has no shared
@@ -30,12 +31,25 @@ difficulty is that the reference came from a human hand and was never dynamicall
 robot. `dexmachina_2025` warns in App. B.4 that scoring by timesteps inside the thresholds makes
 "the results highly sensitive to the threshold values".
 
-Bimanual coordination has 42 rows and handover has 9. Handover is the smallest family and the one
+Bimanual coordination has 43 rows and handover has 10. Handover is the smallest family and the one
 whose failure has a single moment, because the giver must release only after the receiver has the
 object. `dynamic_handover_2023` reports a hit rate above its success rate and blames the gap in
 Sec. 5.4 on "occasional challenges encountered during the grasping phase of the catcher". Not every
 paper here learns both sides. In `dexterous_handover_2025` only the receiver is learned and the giver
 is a scripted arm.
+
+Those six families do not cover the corpus. Twenty-four of the 112 method rows carry a label from
+outside them and eight carry no label from the six at all. Twenty are labelled `other`, mostly
+generalist policies evaluated on a task suite rather than on a dexterous task family, among them
+`pi0_2024`, `pi05_2025`, `pistar06_2025`, `openvla_2024` and `gemini_robotics_15_2025`. Three
+adjacent families are named here rather than absorbed. Locomanipulation is `humanplus_2024`,
+`omnih2o_2024` and `groot_n16_2025`, where the base is not fixed and the gravity argument below
+changes character. Piano playing is `robopianist_2023`, `rp1m_2024` and `pianomime_2024`, discussed
+in Section 6, where success is a per-timestep F1 against a MIDI score rather than an object pose.
+Deformable manipulation is `dexdeform_2023`, whose object carries its own state and its own
+physics. `ferrari_canny_1992` carries no task label because it is a grasp-quality measure rather
+than a task. Table 1's six rows are the families with enough papers to compare, and not a partition
+of the corpus.
 
 ## 2.2 What makes dexterous control hard
 
@@ -69,8 +83,14 @@ and palm down, through base up and base down, to thumb up and thumb down.
 
 ## 2.3 Single hand versus two
 
-Fifty-one of the 110 method rows run two hands. Four things genuinely change. Contact stays
-non-smooth, occlusion stays, and gravity stays the same problem.
+Three counts describe two hands and they measure different things. Fifty-three of the 112 method
+rows record two hands on the robot, which is the `bimanual` field. Forty-three carry the
+`bimanual-coord` task label, the narrower claim that coordinating the hands is the task. Section
+6.2 narrows again, to the 25 papers whose notes place a learned controller on two dexterous hands.
+Every bimanual claim here names which of the three it uses.
+
+Four things genuinely change when the second hand arrives. Contact stays non-smooth, occlusion
+stays, and gravity stays the same problem.
 
 Role asymmetry is the first. `asymdex_2024` assigns a dominant hand with full finger and wrist
 control and a facilitating hand with 6-DoF base pose only, so that "the facilitating hand repositions

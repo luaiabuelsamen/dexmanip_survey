@@ -44,5 +44,11 @@
  "bom_cost_usd": 3000,
  "build_time_hours": 24,
  "license": null,
- "sim_model": "URDF"
+ "sim_model": "URDF, loaded into PyBullet by the released teleoperation node",
+ "actuators": 17,
+ "control_rate": "not stated",
+ "claim_date": "undated project page; API repo at commit a0936196, fetched 2026-09-17",
+ "spec_caveat": "the page claims 21 DoF with 17 powered motors and the README calls the same hand 17-DOF",
+ "force_kind": null,
+ "payload": null
 }

@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "sold",
- "source_quality": "vendor page"
+ "source_quality": "vendor page",
+ "control_rate": "not stated; the page claims 'high bandwidth torque and position control loops'",
+ "claim_date": "undated page, copyright 2026, fetched 2026-09-17",
+ "force_kind": null,
+ "payload": null,
+ "actuators": null,
+ "sim_model": null,
+ "spec_caveat": null
 }

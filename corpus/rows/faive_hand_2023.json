@@ -43,5 +43,11 @@
  "bom_cost_usd": null,
  "build_time_hours": null,
  "license": null,
- "sim_model": "MJCF"
+ "sim_model": "MJCF, used directly by the released Isaac Gym training repo",
+ "payload": "10 kg, whole-hand downward power grasp on a dumbbell",
+ "actuators": 16,
+ "control_rate": "Dynamixel over serial; joint angles estimated from tendon length by EKF; rate not stated",
+ "claim_date": "paper, 2023",
+ "spec_caveat": "the row's open-hardware status is unconfirmed: the repo has LICENSE and LICENSE-NVIDIA files whose contents were not captured, and no open-hardware claim appears in the sources",
+ "force_kind": null
 }

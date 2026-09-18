@@ -2,14 +2,8 @@
  "key": "bidexhd_2024",
  "year": 2024,
  "class": "method",
- "task_family": [
-  "functional/tool",
-  "bimanual-coord"
- ],
- "paradigm": [
-  "RL",
-  "distillation"
- ],
+ "task_family": ["functional/tool", "bimanual-coord"],
+ "paradigm": ["RL", "distillation"],
  "algorithm": "IPPO (teacher) + DAgger (student distillation)",
  "hand": "LEAP Hand, left and right",
  "hand_dof": 16,

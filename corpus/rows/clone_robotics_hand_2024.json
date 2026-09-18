@@ -28,12 +28,19 @@
  "maker": "Clone Robotics",
  "dof": 27,
  "actuated_dof": null,
- "actuation": "hydraulic artificial muscle ('Myofiber' \u2014 small water-filled tubes that contract when pressurized), carbon-fiber bones and ligament-style tethers, driven by a 500 W water pump and 36 electro-hydraulic valves; each Myofiber generates up to 1 kg grip force, survived 650,000 test cycles",
- "weight_g": 907,
+ "actuation": "hydraulic artificial muscle ('Myofiber' — small water-filled tubes that contract when pressurized), carbon-fiber bones and ligament-style tethers, driven by a 500 W water pump and 36 electro-hydraulic valves; each Myofiber generates up to 1 kg grip force, survived 650,000 test cycles",
+ "weight_g": "<910",
  "fingertip_force_n": null,
  "tactile": "pressure pads in the palm detect grip firmness (count not given); 70 inertial sensors track angle/speed (proprioception, not tactile)",
  "price_usd": null,
  "open_hardware": false,
  "release_status": "internal-only",
- "source_quality": "press"
+ "source_quality": "press",
+ "claim_date": "press, 2025-11-24, on a video of 2025-11-15",
+ "spec_caveat": "'under 2 pounds' is an upper bound, and the source does not say whether the 500 W pump and 36 valves are inside it",
+ "force_kind": null,
+ "payload": null,
+ "actuators": null,
+ "control_rate": null,
+ "sim_model": null
 }

@@ -2,13 +2,8 @@
  "key": "visual_dexterity_2022",
  "year": 2022,
  "class": "method",
- "task_family": [
-  "reorient"
- ],
- "paradigm": [
-  "RL",
-  "distillation"
- ],
+ "task_family": ["reorient"],
+ "paradigm": ["RL", "distillation"],
  "algorithm": "PPO (teacher, privileged state) + DAgger imitation distillation to a depth-point-cloud student (two-stage: synthetic-PC pretrain then rendered-occluded-PC fine-tune)",
  "hand": "D'Claw (open-source, low-cost; 3-finger and modified 4-finger versions)",
  "hand_dof": null,
@@ -18,6 +13,7 @@
  "n_envs": 32000,
  "real_robot": true,
  "real_trials": 20,
+ "real_trials_kind": "per-condition",
  "sim_episodes": null,
  "success_criterion": "orientation error <=0.4 rad (also reported at <=0.8 rad) between object and goal, via a three-part stop criterion (orientation error + finger-motion + object-motion all under threshold)",
  "headline_metric": "real-robot success rate at orientation error <=0.4 rad, on-table (Table 1)",

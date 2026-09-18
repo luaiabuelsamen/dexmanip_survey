@@ -18,6 +18,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 10,
+ "real_trials_kind": "per-condition",
  "sim_episodes": null,
  "success_criterion": "task-specific, e.g. Handover: receiving hand holds object and moves >10cm from the first hand",
  "headline_metric": "task success rate (10 trials per task)",

@@ -13,6 +13,7 @@
  "n_envs": 8192,
  "real_robot": true,
  "real_trials": 50,
+ "real_trials_kind": "total",
  "sim_episodes": null,
  "success_criterion": "maintaining the commanded open or closed configuration (joint angle above or below a predefined threshold) throughout the episode",
  "headline_metric": "success rate",

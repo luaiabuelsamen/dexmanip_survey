@@ -13,6 +13,7 @@
  "n_envs": 64000,
  "real_robot": true,
  "real_trials": 10,
+ "real_trials_kind": "per-condition",
  "sim_episodes": null,
  "success_criterion": "strict success = 10 mm / 10° tolerance",
  "headline_metric": "sequence success (all 3 planned targets reached without reset)",

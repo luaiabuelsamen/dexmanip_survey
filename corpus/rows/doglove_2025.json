@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 10,
+ "real_trials_kind": "per-condition",
  "sim_episodes": null,
  "success_criterion": "Rotating-and-Placing-the-Carton: \"successful if the carton rotates more than 45 degrees and is successfully placed into the bucket\"; Bottle-Slipping (no visual): bottle slips without falling within a 15-second countdown",
  "headline_metric": "task success rate vs. AnyTeleop baseline (10 trials)",

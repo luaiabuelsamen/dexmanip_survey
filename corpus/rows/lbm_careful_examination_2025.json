@@ -18,6 +18,7 @@
   "n_envs": null,
   "real_robot": true,
   "real_trials": 50,
+  "real_trials_kind": "per-condition",
   "sim_episodes": 200,
   "success_criterion": "binary success rate (SR) plus rubric-based Task Completion (TC): milestone credits summed and divided by milestone count",
   "headline_metric": "success rate (SR) and task completion (TC), with Beta-posterior violin plots and Bonferroni-corrected Compact Letter Display pairwise comparisons",

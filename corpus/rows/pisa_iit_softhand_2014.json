@@ -37,5 +37,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "prototype",
- "source_quality": "paper"
+ "source_quality": "paper",
+ "payload": "holding force about 20 N along z and holding torque 2 N m, 28 N and 3.5 N m with a stronger motor",
+ "actuators": 1,
+ "control_rate": "not stated",
+ "sim_model": "URDF and Gazebo models in the ROS repo (BSD 3-Clause)",
+ "claim_date": "paper, IJRR 2014",
+ "force_kind": null,
+ "spec_caveat": null
 }

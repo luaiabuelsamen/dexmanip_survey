@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 10,
+ "real_trials_kind": "per-condition",
  "sim_episodes": null,
  "success_criterion": "task-specific point rubrics scored per trial (e.g. laundry folding scored out of 4, drink pouring out of 2), reported as a normalized score averaged over 10 episodes per task and method",
  "headline_metric": "normalized task score, no task-specific adaptation (Fig. 6, 10 trials/task)",

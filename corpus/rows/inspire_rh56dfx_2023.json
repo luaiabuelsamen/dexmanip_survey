@@ -30,10 +30,17 @@
  "actuated_dof": 6,
  "actuation": null,
  "weight_g": 540,
- "fingertip_force_n": "10 N (fingers), 15 N (thumb); force resolution 0.50 N",
+ "fingertip_force_n": 10,
  "tactile": "none (this variant is the 'without tactile sensors' table; a tactile FTP variant exists per bib but is not on this page)",
  "price_usd": null,
  "open_hardware": false,
  "release_status": "sold",
- "source_quality": "vendor page"
+ "source_quality": "vendor page",
+ "force_kind": "fingertip strength, vendor spec, four fingers; thumb 15 N; force resolution 0.50 N",
+ "control_rate": "RS485; rate not stated",
+ "claim_date": "undated page, fetched 2026-09-17",
+ "spec_caveat": "the vendor's own page reads 'Degrees of freedom 6, Numbers of joints 12'; the joints column here prints the joint count, so the vendor's DoF figure is the actuated-DoF column",
+ "payload": null,
+ "actuators": null,
+ "sim_model": null
 }

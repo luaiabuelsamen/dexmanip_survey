@@ -45,5 +45,11 @@
  "bom_cost_usd": 1300,
  "build_time_hours": 7,
  "license": null,
- "sim_model": "MJCF"
+ "sim_model": "MJCF",
+ "force_kind": "pinch force, best of three trials, averaged over the left and right hands (Table III)",
+ "payload": "6.0 kg: weight added to a curled cloth-bag grip until joint-angle error exceeds 15 degrees, best of three trials",
+ "actuators": 11,
+ "control_rate": "Dynamixel over a USB-to-serial bridge; rate not stated, data collection ran at 15 Hz",
+ "claim_date": "paper, 2025",
+ "spec_caveat": null
 }

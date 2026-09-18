@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 50,
+ "real_trials_kind": "total",
  "sim_episodes": null,
  "success_criterion": "lifting: lift object to 0.4m height while maintaining hand-object contact; articulation: increase joint angle of an articulated object by 0.5 rad while maintaining contact",
  "headline_metric": "grasp-synthesis Success Rate (SR) on the DexGraspNet benchmark (Shadow Hand, Isaac Gym)",

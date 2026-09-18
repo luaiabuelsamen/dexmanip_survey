@@ -2,12 +2,8 @@
  "key": "rotating_without_seeing_2023",
  "year": 2023,
  "class": "method",
- "task_family": [
-  "reorient"
- ],
- "paradigm": [
-  "RL"
- ],
+ "task_family": ["reorient"],
+ "paradigm": ["RL"],
  "algorithm": "PPO",
  "hand": "Allegro Hand",
  "hand_dof": 16,
@@ -17,10 +13,11 @@
  "n_envs": 8192,
  "real_robot": true,
  "real_trials": 30,
+ "real_trials_kind": "total",
  "sim_episodes": null,
  "success_criterion": null,
  "headline_metric": "Cumulative Rotation Angle (CRA) / Time-to-Fall (TTF)",
- "headline_value": "Seen Object C1: CRA 4.91\u00b10.52 rounds, TTF 30.00\u00b10.00 s vs best baseline CT-Sensor 2.50\u00b13.25 / 20.00\u00b18.66 (Table I)",
+ "headline_value": "Seen Object C1: CRA 4.91±0.52 rounds, TTF 30.00±0.00 s vs best baseline CT-Sensor 2.50±3.25 / 20.00±8.66 (Table I)",
  "objects_train": null,
  "objects_test_unseen": 5,
  "human_data": "none",

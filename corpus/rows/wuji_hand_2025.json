@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "sold",
- "source_quality": "vendor page"
+ "source_quality": "vendor page",
+ "actuators": 20,
+ "control_rate": "1000 Hz across 20 axes over 100BASE-TX Ethernet, MIT force-position hybrid mode",
+ "sim_model": "MuJoCo and Isaac Sim models",
+ "claim_date": "undated page, copyright 2026, fetched 2026-09-17",
+ "spec_caveat": "the page footnotes that these figures 'reflect the current Beta1 product and the SPEC will continue to iterate'",
+ "force_kind": null,
+ "payload": null
 }

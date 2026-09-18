@@ -17,6 +17,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 50,
+ "real_trials_kind": "per-condition",
  "sim_episodes": null,
  "success_criterion": null,
  "headline_metric": "marble drop rate / distance-to-goal in keypoint space",

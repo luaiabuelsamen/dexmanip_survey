@@ -26,7 +26,7 @@
  "paper_code_mismatch": null,
  "note_gaps": "USPTO patent PDF section extracted no text and Wikipedia 404'd; every V3 claim comes from a Teslarati paraphrase of the patents, not patent text. The 22-DoF total (5 fingers x4 + 2 wrist) is the article's own arithmetic, not stated as such by Tesla. Gen 2's 11-DoF figure and V3's 22-DoF figure describe different, non-comparable generations; actuated DoF, weight, fingertip force and control rate are not stated for either.",
  "maker": "Tesla",
- "dof": 22,
+ "dof": null,
  "actuated_dof": null,
  "actuation": "V3: tendon-driven from forearm actuators, three tendons per finger through a crosstalk-managing wrist. Gen 2: in-hand actuators/sensors (unlocated in the article).",
  "weight_g": null,
@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "prototype",
- "source_quality": "press"
+ "source_quality": "press",
+ "claim_date": "Gen 2 video 2023-12-13; V3 patents filed 2024-10, relayed by press 2026-04",
+ "spec_caveat": "the 22 DoF in circulation is a Teslarati article's arithmetic of four DoF on each of five fingers plus two at the wrist, not a Tesla statement; Gen 2's own figure is 11 DoF. This row's actuation cell describes V3 and its tactile cell describes Gen 2",
+ "force_kind": null,
+ "payload": null,
+ "actuators": null,
+ "control_rate": null,
+ "sim_model": null
 }

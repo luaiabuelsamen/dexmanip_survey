@@ -13,6 +13,7 @@
  "n_envs": 62000,
  "real_robot": true,
  "real_trials": 15,
+ "real_trials_kind": "per-condition",
  "sim_episodes": null,
  "success_criterion": "Success Rate = percentage of trials completing all task stages; trial terminated on unrecoverable grasp loss or object drop",
  "headline_metric": "average Success Rate (SR) / Task Progress (TP), SharpaWave hand, 7 tasks, 15 trials/task",

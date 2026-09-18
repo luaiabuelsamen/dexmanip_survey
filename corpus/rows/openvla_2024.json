@@ -13,6 +13,7 @@
   "n_envs": null,
   "real_robot": true,
   "real_trials": 230,
+  "real_trials_kind": "unclear",
   "sim_episodes": 1500,
   "success_criterion": "binary success (1)/failure (0) per rollout, with explicit partial credit (0.5) defined per-task in several tasks",
   "headline_metric": "success rate (%) across real-robot rollouts",

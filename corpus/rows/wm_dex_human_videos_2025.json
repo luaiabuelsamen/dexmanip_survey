@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 12,
+ "real_trials_kind": "total",
  "sim_episodes": 50,
  "success_criterion": "reach/place: Euclidean distance threshold; grasp: object-robot contact",
  "headline_metric": "RoboCasa sim success rate (50 trials/task) and real-robot grasping success (12 trials) vs. Diffusion Policy",

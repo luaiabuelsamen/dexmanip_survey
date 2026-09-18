@@ -19,6 +19,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 10,
+ "real_trials_kind": "per-task",
  "sim_episodes": null,
  "success_criterion": "number of successful attempts / total attempts per subtask",
  "headline_metric": "whole-task success rate (%), real robot, 10 trials/task",

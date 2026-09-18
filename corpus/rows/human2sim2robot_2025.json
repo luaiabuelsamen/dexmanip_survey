@@ -13,6 +13,7 @@
  "n_envs": 4096,
  "real_robot": true,
  "real_trials": 70,
+ "real_trials_kind": "unclear",
  "sim_episodes": null,
  "success_criterion": "per-task binary or graded success (e.g. plate-pivot-lift-rack scored 0/0.33/0.66/1 for sub-task completion)",
  "headline_metric": "success rate (out of 10 rollouts per task)",

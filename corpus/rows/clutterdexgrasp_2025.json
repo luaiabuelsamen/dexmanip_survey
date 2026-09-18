@@ -13,6 +13,7 @@
  "n_envs": 16384,
  "real_robot": true,
  "real_trials": 167,
+ "real_trials_kind": "total",
  "sim_episodes": null,
  "success_criterion": "a trial is successful if the target object is lifted 0.1 meters",
  "headline_metric": "grasp success rate",

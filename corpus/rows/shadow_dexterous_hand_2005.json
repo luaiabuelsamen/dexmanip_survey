@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "sold",
- "source_quality": "datasheet"
+ "source_quality": "datasheet",
+ "payload": "4 kg in a power grasp, vendor claim, protocol not stated",
+ "actuators": 20,
+ "control_rate": "EtherCAT at 1 kHz to the host, with a 5 kHz tendon-force loop inside each motor module",
+ "sim_model": "MuJoCo models for Hand E and variants, plus Gazebo, in sr_common",
+ "claim_date": "specification dated 2024-12-04",
+ "spec_caveat": "the four distal joints are coupled and not independently controllable, so the '24 DoF' quoted in learning papers is the joint count",
+ "force_kind": null
 }

@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 80,
+ "real_trials_kind": "total",
  "sim_episodes": null,
  "success_criterion": "the object's pose error is smaller than a threshold (5 cm translation, 2.5 cm-scaled rotation, 0.5 rad joint angle)",
  "headline_metric": "Completion Rate",

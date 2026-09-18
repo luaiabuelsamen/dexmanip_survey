@@ -86,39 +86,73 @@ def fig1():
     return svg(W,H,"".join(b),"The field on one page")
 
 def fig4():
+    """Figure 4. Every leaf predicate must test the property its label names.
+
+    Leaves that once read a paradigm tag and then asserted an algorithm, a simulator
+    or a student modality the tag does not carry have been either re-predicated
+    (PPO and the GPU simulator are read from `algorithm` and `sim`) or renamed to
+    what the tag selects. Membership lists that the prose also states are defined
+    once here, next to the section that states them, so figure and text cannot drift.
+    """
     par=Counter(p for r in M for p in (r.get("paradigm") or []))
     tf=Counter(t for r in M for t in (r.get("task_family") or []))
-    def keys_with(pred,lim=7):
-        ks=[r["key"] for r in M if pred(r)]; return ks[:lim],len(ks)
+    BY={r["key"]:r for r in M}
+    def tags(r): return set(r.get("paradigm") or [])
+    def is_ppo(r): return bool(re.search(r"\bppo\b",(r.get("algorithm") or ""),re.I))
+    def is_gpu_sim(r): return bool(re.search(r"isaac|genesis",(r.get("sim") or ""),re.I))
+    def reward_learner(r): return bool(tags(r) & {"RL","RL+demo"})
+    def sel(pred):
+        ks=[r["key"] for r in M if pred(r)]; return ks,len(ks)
+    def named(*keys):
+        """A leaf whose membership the prose names. Keys absent from the method rows
+        are dropped and the count says so, rather than being asserted anyway."""
+        ks=[k for k in keys if k in BY]; return ks,len(ks)
+    # Sec. 5.7, the four variants: the papers that distil a privileged teacher into a
+    # vision student. "To vision" is true of these five and of no other distillation row.
+    VISION_STUDENT=("hora_2022","visual_dexterity_2022","rotateit_2023","robot_synesthesia_2023","viserdex_2026")
+    # Sec. 5.7 again: the generators that need no reinforcement learning. dex1b_2025 is
+    # classed as a dataset row, so it is outside the 112 method papers this figure counts.
+    SYNTHETIC_GEN=("dexmimicgen_2024","dex1b_2025","deximit_2026")
+    # Sec. 5.3.3, the rows trained from human video with no teleoperation at any stage.
+    VIDEO_ONLY=("dexmv_2021","videodex_2022","dexvip_2022","okami_2024","human2sim2robot_2025",
+                "hudor_2024","wm_dex_human_videos_2025")
+    # Wearable and hand-held capture rigs: the operator's own hand is the interface.
+    WEARABLE_RIG=("dexcap_2024","dexumi_2025","dexwild_2025","umi_2024")
     branches=[
-      ("a reward function",par.get("RL",0),"var(--a)",[
-        ("PPO in a GPU simulator, privileged state",*keys_with(lambda r:"RL" in (r.get("paradigm") or []) and "distillation" not in (r.get("paradigm") or []))),
-        ("plus teacher-student distillation to vision",*keys_with(lambda r:"distillation" in (r.get("paradigm") or []))),
-        ("reward written by a language model",*keys_with(lambda r:r["key"] in ("eureka_2023","dreureka_2024"))),
-        ("seeded by demonstrations",*keys_with(lambda r:"RL+demo" in (r.get("paradigm") or []))),
+      ("a reward function",len([r for r in M if reward_learner(r)]),"var(--a)",[
+        ("PPO in a GPU-parallel simulator, no distillation stage",
+         *sel(lambda r:reward_learner(r) and is_ppo(r) and is_gpu_sim(r) and "distillation" not in tags(r)),0),
+        ("plus teacher-student distillation",
+         *sel(lambda r:reward_learner(r) and is_ppo(r) and is_gpu_sim(r) and "distillation" in tags(r)),0),
+        ("of which the student is a vision policy",*named(*VISION_STUDENT),1),
+        ("reward written by a language model",*named("eureka_2023","dreureka_2024"),0),
+        ("seeded by demonstrations (the RL+demo tag)",*sel(lambda r:"RL+demo" in tags(r)),0),
       ]),
-      ("a human demonstration",par.get("BC",0)+par.get("diffusion",0)+par.get("flow",0),"var(--d)",[
-        ("teleoperated on the target robot",*keys_with(lambda r:"teleop-system" in (r.get("paradigm") or []))),
-        ("wearable rig, no robot in the loop",*keys_with(lambda r:r["key"] in ("dexcap_2024","dexumi_2025","dexwild_2025"))),
-        ("egocentric video, no robot at all",*keys_with(lambda r:r["key"] in ("videodex_2022","dexvip_2022","okami_2024","egozero_2025","egomimic_2024","hudor_2024","wm_dex_human_videos_2025"))),
-        ("synthetic demonstration generation",*keys_with(lambda r:"data-collection" in (r.get("paradigm") or []))),
+      ("a human demonstration",len([r for r in M if tags(r) & {"BC","diffusion","flow"}]),"var(--d)",[
+        ("teleoperated on the target robot",*sel(lambda r:"teleop-system" in tags(r)),0),
+        ("wearable or hand-held rig, no robot in the loop",*named(*WEARABLE_RIG),0),
+        ("egocentric video, no robot at all",*named(*VIDEO_ONLY),0),
+        ("synthetic demonstration generation",*named(*SYNTHETIC_GEN),0),
       ]),
       ("a human reference, tracked with physics",tf.get("track-human-ref",0),"var(--b)",[
-        ("whole reference including fingers",*keys_with(lambda r:r["key"] in ("dextrack_2025","maniptrans_2025","dexmachina_2025","toporetarget_2026"))),
-        ("wrist only, fingers learned",*keys_with(lambda r:r["key"]=="objdex_2024")),
-        ("object trajectory only",*keys_with(lambda r:r["key"] in ("pgdm_2023","human2sim2robot_2025"))),
-        ("reference as soft guidance",*keys_with(lambda r:r["key"]=="dexplore_2025")),
-        ("no retargeting, reference already on the embodiment",*keys_with(lambda r:r["key"] in ("physhoi_2023","omnigrasp_2024"))),
+        ("whole reference including fingers",*named("dextrack_2025","maniptrans_2025","dexmachina_2025","toporetarget_2026"),0),
+        ("wrist only, fingers learned",*named("objdex_2024"),0),
+        ("object trajectory only",*named("human2sim2robot_2025"),0),
+        ("reference as soft guidance",*named("dexplore_2025"),0),
+        ("no retargeting, reference already on the embodiment",*named("physhoi_2023","omnigrasp_2024"),0),
+        ("whole-body humanoid, hands carried with the body",*named("dexman_2025","humanplus_2024","omnih2o_2024"),0),
       ]),
-      ("no learned policy",par.get("trajopt",0)+par.get("MPC",0),"var(--c)",[
-        ("sampled plan, learned model",*keys_with(lambda r:r["key"]=="pddm_2019")),
-        ("sampled plan, given model",*keys_with(lambda r:r["key"]=="mjpc_2022")),
-        ("smoothed analytic contact model",*keys_with(lambda r:r["key"]=="pang_global_planning_2022")),
+      # The branch is the three papers that learn no policy at all, not the trajopt and MPC
+      # tags: eight further rows carry one of those tags inside a learned pipeline.
+      ("no learned policy",3,"var(--c)",[
+        ("sampled plan, learned model",*named("pddm_2019"),0),
+        ("sampled plan, given model",*named("mjpc_2022"),0),
+        ("smoothed analytic contact model",*named("pang_global_planning_2022"),0),
       ])]
     W=980; rowh=26; H=150+sum(rowh*(len(l)+1.6) for _,_,_,l in branches)
     b=[f'<text class="t" x="24" y="28">Figure 4. What supervises a dexterous policy</text>',
        f'<text class="s" x="24" y="48">Four kinds of supervision, subdivided to the level at which the {N} method papers actually differ.</text>',
-       f'<text class="s" x="24" y="64">Counts are recomputed from corpus/rows and a paper may appear under more than one branch.</text>']
+       f'<text class="s" x="24" y="64">Every leaf count is the rows its stated predicate selects, recomputed from corpus/rows; a paper may appear more than once.</text>']
     rx,bx,lx=40,210,470; y=110
     b.append(f'<rect class="box" x="{rx-16}" y="{y+ (H-150)/2 - 26}" width="150" height="52" rx="4"/>')
     b.append(f'<text class="l" x="{rx+59}" y="{y+(H-150)/2-8}" text-anchor="middle">supervision for a</text>')
@@ -128,21 +162,30 @@ def fig4():
     for bi,(bname,bcount,colr,leaves) in enumerate(branches):
         by=y+8
         bh=rowh*len(leaves)
+        shown=len({k for _,ks,_,ann in leaves for k in ks if not ann})
         b.append(f'<rect class="box" x="{bx}" y="{by}" width="235" height="{bh}" rx="4" stroke="{colr}"/>')
         b.append(f'<text class="h" x="{bx+10}" y="{by+18}" fill="{colr}">{esc(bname)}</text>')
         b.append(f'<text class="n" x="{bx+225}" y="{by+18}" text-anchor="end">{bcount}</text>')
+        if shown<bcount:
+            b.append(f'<text class="n" x="{bx+225}" y="{by+32}" text-anchor="end">{shown} of {bcount} in a leaf</text>')
         b.append(f'<path class="tree" d="M{rootx},{rooty} C{rootx+30},{rooty} {bx-30},{by+bh/2} {bx},{by+bh/2}" stroke="{colr}" opacity=".6"/>')
         ly=by+8
-        for lname,ks,cnt in leaves:
-            b.append(f'<text class="l" x="{lx}" y="{ly+12}">{esc(lname)}</text>')
+        for lname,ks,cnt,ann in leaves:
+            ind=18 if ann else 0
+            label=("— "+lname) if ann else lname
+            b.append(f'<text class="l" x="{lx+ind}" y="{ly+12}">{esc(label)}</text>')
             b.append(f'<text class="n" x="{lx-12}" y="{ly+12}" text-anchor="end">{cnt}</text>')
-            b.append(f'<path class="tree" d="M{bx+235},{by+bh/2} C{bx+250},{by+bh/2} {lx-40},{ly+9} {lx-28},{ly+9}" stroke="{colr}" opacity=".45"/>')
-            b.append(f'<text class="k" x="{lx}" y="{ly+23}">{esc(", ".join(k.replace("_"," ").replace(" 20"," ") for k in ks[:5]))}</text>')
+            if not ann:
+                b.append(f'<path class="tree" d="M{bx+235},{by+bh/2} C{bx+250},{by+bh/2} {lx-40},{ly+9} {lx-28},{ly+9}" stroke="{colr}" opacity=".45"/>')
+            shownk=", ".join(k.replace("_"," ").replace(" 20"," ") for k in ks[:5])
+            if len(ks)>5: shownk+=f", and {len(ks)-5} more"
+            b.append(f'<text class="k" x="{lx+ind}" y="{ly+23}">{esc(shownk)}</text>')
             ly+=rowh
         y=by+bh+18
     b.append(f'<text class="s" x="24" y="{y+14}">The branches are not exclusive. Most work after 2024 trains with a reward in simulation and ships something</text>')
-    b.append(f'<text class="s" x="24" y="{y+30}">shaped like an imitation policy, so it belongs to the first branch and the second at once.</text>')
-    return svg(W,y+52,"".join(b),"Taxonomy of training paradigms")
+    b.append(f'<text class="s" x="24" y="{y+30}">shaped like an imitation policy, so it belongs to the first branch and the second at once. Eight further rows carry</text>')
+    b.append(f'<text class="s" x="24" y="{y+46}">a trajectory-optimisation or MPC tag inside a learned pipeline and are counted on the branch that learns.</text>')
+    return svg(W,y+68,"".join(b),"Taxonomy of training paradigms")
 
 if __name__=="__main__":
     (OUT/"fig1_field.svg").write_text(fig1())

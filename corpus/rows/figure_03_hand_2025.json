@@ -24,9 +24,9 @@
  "reward_terms": null,
  "code_released": null,
  "paper_code_mismatch": null,
- "note_gaps": "Launch page (figure.ai) 404'd; only a third-party tracker page is on disk. The tracker's '20 DoF hands / 10 fingers' figures are given as robot-level totals with no stated per-hand split (tracker reads as 10 per hand vs bib-claim of 16 per hand \u2014 these disagree and neither is confirmed as per-hand). Weight, fingertip force, tactile type/count, actuation mechanism, price and release date for the hand are all unstated.",
+ "note_gaps": "Launch page (figure.ai) 404'd; only a third-party tracker page is on disk. The tracker's '20 DoF hands / 10 fingers' figures are given as robot-level totals with no stated per-hand split (tracker reads as 10 per hand vs bib-claim of 16 per hand — these disagree and neither is confirmed as per-hand). Weight, fingertip force, tactile type/count, actuation mechanism, price and release date for the hand are all unstated.",
  "maker": "Figure AI",
- "dof": 20,
+ "dof": null,
  "actuated_dof": null,
  "actuation": null,
  "weight_g": null,
@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "prototype",
- "source_quality": "vendor page"
+ "source_quality": "third-party tracker",
+ "claim_date": "undated tracker page, fetched 2026-09-17; figure.ai launch page returned HTTP 404",
+ "spec_caveat": "the tracker's 'Degrees of freedom, hands | 20' sits beside 'Number of fingers | 10', so the 20 is most likely the pair and about 10 per hand; the 16-per-hand figure in circulation has no reachable source",
+ "force_kind": null,
+ "payload": null,
+ "actuators": null,
+ "control_rate": null,
+ "sim_model": null
 }

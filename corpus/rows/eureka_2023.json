@@ -30,7 +30,7 @@
  "reward_terms": null,
  "reward_term_names": null,
  "code_released": true,
- "paper_code_mismatch": "The released repo's default eureka/cfg/config.yaml ships iteration:1, sample:3 (a fast-test default), not the paper's reported experimental configuration of N=5 iterations \u00d7 K=16 samples \u00d7 5 independent runs, and LLM-generated reward code itself is never checked into the repo (written at runtime to a gitignored outputs/ directory).",
+ "paper_code_mismatch": "The released repo's default eureka/cfg/config.yaml ships iteration:1, sample:3 (a fast-test default), not the paper's reported experimental configuration of N=5 iterations × K=16 samples × 5 independent runs, and LLM-generated reward code itself is never checked into the repo (written at runtime to a gitignored outputs/ directory).",
  "note_gaps": "Pen-spinning, EUREKA's flagship dexterity result, has no quantitative success-rate/cycle-count table in the parse, only qualitative claims and a training-curve figure; per-task Dexterity/Isaac breakdowns are given only as a figure (Fig. 4), not a table; the preliminary real-robot demo (App. F) is a locomotion-hopping task, not a hand task; reward_terms/reward_term_names are not applicable in the usual sense since EUREKA generates a different reward per task/iteration rather than reporting one fixed reward.",
  "mismatch_class": "parse-limitation",
  "mismatch_confidence": "low",

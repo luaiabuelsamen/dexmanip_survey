@@ -94,30 +94,63 @@ def fig_hands():
 
 # ---------------- Figure 6: what gets reported ----------------
 def fig_reporting():
+    """Six coverage bars, each against the denominator that belongs to it.
+
+    A bar is a count of what this survey's extraction captured, which is not the same quantity as
+    what papers reported: a row holds a scalar, and a per-task count, a rubric or a total spread
+    over four tables produces a null that is indistinguishable from silence. The nulls behind
+    these six items were audited by hand against their own notes (§7.1), so the bars are the
+    audited counts, and every one of them is still a floor.
+
+    Three denominators are not 112. A paper with no real robot cannot state a real trial count, so
+    that bar is drawn against the 89 rows that have one. The `penetration` and `code_released`
+    fields carry nulls that mean "the note did not settle it" rather than "no", so those bars are
+    drawn against the rows the note settled, with the unsettled rows as a grey tail.
+    """
     m = [r for r in ROWS if r.get("class") == "method"]
-    axes = [("success criterion stated", lambda r: bool(r.get("success_criterion"))),
-            ("real-robot experiment", lambda r: r.get("real_robot") is True),
-            ("real trial count stated", lambda r: r.get("real_trials") is not None),
-            ("unseen-object count stated", lambda r: r.get("objects_test_unseen") is not None),
-            ("contact or penetration handled", lambda r: r.get("penetration") in ("penalised", "measured", "constrained")),
-            ("code released", lambda r: r.get("code_released") is True)]
-    W, H = 760, 300
-    x0, y0, bw = 300, 96, 380
+    N = len(m)
+    def n(pred): return sum(1 for r in m if pred(r))
+    real = n(lambda r: r.get("real_robot") is True)
+    pen_settled = n(lambda r: r.get("penetration") is not None)
+    code_settled = n(lambda r: r.get("code_released") is not None)
+    # label, confirmed, denominator, rows the note did not settle
+    axes = [
+        ("success criterion stated", n(lambda r: bool(r.get("success_criterion"))), N, 0),
+        ("real-robot experiment", real, n(lambda r: r.get("real_robot") is not None),
+         n(lambda r: r.get("real_robot") is None)),
+        ("real trial count stated", n(lambda r: r.get("real_trials") is not None), real, 0),
+        ("unseen-object count stated", n(lambda r: r.get("objects_test_unseen") is not None), N, 0),
+        ("contact or penetration handled",
+         n(lambda r: r.get("penetration") in ("penalised", "measured", "constrained")),
+         pen_settled, N - pen_settled),
+        ("code released", n(lambda r: r.get("code_released") is True), code_settled,
+         N - code_settled),
+    ]
+    W, H = 760, 320
+    x0, y0, bw = 300, 112, 380
     b = [f'<text class="t" x="24" y="30">Figure 6. What the method literature reports</text>',
-         f'<text class="s" x="24" y="50">Share of the {len(m)} surveyed method papers whose note confirms each item. A bar is</text>',
-         f'<text class="s" x="24" y="66">evidence the item was stated, not that the work did it well.</text>']
+         f'<text class="s" x="24" y="50">Share of the {N} surveyed method papers whose row records each item, each against its own</text>',
+         f'<text class="s" x="24" y="66">denominator: the pale track is the rows the item can apply to, the grey tail the rows whose</text>',
+         f'<text class="s" x="24" y="82">note did not settle it. A bar is evidence the item was stated, not that the work did it well.</text>']
     y = y0
-    for label, pred in axes:
-        n = sum(1 for r in m if pred(r)); frac = n / len(m)
-        wpx = max(2, int(bw * frac))
+    for label, k, denom, unk in axes:
+        frac = k / denom
+        track = int(bw * denom / N)
+        wpx = max(2, int(bw * k / N))
+        gpx = int(bw * unk / N)
         colr = "var(--warn)" if frac < 0.35 else "var(--a)"
         b.append(f'<text class="l" x="{x0-10}" y="{y+12}" text-anchor="end">{esc(label)}</text>')
-        b.append(f'<rect x="{x0}" y="{y}" width="{bw}" height="15" rx="2" fill="var(--fill)"/>')
+        b.append(f'<rect x="{x0}" y="{y}" width="{track}" height="15" rx="2" fill="var(--fill)"/>')
+        if gpx:
+            b.append(f'<rect x="{x0+track}" y="{y}" width="{gpx}" height="15" rx="2" '
+                     f'fill="var(--mut)" opacity="0.35"/>')
         b.append(f'<rect x="{x0}" y="{y}" width="{wpx}" height="15" rx="2" fill="{colr}"/>')
-        b.append(f'<text class="n" x="{x0+bw+8}" y="{y+12}">{n} ({round(100*frac)}%)</text>')
+        tail = f' + {unk} unsettled' if unk else ''
+        b.append(f'<text class="n" x="{x0+bw+8}" y="{y+12}">{k} of {denom} '
+                 f'({round(100*frac)}%){tail}</text>')
         y += 28
-    b.append(f'<text class="s" x="24" y="{y+18}">Red marks an item fewer than a third of papers state. The two lowest are the two a reader</text>')
-    b.append(f'<text class="s" x="24" y="{y+34}">needs in order to compare two methods at all.</text>')
+    b.append(f'<text class="s" x="24" y="{y+18}">Red marks an item fewer than a third of the rows it applies to state. Every bar is a floor:</text>')
+    b.append(f'<text class="s" x="24" y="{y+34}">a hand audit of the nulls recovered 15 trial counts, 19 criteria and 7 object counts (&#167;7.1).</text>')
     return svg(W, max(H, y + 54), "".join(b), "What the method literature reports")
 
 if __name__ == "__main__":

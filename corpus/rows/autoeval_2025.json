@@ -18,6 +18,7 @@
   "n_envs": null,
   "real_robot": true,
   "real_trials": 50,
+  "real_trials_kind": "per-condition",
   "sim_episodes": null,
   "success_criterion": "drawer: completely closed or opened >= 1.5 cm; sink: eggplant fully inside sink/basket; cloth: folded at least a quarter of the way diagonally",
   "headline_metric": "Pearson correlation and MMRV between AutoEval and human-run oracle evaluation",

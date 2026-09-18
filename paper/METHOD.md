@@ -1,22 +1,22 @@
 # How this survey was built
 
 The survey is written from a corpus that lives on disk. No claim about a paper is made from
-memory; each traces to a note, each note to a parsed markdown file, and each markdown file to a
-PDF or repository with a recorded hash or commit.
+memory. Each claim traces to a note, each note to a parsed markdown file, and each markdown file
+to a PDF or repository with a recorded hash or commit.
 
 ## Selection
 Six topic-specific bibliographies were assembled in parallel (simulators and physics, hands and
 vendors, reinforcement learning, imitation and human data, bimanual, benchmarks and evaluation),
 seeded with the canonical works in each area and extended by search up to 2026-09-17. Every
-arXiv identifier was checked by fetching the abstract page and matching the title; entries that
-could not be checked that way are marked. The six lists were merged with deduplication on arXiv
+arXiv identifier was checked by fetching the abstract page and matching the title, and entries
+that could not be checked that way are marked. The six lists were merged with deduplication on arXiv
 identifier and normalised title, giving 221 entries.
 
 ## Acquisition
 PDFs were downloaded from arXiv or, for work without a preprint, from the publisher or vendor
 page recorded in the bibliography. Vendor pages for hands without any paper were fetched as HTML
 and converted to markdown, so that a specification quoted in this survey is quoted from a stored
-copy of the page and dated. Repositories were shallow-cloned and parsed, then deleted; what
+copy of the page and dated. Repositories were shallow-cloned and parsed, then deleted. What
 remains is one markdown per repository holding the README, a pruned file tree, the task and
 reward configuration files, and the bodies of reward and observation functions.
 
@@ -33,21 +33,46 @@ ambiguity is stated.
 Each entry was read into a structured note under a fixed template: embodiment, learning method,
 objective, contact handling, evaluation, reproducibility, stated limitations, and quotable
 claims. Notes were written only from the parsed files. Where the source is silent the note says
-"not stated"; nothing was inferred from the reviewer's prior knowledge of the work. For method
+"not stated", and nothing was inferred from the reviewer's prior knowledge of the work. For method
 papers the reward or loss was quoted from the paper and, separately, from the released code, so
 that disagreements between the two are visible rather than smoothed over. Those disagreements
 turned out to be common enough to become a finding in their own right.
 
 ## Sources that could not be obtained
-Five works are behind publisher paywalls with no author-hosted copy found: Okamura et al. 2000,
-Bicchi 2000 (IEEE T-RO), Piazza et al. 2019, Butterfass et al. 2001 (DLR-Hand II), and Hwangbo
-et al. 2018 (RaiSim). They are cited by metadata and no claim in this survey rests on their
-contents. The freely circulating PDF often taken for Bicchi 2000 is a different work, a book
-chapter, and is listed separately.
+Six works are cited by metadata only and no claim in this survey rests on their contents. Five
+are behind publisher paywalls with no author-hosted copy found on 2026-09-18: Okamura et al.
+2000, Bicchi 2000 (IEEE T-RO), Piazza et al. 2019, Roa and Suarez 2015, and Butterfass et al.
+2001 on DLR-Hand II. The sixth is Hwangbo et al. 2018 on RaiSim, whose hosted PDF returned no
+body. The freely circulating PDF often taken for Bicchi 2000 is a different work, a book chapter,
+and is listed separately.
+
+Ma and Dollar 2011 is a seventh case with a different cause. The fetch that failed when its note
+was written succeeded on 2026-09-18, so a seven-page PDF and its hash are in the manifest, but no
+note has been read from it. It is cited by metadata only for that reason and not because the
+source is unavailable.
+
+Three of the 221 bibliography entries carry no structured row. Two are the paywalled
+Bicchi 2000 and DLR-Hand II entries. The third is `bicchi_grasping_chapter_2001`, which was read
+into a note and quoted throughout but is a book chapter rather than a work with an embodiment, a
+method or a result to record in a row.
 
 ## What this method cannot do
 Mention counts over the corpus are counts of mentions, not of use: a related-work sentence
 counts the same as an experiment. Vendor specifications are manufacturer claims and are labelled
-as such throughout; where a page has since gone offline the note says so. The corpus is large
-but not exhaustive, and selection by search favours work that is indexed, in English, and
-posted as a preprint.
+as such throughout, and where a page has since gone offline the note says so. The corpus is
+large but not exhaustive, and selection by search favours work that is indexed, in English, and
+posted as a preprint. It also favours recent work. Of the 221 bibliography entries, 138 are dated
+2024 or later and 16 predate 2018, so this is a corpus of the learned era and any claim here
+about a trend over time is a claim about 2022 onward.
+
+Every coverage statistic in this survey measures what this survey's extraction captured, not what
+the literature reported. A structured row holds a scalar. A paper that reports a per-task count,
+a rubric, or a total spread across several tables produces a null, and a null is then counted as
+silence. The bias runs one way. Every miss converts a reporting paper into a silent one, so the
+field is made to look worse at reporting than it is. The size of the effect was measured on the
+statistic the survey leads with. Of the 32 method rows that had a real robot and no recorded
+trial count, 13 carried a count in plain text in their own note, dropped because the paper
+reports it per task and the field takes a single integer. Those 13 have since been re-extracted,
+and the same mechanism reaches the penetration, success-criterion, code-release and failure-mode
+fields, none of which has been audited that way. Read every coverage statistic in this survey as
+a floor rather than as a rate, and read the bars in Figure 6 the same way.

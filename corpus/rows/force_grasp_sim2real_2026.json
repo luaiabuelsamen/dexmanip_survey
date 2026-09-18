@@ -2,13 +2,8 @@
  "key": "force_grasp_sim2real_2026",
  "year": 2026,
  "class": "method",
- "task_family": [
-  "grasp",
-  "reorient"
- ],
- "paradigm": [
-  "RL"
- ],
+ "task_family": ["grasp", "reorient"],
+ "paradigm": ["RL"],
  "algorithm": "PPO (asymmetric actor-critic)",
  "hand": "xHand",
  "hand_dof": 12,
@@ -18,8 +13,9 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 70,
+ "real_trials_kind": "total",
  "sim_episodes": null,
- "success_criterion": "reaching a 90\u00b0 incremental target rotation within a specified tolerance",
+ "success_criterion": "reaching a 90° incremental target rotation within a specified tolerance",
  "headline_metric": "consecutive successful rotations / time-to-fall",
  "headline_value": "Full observation config: 25.1 avg consecutive successes, 84.3 s avg time-to-fall (Table 4, real, 10 trials/config)",
  "objects_train": null,
@@ -30,5 +26,5 @@
  "reward_term_names": ["R_torque", "R_Force", "R_diff", "R_outer", "terminal-state penalty", "R_action", "R_vel"],
  "code_released": false,
  "paper_code_mismatch": null,
- "note_gaps": "All reward-equation numeric weights (w_torque, w_diff, w_outer, w_action, w_vel, \u03c3, \u03c4_max, F_max for grasping; w_goal, w_action, \u03b1, \u03b4_dist, \u03b4_rot/pos thresholds, C_Bonus for rotation) were dropped by PDF conversion and no code exists to recover them; the exact training object-set size and generalization test-set size for grasping are not stated (only 2 named unseen objects shown). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "All reward-equation numeric weights (w_torque, w_diff, w_outer, w_action, w_vel, σ, τ_max, F_max for grasping; w_goal, w_action, α, δ_dist, δ_rot/pos thresholds, C_Bonus for rotation) were dropped by PDF conversion and no code exists to recover them; the exact training object-set size and generalization test-set size for grasping are not stated (only 2 named unseen objects shown). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
 }

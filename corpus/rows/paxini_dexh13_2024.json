@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": null,
  "release_status": "announced",
- "source_quality": "press"
+ "source_quality": "press",
+ "claim_date": "press, CES 2026-01-07",
+ "force_kind": null,
+ "payload": null,
+ "actuators": null,
+ "control_rate": null,
+ "sim_model": null,
+ "spec_caveat": null
 }

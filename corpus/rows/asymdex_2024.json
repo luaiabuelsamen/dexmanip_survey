@@ -13,6 +13,7 @@
   "n_envs": null,
   "real_robot": true,
   "real_trials": 20,
+  "real_trials_kind": "per-task",
   "sim_episodes": null,
   "success_criterion": "task-specific, e.g. Block in cup: block-to-cup-center distance < 0.035 m; Stack: cup-to-cup distance < 0.02 m; Bottle cap: cap displaced 0.05 m; Switch: button rotated 0.3585 rad",
   "headline_metric": "interaction-phase success rate vs. ablations, mean over 5 seeds (Table 1)",

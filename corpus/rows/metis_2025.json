@@ -2,14 +2,8 @@
  "key": "metis_2025",
  "year": 2025,
  "class": "method",
- "task_family": [
-  "grasp",
-  "functional/tool",
-  "bimanual-coord"
- ],
- "paradigm": [
-  "VLA"
- ],
+ "task_family": ["grasp", "functional/tool", "bimanual-coord"],
+ "paradigm": ["VLA"],
  "algorithm": "Autoregressive next-token cross-entropy over discretized 'motion-aware dynamics' tokens (VQ-VAE visual dynamics + RQ-VAE motion dynamics), plus a supervised continuous-action regression head (Action Decoder); combined loss L = Lar + lambda*Laction",
  "hand": "Inspire dexterous hand (paired, main real-robot eval); cross-embodiment eval uses 22-DoF SharpaWave Dexterous Hand",
  "hand_dof": 6,
@@ -19,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 20,
+ "real_trials_kind": "per-condition",
  "sim_episodes": null,
  "success_criterion": "Qualitative per-task description judged by experimenters (e.g. 'Success is achieved if the apple is successfully placed into the plate'); no numeric threshold in metres/seconds given for any task",
  "headline_metric": "Success Rate (SR)",

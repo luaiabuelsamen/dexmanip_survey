@@ -27,7 +27,7 @@
  "note_gaps": "Vendor page (daxo-robotics.com) 404'd; every fact comes from a third-party catalogue page (humanoid.guide), not the maker. DoF as a joint count is not given (only a qualitative '5/5' rating); fingertip force, tactile sensing, control interface, price and open-hardware status are all unstated. The bib's claims of 108 actuators, a V2, backdrivability/force-sensing and a $1,200 price are explicitly not confirmed by this source and were excluded.",
  "maker": "Daxo Robotics",
  "dof": null,
- "actuated_dof": 120,
+ "actuated_dof": null,
  "actuation": "ultra-redundant tendon-driven; compliant structure with no rigid joints, flexible materials and tendon routing",
  "weight_g": 750,
  "fingertip_force_n": null,
@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": null,
  "release_status": "prototype",
- "source_quality": "unavailable"
+ "source_quality": "third-party tracker",
+ "actuators": 120,
+ "claim_date": "third-party catalogue post, 2026-09-16; daxo-robotics.com returned HTTP 404",
+ "spec_caveat": "120 actuators in 750 g is about 6 g per actuator including structure, tendons, routing and skin; no DoF number is stated, and a redundant tendon architecture with no rigid joints has fewer kinematic DoF than actuators",
+ "force_kind": null,
+ "payload": null,
+ "control_rate": null,
+ "sim_model": null
 }

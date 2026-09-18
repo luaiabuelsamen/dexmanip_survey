@@ -13,6 +13,7 @@
  "n_envs": null,
  "real_robot": true,
  "real_trials": 12,
+ "real_trials_kind": "per-task",
  "sim_episodes": null,
  "success_criterion": "task-specific, e.g. Plush-toy-in-basket: \"more than 50% of the toy inside the container\"; Close-the-laptop: \"the display is lowered towards the base until the two parts meet at the hinge\"",
  "headline_metric": "real-robot task success rate (12 trials/task) vs. ORION baseline",

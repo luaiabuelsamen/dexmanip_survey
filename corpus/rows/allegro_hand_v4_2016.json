@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "sold",
- "source_quality": "vendor page"
+ "source_quality": "driver repo",
+ "claim_date": "driver repo, versions 1.0-4.0 undated, fetched 2026-09-17",
+ "actuators": 16,
+ "control_rate": "333 Hz, CAN, the hand's own real-time clock (driver README)",
+ "sim_model": "URDF and xacro, left and right, in the ROS driver repo",
+ "spec_caveat": "allegrohand.com/v4 returned HTTP 404 and the Wonik wiki timed out; every cell here comes from the ROS driver repository, and weight, joint torque, payload and price have no reachable source",
+ "force_kind": null,
+ "payload": null
 }

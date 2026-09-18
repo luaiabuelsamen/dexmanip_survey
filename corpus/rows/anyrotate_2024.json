@@ -18,7 +18,7 @@
  "headline_metric": "Rotation Count (Rot)",
  "headline_value": "Dense Touch Rot 2.18±0.05 (OOD Mass), Rot 1.77±0.01 (OOD Shape), sim, Table 1",
  "objects_train": null,
- "objects_test_unseen": null,
+ "objects_test_unseen": 10,
  "human_data": "none",
  "penetration": "not addressed",
  "reward_terms": 10,

@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "sold",
- "source_quality": "vendor page"
+ "source_quality": "vendor page",
+ "payload": "pinching 2.5 kg rated and 5 kg maximum; enveloping 10 kg rated and 20 kg maximum",
+ "actuators": 20,
+ "control_rate": "250 Hz over Modbus RTU or TCP and Ethernet TCP/IP",
+ "claim_date": "undated page, copyright 2026, download links dated 2026-08",
+ "force_kind": null,
+ "sim_model": null,
+ "spec_caveat": null
 }

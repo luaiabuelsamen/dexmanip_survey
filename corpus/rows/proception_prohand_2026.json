@@ -35,5 +35,12 @@
  "price_usd": null,
  "open_hardware": false,
  "release_status": "sold",
- "source_quality": "press"
+ "source_quality": "press",
+ "claim_date": "launch post and press, 2026-06-29",
+ "spec_caveat": "the evidence is a shipping announcement, not a datasheet: no weight, force, actuated-DoF count or control rate is stated anywhere",
+ "force_kind": null,
+ "payload": null,
+ "actuators": null,
+ "control_rate": null,
+ "sim_model": null
 }

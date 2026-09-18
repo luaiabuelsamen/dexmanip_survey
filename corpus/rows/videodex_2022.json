@@ -14,7 +14,7 @@
  "real_robot": true,
  "real_trials": null,
  "sim_episodes": null,
- "success_criterion": null,
+ "success_criterion": "binary-judged — Binary 0-1 real-robot task success per trial, split train (seen) vs test (held-out); judged against the task description in Sec. 5 (\"goal is to pickup an object\"), no threshold in meters/seconds.",
  "headline_metric": "binary task success rate, train (seen) vs. test (held-out objects)",
  "headline_value": "Table 1: Pick 0.83/0.77 (VideoDex) vs. BC-NDP 0.64/0.38, BC-Open 0.50/0.44, BC-RNN 0.56/0.31; Place 0.89/0.80 vs. BC-NDP 0.70/0.35",
  "objects_train": null,
