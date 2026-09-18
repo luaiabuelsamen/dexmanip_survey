@@ -11,9 +11,9 @@ STYLE = """<style>
  :root{--ink:#111418;--mut:#5b6672;--line:#c3ccd4;--bg:#ffffff;--a:#2f6f9f;--b:#7a5ea8;--c:#a8563e;--d:#3f7d57;--warn:#b5462f;--fill:#eef3f7;--fill2:#f4f1f8}
  @media (prefers-color-scheme:dark){:root{--ink:#e8ecef;--mut:#9aa6b2;--line:#3d4750;--bg:#12161a;--a:#6fb0dc;--b:#b295d8;--c:#dd9376;--d:#7fc09a;--warn:#e88a72;--fill:#1b232a;--fill2:#221e2b}}
  text{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;fill:var(--ink)}
- .t{font-size:15px;font-weight:600}.s{font-size:11px;fill:var(--mut)}.l{font-size:11px}
- .n{font-size:9.5px;fill:var(--mut)}.h{font-size:11.5px;font-weight:600}
- .k{font-size:9px;fill:var(--mut);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+ .t{font-size:17px;font-weight:600}.s{font-size:12.5px;fill:var(--mut)}.l{font-size:12.5px}
+ .n{font-size:11px;fill:var(--mut)}.h{font-size:13px;font-weight:600}
+ .k{font-size:10.5px;fill:var(--mut);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
  .box{fill:var(--fill);stroke:var(--line);stroke-width:1}
  .ghost{fill:none;stroke:var(--line);stroke-width:1;stroke-dasharray:3 3}
  .ed{stroke:var(--mut);fill:none;opacity:.55}.tree{stroke:var(--line);fill:none;stroke-width:1.2}
@@ -56,7 +56,7 @@ def fig1():
           ("training paradigm",[(k,v,False) for k,v in par.most_common(7)]),
           ("evaluation",[("real robot",real,False),("simulation only",simonly,False),
                          ("penetration addressed",penany,False),("penetration not addressed",pen.get("not addressed",0),False)])]
-    W,H=900,560; x0,cw,gap=28,150,32
+    W,H=1010,585; x0,cw,gap=24,178,22
     b=[f'<text class="t" x="24" y="28">Figure 1. The field on one page</text>',
        f'<text class="s" x="24" y="48">Every node is a count over the {N} method papers in the corpus. Dashed nodes are reporting gaps, not choices.</text>',
        f'<text class="s" x="24" y="64">Paradigm counts exceed {N} because a method may use several. Recomputed from corpus/rows at draw time.</text>']
@@ -69,7 +69,7 @@ def fig1():
         for name,v,ghost in items:
             h=max(24,int(16+56*v/maxv))
             cls="ghost" if ghost else "box"
-            fill=' fill="var(--warn)" fill-opacity="0.18" stroke="var(--warn)"' if "not addressed" in name else ""
+            fill=' fill="var(--warn)" fill-opacity="0.18" stroke="var(--warn)"' if "silent" in name else ""
             b.append(f'<rect class="{cls}" x="{cx}" y="{y}" width="{cw}" height="{h}" rx="3"{fill}/>')
             b.append(f'<text class="l" x="{cx+8}" y="{y+15}">{esc(name)}</text>')
             b.append(f'<text class="n" x="{cx+cw-8}" y="{y+15}" text-anchor="end">{v}</text>')

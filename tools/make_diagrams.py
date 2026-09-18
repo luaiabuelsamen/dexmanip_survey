@@ -34,7 +34,7 @@ def arrow(x1,y1,x2,y2,warn=False):
     return f'<path class="{c}" d="M{x1},{y1} L{x2},{y2}" marker-end="url(#{m})"/>'
 
 def fig3():
-    W,H=820,430
+    W,H=900,430
     b=[f'<text class="t" x="24" y="30">Figure 3. One simulation step, and where engines differ</text>',
        f'<text class="s" x="24" y="50">The stages every rigid-body engine runs. Under each, the choices that separate the engines used for hands.</text>',
        f'<text class="s" x="24" y="66">Dashed red marks the three stages that make overlap. They do not answer to the same knob.</text>']
@@ -99,7 +99,7 @@ def fig5():
     # Counts: the 25 corpus papers whose notes place a learned controller on two
     # dexterous hands. Datasets, static grasp-pose synthesis and two-gripper papers
     # are excluded. bidexhands_2022 ships panels 1 and 2; asymdex_2024 uses 3 and 4.
-    W,H=820,326
+    W,H=940,326
     b=[f'<text class="t" x="24" y="30">Figure 5. Four ways to control two dexterous hands</text>',
        f'<text class="s" x="24" y="50">Counts are the 25 corpus papers that put a learned controller on two dexterous hands. Two are counted twice.</text>']
     panels=[("one policy, both hands","observation of both hands and object|one network, joint action vector",

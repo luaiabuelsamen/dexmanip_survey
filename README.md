@@ -62,3 +62,12 @@ what this survey's extraction captured, so each is a floor rather than a rate. A
 nulls recovered a stated trial count from fifteen of thirty-four rows that had looked silent, which
 moved that headline by nearly thirty points. Six works are behind paywalls and no claim rests on
 them. Vendor specifications are manufacturer claims and are dated as such.
+
+## The PDF
+
+`python tools/make_pdf.py` renders `paper/survey.md` to `paper/survey.pdf`. It converts the
+markdown to HTML with a print stylesheet, inlines the six figures so the file is self-contained,
+drops their dark-mode rules because a printed page has one theme, puts every table of more than
+five columns and the two widest figures on real landscape pages, and prints through headless
+Chromium. Page numbers are stamped afterwards with PyMuPDF, because Chromium's own footer carries
+a URL and a date.

@@ -65,7 +65,7 @@ def fig_hands():
     n_company = sum(n_uses(r["key"]) for r in announced if r["key"] in company)
     n_lab = sum(n_uses(r["key"]) for r in announced if r["key"] not in company)
     n_lab_hands = sum(1 for r in announced if r["key"] not in company and n_uses(r["key"]) > 0)
-    W, rowh, top = 760, 22, 86
+    W, rowh, top = 820, 22, 86
     H = top + rowh * (len(items) + 4) + 70
     mx = max(c for _, c in items) or 1
     x0, bw = 210, 420
@@ -126,7 +126,7 @@ def fig_reporting():
         ("code released", n(lambda r: r.get("code_released") is True), code_settled,
          N - code_settled),
     ]
-    W, H = 760, 320
+    W, H = 880, 320
     x0, y0, bw = 300, 112, 380
     b = [f'<text class="t" x="24" y="30">Figure 6. What the method literature reports</text>',
          f'<text class="s" x="24" y="50">Share of the {N} surveyed method papers whose row records each item, each against its own</text>',
