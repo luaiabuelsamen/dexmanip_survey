@@ -100,3 +100,13 @@ Status: `unverified` until then.
 | HOI4D states 4 subjects in one place and 9 in another, and 54 tasks against 76 | hoi4d_2022 | unverified |
 | ACT's Algorithm 1 and its prose disagree on whether the reconstruction loss is MSE or L1 | aloha_act_2023 | unverified |
 | DexVerse 2026 does not state hand degrees of freedom, vendor, or physics timestep anywhere in the paper | dexverse_2026 | unverified |
+
+## M. Findings raised during drafting, to be checked in revision
+| claim | note | status |
+|---|---|---|
+| No published penetration measurement in the corpus is of a hand grasping an object. Dojo's is a foot-floor humanoid drop, ComFree-Sim's is loose primitives falling, Castro's is an analytic point mass on a plane, TopoRetarget's is a retargeted reference rather than a rollout. The measurement the survey's thread asks for has never been made. | dojo_2022, comfree_sim_2026, castro_sap_contact_2021, toporetarget_2026 | raised by section 4 writer, unverified |
+| Only four closed-loop policies in the corpus handle interpenetration at all, not eleven; the other seven are grasp synthesisers, trajectory optimisers or a contact model | clutterdexgrasp_2025, dexmachina_2025, dextrack_2025, teledexter_2026 | raised by section 7 writer, used in draft |
+| GRAB reports 3.25 mm penetration and OakInk reports 2.53 cm on the GRAB split, a factor of eight apart, and neither states its distance function precisely enough to reconcile them | grab_2020, oakink_2022 | raised by section 7 writer, used in draft |
+| Of 37 recorded paper/code disagreements only 16 are contradictions; 9 are limitations of this survey's own parsing | corpus/rows mismatch_class | verified, draft corrected |
+| Figure 2's original annotation wrongly claimed no announced or prototype hand appears in any method row; Faive and LEAP v2 Advanced account for three rows. The defensible claim is about the nine company-announced hands. | fig2, section 3.6 | verified, figure and text corrected |
+| Default physics timestep is stated by 3 of 15 engines and solver iteration counts by 4 of 15 | corpus/rows class simulator | raised by section 4 writer, used in draft |

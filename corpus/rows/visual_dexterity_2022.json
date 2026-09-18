@@ -27,6 +27,7 @@
  "human_data": "none",
  "penetration": "not addressed",
  "reward_terms": 7,
+ "reward_term_names": ["c1_sparse_task", "c2_dense_task", "c3_fingertip_dist", "c4_energy", "c5_push_away_penalty", "c6_table_contact", "c7_finger_height"],
  "code_released": true,
  "paper_code_mismatch": "Table S1 states 32000 teacher training environments, but the released config sets alg.num_envs to 8000 (parent config 16384); fallDistance differs across two shipped configs (0.24 vs 0.15, only the latter matching Table S1's threshold); the paper's Eq 8 penultimate-joint penalty (c7=-2) does not appear anywhere in the released reward code; the config carries a dead distRewardScale=-10.0 key never used in compute_reward; and the paper's table-friction lower bound (0.05) differs by a factor of 10 from the code's randomized lower bound (0.005).",
  "note_gaps": "the paper's reward equations (Eq 1-8) are embedded as images and were not recoverable as text from the PDF conversion; the quoted equations/coefficients are reconstructed from surrounding prose and Table S1 constants, not read directly off the formulas.",
