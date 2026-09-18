@@ -22,7 +22,7 @@ the extraction can reduce to one integer, so it produces a null — and a null i
 indistinguishable from a paper that said nothing. The bias runs one way: every miss converts a
 reporting paper into a silent one, and the survey's argument is that the field reports badly, so
 the artefact flatters the argument. Section 5.8 makes the same disclosure about the paper/code
-count, subtracting the nine disagreements that are "limitations of this survey's own parsing"
+count, subtracting the 13 disagreements that are limitations of this survey's own parsing
 before declaring which number to quote, and the coverage statistics above need it more.
 
 So the nulls were audited by hand against the notes they came from, and the numbers above are the
@@ -116,16 +116,19 @@ Open-π0 on put-eggplant-in-sink at 6 of 50 in SIMPLER and 47 of 50 on the real 
 `suresim_2025` states the limit directly: "the simulation-to-real gap precludes rigorous
 statistical inferences about real-world outcomes from simulation results alone".
 
-**Reproducibility.** Sixty-two rows released code, and 38 of the 112 rows record a disagreement of
-some kind between the paper and that code; all 38 released code, so the rate among code-releasing
-rows is 61 percent. Those 38 are not one thing. Section 5.8 decomposes 37 of them — the
-thirty-eighth, `groot_n16_2025`, arrived after that decomposition — into 16 contradictions, 9
-limitations of this survey's own parsing, 7 components never released, 3 version skews and 2
-inconsistencies internal to a paper, and concludes that 16 is the number to quote. Sixteen of 62
-code-releasing rows is 26 percent, and that is the figure this section and Table 8 use.
-`physhoi_2023` is the clearest of the 16: it lists a non-zero object-orientation weight for GRAB
-in Table 4, and its released `compute_humanoid_reward` hard-sets the orientation error to zero, so
-the reward that produced the published numbers tracked object position only.
+**Reproducibility.** 62 rows released code that could be parsed against the paper, and 38 of the
+112 rows record a disagreement of some kind between the paper and that code. All 38 released
+code, so the raw rate among code-releasing rows is 61 percent. That raw rate is not
+the finding, because the 38 are not one thing. Section 8.1 classifies them: 10
+contradictions, 13 limitations of this survey's own parsing, 8
+components never released, 4 version skews and 3
+inconsistencies internal to a paper. Only the contradictions are a finding about the work rather
+than about this survey, so 10 of 62 code-releasing rows, which is
+16 percent, is the figure this section and Table 8 use.
+`physhoi_2023` is the clearest of the 10. It lists a non-zero object-orientation
+weight for GRAB in Table 4, and its released `compute_humanoid_reward` hard-sets that orientation
+error to zero, so the reward that produced the published numbers tracked the object in position
+only.
 
 ## 7.3 Physical plausibility as a first-class metric
 

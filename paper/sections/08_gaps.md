@@ -5,7 +5,7 @@
 This is a result rather than a gap, and a result about publishing practice in robot learning: the
 dexterous corpus is its sample, not its subject.
 
-Sixty-one method rows released code that could be parsed against the paper, and thirty-seven carry
+Sixty-two method rows released code that could be parsed against the paper, and 38 carry
 a recorded discrepancy. The classification is the finding: ten contradictions, where the paper
 states one value and the shipped code demonstrably states another; thirteen limits of this
 survey's own parse, which captured signatures or a truncated body rather than the component; eight
