@@ -30,3 +30,9 @@
 [ok] hoi4d_2022: 17 pages, 69184 chars, 119s
 [ok] force_grasp_sim2real_2026: 23 pages, 78080 chars, 241s
 [ok] human2sim2robot_2025: 24 pages, 87315 chars, 124s
+[ok] libero_2023: 40 pages, 87286 chars, 64s
+[ok] metis_2025: 17 pages, 74533 chars, 60s
+[ok] omnigrasp_2024: 18 pages, 76236 chars, 67s
+[ok] oakink_2022: 17 pages, 64691 chars, 138s
+[ok] openvla_2024: 37 pages, 138042 chars, 59s
+[ok] maniptrans_2025: 17 pages, 85703 chars, 249s

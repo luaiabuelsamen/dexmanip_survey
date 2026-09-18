@@ -2,7 +2,19 @@
 
 sources: papers/md/dexpilot_2020.md [sha256 d04e6f16] ; no code
 
-Parse caveat: the kinematic-retargeting cost function itself (the equation right after "the cost function for kinematic retargeting was chosen as") is an unrecovered image in the flattened markdown — only the surrounding prose defining its terms (β, η1, η2, γ, the vector sets S1/S2, Table I) survived and is quoted below; the exact algebraic form (which terms are squared-norm distance vs. minimum-separation penalties) could not be verified from this parse.
+Recovered by OCR from papers/md/dexpilot_2020.ocr.md (OCR text is noisier than the layout parse, symbols may be imperfect): the kinematic-retargeting cost function itself (the equation right after "the cost function for kinematic retargeting was chosen as") was an unrecovered image in the flattened (layout) markdown, but the OCR pass recovered its full algebraic form, quoted verbatim:
+
+"C(qh, qa) = 1/2 Σ(i=0 to N) s(di)||ri(qa) − f(di) r̂i(qh)||^2 + γ||qa||^2"
+
+with "di = ||ri(qh)||" and "r̂i(qh) = ri(qh)/||ri(qh)||". The switching weight function:
+
+"s(di) = 1, di > ϵ ; 200, di ≤ ϵ ∧ ri(qh) ∈ S1 ; 400, di ≤ ϵ ∧ ri(qh) ∈ S2"
+
+and the distancing function:
+
+"f(di) = β di, di > ϵ ; η1, di ≤ ϵ ∧ ri(qh) ∈ S1 ; η2, di ≤ ϵ ∧ ri(qh) ∈ S2"
+
+— i.e. the cost is a per-vector-pair weighted squared-norm distance term (weight 1/200/400 depending on whether the pair is within threshold ϵ and which vector set it belongs to) between the Allegro vector ri(qa) and a rescaled/clamped human-hand direction, plus a quadratic γ-regularizer on the Allegro joint angles toward zero. This confirms the note's earlier prose-only description (β=1.6, η1=1e-4 m, η2=3e-2 m, γ=2.5e-3) was accurate, and settles that both switching functions (s and f) share the same three-way case split on di vs ϵ and S1/S2 membership — this exact three-way split structure could not be verified from the layout parse alone.
 
 ## One-line contribution
 DexPilot is a markerless, four-RGB-D-camera, glove-free teleoperation system that tracks a bare human hand with a model-based tracker (DART) bootstrapped by two learned neural priors, then retargets it to a KUKA-iiwa7 + Allegro hand system with a fingertip-vector optimization cost that prioritizes distance/direction between fingertips over joint-angle matching, enabling 5-consecutive-trial teleoperation of 15 tasks spanning precision/power grasps, in-hand finger gaiting, and multi-stage manipulation (Abstract; Secs. III-VIII).
@@ -34,7 +46,7 @@ DexPilot is a markerless, four-RGB-D-camera, glove-free teleoperation system tha
 - "high-precision tasks like slip-fit peg-in-hole insertions pose a challenge to the current system... success rates are typically within 10% under specific conditions."
 
 ## Quotable claims (verbatim, with section)
-- "the cost function for kinematic retargeting was chosen as [equation image, unrecovered] where qh, qa are the angles of the human hand model and Allegro hand, respectively, ri ∈ R^3 is the vector pointing from the origin of one coordinate system to another" (Sec. VII-A)
+- "the cost function for kinematic retargeting was chosen as C(qh, qa) = 1/2 Σ s(di)||ri(qa) − f(di) r̂i(qh)||^2 + γ||qa||^2, where qh, qa are the angles of the human hand model and Allegro hand, respectively, ri ∈ R^3 is the vector pointing from the origin of one coordinate system to another" (Sec. VII-A; equation recovered by OCR from papers/md/dexpilot_2020.ocr.md, noisier than the layout parse)
 - "no metrics directly comparing joint angles between the two hands are used." (Sec. VII-A)
 - "γ = 2.5x10^-3 is a weight on regularizing the Allegro angles to zero (equivalent to fully opened the hand)." (Sec. VII-A)
 - "Altogether, the system produces a latency of about one second." (Sec. IV)

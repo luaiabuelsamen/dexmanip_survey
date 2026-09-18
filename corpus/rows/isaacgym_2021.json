@@ -1,32 +1,46 @@
 {
-  "key": "isaacgym_2021",
-  "year": 2021,
-  "class": "simulator",
-  "task_family": [
-    "reorient"
-  ],
-  "paradigm": [
-    "RL"
-  ],
-  "algorithm": "PPO (feed-forward and LSTM policies)",
-  "hand": "Shadow Dexterous Hand, Allegro Hand, TriFinger",
-  "hand_dof": 24,
-  "bimanual": false,
-  "arm": null,
-  "sim": "Isaac Gym (PhysX, GPU-resident, TGS solver)",
-  "n_envs": 16384,
-  "real_robot": true,
-  "real_trials": null,
-  "sim_episodes": null,
-  "success_criterion": "orientation-matching tolerance of 0.4 rad (OpenAI's tolerance; also tested at 0.1 rad), reported via consecutive successes per episode",
-  "headline_metric": "wall-clock time to reach 20 consecutive successes (Shadow Hand OpenAI reproduction); real-world success rate (TriFinger)",
-  "headline_value": ">20 consecutive successes in <1 hour (1x A100) vs 30 hours (OpenAI's 6144-CPU-core + 8-V100 GPU cluster); TriFinger real-world mean success rate 55%",
-  "objects_train": null,
-  "objects_test_unseen": null,
-  "human_data": "none",
-  "penetration": "not addressed",
-  "reward_terms": 5,
-  "code_released": true,
-  "paper_code_mismatch": null,
-  "note_gaps": "Table 14's Shadow Hand OpenAI policy observation breakdown ('5x Finger joints position: 3') is ambiguous in the flattened markdown table and may mean 15, not 3; verify against the original PDF before quoting the exact observation dimension."
+ "key": "isaacgym_2021",
+ "year": 2021,
+ "class": "simulator",
+ "task_family": [
+  "reorient"
+ ],
+ "paradigm": [
+  "RL"
+ ],
+ "algorithm": "PPO (feed-forward and LSTM policies)",
+ "hand": "Shadow Dexterous Hand, Allegro Hand, TriFinger",
+ "hand_dof": 24,
+ "bimanual": false,
+ "arm": null,
+ "sim": "Isaac Gym (PhysX, GPU-resident, TGS solver)",
+ "n_envs": 16384,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": "orientation-matching tolerance of 0.4 rad (OpenAI's tolerance; also tested at 0.1 rad), reported via consecutive successes per episode",
+ "headline_metric": "wall-clock time to reach 20 consecutive successes (Shadow Hand OpenAI reproduction); real-world success rate (TriFinger)",
+ "headline_value": ">20 consecutive successes in <1 hour (1x A100) vs 30 hours (OpenAI's 6144-CPU-core + 8-V100 GPU cluster); TriFinger real-world mean success rate 55%",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none",
+ "penetration": "not addressed",
+ "reward_terms": 5,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "Table 14's Shadow Hand OpenAI policy observation breakdown ('5x Finger joints position: 3') is ambiguous in the flattened markdown table and may mean 15, not 3; verify against the original PDF before quoting the exact observation dimension.",
+ "contact_model": "Rigid-body contacts via PhysX; contact geometry can be primitive shapes or meshes loaded from URDF/MJCF (Sec. 2.2); net contact forces exposed per-rigid-body via the Tensor API (Table 1, Get-only). No explicit statement of convex-vs-mesh contact generation or per-pair contact-point count. Shadow Hand tendons simulated via PhysX Fixed Tendon mechanics: spring+damping force proportional to deviation from rest length, propagated through a tendon-joint tree (Sec. 3, Appendix A.1).",
+ "solver": "Temporal Gauss-Seidel (TGS) solver (Sec. 3, ref. 18), not classic PGS/LCP: folds sub-stepping into a per-body accumulated velocity-delta buffer projected onto the constraint Jacobians. Table 3 exposes two user-tunable iteration knobs, Position iterations (biased, velocity+positional-error-correcting) and Velocity iterations (unbiased, velocity-error-only-correcting); no default numeric values for these are given in the main text.",
+ "solver_iterations": null,
+ "differentiable": false,
+ "gpu": true,
+ "default_timestep_s": 0.008333333333333333,
+ "penetration_exposed": false,
+ "throughput": "Shadow Hand: 150,000 parallel environment steps/sec at 16,384 environments, single NVIDIA A100 GPU (Sec. 5.3); Shadow Hand OpenAI reproduction (feed-forward): >20 consecutive successes in <1 hour on 1x A100 vs. 30 hours on OpenAI's cluster of 384x16-core CPUs (6144 cores total) + 8x NVIDIA V100 GPUs (Sec. 6.4.1).",
+ "hands_shipped": [
+  "Shadow Dexterous Hand",
+  "Allegro Hand",
+  "TriFinger (3-finger, 9-DoF manipulator; the paper itself says this is not a hand)"
+ ],
+ "license": null
 }

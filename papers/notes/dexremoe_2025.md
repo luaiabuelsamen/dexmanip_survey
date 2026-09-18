@@ -2,7 +2,9 @@
 
 sources: papers/md/dexremoe_2025.md [ad5eb155] ; no code
 
-Parse caveat: the reward equation (Eq. 1), the MDP objective equation, and the five-metric definitions (Sec. IV-B) are typeset math that comes through as blank lines or scrambled inline fragments in the pymupdf4llm parse. Reward weights and thresholds below are taken from Table II (Appendix, hyperparameter table) rather than from the (unreadable) Eq. 1 itself; one weight (angular-velocity penalty cω) is named in prose but never appears in Table II.
+Parse caveat (original): the reward equation (Eq. 1), the MDP objective equation, and the five-metric definitions (Sec. IV-B) are typeset math that comes through as blank lines or scrambled inline fragments in the pymupdf4llm parse. Reward weights and thresholds below are taken from Table II (Appendix, hyperparameter table) rather than from the (unreadable) Eq. 1 itself; one weight (angular-velocity penalty cω) is named in prose but never appears in Table II.
+
+Both the reward equation and the five-metric definitions were recovered by OCR from papers/md/dexremoe_2025.ocr.md (OCR text is noisier than the layout parse, symbols may be imperfect) — see the "reward or loss" and "metrics" bullets below for the quoted equations. The angular-velocity weight cω still has no numeric value anywhere in the parse (Table II has no entry for it), so that specific mismatch stands.
 
 ## One-line contribution
 Trains four shape-specialised expert policies (by fine-tuning a shared base policy on subsets of a 150-object set) and a lightweight softmax gating network over a shared point-cloud + category embedding, raising the worst-case ("floor") consecutive-success count for mid-air, palm-down in-hand reorientation from 0.69–3.80 (best single-policy baseline) to 4.11–6.05 (abstract; Table I).

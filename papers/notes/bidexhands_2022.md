@@ -42,7 +42,20 @@ Bi-DexHands: 20 two-Shadow-Hand manipulation tasks in Isaac Gym (2048 parallel e
 - reward (paper):
   - Catching family, Eq (1)-(3): "r = exp[−0.2(α dt + dr)]", dt = ‖xo − xg‖2, dr = 2 arcsin clamp(‖da‖2, max=1.0), "α is a constant balancing translational and rotational rewards" (A.2.1-A.2.3). Two Catch, Eq (4): sum of two such terms.
   - Lift Underarm, Eq (6): "r = 0.2 − dleft − dright + 3 ∗ (0.985 − dtarget)".
-  - Door x4, Bottle Cap, Push Block, Swing Cup, Scissors, Re Orientation, Pen, Switch, Stack Block, Pour Water: dtarget / dleft / dright defined in words, but the displayed equations are blank in the markdown (lost in conversion). Only the structure survives: "the distance from the left hand to the target point on the object ..., the distance from the right hand ..., and the distance from the object to the target" (A.2).
+  - Door x4, Bottle Cap, Push Block, Swing Cup, Scissors, Re Orientation, Pen, Switch, Stack Block, Pour Water: the displayed equations recovered by OCR from papers/md/bidexhands_2022.ocr.md (OCR text is noisier than the layout parse, symbols may be imperfect; distance definitions given per-task in prose right before each formula, e.g. dtarget = ‖xlhandle − xrhandle‖2 for the door tasks, dtarget = ‖xbottle − xbottlecap‖2 for Bottle Cap, etc. — only the final numbered formula is quoted here, per task, A.2.6-A.2.17):
+    - Door Open Outward, Eq (7): "r = 0.2 − dleft − dright + 2 ∗ dtarget"
+    - Door Close Inward, Eq (8): "r = 0.2 − dleft − dright + 2 ∗ (1 − dtarget)"
+    - Door Open Inward, Eq (9): "r = 0.2 − dleft − dright + 2 ∗ dtarget"
+    - Door Close Outward, Eq (10): "r = 0.2 − dleft − dright + 2 ∗ (1 − dtarget)"
+    - Bottle Cap, Eq (11): "r = 0.2 − dleft − dright + 30 ∗ dtarget"
+    - Push Block, Eq (12): "r = 2 − dleft − dright + 5 ∗ (0.8 − dtarget)"
+    - Swing Cup, Eq (13): "r = −dleft − dright + 1/(abs(dtarget) + 0.1) ∗ 5 − 1", with dtarget = 2 ∗ arcsin qcup ∗ qtarget (a rotation term, as OCR'd; the exact quaternion-difference operator is unclear from the OCR and may not literally be scalar multiplication)
+    - Open Scissors, Eq (14): "r = 2 − dleft − dright + (0.59 − dtarget) ∗ 5"
+    - Re Orientation, Eq (15): "r = dleft ∗ −10 + dright ∗ −10 + dtarget ∗ 1.5", with dtarget = 2 ∗ arcsin qobject1 ∗ qtarget + 2 ∗ arcsin qobject2 ∗ qtarget (same quaternion-term caveat as above)
+    - Open Pen Cap, Eq (16): "r = exp(−10 ∗ dleft) + exp(−10 ∗ dright) + dtarget ∗ 5 − 0.8"
+    - Switch, Eq (17): "r = 2 − dleft − dright + (1.4 − dtarget) ∗ 50"
+    - Stack Block, Eq (18): "r = 1.5 − dleft − dright + (0.24 − dtarget) ∗ 2"
+    - Pour Water, Eq (19): "r = 1 − dleft − dright + (0.5 − dtarget) ∗ 2"
   - MT20 rescales rewards of Grasp&Place, Door x4, Bottle Cap, Block Stack, Lift Underarm, Re Orientation, Scissors, Swing Cup by 0.1 (D.2).
 - reward (code):
   - `bidexhands/tasks/shadow_hand_over.py::compute_hand_reward` (same body in `shadow_hand_catch_underarm.py`, `_catch_abreast.py`, `_catch_over2underarm.py`):

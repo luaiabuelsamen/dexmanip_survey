@@ -31,5 +31,20 @@
  "reward_terms": null,
  "code_released": true,
  "paper_code_mismatch": null,
- "note_gaps": "No physics timestep, decimation, or solver-iteration values are stated anywhere in the paper; dexterous reward/success-threshold bodies are absent from the parsed code (no Allegro/Shadow/dexsuite env config present). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "No physics timestep, decimation, or solver-iteration values are stated anywhere in the paper; dexterous reward/success-threshold bodies are absent from the parsed code (no Allegro/Shadow/dexsuite env config present). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "contact_model": "Rigid contacts by default via PhysX 5 (SDF collisions, Featherstone articulation solver, Sec. 2.2); `Factory` assembly envs specifically use 'SDF-based contact generation, a contact reduction technique, and a Gauss-Seidel solver' (Sec. 6.4). ContactSensor exposes net normal force per body, optional filtered pairs, contact duration, average contact point, and a short history (Sec. 3.3.1); no contact-quality/penetration metric is defined (survey note).",
+ "solver": "NVIDIA PhysX 5's internal rigid-body/Featherstone-articulation solver, used as-is; Factory assembly envs specifically named as using a Gauss-Seidel solver with SDF-based contact generation and contact reduction (Sec. 6.4). No timestep, decimation, or solver-iteration values are stated anywhere in the paper for the general (dexterous) suite; the only note is qualitative, that the Digit humanoid 'requires a higher solver iteration count for stable simulation' (Fig. 14).",
+ "solver_iterations": null,
+ "differentiable": false,
+ "gpu": true,
+ "default_timestep_s": null,
+ "penetration_exposed": false,
+ "throughput": "DextrAH teacher task (state-based grasp-and-lift): over 900,000 FPS training throughput with 8 GPUs (RTX Pro 6000, the paper's only multi-GPU platform) and 16,384 environments (Sec. 4.1.1); Franka cabinet drawer task: over 1.6 million FPS at the same 8-GPU/16,384-environment setting. Single-GPU dexterous-suite numbers are not stated.",
+ "hands_shipped": [
+  "KUKA Allegro hand (first-party dexterous suite, Sec. 7.2.3)",
+  "ShadowHand (third-party GraspQP grasp evaluation only, Sec. 6.4)",
+  "AbilityHand (third-party GraspQP grasp evaluation only, Sec. 6.4)",
+  "Fourier GR1-T2 dex hands, Unitree Inspire hand, Unitree trihand (XR teleop retargeters in code only)"
+ ],
+ "license": null
 }

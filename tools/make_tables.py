@@ -31,9 +31,61 @@ def table(rows, cols, headers, sort=None):
 
 def cite(k): return f"`{k}`"
 
+# TABLES.md asks Table 2 and Table 3 to carry "the corpus papers that use it". A hand row and a
+# method row name the same hand in different words, so the link is made by an explicit pattern
+# per hand key rather than by string equality. A key with no pattern here has none by design:
+# no method row names it under any spelling. The count is of method rows whose OWN experiments
+# use the hand (the `hand` field), not of mentions.
+USES = {
+    "allegro_hand_v4_2016":        r"allegro",
+    "shadow_dexterous_hand_2005":  r"shadow(?!.*dex-?ee)",
+    "shadow_dex_ee_2024":          r"dex-?ee",
+    "leap_hand_2023":              r"\bleap\b",
+    "leap_hand_v2_adv_2025":       r"leap hand v2",
+    "inspire_rh56dfx_2023":        r"inspire",
+    "psyonic_ability_hand_2021":   r"psyonic|ability hand",
+    "robotera_xhand1_2024":        r"xhand",
+    "sharpa_wave_2026":            r"sharpa",
+    "wuji_hand_2025":              r"wuji",
+    "faive_hand_2023":             r"faive",
+    "brainco_revo2_2025":          r"brainco",
+    "linkerbot_l20_2025":          r"linker",
+    "agibot_omnihand_2025":        r"agibot",
+    "unitree_dex5_2025":           r"dex5|dex-5",
+    "orca_hand_2025":              r"\borca\b",
+    "ruka_2025":                   r"\bruka\b",
+    "ruka_v2_2026":                r"ruka[- ]?v2",
+    "bidexhand_2025":              r"bidexhand",
+    "dexhand_open_source_2023":    r"therobotstudio|dexhand v1",
+    "tesollo_dg5f_2024":           r"tesollo|dg-5f",
+    "ilda_hand_2021":              r"\bilda\b",
+    "pisa_iit_softhand_2014":      r"pisa|softhand",
+    "tesla_optimus_hand_2025":     r"optimus hand",
+    "figure_03_hand_2025":         r"figure 0[23] hand",
+    "onex_neo_hand_2026":          r"neo hand|1x hand",
+    "sanctuary_phoenix_hand_2024": r"phoenix hand",
+    "boston_dynamics_atlas_hand_2026": r"atlas hand",
+    "xiaomi_cyberone_hand_2026":   r"cyberone",
+    "clone_robotics_hand_2024":    r"myofiber|clone hand",
+    "daxo_muscle_v0_2025":         r"muscle v0|daxo",
+    "proception_prohand_2026":     r"prohand",
+    "paxini_dexh13_2024":          r"dexh13|paxini",
+}
+
+def used_by(key, methods, cap=3):
+    """Method rows whose own experiments run on this hand, as 'n: key, key, ...'."""
+    pat = USES.get(key)
+    if not pat: return "0"
+    ks = sorted(m["key"] for m in methods if re.search(pat, str(m.get("hand") or ""), re.I))
+    if not ks: return "0"
+    shown = ", ".join(f"`{k}`" for k in ks[:cap])
+    return f"{len(ks)}: {shown}" + (", …" if len(ks) > cap else "")
+
 if __name__ == "__main__":
     outdir = R / "paper/tables"; outdir.mkdir(exist_ok=True)
     hands = [r for r in ROWS.values() if r.get("class") == "hand"]
+    methods_for_use = [r for r in ROWS.values() if r.get("class") == "method"]
+    for h in hands: h["used_by"] = used_by(h["key"], methods_for_use)
     sold = [r for r in hands if r.get("release_status") in ("sold", "open-source", None)]
     unrel = [r for r in hands if r.get("release_status") in ("announced", "prototype", "internal-only")]
     hc = ["key","maker","dof","actuated_dof","actuation","weight_g","fingertip_force_n","tactile","price_usd","open_hardware","release_status","source_quality"]
