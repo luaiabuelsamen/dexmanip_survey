@@ -3,14 +3,14 @@
 \label{sec:intro}
 
 A hand is dexterous when it can change an object's pose without putting the object down. That
-property, and not the finger count, is what separates a hand from a gripper.
-Bicchi \cite{bicchi_grasping_chapter_2001} draws the same line in Sec.~1.1, between restraining an object and
-``manipulating objects with fingers, in contrast to manipulation with the robot arm''. Restraint is
-a static question about whether the contacts prevent motion. In-hand manipulation is a dynamic
-question about whether contacts can be broken and remade while the object stays held.
-An et al. \cite{an_dexil_survey_2025} puts the same idea in its abstract as the ability ``to skillfully control,
-reorient, and manipulate objects through precise, coordinated finger movements and adaptive force
-modulation''. Both definitions place the work in the fingers rather than in the arm.
+property, and not the finger count, is what separates a hand from a gripper. Bicchi
+\cite{bicchi_grasping_chapter_2001} draws the same line in Sec.~1.1, between restraining an object
+and ``manipulating objects with fingers, in contrast to manipulation with the robot arm''. Restraint
+is a static question about whether the contacts prevent motion. In-hand manipulation is a dynamic
+question about whether contacts can be broken and remade while the object stays held. An et al.
+\cite{an_dexil_survey_2025} put the same idea in their abstract as the ability ``to skillfully
+control, reorient, and manipulate objects through precise, coordinated finger movements and adaptive
+force modulation''. Both definitions place the work in the fingers rather than in the arm.
 
 The analytic theory answered the static question and stalled on the dynamic one. Form closure has
 a first-order test on the grasp matrix and known contact counts, four in the plane and seven in
@@ -51,28 +51,29 @@ published designs. Thirty-five method rows run on the Allegro, whose weight, joi
 and price have no reachable source, because its product page returns HTTP 404 and everything
 Table~\ref{tab:hands-available} confirms about it comes from its ROS driver.
 
-Fourteen corpus entries are themselves surveys or engine-comparison studies. Appendix D sets them
-on one set of columns in Table~\ref{tab:surveys} and says what each covers. Four of the fourteen could not be
-obtained, or were fetched too late to read, and are entered as such. Two of the three things this
-survey adds are visible in that table as columns nobody else fills. The first is Table~\ref{tab:simulators}, which
-takes the engines \cite{nine_physics_engines_review_2024} scored on documentation and usability and
-adds contact model, solver, iteration count, default timestep and penetration exposure,
-conditioned on what a hand does to a solver. Erez et al. \cite{physics_engine_comparison_2015} and
-Le Lidec et al. \cite{contact_models_comparison_2023} do measure engines, on five engines and on four contact
-formulations, and neither surveys the field those engines are used in. The second is two hands on
-one object as its own problem, which none of the four field surveys gives more than a subsection.
+Fourteen corpus entries are themselves surveys or engine-comparison studies. Appendix D sets them on
+one set of columns in Table~\ref{tab:surveys} and says what each covers. Four of the fourteen could
+not be obtained, or were fetched too late to read, and are entered as such. Two of the three things
+this survey adds are visible in that table as columns nobody else fills. The first is
+Table~\ref{tab:simulators}, which takes the engines \cite{nine_physics_engines_review_2024} scored
+on documentation and usability and adds contact model, solver, iteration count, default timestep and
+penetration exposure, conditioned on what a hand does to a solver. Erez et al.
+\cite{physics_engine_comparison_2015} and Le Lidec et al. \cite{contact_models_comparison_2023} do
+measure engines, on five engines and on four contact formulations, and neither surveys the field
+those engines are used in. The second is two hands on one object as its own problem, which none of
+the four field surveys gives more than a subsection.
 
-The third is the penetration measurement, on an axis a predecessor had already named.
-Zhao et al. \cite{zhao_dexhand_survey_2026} states in its Sec.~IV-C that the field assesses ``at least two layers of
-performance: the quality of grasps or poses prior to execution, and the performance of policies or
-generators during downstream execution'', and names ``physical plausibility, including penetration''
-as the most common criterion for the first layer. That is the reference-versus-rollout split,
-named before this survey measured it, and the idea that contact quality belongs on the evaluation
-axis is Zhao's. What Sec.~IV-C does not give is a measurement method or a count, and this survey
-supplies those two. It does not supply a threshold. The 2 mm figure the field uses is taken from
-\cite{toporetarget_2026} with no independent justification, the captured human grasps in \cite{grab_2020}
-sit above it at 3.25 mm, and Section 7.7 states plainly that 2 mm is a simulator convention rather
-than a physical bound.
+The third is the penetration measurement, on an axis a predecessor had already named. Zhao et al.
+\cite{zhao_dexhand_survey_2026} state in their Sec.~IV-C that the field assesses ``at least two
+layers of performance: the quality of grasps or poses prior to execution, and the performance of
+policies or generators during downstream execution'', and names ``physical plausibility, including
+penetration'' as the most common criterion for the first layer. That is the reference-versus-rollout
+split, named before this survey measured it, and the idea that contact quality belongs on the
+evaluation axis is Zhao's. What Sec.~IV-C does not give is a measurement method or a count, and this
+survey supplies those two. It does not supply a threshold. The 2 mm figure the field uses is taken
+from \cite{toporetarget_2026} with no independent justification, the captured human grasps in
+\cite{grab_2020} sit above it at 3.25 mm, and Section 7.7 states plainly that 2 mm is a simulator
+convention rather than a physical bound.
 
 The scope is single-hand and bimanual multi-fingered manipulation. Parallel-jaw manipulation
 enters only as a comparison, which matters because 12 of the 112 method rows name a parallel-jaw

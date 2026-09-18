@@ -560,7 +560,7 @@ def table4():
         ])
     cols = ([("method", 62, "l"), ("yr", 18, "r")]
             + [(FAM_HDR[f], 26, "c") for f in fams]
-            + [("terms", 20, "r"), ("code", 16, "c"), ("mismatch", 32, "c")])
+            + [("terms", 20, "r"), ("code", 16, "c"), ("mismatch", 34, "c")])
     cap = (r"Reward-term families across the " + str(len(rows)) + r" in-hand reorientation "
            r"methods whose objective could be read term by term. A mark is \textbf{P} where the "
            r"term is in the paper and either no code was released or it is absent from the "
@@ -731,8 +731,11 @@ def appendix_methods():
             PENETRATION.get(r.get("penetration"), NA),
             yesno(r.get("code_released")),
         ])
-    cols = [("method", 54, "l"), ("yr", 17, "r"), ("task", 38, "l"), ("paradigm", 36, "l"),
-            ("algorithm", 80, "l"), ("hand", 58, "l"), ("DoF", 14, "r"), ("bi", 12, "c"),
+    # The key column is sized to the longest underscore-separated part of any method key, because
+    # a corpus key breaks at its underscores and nowhere else: `clutterdexgrasp_2025` needs 70 pt
+    # at this type size and takes it from the algorithm column.
+    cols = [("method", 70, "l"), ("yr", 17, "r"), ("task", 38, "l"), ("paradigm", 36, "l"),
+            ("algorithm", 64, "l"), ("hand", 58, "l"), ("DoF", 14, "r"), ("bi", 12, "c"),
             ("simulator", 40, "l"), ("real", 14, "c"), ("trials", 18, "r"), ("unseen", 22, "r"),
             ("penetration", 32, "l"), ("code", 14, "c")]
     idx = list(range(2, 14))

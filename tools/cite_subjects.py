@@ -11,7 +11,8 @@ The name is chosen in this order.
 1. The work's own short name, taken from the title before its first colon, when that prefix
    reads as a name rather than as the opening of a sentence: at most three words, every word
    name-like (capitalised, all-caps, or carrying a digit), and no function words. This is what
-   gives DexTrack, AnyRotate, RoboPianist, Isaac Gym, DIGIT, GR00T N1.
+   gives DexTrack, AnyRotate, RoboPianist, Isaac Gym, DIGIT, GR00T N1. A title with no colon
+   that is itself a name by the same test counts too, which is MuJoCo Playground.
 2. For a product page, a company announcement or a software release with no such title prefix,
    the maker's name from the authors field, stripped of corporate suffixes: Figure, Unitree.
 3. Otherwise the author surname, with "et al." kept when the authors field carries it:

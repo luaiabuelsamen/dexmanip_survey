@@ -6,81 +6,96 @@
 \label{sec:taxonomy:tasks}
 
 The six families below are read off the rows rather than imposed on them, and Sec.~2.1's closing
-paragraph says what they miss. Grasping is the largest. Fifty-seven of the 112 method rows carry
-the grasp label, the labels are not exclusive, and one paper can sit in several families. Success is a lift that survives a
-hold, and the thresholds differ by more than an order of magnitude. DexGraspVLA \cite{dexgraspvla_2025} requires the
-object ``held 10 cm above the table for 20 s'', while Omnigrasp \cite{omnigrasp_2024} requires it ``held at least 0.5 s
-in simulation''. What makes grasping hard at scale is the continuum of starting configurations.
-UniDexGrasp++ \cite{unidexgrasp_pp_2023} states it in Sec.~4.3, that ``we are dealing with an infinite number of tasks
-considering the initial object pose can change continuously''.
+paragraph says what they miss. Grasping is the largest. Fifty-seven of the 112 method rows carry the
+grasp label, the labels are not exclusive, and one paper can sit in several families. Success is a
+lift that survives a hold, and the thresholds differ by more than an order of magnitude. DexGraspVLA
+\cite{dexgraspvla_2025} requires the object ``held 10 cm above the table for 20 s'', while Omnigrasp
+\cite{omnigrasp_2024} requires it ``held at least 0.5 s in simulation''. What makes grasping hard at
+scale is the continuum of starting configurations. UniDexGrasp++ \cite{unidexgrasp_pp_2023} states
+it in Sec.~4.3, that ``we are dealing with an infinite number of tasks considering the initial
+object pose can change continuously''.
 
 Functional and tool use is second with 45 rows. It is the family where a stable grasp can still be
-the wrong answer. Dexterous Functional Grasping \cite{dexterous_functional_grasping_2023} gives the case in Sec.~2.1, that ``grabbing a
+the wrong answer. Dexterous Functional Grasping \cite{dexterous_functional_grasping_2023} gives the
+case in Sec.~2.1, that ``grabbing a
 hammer from the head or handle are both equally valid ways of using it'', and only one of the two
 lets the tool be used. Success is defined against the tool's function, and the field has no shared
 way to state it.
 
 In-hand reorientation has 31 rows and the most settled criteria, because the community inherited one
-number. OpenAI \cite{openai_dexterity_2018} declared the goal achieved below 0.4 rad of orientation error, DeXtreme \cite{dextreme_2022} keeps 0.4 rad at test time against a 0.1 rad training tolerance, and Eureka \cite{eureka_2023}
+number. OpenAI \cite{openai_dexterity_2018} declared the goal achieved below 0.4 rad of orientation
+error, DeXtreme \cite{dextreme_2022} keeps 0.4 rad at test time against a 0.1 rad training
+tolerance, and Eureka \cite{eureka_2023}
 counts consecutive successes at 0.1 rad. A shared tolerance is not a shared protocol, because the
-stopping rule differs. Visual Dexterity \cite{visual_dexterity_2022} measures error ``when the controller predicts it has
+stopping rule differs. Visual Dexterity \cite{visual_dexterity_2022} measures error ``when the
+controller predicts it has
 reached the goal and stops'', which makes the policy a judge of its own trial.
 
 Tracking a human reference has 12 rows and inverts the problem. The target is a trajectory rather
-than an endpoint, so success is a per-frame error band. ManipTrans \cite{maniptrans_2025} requires all four of 30
+than an endpoint, so success is a per-frame error band. ManipTrans \cite{maniptrans_2025} requires
+all four of 30
 degrees of rotation, 3 cm of translation, 8 cm of joint error and 6 cm of fingertip error. The
 difficulty is that the reference came from a human hand and was never dynamically feasible for the
-robot. DexMachina \cite{dexmachina_2025} warns in App.~B.4 that scoring by timesteps inside the thresholds makes
+robot. DexMachina \cite{dexmachina_2025} warns in App.~B.4 that scoring by timesteps inside the
+thresholds makes
 ``the results highly sensitive to the threshold values''.
 
 Bimanual coordination has 43 rows and handover has 10. Handover is the smallest family and the one
 whose failure has a single moment, because the giver must release only after the receiver has the
-object. Dynamic Handover \cite{dynamic_handover_2023} reports a hit rate above its success rate and blames the gap in
-Sec.~5.4 on ``occasional challenges encountered during the grasping phase of the catcher''. Not every
-paper here learns both sides. In \cite{dexterous_handover_2025} only the receiver is learned and the giver
-is a scripted arm.
+object. Dynamic Handover \cite{dynamic_handover_2023} reports a hit rate above its success rate and
+blames the gap in Sec.~5.4 on ``occasional challenges encountered during the grasping phase of the
+catcher''. Not every paper here learns both sides. In \cite{dexterous_handover_2025} only the
+receiver is learned and the giver is a scripted arm.
 
 Those six families do not cover the corpus. Twenty-four of the 112 method rows carry a label from
-outside them and eight carry no label from the six at all. Twenty are labelled \texttt{other}, mostly
-generalist policies evaluated on a task suite rather than on a dexterous task family, among them
-\cite{pi0_2024,pi05_2025,pistar06_2025,openvla_2024} and Gemini Robotics 1.5 \cite{gemini_robotics_15_2025}. Three
-adjacent families are named here rather than absorbed. Locomanipulation is \cite{humanplus_2024,omnih2o_2024} and GR00T N1.6 \cite{groot_n16_2025}, where the base is not fixed and the gravity argument below
-changes character. Piano playing is \cite{robopianist_2023,rp1m_2024} and PianoMime \cite{pianomime_2024}, discussed
-in Section 6, where success is a per-timestep F1 against a MIDI score rather than an object pose.
-Deformable manipulation is \cite{dexdeform_2023}, whose object carries its own state and its own
-physics. Ferrari and Canny's grasp-quality measure \cite{ferrari_canny_1992} carries no task label, because it is a measure rather than a task. Table~\ref{tab:tasks}'s six rows are the families with enough papers to compare, and not a partition
+outside them and eight carry no label from the six at all. Twenty are labelled \texttt{other},
+mostly generalist policies evaluated on a task suite rather than on a dexterous task family, among
+them \cite{pi0_2024,pi05_2025,pistar06_2025,openvla_2024} and \cite{gemini_robotics_15_2025}. Three
+adjacent families are named here rather than absorbed. Locomanipulation is
+\cite{humanplus_2024,omnih2o_2024} and \cite{groot_n16_2025}, where the base is not fixed and the
+gravity argument below changes character. Piano playing is \cite{robopianist_2023,rp1m_2024} and
+\cite{pianomime_2024}, discussed in Section 6, where success is a per-timestep F1 against a MIDI
+score rather than an object pose. Deformable manipulation is \cite{dexdeform_2023}, whose object
+carries its own state and its own physics. Ferrari and Canny's grasp-quality measure
+\cite{ferrari_canny_1992} carries no task label, because it is a measure rather than a task.
+Table~\ref{tab:tasks}'s six rows are the families with enough papers to compare, and not a partition
 of the corpus.
 
 \subsection{What makes dexterous control hard}
 \label{sec:taxonomy:hard}
 
-Contact is non-smooth, and that is a property of the problem rather than of any solver.
-Bicchi \cite{bicchi_grasping_chapter_2001} states in Sec.~1.2 that contact constraints are unilateral, and that
-losing a contact ``involves an abrupt change of the structure of the model under consideration''. Its
-Sec.~1.4 gives the sharper version, that a rod sliding on rough ground has configurations with no
-consistent solution and configurations with more than one. Simulators inherit the difficulty. The
-re-implementation study \cite{contact_models_comparison_2023} concludes in Sec.~V that ``there is no fully
-satisfactory approach at the moment, as all existing solutions compromise either accuracy,
-robustness, or efficiency''. Pang et al. \cite{pang_global_planning_2022} treats non-smoothness as the thing to remove,
-curating every contact pair in Sec.~III-D so that contact points and normals change smoothly.
+Contact is non-smooth, and that is a property of the problem rather than of any solver. Bicchi
+\cite{bicchi_grasping_chapter_2001} states in Sec.~1.2 that contact constraints are unilateral, and
+that losing a contact ``involves an abrupt change of the structure of the model under
+consideration''. Its Sec.~1.4 gives the sharper version, that a rod sliding on rough ground has
+configurations with no consistent solution and configurations with more than one. Simulators inherit
+the difficulty. The re-implementation study \cite{contact_models_comparison_2023} concludes in
+Sec.~V that ``there is no fully satisfactory approach at the moment, as all existing solutions
+compromise either accuracy, robustness, or efficiency''. Pang et al.
+\cite{pang_global_planning_2022} treat non-smoothness as the thing to remove, curating every contact
+pair in Sec.~III-D so that contact points and normals change smoothly.
 
 The hand has more actuators than the object has degrees of freedom and is still short of authority
 over it. The object moves only through contacts, and the contacts are what cannot be commanded.
-Bicchi \cite{bicchi_grasping_chapter_2001} states in Sec.~1.4 that in multifingered grasps ``the number of
-independent contact forces is much larger than the number of actuators. Thus, from a controllability
-standpoint, not all the contact forces are controllable''.
+Bicchi \cite{bicchi_grasping_chapter_2001} states in Sec.~1.4 that in multifingered grasps ``the
+number of independent contact forces is much larger than the number of actuators. Thus, from a
+controllability standpoint, not all the contact forces are controllable''.
 
-Vision is occluded by the hand doing the work. Bai et al. \cite{bai_unified_manip_survey_2025} names it in Sec.~4.3,
-that ``occlusion hampers object tracking''. DexPoint \cite{dexpoint_2022} keeps vision and adds imagined hand points
-to the point cloud. Yin et al. \cite{rotating_without_seeing_2023} removes vision entirely and rotates objects from
+Vision is occluded by the hand doing the work. Bai et al. \cite{bai_unified_manip_survey_2025} name
+it in Sec.~4.3,
+that ``occlusion hampers object tracking''. DexPoint \cite{dexpoint_2022} keeps vision and adds
+imagined hand points
+to the point cloud. Yin et al. \cite{rotating_without_seeing_2023} remove vision entirely and rotate
+objects from
 16 binary touch sensors over the palm, links and fingertips.
 
-Gravity direction changes the task rather than scaling it. Visual Dexterity \cite{visual_dexterity_2022} states that
-reorientation with the hand below the object ``is much easier'', because ``with a downward-facing hand,
-the hand must manipulate the object while simultaneously counteracting gravity''. AnyRotate \cite{anyrotate_2024}
-makes the direction a randomised variable by ``randomly initializing hand orientations between
-episodes'', and its Sec.~5.3 measures the cost, with performance dropping progressively from palm up
-and palm down, through base up and base down, to thumb up and thumb down.
+Gravity direction changes the task rather than scaling it. Visual Dexterity
+\cite{visual_dexterity_2022} states that reorientation with the hand below the object ``is much
+easier'', because ``with a downward-facing hand, the hand must manipulate the object while
+simultaneously counteracting gravity''. AnyRotate \cite{anyrotate_2024} makes the direction a
+randomised variable by ``randomly initializing hand orientations between episodes'', and its
+Sec.~5.3 measures the cost, with performance dropping progressively from palm up and palm down,
+through base up and base down, to thumb up and thumb down.
 
 \subsection{Single hand versus two}
 \label{sec:taxonomy:twohands}
@@ -96,31 +111,32 @@ claim here names which of the three it uses.
 Four things genuinely change when the second hand arrives. Contact stays non-smooth, occlusion
 stays, and gravity stays the same problem.
 
-Role asymmetry is the first. AsymDex \cite{asymdex_2024} assigns a dominant hand with full finger and wrist
-control and a facilitating hand with 6-DoF base pose only, so that ``the facilitating hand repositions
-and reorients one object, while the dominant hand performs complex manipulations''.
+Role asymmetry is the first. AsymDex \cite{asymdex_2024} assigns a dominant hand with full finger
+and wrist control and a facilitating hand with 6-DoF base pose only, so that ``the facilitating hand
+repositions and reorients one object, while the dominant hand performs complex manipulations''.
 
 The second is that two hands on one object close a kinematic chain through the object. In
-\cite{bicchi_grasping_chapter_2001} Sec.~1.4 the hand and object dynamics are separate and are ``linked
-through the n rigid-body contact constraints''. A second hand adds a second constraint set on the
-same object rather than a second independent problem. That is where physical plausibility fails
-first. BimanGrasp \cite{bimangrasp_2024} is the corpus row that measures it, rejecting a synthesised grasp when
-``total penetrations exceeded 1.5 mm'' and reporting in Sec.~IV-C that ``penetration remains the primary
-cause of grasp failure''.
+\cite{bicchi_grasping_chapter_2001} Sec.~1.4 the hand and object dynamics are separate and are
+``linked through the n rigid-body contact constraints''. A second hand adds a second constraint set
+on the same object rather than a second independent problem. That is where physical plausibility
+fails first. BimanGrasp \cite{bimangrasp_2024} is the corpus row that measures it, rejecting a
+synthesised grasp when ``total penetrations exceeded 1.5 mm'' and reporting in Sec.~IV-C that
+``penetration remains the primary cause of grasp failure''.
 
-The third is two-arm collision, which does not exist for one hand. DyDexHandover \cite{dydexhandover_2025} resets an
-episode when ``any unintended arm contact with the environment or self-collisions'' occurs.
-Bunny-VisionPro \cite{bunny_visionpro_2024} pays for it in the controller, where adding a sphere-approximated
-self-collision cost raises motion-control time from 0.74 ms to 7.85 ms. Bidex \cite{bidex_teleop_2024} solves it
-in hardware, mounting the hands so the human arm and the teacher arm ``are perpendicular to each other
-and do not collide''. DexMimicGen \cite{dexmimicgen_2024} states plainly that it does not handle inter-arm collision at
-all.
+The third is two-arm collision, which does not exist for one hand. DyDexHandover
+\cite{dydexhandover_2025} resets an episode when ``any unintended arm contact with the environment
+or self-collisions'' occurs. Bunny-VisionPro \cite{bunny_visionpro_2024} pays for it in the
+controller, where adding a sphere-approximated self-collision cost raises motion-control time from
+0.74 ms to 7.85 ms. Bidex \cite{bidex_teleop_2024} solves it in hardware, mounting the hands so the
+human arm and the teacher arm ``are perpendicular to each other and do not collide''. DexMimicGen
+\cite{dexmimicgen_2024} states plainly that it does not handle inter-arm collision at all.
 
-The fourth is the doubled action space. Bi-DexHands \cite{bidexhands_2022} runs 20 tasks on two Shadow Hands and finds
-single-agent PPO beating multi-agent RL on most of them, offering in Sec.~5.2 that ``PPO algorithm is
-able to use all observations for training the policy, while MARL can only use partial observations''.
-AsymDex \cite{asymdex_2024} attacks the dimensionality from the other side, halving the observation and action
-dimension through its role split and a frame relative to the facilitating hand's object.
+The fourth is the doubled action space. Bi-DexHands \cite{bidexhands_2022} runs 20 tasks on two
+Shadow Hands and finds single-agent PPO beating multi-agent RL on most of them, offering in Sec.~5.2
+that ``PPO algorithm is able to use all observations for training the policy, while MARL can only
+use partial observations''. AsymDex \cite{asymdex_2024} attacks the dimensionality from the other
+side, halving the observation and action dimension through its role split and a frame relative to
+the facilitating hand's object.
 
 % ---------------------------------------------------------------------------
 % Table 1 is hand-written rather than generated from corpus/rows, so it is
@@ -139,7 +155,7 @@ dimension through its role split and a frame relative to the facilitating hand's
     the object's orientation in the palm frame, while contacts break and remake &
     a disturbance whose direction is set by hand orientation, and a load to counteract with the palm down, \cite{visual_dexterity_2022} &
     the object leaves the hand, e.g.\ the fall reset at goal distance 0.24 m in \cite{dextreme_2022} &
-    orientation error below a stated tolerance under a stated stopping rule, 0.4 rad in \cite{openai_dexterity_2018} and DeXtreme \cite{dextreme_2022}, 0.1 rad in \cite{eureka_2023} \\
+    orientation error below a stated tolerance under a stated stopping rule, 0.4 rad in \cite{openai_dexterity_2018} and \cite{dextreme_2022}, 0.1 rad in \cite{eureka_2023} \\
     \addlinespace[2.5pt]
     Grasping &
     nothing at the start, the object rests on a support &
