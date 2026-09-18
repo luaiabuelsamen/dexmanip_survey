@@ -1,6 +1,6 @@
-## 5. How policies are trained
+# 5. How policies are trained
 
-### 5.1 The design space
+## 5.1 The design space
 
 A dexterous policy is defined by what supervises it, and four sources are in use across the
 corpus's 112 method rows: a reward function supervises reinforcement learning, a human
@@ -20,9 +20,9 @@ gives itself, and on that axis the field has converged hard. Section 5.7 shows w
 
 {{figure:fig4_taxonomy}}
 
-### 5.2 Reinforcement learning
+## 5.2 Reinforcement learning
 
-#### 5.2.1 The standard recipe
+### 5.2.1 The standard recipe
 
 Fifty-nine of the 112 method rows learn from a reward. Forty-eight name PPO as the algorithm, and
 the next most frequent, DAPG, appears four times. Forty-three run their own experiments in a
@@ -52,7 +52,7 @@ against a shipped `jointNoiseScale` of 0.02, in a commit its own README says is 
 reproduces the paper, and `penspin_2024` zeroes the disturbance force its appendix describes. `dexpbt_2023`'s `randomize: False` is not a third case: it is the
 IsaacGymEnvs default and agrees with the paper's statement that randomisation was not used here.
 
-#### 5.2.2 Reward engineering
+### 5.2.2 Reward engineering
 
 Table 5 puts the 21 in-hand reorientation methods against nine recurring term families and marks
 each cell by where the term was found: in the paper, in the code, in both, or in the code with
@@ -100,7 +100,7 @@ reports cannot be reconstructed by anyone. `dexremoe_2025` names an angular-velo
 weight in prose with no entry in its hyperparameter table, and `dextrack_2025` names an affinity
 reward that is missing from its weight table.
 
-#### 5.2.3 Curricula, populations and machine-written rewards
+### 5.2.3 Curricula, populations and machine-written rewards
 
 Curricula in this literature relax physics or tighten tolerances. `dexpbt_2023` tightens a success
 tolerance from 0.075 to 0.01 by a factor of 0.9 every 3000 environment steps once three successes
@@ -132,7 +132,7 @@ documents the paper's budget of five iterations and sixteen samples as the defau
 shipped one-iteration block a fast-test preset. DrEureka's repository contains only the locomotion
 and globe-walking trees, so its LEAP-hand reward has no code at all.
 
-#### 5.2.4 Where reinforcement learning stalls
+### 5.2.4 Where reinforcement learning stalls
 
 Reinforcement learning stalls on objectives that are not learnable as stated. `anyrotate_2024`
 found the angular-velocity objective unlearnable in the multi-axis setting and replaced it with a
@@ -147,9 +147,9 @@ It stalls on geometry too. `hora_2022` fails on objects under 4 cm across becaus
 collide with each other. What it does not stall on is publication: the real-trial counts behind
 these headlines are small enough that section 7.1 treats them as the reporting problem they are.
 
-### 5.3 Learning from human data
+## 5.3 Learning from human data
 
-#### 5.3.1 Teleoperation and retargeting
+### 5.3.1 Teleoperation and retargeting
 
 Table 6 lists the 30 corpus rows that describe a system for getting human motion onto a robot
 hand, with the retargeting objective compressed to one clause each.
@@ -187,7 +187,7 @@ and 19.72 seconds through a teleoperated humanoid, and a pour at 4.81 against 37
 attributes the gap to retargeting latency and to the workspace of a 7-DoF arm rather than to
 anything about the hand.
 
-#### 5.3.2 Imitation architectures
+### 5.3.2 Imitation architectures
 
 Four architectures cover the corpus. Action chunking came from `aloha_act_2023`, which predicts a
 chunk of joint targets with a CVAE and combines overlapping chunks by exponentially weighted
@@ -207,7 +207,7 @@ the 4 source ones. `dex1b_2025` iterates optimisation, a CVAE proposal model and
 filter into roughly a billion synthetic grasps, and its CVAE baseline beats the prior best by 22
 points.
 
-#### 5.3.3 Human video without a robot
+### 5.3.3 Human video without a robot
 
 Seven rows train a dexterous-hand policy from video with no teleoperation at any stage.
 `dexmv_2021` retargets 700 self-recorded demonstrations by matching palm-to-fingertip task-space
@@ -217,7 +217,7 @@ clustering 715 curated HowTo100M frames into one consensus grasp pose per object
 adding it as a reward term. `okami_2024`, `human2sim2robot_2025` and `hudor_2024` work from a
 single video each, and `wm_dex_human_videos_2025` pretrains a world model on 829 hours of EgoDex.
 
-#### 5.3.4 The embodiment gap, and what closing it is worth
+### 5.3.4 The embodiment gap, and what closing it is worth
 
 Three papers measure the gap directly rather than asserting it. `okami_2024` runs the same
 reference-plan and warping pipeline with and without human body and hand retargeting, and the
@@ -239,7 +239,7 @@ learning discover finger motion, and its ablation that adds a fingertip-matching
 yield benefits and even leads to lower performance". Richer human correspondence is not uniformly
 better, and this is the one result in the corpus that says so with an ablation.
 
-### 5.4 Tracking a human reference with physics
+## 5.4 Tracking a human reference with physics
 
 Twelve method rows carry the `track-human-ref` task family. Eight track a human hand on an object
 and are covered here; the other four sit at the edges, `human2sim2robot_2025` tracking only the
@@ -284,7 +284,7 @@ never at the rollout. `objdex_2024` completes the set with the only real-robot n
 from 100 percent on a microwave and a laptop down to 41.2 percent on a ketchup bottle over 20
 trials each.
 
-### 5.5 Generalist and vision-language-action policies
+## 5.5 Generalist and vision-language-action policies
 
 The finding is the size of the hand. Eighteen method rows carry the `VLA` tag. Eleven evaluate on
 a multi-fingered hand and six report no hand result at all, `groot_n16_2025` naming no end
@@ -312,7 +312,7 @@ The released code also drifts. `groot_n1_2025`'s repository is a later N1.7 gene
 different backbone, a different action horizon and embodiments the paper does not describe, and
 `pi05_2025`'s supports only the flow-matching head, not the hybrid recipe the paper describes.
 
-### 5.6 Model-based control as the non-learning baseline
+## 5.6 Model-based control as the non-learning baseline
 
 Three corpus methods solve dexterous tasks without learning a policy, and they are the control
 group the rest of this section lacks.
@@ -333,7 +333,7 @@ only method here that imposes non-penetration as a hard constraint. Its own limi
 honest part: its 3D systems transfer to hardware far worse than its 2D ones, because the
 quasi-dynamic assumption breaks and planned grasps miss contacts under a second-order solver.
 
-### 5.7 Hybrids, and where the field has converged
+## 5.7 Hybrids, and where the field has converged
 
 The recurring shape is reinforcement learning in simulation distilled into a policy that looks
 like an imitation policy, and it appears in four variants. The first distils a privileged teacher
@@ -355,7 +355,7 @@ produced the deployed policy's training data. Reward engineering has moved upstr
 curation, and every reward-shaping pathology in section 5.2 now reaches the shipped policy through
 a dataset rather than a gradient.
 
-### 5.8 What the released code says
+## 5.8 What the released code says
 
 Thirty-seven of the 112 method rows record a discrepancy between a paper and the code it released,
 and all 37 released code, so they sit inside the 62 rows that released anything. They are not one
@@ -423,7 +423,7 @@ the question, and in exactly one, `hora_2022`, the repository says so itself. Re
 function before the reward table, and treat a printed weight as a hypothesis about the code.
 
 
-### 5.9 The master table
+## 5.9 The master table
 
 Table 7's emptiest columns are the ones a reader most needs: only 31 rows state an environment
 count, only 55 state how many real trials are behind the headline number, and only 32 state how
