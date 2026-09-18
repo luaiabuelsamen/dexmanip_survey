@@ -107,7 +107,8 @@ def fig4():
         ("whole reference including fingers",*keys_with(lambda r:r["key"] in ("dextrack_2025","maniptrans_2025","dexmachina_2025","toporetarget_2026"))),
         ("wrist only, fingers learned",*keys_with(lambda r:r["key"]=="objdex_2024")),
         ("object trajectory only",*keys_with(lambda r:r["key"] in ("pgdm_2023","human2sim2robot_2025"))),
-        ("reference as soft guidance",*keys_with(lambda r:r["key"] in ("dexplore_2025","physhoi_2023","omnigrasp_2024"))),
+        ("reference as soft guidance",*keys_with(lambda r:r["key"]=="dexplore_2025")),
+        ("no retargeting, reference already on the embodiment",*keys_with(lambda r:r["key"] in ("physhoi_2023","omnigrasp_2024"))),
       ]),
       ("no learned policy",par.get("trajopt",0)+par.get("MPC",0),"var(--c)",[
         ("sampled plan, learned model",*keys_with(lambda r:r["key"]=="pddm_2019")),
