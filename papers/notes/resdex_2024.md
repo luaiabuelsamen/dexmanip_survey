@@ -17,12 +17,98 @@ train/test generalization gap, in 12 GPU-hours on one RTX 4090 (Abstract; Sec 5.
 ## Method
 - paradigm: RL (state-based teacher) + DAgger distillation (vision-based student); no diffusion/VLA component (Sec 3.2, 4.4).
 - algorithm: PPO (Schulman et al., 2017) for all state-based training stages; DAgger (Ross et al., 2011) for vision distillation (App. A.1–A.2). Implementation base: repo says "based on UniDexGrasp" (README, Citation section); PPO/DAgger implementations live under `dexgrasp/algorithms/rl/`, not included in the captured code/md excerpt.
-- residual structure: three-stage pipeline. (1) **Base/geometry-unaware policies** π_ψ^B(a|J, b_p, a_{t-1}): trained per object, one per k-means cluster center of PointNet-feature-clustered objects (Sec 4.1, 4.3–4.4). (2) **Residual/hyper-policy** π_φ^H(a_t^R, λ_t | J, b_p, b_q, c_ω, a_{t-1}): state-based, sees full privileged obs, outputs a residual action a_t^R and MoE mixing weights λ_t∈R^k. Final action a_t = normalized-weighted-sum_i(λ_t,i · a^B_t,i) + a_t^R (Sec 4.2–4.3; exact combination equation is an unrendered image in the extracted paper text — only the descriptive sentence survived). Base policies are frozen while the hyper-policy trains (Sec 4.4). (3) **Vision-based student** π_θ^V(a|J, p, a_{t-1}): distilled from the hyper-policy teacher via DAgger (Sec 3.2, 4.4). This is residual learning on top of the base (geometry-unaware, per-cluster) policies, not on top of a classical controller.
+- residual structure: three-stage pipeline. (1) **Base/geometry-unaware policies** π_ψ^B(a|J, b_p, a_{t-1}): trained per object, one per k-means cluster center of PointNet-feature-clustered objects (Sec 4.1, 4.3–4.4). (2) **Residual/hyper-policy** π_φ^H(a_t^R, λ_t | J, b_p, b_q, c_ω, a_{t-1}): state-based, sees full privileged obs, outputs a residual action a_t^R and MoE mixing weights λ_t∈R^k. Final action a_t = normalized-weighted-sum_i(λ_t,i · a^B_t,i) + a_t^R (Sec 4.2–4.3). The combination equation, an unrendered image in the layout parse, reads in the OCR pass as `at = aR / t + / 1 / ∥λt∥ / k / i=1 / λt,iaB / t,i, / (4)` — i.e. Eq. 4, quoted with the OCR's own line breaks shown as ` / ` (recovered by OCR from papers/md/resdex_2024.ocr.md; OCR text is noisier than the layout parse, symbols may be imperfect — here the summation's Σ glyph is missing, leaving only its `k` / `i=1` bounds between the `1/∥λt∥` factor and the `λt,iaB t,i` summand). The surrounding sentence confirms the reading: "using a normalized weighted sum of base actions in addition to the residual action". Base policies are frozen while the hyper-policy trains (Sec 4.4). (3) **Vision-based student** π_θ^V(a|J, p, a_{t-1}): distilled from the hyper-policy teacher via DAgger (Sec 3.2, 4.4). This is residual learning on top of the base (geometry-unaware, per-cluster) policies, not on top of a classical controller.
 - teacher→student distillation: state-based hyper-policy (privileged: object pose + PointNet object code c_ω) is the teacher; vision-based policy (point cloud only) is the student, trained online with DAgger (Sec 3.2, 4.4).
 - domain randomization: listed in `task.randomization_params` of `shadow_hand_residual_grasp.yaml`/`shadow_hand_blind_grasp.yaml` but with `randomize: false` at the top level (so inactive by default in the released config): actions (gaussian additive, range [0,0.05], correlated [0,0.015]); hand DoF damping/stiffness (loguniform scaling, 0.3–3.0 / 0.75–1.5), DoF lower/upper (gaussian additive, [0,0.01]); hand tendon damping/stiffness (loguniform, same ranges); hand and object rigid-body mass (uniform scaling, 0.5–1.5); hand and object friction (uniform scaling, 0.7–1.3, 250 buckets); object scale (uniform, 0.95–1.05); observations (gaussian additive, [0,0.002]); gravity (gaussian additive, [0,0.4]). Paper text does not discuss domain randomization at all — this is a code-only finding, and it is disabled (`randomize: false`) in the shipped configs.
 
 ### C. Reward / objective (paper + code, verbatim where possible)
-Paper (Sec 3.1, 4.1, 4.4, App. A.1): the base reward is r = r^task + r^proposal, where "r^proposal penalizes the distance to the grasping proposal, where α is a hyperparameter adjusting its weight." For geometry-unaware base policies this is replaced by a pose-only term: "we replace this term with a pose reward" using current hand joint positions q_t (Sec 4.1) — **the actual LaTeX formulas for r^proposal, r^pose, r^task, r^reach, r^lift, r^move, r^bonus are all images that did not survive PDF→markdown conversion**; only descriptive text and two numeric thresholds survived: r^lift/r^move use indicator f1 = 1(Σ‖X_obj−X_finger‖₂ ≤ 0.6) + 1(‖X_obj−X_hand‖₂ ≤ 0.12); r^move additionally requires 1(‖q−X_joint‖₁ ≤ 6) (App. A.1). Hyper-policy training is two-stage: stage 1 reward = r^task + r^proposal (natural, dataset-guided poses); stage 2 drops r^proposal and drops the "approach" terms inside r^task, "focusing solely on terms related to object lifting and task completion" (Sec 4.4, App. A.1).
+Paper (Sec 3.1, 4.1, 4.4, App. A.1): the base reward is r = r^task + r^proposal, where "r^proposal penalizes the distance to the grasping proposal, where α is a hyperparameter adjusting its weight." For geometry-unaware base policies this is replaced by a pose-only term: "we replace this term with a pose reward" using current hand joint positions q_t (Sec 4.1) — the actual formulas for r^proposal, r^pose, r^task, r^reach, r^lift, r^move and r^bonus were all images that did not survive PDF→markdown conversion, and **have since been recovered**; they are quoted verbatim in the "reward formulas (recovered)" block below (recovered by OCR from papers/md/resdex_2024.ocr.md; OCR text is noisier than the layout parse, symbols may be imperfect). Descriptive text and the two numeric thresholds already known from the layout parse are unchanged by the recovery: r^lift/r^move use indicator f1 = 1(Σ‖X_obj−X_finger‖₂ ≤ 0.6) + 1(‖X_obj−X_hand‖₂ ≤ 0.12); r^move additionally requires 1(‖q−X_joint‖₁ ≤ 6) (App. A.1). Hyper-policy training is two-stage: stage 1 reward = r^task + r^proposal (natural, dataset-guided poses); stage 2 drops r^proposal and drops the "approach" terms inside r^task, "focusing solely on terms related to object lifting and task completion" (Sec 4.4, App. A.1).
+
+reward formulas (recovered): quoted verbatim as the OCR gives them — line breaks, spacing and all — with no symbol cleanup (recovered by OCR from papers/md/resdex_2024.ocr.md; OCR text is noisier than the layout parse, symbols may be imperfect). Throughout, the OCR drops the Σ glyph of every summation and the brace of every piecewise definition, so a bare line break stands where `Σ` or `{` was typeset; subscripts on `rtask`, `rproposal`, `rpose` land on their own line as a stray `t`.
+
+Main text, Sec. 3.1 (base reward, Eqs. 1–2) and Sec. 4.1 (pose reward, Eq. 3):
+
+```
+rt = rtask
+t
++ αrproposal
+t
+,
+(1)
+rproposal
+t
+= −∥g −gt∥,
+(2)
+```
+
+```
+rpose
+t
+= −∥q −qt∥,
+(3)
+```
+
+App. A.1, base-policy reward (the `r = rpose + rtask` variant used for the geometry-unaware base policies):
+
+```
+r = rpose + rtask
+Xjoint denotes the joint positions. The rpose is defined as follows:
+rpose = −0.05 ∗∥q −Xjoint∥1
+rtask is defined as follows:
+rtask = rreach + rlift + rmove + rbonus
+The rreach encourages the hand to reach the object, as it penalizes the distance between the object
+and different parts of the hand. Here, Xobj and Xhand denote the position of the object and the
+hand, and Xfinger denotes positions of all the fingers. The rreach is defined as follows:
+rreach = −1.0 ∗∥Xobj −Xhand∥2 −0.5 ∗
+∥Xobj −Xfinger∥2
+The rlift encourages the hand to lift the object. It gives a positive reward when this condition can be
+satisfied: f1 = 1 (
+∥Xobj −Xfinger∥2 ≤0.6) + 1 (∥Xobj −Xhand∥2 ≤0.12). az is the scaled
+force applied to the hand root along the z-axis. The rlift is defined as follows:
+rlift =
+0.1 + 0.1 ∗az
+if f1 = 2
+0
+otherwise
+The rmove encourages the hand to move the object to the target position.
+Xtarget de-
+notes the target position.
+It gives a positive reward when this condition is satisfied: f2 =
+1 (
+∥Xobj −Xfinger∥2 ≤0.6) + 1 (∥Xobj −Xhand∥2 ≤0.12) + 1 (∥q −Xjoint∥1 ≤6). The
+rmove is defined as follows:
+rmove =
+0.9 −2∥Xobj −Xtarget∥2
+if f2 = 3
+0
+otherwise
+The rbonus gives an extra reward when the object is close to the target position. We denote ∥Xobj −
+Xtarget∥2 as dobj. The rbonus is defined as follows:
+rbonus =
+1
+1+10∗dobj
+if dobj ≤0.05
+0
+otherwise
+```
+
+App. A.1, hyper-policy reward, both stages — stage 1 is deferred to UniDexGrasp rather than written out, stage 2 is given in full:
+
+```
+Reward Function for Hyper Policy At the first training stage for a hyper policy, we use the goal-
+conditioned reward function exactly the same as the one proposed in UniDexGrasp(Xu et al., 2023).
+At the second training stage for a hyper policy, we use a loosened reward function defined as follows:
+r = rlift + rmove + rbonus
+The definitions of rlift and rbonus are the same as those mentioned above. The rmove has loosened
+its condition. It is defined as follows:
+rmove =
+0.9 −2∥Xobj −Xtarget∥2
+if f1 = 2
+0
+otherwise
+```
+
+Two things the recovery settles that the prose alone did not. (a) The numeric coefficients are now visible: r^pose = −0.05 ∗ ‖q − Xjoint‖₁; r^reach = −1.0 ∗ ‖Xobj − Xhand‖₂ − 0.5 ∗ [Σ] ‖Xobj − Xfinger‖₂; r^lift = 0.1 + 0.1 ∗ az when f1 = 2; r^move = 0.9 − 2‖Xobj − Xtarget‖₂ when f2 = 3; r^bonus = 1/(1+10∗dobj) when dobj ≤ 0.05, else 0 in each case. (b) The stage-2 "loosening" is precisely a substitution of the gate, not of the value: stage 2 drops r^reach (r = rlift + rmove + rbonus) and r^move keeps its `0.9 − 2‖Xobj − Xtarget‖₂` value but fires on `f1 = 2` (the two-part lift condition) instead of `f2 = 3` (which additionally required the joint-pose term ‖q−Xjoint‖₁ ≤ 6). Stage 1's reward is still not written out anywhere in this paper — it is defined by reference, "exactly the same as the one proposed in UniDexGrasp(Xu et al., 2023)" — so that one term remains unverifiable from this PDF, OCR or not.
 
 Code, `dexgrasp/tasks/shadow_hand_residual_grasp.py::compute_hand_reward` (identical body appears in `shadow_hand_blind_grasp.py`, `shadow_hand_grasp.py`, `shadow_hand_pcl.py`, `shadow_hand_random_load_vision.py`):
 ```

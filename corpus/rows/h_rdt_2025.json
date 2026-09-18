@@ -29,5 +29,6 @@
  "retargeting_objective": "no explicit kinematic retargeting; the 48-D bimanual wrist+fingertip human action space is treated as a superset of most end-effector action spaces, and the human-to-robot correspondence is instead learned implicitly by reinitializing and fine-tuning the state/action adaptors and action decoder on paired robot data while keeping the pretrained vision/language backbone",
  "data_hours": 829,
  "data_trajectories": 338000,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": null
 }

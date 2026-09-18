@@ -29,5 +29,6 @@
  "retargeting_objective": "hand poses mapped via a distilled MLP replicating a Robotic-Telekinesis-style fingertip/palm keypoint-vector energy function; wrist trajectory computed via a PnP + monocular SLAM + heuristic gravity-alignment + workspace-rescaling pipeline, both applied offline to build pretraining trajectories, not run online at deployment",
  "data_hours": null,
  "data_trajectories": 965,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": null
 }

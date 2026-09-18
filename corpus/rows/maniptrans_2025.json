@@ -31,5 +31,8 @@
  "reward_terms": 5,
  "code_released": true,
  "paper_code_mismatch": "paper's PPO learning rate (5e-4) and env count (4096) differ from the shipped README/yaml defaults (2e-4, 8192)",
- "note_gaps": "displayed equations (Eq.1 r_finger, Eq.2 r_contact, SE(3) wrist terms) are images blank in the markdown; code truncates compute_imitation_reward before the object-rotation/contact/total-sum lines"
+ "note_gaps": "displayed equations (Eq.1 r_finger, Eq.2 r_contact, SE(3) wrist terms) are images blank in the markdown; code truncates compute_imitation_reward before the object-rotation/contact/total-sum lines",
+ "mismatch_class": "contradiction",
+ "mismatch_confidence": "high",
+ "reward_term_names": ["r_wrist", "r_finger", "r_smooth", "r_object", "r_contact"]
 }

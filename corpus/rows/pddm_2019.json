@@ -24,5 +24,7 @@
  "reward_terms": null,
  "code_released": true,
  "paper_code_mismatch": "Table 2 states obs-dim 46 for In-hand Reorientation while the released cube_env.py code sums to 39; the Baoding reward code includes an extra -10*wrist_too_high term absent from Table 2's printed formula.",
- "note_gaps": null
+ "note_gaps": null,
+ "mismatch_class": "contradiction",
+ "mismatch_confidence": "high"
 }

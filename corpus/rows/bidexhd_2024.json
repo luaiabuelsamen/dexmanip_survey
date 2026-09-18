@@ -30,5 +30,8 @@
  "reward_terms": 4,
  "code_released": true,
  "paper_code_mismatch": "Table 5 weights (w_r, w_t, w1-w4, lambda_w=0.12, lambda_ft=0.48) cannot be matched to code reward lines because the code md truncates the reward function before stage-2/final sum; lambda_w and lambda_ft numerically match the code's grasp-condition thresholds (0.12, 0.12x4 fingers) rather than confirmed reward weights",
- "note_gaps": "Eq.1-7 (observation vector and all reward formulas) were dropped by PDF-to-markdown conversion; reward terms/weights are reconstructed from surrounding prose and code only"
+ "note_gaps": "Eq.1-7 (observation vector and all reward formulas) were dropped by PDF-to-markdown conversion; reward terms/weights are reconstructed from surrounding prose and code only",
+ "mismatch_class": "parse-limitation",
+ "mismatch_confidence": "high",
+ "reward_term_names": ["r_appro", "r_lift", "r_bonus", "r_track"]
 }

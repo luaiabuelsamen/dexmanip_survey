@@ -30,5 +30,7 @@
  "action_head": "DiT (Diffusion Transformer) controller performing bidirectional self-attention over noised action tokens and cross-attention to fused DINOv2 (head ViT-B/14 + wrist ViT-L/14) and mask-ViT observation features, predicting noise ε (MSE loss); Immiscible Diffusion noise assignment; DDIM inference (16 of 50 steps); action chunk horizon H=64, executes first 6 actions before replanning at 20Hz control rate",
  "pretrain_data": null,
  "dexterous_hand_evaluated": true,
- "dexterous_evidence": "\"As shown in Figure 3, our setup includes a 7-DoF RealMan RM75-6F arm and a 6-DoF PsiBot G0-R hand.\" (Sec. 5.1, Experiment Setups)"
+ "dexterous_evidence": "\"As shown in Figure 3, our setup includes a 7-DoF RealMan RM75-6F arm and a 6-DoF PsiBot G0-R hand.\" (Sec. 5.1, Experiment Setups)",
+ "mismatch_class": "parse-limitation",
+ "mismatch_confidence": "high"
 }

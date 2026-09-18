@@ -25,5 +25,7 @@
  "reward_term_names": ["r_dis", "r_v", "r_ω", "r_m", "r_c", "r_f", "r_reg", "r_anatomy"],
  "code_released": true,
  "paper_code_mismatch": "The code splits the paper's single r_reg = -w_h||u_h||^2 - w_o||u_o||^2 into four separately-weighted terms (wrist vel, wrist qvel, object vel, object qvel), and the floating-phase object-velocity coefficient (-1.5) does not match the paper's stated w_o=0.1, so the regularization weighting cannot be reconciled 1:1 with Table 9.",
- "note_gaps": "The C++ Environment.hpp that assembles the observation/reward is not present in code/md, so only YAML coefficient values (not the reward's functional form) are code-verified; the wrist-rotation weight w_ω has no clearly corresponding config field; the parallel-env count (32) is code-only, not stated in the paper."
+ "note_gaps": "The C++ Environment.hpp that assembles the observation/reward is not present in code/md, so only YAML coefficient values (not the reward's functional form) are code-verified; the wrist-rotation weight w_ω has no clearly corresponding config field; the parallel-env count (32) is code-only, not stated in the paper.",
+ "mismatch_class": "contradiction",
+ "mismatch_confidence": "medium"
 }

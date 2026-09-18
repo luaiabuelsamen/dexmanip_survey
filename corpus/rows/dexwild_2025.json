@@ -2,15 +2,8 @@
  "key": "dexwild_2025",
  "year": 2025,
  "class": "method",
- "task_family": [
-  "grasp",
-  "functional/tool",
-  "bimanual-coord"
- ],
- "paradigm": [
-  "BC",
-  "data-collection"
- ],
+ "task_family": ["grasp", "functional/tool", "bimanual-coord"],
+ "paradigm": ["BC", "data-collection"],
  "algorithm": "diffusion U-Net policy (also compared against ACT) co-trained on human wearable-rig demonstrations and teleoperated robot demonstrations via fixed-ratio batch sampling",
  "hand": "LEAP Hand / LEAP Hand V2 Advanced",
  "hand_dof": 17,
@@ -36,5 +29,6 @@
  "retargeting_objective": "robot hand kinematics optimized to match observed human fingertip positions (fixed hyperparameters, no per-user tuning); a relative (delta) end-effector state-action representation removes the need for a global coordinate frame, and identical palm-camera mounting on human and robot hands makes RGB observations look the same across embodiments",
  "data_hours": 46.2,
  "data_trajectories": 9290,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": null
 }

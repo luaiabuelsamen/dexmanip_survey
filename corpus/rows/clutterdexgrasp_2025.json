@@ -21,7 +21,7 @@
  "objects_test_unseen": 2029,
  "human_data": "none",
  "penetration": "constrained",
- "reward_terms": null,
+ "reward_terms": 4,
  "reward_term_names": ["r_pos", "r_neg", "r_grasp", "r_force"],
  "code_released": false,
  "paper_code_mismatch": null,

@@ -28,5 +28,7 @@
  "reward_terms": null,
  "code_released": true,
  "paper_code_mismatch": "Algorithm 1 pseudocode states L_reconst = MSE, but Sec.IV.C's prose explicitly states L1 loss is used instead; the algorithm box and the implementation text disagree; code/md captures only function signatures, not bodies, for policy.py's loss implementation",
- "note_gaps": "policy.py loss function bodies were not captured in code md, only signatures; the README's quoted reproduction success rates (~90%/~50%) do not exactly match Table I's 97/82 and 90/60"
+ "note_gaps": "policy.py loss function bodies were not captured in code md, only signatures; the README's quoted reproduction success rates (~90%/~50%) do not exactly match Table I's 97/82 and 90/60",
+ "mismatch_class": "internal-inconsistency",
+ "mismatch_confidence": "high"
 }

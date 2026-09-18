@@ -27,7 +27,7 @@
  "human_data": "none",
  "penetration": null,
  "reward_terms": 7,
- "reward_term_names": null,
+ "reward_term_names": ["R_torque", "R_Force", "R_diff", "R_outer", "terminal-state penalty", "R_action", "R_vel"],
  "code_released": false,
  "paper_code_mismatch": null,
  "note_gaps": "All reward-equation numeric weights (w_torque, w_diff, w_outer, w_action, w_vel, \u03c3, \u03c4_max, F_max for grasping; w_goal, w_action, \u03b1, \u03b4_dist, \u03b4_rot/pos thresholds, C_Bonus for rotation) were dropped by PDF conversion and no code exists to recover them; the exact training object-set size and generalization test-set size for grasping are not stated (only 2 named unseen objects shown). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"

@@ -30,5 +30,7 @@
  "action_head": "Mixture-of-Flow (MoF) action expert combining a continuous Rectified-Flow velocity-field head (linear-interpolation probability path, MSE flow-matching loss) with a discrete Masked Motion Token Prediction head (cross-entropy over a pretrained quantized motion tokenizer), integrated via Mixture-of-Transformers with shared Foundation-Expert layers and routed Top-K specialized experts; deployment uses Euler-integration denoising with fewer than 10 steps",
  "pretrain_data": "UniHand-2.0: 35,000 hours / 400M+ samples / 120B+ training tokens, comprising 16,000 hours / 134M samples of human egocentric video (MANO annotated via HaWoR), 14,000 hours / ~1.5B frames of robot data across 30 embodiments, and 5,000 'equivalent hours' of vision-text data",
  "dexterous_hand_evaluated": true,
- "dexterous_evidence": "\"real-robot evaluation uses a Franka FR3 arm fitted with the 'Inspire Hand,' a Unitree G1 fitted with 'LinkerBot O6,' a PND Adam-U with an integrated dexterous hand, and a BeingBeyond D1 arm with a dexterous hand, all tagged 'Dexterous (6DoF)'\" (Table 2, sec. 7.1.1), distinct from the parallel-gripper LeRobot SO-101 also in the same real-robot suite."
+ "dexterous_evidence": "\"real-robot evaluation uses a Franka FR3 arm fitted with the 'Inspire Hand,' a Unitree G1 fitted with 'LinkerBot O6,' a PND Adam-U with an integrated dexterous hand, and a BeingBeyond D1 arm with a dexterous hand, all tagged 'Dexterous (6DoF)'\" (Table 2, sec. 7.1.1), distinct from the parallel-gripper LeRobot SO-101 also in the same real-robot suite.",
+ "mismatch_class": "code-absent",
+ "mismatch_confidence": "high"
 }

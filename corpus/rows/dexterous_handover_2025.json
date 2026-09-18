@@ -21,7 +21,8 @@
   "objects_test_unseen": 3,
   "human_data": "none",
   "penetration": "not addressed",
-  "reward_terms": null,
+  "reward_terms": 3,
+  "reward_term_names": ["r_BASE", "contact_term (c·w_c)", "r_MANIP"],
   "code_released": null,
   "paper_code_mismatch": null,
   "note_gaps": "Numeric reward equations (3)-(12) were rendered as images in the source PDF and did not survive extraction as text, so only two named constants (α=12, η0=1) and prose descriptions of the reward terms are available, and exact reward_terms count is not stated. Abstract states code and videos are available at a link, but the URL did not survive PDF-to-markdown conversion and no code/md file or github field exists for this key, so release status is not verifiable."

@@ -25,5 +25,7 @@
  "reward_term_names": ["ang_z_vel_reward", "lin_vel_penalty", "object_fall_penalty", "deviation_penalty"],
  "code_released": true,
  "paper_code_mismatch": "The released DrEureka repo (code/md) contains only forward_locomotion/ and globe_walking/ trees; the LEAP-hand cube-rotation training/deployment code and the quoted Prompt-13 reward are the LEAP-hand authors' own code, not included in the released repo, so the cube-rotation reward cannot be cross-checked against a code file.",
- "note_gaps": "No plain-Eureka (reward-only, no DR) ablation is run for cube rotation, and no per-trial/rollout count is given for the cube-rotation real-world evaluation beyond the general '3 random seeds per DR configuration' protocol."
+ "note_gaps": "No plain-Eureka (reward-only, no DR) ablation is run for cube rotation, and no per-trial/rollout count is given for the cube-rotation real-world evaluation beyond the general '3 random seeds per DR configuration' protocol.",
+ "mismatch_class": "code-absent",
+ "mismatch_confidence": "high"
 }

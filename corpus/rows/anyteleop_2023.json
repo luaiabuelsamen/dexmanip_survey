@@ -29,5 +29,6 @@
  "retargeting_objective": "minimize the difference between human and robot fingertip keypoint vectors via forward kinematics, with joint-limit constraints and a temporal-smoothness penalty",
  "data_hours": null,
  "data_trajectories": null,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": "26-35 ms hand pose, 9-10 ms retargeting (Table II); no end-to-end figure"
 }

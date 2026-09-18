@@ -24,5 +24,7 @@
   "reward_terms": 4,
   "code_released": true,
   "paper_code_mismatch": "Code contains a GraspAndPlace-task reward variant (AllegroHandDualArmGraspAndPlaceAsymDex.py) with exponential hand-distance and block-alignment terms not one of the four BiDexHands tasks described in the paper body.",
-  "note_gaps": null
+  "note_gaps": null,
+  "mismatch_class": "code-absent",
+  "mismatch_confidence": "medium"
 }

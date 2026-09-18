@@ -2,16 +2,8 @@
  "key": "dexcap_2024",
  "year": 2024,
  "class": "method",
- "task_family": [
-  "grasp",
-  "bimanual-coord",
-  "functional/tool"
- ],
- "paradigm": [
-  "BC",
-  "diffusion",
-  "data-collection"
- ],
+ "task_family": ["grasp", "bimanual-coord", "functional/tool"],
+ "paradigm": ["BC", "diffusion", "data-collection"],
  "algorithm": "Diffusion Policy with Perceiver point-cloud encoder (DP-perc)",
  "hand": "LEAP Hand",
  "hand_dof": 16,
@@ -32,5 +24,11 @@
  "reward_terms": null,
  "code_released": true,
  "paper_code_mismatch": null,
- "note_gaps": "Exact data-collection throughput (demos/hour) is not given, only a qualitative '3x faster than traditional teleoperation' claim; the diffusion-policy training loss is not restated as a formula in the parsed text. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "Exact data-collection throughput (demos/hour) is not given, only a qualitative '3x faster than traditional teleoperation' claim; the diffusion-policy training loss is not restated as a formula in the parsed text. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "operator_interface": "wearable backpack rig: Rokoko EMF gloves, one SLAM camera per wrist and a chest-mounted RGB-D LiDAR; no robot in the loop during collection",
+ "retargeting_objective": "fingertip-position inverse kinematics into the 16-dim LEAP joint space anchored by the mocap wrist pose, with the little finger discarded",
+ "latency": null,
+ "rig_cost_usd": 4000,
+ "data_hours": 4.5,
+ "data_trajectories": 787
 }

@@ -20,7 +20,7 @@ Technical report on Isaac Lab, "the natural successor to Isaac Gym" (Abstract): 
 - key trick(s): GPU Tensor API views over cloned prototype scenes (Sec. 2.2); tiled rendering into one render product (3.3.2); Warp ray-caster (3.3.3); ADR curriculum with "reference ADR configurations" in the `dexsuite` examples (5.3); DexPBT reproduction "of the 6D reposing task from the original DexPBT work using 8 workers, each with 1–2 GPUs, and converges in approximately 16 hours on NVIDIA OVX L40 hardware" (5.2).
 
 ## Evaluation
-- metrics: FPS = environment learning throughput (the defining formula is an image and did not survive parsing, Sec. 4.1); sensor FPS isolates sensor update time (Sec. 4.2). Benchmarks headless on L40 (48 GB, 2x EPYC 7763), RTX Pro 6000 (96 GB, 2x EPYC 9554), GeForce 5090 (32 GB, 1x 8-core 9800X3D) (Sec. 4.1). Multi-GPU only on RTX Pro 6000.
+- metrics: FPS = environment learning throughput. The defining formula, recovered by OCR from papers/md/isaaclab_2025.ocr.md (OCR text is noisier than the layout parse, symbols may be imperfect) — Eq. (1), Sec. 4.1: "FPS = (# of environment steps) / (simulation time + learning time)". Sensor FPS isolates sensor update time (Sec. 4.2), Eq. (2): "FPS = (# of rendering steps) / (simulation time)" — this simplified form applies once learning time is excluded for the sensor-only benchmark. Benchmarks headless on L40 (48 GB, 2x EPYC 7763), RTX Pro 6000 (96 GB, 2x EPYC 9554), GeForce 5090 (32 GB, 1x 8-core 9800X3D) (Sec. 4.1). Multi-GPU only on RTX Pro 6000.
 - benchmark platforms (Sec. 4.1):
   - L40, 48 GB, server with 2x AMD EPYC 7763 (64-core)
   - RTX Pro 6000, 96 GB, server with 2x AMD EPYC 9554 (64-core); the only multi-GPU (2/4/8) platform

@@ -22,7 +22,7 @@
  "human_data": "none",
  "penetration": "not addressed",
  "reward_terms": 5,
- "reward_term_names": null,
+ "reward_term_names": ["csuccess", "cdist", "crot", "cω", "ca"],
  "code_released": false,
  "paper_code_mismatch": null,
  "note_gaps": "Reward equation (Eq. 1), MDP objective, and the five-metric definitions are typeset math lost in the PDF parse; the angular-velocity penalty weight c_ω is named in prose but absent from Table II; the abstract's 150-object claim is inconsistent with the appendix's 100-train/50-OOD split."

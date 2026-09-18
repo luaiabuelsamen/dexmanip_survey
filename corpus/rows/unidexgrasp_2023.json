@@ -25,5 +25,7 @@
  "reward_term_names": ["goal", "reach", "lift", "move"],
  "code_released": true,
  "paper_code_mismatch": "The paper describes a four-term weighted reward (r_goal + r_reach + r_lift + r_move via Table 7's omega weights) but the released compute_hand_reward implements a different threshold-gated torch.where cascade with distinct hardcoded coefficients that do not map one-to-one onto the paper's weights.",
- "note_gaps": "Domain randomization is code-only and not mentioned in the paper text; the proposal-generation loss weights (L_cmap, L_pen, L_tpen, L_spen) were not cross-checked against a code loss-function source in this pass."
+ "note_gaps": "Domain randomization is code-only and not mentioned in the paper text; the proposal-generation loss weights (L_cmap, L_pen, L_tpen, L_spen) were not cross-checked against a code loss-function source in this pass.",
+ "mismatch_class": "contradiction",
+ "mismatch_confidence": "high"
 }

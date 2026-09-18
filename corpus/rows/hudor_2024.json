@@ -29,5 +29,6 @@
  "retargeting_objective": "direct Cartesian-space correspondence: human fingertip 3D positions are treated as target Cartesian positions for the corresponding robot fingertips with no kinematic-chain optimization, converted to joint commands via a custom Jacobian-based gradient-descent IK",
  "data_hours": null,
  "data_trajectories": 4,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": null
 }

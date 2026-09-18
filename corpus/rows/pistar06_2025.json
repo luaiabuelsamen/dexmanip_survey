@@ -30,5 +30,7 @@
   "action_head": "flow-matching action expert (860M parameters) attending to the rest of the model's activations, trained jointly with a discretized FAST-tokenizer prediction under the Knowledge Insulation recipe (stop-gradient so the flow-matching expert does not affect the rest of the model)",
   "pretrain_data": "'tens of thousands of hours of demonstrations from numerous tasks and a variety of different robots' (§IV, robots not itemized); the released openpi base checkpoints are separately stated to be pre-trained on '10k+ hours of robot data'",
   "dexterous_hand_evaluated": false,
-  "dexterous_evidence": "\"For the iterative improvement experiments, we use a static bimanual system with two 6 DoF arms with parallel jaw grippers.\" (Fig. 5 caption, §VI setup)"
+  "dexterous_evidence": "\"For the iterative improvement experiments, we use a static bimanual system with two 6 DoF arms with parallel jaw grippers.\" (Fig. 5 caption, §VI setup)",
+  "mismatch_class": "code-absent",
+  "mismatch_confidence": "high"
 }

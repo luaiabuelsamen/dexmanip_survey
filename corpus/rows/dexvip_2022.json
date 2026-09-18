@@ -29,5 +29,6 @@
  "retargeting_objective": "deterministic 4-stage geometric mapping (not an optimization) from FrankMocap's 21-joint hand pose to Adroit's 30-DoF joint space, applied once offline to produce a single static consensus target pose per object category, used only as a reward target",
  "data_hours": null,
  "data_trajectories": null,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": null
 }

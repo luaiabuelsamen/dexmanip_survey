@@ -29,5 +29,7 @@
  "reward_terms": 5,
  "code_released": true,
  "paper_code_mismatch": "The parsed code commit's joint-noise range, disabled default disturbance force, and default cube object type differ from the paper's stated values; the code README itself says to use tag v0.0.1, not the parsed commit, to reproduce paper numbers.",
- "note_gaps": null
+ "note_gaps": null,
+ "mismatch_class": "version-skew",
+ "mismatch_confidence": "high"
 }

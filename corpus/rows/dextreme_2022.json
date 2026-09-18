@@ -28,5 +28,7 @@
  "reward_terms": 6,
  "code_released": true,
  "paper_code_mismatch": "Action Delta Penalty weight is -0.25 in paper Table 2 but -0.2 in the ADR yaml and -0.01 in the ManualDR yaml; the Joint Velocity Penalty in code normalises velocity by (max_velocity-vel_tolerance) unlike the paper's stated formula; code has a timeout_rew term absent from the paper's reward table; Appendix Table 12 states critic learning rate 5e-4 and KL threshold 0.16, vs body text/code values of 5e-5 and 0.016.",
- "note_gaps": null
+ "note_gaps": null,
+ "mismatch_class": "contradiction",
+ "mismatch_confidence": "high"
 }

@@ -29,5 +29,6 @@
  "retargeting_objective": "two-stage geometry-aware retargeting: Stage 1 fingertip-vector alignment to human hand geometry; Stage 2 object-mesh-aware refinement combining a surface-contact term, a differentiable-SDF interpenetration penalty, a self-collision sphere term, and a temporal-smoothness term, producing the fingertip+object-pose subgoals the RL controller tracks",
  "data_hours": null,
  "data_trajectories": null,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": null
 }

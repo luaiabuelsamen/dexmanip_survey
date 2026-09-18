@@ -29,5 +29,6 @@
  "retargeting_objective": "wrist/end-effector pose mapped via a scale-and-recenter IK transform (Normal/Mirror/Bimanual modes) from exoskeleton forward kinematics; finger joints retargeted via AnyTeleop's fingertip-keypoint-vector optimization with joint limits and temporal smoothing",
  "data_hours": null,
  "data_trajectories": null,
- "rig_cost_usd": 600
+ "rig_cost_usd": 600,
+ "latency": "27 Hz hand tracking; no end-to-end figure"
 }

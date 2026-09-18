@@ -29,5 +29,6 @@
  "retargeting_objective": "no per-finger kinematic retargeting (end effector is a 2-finger gripper); domain alignment via a shared per-timestep camera-centered reference frame, per-embodiment Gaussian normalization of proprioception/actions, and SAM2-based visual masking with a directional line overlay applied identically to human and robot streams",
  "data_hours": 4,
  "data_trajectories": 2150,
- "rig_cost_usd": 1000
+ "rig_cost_usd": 1000,
+ "latency": null
 }

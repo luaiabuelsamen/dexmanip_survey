@@ -29,5 +29,6 @@
  "retargeting_objective": "human 21-keypoint (MANO-style) hand pose retargeted via an optimization-based procedure enforcing joint limits and kinematic constraints into the 22-DoF Sharpa Wave hand joint space; wrist motion is represented as a shared relative SE(3) transform identical across human and robot data",
  "data_hours": 20854,
  "data_trajectories": null,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": null
 }

@@ -29,5 +29,7 @@
  "reward_terms": 4,
  "code_released": true,
  "paper_code_mismatch": "paper describes a plain weighted sum lambda_task*r_task + lambda_imi*r_imi + lambda_bc*r_bc + lambda_con*r_con with unspecified weights; code implements a multiplicative task term with per-component beta decay, an unmentioned 0.1 force-penalty term, and curriculum-driven decay of auxiliary weights not described as such in the paper",
- "note_gaps": "equations for r_imi/r_bc/r_con and the hybrid-action mapping are images missing from the markdown; Fig.3/5 main results (bar charts) have no extractable numeric values"
+ "note_gaps": "equations for r_imi/r_bc/r_con and the hybrid-action mapping are images missing from the markdown; Fig.3/5 main results (bar charts) have no extractable numeric values",
+ "mismatch_class": "contradiction",
+ "mismatch_confidence": "high"
 }

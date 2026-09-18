@@ -29,5 +29,6 @@
  "retargeting_objective": "delegated entirely to the cited third-party teleoperation system; CyberDemo does not describe or modify the human-to-robot mapping itself",
  "data_hours": null,
  "data_trajectories": null,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": null
 }

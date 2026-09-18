@@ -33,5 +33,7 @@
  "reward_terms": null,
  "code_released": true,
  "paper_code_mismatch": "the paper's prose states the network predicts the noise added to the data, but the shipped default config trains with prediction_type: sample (predicting the denoised action a^0 directly), not epsilon; the paper only qualifies this later in the same section (Fig. 7 ablates both).",
- "note_gaps": "The DDPM reverse-process equation and part of the Implementation Details paragraph are flattened around a table/figure block; code/md is a signature-only API map with no compute_loss body, so the loss is confirmed from paper prose plus the shipped scheduler config only."
+ "note_gaps": "The DDPM reverse-process equation and part of the Implementation Details paragraph are flattened around a table/figure block; code/md is a signature-only API map with no compute_loss body, so the loss is confirmed from paper prose plus the shipped scheduler config only.",
+ "mismatch_class": "internal-inconsistency",
+ "mismatch_confidence": "medium"
 }

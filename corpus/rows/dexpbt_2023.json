@@ -30,5 +30,8 @@
  "reward_terms": 4,
  "code_released": true,
  "paper_code_mismatch": "Paper presents the reward as 4 mutually exclusive stage terms (r_reach, r_pick, r_targ, -r_vel), but code's compute_kuka_reward sums 8 named components, one of which (hand_delta_penalty) is multiplied by 0 and disabled; there is no single r_vel term in code, instead separate kuka/allegro action penalties whose exact formula is not shown. Also, the paper reports zero experiments with domain randomization, yet the shipped AllegroKuka.yaml already carries a fully specified DR schedule (disabled via randomize: False).",
- "note_gaps": "the meta-objective equation combining tolerance progress and success count was not fully OCR'd from the equation image (only the described behavior is quoted verbatim); the code/md dump truncates before PhysX contact-offset settings, the compute_full_state observation-assembly body, and the cuboid/stick size-generation function bodies."
+ "note_gaps": "the meta-objective equation combining tolerance progress and success count was not fully OCR'd from the equation image (only the described behavior is quoted verbatim); the code/md dump truncates before PhysX contact-offset settings, the compute_full_state observation-assembly body, and the cuboid/stick size-generation function bodies.",
+ "mismatch_class": "contradiction",
+ "mismatch_confidence": "high",
+ "reward_term_names": ["r_reach", "r_pick", "r_targ", "r_vel"]
 }

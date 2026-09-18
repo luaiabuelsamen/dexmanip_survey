@@ -29,5 +29,7 @@
  "retargeting_objective": "learned per-finger neural network trained offline (3-5 minutes) to jointly satisfy motion-direction preservation, C-space coverage, flatness, pinch correspondence, and self-collision avoidance, replacing per-frame online optimization with a single 1kHz forward pass at inference",
  "data_hours": null,
  "data_trajectories": null,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": "1 kHz retargeting inference, against 60-100 Hz for optimisation baselines",
+ "reward_term_names": ["Ldir", "Lcover", "Lflat", "Lpinch", "Lcol"]
 }

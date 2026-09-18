@@ -30,5 +30,7 @@
   "action_head": "flow-matching action expert (300M parameters) conditioned on an autoregressively-predicted high-level subtask, added after a discrete FAST-token pretraining stage",
   "pretrain_data": "MM (~400 hrs mobile-manipulator household data across ~100 homes), ME (multi-environment fixed-arm home data), CE (cross-embodiment lab data including OXE), HL (manual subtask/bounding-box annotations), WD (web multimodal data: CapsFusion, COCO, Cambrian-7M, PixMo, VQAv2, object localization), VI (post-training verbal-instruction data)",
   "dexterous_hand_evaluated": false,
-  "dexterous_evidence": "\"Both platforms are equipped with two 6 DoF arms with parallel jaw grippers and wrist-mounted monocular RGB cameras, a wheeled holonomic base, and a torso lift mechanism.\" (Sec. IV-E)"
+  "dexterous_evidence": "\"Both platforms are equipped with two 6 DoF arms with parallel jaw grippers and wrist-mounted monocular RGB cameras, a wheeled holonomic base, and a torso lift mechanism.\" (Sec. IV-E)",
+  "mismatch_class": "code-absent",
+  "mismatch_confidence": "high"
 }

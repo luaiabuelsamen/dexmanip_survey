@@ -1,6 +1,6 @@
 """Generate the survey's tables from corpus/rows/*.json. A cell that no note confirmed prints
 as an em space, and each table states how many cells are empty."""
-import json, glob
+import json, glob, re
 from pathlib import Path
 R = Path(__file__).resolve().parents[1]
 ROWS = {}
@@ -43,7 +43,7 @@ USES = {
     "leap_hand_2023":              r"\bleap\b",
     "leap_hand_v2_adv_2025":       r"leap hand v2",
     "inspire_rh56dfx_2023":        r"inspire",
-    "psyonic_ability_hand_2021":   r"psyonic|ability hand",
+    "psyonic_ability_hand_2021":   r"psyonic|\bability\b",
     "robotera_xhand1_2024":        r"xhand",
     "sharpa_wave_2026":            r"sharpa",
     "wuji_hand_2025":              r"wuji",
@@ -88,8 +88,8 @@ if __name__ == "__main__":
     for h in hands: h["used_by"] = used_by(h["key"], methods_for_use)
     sold = [r for r in hands if r.get("release_status") in ("sold", "open-source", None)]
     unrel = [r for r in hands if r.get("release_status") in ("announced", "prototype", "internal-only")]
-    hc = ["key","maker","dof","actuated_dof","actuation","weight_g","fingertip_force_n","tactile","price_usd","open_hardware","release_status","source_quality"]
-    hh = ["hand","maker","DoF","act. DoF","actuation","weight g","tip force N","tactile","price USD","open HW","status","source"]
+    hc = ["key","maker","dof","actuated_dof","actuation","weight_g","fingertip_force_n","tactile","price_usd","open_hardware","release_status","source_quality","used_by"]
+    hh = ["hand","maker","DoF","act. DoF","actuation","weight g","tip force N","tactile","price USD","open HW","status","source","corpus methods using it"]
     (outdir/"table2_hands_available.md").write_text("### Table 2. Hands that can be obtained\n\n" + table(sold, hc, hh, sort=lambda r: -(r.get("dof") or 0)))
     (outdir/"table3_hands_announced.md").write_text("### Table 3. Hands announced but not purchasable\n\n" + table(unrel, hc, hh, sort=lambda r: -(r.get("dof") or 0)))
     sims = [r for r in ROWS.values() if r.get("class") == "simulator"]
@@ -100,5 +100,42 @@ if __name__ == "__main__":
     mc = ["key","year","task_family","paradigm","algorithm","hand","hand_dof","bimanual","sim","real_robot","real_trials","objects_test_unseen","penetration","code_released"]
     mh = ["method","yr","task","paradigm","algorithm","hand","DoF","bi","sim","real","trials","unseen obj","penetration","code"]
     (outdir/"table7_methods.md").write_text("### Table 7. Methods\n\n" + table(meth, mc, mh, sort=lambda r: (str(r.get("year")), r["key"])))
-    print("hands", len(hands), "sims", len(sims), "methods", len(meth))
+    # --- Table 5. Reward-term families across the in-hand reorientation RL methods ---
+    rm = json.loads((R / "corpus/reward_matrix.json").read_text())
+    fams, labs = rm["_families"], rm["_family_labels"]
+    MARK = {"paper": "paper", "code": "code", "both": "both", None: EM}
+    t5 = ["| method | yr | " + " | ".join(labs[f] for f in fams) + " | terms | code | paper/code mismatch |",
+          "|" + "|".join(["---"] * (len(fams) + 5)) + "|"]
+    empty = total = 0
+    for row in sorted(rm["rows"], key=lambda x: (ROWS.get(x["key"], {}).get("year", 0), x["key"])):
+        src = ROWS.get(row["key"], {})
+        cells = [MARK[row[f]] for f in fams]
+        empty += sum(1 for c in cells if c == EM); total += len(cells)
+        t5.append("| `%s` | %s | %s | %s | %s | %s |" % (
+            row["key"], cell(src.get("year")), " | ".join(cells),
+            cell(src.get("reward_terms")), cell(src.get("code_released")),
+            "yes" if src.get("paper_code_mismatch") else ("no" if src.get("code_released") else EM)))
+    t5.append("\n*%d rows; %d of %d term cells (%d%%) are families the method does not use. "
+              "`paper` means the term is in the paper and either no code was released or it is absent from "
+              "the released reward code; `code` means it is in the released code and not in the paper's "
+              "stated reward; `both` means it is in both. Marks are read from papers/notes/, term by term; "
+              "the per-method source section is in corpus/reward_matrix.json.*"
+              % (len(rm["rows"]), empty, total, 100 * empty // max(total, 1)))
+    (outdir/"table5_rewards.md").write_text("### Table 5. Reward terms across in-hand reorientation methods\n\n" + "\n".join(t5))
+
+    # --- Table 6. Teleoperation and human-data systems ---
+    tele = [r for r in ROWS.values() if "operator_interface" in r]
+    def collected(r):
+        bits = []
+        if r.get("data_trajectories"): bits.append(f"{r['data_trajectories']:,} traj")
+        if r.get("data_hours"): bits.append(f"{r['data_hours']} h")
+        return ", ".join(bits) or None
+    for r in tele: r["_collected"] = collected(r)
+    tc = ["key","operator_interface","hand","retargeting_objective","latency","rig_cost_usd","_collected"]
+    th = ["system","operator interface","robot hand","retargeting objective","latency","rig USD","data collected"]
+    (outdir/"table6_teleop.md").write_text("### Table 6. Teleoperation and human-data systems\n\n"
+        + table(tele, tc, th, sort=lambda r: (str(r.get("year")), r["key"])))
+
+    print("hands", len(hands), "sims", len(sims), "methods", len(meth),
+          "reward rows", len(rm["rows"]), "teleop rows", len(tele))
     for f in sorted(outdir.glob("*.md")): print(" ", f.name, f.stat().st_size)

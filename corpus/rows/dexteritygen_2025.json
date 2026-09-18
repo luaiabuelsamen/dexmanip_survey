@@ -29,5 +29,6 @@
  "retargeting_objective": null,
  "data_hours": null,
  "data_trajectories": null,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": null
 }

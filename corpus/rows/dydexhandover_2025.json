@@ -22,6 +22,7 @@
   "human_data": "a small number of human throwing demonstrations collected via teleoperation of the right arm in sim (exact count not stated)",
   "penetration": "not addressed",
   "reward_terms": 5,
+  "reward_term_names": ["R_dist", "R_obj", "R_contact", "P_action", "P_hand"],
   "code_released": false,
   "paper_code_mismatch": null,
   "note_gaps": "Individual per-term reward formulas and the KL-regularized objective equation were rendered as images/inline math in the PDF and did not survive extraction as text; only term names, prose descriptions, and the combined weighted-sum equation (R = 4R_dist + 0.5R_obj + R_contact + 0.0001P_action + P_hand) are available."

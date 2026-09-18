@@ -29,5 +29,6 @@
  "retargeting_objective": "factorized retargeting run once per demonstration video: arm/shoulder-elbow-wrist IK (via the Pink library, wrist position dominating the objective) plus hand joint angles computed via dex-retargeting from SMPL-H hand keypoints; the resulting trajectory is affinely SE(3)-warped at test time to match newly localized object start/end poses, with fingers retargeted independently of arm warping",
  "data_hours": null,
  "data_trajectories": null,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": null
 }

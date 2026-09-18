@@ -29,5 +29,6 @@
  "retargeting_objective": "no kinematic hand-to-robot retargeting; both human and robot are represented in a shared morphology-agnostic 3D-point space so the policy transfers zero-shot without any cross-embodiment pose-mapping step",
  "data_hours": null,
  "data_trajectories": 700,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": null
 }

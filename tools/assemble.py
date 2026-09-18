@@ -41,3 +41,6 @@ def main():
     import os
     unknown = [k for k in keys if not os.path.exists(R / f"papers/notes/{k}.md") and "_" in k and re.search(r"_\d{4}$", k)]
     print(f"cited keys: {len(keys)}; citations with no note: {unknown}")
+
+if __name__ == "__main__":
+    main()

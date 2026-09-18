@@ -29,5 +29,6 @@
  "retargeting_objective": "match human (MANO forward-kinematics) and robot task-space vectors (palm-to-fingertip and palm-to-mid-phalanx pairs) per frame via SLSQP with a temporal-consistency term, then fit a minimum-jerk joint trajectory and compute torques via inverse dynamics",
  "data_hours": 7,
  "data_trajectories": 700,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": null
 }

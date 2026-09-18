@@ -29,5 +29,6 @@
  "retargeting_objective": "map human fingertip 2D image locations directly to fixed-height robot fingertip 3D targets (no depth estimation), then solve per-finger inverse kinematics for joint angles",
  "data_hours": null,
  "data_trajectories": 30,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": "not stated; targets at 30 Hz, PD loop at 300 Hz"
 }

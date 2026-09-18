@@ -24,5 +24,7 @@
   "reward_terms": null,
   "code_released": true,
   "paper_code_mismatch": "The paper's prose states 25k training iterations, lr 5e-5, batch size 45, but the code repo's example training command instead shows 50000 epochs and an explicit kl_weight=10 not mentioned anywhere in the paper text.",
-  "note_gaps": "One of the two embodiments (Fourier GR-1) uses a 1-DoF parallel-jaw gripper rather than a multi-fingered hand; exact trial counts vary by task (5 real-world episodes/task in general, but 30 sub-task trials specifically for GR-1 Can Sorting), so a single settled real_trials figure could not be extracted."
+  "note_gaps": "One of the two embodiments (Fourier GR-1) uses a 1-DoF parallel-jaw gripper rather than a multi-fingered hand; exact trial counts vary by task (5 real-world episodes/task in general, but 30 sub-task trials specifically for GR-1 Can Sorting), so a single settled real_trials figure could not be extracted.",
+  "mismatch_class": "contradiction",
+  "mismatch_confidence": "high"
 }

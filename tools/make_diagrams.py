@@ -7,6 +7,8 @@ STYLE = """<style>
  text{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;fill:var(--ink)}
  .t{font-size:15px;font-weight:600}.s{font-size:11.5px;fill:var(--mut)}.l{font-size:11.5px}
  .n{font-size:10px;fill:var(--mut)}.h{font-size:12px;font-weight:600}
+ .k{font-size:9px;fill:var(--mut);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+ .cnt{font-size:13px;font-weight:700;fill:var(--a)}
  .box{fill:var(--fill);stroke:var(--line);stroke-width:1}
  .box2{fill:var(--fill2);stroke:var(--line);stroke-width:1}
  .ed{stroke:var(--mut);stroke-width:1.2;fill:none}
@@ -68,21 +70,30 @@ def fig3():
     return svg(W,H+80,"".join(b),"A simulation step and where engines differ")
 
 def fig5():
-    W,H=820,300
+    # Counts: the 25 corpus papers whose notes place a learned controller on two
+    # dexterous hands. Datasets, static grasp-pose synthesis and two-gripper papers
+    # are excluded. bidexhands_2022 ships panels 1 and 2; asymdex_2024 uses 3 and 4.
+    W,H=820,326
     b=[f'<text class="t" x="24" y="30">Figure 5. Four ways to control two dexterous hands</text>',
-       f'<text class="s" x="24" y="50">Counts are surveyed bimanual method papers using each architecture.</text>']
-    panels=[("one policy, both hands","observation of both hands and object|one network|joint action vector","most of the corpus"),
-            ("two policies, shared observation","each hand its own network|both see the same state","a minority"),
-            ("leader and follower","one hand assigned the dominant role|the other reacts to it","AsymDex"),
-            ("relative frame","action expressed between the hands|or in the object frame","AsymDex, DexMachina")]
-    x,y,bw,bh=28,76,182,140
-    for i,(t,body,who) in enumerate(panels):
+       f'<text class="s" x="24" y="50">Counts are the 25 corpus papers that put a learned controller on two dexterous hands. Two are counted twice.</text>']
+    panels=[("one policy, both hands","observation of both hands and object|one network, joint action vector",
+             "19 of 25","twisting_lids_2024  dexmachina_2025|maniptrans_2025  dexman_2025|robopianist_2023  gr_dexter_2025|and 13 more"),
+            ("two policies, per hand","each hand its own network|centralised critic, or own obs. only",
+             "5 of 25","bidexhands_2022 (MARL baselines)|bidexhd_2024  artigrasp_2023|dynamic_handover_2023|dydexhandover_2025"),
+            ("leader and follower","one hand assigned the dominant role|the other reacts to it",
+             "2 of 25","asymdex_2024|dexterous_handover_2025,|whose leader is a scripted arm|and is never learned"),
+            ("relative frame","action expressed between the hands|or in the held object's frame",
+             "1 of 25","asymdex_2024|dexmimicgen_2024 preserves it|offline, when generating data,|not in the policy's observation")]
+    x,y,bw,bh=28,72,182,188
+    for i,(t_,body,cnt,keys) in enumerate(panels):
         px=x+i*(bw+14)
-        b.append(f'<rect class="box" x="{px}" y="{y}" width="{bw}" height="{bh}" rx="4"/>')
-        b.append(f'<text class="h" x="{px+bw/2}" y="{y+20}" text-anchor="middle">{t}</text>')
+        edge=' stroke-width="2.2" stroke="var(--a)"' if i==0 else ''
+        b.append(f'<rect class="box" x="{px}" y="{y}" width="{bw}" height="{bh}" rx="4"{edge}/>')
+        b.append(f'<text class="h" x="{px+bw/2}" y="{y+20}" text-anchor="middle">{t_}</text>')
+        b.append(f'<text class="cnt" x="{px+bw/2}" y="{y+38}" text-anchor="middle">{cnt}</text>')
         for j,ln in enumerate(body.split("|")):
-            b.append(f'<text class="n" x="{px+bw/2}" y="{y+42+j*15}" text-anchor="middle">{ln}</text>')
-        cy=y+bh-38
+            b.append(f'<text class="n" x="{px+bw/2}" y="{y+56+j*13}" text-anchor="middle">{ln}</text>')
+        cy=y+116
         if i==0:
             b.append(f'<circle cx="{px+50}" cy="{cy}" r="9" class="box2"/><circle cx="{px+132}" cy="{cy}" r="9" class="box2"/>')
             b.append(f'<rect class="box2" x="{px+68}" y="{cy-26}" width="46" height="16" rx="3"/>')
@@ -100,8 +111,10 @@ def fig5():
             b.append(f'<circle cx="{px+50}" cy="{cy}" r="9" class="box2"/><circle cx="{px+132}" cy="{cy}" r="9" class="box2"/>')
             b.append(f'<line class="ed" x1="{px+59}" y1="{cy}" x2="{px+123}" y2="{cy}" stroke-dasharray="3 2"/>')
             b.append(f'<text class="n" x="{px+91}" y="{cy-6}" text-anchor="middle">&#916;</text>')
+        for j,ln in enumerate(keys.split("|")):
+            b.append(f'<text class="k" x="{px+bw/2}" y="{y+143+j*12}" text-anchor="middle">{ln}</text>')
     b.append(f'<text class="s" x="24" y="{y+bh+30}">The field is concentrated in the first panel. The two on the right are where the structure of the problem is</text>')
-    b.append(f'<text class="s" x="24" y="{y+bh+46}">actually used, and both are represented by a handful of papers.</text>')
+    b.append(f'<text class="s" x="24" y="{y+bh+46}">actually used, and asymdex_2024 is the only corpus paper that puts either one inside a policy.</text>')
     return svg(W,H+40,"".join(b),"Bimanual coordination architectures")
 
 if __name__=="__main__":

@@ -32,5 +32,7 @@
  "reward_terms": null,
  "code_released": true,
  "paper_code_mismatch": "the paper's core loss equations (DDPM training loss, EBM/InfoNCE, score-matching) are unrecovered images in the parsed text, and code/md is a signature-only API map, so compute_loss's body could not be verified from code; only the exact shipped noise-scheduler config (DDPMScheduler, 100 train steps) is confirmed.",
- "note_gaps": "Core equations (Eq. 1-9) rendered as images and did not survive conversion to text; code/md has class/def signatures and config YAMLs only, no function bodies. No hand/dexterous-manipulation results in this paper itself (included as the shared policy-head architecture for dp3_2024 and umi_2024)."
+ "note_gaps": "Core equations (Eq. 1-9) rendered as images and did not survive conversion to text; code/md has class/def signatures and config YAMLs only, no function bodies. No hand/dexterous-manipulation results in this paper itself (included as the shared policy-head architecture for dp3_2024 and umi_2024).",
+ "mismatch_class": "parse-limitation",
+ "mismatch_confidence": "high"
 }

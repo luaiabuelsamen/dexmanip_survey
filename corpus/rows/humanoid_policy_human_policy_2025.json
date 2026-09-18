@@ -29,5 +29,6 @@
  "retargeting_objective": "no offline kinematic retargeting network; human and robot share an identical 54-D state-action space via a bijective fingertip-to-fingertip correspondence (both are 5-fingered hands), bridged only by action-speed interpolation (human trajectories slowed ~4x) and instructing operators to minimize torso movement",
  "data_hours": null,
  "data_trajectories": null,
- "rig_cost_usd": 700
+ "rig_cost_usd": 700,
+ "latency": null
 }

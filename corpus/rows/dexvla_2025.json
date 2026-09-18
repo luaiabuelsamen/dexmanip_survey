@@ -30,5 +30,7 @@
  "action_head": "ScaleDP (Scale Diffusion Policy), a Diffusion-Policy-in-Transformer variant with a multi-head output (one head per robot embodiment/configuration), 32 layers, hidden size 1280, 16 heads, ResNet-50 per-camera-view image features, FiLM-injected reasoning tokens from the VLM for implicit sub-step planning",
  "pretrain_data": "~100 hours of real-robot teleoperated demonstration data across 91 tasks and 4 embodiments, used across a 3-stage Embodied Curriculum Learning recipe",
  "dexterous_hand_evaluated": true,
- "dexterous_evidence": "\"dexterous-hand-evaluated: yes — but only for one real-robot task family (drink pouring/packing new-embodiment tests, §4.2, plus its Table-4 generalization variant and the App. A.5 zero-shot probe), while the shirt-folding/bussing/sorting/bin-picking/laundry/dryer-unloading headline tasks all run on parallel-jaw grippers.\""
+ "dexterous_evidence": "\"dexterous-hand-evaluated: yes — but only for one real-robot task family (drink pouring/packing new-embodiment tests, §4.2, plus its Table-4 generalization variant and the App. A.5 zero-shot probe), while the shirt-folding/bussing/sorting/bin-picking/laundry/dryer-unloading headline tasks all run on parallel-jaw grippers.\"",
+ "mismatch_class": "parse-limitation",
+ "mismatch_confidence": "high"
 }

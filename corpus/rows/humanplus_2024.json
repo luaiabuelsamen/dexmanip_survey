@@ -30,5 +30,7 @@
  "reward_terms": 8,
  "code_released": true,
  "paper_code_mismatch": "code implements a superset of legged_gym reward terms (lin_vel_z, ang_vel_xy, orientation, base_height, torques, dof_vel, dof_acc, action_rate, collision, termination, dof/torque limits, tracking_lin/ang_vel, feet_air_time, stumble, stand_still, feet_contact_forces, target_jt) beyond the 8 terms documented in the paper's Table 1",
- "note_gaps": "HIT's exact loss weighting (L2 feature term) could not be confirmed from code, signature only; no hand-object collision handling is quantified anywhere in either source"
+ "note_gaps": "HIT's exact loss weighting (L2 feature term) could not be confirmed from code, signature only; no hand-object collision handling is quantified anywhere in either source",
+ "mismatch_class": "parse-limitation",
+ "mismatch_confidence": "medium"
 }

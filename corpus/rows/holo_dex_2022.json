@@ -29,5 +29,6 @@
  "retargeting_objective": "direct joint-angle copy for index/middle/ring fingers; thumb fingertip position matched via inverse kinematics; pinky ignored (no cost function or optimization)",
  "data_hours": null,
  "data_trajectories": null,
- "rig_cost_usd": 399
+ "rig_cost_usd": 399,
+ "latency": "under 100 ms on a local network (Sec. IV-D)"
 }

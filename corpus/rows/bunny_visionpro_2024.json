@@ -29,5 +29,6 @@
  "retargeting_objective": "minimize scaled human-robot fingertip keypoint-vector distance via forward kinematics with joint limits and temporal smoothness (hand), solved online via SQP with a reduced-dimension reformulation for loop joints; separately, a unified IK + singularity-avoidance + sphere-approximated self-collision objective for arm motion",
  "data_hours": null,
  "data_trajectories": null,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": "3.43 ms retargeting, 15.93 ms motion control, >60 Hz overall (Table 1)"
 }

@@ -29,5 +29,6 @@
  "retargeting_objective": "two-stage human-in-the-loop kinematic retargeting: an automatic PyBullet multi-end-effector IK stage aligns a 6-DoF offset between a virtual human-hand-fixed base and the real robot base to match fingertip positions (respecting joint limits, with iterative mimic-joint correction), followed by an interactive GUI stage where a human manually corrects alignment; a separate visual-alignment step masks the human hand from the pointcloud and re-renders the retargeted robot-hand mesh into the scene",
  "data_hours": null,
  "data_trajectories": 52000,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": null
 }

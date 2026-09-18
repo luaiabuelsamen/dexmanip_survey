@@ -2,15 +2,8 @@
  "key": "dexpilot_2020",
  "year": 2020,
  "class": "method",
- "task_family": [
-  "reorient",
-  "grasp",
-  "functional/tool",
-  "other"
- ],
- "paradigm": [
-  "teleop-system"
- ],
+ "task_family": ["reorient", "grasp", "functional/tool", "other"],
+ "paradigm": ["teleop-system"],
  "algorithm": "DART model-based hand tracker bootstrapped by two learned neural priors (GloveNet ResNet-50 keypoint regressor; PointNet++-based keypoint network + JointNet FC mapping), online fingertip-vector kinematic retargeting solved via SLSQP (NLopt) warm-started each frame, Riemannian Motion Policies for arm motion generation",
  "hand": "Wonik Robotics Allegro hand (16-DoF, 4x4-joint fingers), retrofitted with 4 SynTouch BioTac tactile sensors at the fingertips",
  "hand_dof": 16,
@@ -31,5 +24,11 @@
  "reward_terms": null,
  "code_released": false,
  "paper_code_mismatch": null,
- "note_gaps": "The kinematic-retargeting cost function's exact equation is an unrecovered image in the parsed markdown; only the surrounding prose defining its terms (beta, eta1, eta2, gamma, the S1/S2 vector sets, Table I) survived, so the precise algebraic form (which terms are squared-norm distance vs minimum-separation penalties) could not be verified."
+ "note_gaps": "The kinematic-retargeting cost function's exact equation is an unrecovered image in the parsed markdown; only the surrounding prose defining its terms (beta, eta1, eta2, gamma, the S1/S2 vector sets, Table I) survived, so the precise algebraic form (which terms are squared-norm distance vs minimum-separation penalties) could not be verified.",
+ "operator_interface": "four RealSense D415 RGB-D cameras tracking a bare hand, markerless; a coloured glove is worn only offline to train the neural hand-pose priors",
+ "retargeting_objective": "minimise a weighted squared distance between human and Allegro fingertip task-space vectors, with switching weights that close primary-finger-to-thumb gaps and enforce a minimum finger separation, plus a regulariser toward the open hand, solved online with SLSQP",
+ "latency": "about one second, end to end (Sec. IV)",
+ "rig_cost_usd": null,
+ "data_hours": null,
+ "data_trajectories": null
 }

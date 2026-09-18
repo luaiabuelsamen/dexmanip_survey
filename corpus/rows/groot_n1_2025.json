@@ -30,5 +30,7 @@
   "action_head": "DiT (diffusion-transformer) flow-matching action head, action chunk H=16, closed-loop at 120Hz, K=4-step forward-Euler denoising at inference, plus an auxiliary L_det MSE term (L = L_fm + L_det)",
   "pretrain_data": "data pyramid, 592.9M frames / 8,375.7 hr total (Table 7): real-robot teleop (GR-1 + OXE subsets [DROID, RT-1, Language Table, Bridge-v2, MUTEX, Plex, RoboSet] + AgiBot-Alpha + RH20T-Robot, 262.3M/3,288.8 hr), human video (Ego4D etc., 181.3M/2,517.0 hr, latent-action labeled), DexMimicGen/RoboCasa simulation (125.5M/1,742.6 hr), neural-generated video (23.8M/827.3 hr)",
   "dexterous_hand_evaluated": true,
-  "dexterous_evidence": "\"This benchmark focuses on dexterous hand control using the GR-1 humanoid robot equipped with Fourier dexterous hands.\" (Sec. 4.1, GR-1 Tabletop Tasks)"
+  "dexterous_evidence": "\"This benchmark focuses on dexterous hand control using the GR-1 humanoid robot equipped with Fourier dexterous hands.\" (Sec. 4.1, GR-1 Tabletop Tasks)",
+  "mismatch_class": "version-skew",
+  "mismatch_confidence": "high"
 }

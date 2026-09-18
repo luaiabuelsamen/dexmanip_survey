@@ -29,5 +29,6 @@
  "retargeting_objective": "for pre-grasps only: inverse kinematics fits the robot hand's fingertip positions to a single human hand pose frame near first contact, used solely to initialize RL exploration; full object trajectories are used directly as the RL goal with no hand-trajectory retargeting",
  "data_hours": null,
  "data_trajectories": 40,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": null
 }

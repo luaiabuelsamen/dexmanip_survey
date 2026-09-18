@@ -2,7 +2,7 @@
 
 sources: papers/md/physhoi_2023.md [b0079392] ; code/md/physhoi_2023.md [6095c605]
 
-Parse caveat: nearly every inline reward equation in Sec. 3.6 (body/object/IG/CG reward formulas, Eq. 4 and its object/IG/CG analogues) renders blank in the flattened markdown — only the surrounding prose, variable names, and Table 4's weight values survive. The exp(−error·weight) functional form quoted in the Method block below is confirmed from code/md (`compute_humanoid_reward`), not from the paper's own (blank) equations. Code/md's `compute_humanoid_reward` function body is also truncated mid-way (cuts off after computing `ref_body_contact`, before the final CGR combination and `return` statement is shown) — the final multiplicative combination with `r_cg` is reported per the paper's prose ("we multiply the CGR with the previous kinematic rewards", Sec. 3.6) rather than confirmed from a `return` line.
+Parse caveat (updated): nearly every inline reward equation in Sec. 3.6 (Eqs. 2-11: total reward, body/object/IG/CG reward formulas and their sub-terms) rendered blank in the flattened markdown — only the surrounding prose, variable names, and Table 4's weight values survived there. All of Eqs. 2-11 have since been recovered by OCR from papers/md/physhoi_2023.ocr.md (recovered by OCR from papers/md/physhoi_2023.ocr.md; OCR text is noisier than the layout parse, symbols may be imperfect): "rt = rb_t ∗ ro_t ∗ rig_t ∗ rcg_t" (Eq. 2); "rb_t = rp_t ∗ rr_t ∗ rpv_t ∗ rrv_t" (Eq. 3); "rp_t = exp(−λp ∗ ep_t), ep_t = MSE(sp_t, sp_t-hat)" (Eq. 4); "rr_t = exp(−λr ∗ er_t), er_t = MSE(sr_t, sr_t-hat)" (Eq. 5); "rpv_t = exp(−λpv ∗ epv_t), epv_t = MSE(spv_t, spv_t-hat)" (Eq. 6); "rrv_t = exp(−λrv ∗ erv_t), erv_t = MSE(srv_t, srv_t-hat)" (Eq. 7); "ro_t = rop_t ∗ ror_t ∗ ropv_t ∗ rorv_t" (Eq. 8, object-side analogue of Eq. 4, sharing its functional form with λop, λor, λopv, λorv); "rig_t = exp(−λig ∗ eig_t), eig_t = MSE(sig_t, sig_t-hat)" (Eq. 9); "ecg_t = |scg_t − scg_t-hat|" (Eq. 10, element-wise absolute value); "rcg_t = exp(−sum_{j=1}^J λcg[j] ∗ ecg_t[j])" (Eq. 11, where J = k(k−1)/2 is the CG edge count, ecg_t[j] a binary per-edge label error (0 or 1), λcg[j] the per-edge sensitivity weight). This confirms the exp(−error·weight) functional form quoted in the Method block below exactly, including the multiplicative (not additive) combination of all four top-level terms, matching what was inferred from code/md (`compute_humanoid_reward`) before this recovery. Code/md's `compute_humanoid_reward` function body is still truncated mid-way (cuts off after computing `ref_body_contact`, before the final CGR combination and `return` statement is shown) — the final multiplicative combination with `r_cg` is now additionally confirmed by the paper's own Eq. 2, not just its prose.
 
 ## One-line contribution
 A whole-body simulated humanoid (SMPL-X, 51×3 DoF incl. 30×3 for the hands) is trained with PPO to imitate human-object-interaction references by combining a task-agnostic kinematic imitation reward (body + object + interaction-graph) with a general-purpose, aggregated Contact Graph reward that fixes a specific local optimum — "not touching the object" — that the kinematic-only reward falls into (Sec. 3.6, Fig. 7).
@@ -17,7 +17,120 @@ A whole-body simulated humanoid (SMPL-X, 51×3 DoF incl. 30×3 for the hands) is
 ## Method
 - paradigm: RL only (no IL/distillation stage). Algorithm: PPO (Sec. 3.1, citing standard PPO [79]), following the ASE codebase (App. A.3: "our code is based on the ASE project [72]").
 - retargeting / correspondence: the paper does not retarget a separate robot hand — the simulated humanoid IS built to match the SMPL-X mesh directly ("we build the simulation models of robots and objects to match their meshes ... following UHC", App. A.1), so there is no cross-embodiment optimization step; the humanoid's own kinematic tree is fit to the human shape/pose parameters. Not applicable in the sense of a hand-correspondence retargeting map (e.g. fingertip IK to a different DoF hand) — this is a same-embodiment humanoid tracker, not a human→robot-hand retargeting method.
-- reward (paper, Sec. 3.6): "the proposed task-agnostic HOI imitation reward consists of four parts: the body motion reward r_t^b, the object motion reward r_t^o, the IG reward r_t^ig, and the CG reward r_t^cg. To obtain balanced reward values, we multiply these rewards": r_total = r_t^b · r_t^o · r_t^ig · r_t^cg (equation itself blank in the parse; multiplicative form stated in prose and confirmed by code). Body reward r_t^b = r_t^p · r_t^r · r_t^pv · r_t^rv (position, rotation, position-velocity, rotation-velocity sub-rewards); object reward r_t^o = r_t^op · r_t^or · r_t^opv · r_t^orv (analogous, object-side); IG reward r_t^ig from the interaction-graph error; CG reward r_t^cg from the CG error e_t^cg (element-wise absolute contact-label mismatch) with independent per-edge weights λ^cg (Sec. 3.6).
+- reward (paper, Sec. 3.6): "the proposed task-agnostic HOI imitation reward consists of four parts: the body motion reward r_t^b, the object motion reward r_t^o, the IG reward r_t^ig, and the CG reward r_t^cg. To obtain balanced reward values, we multiply these rewards": "rt = rb_t ∗ ro_t ∗ rig_t ∗ rcg_t" (Eq. 2, recovered by OCR — see Parse caveat above for the full Eq. 2-11 recovery and marker). Body reward "rb_t = rp_t ∗ rr_t ∗ rpv_t ∗ rrv_t" (Eq. 3, position/rotation/position-velocity/rotation-velocity sub-rewards, each "exp(−λ ∗ e)" with e a per-component MSE against the reference, Eqs. 4-7); object reward "ro_t = rop_t ∗ ror_t ∗ ropv_t ∗ rorv_t" (Eq. 8, analogous, object-side); IG reward "rig_t = exp(−λig ∗ eig_t)" (Eq. 9) from the interaction-graph MSE error; CG reward "rcg_t = exp(−sum_{j=1}^J λcg[j] ∗ ecg_t[j])" (Eq. 11) from the CG error "ecg_t = |scg_t − scg_t-hat|" (Eq. 10, element-wise absolute contact-label mismatch) with independent per-edge weights λ^cg (Sec. 3.6).
+
+- reward (paper, Sec. 3.6, **verbatim OCR**): the summary above tidies the OCR's notation (underscored subscripts, an explicit `sum_{j=1}^J`, `-hat` for the reference marker). For the record, the equations exactly as the OCR gives them — line breaks, spacing and all, with no cleanup — are below; note that the two-line typeset subscripts come out as a stray `t` on its own line, and that in Eq. 11 the summation's Σ glyph is missing entirely, leaving only its `J` / `j=1` bounds (recovered by OCR from papers/md/physhoi_2023.ocr.md; OCR text is noisier than the layout parse, symbols may be imperfect).
+
+  ```
+  rt = rb
+  t ∗ro
+  t ∗rig
+  t ∗rcg
+  t ,
+  (2)
+  ```
+
+  ```
+  rb
+  t = rp
+  t ∗rr
+  t ∗rpv
+  t
+  ∗rrv
+  t ,
+  (3)
+  ```
+
+  ```
+  rp
+  t = exp(−λp ∗ep
+  t ),
+  ep
+  t = MSE(sp
+  t , ˆsp
+  t ),
+  (4)
+  ```
+
+  ```
+  rr
+  t = exp(−λr ∗er
+  t),
+  er
+  t = MSE(sr
+  t, ˆsr
+  t),
+  (5)
+  ```
+
+  ```
+  rpv
+  t
+  = exp(−λpv ∗epv
+  t ),
+  epv
+  t
+  = MSE(spv
+  t , ˆspv
+  t ),
+  (6)
+  ```
+
+  ```
+  rrv
+  t
+  = exp(−λrv ∗erv
+  t ),
+  erv
+  t
+  = MSE(srv
+  t , ˆsrv
+  t ),
+  (7)
+  ```
+
+  ```
+  ro
+  t = rop
+  t
+  ∗ror
+  t ∗ropv
+  t
+  ∗rorv
+  t
+  ,
+  (8)
+  ```
+
+  ```
+  rig
+  t = exp(−λig ∗eig
+  t ),
+  eig
+  t = MSE(sig
+  t , ˆsig
+  t ),
+  (9)
+  ```
+
+  ```
+  ecg
+  t = |scg
+  t −ˆscg
+  t |,
+  (10)
+  ```
+
+  ```
+  rcg
+  t
+  = exp(−
+  J
+  j=1
+  λcg[j] ∗ecg
+  t [j]),
+  (11)
+  ```
 - reward (code, physhoi/env/tasks/physhoi.py `compute_humanoid_reward`): each kinematic sub-reward is an exponential of a negative weighted squared error, e.g. `ep = mean((ref_key_pos - key_pos)**2, dim=-1); rp = exp(-ep*w['p'])`, identically for rotation (`rr`), rotation-velocity (`rrv`), object position (`rop`), object position-velocity (`ropv`); combined `rb = rp*rr*rpv*rrv`, `ro = rop*ror*ropv*rorv`, `rig = exp(-eig*w['ig'])`. **Mismatch (important for "position only vs. position+orientation" question):** in code, `epv` (body position-velocity error) is hard-set to `torch.zeros_like(ep)` — always zero regardless of the true position-velocity difference — so `rpv` is always 1 no matter what `w['pv']` is; likewise the object rotation error `eor` and object rotation-velocity error `eorv` are both hard-set to `torch.zeros_like(ep)` with the true computation commented out (`#torch.mean((ref_obj_rot - obj_rot)**2,dim=-1)`), so `ror` and `rorv` are always 1 regardless of `w['or']`/`w['orv']`. **This means the object is tracked in position only in the actual reward computation, not position+orientation, despite Table 4 listing nonzero λ^or (0.1 for GRAB) and λ^orv (0.01 for GRAB) as if orientation were tracked; those weights are dead code for the reward that ran.** (For BallPlay, the paper does state this is intentional: "we do not consider the basketball rotation since it is not provided, i.e., we set λ^or and λ^orv as zero for experiments on BallPlay", Sec. 5.1 — but for GRAB, Table 4 shows λ^or=0.1, λ^orv=0.01, non-zero, yet the code's hard-coded zeroing means this weight has no effect regardless of dataset.)
 - reward weights, Table 4 (App. A.3), body block [λ^p, λ^r, λ^pv, λ^rv], object block [λ^op, λ^or, λ^opv, λ^orv], IG [λ^ig], CG [λ^cg[0], λ^cg[1], λ^cg[2]]: BallPlay = [50, 20, 0.01, 0.01 | 1, 0, 0.01, 0 | 20 | 5, 5, 5]; GRAB = [50, 20, 0.01, 0.01 | 1, 0.1, 0.01, 0.01 | 20 | 50, 5, 5]. For BallPlay, λ^cg[0] (hands↔ball edge) is reduced to 0.01 for the fingertip-spin case specifically "to weak restrictions on contact between hands and the ball" (Table 4 caption).
 - key trick(s): **Contact Graph (CG)** (Sec. 3.4) — a complete graph over objects + humanoid body parts with binary edge labels for contact, aggregated into a small number of nodes (3 nodes for both GRAB — table/object/whole-body — and BallPlay — object/aggregated-hands/aggregated-rest-body) to keep it tractable ("the complete CG has 154 nodes ... and 11781 edges, which is costly", Sec. 3.4). The CG reward is introduced specifically to fix a documented RL failure mode: "during the training of grasp tasks, the contact between the humanoid and the object will, in most cases, cause the object to move away from the desired trajectory and the expected return becomes smaller. In this case, the policy may learn not to touch the object and falls into a local optimal" (Sec. 3.6) — i.e., the sparse/dense kinematic reward alone is gameable by non-contact, and the CG reward is added as a second, independent measure to prevent that learned behaviour.

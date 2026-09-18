@@ -29,5 +29,6 @@
  "retargeting_objective": "no explicit robot retargeting network; both human hands (MANO 21-keypoint) and robot end-effectors (Allegro fingertips via forward kinematics; parallel-jaw grippers approximated with dummy circular keypoints) are mapped into the same fingertip-keypoint-difference action representation, with the missing pinky filled by reusing the ring-finger-equivalent Allegro keypoints",
  "data_hours": 829,
  "data_trajectories": null,
- "rig_cost_usd": null
+ "rig_cost_usd": null,
+ "latency": null
 }

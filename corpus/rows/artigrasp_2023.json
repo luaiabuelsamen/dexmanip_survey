@@ -27,8 +27,11 @@
  "objects_test_unseen": 1,
  "human_data": "ARCTIC",
  "penetration": "not addressed",
- "reward_terms": null,
+ "reward_terms": 4,
+ "reward_term_names": ["r_p", "r_c", "r_reg", "r_task"],
  "code_released": true,
  "paper_code_mismatch": "paper's two regulariser weights (w_rh=0.5, w_ro=0.2) correspond to five separate velocity penalties in code (-0.5,-0.2,-0.5,-0.5,-0.3); the fingertip weight 12.0 and lambda 5.0 in Table 6 do not appear in the yaml; reward weights differ between curriculum phase-1 and phase-2 configs though Table 6 reports only one set",
- "note_gaps": "reward equations (Sec 4.3) were dropped by the PDF converter, leaving only prose descriptions and yaml coefficients; the reward body is C++ and not captured in the code md"
+ "note_gaps": "reward equations (Sec 4.3) were dropped by the PDF converter, leaving only prose descriptions and yaml coefficients; the reward body is C++ and not captured in the code md",
+ "mismatch_class": "contradiction",
+ "mismatch_confidence": "high"
 }

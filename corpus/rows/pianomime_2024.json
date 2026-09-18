@@ -24,5 +24,7 @@
   "reward_terms": 2,
   "code_released": true,
   "paper_code_mismatch": "Paper's Table 3 states 2 weighted reward terms (Key Press 2/3, Mimic 1/3), but the released code sums roughly 5 unweighted terms (key press doubled, sustain, energy and fingering hardcoded to return 0, forearm-collision) plus a separately-added mimic wrapper term.",
-  "note_gaps": "The generalist's exact training-objective equation is not rendered in the extracted paper md (only 'optimized with DDPM' is stated); the abstract's 56% F1 and the conclusion's 70% F1 on unseen songs are inconsistent and unreconciled in the source."
+  "note_gaps": "The generalist's exact training-objective equation is not rendered in the extracted paper md (only 'optimized with DDPM' is stated); the abstract's 56% F1 and the conclusion's 70% F1 on unseen songs are inconsistent and unreconciled in the source.",
+  "mismatch_class": "contradiction",
+  "mismatch_confidence": "high"
 }

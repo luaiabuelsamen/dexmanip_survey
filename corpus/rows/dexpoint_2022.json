@@ -25,5 +25,7 @@
  "reward_term_names": ["reach", "contact", "lift", "action penalty"],
  "code_released": true,
  "paper_code_mismatch": "The released code's reward adds several terms absent from the paper's four-term Eq. 5 (a lift-threshold bonus, a target-distance term, a rotation bonus, and an IK controller-tracking penalty) and reshapes the reach/lift terms into inverse-distance and clipped forms rather than the paper's plain distance/height-difference formulas.",
- "note_gaps": "Parallel env count, exact per-modality observation dimensions (Fig. 3, not extracted), and per-cell real trial totals behind the multi-object success tables are not stated numerically; the door-opening environment/reward code was not present in the parsed repo tree, so Table 2's door rows and Table 4 are not reproducible from the parse."
+ "note_gaps": "Parallel env count, exact per-modality observation dimensions (Fig. 3, not extracted), and per-cell real trial totals behind the multi-object success tables are not stated numerically; the door-opening environment/reward code was not present in the parsed repo tree, so Table 2's door rows and Table 4 are not reproducible from the parse.",
+ "mismatch_class": "contradiction",
+ "mismatch_confidence": "high"
 }

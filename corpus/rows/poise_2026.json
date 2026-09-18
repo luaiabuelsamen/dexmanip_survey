@@ -21,7 +21,7 @@
  "objects_test_unseen": 1,
  "human_data": "none",
  "penetration": "not addressed",
- "reward_terms": null,
+ "reward_terms": 4,
  "reward_term_names": ["pose reaching", "goal completion", "grasp maintenance", "drop and actuation regularization"],
  "code_released": false,
  "paper_code_mismatch": null,

@@ -29,5 +29,6 @@
  "retargeting_objective": "map glove-FK fingertip positions to robot fingertip targets via the third-party Mink differential-IK solver, with a single scalar hand-size scaling factor; no paper-original cost function",
  "data_hours": null,
  "data_trajectories": null,
- "rig_cost_usd": 600
+ "rig_cost_usd": 600,
+ "latency": "30 Hz minimum system rate (120 Hz mocap, 30 Hz haptics)"
 }

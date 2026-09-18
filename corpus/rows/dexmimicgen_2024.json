@@ -31,5 +31,7 @@
  "reward_terms": 1,
  "code_released": true,
  "paper_code_mismatch": "The environment code includes an unused 'reward_shaping' branch (if self.reward_shaping: pass) that is never described or used in the paper text; only the sparse binary completion reward is used, as the paper states.",
- "note_gaps": "No aggregate data-generation success rate is given across the 9 core simulation tasks (only downstream policy success rates, which conflate generation quality with policy learnability); the only explicit generation-success numbers are for the BiGym extension tasks (29.1% / 43.6% / 76.4%); exact observation-vector composition beyond 'image-based' is not detailed in the parsed text. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "No aggregate data-generation success rate is given across the 9 core simulation tasks (only downstream policy success rates, which conflate generation quality with policy learnability); the only explicit generation-success numbers are for the BiGym extension tasks (29.1% / 43.6% / 76.4%); exact observation-vector composition beyond 'image-based' is not detailed in the parsed text. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "mismatch_class": "code-absent",
+ "mismatch_confidence": "high"
 }
