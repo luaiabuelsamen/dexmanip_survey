@@ -1,0 +1,5 @@
+% alias for table4_rewards.tex; emits once however many sections input it
+\ifcsname dxdone@table4_rewards\endcsname\else
+  \expandafter\gdef\csname dxdone@table4_rewards\endcsname{}%
+  \input{tables/table4_rewards}%
+\fi

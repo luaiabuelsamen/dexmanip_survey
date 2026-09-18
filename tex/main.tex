@@ -1,0 +1,54 @@
+%% Dexterous Manipulation, Single-Hand and Bimanual: a survey.
+%% IEEEtran journal class, two columns, as used by robotics surveys posted to arXiv.
+%% Build:  latexmk -pdf main.tex     (see tools/build_tex.sh)
+\documentclass[journal,twoside]{IEEEtran}
+\input{preamble}
+\input{figs/plates}
+
+\begin{document}
+
+\title{Dexterous Manipulation, Single-Hand and Bimanual:\\
+Machines, Simulators, and How Policies Are Trained}
+
+\author{%
+  \IEEEauthorblockN{Luai Abuelsamen}%
+  \thanks{Corpus, notes and build at the repository accompanying this survey.
+  Every claim in this paper traces to a structured note taken from a parsed source, and every
+  count is recomputed from those notes at build time.}%
+}
+
+\markboth{Survey draft, \today}{Abuelsamen: Dexterous Manipulation, Single-Hand and Bimanual}
+\maketitle
+
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+
+\begin{IEEEkeywords}
+Dexterous manipulation, multi-fingered hands, bimanual manipulation, reinforcement learning,
+imitation learning, physics simulation, contact modelling, benchmarking, reproducibility.
+\end{IEEEkeywords}
+
+\IEEEpeerreviewmaketitle
+
+\input{sections/01_introduction}
+\input{sections/02_taxonomy}
+\input{sections/03_hands}
+\input{sections/04_simulators}
+\input{sections/05_training}
+\input{sections/06_bimanual}
+\input{sections/07_evaluation}
+\input{sections/08_gaps}
+\input{sections/09_conclusion}
+
+\appendices
+\input{sections/appendix_a_method}
+\input{sections/appendix_b_hands}
+\input{sections/appendix_c_rewards}
+\input{sections/appendix_d_surveys}
+
+\balance
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\end{document}

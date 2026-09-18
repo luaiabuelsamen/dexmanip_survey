@@ -1,0 +1,47 @@
+% --- classes and fonts -------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{url}
+\usepackage[hidelinks,breaklinks]{hyperref}
+\usepackage{balance}
+
+% --- the restrained palette --------------------------------------------------
+% One muted accent and greyscale. No gradients, no fills beyond a light wash.
+\definecolor{accent}{HTML}{2F5D7C}
+\definecolor{wash}{HTML}{F2F4F6}
+\definecolor{rule}{HTML}{B9C2C9}
+\definecolor{warn}{HTML}{8C4A32}
+
+% --- table style -------------------------------------------------------------
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcommand{\hdr}[1]{\textbf{#1}}
+\newcommand{\na}{\textcolor{black!35}{--}}   % a value no source stated
+
+% --- citation keys shown inline ---------------------------------------------
+\newcommand{\key}[1]{\texttt{\small #1}}
+
+% --- captions ----------------------------------------------------------------
+\captionsetup{font=small,labelfont=bf,skip=4pt}
+\captionsetup[table]{position=top,skip=3pt}
+\captionsetup[sub]{font=small}
+
+% --- reproduced-figure credit line ------------------------------------------
+% Every reproduced figure states where it came from, under the caption.
+\newcommand{\credit}[1]{\par\vspace{1pt}{\scriptsize\textcolor{black!55}{Reproduced from #1.}}}
+% A reproduced figure states its source and, until permission is recorded, says so quietly.
+\newcommand{\pending}[1]{\par\vspace{1pt}{\scriptsize\textcolor{black!50}{\textit{Reproduced from} #1\textit{; permission not yet sought, see the register.}}}}

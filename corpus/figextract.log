@@ -1,0 +1,260 @@
+[ok] ace_teleop_2024: 3 figures
+[ok] aloha_act_2023: 4 figures
+[ok] an_dexil_survey_2025: 4 figures
+[ok] anyrotate_2024: 1 figures
+[ok] anyteleop_2023: 6 figures
+[ok] arctic_2022: 8 figures
+[ok] articulated_tools_inhand_2025: 4 figures
+[ok] artigrasp_2023: 5 figures
+[ok] asymdex_2024: 2 figures
+[ok] autoeval_2025: 7 figures
+[ok] being_h05_2026: 1 figures
+[ok] being_h0_2025: 1 figures
+[ok] bench2dex_2026: 1 figures
+[ok] bidex_teleop_2024: 6 figures
+[ok] bidexgrasp_2026: 7 figures
+[ok] bidexhand_2025: 6 figures
+[ok] bidexhands_2022: 2 figures
+[ok] bidexhd_2024: 3 figures
+[ok] bimangrasp_2024: 6 figures
+[ok] brax_2021: 9 figures
+[ok] bunny_visionpro_2024: 3 figures
+[ok] castro_sap_contact_2021: 14 figures
+[ok] clutterdexgrasp_2025: 8 figures
+[ok] colosseum_2024: 17 figures
+[ok] comfree_sim_2026: 2 figures
+[ok] contact_models_comparison_2023: 2 figures
+[ok] cross_embodiment_world_models_2025: 3 figures
+[ok] cyberdemo_2024: 1 figures
+[ok] dapg_2017: 5 figures
+[ok] demostart_2024: 8 figures
+[ok] dex1b_2025: 6 figures
+[ok] dexart_2023: 1 figures
+[ok] dexcap_2024: 4 figures
+[ok] dexdeform_2023: 2 figures
+[ok] dexgraspvla_2025: 4 figures
+[ok] deximit_2026: 9 figures
+[ok] dexmachina_2025: 4 figures
+[ok] dexman_2025: 10 figures
+[ok] dexndm_2025: 2 figures
+[ok] dexpbt_2023: 2 figures
+[ok] dexpilot_2020: 12 figures
+[ok] dexplore_2025: 4 figures
+[ok] dexpoint_2022: 3 figures
+[ok] dexremoe_2025: 7 figures
+[ok] dexteleop0_2026: 1 figures
+MuPDF error: syntax error: could not parse color space (158 0 R)
+
+MuPDF error: syntax error: could not parse color space (215 0 R)
+
+MuPDF error: syntax error: could not parse color space (308 0 R)
+
+MuPDF error: syntax error: could not parse color space (357 0 R)
+
+MuPDF error: syntax error: could not parse color space (386 0 R)
+
+MuPDF error: syntax error: could not parse color space (484 0 R)
+
+[ok] dexterous_functional_grasping_2023: 7 figures
+[ok] dexterous_handover_2025: 3 figures
+[ok] dextrack_2025: 5 figures
+[ok] dextreme_2022: 5 figures
+[ok] dexumi_2025: 4 figures
+[ok] dexverse_2026: 5 figures
+[ok] dexvip_2022: 4 figures
+[ok] dexvla_2025: 1 figures
+[ok] dexwild_2025: 2 figures
+[ok] dexycb_2021: 10 figures
+[ok] diffusion_policy_2023: 8 figures
+[ok] digit360_2024: 11 figures
+[ok] digit_2020: 4 figures
+[ok] dime_2022: 1 figures
+[ok] dm_control_2020: 2 figures
+[ok] doglove_2025: 1 figures
+[ok] dojo_2022: 2 figures
+[ok] dp3_2024: 1 figures
+[ok] dreureka_2024: 7 figures
+[ok] dydexhandover_2025: 6 figures
+[ok] dynamic_handover_2023: 8 figures
+[ok] egodex_2025: 4 figures
+[ok] egomimic_2024: 8 figures
+[ok] egoscale_2026: 4 figures
+[ok] egozero_2025: 12 figures
+[ok] eureka_2023: 8 figures
+[ok] faive_hand_2023: 1 figures
+[ok] force_grasp_sim2real_2026: 1 figures
+[ok] gemini_robotics_15_2025: 7 figures
+[ok] gemini_robotics_2025: 11 figures
+MuPDF error: syntax error: could not parse color space (160 0 R)
+
+[ok] geometric_retargeting_2025: 4 figures
+[ok] gigahands_2024: 4 figures
+[ok] gr_dexter_2025: 3 figures
+[ok] grab_2020: 9 figures
+[ok] graspxl_2024: 6 figures
+[ok] groot_n1_2025: 4 figures
+[ok] h2o_dataset_2021: 3 figures
+[ok] h_rdt_2025: 1 figures
+[ok] hato_visuotactile_2024: 3 figures
+[ok] hoi4d_2022: 7 figures
+[ok] holo_dex_2022: 1 figures
+[ok] hora_2022: 1 figures
+[ok] hot3d_2024: 10 figures
+[ok] human2sim2robot_2025: 4 figures
+[ok] humanoid_policy_human_policy_2025: 1 figures
+[ok] humanoid_sim2real_recipe_2025: 2 figures
+[ok] humanoidbench_2024: 2 figures
+[ok] humanoidgen_2025: 5 figures
+[ok] humanplus_2024: 4 figures
+[ok] ilda_hand_2021: 8 figures
+[ok] isaac_gym_2021: 6 figures
+[ok] isaac_lab_2025: 15 figures
+[ok] isaac_sim_2026: 1 figures
+[ok] isaacgym_2021: 6 figures
+[ok] isaaclab_2025: 15 figures
+[ok] kress_gazit_policy_eval_2024: 4 figures
+[ok] lbm_careful_examination_2025: 8 figures
+[ok] libero_2023: 10 figures
+[ok] ma_dollar_dexterity_2011: 8 figures
+MuPDF error: syntax error: could not parse color space (216 0 R)
+
+MuPDF error: syntax error: could not parse color space (589 0 R)
+
+MuPDF error: syntax error: could not parse color space (705 0 R)
+
+[ok] maniskill2_2023: 4 figures
+[ok] maniskill3_2024: 21 figures
+[ok] metis_2025: 2 figures
+[ok] mjpc_2022: 2 figures
+[ok] mujoco_playground_2025: 3 figures
+MuPDF error: syntax error: could not parse color space (336 0 R)
+
+MuPDF error: syntax error: could not parse color space (801 0 R)
+
+MuPDF error: syntax error: could not parse color space (1028 0 R)
+
+MuPDF error: syntax error: could not parse color space (1097 0 R)
+
+MuPDF error: syntax error: could not parse color space (1155 0 R)
+
+MuPDF error: syntax error: could not parse color space (1474 0 R)
+
+MuPDF error: syntax error: could not parse color space (1572 0 R)
+
+MuPDF error: syntax error: could not parse color space (1572 0 R)
+
+MuPDF error: syntax error: could not parse color space (1572 0 R)
+
+MuPDF error: syntax error: could not parse color space (1572 0 R)
+
+MuPDF error: syntax error: could not parse color space (1719 0 R)
+
+MuPDF error: syntax error: could not parse color space (1883 0 R)
+
+MuPDF error: syntax error: could not parse color space (1883 0 R)
+
+MuPDF error: syntax error: could not parse color space (1883 0 R)
+
+MuPDF error: syntax error: could not parse color space (1883 0 R)
+
+[ok] oakink2_2024: 3 figures
+MuPDF error: syntax error: could not parse color space (206 0 R)
+
+MuPDF error: syntax error: could not parse color space (206 0 R)
+
+MuPDF error: syntax error: could not parse color space (206 0 R)
+
+MuPDF error: syntax error: could not parse color space (206 0 R)
+
+MuPDF error: syntax error: could not parse color space (460 0 R)
+
+MuPDF error: syntax error: could not parse color space (679 0 R)
+
+MuPDF error: syntax error: could not parse color space (834 0 R)
+
+MuPDF error: syntax error: could not parse color space (1080 0 R)
+
+MuPDF error: syntax error: could not parse color space (1080 0 R)
+
+MuPDF error: syntax error: could not parse color space (1080 0 R)
+
+MuPDF error: syntax error: could not parse color space (1080 0 R)
+
+MuPDF error: syntax error: could not parse color space (1229 0 R)
+
+MuPDF error: syntax error: could not parse color space (1229 0 R)
+
+MuPDF error: syntax error: could not parse color space (1229 0 R)
+
+MuPDF error: syntax error: could not parse color space (1229 0 R)
+
+MuPDF error: syntax error: could not parse color space (1341 0 R)
+
+MuPDF error: syntax error: could not parse color space (1341 0 R)
+
+MuPDF error: syntax error: could not parse color space (1341 0 R)
+
+MuPDF error: syntax error: could not parse color space (1341 0 R)
+
+[ok] oakink_2022: 7 figures
+[ok] objdex_2024: 5 figures
+[ok] okami_2024: 4 figures
+[ok] omnigrasp_2024: 4 figures
+[ok] omnih2o_2024: 3 figures
+[ok] open_television_2024: 6 figures
+[ok] openai_dexterity_2018: 7 figures
+[ok] openai_rubiks_cube_2019: 4 figures
+[ok] openvla_2024: 1 figures
+[ok] orbit_2023: 5 figures
+[ok] orca_hand_2025: 1 figures
+[ok] pang_global_planning_2022: 5 figures
+[ok] pddm_2019: 3 figures
+[ok] penspin_2024: 3 figures
+[ok] pgdm_2023: 3 figures
+[ok] physhoi_2023: 6 figures
+[ok] physics_engine_comparison_2015: 1 figures
+[ok] pi05_2025: 10 figures
+[ok] pi0_2024: 9 figures
+[ok] pianomime_2024: 8 figures
+[ok] pisa_iit_softhand_2014: 16 figures
+[ok] pistar06_2025: 8 figures
+[ok] plappert_multigoal_2018: 2 figures
+[ok] poise_2026: 4 figures
+[ok] resdex_2024: 1 figures
+[ok] rlbench_2019: 5 figures
+[ok] roboarena_2025: 2 figures
+[ok] robohive_2023: 5 figures
+[ok] robopianist_2023: 1 figures
+[ok] robot_synesthesia_2023: 4 figures
+MuPDF error: syntax error: could not parse color space (288 0 R)
+
+MuPDF error: syntax error: could not parse color space (785 0 R)
+
+[ok] rotateit_2023: 2 figures
+[ok] rotating_without_seeing_2023: 5 figures
+[ok] ruka_2025: 3 figures
+[ok] ruka_v2_2026: 9 figures
+[ok] sapien_2020: 3 figures
+[ok] simpler_2024: 1 figures
+[ok] simtoolreal_2026: 8 figures
+[ok] sparsh_2024: 8 figures
+[ok] suresim_2025: 8 figures
+[ok] taco_2024: 15 figures
+[ok] tactile_genesis_2026: 2 figures
+[ok] tacto_2020: 5 figures
+[ok] taxim_2021: 10 figures
+[ok] teledexter_2026: 2 figures
+[ok] toporetarget_2026: 5 figures
+[ok] twisting_lids_2024: 7 figures
+[ok] unidex_2026: 4 figures
+[ok] unidexgrasp_2023: 7 figures
+[ok] unidexgrasp_pp_2023: 4 figures
+[ok] videodex_2022: 6 figures
+[ok] viserdex_2026: 2 figures
+[ok] visual_dexterity_2022: 3 figures
+[ok] wm_dex_human_videos_2025: 14 figures
+[ok] ycb_2015: 11 figures
+[ok] zhao_sim2real_survey_2020: 1 figures
+
+catalogue: 166 papers, 858 figures
+FIGS_DONE

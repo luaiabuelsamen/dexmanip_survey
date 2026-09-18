@@ -1,0 +1,5 @@
+% alias for table5_teleop.tex; emits once however many sections input it
+\ifcsname dxdone@table5_teleop\endcsname\else
+  \expandafter\gdef\csname dxdone@table5_teleop\endcsname{}%
+  \input{tables/table5_teleop}%
+\fi

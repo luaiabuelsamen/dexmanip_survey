@@ -1,0 +1,177 @@
+% Figure: what supervises a dexterous policy. Drawn for the LaTeX edition in the restrained
+% palette: greyscale plus the one accent, thin rules, square corners, document font. It redraws
+% paper/figures/fig4_taxonomy.svg to the specification carried in paper/sections/05_training.md.
+% Every count is the number of corpus method rows the leaf's stated predicate selects, recomputed
+% from corpus/rows/*.json with the predicates of tools/make_flow_tree.py, so no leaf claims more
+% than it tests: the PPO leaves read `algorithm` and `sim` rather than the RL tag, the reward
+% branch counts RL and RL+demo together, the demonstration branch counts the union of BC,
+% diffusion and flow, and the no-learning branch counts the three papers that learn no policy
+% rather than the eleven rows carrying a trajopt or MPC tag. A paper may appear at more than one
+% leaf. Bars are linear in the count. Designed for a two-column figure* at 18.1 cm.
+\begin{tikzpicture}[
+  font=\footnotesize,
+  bar/.style={draw=none,fill=black!62},
+  baracc/.style={draw=none,fill=accent},
+  box/.style={draw=black!45,line width=0.3pt,inner sep=3pt,align=left},
+  tree/.style={draw=black!45,line width=0.35pt},
+  lnk/.style={draw=black!38,line width=0.28pt},
+  lbl/.style={font=\scriptsize,anchor=west},
+  ann/.style={font=\scriptsize\itshape,anchor=west},
+  key/.style={font=\tiny\ttfamily\color{black!58},anchor=west},
+  num/.style={font=\scriptsize,anchor=west},
+  bname/.style={font=\scriptsize\bfseries,anchor=north west,align=left,text width=2.7cm},
+  xl/.style={draw=black!45,line width=0.3pt,dash pattern=on 2pt off 1.6pt,-latex},
+  xt/.style={draw=accent,line width=0.4pt,dash pattern=on 3pt off 1.4pt on 1pt off 1.4pt,-latex},
+  xw/.style={font=\tiny\itshape\color{black!58},fill=white,inner sep=0.6pt},
+  ftr/.style={font=\scriptsize,anchor=north west,align=left,text width=17.6cm},
+]
+\node[box,anchor=west,text width=2.0cm] (root) at (0,-6.48) {\scriptsize\textbf{supervision for a dexterous policy}\\[1pt]{\tiny 112 method papers}};
+\draw[box] (2.90,0.22) rectangle (6.40,-2.92);
+\node[bname] at (3.02,0.16) {a reward function};
+\node[num,anchor=east,font=\scriptsize\bfseries] at (6.28,0.03) {59};
+\node[anchor=east,font=\tiny\color{black!55}] at (6.28,-0.23) {41 of 59 in a leaf};
+\draw[tree] (root.east) .. controls (2.55,-6.48) and (2.65,-1.35) .. (2.90,-1.35);
+\draw[tree] (6.55,0.00) -- (6.55,-2.70);
+\draw[tree] (6.40,-1.35) -- (6.55,-1.35);
+\draw[tree] (6.55,0.00) -- (6.69,0.00);
+\draw[tree] (6.55,-1.08) -- (6.69,-1.08);
+\draw[tree] (6.55,-2.16) -- (6.69,-2.16);
+\draw[tree] (6.55,-2.70) -- (6.69,-2.70);
+\draw[box] (2.90,-3.38) rectangle (6.40,-7.60);
+\node[bname] at (3.02,-3.44) {a human demonstration};
+\node[num,anchor=east,font=\scriptsize\bfseries] at (6.28,-3.57) {44};
+\node[anchor=east,font=\tiny\color{black!55}] at (6.28,-3.83) {26 of 44 in a leaf};
+\draw[tree] (root.east) .. controls (2.55,-6.48) and (2.65,-5.49) .. (2.90,-5.49);
+\draw[tree] (6.55,-3.60) -- (6.55,-5.22);
+\draw[tree] (6.40,-5.49) -- (6.55,-5.49);
+\draw[tree] (6.55,-3.60) -- (6.69,-3.60);
+\draw[tree] (6.55,-4.14) -- (6.69,-4.14);
+\draw[tree] (6.55,-4.68) -- (6.69,-4.68);
+\draw[tree] (6.55,-5.22) -- (6.69,-5.22);
+\draw[box] (2.90,-8.06) rectangle (6.40,-11.20);
+\node[bname] at (3.02,-8.12) {a human reference, tracked with physics};
+\node[num,anchor=east,font=\scriptsize\bfseries] at (6.28,-8.25) {12};
+\draw[tree] (root.east) .. controls (2.55,-6.48) and (2.65,-9.63) .. (2.90,-9.63);
+\draw[tree] (6.55,-8.28) -- (6.55,-10.98);
+\draw[tree] (6.40,-9.63) -- (6.55,-9.63);
+\draw[tree] (6.55,-8.28) -- (6.69,-8.28);
+\draw[tree] (6.55,-8.82) -- (6.69,-8.82);
+\draw[tree] (6.55,-9.36) -- (6.69,-9.36);
+\draw[tree] (6.55,-9.90) -- (6.69,-9.90);
+\draw[tree] (6.55,-10.44) -- (6.69,-10.44);
+\draw[tree] (6.55,-10.98) -- (6.69,-10.98);
+\draw[box] (2.90,-11.66) rectangle (6.40,-13.18);
+\node[bname] at (3.02,-11.72) {no learned policy};
+\node[num,anchor=east,font=\scriptsize\bfseries] at (6.28,-11.85) {3};
+\draw[tree] (root.east) .. controls (2.55,-6.48) and (2.65,-12.42) .. (2.90,-12.42);
+\draw[tree] (6.55,-11.88) -- (6.55,-12.96);
+\draw[tree] (6.40,-12.42) -- (6.55,-12.42);
+\draw[tree] (6.55,-11.88) -- (6.69,-11.88);
+\draw[tree] (6.55,-12.42) -- (6.69,-12.42);
+\draw[tree] (6.55,-12.96) -- (6.69,-12.96);
+\fill[bar] (6.75,-0.06) rectangle (7.75,0.06);
+\node[num] at (7.85,0.00) {20};
+\node[lbl] at (8.45,0.09) {PPO in a GPU-parallel simulator, no distillation stage};
+\node[key] at (8.45,-0.15) {physhoi\_2023, force\_grasp\_sim2real\_2026, dexman\_2025, and 17 more};
+\fill[baracc] (6.75,-0.60) rectangle (6.80,-0.49);
+\node[num] at (7.85,-0.54) {1};
+\node[ann] at (8.79,-0.45) {-- population-based training over hyperparameters};
+\node[key] at (8.79,-0.69) {dexpbt\_2023};
+\fill[bar] (6.75,-1.14) rectangle (7.55,-1.03);
+\node[num] at (7.85,-1.08) {16};
+\node[lbl] at (8.45,-0.99) {plus teacher-student distillation};
+\node[key] at (8.45,-1.23) {visual\_dexterity\_2022, unidexgrasp\_2023, dexplore\_2025, and 13 more};
+\fill[bar] (6.75,-1.68) rectangle (7.00,-1.57);
+\node[num] at (7.85,-1.62) {5};
+\node[ann] at (8.79,-1.53) {-- of which the student is a vision policy};
+\node[key] at (8.79,-1.77) {hora\_2022, visual\_dexterity\_2022, rotateit\_2023, and 2 more};
+\fill[baracc] (6.75,-2.22) rectangle (6.85,-2.10);
+\node[num] at (7.85,-2.16) {2};
+\node[lbl] at (8.45,-2.07) {reward written by a language model};
+\node[key] at (8.45,-2.31) {eureka\_2023, dreureka\_2024};
+\fill[bar] (6.75,-2.76) rectangle (7.05,-2.65);
+\node[num] at (7.85,-2.70) {6};
+\node[lbl] at (8.45,-2.61) {seeded by demonstrations (the RL+demo tag)};
+\node[key] at (8.45,-2.85) {pianomime\_2024, dexmv\_2021, dextrack\_2025, dapg\_2017, and 2 more};
+\fill[bar] (6.75,-3.66) rectangle (7.45,-3.54);
+\node[num] at (7.85,-3.60) {14};
+\node[lbl] at (8.45,-3.51) {teleoperated on the target robot};
+\node[key] at (8.45,-3.75) {dexteleop0\_2026, dexora\_2026, open\_television\_2024, and 11 more};
+\fill[bar] (6.75,-4.20) rectangle (6.95,-4.09);
+\node[num] at (7.85,-4.14) {4};
+\node[lbl] at (8.45,-4.05) {wearable or hand-held rig, no robot in the loop};
+\node[key] at (8.45,-4.29) {dexcap\_2024, dexumi\_2025, dexwild\_2025, umi\_2024};
+\fill[bar] (6.75,-4.74) rectangle (7.10,-4.63);
+\node[num] at (7.85,-4.68) {7};
+\node[lbl] at (8.45,-4.59) {egocentric video, no robot at all};
+\node[key] at (8.45,-4.83) {dexmv\_2021, videodex\_2022, dexvip\_2022, okami\_2024, and 3 more};
+\fill[baracc] (6.75,-5.28) rectangle (6.85,-5.17);
+\node[num] at (7.85,-5.22) {2};
+\node[lbl] at (8.45,-5.13) {synthetic demonstration generation};
+\node[key] at (8.45,-5.37) {dexmimicgen\_2024, deximit\_2026};
+\fill[baracc] (6.75,-5.82) rectangle (6.80,-5.71);
+\node[num] at (7.85,-5.76) {1};
+\node[ann] at (8.79,-5.67) {-- policy shape, an independent choice: action chunking};
+\node[key] at (8.79,-5.91) {aloha\_act\_2023};
+\fill[bar] (6.75,-6.36) rectangle (7.45,-6.25);
+\node[num] at (7.85,-6.30) {14};
+\node[ann] at (8.79,-6.21) {-- diffusion};
+\node[key] at (8.79,-6.45) {diffusion\_policy\_2023, dp3\_2024, dexora\_2026, and 11 more};
+\fill[bar] (6.75,-6.90) rectangle (7.15,-6.79);
+\node[num] at (7.85,-6.84) {8};
+\node[ann] at (8.79,-6.75) {-- flow matching};
+\node[key] at (8.79,-6.99) {pi0\_2024, groot\_n1\_2025, h\_rdt\_2025, pistar06\_2025, and 4 more};
+\fill[baracc] (6.75,-7.44) rectangle (6.85,-7.33);
+\node[num] at (7.85,-7.38) {2};
+\node[ann] at (8.79,-7.29) {-- autoregressive action tokens};
+\node[key] at (8.79,-7.53) {openvla\_2024, metis\_2025};
+\fill[bar] (6.75,-8.34) rectangle (6.95,-8.23);
+\node[num] at (7.85,-8.28) {4};
+\node[lbl] at (8.45,-8.19) {whole reference including fingers};
+\node[key] at (8.45,-8.43) {dextrack\_2025, maniptrans\_2025, dexmachina\_2025, toporetarget\_2026};
+\fill[baracc] (6.75,-8.88) rectangle (6.80,-8.77);
+\node[num] at (7.85,-8.82) {1};
+\node[lbl] at (8.45,-8.73) {wrist only, fingers learned};
+\node[key] at (8.45,-8.97) {objdex\_2024};
+\fill[baracc] (6.75,-9.41) rectangle (6.80,-9.30);
+\node[num] at (7.85,-9.36) {1};
+\node[lbl] at (8.45,-9.27) {object trajectory only};
+\node[key] at (8.45,-9.51) {human2sim2robot\_2025};
+\fill[baracc] (6.75,-9.95) rectangle (6.80,-9.84);
+\node[num] at (7.85,-9.90) {1};
+\node[lbl] at (8.45,-9.81) {reference as soft guidance};
+\node[key] at (8.45,-10.05) {dexplore\_2025};
+\fill[baracc] (6.75,-10.49) rectangle (6.85,-10.38);
+\node[num] at (7.85,-10.44) {2};
+\node[lbl] at (8.45,-10.35) {no retargeting, reference already on the embodiment};
+\node[key] at (8.45,-10.59) {physhoi\_2023, omnigrasp\_2024};
+\fill[baracc] (6.75,-11.03) rectangle (6.90,-10.92);
+\node[num] at (7.85,-10.98) {3};
+\node[lbl] at (8.45,-10.89) {whole-body humanoid, hands carried with the body};
+\node[key] at (8.45,-11.13) {dexman\_2025, humanplus\_2024, omnih2o\_2024};
+\fill[baracc] (6.75,-11.93) rectangle (6.80,-11.82);
+\node[num] at (7.85,-11.88) {1};
+\node[lbl] at (8.45,-11.79) {sampled plan, learned model};
+\node[key] at (8.45,-12.03) {pddm\_2019};
+\fill[baracc] (6.75,-12.47) rectangle (6.80,-12.36);
+\node[num] at (7.85,-12.42) {1};
+\node[lbl] at (8.45,-12.33) {sampled plan, given model};
+\node[key] at (8.45,-12.57) {mjpc\_2022};
+\fill[baracc] (6.75,-13.01) rectangle (6.80,-12.90);
+\node[num] at (7.85,-12.96) {1};
+\node[lbl] at (8.45,-12.87) {smoothed analytic contact model};
+\node[key] at (8.45,-13.11) {pang\_global\_planning\_2022};
+\draw[xl] (16.20,-1.08) .. controls (16.55,-1.08) and (16.55,-5.49) .. (16.20,-5.49);
+\node[xw] at (16.57,-3.29) {distil};
+\draw[xl] (16.20,0.00) .. controls (16.82,0.00) and (16.82,-5.22) .. (16.20,-5.22);
+\node[xw] at (16.84,-2.61) {generate};
+\draw[xl] (16.20,-4.68) .. controls (17.09,-4.68) and (17.09,-9.63) .. (16.20,-9.63);
+\node[xw] at (17.11,-7.15) {retarget};
+\draw[xl] (16.20,-9.63) .. controls (17.36,-9.63) and (17.36,-5.49) .. (16.20,-5.49);
+\node[xw] at (17.38,-7.56) {distil};
+\draw[xt] (16.20,-12.42) .. controls (17.63,-12.42) and (17.63,0.00) .. (16.20,0.00);
+\node[xw] at (17.65,-6.21) {smooth};
+\draw[xl] (16.20,-3.60) .. controls (17.90,-3.60) and (17.90,-2.70) .. (16.20,-2.70);
+\node[xw] at (17.92,-3.15) {seed};
+\node[ftr] at (0,-13.80) {Eight further rows carry a trajectory-optimisation or MPC tag inside a learned pipeline and are counted on the branch that learns. The double-dashed edge is the one overlap that is a theorem rather than a pipeline: \texttt{pang\_global\_planning\_2022} proves that a policy gradient and an analytic log-barrier relaxation compute the same local model of contact.};
+\end{tikzpicture}

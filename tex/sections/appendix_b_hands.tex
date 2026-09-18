@@ -1,0 +1,27 @@
+%% Appendix B. The full hand table with its sources.
+%% Converted from paper/APPENDIX_B.md for the LaTeX edition. The markdown edition in paper/ is a
+%% separate edition of the same prose and is not written by this file.
+\section{The full hand table with its sources}
+\label{app:hands}
+
+Table~\ref{tab:hands-available} and Table~\ref{tab:hands-announced} split these rows by whether the hand can be bought, and truncate their cells to stay readable. This appendix prints every hand row once and at full width. Nothing here is a measurement by this survey. Every specification is a manufacturer claim, a figure in a paper, or a figure in a press article, and the \texttt{source quality} column says which. Cells reproduce the text stored in the row, with the source's own punctuation and wording.
+
+Table~\ref{tab:hands_full} prints the specifications as the source states them and, beside
+them, where each specification came from.
+
+%% tables/hands_full.tex is generated into tex/tables/ by the table generator in tools/.
+%% Do not write the table out here; regenerate it there.
+\IfFileExists{tables/hands_full.tex}{\input{tables/hands_full.tex}}{%
+  \begin{table}[!t]
+  \caption{Every hand row at full width, with the provenance of each specification. Pending: generated into \texttt{tex/tables/hands\_full.tex} by the table generator in \texttt{tools/}.}
+  \label{tab:hands_full}
+  \end{table}}
+
+\noindent\emph{33 rows. 216 of 528 specification cells (40 percent) are values no source stated,
+and 31 of 264 provenance cells (11 percent). A blank price is a hand with no public list price
+rather than a free hand. \texttt{parsed source in the manifest} gives page count, the first eight
+characters of the sha256 of the stored copy, and the date it was fetched. A hand with no manifest
+entry was recorded from a page that could not be stored, and its row should be read as a claim
+with no retrievable source.}
+
+\input{tables/appendix_hands_full}

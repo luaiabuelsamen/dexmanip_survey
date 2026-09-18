@@ -1,0 +1,77 @@
+% hand-drawn to match the style of tools/make_tikz_figures.py output
+% Four coordination architectures for two dexterous hands. Greyscale plus the
+% one accent; thin rules; square corners. Drawn at two-column width.
+\begin{tikzpicture}[
+  font=\footnotesize,
+  panel/.style={draw=rule,line width=0.4pt,inner sep=0pt},
+  panelacc/.style={draw=accent,line width=0.8pt,inner sep=0pt},
+  box/.style={draw=black!45,fill=wash,line width=0.3pt,inner sep=0pt,align=center},
+  hand/.style={draw=black!55,fill=wash,line width=0.3pt,circle,inner sep=0pt,minimum size=5.0mm,
+               font=\tiny},
+  handbig/.style={hand,draw=accent,line width=0.5pt,minimum size=6.6mm},
+  lnk/.style={draw=black!50,line width=0.35pt,-latex},
+  soft/.style={draw=black!45,line width=0.35pt,dash pattern=on 1.4pt off 1.4pt},
+  hd/.style={font=\footnotesize\bfseries,align=center,anchor=north},
+  cnt/.style={font=\scriptsize\bfseries\color{accent},anchor=north},
+  dsc/.style={font=\tiny\color{black!60},align=center,anchor=north},
+  ky/.style={font=\tiny\ttfamily\color{black!75},align=center,anchor=north},
+]
+
+% ---------------------------------------------------------------- panel 1 ----
+\begin{scope}[shift={(0,0)}]
+  \node[panelacc,minimum width=42mm,minimum height=40mm] at (2.1,2.00) {};
+  \node[hd] at (2.1,3.86) {one policy, both hands};
+  \node[cnt] at (2.1,3.56) {21 of 28};
+  \node[dsc] at (2.1,3.32) {observation of both hands and object,\\one network, joint action vector};
+  \node[box,minimum width=13mm,minimum height=4.0mm,font=\tiny] (p1) at (2.1,2.50) {policy};
+  \node[hand] (l1) at (1.15,1.95) {L};
+  \node[hand] (r1) at (3.05,1.95) {R};
+  \draw[lnk] (p1.south west) -- (l1.north east);
+  \draw[lnk] (p1.south east) -- (r1.north west);
+  \node[ky] at (2.1,1.50) {twisting\_lids\_2024\\dexmachina\_2025\\maniptrans\_2025\\gr\_dexter\_2025\\groot\_n1\_2025\\and 16 more};
+\end{scope}
+
+% ---------------------------------------------------------------- panel 2 ----
+\begin{scope}[shift={(4.38,0)}]
+  \node[panel,minimum width=42mm,minimum height=40mm] at (2.1,2.00) {};
+  \node[hd] at (2.1,3.86) {a network per hand};
+  \node[cnt] at (2.1,3.56) {4 of 28};
+  \node[dsc] at (2.1,3.32) {each hand its own network, a centralised\\critic or its own observation only};
+  \node[box,minimum width=11mm,minimum height=4.0mm,font=\tiny] (a2) at (1.15,2.50) {$\pi_{\mathrm{L}}$};
+  \node[box,minimum width=11mm,minimum height=4.0mm,font=\tiny] (b2) at (3.05,2.50) {$\pi_{\mathrm{R}}$};
+  \node[hand] (l2) at (1.15,1.95) {L};
+  \node[hand] (r2) at (3.05,1.95) {R};
+  \draw[soft] (a2.east) -- (b2.west);
+  \draw[lnk] (a2.south) -- (l2.north);
+  \draw[lnk] (b2.south) -- (r2.north);
+  \node[ky] at (2.1,1.50) {bidexhd\_2024\\artigrasp\_2023\\dynamic\_handover\_2023\\dydexhandover\_2025};
+\end{scope}
+
+% ---------------------------------------------------------------- panel 3 ----
+\begin{scope}[shift={(8.76,0)}]
+  \node[panel,minimum width=42mm,minimum height=40mm] at (2.1,2.00) {};
+  \node[hd] at (2.1,3.86) {leader and follower};
+  \node[cnt] at (2.1,3.56) {1 of 28};
+  \node[dsc] at (2.1,3.32) {one hand assigned the dominant role,\\the other reacts to it};
+  \node[handbig] (l3) at (1.15,2.25) {L};
+  \node[hand] (r3) at (3.05,2.25) {R};
+  \draw[lnk] (l3.east) -- node[above,font=\tiny\color{black!60},inner sep=1.5pt] {reacts} (r3.west);
+  \node[ky] at (2.1,1.85) {asymdex\_2024};
+  \node[dsc] at (2.1,1.50) {the giver in\\dexterous\_handover\_2025 is a\\scripted arm, so that row is\\not counted};
+\end{scope}
+
+% ---------------------------------------------------------------- panel 4 ----
+\begin{scope}[shift={(13.14,0)}]
+  \node[panel,minimum width=42mm,minimum height=40mm] at (2.1,2.00) {};
+  \node[hd] at (2.1,3.86) {relative frame};
+  \node[cnt] at (2.1,3.56) {1 of 28};
+  \node[dsc] at (2.1,3.32) {action or observation expressed between\\the hands, or in the held object's frame};
+  \node[hand] (l4) at (1.15,2.25) {L};
+  \node[hand] (r4) at (3.05,2.25) {R};
+  \draw[soft,latex-latex] (l4.east) -- node[above,font=\tiny\color{black!60},inner sep=1.5pt] {$\Delta$} (r4.west);
+  \node[ky] at (2.1,1.85) {asymdex\_2024};
+  \node[dsc] at (2.1,1.50) {dexmimicgen\_2024 preserves it\\offline when generating data,\\not in the policy's\\observation};
+\end{scope}
+
+\draw[draw=black!38,line width=0.28pt] (0,-0.12) -- (17.34,-0.12);
+\end{tikzpicture}

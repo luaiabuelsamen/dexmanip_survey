@@ -1,0 +1,5 @@
+% alias for table2_hands_announced.tex; emits once however many sections input it
+\ifcsname dxdone@table2_hands_announced\endcsname\else
+  \expandafter\gdef\csname dxdone@table2_hands_announced\endcsname{}%
+  \input{tables/table2_hands_announced}%
+\fi

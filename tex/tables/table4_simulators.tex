@@ -1,0 +1,5 @@
+% alias for table3_simulators.tex; emits once however many sections input it
+\ifcsname dxdone@table3_simulators\endcsname\else
+  \expandafter\gdef\csname dxdone@table3_simulators\endcsname{}%
+  \input{tables/table3_simulators}%
+\fi

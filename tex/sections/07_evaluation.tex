@@ -1,0 +1,486 @@
+%% Section 7, Evaluation. Converted from paper/sections/07_evaluation.md.
+\section{Evaluation: how we would compare these methods}
+\label{sec:evaluation}
+
+% --- reproduced plates ------------------------------------------------------
+% tex/figs/plates.tex defines one command per selected photograph. Load it here
+% if nothing has loaded it already, so this section carries its own plates
+% whether or not the preamble inputs the file. The \providecommand before each
+% call makes a missing plate an empty command rather than an error. Every plate
+% carries \pending: read tex/PERMISSIONS.md before this goes anywhere.
+% ---------------------------------------------------------------------------
+\makeatletter
+\@ifundefined{plateCageSimAndReal}{\IfFileExists{figs/plates.tex}{\input{figs/plates}}{}}{}
+\makeatother
+
+\subsection{What the field reports, and why the numbers do not compare}
+\label{subsec:reporting}
+
+\begin{figure}[!t]
+\centering
+\IfFileExists{figs/fig_reporting.tex}{\resizebox{\columnwidth}{!}{\input{figs/fig_reporting}}}{%
+  \framebox[0.95\columnwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_reporting.tex pending}}}
+\caption{What gets reported, and what does not. Each bar counts the corpus method rows that state
+the quantity, drawn against all 112 of them; the text gives the denominator that belongs to each
+share, which for the real-robot experiment is the 111 rows the note settled, for the trial count
+the 89 rows with a real robot, for released code the 108 rows the note settled, and for contact or
+penetration handling the 96 rows whose contact handling the note settled. Every bar is a lower
+bound, for the reason set out below.}
+\label{fig:reporting}
+\end{figure}
+
+Of the 112 method rows in the corpus, 89 report a real-robot experiment, 22 do not and one row is
+unsettled: 79 percent of all 112 rows, or 80 percent of the 111 the note settled. Among those 89,
+70 state how many real trials produced the headline number, which is 79 percent of them and 62
+percent of all 112 method rows. The 89 is the denominator that belongs to this statistic: the 22
+rows with no real robot cannot state a real trial count, and counting them as silent turns a
+definitional impossibility into a reporting failure. Thirty-nine rows state a count of unseen test
+objects, 35 percent. Ninety-eight state how a rollout is scored, 88 percent. Sixty-two released
+code and 46 did not, with four rows unsettled: 55 percent of all rows, or 57 percent of the 108
+the note settled. \figurename~\ref{fig:reporting} draws these six shares, each against the
+denominator that belongs to it.
+
+% The apparatus a headline in-hand reorientation number rests on.
+\providecommand{\plateCageSimAndReal}{}\plateCageSimAndReal
+
+\textbf{These are counts of what this survey captured, not of what papers reported, and every one is
+a floor.} A row in \texttt{corpus/\allowbreak rows} holds a scalar. A paper that reports ten trials
+on each of nine tasks, or a scoring rubric instead of a threshold, or a count spread over four
+tables, has nothing the extraction can reduce to one integer, so it produces a null, and a null is
+then indistinguishable from a paper that said nothing. The bias runs one way: every miss converts a
+reporting paper into a silent one, and the survey's argument is that the field reports badly, so the
+artefact flatters the argument. Section~\ref{sec:train:code} makes the same disclosure about the paper/code count,
+subtracting the 13 disagreements that are limitations of this survey's own parsing before declaring
+which number to quote, and the coverage statistics above need it more.
+
+So the nulls were audited by hand against the notes they came from, and the numbers above are the
+audited ones. Of the 34 method rows with a real robot and no trial count, 15 had the count written
+in their own note. $\pi_0$ \cite{pi0_2024} at ten trials per task, RDT-1B \cite{rdt1b_2024} at 139 across seven tasks, UMI \cite{umi_2024} at 260, $\pi^{*}_{0.6}$ \cite{pistar06_2025} at 750, Gemini Robotics \cite{gemini_robotics_2025} at twenty per task, and ten more. That is 44 percent of the audited nulls, and it moved the headline from 55
+rows to 70, from 62 percent of real-robot papers to 79 percent, and the ``never says'' figure from
+34 of 89 down to 19. The success criterion moved further: of 33 null rows, 19 do state a criterion,
+so the count rose from 79 to 98. The unseen-object count moved least, 7 recovered from 80 audited
+nulls, 32 to 39. The audit only counted cases where the note itself carried the number, so a count
+that the note also missed is still uncounted, and 19 trial counts, 8 unseen-object evaluations
+whose object count the note never gives, and 4 criteria remain genuinely unsettled. Those nulls are
+now a defensible claim rather than an artefact. Every bar in \figurename~\ref{fig:reporting} should
+still be read as a lower bound.
+
+The remaining gap is the one that matters. Nineteen of the 89 papers with a real robot never say
+how many times they ran it. A percentage with no denominator cannot be given an interval, so it
+cannot be compared with anything.
+
+Where the denominator is stated it is small, and it is not one quantity. Some stored counts are
+per-cell, meaning ten trials on each task, or twenty per condition, or five per object. Others are
+grand totals over every cell. The rows now carry a \texttt{real\_\allowbreak trials\_\allowbreak
+kind} beside every value, and the two distributions are quoted separately. The 39 per-cell counts
+run from 5 to 100 with a median of 15 and quartiles at 10 and 20. The modal cell is 10 trials, in 16
+rows, then 20, in 12. The 24 grand totals run from 12 to 750 with a median of 110. Pooling the two
+gives a median of 20 and a range of 5 to 1287, and that pooled figure is the one an earlier draft of
+this section quoted. It describes nothing, because \cite{hora_2022}'s 240 and
+Visual Dexterity \cite{visual_dexterity_2022}'s 20 are experiments of comparable size recorded on different bases.
+Seven further counts could not be assigned a basis at all.
+
+The per-cell count is the one a Wilson interval attaches to. For $s$ successes in $n$ trials, with
+$\hat{p} = s/n$ and $z = z_{1-\alpha/2} = 1.96$ at the 95 percent level, the bounds of that
+interval are
+\begin{equation}
+\frac{2n\hat{p} + z^{2} \;\pm\; z\sqrt{4n\hat{p}\,(1-\hat{p}) + z^{2}}}{2\,(n + z^{2})},
+\label{eq:wilson}
+\end{equation}
+which, unlike the normal approximation, stays inside $[0,1]$ and does not collapse to zero width at
+$\hat{p} = 0$ or $\hat{p} = 1$. At 20 trials a reported 60 percent carries a 95 percent Wilson
+interval of 39 to 78 percent, and a reported 80 percent an interval of 58 to 92 percent.
+Overlapping intervals are not a test, so the point is made with one: 12 of 20 against 16 of 20 is
+$z = 1.38$, $p = 0.17$, and the difference is not established. Two methods separated by 20 points
+at 20 trials, the larger of the two modal cell sizes, are not separated at all.
+
+The share of papers stating a count has risen, from 39 of the 65 rows before 2025, 60 percent, to
+31 of the 47 rows from 2025 and 2026, 66 percent. The counts themselves have not. The median
+stated count is 20 in 2024, 22.5 in 2025 and 20 in 2026. Before 2024 the per-year medians rest on
+one to seven observations and should not be read as a trend.
+
+The denominators also sit on different hardware. The 103 method rows that name their own hand give
+78 distinct hand strings between them, and this survey applies no normalisation to those strings,
+so 78 is a count of strings and not of hand designs. Matching on the string, Allegro appears in
+35, Shadow in 21, Inspire in 19 and LEAP in 12. A success rate on a 16-degree-of-freedom Allegro
+and a success rate on a 6-actuator Inspire hand are not measurements of the same thing.
+
+Nor are the criteria, and the audit changed what that sentence can claim. DexVerse \cite{dexverse_2026}
+counts PickCube a success when the cube is ``lifted at least 0.20 m above its resetting height''.
+Bench2Dex \cite{bench2dex_2026} requires its terminal predicate to hold for a continuous dwell time of 0.5 s,
+to reject transient contacts. The Colosseum \cite{colosseum_2024} counts an episode successful ``if the model
+completes the task fully''. DexTrack \cite{dextrack_2025} reports every success rate as a pair under two
+threshold sets, which on GRAB gives 46.70 and 65.48 percent for the same rollouts. Of the 14 rows
+that still state no criterion, ten have no success predicate at all. They report radians rotated or
+time-to-fall and never define a success, which is a fact about the paper rather than a gap in this
+survey. And four are unsettled by the note. What the audit found in the other 19 was mostly not a
+threshold: eleven score by rubric or staged partial credit, five judge binary completion against a
+task description by eye, two defer to a benchmark's own definition, and exactly one,
+\cite{pistar06_2025}, states a verbatim numeric threshold. A rubric is a milder failure than
+silence and a worse one than a threshold, because it is reproducible inside a lab and not across
+two.
+
+\subsection{The axes that matter}
+\label{subsec:axes}
+
+Seven quantities dissociate in the published data, so they have to be reported separately.
+
+\textbf{Task success.} Binary success discards the difference between near-misses and inaction.
+Snyder et al. \cite{beyond_binary_success_2026} puts it plainly: ``a policy that completes 90\% of the task is
+clearly better than a policy that is frozen the whole time, yet their success rates would be
+identically 0\%''. In \cite{kress_gazit_policy_eval_2024} policy C scores 17 percent overall on the
+pancake task while picking up the spatula and flipping the pancake in 23 of 23 attempts.
+
+\textbf{Robustness to perturbation.} The Colosseum \cite{colosseum_2024} measures a 30 to 50 percent success drop
+under single perturbation factors and at least 75 percent under all 14 together. In
+\cite{bench2dex_2026} GR00T N1.5 leads the matched condition at 48.5 percent and falls to 19.8
+percent under combined shift, while $\pi_{0.5}$ goes from 27.3 to 19.7 and retains the most at 72.1
+percent. The ranking at the anchor is not the ranking under shift.
+
+\textbf{Generalisation to unseen objects.} Only 39 rows state a count and the median is 11 objects.
+
+\textbf{Physical plausibility of the contact.} Eleven of the 96 rows whose contact handling the note
+settled address it, 11 percent, with 16 rows unknown. Section~\ref{subsec:plausibility} takes them
+apart.
+
+\textbf{Sample and wall-clock cost.} Thirty-one of 112 rows state a parallel environment count and
+18 a simulated episode count. RoboPianist \cite{robopianist_2023} is the exception, at 5 million samples per
+song and roughly 5 hours per run on four Tesla K80 GPUs.
+
+\textbf{Real-robot transfer.} Simulated rank order is not real rank order. AutoEval \cite{autoeval_2025}
+scores Open-$\pi_0$ on put-eggplant-in-sink at 6 of 50 in SIMPLER and 47 of 50 on the real WidowX.
+Badithela et al. \cite{suresim_2025} states the limit directly: ``the simulation-to-real gap precludes rigorous
+statistical inferences about real-world outcomes from simulation results alone''.
+
+\textbf{Reproducibility.} 62 rows released code that could be parsed against the paper, and 38 of
+the 112 rows record a disagreement of some kind between the paper and that code. All 38 released
+code, so the raw rate among code-releasing rows is 61 percent. That raw rate is not the finding,
+because the 38 are not one thing. Section~VIII-A classifies them: 10 contradictions, 13 limitations of
+this survey's own parsing, 8 components never released, 4 version skews and 3 inconsistencies
+internal to a paper. Only the contradictions are a finding about the work rather than about this
+survey, so 10 of 62 code-releasing rows, which is 16 percent, is the figure this section and
+Table~\ref{tab:protocol} use. PhysHOI \cite{physhoi_2023} is the clearest of the 10. It lists a non-zero
+object-orientation weight for GRAB in its Table 4, and its released \texttt{compute\_\allowbreak
+humanoid\_\allowbreak reward} hard-sets that orientation error to zero, so the reward that produced
+the published numbers tracked the object in position only.
+
+\subsection{Physical plausibility as a first-class metric}
+\label{subsec:plausibility}
+
+Eleven method rows handle interpenetration in any form: three penalise it, three measure it, five
+constrain it. The denominator is 96, not 112, because the \texttt{penetration} field is null for 16
+rows, and a null there means the note did not settle the question, not that the paper ignored
+penetration. Eleven of 96 is 11 percent.
+
+Where in the pipeline those eleven act is the reference-versus-rollout split that Section~\ref{sec:intro} takes
+from \cite{zhao_dexhand_survey_2026}. A reference is a pose or a trajectory scored before execution,
+and a rollout is what the trained policy actually did. What this section supplies on that axis is a
+measurement method and a count, and it does not supply a threshold. The count is the eleven of 96
+above, with four closed-loop policies inside it and none reporting a number for its own rollouts.
+The method is the plausibility row of Table~\ref{tab:protocol}: maximum and mean penetration depth
+over the evaluation rollouts, on a dense surface sample, computed by code that never entered the
+reward or the termination rule. The threshold is borrowed, and
+Section~\ref{subsec:what_would_be_true} says from where and why it does not bind. Six of the eleven
+are grasp synthesisers or trajectory optimisers, namely
+\cite{bidexgrasp_2026,bimangrasp_2024,deximit_2026,pang_global_planning_2022,toporetarget_2026} and
+\cite{unidexgrasp_2023}, and Castro et al. \cite{castro_sap_contact_2021} is a contact model rather than a
+controller. That leaves four closed-loop policies in the whole corpus:
+\cite{clutterdexgrasp_2025,dexmachina_2025,dextrack_2025} and \cite{teledexter_2026}.
+
+The reason the number is four is a measurement trap. A quantity a policy optimises cannot also
+judge it, because the policy learns the measure rather than the property the measure stands for.
+PhysHOI \cite{physhoi_2023} documents the failure in the clean direction. Its kinematic imitation reward
+was maximised by not touching the object at all, because contact perturbed the reference
+trajectory: ``the policy may learn not to touch the object and falls into a local optimal''. A
+contact-graph reward closed the hole, and that reward reads a force threshold rather than geometry,
+so it constrains contact presence and says nothing about penetration depth.
+
+DexTrack \cite{dextrack_2025} shows the trap in the other direction. It defines a maximum hand-object
+penetration depth over all frames in its Appendix B, and applies it only to the input kinematic
+references, as one component of a reference-quality score. No penetration number appears for any of
+its own rollouts, in simulation or on the LEAP hand. Tolerance of the failure is then reported as a
+result: ``Despite severe hand-object penetrations in Figure 4c and Figure 4a, the hand still
+interacts effectively with the object, highlighting the resilience of our tracking controller''.
+
+TopoRetarget \cite{toporetarget_2026} is the strongest case in the corpus and still stops one step short on the
+same reference-versus-rollout line. It constrains penetration during retargeting with a 1 mm soft
+tolerance and a 30 mm hard bound, and it reports two numbers on 25 ContactPose grasps: a maximum
+penetration of 1.07 mm and 0.00 percent of frames above 2 mm, against 22.22 mm and 96 percent of
+frames for its GeoRT baseline. Then a PPO controller tracks those references, and its four reward
+terms and its five termination criteria govern object pose, link position, joint error and action
+smoothness, never penetration. The constrained quantity is the reference, and the rollout is not
+re-measured.
+
+Definitions are not shared either. GRAB \cite{grab_2020} estimates contact by proximity, because
+``contact cannot be directly observed'', with a 4.5 mm tolerance, and reports that ``\,`Use' grasps
+have $3.25 \pm 0.68$ mm average penetration'', without saying whether 3.25 mm is a maximum, a mean
+or a median. OakInk \cite{oakink_2022} supplies the fullest published vocabulary: penetration depth, solid
+intersection volume and simulation displacement. Its Table 3 scores the GRAB GrabNet split at 2.53
+cm penetration depth, against GRAB's own 3.25 mm. The two differ by a factor of about eight, and
+neither source states its distance function precisely enough to reconcile them, and the two are not
+scored over the same grasps either, since GRAB's figure is over its own captured ``use'' grasps and
+OakInk's is a model's output on the GrabNet split, so a difference of population and a difference
+of definition are confounded in the same ratio.
+
+The analytic tradition scored a grasp without simulating it, and Ferrari and Canny's measure \cite{ferrari_canny_1992} and Roa and Su\'arez's review \cite{roa_suarez_grasp_quality_2015} are its wrench-space reference points. Neither could be
+obtained. The first DOI fetch returned HTTP 202 and the second a Springer JavaScript interstitial,
+so both are cited by metadata only and no definition here rests on their contents. The learned
+literature has not replaced that tradition with anything it measures on its own rollouts.
+Penetration is a quantity between meshes, so it needs a simulator or a mesh reconstruction, and the
+protocol below treats it as a simulation-only axis.
+
+\subsection{Statistics}
+\label{subsec:statistics}
+
+Kress-Gazit et al. \cite{kress_gazit_policy_eval_2024} give the field's reference protocol, and it prescribes process, not numbers. Write the success criteria before the run and have someone other than their author
+score the runs. Match initial conditions with image overlays. Interleave the policies blind within
+one session. Report counts rather than percentages, alongside the initial conditions and the
+failure modes. Use a posterior over the Bernoulli parameter instead of a point estimate. It
+prescribes no minimum trial count anywhere and no frequentist confidence-interval width anywhere.
+Its own example report uses 10 initial conditions with two runs each, 20 evaluations per policy,
+and its worked case shows what 20 buys. Pancake success of 15 of 18 against 11 of 17, nominally 83
+against 65 percent, leaves a 0.11 posterior probability that the worse policy is actually better.
+At 150 of 180 against 110 of 170 the same rates separate.
+
+TRI LBM Team \cite{lbm_careful_examination_2025} supplies the missing numbers by fiat rather than derivation: 50
+rollouts per task per policy per condition on hardware, 200 in simulation, blind, with randomised
+policy order inside per-initial-condition bundles. It replaces confidence intervals with
+Beta-posterior violins and corrects its pairwise tests under Bonferroni, ``unless otherwise
+noted''. Its own warning is the strongest sentence in this literature: ``there is significant risk
+that many robotics papers are measuring statistical noise due to insufficient statistical power''.
+
+The rest fall short of their own advice. RoboArena \cite{roboarena_2025} runs 612 double-blind pairwise
+comparisons across seven institutions and 4284 rollouts, and reports no confidence intervals and no
+per-policy trial counts. The Colosseum \cite{colosseum_2024} evaluates 235 test sets at 25 episodes each with
+``one training seed and one evaluation seed'' per baseline and gives no intervals in simulation.
+AutoEval \cite{autoeval_2025} runs 50 trials per policy per task and calls $\pm 10$ percent ``the natural
+variance of robot evaluations'', without giving the formula behind the intervals it plots.
+
+Two papers do give usable numbers. Badithela et al. \cite{suresim_2025} pairs real and simulated trials and
+de-biases the simulation with a rectifier, saving 20 to 25 percent of hardware trials at paired
+correlations of roughly 0.6 to 0.7, and nothing at all at a correlation near zero. The 25 percent
+figure is the better of its two reported settings, the DP case at $\rho = 0.702$. Its decision rule
+is exact: combining helps only when the rectifier variance is below the variance of the real
+evaluations. Snyder et al. \cite{beyond_binary_success_2026} gives the largest saving. On the LBM rubrics its
+sequential test on graded scores cuts simulated evaluation by about 70 percent and hardware by
+about 45 percent, 286 trials against a nominal 500, with per-task decisions landing in 12 to 36
+paired trials. On RoboArena's data a 30-point gap on continuous progress scores reaches
+significance in 18 trials, while a 20-point gap on binary success needs about 80.
+
+\subsection{A proposed protocol}
+\label{subsec:protocol}
+
+Every count below is printed by \texttt{tools/\allowbreak make\_\allowbreak eval\_\allowbreak
+tables.py\allowbreak\ --derive}, and each axis is derived for the statistic that axis actually
+reports: a single rate takes a Wilson half-width, a matched comparison takes McNemar, a ratio takes
+the standard error of the log ratio, a correlation takes the Fisher-z interval.
+
+Fix the width first, then read off the count. Take a 95 percent Wilson interval on a single
+reported rate, at the worst case of $\hat{p} = 0.5$. Writing the half-width of \eqref{eq:wilson} as
+\begin{equation}
+w(n,\hat{p}) = \frac{z\sqrt{4n\hat{p}\,(1-\hat{p}) + z^{2}}}{2\,(n + z^{2})},
+\label{eq:halfwidth}
+\end{equation}
+the count a target width $w_{0}$ demands is
+$n_{\min}(w_{0}) = \min\{\,n : w(n,0.5) \le w_{0}\,\}$, which gives
+\begin{equation*}
+\begin{array}{lrrrr}
+\toprule
+\text{half-width } w_{0} \text{ (points)} & 20 & 15 & 10 & 5\\
+\midrule
+n_{\min} \text{ (trials)} & 21 & 39 & 93 & 381\\
+\bottomrule
+\end{array}
+\end{equation*}
+Ten points is the coarsest width at which a single rate is worth printing, so the absolute-rate
+minimum is 93, rounded to 100. At 100 trials a reported 80 percent has an interval of 71 to 87
+percent, and a reported 50 percent has 40 to 60. A comparison is a different question and a harder
+one: two rates each carrying $\pm 10$ points do not resolve a 10-point difference between them,
+because the difference's standard error is larger by a factor of $\sqrt{2}$, so the width argument
+sets a floor on what is worth reporting and not on what can be compared.
+
+For the A/B comparison the relevant calculation is power, and the design is paired.
+Table~\ref{tab:protocol} matches initial conditions by image overlay and interleaves the two
+policies in one session, so the unit is a matched pair and the count follows McNemar, which depends
+on the discordance rate. The share of initial conditions on which the two policies disagree, and
+not on the two rates alone. Write $\delta = |p_{1} - p_{2}|$ for the gap between the two success
+rates, $\pi_{d}$ for that discordance rate, $z_{1-\alpha/2} = 1.96$ at $\alpha = 0.05$ and
+$z_{1-\beta} = 0.84$ at 80 percent power; then the number of matched pairs is
+\begin{equation}
+n_{\mathrm{pairs}} =
+  \frac{\bigl[\,z_{1-\alpha/2}\sqrt{\pi_{d}}
+              + z_{1-\beta}\sqrt{\pi_{d} - \delta^{2}}\,\bigr]^{2}}{\delta^{2}}.
+\label{eq:mcnemar}
+\end{equation}
+To separate 50 from 70 percent, which is $\delta = 0.20$, at $\alpha = 0.05$ with 80 percent power,
+\eqref{eq:mcnemar} asks per arm for
+\begin{equation*}
+\begin{array}{lrrrr}
+\toprule
+\text{discordance } \pi_{d} & 0.2 & 0.3 & 0.4 & 0.5\\
+\midrule
+n_{\mathrm{pairs}} & 37 & 57 & 77 & 96\\
+\bottomrule
+\end{array}
+\end{equation*}
+The protocol assumes 0.3 and asks for 57, and states the sensitivity rather than hiding it, because
+0.5 is the discordance the same two rates produce when the pairing buys nothing, and at that value
+the paired count returns to the 93 per arm an unpaired test would need. The saving from pairing is
+real but smaller than the pair counts suggest, since a pair costs two rollouts: 57 pairs is 114
+rollouts against 186. An earlier version of this section quoted 93, 169 and 387 per arm for gaps of
+20, 15 and 10 points, which are correct for independent arms and are the wrong test for this
+protocol. That 93 was also the same integer as the half-width calculation in the paragraph above,
+which is a coincidence of the worst-case arithmetic and not a second derivation of the same number.
+
+One hundred is a cap and not a bill, because on a graded score a sequential test reached its
+decision in 12 to 36 paired hardware trials in \cite{beyond_binary_success_2026}. At 30 rollouts a
+continuous score already carries a half-width of $\pm 0.36$ standard deviations, which is why a
+graded score can stop where a binary one cannot. A cell that stops early does not report a Wilson
+interval. Optional stopping breaks the coverage of a fixed-$n$ interval, which is the reason
+\cite{beyond_binary_success_2026} and Badithela et al. \cite{suresim_2025} use anytime-valid betting intervals rather
+than Wilson, so Table~\ref{tab:protocol} asks a cell run to a fixed 100 for a Wilson interval and a
+cell stopped early for a confidence sequence, and never for both. Intervals are also marginal rather
+than simultaneous. Table~\ref{tab:protocol} has seven axes and Table~\ref{tab:matrix} twelve
+methods. At 84 independent 95 percent intervals, four excursions are expected by construction, so a
+paper comparing $k$ policies on $m$ tasks corrects its $k(k-1)/2$ pairwise tests to a global 95
+percent level, as \cite{lbm_careful_examination_2025} does, or says its intervals are not
+simultaneous.
+
+Simulation is cheap, so simulated cells take 200 episodes, giving a 6.9-point half-width.
+Perturbation axes are screened rather than certified, and 40 per axis buys a 15-point half-width on
+each axis's own absolute rate, which is enough to rank the axes and pick the two worst for hardware.
+It is not enough for the ratio to the anchor that an earlier draft asked each cell to report. At 40
+trials in each arm, a fall from a 0.50 anchor to 0.30 is a ratio of 0.60 with a 95 percent interval
+of 0.34 to 1.06, which contains 1: at the screening count you cannot establish that the perturbation
+hurt at all. Certifying that same drop takes 101 per arm by the log-ratio standard error, so
+Table~\ref{tab:protocol} now asks for absolute rates with their own intervals at 40, reports
+the ratio without an interval, and prescribes 101 before any claim that a named axis hurt.
+
+For unseen objects the resampling unit is the object and not the trial, so 20 objects at 5 trials
+each gives 100 trials and an object-level half-width near 20 points. That 20 points is the Wilson
+width at $n = 20$ and it treats each object's outcome as a single Bernoulli draw, which the five
+within-object trials are not. It is the right order of magnitude and the assumption belongs in the
+cell. A 10-point claim about an object distribution needs about 93 objects. Seven of the 39 rows
+that state an unseen count reach that: 225 in \cite{bimangrasp_2024}, 241 in \cite{resdex_2024} and
+\cite{unidexgrasp_2023}, 360 in \cite{dexgraspvla_2025}, 500 in \cite{dexmv_2021}, 2029 in
+\cite{clutterdexgrasp_2025} and 503409 in \cite{graspxl_2024}. For a continuous score the half-width
+is 1.96 standard deviations over the square root of the count, $1.96\,s/\sqrt{n}$, so 100 rollouts
+give $\pm 0.20$ standard deviations, and the unit is the rollout because frames within one are
+correlated.
+
+The transfer axis is the one where 100 is least defensible. On 100 matched pairs a measured
+correlation of 0.70 carries a Fisher-z interval of 0.58 to 0.79, a half-width of about 0.10 that 130
+pairs would be needed to guarantee. That is enough to establish that a simulator tracks reality at
+all, and it is not enough to separate \cite{suresim_2025}'s useful regime from its marginal one,
+since those differ by about 0.11 in correlation. Both limits come within 0.05 of the estimate only
+at about 457 pairs. Table~\ref{tab:protocol} states which of the two decisions each count supports
+rather than leaving a reader to assume the larger one.
+
+\IfFileExists{tables/table8_protocol.tex}{\input{tables/table8_protocol}}{%
+  \begin{table}[!t]\centering
+  \caption{Pending: \texttt{tables/table8\_protocol.tex}, generated by
+  \texttt{tools/make\_tex\_tables.py}.}
+  \label{tab:protocol}
+  \framebox[0.95\columnwidth]{\rule{0pt}{1.4cm}}
+  \end{table}}
+
+\subsection{\texorpdfstring{Table~\ref{tab:matrix}}{Table 9}, an empty results matrix}
+\label{subsec:matrix}
+
+The rows are the 12 most-mentioned dexterous-hand policy methods in the corpus, and the rule is the
+one \texttt{tools/\allowbreak make\_\allowbreak eval\_\allowbreak tables.py} implements, stated here
+in the same words. A candidate is a method row with a non-null \texttt{hand}; its hand string must
+not contain ``parallel'' or ``gripper''; it must carry at least one paradigm tag that produces a
+closed-loop policy and must not carry \texttt{teleop-system}, because an interface is scored on
+latency and operator effort rather than on a policy's success rate. And its name must be at least
+four characters, so that a short string does not match everything. Candidates are then scored by the
+number of other corpus papers whose parsed text in \texttt{papers/\allowbreak md} contains the name,
+and the top 12 by count, ties broken by key, are the rows.
+
+Two corrections to that ranking are worth stating, because both changed it. The match is on a whole
+word. Under the bare substring test an earlier version used, ``UniDex'' matched inside
+``UniDexGrasp'' and ``UniDexGrasp++'', and \cite{unidex_2026}. A 2026 paper. Sat sixth in a ranking
+over a corpus written mostly before it, on 34 mentions that belonged to a different work. As a whole
+word it has 3 and it is not in the table. And the interface rule is now applied to every row that
+carries the tag rather than only to rows that carry nothing else, which drops \cite{anyteleop_2023}
+at 34 mentions, \cite{dime_2022} at 28 and \cite{holo_dex_2022} at 23, along with
+\cite{dexpilot_2020}, which the earlier prose already excluded by hand. The mention counts are
+printed under the table so a reader can audit them.
+
+The ranking is not one quantity even so. A method's name is taken from the first line of its note,
+which yields an acronym for some works and a full title for others, and a title is matched mostly
+inside reference lists while an acronym is matched in running text. Those have different base rates,
+so the table marks which kind each row was matched on and the two kinds are not comparable with each
+other. Mention counts are counts of mentions and not of use, as \texttt{METHOD.md} records.
+
+Every cell is empty. This survey re-ran nothing, and no cell can be filled at the denominator
+Table~\ref{tab:protocol} asks for. DeXtreme \cite{dextreme_2022} comes closest and is the reason the
+claim is stated that narrowly: it reports a criterion, a trial count and an interval. Object
+orientation within 0.4 rad of target, $27.8 \pm 19.0$ average consecutive successes with the $\pm$ a
+90 percent confidence interval. On 10 trials. Table~\ref{tab:methods-top} is not a counter-example
+either, though it looks like one: it carries \texttt{trials}, \texttt{unseen obj},
+\texttt{penetration} and \texttt{code} columns for all 112 method rows, including all 12 of these.
+Table~\ref{tab:methods-top} records what each method reported. Table~\ref{tab:matrix} asks for
+what Table~\ref{tab:protocol} defines. A value with an interval, a stated denominator and a
+criterion written before the run. And none of Table~\ref{tab:methods-top}'s values meets that. The
+first row of Table~\ref{tab:matrix} is a worked example so that the format of a cell is
+unambiguous. Every number in it is fabricated and labelled as such.
+
+\IfFileExists{tables/table9_matrix.tex}{\input{tables/table9_matrix}}{%
+  \begin{table}[!t]\centering
+  \caption{Pending: \texttt{tables/table9\_matrix.tex}, generated by
+  \texttt{tools/make\_tex\_tables.py}.}
+  \label{tab:matrix}
+  \framebox[0.95\columnwidth]{\rule{0pt}{1.4cm}}
+  \end{table}}
+
+\subsection{What would have to be true}
+\label{subsec:what_would_be_true}
+
+\plateCageSimAndReal
+
+The bill comes first. Per policy and per task the protocol asks for 57 matched trials on the anchor
+set, which is the paired count from \S\ref{subsec:protocol}, and 100 on the unseen-object set, at 20
+objects and 5 trials each, with robustness and plausibility absorbed by simulation. A two-policy
+comparison on three tasks is then 342 real rollouts on the matched set and 600 on the unseen-object
+set, 942 in all, and at one minute per rollout including the reset that is about 16 hours of robot
+time, before failed resets, repairs and scoring. The same bill computed from the independent-arm
+count, which an earlier draft used, was 1200 rollouts and 20 hours. The pairing removes about a
+fifth of it rather than the four fifths the pair counts suggest, because a pair is two rollouts and
+only the anchor set is paired. AutoEval \cite{autoeval_2025} ran about 850 episodes in 24 hours on a WidowX
+with three human interventions, and had to pause 20 minutes every 6 hours once the motors
+overheated. A tendon-driven multi-finger hand is more fragile, so 16 hours of rollouts is most of a
+week of calendar time.
+
+That bill is large but not unprecedented. AutoEval \cite{autoeval_2025} records that evaluating OpenVLA
+against its baselines took more than 2500 rollouts and more than 100 hours of human labour across
+three institutions, and TRI LBM Team \cite{lbm_careful_examination_2025} analysed about 1800 real rollouts across
+nine hardware stations. What is unprecedented is paying it for a single dexterous-hand paper, where
+the modal per-cell count is 10 trials and the median per-cell count 15, and where the median stated
+count has been 20 or 22.5 in each of the last three years.
+
+Four things would have to change. Reviewers would have to reward 57 matched trials on one task over
+20 unmatched trials on five, and nothing in the corpus suggests that is happening. The loop would
+have to be automated, and AutoEval \cite{autoeval_2025} shows it is buildable for a gripper at one to three
+hours of setup, while stating that it supports binary success only and no robustness axes. Somebody
+would have to run the penetration measure on their own rollouts, which is a choice rather than a
+capability: Section~\ref{sec:sim:engines} shows the depth is computable from the poses and the meshes in a few lines
+of Warp, and IsaacGymEnvs already ships a task that does it every step. An earlier draft of this
+section made the engine the barrier, and that claim is withdrawn, because the released code refutes
+it. And the comparison would have to be sequential, because the savings in
+\cite{beyond_binary_success_2026} are the only reason 100 is a cap rather than a cost.
+
+Four limits apply to the proposal itself. This survey re-ran no method, so every count in
+Table~\ref{tab:protocol} is derived from an interval width, a power calculation or another paper's
+measurement, and Table~\ref{tab:matrix} is empty because we filled no cell. The counts are
+worst-case at $\hat{p} = 0.5$, so a method near 90 percent needs fewer trials for the same width and
+a method near 50 percent needs all 100, and the paired count additionally rests on an assumed
+discordance of 0.3, which no paper in this corpus reports. The perturbation axes are borrowed from The Colosseum \cite{colosseum_2024} and SIMPLER \cite{simpler_2024}, which run parallel-jaw grippers on rigid objects, where SIMPLER found physical parameters moved success rates by at most 15 percent. That
+is the sensitivity expected to grow with multi-finger contact, and nobody has measured it. The 2 mm
+penetration threshold is taken from \cite{toporetarget_2026} with no independent justification, and
+the captured human grasps in \cite{grab_2020} sit above it at 3.25 mm, which makes 2 mm a simulator
+convention rather than a physical bound. So the three things this survey adds to the
+reference-versus-rollout axis are a count, a measurement method and a protocol slot for them, and a
+threshold is not among them. It is borrowed from one paper and reported as borrowed, and it will
+stay a convention until somebody measures penetration on rollouts across hands and engines and finds
+a value that separates behaviour a physicist would accept from behaviour they would not.

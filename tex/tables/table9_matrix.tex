@@ -1,0 +1,5 @@
+% alias for table8_matrix.tex; emits once however many sections input it
+\ifcsname dxdone@table8_matrix\endcsname\else
+  \expandafter\gdef\csname dxdone@table8_matrix\endcsname{}%
+  \input{tables/table8_matrix}%
+\fi

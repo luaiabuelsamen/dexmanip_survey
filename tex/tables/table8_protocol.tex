@@ -1,0 +1,5 @@
+% alias for table7_protocol.tex; emits once however many sections input it
+\ifcsname dxdone@table7_protocol\endcsname\else
+  \expandafter\gdef\csname dxdone@table7_protocol\endcsname{}%
+  \input{tables/table7_protocol}%
+\fi

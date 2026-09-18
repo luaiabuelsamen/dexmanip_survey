@@ -1,3 +1,13 @@
 .venv/
 papers/pdf/
 code/repos/
+tex/figs/extracted/
+tex/*.aux
+tex/*.bbl
+tex/*.blg
+tex/*.log
+tex/*.out
+tex/*.fls
+tex/*.fdb_latexmk
+tex/probe*.tex
+tex/probe*.pdf

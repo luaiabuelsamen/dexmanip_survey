@@ -1,0 +1,5 @@
+% alias for table6_methods_top.tex; emits once however many sections input it
+\ifcsname dxdone@table6_methods_top\endcsname\else
+  \expandafter\gdef\csname dxdone@table6_methods_top\endcsname{}%
+  \input{tables/table6_methods_top}%
+\fi

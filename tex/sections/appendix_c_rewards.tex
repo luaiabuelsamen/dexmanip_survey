@@ -1,0 +1,103 @@
+%% Appendix C. Per-paper reward term extraction.
+%% Converted from paper/APPENDIX_C.md for the LaTeX edition. The markdown edition in paper/ is a
+%% separate edition of the same prose and is not written by this file.
+%% Every table number inside the disagreement entries is the cited paper's own table, so
+%% those stay literal numbers. Our own tables are cross-referenced.
+\section{Per-paper reward term extraction}
+\label{app:rewards}
+
+Table~\ref{tab:rewards} marks nine recurring term families across the in-hand reorientation methods. This appendix is the extraction underneath it, over every method row that records a reward at all. \texttt{terms stated} counts the terms the paper itself names. \texttt{where the reward was read} gives the section of the paper or the file in the released code that the note quotes. A row with a \texttt{paper/code class} is one where the two disagree, and the second part of this appendix prints the disagreement in full. Cells and entries reproduce the text stored in the row, with the source's own punctuation and wording.
+
+\subsection{The extraction}
+
+%% tables/rewards_full.tex is generated into tex/tables/ by the table generator in tools/.
+%% Do not write the table out here; regenerate it there.
+\IfFileExists{tables/rewards_full.tex}{\input{tables/rewards_full.tex}}{%
+  \begin{table}[!t]
+  \caption{The per-paper reward term extraction, over every method row that records a reward at all. Pending: generated into \texttt{tex/tables/rewards\_full.tex} by the table generator in \texttt{tools/}.}
+  \label{tab:rewards_full}
+  \end{table}}
+
+\noindent\emph{77 rows. 253 of 770 cells (32 percent) are values no source stated. A blank \texttt{terms stated} with a filled \texttt{term names} column is a paper that names its terms without numbering them. \texttt{in Table 5} marks the rows that are also in the body matrix, which covers in-hand reorientation only.}
+
+\subsection{Paper against released code, in full}
+\begingroup\sloppy
+\emergencystretch=3em
+
+Each entry below is the disagreement text stored in the row, unedited. The class is what Sec. 5.8 and Sec. 8.1 count. \texttt{contradiction} means the paper states one value and the shipped code demonstrably states another. \texttt{parse-limitation} means this survey's own parse could not settle it and the accusation is withdrawn. \texttt{code-absent} means the described component is not in the released repository. \texttt{version-skew} means the repository is a later generation than the paper. \texttt{internal-inconsistency} means the paper disagrees with itself and no code is implicated.
+
+\textbf{contradiction, 10 rows.}
+
+\begin{itemize}
+\item PDDM \cite{pddm_2019} (high). Table 2 states obs-dim 46 for In-hand Reorientation while the released cube\_\allowbreak{}env.py code sums to 39; the Baoding reward code includes an extra -10*wrist\_\allowbreak{}too\_\allowbreak{}high term absent from Table 2's printed formula.
+\item DexPoint \cite{dexpoint_2022} (high). The released code's reward adds several terms absent from the paper's four-term Eq. 5 (a lift-threshold bonus, a target-distance term, a rotation bonus, and an IK controller-tracking penalty) and reshapes the reach/lift terms into inverse-distance and clipped forms rather than the paper's plain distance/height-difference formulas.
+\item DeXtreme \cite{dextreme_2022} (high). Action Delta Penalty weight is -0.25 in paper Table 2 but -0.2 in the ADR yaml and -0.01 in the ManualDR yaml; the Joint Velocity Penalty in code normalises velocity by (max\_\allowbreak{}velocity-vel\_\allowbreak{}tolerance) unlike the paper's stated formula; code has a timeout\_\allowbreak{}rew term absent from the paper's reward table; Appendix Table 12 states critic learning rate 5e-4 and KL threshold 0.16, vs body text/code values of 5e-5 and 0.016.
+\item Visual Dexterity \cite{visual_dexterity_2022} (high). Table S1 states 32000 teacher training environments, but the released config sets alg.num\_\allowbreak{}envs to 8000 (parent config 16384); fallDistance differs across two shipped configs (0.24 vs 0.15, only the latter matching Table S1's threshold); the paper's Eq 8 penultimate-joint penalty (c7=-2) does not appear anywhere in the released reward code; the config carries a dead distRewardScale=-10.0 key never used in compute\_\allowbreak{}reward; and the paper's table-friction lower bound (0.05) differs by a factor of 10 from the code's randomized lower bound (0.005).
+\item DexPBT \cite{dexpbt_2023} (high). Paper presents the reward as 4 mutually exclusive stage terms (r\_\allowbreak{}reach, r\_\allowbreak{}pick, r\_\allowbreak{}targ, -r\_\allowbreak{}vel), but code's compute\_\allowbreak{}kuka\_\allowbreak{}reward sums 8 named components, one of which (hand\_\allowbreak{}delta\_\allowbreak{}penalty) is multiplied by 0 and disabled; there is no single r\_\allowbreak{}vel term in code, instead separate kuka/allegro action penalties whose exact formula is not shown. Also, the paper reports zero experiments with domain randomization, yet the shipped AllegroKuka.yaml already carries a fully specified DR schedule (disabled via randomize: False).
+  \\ \emph{Review:} R3 adversarial review: the disabled-randomisation half is withdrawn, since the note finds it consistent with the paper; the zeroed reward term stands
+\item PhysHOI \cite{physhoi_2023} (high). The released code hardcodes the body position-velocity error and the object rotation/rotation-velocity errors to zero in compute\_\allowbreak{}humanoid\_\allowbreak{}reward, so despite Table 4 listing nonzero $\lambda^{or}$=0.1/$\lambda^{orv}$=0.01 weights for GRAB, the trained reward never actually tracks object orientation (position-only in practice).
+\item UniDexGrasp \cite{unidexgrasp_2023} (high). The paper describes a four-term weighted reward (r\_\allowbreak{}goal + r\_\allowbreak{}reach + r\_\allowbreak{}lift + r\_\allowbreak{}move via Table 7's omega weights) but the released compute\_\allowbreak{}hand\_\allowbreak{}reward implements a different threshold-gated torch.where cascade with distinct hardcoded coefficients that do not map one-to-one onto the paper's weights.
+\item OmniH2O \cite{omnih2o_2024} (medium). stumble weight -0.00125 (paper) vs -1250 (code); max-feet-height sign/magnitude differ (+1000 paper vs -2500 code, a penalty not a bonus); paper's exp(-c*//.//) form vs code's exp(-err$^{2}$/sigma); curriculum level-down threshold 40 (paper) vs 50 (code)
+  \\ \emph{Review:} R3 adversarial review: plausible alternative reading; held at medium confidence pending a direct code read
+\item PenSpin \cite{penspin_2024} (medium). The released code disables the paper's tactile observation channel and zeroes the described disturbance-force domain randomization, and the code's reward scale-key names (e.g. rotate\_\allowbreak{}reward\_\allowbreak{}scale, pencil\_\allowbreak{}z\_\allowbreak{}dist\_\allowbreak{}penalty\_\allowbreak{}scale) do not 1:1 name-match the paper's Table 4 weight list, though matched values agree.
+  \\ \emph{Review:} R3 adversarial review: plausible alternative reading; held at medium confidence pending a direct code read
+\item PianoMime \cite{pianomime_2024} (high). Paper's Table 3 states 2 weighted reward terms (Key Press 2/3, Mimic 1/3), but the released code sums roughly 5 unweighted terms (key press doubled, sustain, energy and fingering hardcoded to return 0, forearm-collision) plus a separately-added mimic wrapper term.
+\end{itemize}
+
+\textbf{internal-inconsistency, 3 rows.}
+
+\begin{itemize}
+\item ALOHA \cite{aloha_act_2023} (high). Algorithm 1 pseudocode states L\_\allowbreak{}reconst = MSE, but Sec.IV.C's prose explicitly states L1 loss is used instead; the algorithm box and the implementation text disagree; code/md captures only function signatures, not bodies, for policy.py's loss implementation
+\item 3D Diffusion Policy \cite{dp3_2024} (medium). the paper's prose states the network predicts the noise added to the data, but the shipped default config trains with prediction\_\allowbreak{}type: sample (predicting the denoised action a$^{0}$ directly), not epsilon; the paper only qualifies this later in the same section (Fig. 7 ablates both).
+\item DexMachina \cite{dexmachina_2025} (low). paper describes a plain weighted sum lambda\_\allowbreak{}task*r\_\allowbreak{}task + lambda\_\allowbreak{}imi*r\_\allowbreak{}imi + lambda\_\allowbreak{}bc*r\_\allowbreak{}bc + lambda\_\allowbreak{}con*r\_\allowbreak{}con with unspecified weights; code implements a multiplicative task term with per-component beta decay, an unmentioned 0.1 force-penalty term, and curriculum-driven decay of auxiliary weights not described as such in the paper
+  \\ \emph{Review:} R3 adversarial review: the multiplicative form credited to the code is printed in the paper itself
+\end{itemize}
+
+\textbf{version-skew, 4 rows.}
+
+\begin{itemize}
+\item Hora \cite{hora_2022} (high). The parsed code commit's joint-noise range, disabled default disturbance force, and default cube object type differ from the paper's stated values; the code README itself says to use tag v0.0.1, not the parsed commit, to reproduce paper numbers.
+\item $\pi_0$ \cite{pi0_2024} (high). The released repo (openpi, commit 215abfb2) has evolved past this paper: it also documents pi0-FAST (autoregressive) and pi0.5 checkpoints/configs not described in this paper, which describes only the flow-matching pi0 and the non-VLM pi0-small ablation.
+\item GR00T N1.6 \cite{groot_n16_2025} (high). code/md is the current Isaac-GR00T main branch (N1.7 generation, commit 51d4c89f), not the N1.6 checkpoint; the repo names a separate n1d6 branch for N1.6 that was not fetched. The page states N1.6's backbone is ``an internal NVIDIA Cosmos-2B VLM variant,'' but the repo's own changelog states the Eagle backbone (nvidia/Eagle-Block2A-2B-v2) was used through N1.6 and only replaced by Cosmos-Reason2-2B in N1.7 -- whether the page's Cosmos-2B variant is a third distinct model or the page is describing N1.7 under an N1.6 headline is not resolvable from what was fetched.
+  \\ \emph{Review:} The page attributes a Cosmos backbone to N1.6 while the repository changelog says N1.6 used Eagle and N1.7 made the switch, so the repository is a later generation than the page describes.
+\item GR00T N1 \cite{groot_n1_2025} (high). The parsed code repo (Isaac-GR00T, commit 51d4c89f) is a later N1.7 generation, not the paper's GR00T-N1-2B: VLM backbone changed from the paper's Eagle-2 to Cosmos-Reason2-2B (via Qwen3-VL); action horizon expanded from the paper's stated H=16 to 40; state/action dimensions expanded from 29 to 132; DiT layers changed from 32 to 16; embodiment scope widened to include Unitree G1, AgiBot G1, and a `YAM' arm not described in the paper.
+\end{itemize}
+
+\textbf{code-absent, 8 rows.}
+
+\begin{itemize}
+\item AsymDex \cite{asymdex_2024} (medium). Code contains a GraspAndPlace-task reward variant (AllegroHandDualArmGraspAndPlaceAsymDex.py) with exponential hand-distance and block-alignment terms not one of the four BiDexHands tasks described in the paper body.
+\item DexMimicGen \cite{dexmimicgen_2024} (high). The environment code includes an unused `reward\_\allowbreak{}shaping' branch (if self.reward\_\allowbreak{}shaping: pass) that is never described or used in the paper text; only the sparse binary completion reward is used, as the paper states.
+\item DrEureka \cite{dreureka_2024} (high). The released DrEureka repo (code/md) contains only forward\_\allowbreak{}locomotion/ and globe\_\allowbreak{}walking/ trees; the LEAP-hand cube-rotation training/deployment code and the quoted Prompt-13 reward are the LEAP-hand authors' own code, not included in the released repo, so the cube-rotation reward cannot be cross-checked against a code file.
+\item Open-TeleVision \cite{open_television_2024} (low). The paper's prose states 25k training iterations, lr 5e-5, batch size 45, but the code repo's example training command instead shows 50000 epochs and an explicit kl\_\allowbreak{}weight=10 not mentioned anywhere in the paper text.
+  \\ \emph{Review:} R3 adversarial review: a behaviour-cloning paper with no reward; the charge compared paper iterations to a README example's epochs
+\item Being-H0 \cite{being_h0_2025} (high). The actual downstream action-head module referenced in \S4.3 (learnable query tokens, proprioceptive projector f\_\allowbreak{}p, regression head f\_\allowbreak{}r) is not present in the parsed code; the repo's own TODO list marks `Training code and scripts' as unreleased, so the action-chunk-length=16 value and exact proprioception-vector fields come only from inference/eval CLI examples, not a verifiable implementation.
+\item $\pi_{0.5}$ \cite{pi05_2025} (high). The paper describes a hybrid discrete-FAST-token-pretrain-then-flow-matching-post-train recipe (Eq. 1, alpha: 0 to 10), but the released repo states plainly it `currently only support[s] the flow matching head for both pi0.5 training and inference.'
+\item $\pi^{*}_{0.6}$ \cite{pistar06_2025} (high). The general openpi framework (pi0/pi0.5/FAST, flow-matching action head, ALOHA/DROID/LIBERO adapters) is released at commit 215abfb2, but the RECAP-specific pieces described in the paper -- the advantage-conditioning input, the distributional value function, the RECAP training loop (Algorithm 1), and the espresso/laundry/box-assembly checkpoints and datasets -- are not present in the parsed repo.
+\item Being-H0.5 \cite{being_h05_2026} (high). Released code (commit e12ac44f) exposes only benchmark/inference/config scaffolding (policy.py, beingh\_\allowbreak{}policy.py, dataset-transform configs). no MoT/MoF model definition, no rectified-flow action-expert source, and no config for any dexterous-hand embodiment; the only post-train configs present (libero\_\allowbreak{}robocasa.yaml, libero\_\allowbreak{}all.yaml, robocasa\_\allowbreak{}human.yaml, so101\_\allowbreak{}example.yaml) are all gripper-only, so the dexterous-hand claims cannot be cross-checked against released code.
+\end{itemize}
+
+\textbf{parse-limitation, 13 rows.}
+
+\begin{itemize}
+\item ArtiGrasp \cite{artigrasp_2023} (low). paper's two regulariser weights (w\_\allowbreak{}rh=0.5, w\_\allowbreak{}ro=0.2) correspond to five separate velocity penalties in code (-0.5,-0.2,-0.5,-0.5,-0.3); the fingertip weight 12.0 and lambda 5.0 in Table 6 do not appear in the yaml; reward weights differ between curriculum phase-1 and phase-2 configs though Table 6 reports only one set
+  \\ \emph{Review:} R3 adversarial review: the reward body is C++ and absent from the parse; the weight split is the paper's documented curriculum
+\item Diffusion Policy \cite{diffusion_policy_2023} (high). the paper's core loss equations (DDPM training loss, EBM/InfoNCE, score-matching) are unrecovered images in the parsed text, and code/md is a signature-only API map, so compute\_\allowbreak{}loss's body could not be verified from code; only the exact shipped noise-scheduler config (DDPMScheduler, 100 train steps) is confirmed.
+\item Eureka \cite{eureka_2023} (low). The released repo's default eureka/cfg/config.yaml ships iteration:1, sample:3 (a fast-test default), not the paper's reported experimental configuration of N=5 iterations $\times$ K=16 samples $\times$ 5 independent runs, and LLM-generated reward code itself is never checked into the repo (written at runtime to a gitignored outputs/ directory).
+  \\ \emph{Review:} R3 adversarial review: the repo README documents the paper's defaults; the cited config block is a fast-test preset
+\item UniDexGrasp++ \cite{unidexgrasp_pp_2023} (low). The paper's four named reward weights (0.5, 0.1, 2, 10) numerically match literals in the released compute\_\allowbreak{}hand\_\allowbreak{}reward, but the code never labels them with the paper's variable names, and the paper's own display equations were dropped from the PDF, so the correspondence is inferred rather than confirmed by either source.
+\item BiDexHD \cite{bidexhd_2024} (high). Table 5 weights (w\_\allowbreak{}r, w\_\allowbreak{}t, w1-w4, lambda\_\allowbreak{}w=0.12, lambda\_\allowbreak{}ft=0.48) cannot be matched to code reward lines because the code md truncates the reward function before stage-2/final sum; lambda\_\allowbreak{}w and lambda\_\allowbreak{}ft numerically match the code's grasp-condition thresholds (0.12, 0.12x4 fingers) rather than confirmed reward weights
+\item GraspXL \cite{graspxl_2024} (low). The code splits the paper's single r\_\allowbreak{}reg = -w\_h//u\_h//$^{2}$ - w\_o//u\_o//$^{2}$ into four separately-weighted terms (wrist vel, wrist qvel, object vel, object qvel), and the floating-phase object-velocity coefficient (-1.5) does not match the paper's stated w\_\allowbreak{}o=0.1, so the regularization weighting cannot be reconciled 1:1 with Table 9.
+  \\ \emph{Review:} R3 adversarial review: the environment source is not in the parse and the note says the reward cannot be verified
+\item HumanPlus \cite{humanplus_2024} (medium). code implements a superset of legged\_\allowbreak{}gym reward terms (lin\_\allowbreak{}vel\_\allowbreak{}z, ang\_\allowbreak{}vel\_\allowbreak{}xy, orientation, base\_\allowbreak{}height, torques, dof\_\allowbreak{}vel, dof\_\allowbreak{}acc, action\_\allowbreak{}rate, collision, termination, dof/torque limits, tracking\_\allowbreak{}lin/ang\_\allowbreak{}vel, feet\_\allowbreak{}air\_\allowbreak{}time, stumble, stand\_\allowbreak{}still, feet\_\allowbreak{}contact\_\allowbreak{}forces, target\_\allowbreak{}jt) beyond the 8 terms documented in the paper's Table 1
+\item Omnigrasp \cite{omnigrasp_2024} (medium). The code's compute\_\allowbreak{}pregrasp\_\allowbreak{}reward\_\allowbreak{}time hard-codes w\_\allowbreak{}pos, w\_\allowbreak{}rot = 0.9, 0.1, silently overriding the rwd\_\allowbreak{}specs weight arguments passed into the function; separately, the paper's pre-grasp reward weights (w\_\allowbreak{}hp, w\_\allowbreak{}hr) are not resolvable from either the paper text or Appendix Table 7.
+\item ResDex \cite{resdex_2024} (medium). The base-policy and residual-policy task files implement different variants of compute\_\allowbreak{}hand\_\allowbreak{}reward (whether finger/hand-distance terms are included alongside goal\_\allowbreak{}hand\_\allowbreak{}rew/hand\_\allowbreak{}up/bonus differs), a difference the paper's Sec 4.1/4.4 text does not describe, and the released configs' env count (4096 default) and iteration counts (2500/5000) do not match the paper's stated 11,000 envs and 5,000/20,000 iterations.
+\item DexGraspVLA \cite{dexgraspvla_2025} (high). Hardware-interfacing code is explicitly withheld (``Due to intellectual property constraints, we are unable to open-source the hardware-related code''); only function signatures for the controller loss (compute\_\allowbreak{}loss, noise\_\allowbreak{}assignment) are present in code/md, not their bodies, so the MSE/Immiscible-Diffusion loss cannot be verified against code.
+\item DexTrack \cite{dextrack_2025} (low). The paper gives one canonical reward-weight table (Table 3), but the released repo's task-config YAMLs contain several divergent, unreconciled reward-coefficient sets across AllegroHandTracking/\dots{}TrackingGeneralist/other variants, and it is not identifiable from the parsed source which config produced the paper's headline Table 1 numbers.
+\item DexVLA \cite{dexvla_2025} (high). code/md only carries class/function signatures, not bodies, for the diffusion head (modeling\_\allowbreak{}scaledp.py) and no config file with the $\alpha$ weight was captured; the paper's diffusion loss and denoising process cannot be verified against code bodies. only the multi-head ScaleDP signature and a DDIM fp32 patch are available, so none of the paper's tables can be reproduced from what was parsed.
+\item ManipTrans \cite{maniptrans_2025} (low). paper's PPO learning rate (5e-4) and env count (4096) differ from the shipped README/yaml defaults (2e-4, 8192)
+  \\ \emph{Review:} R3 adversarial review: the cited values are a README override and an unused fallback; the repo's own config matches the paper
+\end{itemize}
+\endgroup
+
+\input{tables/appendix_contact_models}
