@@ -67,12 +67,13 @@ of the hand from a canonical grasp pose, a family the plan for this table did no
 which had to be added. Six penalise action rate or magnitude, five reward closing the distance
 from fingertips to the object, and four carry a contact or force mark at all.
 
-Three cells an earlier draft marked `code` are blank in it, because in each the term is in the
-released code with every shipped configuration setting its weight to zero: `dextreme_2022`'s
+Three cells an earlier draft marked `code` print `code (0)` instead, because in each the term is
+in the released code with every shipped configuration setting its weight to zero: `dextreme_2022`'s
 `timeout_rew` and `dexpbt_2023`'s fall penalty through `fallPenalty: 0.0`, and `penspin_2024`'s
 `action_penalty_scale: 0.0`. Marking them `code` would tell a reader the code optimises something
-the paper does not state. They carry the mark `code (0)` in `corpus/reward_matrix.json`, with the
-config key and value; section 5.8 says why the distinction matters.
+the paper does not state, and leaving them blank would hide a term that is in the file. The same
+mark carries the config key and value in `corpus/reward_matrix.json`. Section 5.8 says why the
+distinction matters.
 
 Three of the four contact marks are the finding, not four. `anyrotate_2024` scores good and bad
 fingertip contacts, `poise_2026` rewards a friction-cone wrench margin, and
@@ -279,25 +280,29 @@ pen-spinning set against 46.9 for the best baseline. It does not re-measure pene
 tracking policy runs, so the property it constrains is a property of the reference and not of the
 behaviour.
 
-That is the pattern across all eight. Penetration is handled at the reference, if at all, and
-never at the rollout. `objdex_2024` completes the set with the only real-robot numbers among them,
+That is the pattern across all eight, and it is the reference-versus-rollout split in its
+sharpest form. Penetration is handled at the reference, if at all, and never at the rollout. `objdex_2024` completes the set with the only real-robot numbers among them,
 from 100 percent on a microwave and a laptop down to 41.2 percent on a ketchup bottle over 20
 trials each.
 
 ## 5.5 Generalist and vision-language-action policies
 
-The finding is the size of the hand. Eighteen method rows carry the `VLA` tag. Eleven evaluate on
-a multi-fingered hand and six report no hand result at all, `groot_n16_2025` naming no end
-effector anywhere on its page. Seven of the eleven state a hand size, and that comparison has to
-be made in actuated degrees of freedom rather than joints, for the reason section 3 opens with:
-four are six, the Inspire RH56DFX among them actuating six of its twelve joints; one is twelve,
-`dexora_2026`'s XHAND; and two are 21 and 22, `gr_dexter_2025`'s ByteDexter V2 and
-`egoscale_2026`'s Sharpa Wave. Their median is 6. Of the 59 reward-learning rows, 48 state a
-count, 38 of those are 16 or above, and their median is 16: an Allegro and a LEAP actuate 16, and
-a Shadow actuates 20 of its 24 joints. Two generalist rows reach the band the
-reinforcement-learning literature of section 5.2 works in, and the rest sit a factor of two or
-three below it. An earlier version of this claim said that none reached it, which was true of the
-eight rows scored on the hand-evaluation field and false of the two that were not scored.
+The finding is the size of the hand. Eighteen method rows carry the `VLA` tag. Fourteen of them
+settle whether the reported evaluation ran on a multi-fingered hand. Eight of those fourteen did,
+six report no hand result at all, and the remaining four never say, `groot_n16_2025` naming no end
+effector anywhere on its page. Section 8.4 counts the same eighteen the same way.
+
+Five of the eight state a hand size, and that comparison has to be made in actuated degrees of
+freedom rather than joints, for the reason section 3 opens with. Four are six, the Inspire RH56DFX
+among them actuating six of its twelve joints, and one is twelve, `dexora_2026`'s XHAND. Their
+median is 6. Two of the four rows that never settle the hand question do state a size, and both
+are large: 21 for `gr_dexter_2025`'s ByteDexter V2 and 22 for `egoscale_2026`'s Sharpa Wave. Of
+the 59 reward-learning rows, 48 state a count, 38 of those are 16 or above, and their median is
+16: an Allegro and a LEAP actuate 16, and a Shadow actuates 20 of its 24 joints. So no row that
+settles the question reaches the band the reinforcement-learning literature of section 5.2 works
+in, and the two rows that reach it on paper are the two that never say whether the hand was in the
+evaluation. An earlier version of this claim counted eleven rows as evaluating on a hand, which
+mixed the settled eight with rows the notes leave open.
 
 The six with no hand result are parallel-jaw throughout (`pi0_2024`, whose released code encodes
 each ALOHA gripper as one scalar, `pi05_2025`, `pistar06_2025`, `openvla_2024`, `helix_2025`,
@@ -357,13 +362,13 @@ a dataset rather than a gradient.
 
 ## 5.8 What the released code says
 
-Thirty-seven of the 112 method rows record a discrepancy between a paper and the code it released,
-and all 37 released code, so they sit inside the 62 rows that released anything. They are not one
+Thirty-eight of the 112 method rows record a discrepancy between a paper and the code it released,
+and all 38 released code, so they sit inside the 62 rows that released anything. They are not one
 kind of thing. Ten are contradictions, where paper and code state different values or different
 terms. Thirteen are limits of this survey's own parse, where the body or config that would settle
 the question was never recovered and the row says so. Eight released code without the described
-component in it, three are version skew against a later repository, and three are a paper
-disagreeing with itself. An unclassified thirty-eighth, `groot_n16_2025`, ships a main branch one
+component in it, four are version skew against a later repository, and three are a paper
+disagreeing with itself. The fourth version skew is `groot_n16_2025`, which ships a main branch one
 generation later than the checkpoint its page describes.
 
 Ten is the number to quote, eight at high confidence and two, `penspin_2024` and `omnih2o_2024`,
@@ -418,7 +423,7 @@ prose says the network predicts noise while its config sets `prediction_type: sa
 printed in the paper.
 
 A reward table is a claim about a training run and the code is a claim about a repository. Here
-the two contradict each other in ten cases, in the other 27 the released artefacts do not settle
+the two contradict each other in ten cases, in the other 28 the released artefacts do not settle
 the question, and in exactly one, `hora_2022`, the repository says so itself. Read the reward
 function before the reward table, and treat a printed weight as a hypothesis about the code.
 
@@ -426,9 +431,11 @@ function before the reward table, and treat a printed weight as a hypothesis abo
 ## 5.9 The master table
 
 Table 7's emptiest columns are the ones a reader most needs: only 31 rows state an environment
-count, only 55 state how many real trials are behind the headline number, and only 32 state how
-many unseen objects were tested. A mostly empty row is not a weak method, but it is one that
-cannot be compared with any other row here.
+count, only 70 state how many real trials are behind the headline number, and only 39 state how
+many unseen objects were tested. The trial and unseen-object figures are the audited ones, after
+section 7.1 recovered 15 trial counts and 7 unseen-object counts that the notes carried and the
+extraction had dropped. A mostly empty row is not a weak method, but it is one that cannot be
+compared with any other row here.
 
 {{table:table7_methods}}
 

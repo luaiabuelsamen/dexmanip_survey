@@ -1,13 +1,13 @@
 # 9. Conclusion
 
-The binding constraint on this field is not ideas. It is verification. Sixty-one method papers
-released code that could be read against the paper, 37 of those record a discrepancy, and ten are
+The binding constraint on this field is not ideas. It is verification. Sixty-two method papers
+released code that could be read against the paper, 38 of those record a discrepancy, and ten are
 contradictions where the shipped code states a different objective from the published one. The
 first count was sixteen, and an adversarial re-reading withdrew seven accusations, each withdrawal
-recorded in the row beside the charge. Ten is a floor, because fifty method rows released nothing
-to check. A reward table in a paper is a claim about a document, not about a run. `physhoi_2023`
-is the case to remember, because the term its table weights at 0.1 is set to zero in the code, and
-its own success criterion could not have detected that.
+recorded in the row beside the charge. Ten is a floor, because forty-six method rows released
+nothing to check. A reward table in a paper is a claim about a document, not about a run.
+`physhoi_2023` is the case to remember, because the term its table weights at 0.1 is set to zero
+in the code, and its own success criterion could not have detected that.
 
 The second finding is that the quantity most specific to dexterous manipulation is the one nobody
 records. Contact is what separates a hand from a gripper. Eleven of the 96 method rows whose notes
@@ -20,17 +20,17 @@ repository and the number is still not reported. `dextrack_2025` has the formula
 its inputs.
 
 The third is that hardware and software have come apart, on a narrower claim than the hand count
-first suggests. Tables 2 and 3 hold 33 hands and 19 appear in no method row, but 14 of those are
-neither sold nor open. What survives is seven hands that can be bought or built from published
-designs, taking zero method rows between them. Eight of the fourteen generalist policies that settle the
-question do evaluate on a dexterous hand, at a median of 6 degrees of freedom against 16 across the
-reinforcement-learning rows.
+first suggests. Tables 2 and 3 hold 33 hands and 18 appear in no method row. 11 of those 18
+are neither sold nor open and appear in none for that reason, which leaves 7 hands that can be
+bought today or built from published designs and that take zero method rows between them. Eight of
+the fourteen generalist policies that settle the question do evaluate on a dexterous hand, at a
+median of 6 degrees of freedom against 16 across the reinforcement-learning rows.
 
 What this survey cannot establish is which method is better than which. It re-runs nothing, and
-Section 7 argues that the published numbers do not compare. Six works are paywalled and no claim
-rests on them. Every coverage statistic here counts what this survey's extraction captured rather
-than what the literature reported. Each is a floor and not a rate, because every miss converts a
-reporting paper into a silent one.
+Section 7 argues that the published numbers do not compare. Five works are cited by metadata only
+and no claim rests on them. Every coverage statistic here counts what this survey's extraction
+captured rather than what the literature reported. Each is a floor and not a rate, because every
+miss converts a reporting paper into a silent one.
 
 Three things to do next week, cheapest first.
 
@@ -43,5 +43,7 @@ surface sample, and never let that measure become a reward. `toporetarget_2026` 
 number looks like when someone takes it seriously, and what the widely used retargeters look like
 when nobody does.
 
-If you are choosing hardware, pick from the five real hands a simulator already names. An announced
-hand has no URDF, no datasheet that can be checked, and no paper in this corpus that used it.
+If you are choosing hardware, the corpus names four hands and no more. The Allegro carries 35
+method rows, the Shadow 21, the Inspire 19 and LEAP 12, and every other hand in Tables 2 and 3
+carries eight rows or fewer. An announced hand has no URDF, no datasheet that can be checked, and
+no paper in this corpus that used it.

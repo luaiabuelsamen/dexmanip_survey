@@ -34,11 +34,15 @@ hand's bound would have to be set the same way, for the worst case, but no hand 
 printed.
 
 Figure 3 sets out the stages of one simulation step. Three of them make overlap, and they do not
-answer to the same knob. Integration turns any residual approach velocity into overlap of order v
-times Δt. Constraint assembly fixes the compliance a loaded contact then rests at. A truncated
-solver leaves a residual that grows with conditioning. A fourth item on the figure is not a source
-of overlap at all. It is a mismatch between the geometry the solver uses and the geometry the
-renderer draws, and it runs in both directions.
+answer to the same knob. In an engine that enforces non-penetration at the velocity level,
+integration turns any residual approach velocity into overlap of order v times Δt; an engine that
+enforces the gap at the next configuration carries no such term, which is why Dojo's hard-contact
+NCP keeps its feet above the floor at every timestep it was tested at. Constraint assembly fixes
+the compliance a loaded contact then rests at. A truncated solver leaves a residual that grows with
+conditioning. Which of the three dominates in a grasp is not measured anywhere in this corpus, and
+the three are not ordered here. A fourth item on the figure is not a source of overlap at all. It
+is a mismatch between the geometry the solver uses and the geometry the renderer draws, and it
+runs in both directions.
 
 ## 4.2 Contact models and solvers, engine by engine
 
@@ -70,13 +74,16 @@ steady-state violation at a contact is the normal load times the compliance. It 
 load and it grows with the load carried. MuJoCo drives that violation coordinate with a critically damped
 stabiliser parameterised by ε and κ, and for an object resting under gravity the steady-state
 depth has a closed form independent of the object's mass (`mujoco_convex_contact_2014`, Sec. V).
-Mass cancels because the regulariser is scaled by the inverse effective inertia at the contact, so
-compliance falls as 1/m exactly as the gravity load rises as m. The closed form did not survive
-the parse of that paper, so the cancellation is quoted and the algebra is not. This is not a
-penalty spring, and depth is not always non-zero. The impulse solves a regularised convex program
-over the whole contact set rather than a per-contact function of the gap, both MuJoCo papers
-reject spring-dampers by name, and the 2012 ball-drop figure is captioned "there is no
-penetration" (`mujoco_2012`, Fig. 2).
+The closed form did not survive the parse of that paper, so the cancellation is quoted and the
+algebra is not. Neither MuJoCo paper states why mass cancels, and the explanation this survey
+offers is its own inference rather than a cited one: the regulariser is scaled by the inverse
+effective inertia at the contact, so compliance falls as 1/m exactly as the gravity load rises as
+m. The nearest support in a parsed source is for a different solver of the same engine, MuJoCo's
+diagonal solver, a "mass-aware spring-damper" that uses the diagonal of the A matrix to keep
+contacts critically damped (`mujoco_2012`, Sec. II-E). This is not a penalty spring, and depth is
+not always non-zero. The impulse solves a regularised convex program over the whole contact set
+rather than a per-contact function of the gap, both MuJoCo papers reject spring-dampers by name,
+and the 2012 ball-drop figure is captioned "there is no penetration" (`mujoco_2012`, Fig. 2).
 
 The first of two concrete measurements comes from the other end. Dojo solves a hard-contact
 nonlinear complementarity problem with an exact second-order friction cone, by an interior-point
@@ -86,20 +93,31 @@ drops an Atlas humanoid and reports foot-floor penetration against the timestep.
 tested (`dojo_2022`, Sec. V-A). The MuJoCo column is not a trend. A ten-times-smaller step
 produces more overlap, which no timestep-independent stabiliser does. Either that configuration
 ties the compliance to Δt, or the quantity is an impact transient on a drop. Neither reading is a
-steady-state grasp depth. Drake's SAP bound of 2.5×10^-5 m at δt = 10^-2 s is six orders of
-magnitude below Dojo's MuJoCo cell at the same step, on an engine that is also compliant
-(`castro_sap_contact_2021`, Sec. V-B). The depth is a setting.
+steady-state grasp depth. Drake's SAP quotes 2.5×10^-5 m at δt = 10^-2 s and 2.5×10^-7 m at
+δt = 10^-3 s, three and five orders of magnitude below Dojo's two MuJoCo cells at the same steps,
+on an engine that is also compliant (`castro_sap_contact_2021`, Sec. V-B). Those two figures are
+analytical bounds for a single point mass at rest on a plane under that paper's near-rigid
+stiffness rule, not measured depths, and they are not a Drake grasp-penetration number: a
+point-mass bound and a humanoid drop transient differ in load, effective inertia and regime, so
+the distance between them is not a measurement of anything. What the pair of engines does show is
+that in a compliant formulation the depth follows from a stiffness that someone chose.
 
 Dojo's Table V times 1000 steps of forward simulation with gradients, at a matched Δt = 0.01 s,
 for engines that are not all computing gradients. MuJoCo is fastest on every system, 0.335 ± 0.001
 s against Dojo's 1.159 ± 0.077 s on a Franka Panda, and the authors call the comparison difficult
-because Dojo is stable at five times the step size (Sec. VI-B). What the regularisation buys is
-conditioning, which is what lets a hyperstatic grasp run at a large step. It does not buy the step
-with overlap, and the depth it costs is tuned separately. Erez's contact-free planar chain settles
-that. MuJoCo runs at 243.2 kHz there against Bullet's 22.8 and PhysX's 6.4, and Bullet's
-articulated Featherstone mode at 81.4 kHz beats every Cartesian-coordinate engine
-(`physics_engine_comparison_2015`, Sec. IV-B). Joint coordinates explain the timestep advantage
-and contact compliance cannot.
+because Dojo is stable at five times the step size (Sec. VI-B). What the regularisation buys, on
+Le Lidec's reading quoted above, is conditioning on a hyperstatic problem, and the depth it costs
+is tuned separately. Whether that is also what holds Erez's grasp at 16 ms is a question his data
+do not answer. His planar chain is contact-free, so its numbers speak to the coordinate
+formulation and not to contact: MuJoCo runs at 243.2 kHz there against Bullet's 22.8 and PhysX's
+6.4, and Bullet's articulated Featherstone mode at 81.4 kHz beats every Cartesian-coordinate engine
+(`physics_engine_comparison_2015`, Sec. IV-B). Those are throughput in evaluations per second, not
+a largest-stable-timestep result, and the articulated Bullet mode was never run on the grasp test
+at all, being usable only in tests without contact (Appendix). Joint coordinates explain the
+contact-free speed advantage. The grasp timestep is a contact result, and the paper attributes it
+to nothing: it reports that the other engines go unstable and "effectively simulate a different
+physics model which can no longer hold the object" (Sec. IV-D), without an experiment that
+separates the coordinate formulation from the soft absorption of penetration.
 
 The GPU era moved the compliance knob rather than removing it. ComFree-Sim resolves contact in
 closed form in the dual cone of the friction cone, so penetration becomes an explicit tuning

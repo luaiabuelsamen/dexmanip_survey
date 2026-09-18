@@ -1,5 +1,15 @@
 """Generate the survey's tables from corpus/rows/*.json. A cell that no note confirmed prints
-as an em space, and each table states how many cells are empty."""
+as an em space, and each table states how many cells are empty.
+
+No cell is truncated. Every free-text column here holds a clause, not a token, and the earlier
+150-character cut fell mid-word: Table 4's Brax contact-model cell ended "no convex-decompos" and
+its MuJoCo Warp solver cell ended "are", which are exactly the two columns Section 4.2 spends
+2,000 words arguing about. Raising the cut would not have helped either, because these values run
+to 480 characters and a 480-character cell is a paragraph printed sideways. Instead every cell
+carries its full value, soft-wrapped at a word boundary with `<br>` so the rendered column has a
+bounded width and the row grows downwards instead of sideways. WRAP_MAX is the widest a column is
+allowed to render, in characters, and a column's declared width narrows it further.
+"""
 import json, glob, re
 from pathlib import Path
 R = Path(__file__).resolve().parents[1]
@@ -9,24 +19,46 @@ for f in glob.glob(str(R / "corpus/rows/*.json")):
     except Exception as e: print(f"[bad] {f}: {e}")
 bib = {e["key"]: e for e in json.loads((R / "corpus/bib.json").read_text())}
 EM = " "
+WRAP_MIN, WRAP_MAX = 16, 52
 
-def cell(v, width=150):
+def soft_wrap(s, width):
+    """Break a cell onto further rendered lines at word boundaries. Nothing is cut, and a word
+    longer than the column is left whole rather than split."""
+    w = max(WRAP_MIN, min(int(width), WRAP_MAX))
+    if len(s) <= w: return s
+    lines, cur = [], ""
+    for word in s.split():
+        if cur and len(cur) + 1 + len(word) > w:
+            lines.append(cur); cur = word
+        else:
+            cur = word if not cur else cur + " " + word
+    if cur: lines.append(cur)
+    return " <br>".join(lines)
+
+def cell(v, width=WRAP_MAX):
     if v is None or v == "" or v == []: return EM
     if isinstance(v, bool): return "yes" if v else "no"
     if isinstance(v, list): v = ", ".join(str(x) for x in v)
     s = str(v).replace("|", "/").replace("\n", " ").strip()
-    return s if len(s) <= width else s[:width - 1].rstrip() + "\u2026"
+    return soft_wrap(s, width)
 
-def table(rows, cols, headers, sort=None):
+WRAPPED = ("\n*No cell is truncated. A value wider than its column is wrapped at a word boundary, "
+           "so a cell that runs to several rendered lines is one value and not several.*")
+
+def table(rows, cols, headers, sort=None, widths=None):
+    """One row per record, with per-column rendered widths. `widths` is a column-to-width map;
+    a column absent from it renders at WRAP_MAX."""
     if sort: rows = sorted(rows, key=sort)
+    widths = widths or {}
     out = ["| " + " | ".join(headers) + " |", "|" + "|".join(["---"] * len(headers)) + "|"]
     empty = total = 0
     for r in rows:
-        vals = [cell(r.get(c)) for c in cols]
+        vals = [cell(r.get(c), widths.get(c, WRAP_MAX)) for c in cols]
         vals[0] = f"`{vals[0]}`"
         empty += sum(1 for v in vals if v == EM); total += len(vals)
         out.append("| " + " | ".join(vals) + " |")
-    out.append(f"\n*{len(rows)} rows; {empty} of {total} cells ({100*empty//max(total,1)}%) are values no source stated.*")
+    out.append(f"\n*{len(rows)} rows; {empty} of {total} cells ({100*empty//max(total,1)}%) are values no source stated.*"
+               + WRAPPED)
     return "\n".join(out)
 
 def cite(k): return f"`{k}`"
@@ -147,7 +179,9 @@ def hand_table(rows, sort=None):
                "peer-reviewed paper with a stated protocol. The force column is not a ranking: read "
                "'what the force is' first, because pull-out resistance, pinch force, a fingertip "
                "normal force under an indenter and an unlabelled vendor spec are different "
-               "measurements. A blank cell means no source stated the value.*")
+               "measurements. A blank cell means no source stated the value. No cell is truncated: "
+               "a value wider than its column is wrapped at a word boundary, so a cell that runs "
+               "to several rendered lines is one value and not several.*")
     if notes:
         out.append("\nFigures with no reachable source, and other caveats on individual rows:\n")
         out.extend(notes)
@@ -170,11 +204,20 @@ if __name__ == "__main__":
     sims = [r for r in ROWS.values() if r.get("class") == "simulator"]
     sc = ["key","contact_model","solver","solver_iterations","differentiable","gpu","default_timestep_s","penetration_exposed","throughput","hands_shipped","license"]
     sh = ["engine","contact model","solver","iters","diff.","GPU","dt s","penetration exposed","throughput","hands shipped","licence"]
-    (outdir/"table4_simulators.md").write_text("### Table 4. Simulators and physics engines\n\n" + table(sims, sc, sh, sort=lambda r: str(r.get("key"))))
+    # `contact_model` and `solver` carry Section 4.2's argument, so they render at full width.
+    sw = {"key": 26, "contact_model": 52, "solver": 52, "solver_iterations": 28, "differentiable": 8,
+          "gpu": 8, "default_timestep_s": 10, "penetration_exposed": 12, "throughput": 44,
+          "hands_shipped": 40, "license": 24}
+    (outdir/"table4_simulators.md").write_text("### Table 4. Simulators and physics engines\n\n" + table(sims, sc, sh, sort=lambda r: str(r.get("key")), widths=sw))
     meth = [r for r in ROWS.values() if r.get("class") == "method"]
     mc = ["key","year","task_family","paradigm","algorithm","hand","hand_dof","bimanual","sim","real_robot","real_trials","objects_test_unseen","penetration","code_released"]
     mh = ["method","yr","task","paradigm","algorithm","hand","DoF","bi","sim","real","trials","unseen obj","penetration","code"]
-    (outdir/"table7_methods.md").write_text("### Table 7. Methods\n\n" + table(meth, mc, mh, sort=lambda r: (str(r.get("year")), r["key"])))
+    # Fourteen columns over 112 rows: the categorical columns are narrow so the two free-text
+    # columns, `algorithm` and `hand`, have room to wrap rather than to cut.
+    mw = {"key": 26, "year": 6, "task_family": 24, "paradigm": 20, "algorithm": 48, "hand": 30,
+          "hand_dof": 6, "bimanual": 6, "sim": 24, "real_robot": 6, "real_trials": 8,
+          "objects_test_unseen": 8, "penetration": 14, "code_released": 6}
+    (outdir/"table7_methods.md").write_text("### Table 7. Methods\n\n" + table(meth, mc, mh, sort=lambda r: (str(r.get("year")), r["key"]), widths=mw))
     # --- Table 5. Reward-term families across the in-hand reorientation RL methods ---
     rm = json.loads((R / "corpus/reward_matrix.json").read_text())
     fams, labs = rm["_families"], rm["_family_labels"]
@@ -208,8 +251,10 @@ if __name__ == "__main__":
     for r in tele: r["_collected"] = collected(r)
     tc = ["key","operator_interface","hand","retargeting_objective","latency","rig_cost_usd","_collected"]
     th = ["system","operator interface","robot hand","retargeting objective","latency","rig USD","data collected"]
+    tw = {"key": 24, "operator_interface": 46, "hand": 28, "retargeting_objective": 48,
+          "latency": 22, "rig_cost_usd": 10, "_collected": 16}
     (outdir/"table6_teleop.md").write_text("### Table 6. Teleoperation and human-data systems\n\n"
-        + table(tele, tc, th, sort=lambda r: (str(r.get("year")), r["key"])))
+        + table(tele, tc, th, sort=lambda r: (str(r.get("year")), r["key"]), widths=tw))
 
     print("hands", len(hands), "sims", len(sims), "methods", len(meth),
           "reward rows", len(rm["rows"]), "teleop rows", len(tele))

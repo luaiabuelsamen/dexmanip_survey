@@ -70,9 +70,11 @@ the literature reported. A structured row holds a scalar. A paper that reports a
 a rubric, or a total spread across several tables produces a null, and a null is then counted as
 silence. The bias runs one way. Every miss converts a reporting paper into a silent one, so the
 field is made to look worse at reporting than it is. The size of the effect was measured on the
-statistic the survey leads with. Of the 32 method rows that had a real robot and no recorded
-trial count, 13 carried a count in plain text in their own note, dropped because the paper
-reports it per task and the field takes a single integer. Those 13 have since been re-extracted,
-and the same mechanism reaches the penetration, success-criterion, code-release and failure-mode
-fields, none of which has been audited that way. Read every coverage statistic in this survey as
-a floor rather than as a rate, and read the bars in Figure 6 the same way.
+statistic the survey leads with. Of the 34 method rows that had a real robot and no recorded
+trial count, 15 carried a count in plain text in their own note, dropped because the paper
+reports it per task and the field takes a single integer. Those 15 have since been re-extracted,
+which moved the stated-trial-count row from 55 to 70. The success criterion and the unseen-object
+count were audited the same way, rising from 79 to 98 and from 32 to 39. The same mechanism
+reaches the penetration, code-release and failure-mode fields, none of which has been audited that
+way. Read every coverage statistic in this survey as a floor rather than as a rate, and read the
+bars in Figure 6 the same way.

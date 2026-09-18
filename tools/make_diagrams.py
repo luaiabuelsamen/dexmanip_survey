@@ -58,21 +58,25 @@ def fig3():
         for j,d in enumerate(detail[i]):
             b.append(f'<text class="n" x="{cx+bw/2}" y="{yy+j*15}" text-anchor="middle">{d}</text>')
     py=yy+92
-    # bullets, in the order that matters for a hand: the step, the prescribed
-    # compliance, then solver truncation. Sources: mujoco_convex_contact_2014
-    # Sec. V (mass-independent closed form), contact_models_comparison_2023
-    # Sec. IV-A (conditioning, not stiffness), isaacgym_2021 Table 4 (1/120 s).
-    notes=[["The step, and the biggest term for a hand. Non-penetration is enforced at the velocity level, so any residual approach",
-            "velocity is integrated into overlap of order v&#183;&#916;t. A fingertip closing at 0.5 m/s at Isaac Gym&#8217;s 1/120 s Shadow Hand step",
-            "accrues about 4 mm before the next step&#8217;s constraint acts. A stabiliser removes only a fraction of it per step."],
+    # Three sources, deliberately unordered: no measurement in this corpus ranks
+    # them for a hand. Sources: mujoco_convex_contact_2014 Sec. V (mass-independent
+    # closed form), contact_models_comparison_2023 Sec. IV-A (conditioning, not
+    # stiffness), isaacgym_2021 Table 4 (1/120 s), dojo_2022 Table II (no v-level
+    # term), comfree_sim_2026 Sec. III-B/IV-A (states its shipped setting).
+    # The 0.5 m/s fingertip speed is an assumption, not a sourced number.
+    notes=[["Velocity-level enforcement. Where non-penetration is enforced on velocities, any residual approach velocity is",
+            "integrated into overlap of order v&#183;&#916;t. Illustration under an assumption, not a measurement: a fingertip closing at",
+            "0.5 m/s &#8212; a speed no source in this survey reports &#8212; at Isaac Gym&#8217;s 1/120 s Shadow Hand step gives about 4 mm before the",
+            "next step&#8217;s constraint acts. Engines that enforce the gap at the next configuration carry no such term: Dojo&#8217;s",
+            "hard-contact NCP holds its feet above the floor at &#916;t = 0.1, 0.01 and 0.001 s alike."],
            ["The prescribed compliance. A regularised contact rests at a violation equal to the normal load times the compliance",
             "that was chosen for it. It is zero at zero load, and MuJoCo&#8217;s closed form is independent of the object&#8217;s mass. The depth",
-            "is a setting, and no engine paper in Table 4 states the setting it ships."],
+            "is a setting, and no engine paper in Table 4 other than ComFree-Sim states the setting it ships."],
            ["Solver truncation. A truncated solve degrades with the conditioning of the problem and with redundancy in the contact",
             "set, not with stiffness, which is prescribed. A grasp guarantees both, being many persistent contacts on a light object."]]
     bh2=42+sum(len(n) for n in notes)*14+80
     b.append(f'<rect class="box2" x="28" y="{py}" width="764" height="{bh2}" rx="4"/>')
-    b.append(f'<text class="h" x="44" y="{py+22}">Where penetration comes from, in the order that matters for a hand</text>')
+    b.append(f'<text class="h" x="44" y="{py+22}">Where penetration comes from: three sources on different knobs. Which one dominates in a hand has not been measured.</text>')
     ly=py+42
     for n in notes:
         for j,ln in enumerate(n):

@@ -17,6 +17,9 @@ STYLE = """<style>
  .box{fill:var(--fill);stroke:var(--line);stroke-width:1}
  .ghost{fill:none;stroke:var(--line);stroke-width:1;stroke-dasharray:3 3}
  .ed{stroke:var(--mut);fill:none;opacity:.55}.tree{stroke:var(--line);fill:none;stroke-width:1.2}
+ .xl{fill:none;stroke:var(--mut);stroke-width:1.1;stroke-dasharray:5 4;opacity:.75}
+ .xt{fill:none;stroke:var(--mut);stroke-width:1.1;stroke-dasharray:6 3 2 3;opacity:.85}
+ .xw{font-size:9.5px;fill:var(--mut);font-style:italic}
 </style>"""
 def svg(w,h,body,title):
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" '
@@ -93,6 +96,12 @@ def fig4():
     (PPO and the GPU simulator are read from `algorithm` and `sim`) or renamed to
     what the tag selects. Membership lists that the prose also states are defined
     once here, next to the section that states them, so figure and text cannot drift.
+
+    The footer says the branches are not exclusive, so the overlaps are drawn. Six dashed
+    curves run in the right-hand gutter, each labelled with the one word that names what
+    crosses: a leaf or a branch on one side, a leaf or a branch on the other. They are drawn
+    before the nodes, so a node occludes any curve that passes under it. The smoothing edge
+    is a theorem rather than a pipeline and carries a different dash.
     """
     par=Counter(p for r in M for p in (r.get("paradigm") or []))
     tf=Counter(t for r in M for t in (r.get("task_family") or []))
@@ -149,11 +158,24 @@ def fig4():
         ("sampled plan, given model",*named("mjpc_2022"),0),
         ("smoothed analytic contact model",*named("pang_global_planning_2022"),0),
       ])]
-    W=980; rowh=26; H=150+sum(rowh*(len(l)+1.6) for _,_,_,l in branches)
+    rowh=26; H=150+sum(rowh*(len(l)+1.6) for _,_,_,l in branches)
+    BW=322                      # branch box width, set by the longest branch name at 11.5px
+    LX=210+BW+35                # the leaf column starts clear of the branch boxes
+    def textw(s,px): return len(s)*px
+    right=LX
+    for _,_,_,leaves in branches:
+        for lname,ks,_,ann in leaves:
+            ind=18 if ann else 0
+            keys=", ".join(k.replace("_"," ").replace(" 20"," ") for k in ks[:5])
+            if len(ks)>5: keys+=f", and {len(ks)-5} more"
+            right=max(right, LX+ind+textw(lname,5.9), LX+ind+textw(keys,5.45))
+    STUB=right+26               # the cross-link gutter starts clear of every leaf line
+    W=int(STUB+215)
     b=[f'<text class="t" x="24" y="28">Figure 4. What supervises a dexterous policy</text>',
        f'<text class="s" x="24" y="48">Four kinds of supervision, subdivided to the level at which the {N} method papers actually differ.</text>',
        f'<text class="s" x="24" y="64">Every leaf count is the rows its stated predicate selects, recomputed from corpus/rows; a paper may appear more than once.</text>']
-    rx,bx,lx=40,210,470; y=110
+    rx,bx,lx=40,210,LX; y=110
+    banchor={}; lanchor={}
     b.append(f'<rect class="box" x="{rx-16}" y="{y+ (H-150)/2 - 26}" width="150" height="52" rx="4"/>')
     b.append(f'<text class="l" x="{rx+59}" y="{y+(H-150)/2-8}" text-anchor="middle">supervision for a</text>')
     b.append(f'<text class="l" x="{rx+59}" y="{y+(H-150)/2+6}" text-anchor="middle">dexterous policy</text>')
@@ -163,29 +185,57 @@ def fig4():
         by=y+8
         bh=rowh*len(leaves)
         shown=len({k for _,ks,_,ann in leaves for k in ks if not ann})
-        b.append(f'<rect class="box" x="{bx}" y="{by}" width="235" height="{bh}" rx="4" stroke="{colr}"/>')
+        b.append(f'<rect class="box" x="{bx}" y="{by}" width="{BW}" height="{bh}" rx="4" stroke="{colr}"/>')
         b.append(f'<text class="h" x="{bx+10}" y="{by+18}" fill="{colr}">{esc(bname)}</text>')
-        b.append(f'<text class="n" x="{bx+225}" y="{by+18}" text-anchor="end">{bcount}</text>')
+        b.append(f'<text class="n" x="{bx+BW-10}" y="{by+18}" text-anchor="end">{bcount}</text>')
         if shown<bcount:
-            b.append(f'<text class="n" x="{bx+225}" y="{by+32}" text-anchor="end">{shown} of {bcount} in a leaf</text>')
+            b.append(f'<text class="n" x="{bx+BW-10}" y="{by+32}" text-anchor="end">{shown} of {bcount} in a leaf</text>')
         b.append(f'<path class="tree" d="M{rootx},{rooty} C{rootx+30},{rooty} {bx-30},{by+bh/2} {bx},{by+bh/2}" stroke="{colr}" opacity=".6"/>')
+        banchor[bi]=by+bh/2
         ly=by+8
-        for lname,ks,cnt,ann in leaves:
+        for leaf_i,(lname,ks,cnt,ann) in enumerate(leaves):
             ind=18 if ann else 0
             label=("— "+lname) if ann else lname
             b.append(f'<text class="l" x="{lx+ind}" y="{ly+12}">{esc(label)}</text>')
             b.append(f'<text class="n" x="{lx-12}" y="{ly+12}" text-anchor="end">{cnt}</text>')
             if not ann:
-                b.append(f'<path class="tree" d="M{bx+235},{by+bh/2} C{bx+250},{by+bh/2} {lx-40},{ly+9} {lx-28},{ly+9}" stroke="{colr}" opacity=".45"/>')
+                b.append(f'<path class="tree" d="M{bx+BW},{by+bh/2} C{bx+BW+15},{by+bh/2} {lx-40},{ly+9} {lx-28},{ly+9}" stroke="{colr}" opacity=".45"/>')
             shownk=", ".join(k.replace("_"," ").replace(" 20"," ") for k in ks[:5])
             if len(ks)>5: shownk+=f", and {len(ks)-5} more"
             b.append(f'<text class="k" x="{lx+ind}" y="{ly+23}">{esc(shownk)}</text>')
+            lanchor[(bi,leaf_i)]=ly+9
             ly+=rowh
         y=by+bh+18
-    b.append(f'<text class="s" x="24" y="{y+14}">The branches are not exclusive. Most work after 2024 trains with a reward in simulation and ships something</text>')
-    b.append(f'<text class="s" x="24" y="{y+30}">shaped like an imitation policy, so it belongs to the first branch and the second at once. Eight further rows carry</text>')
-    b.append(f'<text class="s" x="24" y="{y+46}">a trajectory-optimisation or MPC tag inside a learned pipeline and are counted on the branch that learns.</text>')
-    return svg(W,y+68,"".join(b),"Taxonomy of training paradigms")
+    # The overlaps the footer claims, drawn. Each entry is source, target, the one word for
+    # what crosses, and whether the edge is a theorem rather than a pipeline. A branch index
+    # alone anchors on the branch box; a pair anchors on that branch's leaf.
+    CROSS=[((0,1), 1,      "distil",   False),
+           ((0,0), (1,3),  "generate", False),
+           ((1,2), 2,      "retarget", False),
+           (2,     1,      "distil",   False),
+           (3,     (0,0),  "smooth",   True),
+           ((1,0), (0,4),  "seed",     False)]
+    def ay(a): return banchor[a] if isinstance(a,int) else lanchor[a]
+    links=[]; placed=[]
+    for i,(src,dst,word,thm) in enumerate(CROSS):
+        y1,y2=ay(src),ay(dst)
+        lane=STUB+40+i*30
+        apex=STUB+0.75*(lane-STUB)
+        cls="xt" if thm else "xl"
+        links.append(f'<path class="{cls}" d="M{STUB},{y1:.0f} C{lane},{y1:.0f} {lane},{y2:.0f} {STUB},{y2:.0f}"/>')
+        links.append(f'<path class="{cls}" d="M{STUB+9},{y2-4:.0f} L{STUB},{y2:.0f} L{STUB+9},{y2+4:.0f}" stroke-dasharray="none"/>')
+        lyw=(y1+y2)/2+3
+        while any(abs(lyw-py)<12 and abs(apex-px)<46 for px,py in placed): lyw+=12
+        placed.append((apex,lyw))
+        links.append(f'<text class="xw" x="{apex+7:.0f}" y="{lyw:.0f}">{word}</text>')
+    b=b[:3]+links+b[3:]
+    b.append(f'<text class="s" x="24" y="{y+14}">The branches are not exclusive, and the dashed curves on the right are the overlaps. Most work after 2024 trains</text>')
+    b.append(f'<text class="s" x="24" y="{y+30}">with a reward in simulation and ships something shaped like an imitation policy, so it belongs to the first branch and</text>')
+    b.append(f'<text class="s" x="24" y="{y+46}">the second at once. Eight further rows carry a trajectory-optimisation or MPC tag inside a learned pipeline and are</text>')
+    b.append(f'<text class="s" x="24" y="{y+62}">counted on the branch that learns. The double-dashed smoothing edge is the one overlap that is a theorem rather than</text>')
+    b.append(f'<text class="s" x="24" y="{y+78}">a pipeline: `pang_global_planning_2022` proves that a policy gradient and an analytic log-barrier relaxation compute</text>')
+    b.append(f'<text class="s" x="24" y="{y+94}">the same local model of contact.</text>')
+    return svg(W,y+116,"".join(b),"Taxonomy of training paradigms")
 
 if __name__=="__main__":
     (OUT/"fig1_field.svg").write_text(fig1())

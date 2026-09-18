@@ -85,9 +85,11 @@ and palm down, through base up and base down, to thumb up and thumb down.
 
 Three counts describe two hands and they measure different things. Fifty-three of the 112 method
 rows record two hands on the robot, which is the `bimanual` field. Forty-three carry the
-`bimanual-coord` task label, the narrower claim that coordinating the hands is the task. Section
-6.2 narrows again, to the 25 papers whose notes place a learned controller on two dexterous hands.
-Every bimanual claim here names which of the three it uses.
+`bimanual-coord` task label, the narrower claim that coordinating the hands is the task. Section 6
+narrows again, to the 28 rows whose notes place a learned closed-loop controller on two
+multi-fingered hands, and its opening paragraph names every exclusion that takes the 53 down to
+the 28. That 28 is the denominator for every architecture count in this survey. Every bimanual
+claim here names which of the three it uses.
 
 Four things genuinely change when the second hand arrives. Contact stays non-smooth, occlusion
 stays, and gravity stays the same problem.

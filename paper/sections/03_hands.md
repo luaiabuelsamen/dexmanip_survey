@@ -76,7 +76,7 @@ The two oldest designs in Table 2 carry 49 of the 103 method rows that name a ha
 seven rows use both. Neither design's date is confirmed by its own sources, so 2005 and 2016 are
 the bibliography's. Figure 2 counts, per hand, the method papers whose own experiments use it. Of
 112 method rows, 103 name a hand. The Allegro accounts for 35, Shadow for 21, the Inspire RH56
-family for 19, a parallel-jaw gripper for 12 and LEAP for 11. Seventy-four of the 103 name an
+family for 19, a parallel-jaw gripper for 12 and LEAP for 12. Seventy-five of the 103 name an
 Allegro, a Shadow or Adroit model, LEAP or an Inspire.
 
 The Allegro's position is the uncomfortable part. Its product page at allegrohand.com/v4 returned
@@ -109,8 +109,8 @@ The expensive end of the collapse is secondhand throughout. The only six-figure 
 RUKA's comparison table at $100,000 for a Shadow Hand and Faive's "steep price tag of 110k GBP"
 `ruka_2025` `faive_hand_2023`. Shadow's own page says to discuss pricing and Table 2's price cell
 for it is empty. The collapse is real at the cheap end and secondhand at the expensive one, and it
-has barely moved the literature. Eleven of the 103 hand-naming method rows use an open-hardware
-hand, and all eleven are LEAP.
+has barely moved the literature. Twelve of the 103 hand-naming method rows use an open-hardware
+hand, and all twelve are LEAP.
 
 What the cheap hands give up is sensing. LEAP has none and names touch sensors as future work
 `leap_hand_2023`, RUKA states its design "lacks tactile sensing" `ruka_2025`, and BiDexHand's
