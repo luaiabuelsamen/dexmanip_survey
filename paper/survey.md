@@ -784,26 +784,24 @@ orientation, joint angles, joint velocities and object velocities that the polic
 its footnote records that current object orientation was left out of the policy inputs by
 accident. `dextreme_2022` uses the same asymmetric critic with a 2048-unit LSTM against the
 actor's 1024. `hora_2022` instead compresses nine privileged object properties into an
-eight-dimensional vector and regresses that vector from 30 steps of proprioception, so nothing
-privileged is needed at deployment. `visual_dexterity_2022` distils twice, from a state teacher to
-a synthetic point cloud and then to a rendered one, for a stated fivefold training speedup.
+eight-dimensional vector and regresses that vector from 30 steps of proprioception.
+`visual_dexterity_2022` distils twice, from a state teacher to a synthetic point cloud and then to
+a rendered one, for a stated fivefold training speedup.
 
 Domain randomisation is the part of the recipe with the least discipline. `openai_rubiks_cube_2019`
 made it adaptive, pushing each range boundary out when performance at that boundary exceeds 20
 successes and pulling it in below 10, and `dextreme_2022` reproduced the mechanism with a
-256-sample queue and 40 percent of environments dedicated to boundary evaluation. Both papers
-publish the discovered ranges. Below that standard the picture is worse. `hora_2022` states a
-joint-noise range of U(0, 0.005) against a shipped `jointNoiseScale` of 0.02 sampled signed, and
-its disturbance force defaults to zero in the parsed config. `penspin_2024` ships the disturbance
-force at zero as well. `dexpbt_2023` reports no domain-randomisation experiments at all, yet its
-`AllegroKuka.yaml` carries a complete randomisation schedule behind a `randomize: False` switch.
+256-sample queue and 40 percent of environments dedicated to boundary evaluation. Both publish the
+discovered ranges. Below that standard, three shipped configurations disagree with their own papers
+about what was randomised. `hora_2022` states a joint-noise range of U(0, 0.005) against a shipped
+`jointNoiseScale` of 0.02, `penspin_2024` zeroes the disturbance force its appendix describes, and
+`dexpbt_2023` reports no randomisation experiments while shipping a full schedule behind a
+`randomize: False` switch.
 
 #### 5.2.2 Reward engineering
 
 Table 5 puts the 21 in-hand reorientation methods against nine recurring term families and marks
-each cell by where the term was found. `both` means the paper has it and the released reward code
-confirms it, `paper` means the paper has it and the code either does not exist or does not, and
-`code` means only the code has it.
+each cell by where the term was found, in the paper, in the code, or in both.
 
 ### Table 5. Reward terms across in-hand reorientation methods
 
@@ -835,14 +833,16 @@ confirms it, `paper` means the paper has it and the code either does not exist o
 
 The families are not equally popular. Nineteen of 21 methods have a goal or rotation tracking
 term, which is the task. Thirteen penalise effort as torque, work or joint velocity, 13 pay a
-sparse success bonus, and 12 penalise a drop. Eleven penalise object velocity. Eight penalise
-deviation of the hand from a canonical grasp pose, a family the plan for this table did not
-anticipate and which had to be added. Only five reward closing the distance from fingertips to
-the object, and only four mention contact or force at all.
+sparse success bonus, 12 penalise a drop and 11 penalise object velocity. Eight penalise deviation
+of the hand from a canonical grasp pose, a family the plan for this table did not anticipate and
+which had to be added. Only five reward closing the distance from fingertips to the object, and
+only four mention contact or force at all.
 
 That last number is the finding. Four of 21 in-hand reorientation methods put any contact or force
-quantity in the reward. None puts interpenetration in it. Across all 110 method rows, 83 do not
-address penetration, 5 constrain it, 3 measure it and 3 penalise it. The physical quality of the
+quantity in the reward. None puts interpenetration in it. `teledexter_2026` penalises
+interpenetration with a differentiable signed-distance term, but during offline reference
+construction, not in the policy's reward. Across all 110 method rows, 83 do not address
+penetration at all, 5 constrain it, 3 measure it and 3 penalise it. The physical quality of the
 contact is not something this literature optimises.
 
 Term counts range from one to ten. `demostart_2024` gives a single binary terminal reward of 1 and
@@ -851,13 +851,13 @@ each publish ten weighted terms. `viserdex_2026` is the cleanest specification i
 every term, weight and equation in one appendix table, and a statement that the same weights are
 used for every object.
 
-Weights are frequently unrecoverable. Three of the 21 rows give no numeric weight anywhere that
-survives PDF conversion, because the equation blocks are images. That is a parsing limit and is
-recorded as such. `robot_synesthesia_2023` is a different case and a worse one. Its six
-coefficients c1 through c6 are described only as "tuned hyper-parameters" and no number is printed
-anywhere in the paper, so the reward it reports cannot be reconstructed by anyone. `dexremoe_2025`
-names an angular-velocity penalty weight in prose that has no entry in its hyperparameter table.
-`dextrack_2025` names an affinity reward in prose that is missing from its weight table.
+Weights are frequently unrecoverable. Three of the 21 rows give no numeric weight that survives
+PDF conversion, because the equation blocks are images, which is a limit of this survey and is
+recorded as such. `robot_synesthesia_2023` is a worse case. Its six coefficients are described only
+as "tuned hyper-parameters" and no number is printed anywhere in the paper, so the reward it
+reports cannot be reconstructed by anyone. `dexremoe_2025` names an angular-velocity penalty weight
+in prose with no entry in its hyperparameter table, and `dextrack_2025` names an affinity reward
+that is missing from its weight table.
 
 #### 5.2.3 Curricula, populations and machine-written rewards
 
@@ -876,7 +876,8 @@ Population-based training appears once. `dexpbt_2023` runs populations of 8, 16 
 splits them 30/40/30, mutates the middle and replaces the bottom with mutated copies of the top,
 with each float hyperparameter multiplied or divided by a factor drawn from U(1.1, 1.5) with
 probability 0.2. It reports 30 hours on a single V100 for a five-billion-transition single-arm
-run, and 0.32 trillion environment steps for its largest population.
+run, and 0.32 trillion environment steps for its largest population. No other corpus method
+searches hyperparameters at all.
 
 `eureka_2023` has GPT-4 write the reward function directly, constrained to return a total and a
 dictionary of named components, and feeds per-component statistics back to the model between
@@ -893,16 +894,16 @@ at all.
 
 #### 5.2.4 Where reinforcement learning stalls
 
-It stalls on objectives that are not learnable as stated. `anyrotate_2024` found the
-angular-velocity objective unlearnable in the multi-axis setting and replaced it with a moving
-keypoint target. `rotateit_2023` reports that its multi-axis policy "does not converge when
+Reinforcement learning stalls on objectives that are not learnable as stated. `anyrotate_2024`
+found the angular-velocity objective unlearnable in the multi-axis setting and replaced it with a
+moving keypoint target. `rotateit_2023` reports that its multi-axis policy "does not converge when
 training with only reinforcement learning" and adds an imitation loss against single-axis oracles.
 `eureka_2023` cannot spin a pen from scratch and needs a pretrain-then-finetune split, with the
 from-scratch ablation failing to complete one cycle. `physhoi_2023` documents the general shape of
 the problem: contact moves the object off the reference, so return goes down, so the policy learns
 not to touch the object.
 
-It also stalls on geometry and on evidence. `hora_2022` fails on objects under 4 cm across because
+It stalls on geometry too, and on evidence. `hora_2022` fails on objects under 4 cm across because
 the fingers collide with each other. Real-robot trial counts stay small: `openai_dexterity_2018`,
 `openai_rubiks_cube_2019`, `dextreme_2022` and `poise_2026` each report 10 trials for their
 headline, and `robot_synesthesia_2023` reports 5. `hora_2022` at 240 is the outlier, not the
@@ -935,6 +936,7 @@ hand, with the retargeting objective compressed to one clause each.
 | `egomimic_2024` | human data: head-worn Project Aria glasses (egocentric RGB + onboard SLAM/hand-tracking,… | parallel-jaw gripper (not a dexterous hand; see note scope flag) | no per-finger kinematic retargeting (end effector is a 2-finger gripper); domain alignmen… |   | 1000 | 2,150 traj, 4 h |
 | `hudor_2024` | VR headset (Meta Quest 3) built-in hand tracking for fingertip 3D positions, ArUco-marker… | Allegro Hand | direct Cartesian-space correspondence: human fingertip 3D positions are treated as target… |   |   | 4 traj |
 | `okami_2024` | single human demonstrator recorded on a static RGB-D camera (Intel RealSense D435i), no l… | Inspire Hand (x2) | factorized retargeting run once per demonstration video: arm/shoulder-elbow-wrist IK (via… |   |   |   |
+| `open_television_2024` | VR headset (Apple Vision Pro or Meta Quest 3) with active stereo video streamed back from… | Inspire Robots hand (6 actuated DoF, 12 total); Fourier GR-1 embodiment instead uses a 1-… | dex-retargeting keypoint-vector optimisation over five wrist-to-fingertip and two thumb-t… | 60 Hz stereo round trip and 60 Hz control |   |   |
 | `dexteritygen_2025` | human teleoperator tracked via a Manus Glove (retargeted to the Allegro hand at 300Hz via… | Allegro Hand |   |   |   |   |
 | `dexumi_2025` | hand-specific 3D-printed wearable exoskeleton (per-robot-hand optimized joint-to-fingerti… | Inspire Hand (12 DoF, 6 active) and XHand (12 active DoF) | no visual/kinematic-chain retargeting at inference; a learned per-joint regression model… | per-sensor latency measured and compensated offline, no figure |   | 1,355 traj |
 | `dexwild_2025` | wearable, calibration-free rig: motion-capture glove + two palm-mounted stereo cameras (p… | LEAP Hand / LEAP Hand V2 Advanced | robot hand kinematics optimized to match observed human fingertip positions (fixed hyperp… |   |   | 9,290 traj, 46.2 h |
@@ -949,7 +951,7 @@ hand, with the retargeting objective compressed to one clause each.
 | `teledexter_2026` | NOKOV motion-capture system tracking operator hand pose and object 6D pose in real time (… | SharpaWave (22-DoF, headline); also LeapHand (16-DoF) | two-stage geometry-aware retargeting: Stage 1 fingertip-vector alignment to human hand ge… |   |   |   |
 | `unidex_2026` | human-video side: no live capture rig, converts existing egocentric RGB-D datasets (H2O,… | Inspire, Leap, Shadow, Allegro, Ability, Oymotion, XHand, Wuji (8 hands in UniDex-Dataset… | two-stage human-in-the-loop kinematic retargeting: an automatic PyBullet multi-end-effect… |   |   | 52,000 traj |
 
-*29 rows; 58 of 203 cells (28%) are values no source stated.*
+*30 rows; 60 of 210 cells (28%) are values no source stated.*
 
 Retargeting splits four ways. The dominant family matches task-space vectors between the human and
 robot hands. `dexpilot_2020` set the pattern with a weighted squared distance between fingertip
@@ -988,12 +990,14 @@ Four architectures cover the corpus. Action chunking came from `aloha_act_2023`,
 chunk of joint targets with a CVAE and combines overlapping chunks by exponentially weighted
 ensembling, reaching 80 to 90 percent on fine bimanual tasks from about 50 demonstrations each.
 Diffusion came from `diffusion_policy_2023`, which denoises an action sequence and reports a 46.9
-percent average success improvement over LSTM-GMM, IBC and BET across 15 tasks. `dp3_2024` swaps the image encoder for a small point-cloud encoder and reports
-74.4 percent against 59.8 percent across 72 simulated tasks, and 85.0 against 35.0 percent on four
-real tasks from 40 demonstrations each. Flow matching is the 2024-onward default for large models
-and carries 8 of the 110 rows.
+percent average success improvement over LSTM-GMM, IBC and BET across 15 tasks. `dp3_2024` swaps
+the image encoder for a small point-cloud encoder and reports 74.4 percent against 59.8 percent
+across 72 simulated tasks, and 85.0 against 35.0 percent on four real tasks from 40 demonstrations
+each. Flow matching is the 2024-onward default for large models and carries 8 of the 110 rows.
+Discrete action tokens are the fourth, used by `openvla_2024` and `metis_2025`, and are the only
+one of the four that needs no continuous head at all.
 
-Data generation is the fourth lever and is underrated. `dexmimicgen_2024` turns 60 human source
+Data generation is a separate lever and is underrated. `dexmimicgen_2024` turns 60 human source
 demonstrations into 21,000 simulated ones across 9 tasks and 3 embodiments, and a real Fourier GR1
 with two Inspire hands reaches 90 percent from 40 generated demonstrations against 0 percent from
 the 4 source demonstrations. `dex1b_2025` iterates optimisation, a CVAE proposal model and a
@@ -1034,10 +1038,13 @@ better, and this is the one result in the corpus that says so with an ablation.
 
 ### 5.4 Tracking a human reference with physics
 
-Eight methods take the middle path. A human hand-object trajectory is retargeted onto a robot hand
-and a policy is trained to make the simulated hand follow it. The reference supplies the shaping
-that reward engineering would otherwise have to invent, and the simulator supplies the physical
-consistency that pure imitation lacks.
+Twelve method rows carry the `track-human-ref` task family. Eight of them track a human hand on an
+object and are covered here. The other four sit at the edges of the family: `human2sim2robot_2025`
+tracks only the object's trajectory, `dexman_2025` retargets bimanual video onto a full humanoid,
+and `humanplus_2024` and `omnih2o_2024` track whole-body human motion. In all of them a reference
+is retargeted onto the robot and a policy is trained to make the simulated body follow it. The
+reference supplies the shaping that reward engineering would otherwise have to invent, and the
+simulator supplies the physical consistency that pure imitation lacks.
 
 `physhoi_2023` is the origin of the reward form. It multiplies a body term, an object term, an
 interaction-graph term and a contact-graph term, and reaches 95.4 percent success on GRAB against
@@ -1120,9 +1127,9 @@ group the rest of this section lacks.
 MPPI-style optimiser, replanning every step. It needs 1 to 2 hours of data in simulation and 2 to
 4 hours on a real 24-DoF Shadow Hand, with Baoding balls solved from 100,000 points, or 2.7 hours.
 `mjpc_2022` removes the learned model as well and samples ten rollouts per step through MuJoCo
-itself, over a six-knot spline with a horizon of 25 and noise of 0.1, planning in 1 to 20
-milliseconds. It reorients a cube with a Shadow Hand in real time from scratch, and reports no
-success criterion, no trial count and no real-robot result.
+itself, over a six-knot spline with a horizon of 25, planning in 1 to 20 milliseconds. It
+reorients a cube with a Shadow Hand in real time from scratch, and reports no success criterion,
+no trial count and no real-robot result.
 
 `pang_global_planning_2022` is the most substantial of the three. It proves that the randomised
 smoothing implicit in reinforcement learning and an analytic log-barrier relaxation compute the
@@ -1159,10 +1166,16 @@ a dataset rather than a gradient.
 
 ### 5.8 What the released code says
 
-Thirty-seven of the 110 method rows carry a documented disagreement between the paper and the
-released code. All 37 released code, so the rate among the 61 methods that released anything is 61
-percent. Among the 21 reorientation methods in Table 5, 7 released code and all 7 disagree with
-their paper.
+Thirty-seven of the 110 method rows record a disagreement between the paper and the released code,
+and all 37 released code, so the rate among the 61 methods that released anything is 61 percent.
+Not all 37 are the same kind of thing. Sixteen are contradictions, where paper and code state
+different values or different terms. Nine are limitations of this survey's own parsing, where the
+relevant function body or config was not recovered and the survey says so. Seven released code
+that does not contain the described component at all, three are version skew between the paper and
+a later repository, and two are inconsistencies inside the paper. The 16 contradictions are the
+number to quote. Among the 21 reorientation methods in Table 5, seven released code, five of those
+seven contradict their paper outright, one is version skew and one released a repository without
+the reward in it.
 
 The most consequential case is `physhoi_2023`. Its `compute_humanoid_reward` hardcodes the body
 position-velocity error and both object rotation errors to zero, with the real computation
@@ -1170,8 +1183,9 @@ commented out beside them. Its Table 4 lists non-zero weights of 0.1 and 0.01 fo
 rotation terms on GRAB. The reward that produced the paper's numbers therefore never tracked
 object orientation. A method presented as tracking a 6-DoF reference was, in the code that ran,
 tracking position only. The same file family shows the opposite outcome in `omnigrasp_2024`, whose
-object rotation term is live, and whose `compute_pregrasp_reward_time` instead hardcodes
-`w_pos, w_rot = 0.9, 0.1` and silently discards the weights passed into it.
+object rotation term is live. Its `compute_pregrasp_reward_time` has a problem of its own, and it
+is internal to the code rather than a paper disagreement. The function accepts weights as
+arguments and then hardcodes `w_pos, w_rot = 0.9, 0.1` inside its body.
 
 Zeroed terms recur. `dexpbt_2023`'s `allegro_kuka_base.py` sums eight reward components against the
 paper's four, and multiplies one of them, `hand_delta_penalty`, by zero with the comment
@@ -1183,87 +1197,207 @@ because it survives a reader's check of the file.
 Weights drift. `dextreme_2022` states an action-delta penalty of −0.25 in Table 2, ships −0.2 in
 `AllegroHandDextremeADR.yaml` and −0.01 in `AllegroHandDextremeManualDR.yaml`, and adds a
 `timeout_rew` term that appears in no table. `visual_dexterity_2022`'s Eq. 8 penultimate-joint
-penalty does not exist in `dexenv/envs/rewards.py`, and its fall distance is 0.24 in one shipped
-config and 0.15 in another. `graspxl_2024` splits one regulariser into four and ships an
-object-velocity coefficient of −1.5 against a stated 0.1. `unidexgrasp_2023` and `dexpoint_2022`
-both ship reward functions with a different structure from the equation in the paper.
+penalty does not exist in `dexenv/envs/rewards.py`. `graspxl_2024` splits one regulariser into four
+and ships an object-velocity coefficient of −1.5 against a stated 0.1. `unidexgrasp_2023` and
+`dexpoint_2022` both ship reward functions structured differently from the paper's equation.
 `hora_2022`'s own README says to check out tag v0.0.1 rather than the current commit to reproduce
-the paper's numbers. `dextrack_2025` ships several unreconciled reward-coefficient sets across its
-task configs, so which one produced its headline table cannot be determined from the repository.
+the paper's numbers, which is version skew rather than contradiction. `dextrack_2025` ships several
+unreconciled reward-coefficient sets across its task configs, and which one produced its headline
+table could not be determined from what this survey parsed.
 
-The pattern is not confined to reinforcement learning. `aloha_act_2023`'s Algorithm 1 says the
-reconstruction loss is MSE and its Section IV.C says L1. `dp3_2024`'s prose says the network
-predicts noise and its shipped config sets `prediction_type: sample`. `eureka_2023` ships a
-one-iteration, three-sample default against a reported five iterations and sixteen samples.
-`maniptrans_2025`'s stated learning rate and environment count differ from its own README.
+The pattern is not confined to reinforcement learning, and some of it is internal to the papers.
+`aloha_act_2023`'s Algorithm 1 says the reconstruction loss is MSE and its Section IV.C says L1.
+`dp3_2024`'s prose says the network predicts noise while its shipped config sets
+`prediction_type: sample`. `eureka_2023` ships a one-iteration, three-sample default against a
+reported five iterations and sixteen samples. `maniptrans_2025`'s stated learning rate and
+environment count differ from its own README.
 
 A reward table in a paper is a claim about a training run, and the code is a claim about a
-repository. In this corpus the two disagree more often than not, and the disagreement is almost
-never disclosed. Read the reward function before the reward table, and treat a printed weight as a
-hypothesis about the code.
+repository. In this corpus the two contradict each other in 16 cases, and in the other 21 the released artefacts do not settle the
+question. In none of the 37 does the paper say so. Read the reward function before the reward
+table, and treat a printed weight as a hypothesis about the code.
+
+### 5.9 The master table
+
+Table 7 is every method row in the corpus on one set of axes. Its footer is worth reading before
+its rows: 237 of its 1540 cells are values no source stated, which is 15 percent. The emptiest
+columns are the ones a reader most needs. Only 31 of the 110 rows state an environment count, only
+57 state how many real trials are behind the headline number, and only 27 state how many unseen
+objects were tested. A method whose row is mostly empty is not necessarily a weak method, but it
+is one that cannot be compared with any other row here.
+
+### Table 7. Methods
+
+| method | yr | task | paradigm | algorithm | hand | DoF | bi | sim | real | trials | unseen obj | penetration | code |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `ferrari_canny_1992` | 1992 |   |   |   |   |   |   |   |   |   |   |   | no |
+| `dapg_2017` | 2017 | grasp, reorient, functional/tool, other | RL+demo | NPG (Natural Policy Gradient) + BC pretraining (DAPG) | ADROIT | 24 | no | MuJoCo | no |   |   | not addressed | yes |
+| `openai_dexterity_2018` | 2018 | reorient | RL | PPO | ShadowRobot Dexterous Hand (EDC electric-motor version) | 24 | no | MuJoCo | yes | 10 |   | not addressed | no |
+| `openai_rubiks_cube_2019` | 2019 | reorient | RL, distillation | PPO with Automatic Domain Randomization (ADR); Policy Cloning (DAGGER/distillation-style)… | Shadow Dexterous E Series Hand (E3M5R) | 20 | no | MuJoCo (+ ORRB/Unity3D for rendered vision training images) | yes | 10 |   | not addressed | no |
+| `pddm_2019` | 2019 | reorient, other | MPC | PDDM: ensemble of feed-forward dynamics models + MPPI-style filtering/reward-weighted-ref… | Shadow Hand (24-DoF, real and sim); D'Claw (9-DoF, sim only, valve turning) |   | no | MuJoCo | yes |   |   | not addressed | yes |
+| `dexpilot_2020` | 2020 | reorient, grasp, functional/tool, other | teleop-system | DART model-based hand tracker bootstrapped by two learned neural priors (GloveNet ResNet-… | Wonik Robotics Allegro hand (16-DoF, 4x4-joint fingers), retrofitted with 4 SynTouch BioT… | 16 | no |   | yes | 150 |   | not addressed | no |
+| `castro_sap_contact_2021` | 2021 | bimanual-coord |   | SAP (Semi-Analytic Primal) solver: a custom Newton-type solver on an unconstrained convex… | Allegro hand (16 DoF each), two | 16 | yes | Drake | no |   |   | measured | yes |
+| `dexmv_2021` | 2021 | grasp, functional/tool | RL+demo, data-collection | DAPG / SOIL / GAIL+ on top of TRPO, using demonstrations translated from human video via… | Adroit Hand | 30 | no | MuJoCo | no |   | 500 | not addressed | yes |
+| `dexpoint_2022` | 2022 | grasp, other | RL | PPO | Allegro Hand | 16 | no | SAPIEN | yes |   | 40 | not addressed | yes |
+| `dextreme_2022` | 2022 | reorient | RL | PPO (rl-games implementation, LSTM actor/critic, asymmetric/state-privileged critic) | Allegro Hand | 16 | no | Isaac Gym (PhysX) | yes | 10 |   | not addressed | yes |
+| `dexvip_2022` | 2022 | grasp | RL | PPO with a video-mined consensus grasp-pose auxiliary reward (R_pose) combined with an af… | Adroit Hand | 30 | no | MuJoCo | no |   |   | not addressed | no |
+| `dime_2022` | 2022 | reorient, grasp | teleop-system, BC, RL+demo | INN/VINN (nearest-neighbor imitation) vs. BC; DAPG/PPO/BCRL (simulation RL-finetuning) | Allegro Hand |   | no | MuJoCo | yes | 10 |   | not addressed | yes |
+| `holo_dex_2022` | 2022 | reorient, grasp, functional/tool | teleop-system, BC | VINN (BYOL nearest-neighbor) vs. Behavior Cloning / BC-Rep | Allegro Hand | 16 | no |   | yes | 10 | 10 | not addressed | yes |
+| `hora_2022` | 2022 | reorient | RL, distillation | PPO | Allegro Hand (Wonik Robotics) | 16 | no | IsaacGym | yes | 240 | 30 | not addressed | yes |
+| `mjpc_2022` | 2022 | reorient | MPC | Predictive Sampling: zero-order, derivative-free sampling-based shooting MPC over a splin… | Shadow Hand (MuJoCo Menagerie model) |   | no | MuJoCo | no |   |   | not addressed | yes |
+| `pang_global_planning_2022` | 2022 | reorient, grasp, bimanual-coord, other | trajopt | iMPC (iLQR-style trajectory optimizer over a locally-smoothed convex quasi-dynamic contac… | Allegro Hand (full 3D model, in-hand rotation / pen placement / plate pickup / door openi… |   | yes | Custom Convex Quasi-Dynamic Differentiable Contact (CQDC) model implemented in Drake (Mul… | yes |   |   | constrained | yes |
+| `videodex_2022` | 2022 | grasp, reorient, functional/tool | BC, data-collection | two-stream Neural Dynamic Policy (NDP) trajectory regression (L1 loss): pretrained on hum… | LEAP Hand | 16 | no |   | yes |   |   | not addressed | no |
+| `visual_dexterity_2022` | 2022 | reorient | RL, distillation | PPO (teacher, privileged state) + DAgger imitation distillation to a depth-point-cloud st… | D'Claw (open-source, low-cost; 3-finger and modified 4-finger versions) |   | no | Isaac Gym (PhysX) | yes | 20 | 12 | not addressed | yes |
+| `aloha_act_2023` | 2023 | bimanual-coord | BC | ACT (Action Chunking with Transformers, CVAE) | parallel-jaw gripper (not dexterous), two |   | yes | MuJoCo | yes | 25 |   | not addressed | yes |
+| `anyteleop_2023` | 2023 | grasp, functional/tool, handover | teleop-system, RL+demo | DAPG (downstream IL); keypoint-vector retargeting optimization (dex_retargeting) | Allegro Hand |   | no | SAPIEN | yes | 100 |   | not addressed | yes |
+| `artigrasp_2023` | 2023 | grasp, functional/tool, bimanual-coord | RL | PPO (D-Grasp-based implementation) | MANO hand model, two | 51 | yes | RaiSim | no |   | 1 | not addressed | yes |
+| `dexdeform_2023` | 2023 | bimanual-coord, other | BC, trajopt | latent skill model (VAE over demonstrations) for skill-planned trajectory initialization,… | Shadow Dexterous Hand (simulated) | 28 | yes | PlasticineLab (MLS-MPM, CUDA), built on Hu et al. 2018's Moving Least Squares Material Po… | no |   |   | not addressed | yes |
+| `dexpbt_2023` | 2023 | grasp, reorient, bimanual-coord | RL | PPO (rl_games) with decentralized Population-Based Training (PBT) over RL hyperparameters… | Allegro Hand | 16 | yes | Isaac Gym (PhysX) | no |   |   | not addressed | yes |
+| `dexterous_functional_grasping_2023` | 2023 | functional/tool | RL | PPO | LEAP hand | 16 | no | IsaacGym | yes | 70 | 5 |   | no |
+| `diffusion_policy_2023` | 2023 | grasp, functional/tool, bimanual-coord, other | BC, diffusion | conditional DDPM over action sequences (CNN or transformer noise-prediction network), DDI… |   |   | yes | task-specific: Robomimic (MuJoCo-backed), Push-T (custom 2D physics per IBC), BlockPush (… | yes |   |   | not addressed | yes |
+| `dynamic_handover_2023` | 2023 | handover, bimanual-coord | RL | MAPPO | Allegro Hand | 16 | yes | IsaacGym | yes | 15 | 14 | not addressed | no |
+| `eureka_2023` | 2023 | reorient, bimanual-coord, other | RL | PPO with LLM-authored (GPT-4) evolutionary reward search | Shadow Hand (also Allegro Hand; bimanual pairs of Shadow Hands for Dexterity tasks) | 20 | yes | IsaacGym | yes |   |   | not addressed | yes |
+| `pgdm_2023` | 2023 | grasp, functional/tool | RL | PPO (Stable-Baselines3) with an object-trajectory-tracking reward plus pre-grasp-based ex… | ShadowHand | 24 | no | MuJoCo | yes |   |   | not addressed | no |
+| `physhoi_2023` | 2023 | track-human-ref | RL | PPO | SMPL-X humanoid (simulated, not a robot hand) | 90 | no | Isaac Gym | no |   |   | not addressed | yes |
+| `robot_synesthesia_2023` | 2023 | reorient | RL, distillation | PPO | Allegro Hand | 16 | no | Isaac Gym | yes | 5 |   | not addressed | no |
+| `rotateit_2023` | 2023 | reorient | RL, distillation | PPO | AllegroHand (Wonik Robotics) | 16 | no | IsaacGym | yes |   | 15 | not addressed |   |
+| `rotating_without_seeing_2023` | 2023 | reorient | RL | PPO | Allegro Hand | 16 | no | IsaacGym | yes | 30 | 5 | not addressed |   |
+| `unidexgrasp_2023` | 2023 | grasp | grasp-synthesis, RL, distillation | PPO (teacher) + DAgger (student distillation) | ShadowHand | 26 | no | Isaac Gym | no |   | 241 | penalised | yes |
+| `unidexgrasp_pp_2023` | 2023 | grasp | RL, distillation | PPO + DAgger (with critic distillation) | Shadow Hand | 24 | no | Isaac Gym | no |   |   | not addressed | yes |
+| `ace_teleop_2024` | 2024 | grasp, functional/tool | teleop-system, BC | 3D Diffusion Policy (DP3) for xArm platforms; ACT for H1 humanoid (downstream IL); IK-bas… | Ability Hand / Inspire Hand / parallel-jaw gripper (embodiment-dependent) |   | yes |   | yes | 10 | 18 | not addressed | no |
+| `anyrotate_2024` | 2024 | reorient | RL, distillation | PPO | Allegro Hand | 16 | no | IsaacGym | yes |   |   | not addressed | no |
+| `asymdex_2024` | 2024 | bimanual-coord, grasp | RL | PPO | Shadow Hand (30-DoF: 24-DoF hand + 6-DoF floating wrist) in simulation; 16-DoF Allegro ha… | 30 | yes | NVIDIA Isaac Gym | yes | 20 |   | not addressed | yes |
+| `bidex_teleop_2024` | 2024 | bimanual-coord, handover, functional/tool | teleop-system, BC | ACT (Action Chunking Transformer) | LEAP Hand (16 DoF); LEAP Hand V2 (21 DoF) used for 'extreme dexterity' experiments | 16 | yes | none | yes |   |   | not addressed | no |
+| `bidexhd_2024` | 2024 | functional/tool, bimanual-coord | RL, distillation | IPPO (teacher) + DAgger (student distillation) | LEAP Hand, left and right | 16 | yes | Isaac Gym (PhysX) | no |   |   | not addressed | yes |
+| `bimangrasp_2024` | 2024 | grasp, bimanual-coord | grasp-synthesis, diffusion | MALA (Metropolis-adjusted Langevin) energy optimisation + DDPM (BimanGrasp-DDPM) | Shadow Hand, pair | 22 | yes | Isaac Gym | no |   | 225 | penalised | no |
+| `bunny_visionpro_2024` | 2024 | grasp, functional/tool, bimanual-coord | teleop-system, BC | ACT, Diffusion Policy, DP3 (downstream IL); SQP fingertip-vector hand retargeting + unifi… | Ability Hand | 24 | yes |   | yes | 10 |   | not addressed | yes |
+| `cyberdemo_2024` | 2024 | grasp, reorient, functional/tool | BC, teleop-system, data-collection | ACT (Action Chunking with Transformers) BC policy, trained on sim teleoperation demonstra… | Allegro Hand | 16 | no | SAPIEN | yes | 20 | 2 | not addressed | no |
+| `demostart_2024` | 2024 | grasp, functional/tool, reorient, other | RL, distillation | MPO (teacher, auto-curriculum) + BC distillation (student, Perceiver-Actor-Critic) | DEX-EE Hand | 12 | no | MuJoCo | yes | 100 |   | not addressed | no |
+| `dexcap_2024` | 2024 | grasp, bimanual-coord, functional/tool | BC, diffusion, data-collection | Diffusion Policy with Perceiver point-cloud encoder (DP-perc) | LEAP Hand | 16 | yes | none | yes | 60 | 9 |   | yes |
+| `dexmimicgen_2024` | 2024 | bimanual-coord, grasp, functional/tool | data-collection, BC | MimicGen-style per-arm subtask transform/replay generation; downstream BC-RNN / BC-RNN-GM… | Inspire dexterous hand (6-DoF, real-world GR1); unnamed 'dexterous hands' in the two simu… | 6 | yes | RoboSuite (MuJoCo) | yes | 20 |   |   | yes |
+| `dp3_2024` | 2024 | reorient, grasp, functional/tool, bimanual-coord, other | BC, diffusion | Diffusion Policy backbone (DDPM training / DDIM inference) conditioned on a compact 3D po… | Shadow Hand (Adroit, Bi-DexHands, DexDeform, DexMV domains); Allegro Hand (DexArt, HORA d… |   | yes | MuJoCo (Adroit, MetaWorld), IsaacGym (Bi-DexHands, HORA), Sapien (DexArt, DexMV), Plastic… | yes | 40 |   | not addressed | yes |
+| `dreureka_2024` | 2024 | reorient | RL | PPO with LLM-authored (GPT-4) reward search + reward-aware physics prior domain randomiza… | LEAP hand | 16 | no | Isaac Gym | yes |   |   | not addressed | yes |
+| `egomimic_2024` | 2024 | grasp, functional/tool, bimanual-coord | BC | shared-backbone ACT variant co-trained on paired egocentric human video and teleoperated… | parallel-jaw gripper (not a dexterous hand; see note scope flag) | 1 | yes |   | yes | 135 |   | not addressed | yes |
+| `graspxl_2024` | 2024 | grasp | RL | PPO | MANO (also Shadow Hand, Allegro Hand, Faive Hand) | 45 | no | RaiSim | no |   | 503409 | not addressed | yes |
+| `hato_visuotactile_2024` | 2024 | handover, bimanual-coord | diffusion | Diffusion Policy (DDPM, CNN-based) | Psyonic Ability Hand, two | 6 | yes |   | yes | 10 |   | not addressed | yes |
+| `hudor_2024` | 2024 | grasp, functional/tool | RL | open-loop IK replay of a single retargeted human fingertip trajectory plus online residua… | Allegro Hand | 16 | no |   | yes | 10 |   | not addressed | no |
+| `humanplus_2024` | 2024 | track-human-ref, locomanipulation | RL, BC | PPO (HST shadowing policy) + decoder-only Transformer BC (HIT) | Inspire-Robots RH56DFX, two | 6 | yes | Isaac Gym-based legged_gym/rsl_rl | yes | 10 |   | not addressed | yes |
+| `objdex_2024` | 2024 | track-human-ref, bimanual-coord | BC, RL, distillation | BC (Transformer high-level planner) + PPO (low-level controller) | Shadow Hand |   | yes |   | yes | 80 | 1 | not addressed | no |
+| `okami_2024` | 2024 | grasp, functional/tool, bimanual-coord | trajopt, BC | single-video imitation: SLAHMR-extended SMPL-H body+hand reconstruction, GPT-4V/Grounded-… | Inspire Hand (x2) | 6 | yes | RoboSuite (2 of 6 tasks only) | yes | 12 |   | not addressed | yes |
+| `omnigrasp_2024` | 2024 | grasp, track-human-ref | RL, distillation | PPO (hierarchical: PHC-X finger imitator → PULSE-X distilled latent prior → PPO over late… | SMPL-X whole-body humanoid (simulated, not a robot hand) | 90 | yes | Isaac Gym | no |   | 5 | not addressed | yes |
+| `omnih2o_2024` | 2024 | track-human-ref, locomanipulation | RL, distillation | PPO (teacher) + DAgger (student) + diffusion policy (autonomy layer) | Inspire hands (open-loop, DoF not stated) |   | yes |   | yes | 20 |   |   | yes |
+| `open_television_2024` | 2024 | bimanual-coord, functional/tool | teleop-system, BC | ACT (Action Chunking Transformer) with DinoV2 ViT backbone | Inspire Robots hand (6 actuated DoF, 12 total); Fourier GR-1 embodiment instead uses a 1-… | 6 | yes | none | yes |   |   | not addressed | yes |
+| `openvla_2024` | 2024 | other | VLA | autoregressive next-token prediction over discretized (256-bin per-dimension, quantile-ba… |   |   | no | LIBERO benchmark (simulated Franka) for fine-tuning experiments; engine/version not stated | yes | 230 |   | not addressed | yes |
+| `penspin_2024` | 2024 | reorient | RL, distillation | PPO + BC | Allegro Hand | 16 | no | Isaac Gym | yes |   | 7 | not addressed | yes |
+| `pi0_2024` | 2024 | other | VLA, flow | conditional flow matching (linear-Gaussian/optimal-transport probability path), forward-E… |   |   | yes |   | yes |   |   | not addressed | yes |
+| `pianomime_2024` | 2024 | music | RL+demo, distillation | PPO (per-song specialists); DDPM diffusion (generalist) | Shadow Hand E3M5 | 23 | yes | ROBOPIANIST (MuJoCo) | no |   |   | not addressed | yes |
+| `rdt1b_2024` | 2024 | bimanual-coord | diffusion | RDT (DiT + cross-attention, QKNorm/RMSNorm, MLP decoder, Alternating Condition Injection) | parallel-jaw gripper (ALOHA-style, Cobot Mobile ALOHA), two |   | yes |   | yes |   |   | not addressed | yes |
+| `resdex_2024` | 2024 | grasp | RL, distillation | PPO + DAgger | ShadowHand | 18 | no | IsaacGym | no |   | 241 | not addressed | yes |
+| `twisting_lids_2024` | 2024 | functional/tool, bimanual-coord | RL | PPO (asymmetric actor-critic) | Allegro Hand, two | 16 | yes | Isaac Gym | yes |   | 15 | not addressed | no |
+| `umi_2024` | 2024 | functional/tool, bimanual-coord, other | BC, diffusion, data-collection, teleop-system | Diffusion Policy (unmodified loss/decoder); contribution is the hand-held data-collection… |   |   | yes |   | yes |   |   |   | yes |
+| `articulated_tools_inhand_2025` | 2025 | functional/tool | RL, BC, distillation | PPO (oracle) + BC (student + CATFA online adaptation) | Inspire Hand | 6 | no | IsaacLab | yes | 50 |   | not addressed | no |
+| `being_h0_2025` | 2025 | grasp, functional/tool | VLA, BC | autoregressive next-token prediction over discretized MANO motion tokens (Grouped Residua… | 6-DoF Inspire hand mounted on a 7-DoF Franka Research 3 arm (real robot); MANO parametric… | 6 | no |   | yes | 20 |   | not addressed | yes |
+| `clutterdexgrasp_2025` | 2025 | grasp | RL, diffusion, distillation | PPO (teacher) + DP3 diffusion policy (student) | AgiBot dexterous hand | 6 | no | Isaac Gym | yes | 167 | 2029 | constrained | no |
+| `cross_embodiment_world_models_2025` | 2025 | other | world-model, MPC | DPI-Net (graph neural network particle-dynamics world model) + sampling-based receding-ho… | PSYONIC Ability Hand (6-DoF) and Robot Era XHand (12-DoF) for real-world deployment; trai… |   | no | SAPIEN (rigid-body Object Pushing data) and Rewarped (differentiable multiphysics, deform… | yes | 20 |   | not addressed | no |
+| `dexgraspvla_2025` | 2025 | grasp, other | VLA, diffusion | hierarchical VLA: frozen VLM high-level planner (bounding-box affordance) + DiT diffusion… | PsiBot G0-R, 6-DoF, single (right) hand | 6 | no |   | yes | 1287 | 360 | not addressed | yes |
+| `dexmachina_2025` | 2025 | track-human-ref, bimanual-coord | RL | PPO (rl-games) | six URDFs: Inspire, Allegro, XHand, Schunk (main), Ability, DexRobot Dex Hand |   | yes | Genesis | no |   |   | constrained | yes |
+| `dexman_2025` | 2025 | track-human-ref, bimanual-coord | RL, trajopt | PPO (RL_GAMES) residual policy on top of IK-retargeted human motion | Shadow Dexterous Hand |   | yes | NVIDIA Isaac Gym | no |   |   |   | no |
+| `dexndm_2025` | 2025 | reorient | RL, distillation | PPO (oracle) + BC (generalist) + supervised residual policy | LEAP hand |   | no | Isaac Gym | yes |   |   | not addressed | no |
+| `dexplore_2025` | 2025 | track-human-ref | RL, distillation | PPO (teacher) + DAgger-style VAE distillation (student) | Inspire hand (also Allegro hand) | 6 | no | Isaac Gym | yes |   |   | not addressed | yes |
+| `dexremoe_2025` | 2025 | reorient | RL | PPO | GX11 three-fingered dexterous hand (custom) | 11 | no | IsaacGym | no |   | 50 | not addressed | no |
+| `dexteritygen_2025` | 2025 | reorient, functional/tool, grasp | RL, diffusion | RL-generated Anygrasp-to-Anygrasp transitions used to train a UNet DDPM diffusion foundat… | Allegro Hand | 16 | no |   | yes |   |   |   | no |
+| `dexterous_handover_2025` | 2025 | handover, grasp | RL | PPO | Allegro Hand |   | no | IsaacLab | no |   | 3 | not addressed |   |
+| `dextrack_2025` | 2025 | track-human-ref | RL+demo | PPO + IL action-supervision loss | Allegro hand (sim); LEAP hand (real) | 16 | no | Isaac Gym | yes |   |   | measured | yes |
+| `dexumi_2025` | 2025 | grasp, functional/tool | BC, data-collection | diffusion policy (DDPM-style action-chunking) trained on exoskeleton-collected demonstrat… | Inspire Hand (12 DoF, 6 active) and XHand (12 active DoF) |   | no |   | yes | 20 |   |   | yes |
+| `dexvla_2025` | 2025 | grasp, functional/tool, bimanual-coord | VLA, diffusion | ScaleDP (Scale Diffusion Policy, transformer-based diffusion action head, up to 1B parame… | Robotiq parallel-jaw gripper (Franka rig a, Bimanual UR5e rig c); Inspire multi-fingered… |   |   | LIBERO (secondary, App. A.2 only; main results are real-robot) | yes | 10 | 30 | not addressed | yes |
+| `dexwild_2025` | 2025 | grasp, functional/tool, bimanual-coord | BC, data-collection | diffusion U-Net policy (also compared against ACT) co-trained on human wearable-rig demon… | LEAP Hand / LEAP Hand V2 Advanced | 17 | yes |   | yes |   |   |   | yes |
+| `dydexhandover_2025` | 2025 | handover, bimanual-coord | RL | MAPPO (human-regularized, CTDE, with hybrid advantage estimation) | 11-DoF (6 actuated) dexterous hand, per side (vendor not stated) | 11 | yes | NVIDIA Isaac Sim / Isaac Lab | no |   | 9 | not addressed | no |
+| `egozero_2025` | 2025 | grasp, functional/tool | BC | closed-loop Transformer policy (BC, Gaussian NLL loss) over a morphology-agnostic 3D-poin… | Franka Panda parallel-jaw gripper (not a dexterous hand; see note scope flag) | 1 | no |   | yes | 15 |   | not addressed | yes |
+| `gemini_robotics_15_2025` | 2025 | other | VLA |   | ALOHA parallel gripper (by platform convention, not re-specified); Bi-arm Franka parallel… |   | yes | MuJoCo (used to generate evaluation scenes at scale, not for training; engine timestep/co… | yes |   |   | not addressed | no |
+| `gemini_robotics_2025` | 2025 | other, handover | VLA, distillation |   | ALOHA 2 parallel gripper, two fingers (primary embodiment); bi-arm Franka parallel grippe… |   | yes |   | yes |   |   | not addressed | no |
+| `geometric_retargeting_2025` | 2025 | grasp | teleop-system | per-finger MLP retargeting network (GeoRT) trained offline against five geometric losses:… | Allegro Hand |   | no |   | yes |   |   | not addressed | yes |
+| `gr_dexter_2025` | 2025 | bimanual-coord, grasp | VLA | GR-Dexter (Mixture-of-Transformer VLA, flow matching + next-token prediction, following G… | ByteDexter V2, two | 21 | yes |   | yes |   | 23 | not addressed | no |
+| `groot_n1_2025` | 2025 | grasp, functional/tool, bimanual-coord, handover | VLA, flow | dual-system architecture: Eagle-2 VLM (System 2, reasoning) feeding a DiT flow-matching a… | Fourier dexterous hands, on the Fourier GR-1 humanoid; DoF/finger count not stated |   | yes | RoboCasa (Kitchen and GR-1 Tabletop benchmarks); DexMimicGen (cross-embodiment suite and… | yes |   |   | not addressed | yes |
+| `h_rdt_2025` | 2025 | grasp, functional/tool, bimanual-coord | flow | 2B-parameter flow-matching diffusion transformer (H-RDT), pretrained on EgoDex human hand… | parallel-jaw / 2-jaw grippers at deployment (Aloha-Agilex, ARX5, Franka-Panda, UR5+UMI);… |   | yes | RoboTwin 2.0 | yes |   |   | not addressed | no |
+| `human2sim2robot_2025` | 2025 | track-human-ref | RL | PPO | Allegro Hand | 16 | no | IsaacGym | yes | 70 |   | not addressed | yes |
+| `humanoid_policy_human_policy_2025` | 2025 | grasp, functional/tool | BC | Human Action Transformer (HAT), an ACT-style action-chunking transformer co-trained joint… | Inspire Hand (x2, 5-fingered) | 6 | yes |   | yes | 230 |   | not addressed | yes |
+| `humanoid_sim2real_recipe_2025` | 2025 | grasp, bimanual-coord, handover | RL, distillation | PPO (asymmetric actor-critic) for per-task specialist policies, distilled into a generali… | Fourier GR1 hand (6 actuated + 5 underactuated DoF); cross-embodiment check also uses Ins… | 6 | yes | NVIDIA Isaac Gym | yes | 10 |   |   | no |
+| `maniptrans_2025` | 2025 | track-human-ref, bimanual-coord | RL, BC, diffusion | PPO (two-stage: frozen generalist imitator + per-task residual policy) | Inspire Hand (12-DoF sim); also Shadow(22), MANO(22), Allegro(16) | 12 | yes | Isaac Gym | yes |   |   | not addressed | yes |
+| `metis_2025` | 2025 | grasp, functional/tool, bimanual-coord | VLA | Autoregressive next-token cross-entropy over discretized 'motion-aware dynamics' tokens (… | Inspire dexterous hand (paired, main real-robot eval); cross-embodiment eval uses 22-DoF… | 6 | yes |   | yes | 20 |   | not addressed | no |
+| `pi05_2025` | 2025 | other | VLA, flow | hierarchical high-level discrete-subtask prediction (FAST tokenizer, autoregressive) + lo… |   |   | yes |   | yes | 40 |   | not addressed | yes |
+| `pistar06_2025` | 2025 | other | VLA, RL, flow | RECAP: advantage-conditioned policy extraction on a flow-matching VLA, using a distributi… |   |   | yes |   | yes |   |   | not addressed | yes |
+| `wm_dex_human_videos_2025` | 2025 | grasp | world-model, MPC | DexWM: a deterministic latent-space (DINOv2) world model with a CDiT-based predictor cond… | Allegro Hand |   | no | RoboCasa | yes | 12 |   |   | no |
+| `being_h05_2026` | 2026 | bimanual-coord, other | VLA, flow | Rectified Flow (continuous action velocity-field prediction) + Masked Motion Token Predic… | Inspire Hand (Franka FR3); LinkerBot O6 (Unitree G1); unnamed 6-DoF dexterous hands on PN… | 6 |   | LIBERO, RoboCasa (engine/timestep not stated) | yes | 20 |   | not addressed | yes |
+| `bidexgrasp_2026` | 2026 | grasp, bimanual-coord | grasp-synthesis, diffusion | bi-level QP-ADMM optimisation (region-pair init + decoupled per-hand force closure) + DDP… | Shadow Hand pair (sim); Inspire and BrainCo hands (real) |   | yes | MuJoCo | yes | 260 | 30 | measured | no |
+| `deximit_2026` | 2026 | bimanual-coord, grasp, functional/tool | data-collection, BC, grasp-synthesis, trajopt | 4D hand-object reconstruction (ST2+FPose) + LLM-based (Qwen3-VL) subtask decomposition wi… | XHands (real-world deployment); exact simulation hand not explicitly named |   | yes |   | yes |   |   | constrained | no |
+| `dexora_2026` | 2026 | grasp, functional/tool, bimanual-coord | VLA, diffusion, teleop-system | Decoder-only diffusion transformer (28 layers, hidden size 1024, 16 attention heads) with… | XHAND dexterous hand (paired), 12 fully actuated joints per hand, thumb and index additio… | 12 | yes | MuJoCo (digital twin of the real platform, used to generate the synthetic corpus and mirr… | yes | 20 |   | not addressed |   |
+| `dexteleop0_2026` | 2026 | grasp, functional/tool, bimanual-coord | teleop-system, MPC | box-constrained QP shared-autonomy residual controller (force tracking + multi-contact fo… | Sharpa Wave (x2) | 22 | yes | NVIDIA IsaacSim 4.5 | yes | 35 |   |   | no |
+| `egoscale_2026` | 2026 | grasp, functional/tool, bimanual-coord | flow, VLA | flow-based VLA (GR00T N1-style): VLM backbone + DiT action expert trained with a flow-mat… | Sharpa Wave (22-DoF); cross-embodiment target Unitree G1 (7-DoF tri-finger hand) | 22 | yes |   | yes | 10 |   |   | no |
+| `force_grasp_sim2real_2026` | 2026 | grasp, reorient | RL | PPO (asymmetric actor-critic) | xHand | 12 | no | IsaacLab | yes | 70 | 2 |   | no |
+| `poise_2026` | 2026 | reorient | RL | asymmetric PPO | Sharpa Wave hand | 22 | no | Isaac Lab | yes | 10 | 1 | not addressed | no |
+| `simtoolreal_2026` | 2026 | functional/tool | RL | SAPG (PPO variant) | Sharpa five-fingered hand | 22 | no | IsaacGym | yes | 120 | 12 | not addressed | no |
+| `teledexter_2026` | 2026 | reorient, functional/tool | RL, teleop-system | single-stage RL (SAPG) with consecutive subgoal co-tracking reward | SharpaWave (22-DoF, headline); also LeapHand (16-DoF) | 22 | no | Isaac Gym | yes | 15 |   | penalised | no |
+| `toporetarget_2026` | 2026 | track-human-ref | trajopt, RL | constrained Laplacian-optimization retargeting + PPO tracking | Wuji Hand |   | no |   | yes |   |   | constrained | no |
+| `unidex_2026` | 2026 | grasp, functional/tool | flow, VLA, data-collection | UniDex-VLA: a pi0-style flow-matching VLA with a Uni3D pointcloud encoder and Gemma-based… | Inspire, Leap, Shadow, Allegro, Ability, Oymotion, XHand, Wuji (8 hands in UniDex-Dataset… |   | no |   | yes | 20 |   |   | no |
+| `viserdex_2026` | 2026 | reorient | RL, distillation | PPO (RSL-RL) | Allegro Hand | 16 | no | Isaac Lab | yes | 50 |   | not addressed | no |
+
+*110 rows; 237 of 1540 cells (15%) are values no source stated.*
 
 <!--
-FIGURE 4. Taxonomy of training paradigms. Hand-written SVG at paper/figures/fig4_taxonomy.svg,
-light and dark palettes via CSS custom properties, same house style as fig2/fig3/fig5/fig6.
+FIGURE 4. Taxonomy of training paradigms. A draft exists at paper/figures/fig4_taxonomy.svg,
+generated by tools/make_figures.py with counts recomputed from corpus/rows. This comment is the
+specification the drawn figure should satisfy. The draft already gets the frame right: four
+first-level branches off "supervision for a dexterous policy", 110 method papers at the root,
+branch counts of 53 for a reward function, 49 for a human demonstration, 12 for a human reference
+tracked with physics and 11 for no learned policy, and a footer saying the branches are not
+exclusive. Five things still need to be true of it.
 
-Shape: a left-to-right tree, root at the left edge, four first-level branches, leaves at the right
-carrying corpus keys in monospace and a count badge. Cross-links between leaves on different
-branches are dashed curves, drawn behind the nodes, in the muted accent colour.
+1. LEAF KEYS MUST BE EXHAUSTIVE OR MARKED. The draft prints five example keys per leaf with no
+   indication that the list is truncated. A reader cannot tell whether "egocentric video, no robot
+   at all, 7" lists all seven. Either print every key at a leaf or append "and N more" so the
+   truncation is visible. This matters most at the two largest leaves, "PPO in a GPU simulator,
+   privileged state" at 32 and "synthetic demonstration generation" at 10.
 
-Root: "supervision for a dexterous policy", 110 method rows.
+2. THE CROSS-LINKS ARE MISSING AND THEY ARE THE POINT. The draft states in its footer that the
+   branches are not exclusive, then draws a strict tree. Draw the overlaps as dashed curves behind
+   the nodes, in the muted accent colour, each labelled with one word:
+     reward-branch distillation leaf  ->  demonstration-branch architecture tags   "distil"
+     reward-branch PPO leaf           ->  synthetic demonstration generation        "generate"
+     egocentric video leaf            ->  human-reference branch                    "retarget"
+     human-reference branch           ->  demonstration-branch architecture tags    "distil"
+     no-learned-policy branch         ->  reward-branch PPO leaf                    "smooth"
+     teleoperated-on-robot leaf       ->  seeded by demonstrations                  "seed"
+   The fifth link carries `pang_global_planning_2022`'s proof that randomised smoothing, which is
+   what a policy gradient does implicitly, and analytic log-barrier smoothing compute the same
+   local model of contact. It is the only edge in the figure that is a theorem rather than a
+   pipeline, and it should be drawn differently, for instance with a double dash.
 
-BRANCH 1 — "a reward function" (RL), 53 rows. Subdivides to:
-  1a "PPO in a GPU simulator, state only" (20 rows):
-     dextreme_2022, dexpbt_2023, rotating_without_seeing_2023, dexremoe_2025, poise_2026,
-     twisting_lids_2024, dexterous_functional_grasping_2023, force_grasp_sim2real_2026,
-     simtoolreal_2026
-  1b "PPO plus teacher-student distillation to vision or proprioception" (16 rows):
-     hora_2022, visual_dexterity_2022, rotateit_2023, robot_synesthesia_2023, anyrotate_2024,
-     penspin_2024, viserdex_2026, unidexgrasp_2023, unidexgrasp_pp_2023, resdex_2024,
-     clutterdexgrasp_2025, dexndm_2025, articulated_tools_inhand_2025
-  1c "automated reward design" (2 rows): eureka_2023, dreureka_2024
-  1d "population-based search over hyperparameters" (1 row): dexpbt_2023 — draw as a small
-     annotation hanging off 1a rather than a full leaf, with the count 1 to make the scarcity visible
-  1e "RL seeded by demonstrations" (6 rows): dapg_2017, dexmv_2021, anyteleop_2023, dime_2022
+3. THE ARCHITECTURE AXIS IS ABSENT. Under the human-demonstration branch, what supervises the
+   policy and what shape the policy has are independent choices. Add four small tags, not full
+   nodes, hanging under the branch: action chunking `aloha_act_2023`; diffusion
+   `diffusion_policy_2023`, `dp3_2024`; flow matching `pi0_2024`, `groot_n1_2025`, `h_rdt_2025`,
+   `unidex_2026`, `egoscale_2026`; autoregressive action tokens `openvla_2024`, `metis_2025`.
+   Tag counts are 1, 14 and 8 for the first three from the `diffusion` and `flow` paradigm labels.
 
-BRANCH 2 — "a human demonstration" (BC and friends), 27 BC rows plus 14 diffusion and 8 flow.
-  2a "teleoperated on the target robot" (14 teleop-system rows):
-     dexpilot_2020, anyteleop_2023, holo_dex_2022, dime_2022, bunny_visionpro_2024,
-     open_television_2024, ace_teleop_2024, bidex_teleop_2024, doglove_2025,
-     geometric_retargeting_2025, dexteleop0_2026, teledexter_2026, cyberdemo_2024
-  2b "wearable rig, no robot in the loop": dexcap_2024, dexumi_2025, dexwild_2025
-  2c "egocentric video, no robot at all": videodex_2022, dexmv_2021, dexvip_2022, okami_2024,
-     egozero_2025, egomimic_2024, hudor_2024, wm_dex_human_videos_2025
-  2d "architecture" as a second axis under 2a-2c, drawn as four small tags rather than nodes:
-     action chunking (aloha_act_2023), diffusion (diffusion_policy_2023, dp3_2024),
-     flow matching (pi0_2024, groot_n1_2025, h_rdt_2025, unidex_2026, egoscale_2026),
-     autoregressive tokens (openvla_2024, metis_2025)
-  2e "synthetic demonstration generation": dexmimicgen_2024, dex1b_2025, deximit_2026
+4. TWO LEAF ASSIGNMENTS IN THE DRAFT ARE WRONG AGAINST THE NOTES. `physhoi_2023` is placed under
+   "reference as soft guidance". It is not soft guidance. It tracks a fixed reference with a
+   multiplicative kinematic and contact-graph reward, and it does not randomise initialisation
+   because "the HOI data may have severe collisions that eject the object". Move it to "whole
+   reference including fingers", which then holds five. `omnigrasp_2024` is likewise not soft
+   guidance. It tracks a generated object trajectory from a single pre-grasp pose, so it belongs
+   under "object trajectory only", which then holds three. "Reference as soft guidance" should
+   hold `dexplore_2025` alone, and its count of one is itself informative.
 
-BRANCH 3 — "a human reference trajectory, tracked with physics" (8 rows, task_family
-  track-human-ref): physhoi_2023, omnigrasp_2024, objdex_2024, dextrack_2025, maniptrans_2025,
-  dexmachina_2025, dexplore_2025, toporetarget_2026, human2sim2robot_2025, pgdm_2023.
-  Subdivide by what is retargeted: "whole reference including fingers" (dextrack_2025,
-  maniptrans_2025, dexmachina_2025, toporetarget_2026), "wrist only, fingers learned"
-  (objdex_2024), "object trajectory only" (pgdm_2023, human2sim2robot_2025), "no retargeting,
-  same embodiment" (physhoi_2023, omnigrasp_2024), "reference as soft guidance" (dexplore_2025).
+5. SCARCITY MUST BE LEGIBLE. The three leaves under "no learned policy" hold one paper each, and
+   population-based training over hyperparameters holds one, `dexpbt_2023`, which the draft does
+   not show at all. Add it as an annotation hanging off the PPO leaf with the count 1. Size or
+   shade every leaf by its count so that a reader sees, without reading a number, that the
+   demonstration branch is wide, the non-learning branch is three single papers, and automated
+   reward design is two.
 
-BRANCH 4 — "no learned policy" (11 rows: 6 trajopt, 5 MPC):
-  pddm_2019 (learned model, sampled plan), mjpc_2022 (no model learned, sampled plan),
-  pang_global_planning_2022 (smoothed analytic contact model, trajopt plus RRT).
-
-CROSS-LINKS, dashed, each labelled with one word:
-  1b -> 2d  "distil"      (RL teacher, imitation-shaped student: the section 5.7 pattern)
-  1a -> 2e  "generate"    (RL as a demonstration factory: dextrack_2025, maniptrans_2025)
-  2c -> 3   "retarget"    (video becomes a reference to be tracked)
-  3  -> 2d  "distil"      (dexplore_2025, objdex_2024 distil their trackers to vision students)
-  4  -> 1a  "smooth"      (pang_global_planning_2022's equivalence proof links the two branches)
-  2a -> 1e  "seed"        (teleoperated demos seeding RL: anyteleop_2023, dime_2022)
-
-Counts on each leaf come from corpus/rows/*.json by the filters named above, and the figure
-generator must recompute them rather than hardcode, so the figure cannot drift from the corpus.
-The visual point of the figure: branch 2 is the widest, branch 4 is nearly empty, and the dashed
-cross-links are dense enough that the tree is really a lattice from 2024 onward.
+Palette, dark-mode handling and font stack follow the other figures in paper/figures/. All counts
+are recomputed from corpus/rows/*.json at generation time and never hardcoded, so the figure
+cannot drift from the corpus.
 -->
 
 # 6. Bimanual dexterous manipulation
@@ -1907,17 +2041,19 @@ failure category, beside the success rate it explains.
 
 # 9. Conclusion
 
-The binding constraint on this field is not ideas. It is verification. Thirty-seven of the 61
-method papers that released code disagree with their own paper about the objective that was
-trained, and the 45 that released nothing cannot be checked at all. A reward table in a paper is a
+The binding constraint on this field is not ideas. It is verification. Sixteen of the 61 method
+papers that released code contradict their own paper about the objective that was trained, and the
+49 that released nothing cannot be checked at all. Sixteen is a floor twice over, because a further
+nine disagreements could not be resolved by our own parse and are withdrawn rather than counted. A reward table in a paper is a
 claim about a document, not about a run. `physhoi_2023` is the case to remember, because the term
 its table weights at 0.1 is set to zero in the code, and its own success criterion could not have
 detected that.
 
 The second finding is that the quantity most specific to dexterous manipulation is the one nobody
 measures. Contact is what separates a hand from a gripper. Eleven of 110 method rows address
-interpenetration, seven of those do it offline in a grasp synthesiser or a trajectory optimiser,
-and not one reports a penetration number for its own trained policy's rollouts. `dextrack_2025` has
+interpenetration, only four of them inside a closed-loop policy, and not one reports a penetration
+number for its own trained policy's rollouts. No published penetration measurement in this corpus
+is even of a hand grasping an object. `dextrack_2025` has
 the formula and points it at its inputs.
 
 The third is that hardware and software have come apart. Tables 2 and 3 hold 33 hands, the

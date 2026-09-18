@@ -18,6 +18,7 @@
 | `egomimic_2024` | human data: head-worn Project Aria glasses (egocentric RGB + onboard SLAM/hand-tracking,… | parallel-jaw gripper (not a dexterous hand; see note scope flag) | no per-finger kinematic retargeting (end effector is a 2-finger gripper); domain alignmen… |   | 1000 | 2,150 traj, 4 h |
 | `hudor_2024` | VR headset (Meta Quest 3) built-in hand tracking for fingertip 3D positions, ArUco-marker… | Allegro Hand | direct Cartesian-space correspondence: human fingertip 3D positions are treated as target… |   |   | 4 traj |
 | `okami_2024` | single human demonstrator recorded on a static RGB-D camera (Intel RealSense D435i), no l… | Inspire Hand (x2) | factorized retargeting run once per demonstration video: arm/shoulder-elbow-wrist IK (via… |   |   |   |
+| `open_television_2024` | VR headset (Apple Vision Pro or Meta Quest 3) with active stereo video streamed back from… | Inspire Robots hand (6 actuated DoF, 12 total); Fourier GR-1 embodiment instead uses a 1-… | dex-retargeting keypoint-vector optimisation over five wrist-to-fingertip and two thumb-t… | 60 Hz stereo round trip and 60 Hz control |   |   |
 | `dexteritygen_2025` | human teleoperator tracked via a Manus Glove (retargeted to the Allegro hand at 300Hz via… | Allegro Hand |   |   |   |   |
 | `dexumi_2025` | hand-specific 3D-printed wearable exoskeleton (per-robot-hand optimized joint-to-fingerti… | Inspire Hand (12 DoF, 6 active) and XHand (12 active DoF) | no visual/kinematic-chain retargeting at inference; a learned per-joint regression model… | per-sensor latency measured and compensated offline, no figure |   | 1,355 traj |
 | `dexwild_2025` | wearable, calibration-free rig: motion-capture glove + two palm-mounted stereo cameras (p… | LEAP Hand / LEAP Hand V2 Advanced | robot hand kinematics optimized to match observed human fingertip positions (fixed hyperp… |   |   | 9,290 traj, 46.2 h |
@@ -32,4 +33,4 @@
 | `teledexter_2026` | NOKOV motion-capture system tracking operator hand pose and object 6D pose in real time (… | SharpaWave (22-DoF, headline); also LeapHand (16-DoF) | two-stage geometry-aware retargeting: Stage 1 fingertip-vector alignment to human hand ge… |   |   |   |
 | `unidex_2026` | human-video side: no live capture rig, converts existing egocentric RGB-D datasets (H2O,… | Inspire, Leap, Shadow, Allegro, Ability, Oymotion, XHand, Wuji (8 hands in UniDex-Dataset… | two-stage human-in-the-loop kinematic retargeting: an automatic PyBullet multi-end-effect… |   |   | 52,000 traj |
 
-*29 rows; 58 of 203 cells (28%) are values no source stated.*
+*30 rows; 60 of 210 cells (28%) are values no source stated.*

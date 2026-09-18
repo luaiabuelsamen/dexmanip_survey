@@ -40,19 +40,19 @@ orientation, joint angles, joint velocities and object velocities that the polic
 its footnote records that current object orientation was left out of the policy inputs by
 accident. `dextreme_2022` uses the same asymmetric critic with a 2048-unit LSTM against the
 actor's 1024. `hora_2022` instead compresses nine privileged object properties into an
-eight-dimensional vector and regresses that vector from 30 steps of proprioception, so nothing
-privileged is needed at deployment. `visual_dexterity_2022` distils twice, from a state teacher to
-a synthetic point cloud and then to a rendered one, for a stated fivefold training speedup.
+eight-dimensional vector and regresses that vector from 30 steps of proprioception.
+`visual_dexterity_2022` distils twice, from a state teacher to a synthetic point cloud and then to
+a rendered one, for a stated fivefold training speedup.
 
 Domain randomisation is the part of the recipe with the least discipline. `openai_rubiks_cube_2019`
 made it adaptive, pushing each range boundary out when performance at that boundary exceeds 20
 successes and pulling it in below 10, and `dextreme_2022` reproduced the mechanism with a
-256-sample queue and 40 percent of environments dedicated to boundary evaluation. Both papers
-publish the discovered ranges. Below that standard the picture is worse. `hora_2022` states a
-joint-noise range of U(0, 0.005) against a shipped `jointNoiseScale` of 0.02 sampled signed, and
-its disturbance force defaults to zero in the parsed config. `penspin_2024` ships the disturbance
-force at zero as well. `dexpbt_2023` reports no domain-randomisation experiments at all, yet its
-`AllegroKuka.yaml` carries a complete randomisation schedule behind a `randomize: False` switch.
+256-sample queue and 40 percent of environments dedicated to boundary evaluation. Both publish the
+discovered ranges. Below that standard, three shipped configurations disagree with their own papers
+about what was randomised. `hora_2022` states a joint-noise range of U(0, 0.005) against a shipped
+`jointNoiseScale` of 0.02, `penspin_2024` zeroes the disturbance force its appendix describes, and
+`dexpbt_2023` reports no randomisation experiments while shipping a full schedule behind a
+`randomize: False` switch.
 
 #### 5.2.2 Reward engineering
 
@@ -69,8 +69,10 @@ which had to be added. Only five reward closing the distance from fingertips to 
 only four mention contact or force at all.
 
 That last number is the finding. Four of 21 in-hand reorientation methods put any contact or force
-quantity in the reward. None puts interpenetration in it. Across all 110 method rows, 83 do not
-address penetration, 5 constrain it, 3 measure it and 3 penalise it. The physical quality of the
+quantity in the reward. None puts interpenetration in it. `teledexter_2026` penalises
+interpenetration with a differentiable signed-distance term, but during offline reference
+construction, not in the policy's reward. Across all 110 method rows, 83 do not address
+penetration at all, 5 constrain it, 3 measure it and 3 penalise it. The physical quality of the
 contact is not something this literature optimises.
 
 Term counts range from one to ten. `demostart_2024` gives a single binary terminal reward of 1 and
@@ -79,13 +81,13 @@ each publish ten weighted terms. `viserdex_2026` is the cleanest specification i
 every term, weight and equation in one appendix table, and a statement that the same weights are
 used for every object.
 
-Weights are frequently unrecoverable. Three of the 21 rows give no numeric weight anywhere that
-survives PDF conversion, because the equation blocks are images. That is a parsing limit and is
-recorded as such. `robot_synesthesia_2023` is a different case and a worse one. Its six
-coefficients c1 through c6 are described only as "tuned hyper-parameters" and no number is printed
-anywhere in the paper, so the reward it reports cannot be reconstructed by anyone. `dexremoe_2025`
-names an angular-velocity penalty weight in prose that has no entry in its hyperparameter table.
-`dextrack_2025` names an affinity reward in prose that is missing from its weight table.
+Weights are frequently unrecoverable. Three of the 21 rows give no numeric weight that survives
+PDF conversion, because the equation blocks are images, which is a limit of this survey and is
+recorded as such. `robot_synesthesia_2023` is a worse case. Its six coefficients are described only
+as "tuned hyper-parameters" and no number is printed anywhere in the paper, so the reward it
+reports cannot be reconstructed by anyone. `dexremoe_2025` names an angular-velocity penalty weight
+in prose with no entry in its hyperparameter table, and `dextrack_2025` names an affinity reward
+that is missing from its weight table.
 
 #### 5.2.3 Curricula, populations and machine-written rewards
 
@@ -104,7 +106,8 @@ Population-based training appears once. `dexpbt_2023` runs populations of 8, 16 
 splits them 30/40/30, mutates the middle and replaces the bottom with mutated copies of the top,
 with each float hyperparameter multiplied or divided by a factor drawn from U(1.1, 1.5) with
 probability 0.2. It reports 30 hours on a single V100 for a five-billion-transition single-arm
-run, and 0.32 trillion environment steps for its largest population.
+run, and 0.32 trillion environment steps for its largest population. No other corpus method
+searches hyperparameters at all.
 
 `eureka_2023` has GPT-4 write the reward function directly, constrained to return a total and a
 dictionary of named components, and feeds per-component statistics back to the model between
@@ -121,16 +124,16 @@ at all.
 
 #### 5.2.4 Where reinforcement learning stalls
 
-It stalls on objectives that are not learnable as stated. `anyrotate_2024` found the
-angular-velocity objective unlearnable in the multi-axis setting and replaced it with a moving
-keypoint target. `rotateit_2023` reports that its multi-axis policy "does not converge when
+Reinforcement learning stalls on objectives that are not learnable as stated. `anyrotate_2024`
+found the angular-velocity objective unlearnable in the multi-axis setting and replaced it with a
+moving keypoint target. `rotateit_2023` reports that its multi-axis policy "does not converge when
 training with only reinforcement learning" and adds an imitation loss against single-axis oracles.
 `eureka_2023` cannot spin a pen from scratch and needs a pretrain-then-finetune split, with the
 from-scratch ablation failing to complete one cycle. `physhoi_2023` documents the general shape of
 the problem: contact moves the object off the reference, so return goes down, so the policy learns
 not to touch the object.
 
-It also stalls on geometry and on evidence. `hora_2022` fails on objects under 4 cm across because
+It stalls on geometry too, and on evidence. `hora_2022` fails on objects under 4 cm across because
 the fingers collide with each other. Real-robot trial counts stay small: `openai_dexterity_2018`,
 `openai_rubiks_cube_2019`, `dextreme_2022` and `poise_2026` each report 10 trials for their
 headline, and `robot_synesthesia_2023` reports 5. `hora_2022` at 240 is the outlier, not the
@@ -182,12 +185,14 @@ Four architectures cover the corpus. Action chunking came from `aloha_act_2023`,
 chunk of joint targets with a CVAE and combines overlapping chunks by exponentially weighted
 ensembling, reaching 80 to 90 percent on fine bimanual tasks from about 50 demonstrations each.
 Diffusion came from `diffusion_policy_2023`, which denoises an action sequence and reports a 46.9
-percent average success improvement over LSTM-GMM, IBC and BET across 15 tasks. `dp3_2024` swaps the image encoder for a small point-cloud encoder and reports
-74.4 percent against 59.8 percent across 72 simulated tasks, and 85.0 against 35.0 percent on four
-real tasks from 40 demonstrations each. Flow matching is the 2024-onward default for large models
-and carries 8 of the 110 rows.
+percent average success improvement over LSTM-GMM, IBC and BET across 15 tasks. `dp3_2024` swaps
+the image encoder for a small point-cloud encoder and reports 74.4 percent against 59.8 percent
+across 72 simulated tasks, and 85.0 against 35.0 percent on four real tasks from 40 demonstrations
+each. Flow matching is the 2024-onward default for large models and carries 8 of the 110 rows.
+Discrete action tokens are the fourth, used by `openvla_2024` and `metis_2025`, and are the only
+one of the four that needs no continuous head at all.
 
-Data generation is the fourth lever and is underrated. `dexmimicgen_2024` turns 60 human source
+Data generation is a separate lever and is underrated. `dexmimicgen_2024` turns 60 human source
 demonstrations into 21,000 simulated ones across 9 tasks and 3 embodiments, and a real Fourier GR1
 with two Inspire hands reaches 90 percent from 40 generated demonstrations against 0 percent from
 the 4 source demonstrations. `dex1b_2025` iterates optimisation, a CVAE proposal model and a
@@ -228,11 +233,13 @@ better, and this is the one result in the corpus that says so with an ablation.
 
 ### 5.4 Tracking a human reference with physics
 
-Twelve method rows carry the `track-human-ref` task family, and eight of them are dexterous-hand
-trackers rather than whole-body humanoid controllers. A human hand-object trajectory is retargeted
-onto a robot hand and a policy is trained to make the simulated hand follow it. The reference
-supplies the shaping that reward engineering would otherwise have to invent, and the simulator
-supplies the physical consistency that pure imitation lacks.
+Twelve method rows carry the `track-human-ref` task family. Eight of them track a human hand on an
+object and are covered here. The other four sit at the edges of the family: `human2sim2robot_2025`
+tracks only the object's trajectory, `dexman_2025` retargets bimanual video onto a full humanoid,
+and `humanplus_2024` and `omnih2o_2024` track whole-body human motion. In all of them a reference
+is retargeted onto the robot and a policy is trained to make the simulated body follow it. The
+reference supplies the shaping that reward engineering would otherwise have to invent, and the
+simulator supplies the physical consistency that pure imitation lacks.
 
 `physhoi_2023` is the origin of the reward form. It multiplies a body term, an object term, an
 interaction-graph term and a contact-graph term, and reaches 95.4 percent success on GRAB against
@@ -354,10 +361,16 @@ a dataset rather than a gradient.
 
 ### 5.8 What the released code says
 
-Thirty-seven of the 110 method rows carry a documented disagreement between the paper and the
-released code. All 37 released code, so the rate among the 61 methods that released anything is 61
-percent. Among the 21 reorientation methods in Table 5, 7 released code and all 7 disagree with
-their paper.
+Thirty-seven of the 110 method rows record a disagreement between the paper and the released code,
+and all 37 released code, so the rate among the 61 methods that released anything is 61 percent.
+Not all 37 are the same kind of thing. Sixteen are contradictions, where paper and code state
+different values or different terms. Nine are limitations of this survey's own parsing, where the
+relevant function body or config was not recovered and the survey says so. Seven released code
+that does not contain the described component at all, three are version skew between the paper and
+a later repository, and two are inconsistencies inside the paper. The 16 contradictions are the
+number to quote. Among the 21 reorientation methods in Table 5, seven released code, five of those
+seven contradict their paper outright, one is version skew and one released a repository without
+the reward in it.
 
 The most consequential case is `physhoi_2023`. Its `compute_humanoid_reward` hardcodes the body
 position-velocity error and both object rotation errors to zero, with the real computation
@@ -365,8 +378,9 @@ commented out beside them. Its Table 4 lists non-zero weights of 0.1 and 0.01 fo
 rotation terms on GRAB. The reward that produced the paper's numbers therefore never tracked
 object orientation. A method presented as tracking a 6-DoF reference was, in the code that ran,
 tracking position only. The same file family shows the opposite outcome in `omnigrasp_2024`, whose
-object rotation term is live, and whose `compute_pregrasp_reward_time` instead hardcodes
-`w_pos, w_rot = 0.9, 0.1` and silently discards the weights passed into it.
+object rotation term is live. Its `compute_pregrasp_reward_time` has a problem of its own, and it
+is internal to the code rather than a paper disagreement. The function accepts weights as
+arguments and then hardcodes `w_pos, w_rot = 0.9, 0.1` inside its body.
 
 Zeroed terms recur. `dexpbt_2023`'s `allegro_kuka_base.py` sums eight reward components against the
 paper's four, and multiplies one of them, `hand_delta_penalty`, by zero with the comment
@@ -382,19 +396,21 @@ penalty does not exist in `dexenv/envs/rewards.py`. `graspxl_2024` splits one re
 and ships an object-velocity coefficient of −1.5 against a stated 0.1. `unidexgrasp_2023` and
 `dexpoint_2022` both ship reward functions structured differently from the paper's equation.
 `hora_2022`'s own README says to check out tag v0.0.1 rather than the current commit to reproduce
-the paper's numbers. `dextrack_2025` ships several unreconciled reward-coefficient sets, so which
-one produced its headline table cannot be determined from the repository.
+the paper's numbers, which is version skew rather than contradiction. `dextrack_2025` ships several
+unreconciled reward-coefficient sets across its task configs, and which one produced its headline
+table could not be determined from what this survey parsed.
 
-The pattern is not confined to reinforcement learning. `aloha_act_2023`'s Algorithm 1 says the
-reconstruction loss is MSE and its Section IV.C says L1. `dp3_2024`'s prose says the network
-predicts noise and its shipped config sets `prediction_type: sample`. `eureka_2023` ships a
-one-iteration, three-sample default against a reported five iterations and sixteen samples.
-`maniptrans_2025`'s stated learning rate and environment count differ from its own README.
+The pattern is not confined to reinforcement learning, and some of it is internal to the papers.
+`aloha_act_2023`'s Algorithm 1 says the reconstruction loss is MSE and its Section IV.C says L1.
+`dp3_2024`'s prose says the network predicts noise while its shipped config sets
+`prediction_type: sample`. `eureka_2023` ships a one-iteration, three-sample default against a
+reported five iterations and sixteen samples. `maniptrans_2025`'s stated learning rate and
+environment count differ from its own README.
 
 A reward table in a paper is a claim about a training run, and the code is a claim about a
-repository. In this corpus the two disagree more often than not, and the disagreement is almost
-never disclosed. Read the reward function before the reward table, and treat a printed weight as a
-hypothesis about the code.
+repository. In this corpus the two contradict each other in 16 cases, and in the other 21 the released artefacts do not settle the
+question. In none of the 37 does the paper say so. Read the reward function before the reward
+table, and treat a printed weight as a hypothesis about the code.
 
 ### 5.9 The master table
 

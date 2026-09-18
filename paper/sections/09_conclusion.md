@@ -1,16 +1,18 @@
 # 9. Conclusion
 
-The binding constraint on this field is not ideas. It is verification. Thirty-seven of the 61
-method papers that released code disagree with their own paper about the objective that was
-trained, and the 45 that released nothing cannot be checked at all. A reward table in a paper is a
+The binding constraint on this field is not ideas. It is verification. Sixteen of the 61 method
+papers that released code contradict their own paper about the objective that was trained, and the
+49 that released nothing cannot be checked at all. Sixteen is a floor twice over, because a further
+nine disagreements could not be resolved by our own parse and are withdrawn rather than counted. A reward table in a paper is a
 claim about a document, not about a run. `physhoi_2023` is the case to remember, because the term
 its table weights at 0.1 is set to zero in the code, and its own success criterion could not have
 detected that.
 
 The second finding is that the quantity most specific to dexterous manipulation is the one nobody
 measures. Contact is what separates a hand from a gripper. Eleven of 110 method rows address
-interpenetration, seven of those do it offline in a grasp synthesiser or a trajectory optimiser,
-and not one reports a penetration number for its own trained policy's rollouts. `dextrack_2025` has
+interpenetration, only four of them inside a closed-loop policy, and not one reports a penetration
+number for its own trained policy's rollouts. No published penetration measurement in this corpus
+is even of a hand grasping an object. `dextrack_2025` has
 the formula and points it at its inputs.
 
 The third is that hardware and software have come apart. Tables 2 and 3 hold 33 hands, the
