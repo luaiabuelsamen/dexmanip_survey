@@ -243,6 +243,10 @@ def maker_short(r):
     if not v:
         return NA
     s = " ".join(str(v).split())
+    # A parenthetical carries its own commas -- "Psyonic Inc. (Chicago, USA)" -- and taking the
+    # last comma-separated segment of that gives "USA)". Drop the parenthetical first, then treat
+    # two or more remaining commas as an author list and keep its last segment, the institution.
+    s = re.sub(r"\s*\([^)]*\)?", "", s).strip(" ,;")
     if s.count(",") >= 2:
         s = s.split(",")[-1].strip()
     for pat, rep in MAKER_ABBREV:
@@ -568,9 +572,9 @@ def table4():
            r"paper's stated reward, \textbf{B} where it is in both, and \textbf{Z} where the "
            r"released code carries the term with a weight of zero. "
            + f"{blank} of the {term_cells} term cells ({100*blank/max(term_cells,1):.0f}\\%) are "
-           r"blank, which means the method does not use that family; a blank here is not \na, "
-           r"because the objective was read in full for every row in this table. The one \na "
-           r"column is \emph{mismatch}, which cannot be settled for a method that released no "
+           r"blank, which means the method does not use that family. A blank here is not the same "
+           r"mark as \na: the objective was read in full for every row in this table, so nothing "
+           r"in a term column is unstated. The one column that carries \na is \emph{mismatch}, which cannot be settled for a method that released no "
            r"code. \emph{terms} is the count of reward terms the paper states. Marks are read "
            r"from the per-method source section recorded in \texttt{corpus/reward\_matrix.json}.")
     return write_table("table4_rewards.tex", "tab:rewards", cap, cols, body)
@@ -735,7 +739,7 @@ def appendix_methods():
     # a corpus key breaks at its underscores and nowhere else: `clutterdexgrasp_2025` needs 70 pt
     # at this type size and takes it from the algorithm column.
     cols = [("method", 70, "l"), ("yr", 17, "r"), ("task", 38, "l"), ("paradigm", 36, "l"),
-            ("algorithm", 64, "l"), ("hand", 58, "l"), ("DoF", 14, "r"), ("bi", 12, "c"),
+            ("algorithm", 73, "l"), ("hand", 58, "l"), ("DoF", 14, "r"), ("bi", 12, "c"),
             ("simulator", 40, "l"), ("real", 14, "c"), ("trials", 18, "r"), ("unseen", 22, "r"),
             ("penetration", 32, "l"), ("code", 14, "c")]
     idx = list(range(2, 14))

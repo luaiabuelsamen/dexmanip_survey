@@ -11,3 +11,4 @@ tex/*.fls
 tex/*.fdb_latexmk
 tex/probe*.tex
 tex/probe*.pdf
+tex/tables_probe.*
