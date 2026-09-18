@@ -26,5 +26,20 @@
  "reward_terms": null,
  "code_released": true,
  "paper_code_mismatch": "Two divergent repo lineages exist (The Robot Studio's mechanical repo vs. IoT Design Shop's electronics/ROS 2 layer) that the project site says it is 'working to consolidate.'",
- "note_gaps": "No joint-DoF count, weight, fingertip force, or any evaluation is stated anywhere; the note's Evaluation section reads 'None. No metrics, no trials.' Actuator counts (16 finger/thumb servos, 2-3 wrist servos) are given but not a settled total DoF number. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "No joint-DoF count, weight, fingertip force, or any evaluation is stated anywhere; the note's Evaluation section reads 'None. No metrics, no trials.' Actuator counts (16 finger/thumb servos, 2-3 wrist servos) are given but not a settled total DoF number. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "maker": "Rob Knight, The Robot Studio (design); electronics/firmware/ROS 2 by Trent Shumay, IoT Design Shop",
+ "dof": null,
+ "actuated_dof": 16,
+ "actuation": "tendon (fishing line, Sufix 832 80lb / 0.8mm kiteline); Emax ES3301/ES3302/ES3351/ES3352 micro-servos for fingers, Feetech SCS2332 or PWM servos for the wrist",
+ "weight_g": null,
+ "fingertip_force_n": null,
+ "tactile": "none mentioned",
+ "price_usd": 300,
+ "open_hardware": true,
+ "release_status": "open-source",
+ "source_quality": "vendor page",
+ "bom_cost_usd": 300,
+ "build_time_hours": null,
+ "license": "CC BY-NC-SA 4.0 (README); Onshape CAD freely available",
+ "sim_model": "URDF"
 }

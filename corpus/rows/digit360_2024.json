@@ -24,5 +24,16 @@
  "reward_terms": null,
  "code_released": true,
  "paper_code_mismatch": "The code README lists hora_2022 and rotateit_2023 as 'Related Works using Digit 360,' but both papers predate Digit 360's Oct 2024 release and cannot have actually used the sensor; this is most plausibly crediting related prior work by an overlapping author, not a report of actual sensor use.",
- "note_gaps": "Sec. 4 Discussion content was not captured beyond its heading; a LICENSE file is referenced but its type/content was not captured; Table 4 (classification accuracy across finger-independent vs. finger-dependent and modality ablations) contents are not reproduced in the parsed excerpt. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "Sec. 4 Discussion content was not captured beyond its heading; a LICENSE file is referenced but its type/content was not captured; Table 4 (classification accuracy across finger-independent vs. finger-dependent and modality ablations) contents are not reproduced in the parsed excerpt. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "maker": "Mike Lambeta, Tingfan Wu, Ali Sengul et al., Facebook AI Research (FAIR) at Meta",
+ "dof": null,
+ "actuated_dof": null,
+ "actuation": null,
+ "weight_g": null,
+ "fingertip_force_n": null,
+ "tactile": "vision-based multimodal omnidirectional fingertip: ~8.3 million taxels, structured-light touch imaging plus in-fingertip audio/pressure/IMU/temperature/gas sensing, 240 Hz camera, 7 um measured spatial resolution, 1.01 mN normal / 1.27 mN shear force resolution",
+ "price_usd": null,
+ "open_hardware": false,
+ "release_status": "announced",
+ "source_quality": "paper"
 }

@@ -24,5 +24,16 @@
  "reward_terms": null,
  "code_released": false,
  "paper_code_mismatch": null,
- "note_gaps": "This source is vendor material (leaflet + product page), not a peer-reviewed paper: no experiments, measurements, or evaluation are reported beyond specification claims; price and the 'Hall effect' sensing description are bib-claims not confirmed in the sources; the leaflet's generic '500 Hz' sampling claim applies to the sensor family, not confirmed for the curved fingertip kit (whose own spec states 275 Hz). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "This source is vendor material (leaflet + product page), not a peer-reviewed paper: no experiments, measurements, or evaluation are reported beyond specification claims; price and the 'Hall effect' sensing description are bib-claims not confirmed in the sources; the leaflet's generic '500 Hz' sampling claim applies to the sensor family, not confirmed for the curved fingertip kit (whose own spec states 275 Hz). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "maker": "XELA Robotics Co., Ltd., Tokyo, Japan",
+ "dof": null,
+ "actuated_dof": null,
+ "actuation": null,
+ "weight_g": null,
+ "fingertip_force_n": null,
+ "tactile": "magnetic-based 3-axis (shear + normal) taxel array; 30 taxels/fingertip (uSCu ALHA), 368 3-axis measurements across a full Allegro hand integration; resolution 0.1 gf; range up to 1500 gf (overload 3000 gf); max sensing frequency 275 Hz at the fingertip kit",
+ "price_usd": null,
+ "open_hardware": false,
+ "release_status": "sold",
+ "source_quality": "vendor page"
 }

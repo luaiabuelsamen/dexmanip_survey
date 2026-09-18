@@ -24,5 +24,20 @@
   "reward_terms": null,
   "code_released": true,
   "paper_code_mismatch": "The bib's claimed CC BY-NC-SA CAD licence is not confirmed anywhere in the parsed README or file tree; only the code's MIT licence is verified from the README.",
-  "note_gaps": "No BOM cost, weight, or build-time figure is stated; the code repo's referenced BOM.md was not captured; the GRASP Taxonomy and Kapandji tests report pass/fail per pose with no repeated-trial statistics (unlike the 5-trials-per-finger force test)."
+  "note_gaps": "No BOM cost, weight, or build-time figure is stated; the code repo's referenced BOM.md was not captured; the GRASP Taxonomy and Kapandji tests report pass/fail per pose with no repeated-trial statistics (unlike the 5-trials-per-finger force test).",
+  "maker": "Zhengyang Kris Weng, Center for Robotics and Biosystems, Northwestern University",
+  "dof": 21,
+  "actuated_dof": 16,
+  "actuation": "cable-driven, N-configuration tendon routing (FeeTech servos, endless-loop antagonistic pull-pull); thumb CMC flexion driven via a 4-bar linkage instead of a direct tendon",
+  "weight_g": null,
+  "fingertip_force_n": 2.14,
+  "tactile": "none mentioned",
+  "price_usd": null,
+  "open_hardware": true,
+  "release_status": "open-source",
+  "source_quality": "paper",
+  "bom_cost_usd": null,
+  "build_time_hours": null,
+  "license": "MIT (code, per README); CAD/hardware licence unconfirmed (bib's claimed CC BY-NC-SA is not verified in the parsed README or file tree)",
+  "sim_model": "URDF"
 }

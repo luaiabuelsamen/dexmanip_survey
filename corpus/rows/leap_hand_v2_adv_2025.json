@@ -29,5 +29,20 @@
  "reward_terms": null,
  "code_released": true,
  "paper_code_mismatch": "The project page states '21 DOF with 17 powered motors,' while the API README calls the hand a '17-DOF hybrid rigid-soft robotic hand,' i.e. the README counts motors where the page counts joints.",
- "note_gaps": "Source is a project page (abstract + feature captions) plus API README, not a fetched paper body; the abstract claims 'thorough real-world experiments' outperforming existing hands but gives no numbers, trial counts, weight, fingertip force, or control rate anywhere in the available sources. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "Source is a project page (abstract + feature captions) plus API README, not a fetched paper body; the abstract claims 'thorough real-world experiments' outperforming existing hands but gives no numbers, trial counts, weight, fingertip force, or control rate anywhere in the available sources. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "maker": "Kenneth Shaw, Deepak Pathak, Carnegie Mellon University",
+ "dof": 21,
+ "actuated_dof": 17,
+ "actuation": "tendon (PIP/DIP coupled by a single tendon per finger); motor type not stated",
+ "weight_g": null,
+ "fingertip_force_n": null,
+ "tactile": "none mentioned",
+ "price_usd": 3000,
+ "open_hardware": true,
+ "release_status": "announced",
+ "source_quality": "vendor page",
+ "bom_cost_usd": 3000,
+ "build_time_hours": 24,
+ "license": null,
+ "sim_model": "URDF"
 }

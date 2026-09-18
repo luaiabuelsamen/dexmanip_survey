@@ -24,5 +24,20 @@
   "reward_terms": null,
   "code_released": true,
   "paper_code_mismatch": "The parsed code/md is byte-for-byte the same ruka-hand/RUKA repo snapshot (same commit) as ruka_2025, so it does not include the v2 wrist/abduction hardware, magnetic-encoder support, or the new linear joint-to-motor controller described in this paper.",
-  "note_gaps": "No reward/loss function is stated for the BAKU policy (architecture only); the linear joint-to-motor mapping assumption is noted by the authors as not formally verified; tactile e-flesh integration is left as future work."
+  "note_gaps": "No reward/loss function is stated for the BAKU policy (architecture only); the linear joint-to-motor mapping assumption is noted by the authors as not formally verified; tactile e-flesh integration is left as future work.",
+ "maker": "Xinqi (Lucas) Liu, Ruoxi Hu, Alejandro Ojeda Olarte, Zhuoran Chen, Kenny Ma, Charles Cheng Ji, Lerrel Pinto, Raunaq Bhirangi, Irmak Guzey, New York University and NYU Shanghai",
+ "dof": 20,
+ "actuated_dof": 16,
+ "actuation": "tendon-driven, forearm-mounted actuators; decoupled parallel 2-DoF wrist via a passive spherical ball joint; single-tendon-plus-spring abduction/adduction",
+ "weight_g": null,
+ "fingertip_force_n": null,
+ "tactile": "optional e-flesh fingertips (magnetic touch-sensing form factor); not part of the base design",
+ "price_usd": 1500,
+ "open_hardware": true,
+ "release_status": "open-source",
+ "source_quality": "paper",
+ "bom_cost_usd": 1500,
+ "build_time_hours": null,
+ "license": null,
+ "sim_model": null
 }

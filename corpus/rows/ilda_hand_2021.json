@@ -27,5 +27,16 @@
  "reward_terms": null,
  "code_released": false,
  "paper_code_mismatch": null,
- "note_gaps": "Reliability test results (long-time operation, repeatability, heating/current, Fig. 7 / Supplementary Text 5) are described only as existing in the supplement, not captured in the parsed text; control loop rate and trial counts for the scissors/tweezers demonstrations are not stated. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "Reliability test results (long-time operation, repeatability, heating/current, Fig. 7 / Supplementary Text 5) are described only as existing in the supplement, not captured in the parsed text; control loop rate and trial counts for the scissors/tweezers demonstrations are not stated. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "maker": "Ajou University, Korea Institute of Machinery & Materials, Korea University",
+ "dof": 20,
+ "actuated_dof": 15,
+ "actuation": "linkage-driven, direct linear drive (3 Maxon DCX8M motors per finger with GPX8 16:1 gearboxes driving ball screws via parallel+serial four-bar linkages)",
+ "weight_g": 1100,
+ "fingertip_force_n": 34,
+ "tactile": "6-axis F/T sensor per fingertip (5 total), force resolution 62 mN, range +/-35 N; not a distributed taxel skin",
+ "price_usd": null,
+ "open_hardware": false,
+ "release_status": "prototype",
+ "source_quality": "paper"
 }

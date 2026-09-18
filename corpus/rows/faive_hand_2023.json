@@ -28,5 +28,20 @@
  "reward_terms": 4,
  "code_released": true,
  "paper_code_mismatch": null,
- "note_gaps": "The action-space scaling formula is described but not reproduced verbatim; no real-robot control-loop Hz beyond the 20 Hz sim policy rate is stated; the released repo (faive_gym_oss) is the IsaacGym training environment only, the real-robot control stack (faive_franka_control) is a separate, unparsed repo; no BOM cost figure is stated for the hand. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "The action-space scaling formula is described but not reproduced verbatim; no real-robot control-loop Hz beyond the 20 Hz sim policy rate is stated; the released repo (faive_gym_oss) is the IsaacGym training environment only, the real-robot control stack (faive_franka_control) is a separate, unparsed repo; no BOM cost figure is stated for the hand. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "maker": "Yasunori Toshimitsu, Benedek Forrai, Barnabas Gavin Cangan, Ulrich Steger, Manuel Knecht, Stefan Weirich, Robert K. Katzschmann, Soft Robotics Lab, ETH Zurich",
+ "dof": 16,
+ "actuated_dof": 11,
+ "actuation": "tendon-driven, rolling-contact joints (16 Dynamixel XC330-T288-T servos, 6 antagonistic pairs)",
+ "weight_g": 1100,
+ "fingertip_force_n": null,
+ "tactile": "none on the physical hand; a simulated 'fingertip force' (15-dim, critic-only/privileged) exists only in the RL training observation, not real tactile hardware",
+ "price_usd": null,
+ "open_hardware": null,
+ "release_status": "prototype",
+ "source_quality": "paper",
+ "bom_cost_usd": null,
+ "build_time_hours": null,
+ "license": null,
+ "sim_model": "MJCF"
 }

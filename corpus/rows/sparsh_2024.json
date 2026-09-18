@@ -1,7 +1,7 @@
 {
  "key": "sparsh_2024",
  "year": 2024,
- "class": "method",
+ "class": "sensor",
  "task_family": [
   "grasp",
   "other"
@@ -30,5 +30,16 @@
  "reward_terms": null,
  "code_released": true,
  "paper_code_mismatch": null,
- "note_gaps": "Table 4's exact per-task classification-accuracy numbers are not reproduced in the parsed excerpt; the DIGIT operating resolution stated here (320x240) is inconsistent with DIGIT's own spec (640x480 in digit_2020) and is not reconciled within this paper; licence type is referenced but not captured. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "Table 4's exact per-task classification-accuracy numbers are not reproduced in the parsed excerpt; the DIGIT operating resolution stated here (320x240) is inconsistent with DIGIT's own spec (640x480 in digit_2020) and is not reconciled within this paper; licence type is referenced but not captured. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "maker": "Carolina Higuera, Akash Sharma et al., Facebook AI Research (FAIR) at Meta",
+ "dof": null,
+ "actuated_dof": null,
+ "actuation": null,
+ "weight_g": null,
+ "fingertip_force_n": null,
+ "tactile": "self-supervised representation-learning encoder family (MAE/DINO/DINOv2/I-JEPA/V-JEPA) pretrained across 3 vision-based tactile sensor families (DIGIT, GelSight 2017, GelSight Mini); not a physical sensor itself",
+ "price_usd": null,
+ "open_hardware": null,
+ "release_status": "open-source",
+ "source_quality": "paper"
 }

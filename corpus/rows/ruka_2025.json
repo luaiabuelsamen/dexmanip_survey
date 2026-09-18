@@ -30,5 +30,20 @@
  "reward_terms": null,
  "code_released": true,
  "paper_code_mismatch": null,
- "note_gaps": "Weight of the assembled hand is not stated anywhere; licence type is unresolved (a LICENSE file exists in the repo but its content was not captured in code/md, so the note declines to state a licence type). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "Weight of the assembled hand is not stated anywhere; licence type is unresolved (a LICENSE file exists in the repo but its content was not captured in code/md, so the note declines to state a licence type). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "maker": "Anya Zorin, Irmak Guzey, Billy Yan, Aadhithya Iyer, Lisa Kondrich, Nikhil X. Bhattasali, Lerrel Pinto, New York University",
+ "dof": 15,
+ "actuated_dof": 11,
+ "actuation": "tendon-driven (11 Dynamixel actuators in the forearm: XM430-W210T for the thumb, XL330-M288-T for the other fingers)",
+ "weight_g": null,
+ "fingertip_force_n": 2.74,
+ "tactile": "none (stated limitation: 'lacks tactile sensing')",
+ "price_usd": 1300,
+ "open_hardware": true,
+ "release_status": "open-source",
+ "source_quality": "paper",
+ "bom_cost_usd": 1300,
+ "build_time_hours": 7,
+ "license": null,
+ "sim_model": "MJCF"
 }

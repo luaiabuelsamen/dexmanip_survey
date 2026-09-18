@@ -32,5 +32,20 @@
  "reward_terms": null,
  "code_released": true,
  "paper_code_mismatch": null,
- "note_gaps": "No control-loop Hz stated for the hand's own controller (only <0.2 s end-to-end sine-tracking latency); the RL reward formula and the diffusion-policy training loss are not given in the parsed text; the repo's LICENSE file exists but its content/type was not captured, so no licence can be confirmed. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "No control-loop Hz stated for the hand's own controller (only <0.2 s end-to-end sine-tracking latency); the RL reward formula and the diffusion-policy training loss are not given in the parsed text; the repo's LICENSE file exists but its content/type was not captured, so no licence can be confirmed. BOM cost is stated in CHF (under 2,000 CHF), not USD, so price_usd/bom_cost_usd are left null rather than guessed via a currency conversion. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "maker": "Clemens C. Christoph, Maximilian Eberlein, Filippos Katsimalis, Arturo Roberti, Aristotelis Sympetheros, Michel R. Vogt, Davide Liconti, Chenyu Yang, Barnabas Gavin Cangan, Ronan J. Hinchet, Robert K. Katzschmann, Soft Robotics Lab, ETH Zurich",
+ "dof": 17,
+ "actuated_dof": 17,
+ "actuation": "tendon-driven (antagonistic fishing-line tendon pairs per joint); wrist uses a GT2 timing belt drive",
+ "weight_g": 1200,
+ "fingertip_force_n": 19.6,
+ "tactile": "yes: FSR-based binary tactile sensing on all 5 fingertips (RP-C7.6-ST), absolute detection threshold as low as 0.05 N",
+ "price_usd": null,
+ "open_hardware": true,
+ "release_status": "open-source",
+ "source_quality": "paper",
+ "bom_cost_usd": null,
+ "build_time_hours": 8,
+ "license": null,
+ "sim_model": null
 }

@@ -32,5 +32,20 @@
  "reward_terms": 5,
  "code_released": true,
  "paper_code_mismatch": "The paper claims the URDF model and Isaac Gym/PyBullet simulation are released on the project website, but the released LEAP_Hand_API repo's file tree contains only the Python/C++/ROS/ROS2 control API and Dynamixel drivers, with no .urdf/.xacro/.mjcf/.xml sim assets.",
- "note_gaps": "[penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "[penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "maker": "Kenneth Shaw, Ananye Agarwal, Deepak Pathak, Carnegie Mellon University",
+ "dof": 16,
+ "actuated_dof": 16,
+ "actuation": "direct-drive (Dynamixel servos, e.g. XC330-M288), joint velocity ~8 rad/s",
+ "weight_g": 595,
+ "fingertip_force_n": 19.5,
+ "tactile": "none (future work only: 'we plan to develop and integrate LEAP Hand with low-cost touch sensors')",
+ "price_usd": 2000,
+ "open_hardware": true,
+ "release_status": "open-source",
+ "source_quality": "paper",
+ "bom_cost_usd": 2000,
+ "build_time_hours": 4,
+ "license": "Code: MIT License; CAD: CC BY-NC-SA (non-commercial use with attribution)",
+ "sim_model": "URDF"
 }

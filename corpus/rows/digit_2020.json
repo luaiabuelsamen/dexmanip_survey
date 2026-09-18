@@ -28,5 +28,16 @@
  "reward_terms": 1,
  "code_released": true,
  "paper_code_mismatch": null,
- "note_gaps": "Sensor DIGIT is 'considering the manufacturing of 1000 pieces' for its $15 cost figure, but the comparable GelSight cost's batch size is not given in the parsed Table I, so the two costs are not on a confirmed identical basis; no simulator is used or proposed by this paper itself (TACTO is a separate later paper). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+ "note_gaps": "Sensor DIGIT is 'considering the manufacturing of 1000 pieces' for its $15 cost figure, but the comparable GelSight cost's batch size is not given in the parsed Table I, so the two costs are not on a confirmed identical basis; no simulator is used or proposed by this paper itself (TACTO is a separate later paper). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "maker": "Mike Lambeta, Po-Wei Chou, Stephen Tian, Brian Yang et al., Facebook AI Research (FAIR)",
+ "dof": null,
+ "actuated_dof": null,
+ "actuation": null,
+ "weight_g": 20,
+ "fingertip_force_n": null,
+ "tactile": "vision-based optical tactile sensor: 640x480 RGB @ 60 fps, 19x16 mm sensing field, swappable elastomer (reflective / reflective-with-markers / transparent-with-markers)",
+ "price_usd": 15,
+ "open_hardware": true,
+ "release_status": "open-source",
+ "source_quality": "paper"
 }
