@@ -1,0 +1,35 @@
+{
+ "key": "dexmimicgen_2024",
+ "year": 2024,
+ "class": "method",
+ "task_family": [
+  "bimanual-coord",
+  "grasp",
+  "functional/tool"
+ ],
+ "paradigm": [
+  "data-collection",
+  "BC"
+ ],
+ "algorithm": "MimicGen-style per-arm subtask transform/replay generation; downstream BC-RNN / BC-RNN-GMM / Diffusion Policy",
+ "hand": "Inspire dexterous hand (6-DoF, real-world GR1); unnamed 'dexterous hands' in the two simulated dexterous-hand embodiments",
+ "hand_dof": 6,
+ "bimanual": true,
+ "arm": "Franka Panda (simulated bimanual embodiments); GR-1 humanoid arms (real and simulated)",
+ "sim": "RoboSuite (MuJoCo)",
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": 20,
+ "sim_episodes": 21000,
+ "success_criterion": "binary task-completion success check, task-specific, used to filter generated demonstrations rather than to train a reward-driven policy",
+ "headline_metric": "real-world Can Sorting success rate: policy trained on generated vs. source-only demos (Sec. VI-D)",
+ "headline_value": "90% success (18/20 trials) trained on 40 DexMimicGen-generated demos vs. 0% trained on 4 raw source demos, real Fourier GR1 with two 6-DoF Inspire hands",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "60 source human demonstrations across 9 sim tasks (10/task for gripper embodiments, 5/task for dexterous-hand tasks), plus 4 additional source human demonstrations for the real-world Can Sorting task",
+ "penetration": null,
+ "reward_terms": 1,
+ "code_released": true,
+ "paper_code_mismatch": "The environment code includes an unused 'reward_shaping' branch (if self.reward_shaping: pass) that is never described or used in the paper text; only the sparse binary completion reward is used, as the paper states.",
+ "note_gaps": "No aggregate data-generation success rate is given across the 9 core simulation tasks (only downstream policy success rates, which conflate generation quality with policy learnability); the only explicit generation-success numbers are for the BiGym extension tasks (29.1% / 43.6% / 76.4%); exact observation-vector composition beyond 'image-based' is not detailed in the parsed text. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

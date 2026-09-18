@@ -1,0 +1,31 @@
+{
+ "key": "dexycb_2021",
+ "year": 2021,
+ "class": "dataset",
+ "task_family": [
+  "grasp",
+  "handover"
+ ],
+ "paradigm": null,
+ "algorithm": null,
+ "hand": "Franka Panda parallel-jaw gripper (assumed, handover benchmark only); human hand MANO for capture",
+ "hand_dof": null,
+ "bimanual": false,
+ "arm": "Franka Panda (handover eval only)",
+ "sim": null,
+ "n_envs": null,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "cross-dataset 3D hand pose MPJPE (root-relative/Procrustes, mm)",
+ "headline_value": "HO-3D to DexYCB 48.30/24.23 mm vs DexYCB to DexYCB 12.97/7.18 mm (Table 2, ResNet50)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": null,
+ "penetration": null,
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "handover coverage/precision reported only as curves (Fig.4,9), no scalar values recoverable from the parsed source [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

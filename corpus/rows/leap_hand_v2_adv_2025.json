@@ -1,0 +1,33 @@
+{
+ "key": "leap_hand_v2_adv_2025",
+ "year": 2025,
+ "class": "hand",
+ "task_family": [
+  "grasp",
+  "functional/tool"
+ ],
+ "paradigm": [
+  "teleop-system"
+ ],
+ "algorithm": null,
+ "hand": "LEAP Hand v2 Advanced",
+ "hand_dof": 17,
+ "bimanual": false,
+ "arm": null,
+ "sim": null,
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": null,
+ "headline_value": null,
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none",
+ "penetration": null,
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": "The project page states '21 DOF with 17 powered motors,' while the API README calls the hand a '17-DOF hybrid rigid-soft robotic hand,' i.e. the README counts motors where the page counts joints.",
+ "note_gaps": "Source is a project page (abstract + feature captions) plus API README, not a fetched paper body; the abstract claims 'thorough real-world experiments' outperforming existing hands but gives no numbers, trial counts, weight, fingertip force, or control rate anywhere in the available sources. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

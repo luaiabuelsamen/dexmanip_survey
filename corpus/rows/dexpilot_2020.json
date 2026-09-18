@@ -1,0 +1,35 @@
+{
+ "key": "dexpilot_2020",
+ "year": 2020,
+ "class": "method",
+ "task_family": [
+  "reorient",
+  "grasp",
+  "functional/tool",
+  "other"
+ ],
+ "paradigm": [
+  "teleop-system"
+ ],
+ "algorithm": "DART model-based hand tracker bootstrapped by two learned neural priors (GloveNet ResNet-50 keypoint regressor; PointNet++-based keypoint network + JointNet FC mapping), online fingertip-vector kinematic retargeting solved via SLSQP (NLopt) warm-started each frame, Riemannian Motion Policies for arm motion generation",
+ "hand": "Wonik Robotics Allegro hand (16-DoF, 4x4-joint fingers), retrofitted with 4 SynTouch BioTac tactile sensors at the fingertips",
+ "hand_dof": 16,
+ "bimanual": false,
+ "arm": "KUKA LBR iiwa7 R800",
+ "sim": null,
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": 150,
+ "sim_episodes": null,
+ "success_criterion": "binary per-trial success/failure judged by whether the task's physical goal state was reached within the work volume; trial is a failure if the object falls out of the workspace volume (Table II caption)",
+ "headline_metric": "per-task completion time and success rate over 5 consecutive trials, 2 pilots, 15 tasks",
+ "headline_value": "completion times ranging from ~16s (Pick and Place: Brick) to ~358s (Container); NIST-task-board peg-in-hole insertion success rates typically within 10% (Sec. X, Limitations)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none in the deployed system (markerless, glove-free bare-hand vision tracking); a colored fabric glove was used only offline in a two-phase bootstrap to generate training annotations for the neural priors, ~100K point clouds from 7-8 hours of glove-tracked DART sessions",
+ "penetration": "not addressed",
+ "reward_terms": null,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": "The kinematic-retargeting cost function's exact equation is an unrecovered image in the parsed markdown; only the surrounding prose defining its terms (beta, eta1, eta2, gamma, the S1/S2 vector sets, Table I) survived, so the precise algebraic form (which terms are squared-norm distance vs minimum-separation penalties) could not be verified."
+}

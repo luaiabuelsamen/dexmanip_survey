@@ -1,0 +1,34 @@
+{
+  "key": "plappert_multigoal_2018",
+  "year": 2018,
+  "class": "benchmark",
+  "task_family": [
+    "reorient",
+    "grasp",
+    "other"
+  ],
+  "paradigm": [
+    "RL"
+  ],
+  "algorithm": "DDPG, DDPG+HER",
+  "hand": "Shadow Dexterous Hand",
+  "hand_dof": 24,
+  "bimanual": false,
+  "arm": "Fetch 7-DoF arm (Fetch tasks only; Hand tasks have a fixed base, no arm)",
+  "sim": "MuJoCo",
+  "n_envs": null,
+  "real_robot": false,
+  "real_trials": null,
+  "sim_episodes": null,
+  "success_criterion": "task-specific tolerance: Fetch tasks within 5 cm of target; HandReach mean fingertip distance < 1 cm; HandManipulateBlock/Egg Full: position < 1 cm and rotation < 0.1 rad; HandManipulatePen Full: position < 5 cm and rotation < 0.1 rad ignoring the z axis",
+  "headline_metric": "median test success rate",
+  "headline_value": null,
+  "objects_train": null,
+  "objects_test_unseen": null,
+  "human_data": "none",
+  "penetration": "not addressed",
+  "reward_terms": 1,
+  "code_released": true,
+  "paper_code_mismatch": "The maintained code's dense reward for hand manipulation is -(10*d_pos + d_rot), a weighting never stated in the paper; the maintained repo is Farama Gymnasium-Robotics (v4 env ids) rather than the original 2018 OpenAI Gym (v0 ids), and default distance/rotation threshold constants are not visible in the extracted code (signatures only).",
+  "note_gaps": "No numeric success-rate values could be read from Figures 3-4 or Appendix C (axis labels/legends only, no plotted values); default distance/rotation threshold constants are not visible in the code extract."
+}

@@ -1,0 +1,32 @@
+{
+ "key": "grab_2020",
+ "year": 2020,
+ "class": "dataset",
+ "task_family": [
+  "grasp"
+ ],
+ "paradigm": [
+  "grasp-synthesis"
+ ],
+ "algorithm": "CoarseNet cVAE + RefineNet (GrabNet)",
+ "hand": null,
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": null,
+ "sim": null,
+ "n_envs": null,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "average penetration depth (mm) for 'use' grasps",
+ "headline_value": "'Use' grasps have 3.25 +/- 0.68 mm average penetration; 67% <=3.5mm, 86%<=4.0mm, 96%<=4.5mm, 99.9%<=5.8mm (Sup. S.5)",
+ "objects_train": null,
+ "objects_test_unseen": 6,
+ "human_data": null,
+ "penetration": "measured",
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "the 3.25mm penetration figure's mean/median/max ambiguity is not resolved in the source; GrabNet loss formulas are not written out in the md; only tools/cfg_parser.py signatures were captured from code, so the contact/penetration computation code itself is not checkable"
+}

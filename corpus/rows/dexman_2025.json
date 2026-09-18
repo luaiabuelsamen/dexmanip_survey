@@ -1,0 +1,34 @@
+{
+ "key": "dexman_2025",
+ "year": 2025,
+ "class": "method",
+ "task_family": [
+  "track-human-ref",
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "RL",
+  "trajopt"
+ ],
+ "algorithm": "PPO (RL_GAMES) residual policy on top of IK-retargeted human motion",
+ "hand": "Shadow Dexterous Hand",
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": "Unitree G1 humanoid arms",
+ "sim": "NVIDIA Isaac Gym",
+ "n_envs": 2048,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": "rotational error below 0.5 radians and positional error below 3cm at every time step, over 10 independent rollouts per sequence",
+ "headline_metric": "full video-to-robot pipeline success rate, TACO videos (Table 3, 1000 PPO updates)",
+ "headline_value": "27.4% success on TACO videos (Table 3); Abstract separately states 37.0% for synthetic Veo3 videos vs. Table 3's 39.0% (flagged as an internal inconsistency)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "TACO dataset (244 bimanual motion-capture sequences); OakInk-v2 (77 validation sequences); 50 Veo3-generated synthetic videos",
+ "penetration": null,
+ "reward_terms": 3,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": "[penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

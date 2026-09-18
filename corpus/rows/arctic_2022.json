@@ -1,0 +1,31 @@
+{
+ "key": "arctic_2022",
+ "year": 2022,
+ "class": "dataset",
+ "task_family": [
+  "bimanual-coord",
+  "functional/tool"
+ ],
+ "paradigm": null,
+ "algorithm": null,
+ "hand": null,
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": null,
+ "sim": null,
+ "n_envs": null,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": "object vertex L2 error < 5% of object diameter (Success Rate metric)",
+ "headline_metric": "Contact Deviation (CDev, mm)",
+ "headline_value": "ArcticNet-LSTM allo test CDev 38.9mm, Success 73.5% (Table 2)",
+ "objects_train": 11,
+ "objects_test_unseen": null,
+ "human_data": null,
+ "penetration": null,
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "the Motion Deviation (MDev) formula was dropped by the PDF converter, only prose recovered; average sequence-length-derived frame counts are not directly stated [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

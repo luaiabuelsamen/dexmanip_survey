@@ -1,0 +1,32 @@
+{
+ "key": "dextreme_2022",
+ "year": 2022,
+ "class": "method",
+ "task_family": [
+  "reorient"
+ ],
+ "paradigm": [
+  "RL"
+ ],
+ "algorithm": "PPO (rl-games implementation, LSTM actor/critic, asymmetric/state-privileged critic)",
+ "hand": "Allegro Hand",
+ "hand_dof": 16,
+ "bimanual": false,
+ "arm": null,
+ "sim": "Isaac Gym (PhysX)",
+ "n_envs": 16384,
+ "real_robot": true,
+ "real_trials": 10,
+ "sim_episodes": null,
+ "success_criterion": "object orientation within 0.4 rad of target triggers a new goal at test time (training success tolerance 0.1 rad); episode resets as a 'fall' when goal_dist >= 0.24 m fallDistance",
+ "headline_metric": "average consecutive successes over 10 real-world trials",
+ "headline_value": "best real-world ADR model: 27.8\u00b119.0 average consecutive successes (median 14.0, best rollout 112) (Table 7/9)",
+ "objects_train": 1,
+ "objects_test_unseen": null,
+ "human_data": "none",
+ "penetration": "not addressed",
+ "reward_terms": 6,
+ "code_released": true,
+ "paper_code_mismatch": "Action Delta Penalty weight is -0.25 in paper Table 2 but -0.2 in the ADR yaml and -0.01 in the ManualDR yaml; the Joint Velocity Penalty in code normalises velocity by (max_velocity-vel_tolerance) unlike the paper's stated formula; code has a timeout_rew term absent from the paper's reward table; Appendix Table 12 states critic learning rate 5e-4 and KL threshold 0.16, vs body text/code values of 5e-5 and 0.016.",
+ "note_gaps": null
+}

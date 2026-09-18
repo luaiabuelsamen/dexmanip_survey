@@ -1,0 +1,33 @@
+{
+ "key": "rotateit_2023",
+ "year": 2023,
+ "class": "method",
+ "task_family": [
+  "reorient"
+ ],
+ "paradigm": [
+  "RL",
+  "distillation"
+ ],
+ "algorithm": "PPO",
+ "hand": "AllegroHand (Wonik Robotics)",
+ "hand_dof": 16,
+ "bimanual": false,
+ "arm": null,
+ "sim": "IsaacGym",
+ "n_envs": 32768,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "Rotation Reward (RotR)",
+ "headline_value": "Oracle RotR 125.23\u00b116.24 (x), 118.26\u00b113.20 (y), 140.90\u00b117.26 (z) vs Hora 79.13\u00b111.22 / 82.25\u00b114.21 / 99.83\u00b111.72 (Table 1)",
+ "objects_train": null,
+ "objects_test_unseen": 15,
+ "human_data": "none",
+ "penetration": "not addressed",
+ "reward_terms": 6,
+ "code_released": null,
+ "paper_code_mismatch": null,
+ "note_gaps": "No code source exists for this key, so reward terms and implementation details could not be cross-checked against an implementation; Table 4 in the parsed source is flattened/misaligned by PDF extraction and flagged as unverified beyond the numbers explicitly quoted."
+}

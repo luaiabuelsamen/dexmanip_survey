@@ -1,0 +1,30 @@
+{
+ "key": "gigahands_2024",
+ "year": 2024,
+ "class": "dataset",
+ "task_family": [
+  "bimanual-coord"
+ ],
+ "paradigm": null,
+ "algorithm": null,
+ "hand": null,
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": null,
+ "sim": null,
+ "n_envs": null,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "text-driven motion synthesis R-Precision@1/@2/@3 (%)",
+ "headline_value": "GigaHands 31.2/44.7/53.1 (Table 2, own feature extractor, not comparable across datasets)",
+ "objects_train": 417,
+ "objects_test_unseen": null,
+ "human_data": null,
+ "penetration": "not addressed",
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "Supp. Table 2's tallies of other datasets (ARCTIC/TACO/OakInk2 counts) differ from those datasets' own papers; motion captioning and dynamic radiance field results (Sec 5.2-5.3) were not extracted"
+}

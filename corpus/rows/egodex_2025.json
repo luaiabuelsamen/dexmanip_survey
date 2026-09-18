@@ -1,0 +1,34 @@
+{
+ "key": "egodex_2025",
+ "year": 2026,
+ "class": "dataset",
+ "task_family": [
+  "track-human-ref"
+ ],
+ "paradigm": [
+  "BC",
+  "diffusion",
+  "flow"
+ ],
+ "algorithm": "X-IL framework baselines: 2 Transformer architectures (encoder-decoder 'EncDec', decoder-only 'Dec') x 3 policy representations (behavior cloning 'BC', denoising diffusion 'DDPM', flow matching 'FM'), 6 core model variants (14 total including ablations); 200M params default, 500M ablation; 50,000 gradient steps, batch size 2048, 8x A100 GPUs",
+ "hand": "ARKit skeletal hand tracking (not MANO); 25 joints per hand (5 fingers x 5 joints: Metacarpal, Knuckle, IntermediateBase, IntermediateTip, Tip), both hands tracked simultaneously, plus wrist and a 20-joint upper-body skeleton",
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": null,
+ "sim": null,
+ "n_envs": null,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "Best-of-K average/final 3D keypoint distance error (meters) over 12 keypoints (wrist + fingertips of each hand), 2-second horizon",
+ "headline_value": "Best variant EncDec+FM: 0.038 m avg / 0.041 m final distance at K=10 (Table 2); EncDec+BC best at K=1 with 0.044 m avg / 0.060 m final",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "829 hours / 90,000,000 frames / 338,000 episodes of Apple Vision Pro (ARKit) egocentric video across 194 tabletop dexterous-manipulation tasks; paired 3D upper-body + 25-joint-per-hand pose (both hands), per-joint confidence values, camera extrinsics at 30 Hz, and GPT-4-refined language annotation; no object pose or object mesh annotation at all.",
+ "penetration": null,
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": "Paper describes a fixed 1% held-out test split; the code README additionally reveals ~97 hours of 'additional data' collected after that train/test split was frozen (not discussed in the paper body), and states the dataset is released under CC-BY-NC-ND terms.",
+ "note_gaps": "Subject count is not stated anywhere in the parsed text. The full 194-task list (App. A.2) was only partially enumerated in the note (28 reset-free + 14 reset task names located by section header, remainder not individually transcribed). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

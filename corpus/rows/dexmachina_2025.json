@@ -1,0 +1,33 @@
+{
+ "key": "dexmachina_2025",
+ "year": 2025,
+ "class": "method",
+ "task_family": [
+  "track-human-ref",
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "RL"
+ ],
+ "algorithm": "PPO (rl-games)",
+ "hand": "six URDFs: Inspire, Allegro, XHand, Schunk (main), Ability, DexRobot Dex Hand",
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": null,
+ "sim": "Genesis",
+ "n_envs": 12000,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": "well_track: pos_dist<0.005, rot_dist<0.1, arti_dist<0.1 (code); reported metric is per-part ADD-AUC",
+ "headline_metric": "per-part ADD-AUC success rate",
+ "headline_value": "figure-only (Fig.3/5); only printed numbers are the re-implemented ObjDex baseline: >90% on Ketchup-100 vs original paper's 41.2%, >70% on Mixer-170 for 3/4 hands vs original 57.6% (App. B.3)",
+ "objects_train": 5,
+ "objects_test_unseen": null,
+ "human_data": "ARCTIC",
+ "penetration": "constrained",
+ "reward_terms": 4,
+ "code_released": true,
+ "paper_code_mismatch": "paper describes a plain weighted sum lambda_task*r_task + lambda_imi*r_imi + lambda_bc*r_bc + lambda_con*r_con with unspecified weights; code implements a multiplicative task term with per-component beta decay, an unmentioned 0.1 force-penalty term, and curriculum-driven decay of auxiliary weights not described as such in the paper",
+ "note_gaps": "equations for r_imi/r_bc/r_con and the hybrid-action mapping are images missing from the markdown; Fig.3/5 main results (bar charts) have no extractable numeric values"
+}

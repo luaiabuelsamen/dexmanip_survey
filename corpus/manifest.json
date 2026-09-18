@@ -1,0 +1,1868 @@
+{
+ "dextrack_2025": {
+  "title": "DexTrack: Towards Generalizable Neural Tracking Control for Dexterous Manipulation from Human References",
+  "arxiv": "2502.09614",
+  "source": "https://arxiv.org/pdf/2502.09614",
+  "pages": 25,
+  "md_chars": 100177,
+  "sha256": "5135b601b8df51f7492ba611f35587b77f4ad7ddad0cecfb8a72139112a240fd",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "mujoco_2012": {
+  "title": "MuJoCo: A physics engine for model-based control",
+  "arxiv": null,
+  "source": "https://roboti.us/lab/papers/TodorovIROS12.pdf",
+  "pages": 8,
+  "md_chars": 43297,
+  "sha256": "31bab10428d0714ad2baeb905eaa9eb6010c27aff1173681ca91b7ebb2e82372",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "mujoco_convex_contact_2014": {
+  "title": "Convex and analytically-invertible dynamics with contacts and constraints: Theory and implementation in MuJoCo",
+  "arxiv": null,
+  "source": "https://roboti.us/lab/papers/TodorovICRA14.pdf",
+  "pages": 8,
+  "md_chars": 41470,
+  "sha256": "498d65ca3a772c202e59f08411d702cd5955304a3b413e5001141a5f5cb8fef9",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "physics_engine_comparison_2015": {
+  "title": "Simulation tools for model-based robotics: Comparison of Bullet, Havok, MuJoCo, ODE and PhysX",
+  "arxiv": null,
+  "source": "https://roboti.us/lab/papers/ErezICRA15.pdf",
+  "pages": 8,
+  "md_chars": 43135,
+  "sha256": "30decb4853c2e7e2a988139bca38bca8439cfc9e2ac7a08c715bc7a2cc12a629",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "isaac_gym_2021": {
+  "title": "Isaac Gym: High Performance GPU-Based Physics Simulation For Robot Learning",
+  "arxiv": "2108.10470",
+  "source": "https://arxiv.org/pdf/2108.10470",
+  "pages": 32,
+  "md_chars": 94175,
+  "sha256": "a2aa99541e7e9fc60daef471eaecf1bf1331485814f17da9fd5643804e475daa",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "orbit_2023": {
+  "title": "Orbit: A Unified Simulation Framework for Interactive Robot Learning Environments",
+  "arxiv": "2301.04195",
+  "source": "https://arxiv.org/pdf/2301.04195",
+  "pages": 9,
+  "md_chars": 53006,
+  "sha256": "4e7171df4716689f182079687924cd776e0fc44fcac65d3c7da00c7a90298e36",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "isaac_lab_2025": {
+  "title": "Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning",
+  "arxiv": "2511.04831",
+  "source": "https://arxiv.org/pdf/2511.04831",
+  "pages": 53,
+  "md_chars": 177363,
+  "sha256": "f5b454fe245cdb1c485fe48c302494d689d335d375cd730fe0344113772bc8fa",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "isaac_sim_2026": {
+  "title": "NVIDIA Isaac Sim: Enabling Scalable, GPU-Accelerated Simulation for Robotics",
+  "arxiv": "2606.03551",
+  "source": "https://arxiv.org/pdf/2606.03551",
+  "pages": 9,
+  "md_chars": 47519,
+  "sha256": "3c00dc43c97229296ad0369d54b8ed7d20dfcfcdfd66b0b739fcd95c96d4f481",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "zhao_sim2real_survey_2020": {
+  "title": "Sim-to-Real Transfer in Deep Reinforcement Learning for Robotics: a Survey",
+  "arxiv": "2009.13303",
+  "source": "https://arxiv.org/pdf/2009.13303",
+  "pages": 8,
+  "md_chars": 49597,
+  "sha256": "5709cdf4d525e9a5bfa96010b3f7b2a91d4da89aeba489947701a5c3c1109e11",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "firoozi_foundation_models_2023": {
+  "title": "Foundation Models in Robotics: Applications, Challenges, and the Future",
+  "arxiv": "2312.07843",
+  "source": "https://arxiv.org/pdf/2312.07843",
+  "pages": 33,
+  "md_chars": 213828,
+  "sha256": "c043fd4ecc37786f50bc2c888e871608c729ec02317c2cfa315335faa21c7085",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "an_dexil_survey_2025": {
+  "title": "Dexterous Manipulation through Imitation Learning: A Survey",
+  "arxiv": "2504.03515",
+  "source": "https://arxiv.org/pdf/2504.03515",
+  "pages": 32,
+  "md_chars": 217190,
+  "sha256": "c9b206b4b0241ff40b8bb0820065d21b4aa32429fd30c8fb9e7d38e9ec2ad38a",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "welte_iil_survey_2025": {
+  "title": "Interactive Imitation Learning for Dexterous Robotic Manipulation: Challenges and Perspectives -- A Survey",
+  "arxiv": "2506.00098",
+  "source": "https://arxiv.org/pdf/2506.00098",
+  "pages": 27,
+  "md_chars": 111330,
+  "sha256": "1dea296a69f78ef618085c0442621e7bfc7f4f414ce2da415e57c311c90596fa",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "bai_unified_manip_survey_2025": {
+  "title": "Towards a Unified Understanding of Robot Manipulation: A Comprehensive Survey",
+  "arxiv": "2510.10903",
+  "source": "https://arxiv.org/pdf/2510.10903",
+  "pages": 212,
+  "md_chars": 770391,
+  "sha256": "fe9145304862d5dc1360e5a6ee23d521e6d26dae040e40861cafd5afda980c3f",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "zhao_dexhand_survey_2026": {
+  "title": "Towards Robotic Dexterous Hand Intelligence: A Survey",
+  "arxiv": "2605.13925",
+  "source": "https://arxiv.org/pdf/2605.13925",
+  "pages": 22,
+  "md_chars": 150079,
+  "sha256": "82cd2cac15921b4deddcdf4deaa55ab67eba35cb86c505aeafdae3f841bc5938",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "plappert_multigoal_2018": {
+  "title": "Multi-Goal Reinforcement Learning: Challenging Robotics Environments and Request for Research",
+  "arxiv": "1802.09464",
+  "source": "https://arxiv.org/pdf/1802.09464",
+  "pages": 16,
+  "md_chars": 34734,
+  "sha256": "9a57fe95cd695f357ae0b298042fc2d5c7f7af1b916af046e3af5f681e0947fc",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "bidexhands_2022": {
+  "title": "Towards Human-Level Bimanual Dexterous Manipulation with Reinforcement Learning",
+  "arxiv": "2206.08686",
+  "source": "https://arxiv.org/pdf/2206.08686",
+  "pages": 38,
+  "md_chars": 123311,
+  "sha256": "e5691ff204175f5cf96ef8923565e6e7d7fb82c8e4277f8165019fdd9ada4cfa",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexart_2023": {
+  "title": "DexArt: Benchmarking Generalizable Dexterous Manipulation with Articulated Objects",
+  "arxiv": "2305.05706",
+  "source": "https://arxiv.org/pdf/2305.05706",
+  "pages": 11,
+  "md_chars": 53163,
+  "sha256": "44354c0496a14f9ef90e19cd93f1521075adb6daff5f0a882cc045a649fbff7e",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "robohive_2023": {
+  "title": "RoboHive: A Unified Framework for Robot Learning",
+  "arxiv": "2310.06828",
+  "source": "https://arxiv.org/pdf/2310.06828",
+  "pages": 18,
+  "md_chars": 64399,
+  "sha256": "8577219582e7ecc357f3410e9165117379f2d402cceef18973dd099463741556",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "humanoidbench_2024": {
+  "title": "HumanoidBench: Simulated Humanoid Benchmark for Whole-Body Locomotion and Manipulation",
+  "arxiv": "2403.10506",
+  "source": "https://arxiv.org/pdf/2403.10506",
+  "pages": 24,
+  "md_chars": 96703,
+  "sha256": "000dd3c95bcc8697d2e6e2425b60478dfb0c42ff3ccc82fabe63dd6e1cd55b03",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexverse_2026": {
+  "title": "DexVerse: A Modular Benchmark for Multi-Task, Multi-Embodiment Dexterous Manipulation",
+  "arxiv": "2607.08751",
+  "source": "https://arxiv.org/pdf/2607.08751",
+  "pages": 22,
+  "md_chars": 72871,
+  "sha256": "be0e0b51cd1bd68c6f52f9f3177c18e88c8115fc33a680fa3d7bc631a0841d42",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "bench2dex_2026": {
+  "title": "Bench2Dex: Benchmarking Visuo-Tactile Bimanual Dexterous Manipulation Across Dexterous Hands",
+  "arxiv": "2609.15726",
+  "source": "https://arxiv.org/pdf/2609.15726",
+  "pages": 43,
+  "md_chars": 131986,
+  "sha256": "f70ca3ecb4dd8fc9a1acc6410a0bd4e370203ca65331b3fcc76209996fb8ed03",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "isaacgym_2021": {
+  "title": "Isaac Gym: High Performance GPU-Based Physics Simulation For Robot Learning",
+  "arxiv": "2108.10470",
+  "source": "https://arxiv.org/pdf/2108.10470",
+  "pages": 32,
+  "md_chars": 94175,
+  "sha256": "a2aa99541e7e9fc60daef471eaecf1bf1331485814f17da9fd5643804e475daa",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "isaaclab_2025": {
+  "title": "Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning",
+  "arxiv": "2511.04831",
+  "source": "https://arxiv.org/pdf/2511.04831",
+  "pages": 53,
+  "md_chars": 177363,
+  "sha256": "f5b454fe245cdb1c485fe48c302494d689d335d375cd730fe0344113772bc8fa",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "maniskill3_2024": {
+  "title": "ManiSkill3: GPU Parallelized Robotics Simulation and Rendering for Generalizable Embodied AI",
+  "arxiv": "2410.00425",
+  "source": "https://arxiv.org/pdf/2410.00425",
+  "pages": 30,
+  "md_chars": 112186,
+  "sha256": "0482cef460af5ca0dd09d2b1d0f499b996287d9dadec31b13ca60377a49ee80c",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "rlbench_2019": {
+  "title": "RLBench: The Robot Learning Benchmark & Learning Environment",
+  "arxiv": "1909.12271",
+  "source": "https://arxiv.org/pdf/1909.12271",
+  "pages": 8,
+  "md_chars": 43176,
+  "sha256": "fbb04509bea7bf6aa9b97b07c46d95e5c1a900987599693b3fae3fd84377db76",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "libero_2023": {
+  "title": "LIBERO: Benchmarking Knowledge Transfer for Lifelong Robot Learning",
+  "arxiv": "2306.03310",
+  "source": "https://arxiv.org/pdf/2306.03310",
+  "pages": 44,
+  "md_chars": 89040,
+  "sha256": "ff7d943e2eb37760df684f3ae2931a5a35ef8ea465bd387e62afe49507b8e414",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "colosseum_2024": {
+  "title": "THE COLOSSEUM: A Benchmark for Evaluating Generalization for Robotic Manipulation",
+  "arxiv": "2402.08191",
+  "source": "https://arxiv.org/pdf/2402.08191",
+  "pages": 33,
+  "md_chars": 94515,
+  "sha256": "ae71956329278bc299039eaa133876b4b132772081418a26c733c4810169edf2",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "kress_gazit_policy_eval_2024": {
+  "title": "Robot Learning as an Empirical Science: Best Practices for Policy Evaluation",
+  "arxiv": "2409.09491",
+  "source": "https://arxiv.org/pdf/2409.09491",
+  "pages": 20,
+  "md_chars": 61523,
+  "sha256": "48978e4b4a1802716828206e574aeba1f5de58cd32079baa91c0871e96423009",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "simpler_2024": {
+  "title": "Evaluating Real-World Robot Manipulation Policies in Simulation",
+  "arxiv": "2405.05941",
+  "source": "https://arxiv.org/pdf/2405.05941",
+  "pages": 22,
+  "md_chars": 113235,
+  "sha256": "6a9481f3c0fc43fa6736e5f5fc8ddb72ebf05aad7dbd0ff31721e4d6bffec9e5",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "autoeval_2025": {
+  "title": "AutoEval: Autonomous Evaluation of Generalist Robot Manipulation Policies in the Real World",
+  "arxiv": "2503.24278",
+  "source": "https://arxiv.org/pdf/2503.24278",
+  "pages": 21,
+  "md_chars": 90114,
+  "sha256": "734840964f233f46ce2c1b8e64427a9cb65ca140b4152a0c4fd339677fd7e45f",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "roboarena_2025": {
+  "title": "RoboArena: Distributed Real-World Evaluation of Generalist Robot Policies",
+  "arxiv": "2506.18123",
+  "source": "https://arxiv.org/pdf/2506.18123",
+  "pages": 29,
+  "md_chars": 98035,
+  "sha256": "0f793633ba5767b6e93f01056dcd5c3357dabcaf70844cd0a157a364fa843698",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "lbm_careful_examination_2025": {
+  "title": "A Careful Examination of Large Behavior Models for Multitask Dexterous Manipulation",
+  "arxiv": "2507.05331",
+  "source": "https://arxiv.org/pdf/2507.05331",
+  "pages": 39,
+  "md_chars": 154072,
+  "sha256": "c9ba44579974208aa43d60fce2e0294c0fee1f1b8d604abd64613568f9c5a102",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "suresim_2025": {
+  "title": "Reliable and Scalable Robot Policy Evaluation with Imperfect Simulators",
+  "arxiv": "2510.04354",
+  "source": "https://arxiv.org/pdf/2510.04354",
+  "pages": 24,
+  "md_chars": 86483,
+  "sha256": "1d57125f952c08fc1d33c5e76930230592523856736bb5126aaf0e579abe9155",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "beyond_binary_success_2026": {
+  "title": "Beyond Binary Success: Sample-Efficient and Statistically Rigorous Robot Policy Comparison",
+  "arxiv": "2603.13616",
+  "source": "https://arxiv.org/pdf/2603.13616",
+  "pages": 21,
+  "md_chars": 108370,
+  "sha256": "9dcf242d30ef627d2276f86143ea50ca82f37e05ec81f88d9280bac882b4868a",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "ycb_2015": {
+  "title": "Benchmarking in Manipulation Research: The YCB Object and Model Set and Benchmarking Protocols",
+  "arxiv": "1502.03143",
+  "source": "https://arxiv.org/pdf/1502.03143",
+  "pages": 35,
+  "md_chars": 105983,
+  "sha256": "b82baf70eab054e2dca9b97a5281ce592d0fe7b2dcae40fba276cfec3502b284",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexycb_2021": {
+  "title": "DexYCB: A Benchmark for Capturing Hand Grasping of Objects",
+  "arxiv": "2104.04631",
+  "source": "https://arxiv.org/pdf/2104.04631",
+  "pages": 22,
+  "md_chars": 74404,
+  "sha256": "19915a870bfcea29f4656d1285b0a2a65e1e1d4d229ecc0999d06fd4eaeef848",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "grab_2020": {
+  "title": "GRAB: A Dataset of Whole-Body Human Grasping of Objects",
+  "arxiv": "2008.11200",
+  "source": "https://arxiv.org/pdf/2008.11200",
+  "pages": 37,
+  "md_chars": 88639,
+  "sha256": "f571520fbaf585403a8a23679e977269e59b6c5e263c14835aea6abe85993ddb",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "bidexhd_2024": {
+  "title": "Learning Diverse Bimanual Dexterous Manipulation Skills from Human Demonstrations",
+  "arxiv": "2410.02477",
+  "source": "https://arxiv.org/pdf/2410.02477",
+  "pages": 23,
+  "md_chars": 76078,
+  "sha256": "fc68717be9b461c3ecb3c382bd0c45504e3d2a794261717b9c4936a54d7a3675",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "twisting_lids_2024": {
+  "title": "Twisting Lids Off with Two Hands",
+  "arxiv": "2403.02338",
+  "source": "https://arxiv.org/pdf/2403.02338",
+  "pages": 16,
+  "md_chars": 53038,
+  "sha256": "869f0aacfe4c98a386c2ef4d5e221fecfa39b4c6398019da2a74d7332c7cfbbc",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexmachina_2025": {
+  "title": "DexMachina: Functional Retargeting for Bimanual Dexterous Manipulation",
+  "arxiv": "2505.24853",
+  "source": "https://arxiv.org/pdf/2505.24853",
+  "pages": 18,
+  "md_chars": 60655,
+  "sha256": "7b67a6ad37891526024d9c93e5561cc7fd0883b1f20a01e7bd4da197402d821b",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "maniptrans_2025": {
+  "title": "ManipTrans: Efficient Dexterous Bimanual Manipulation Transfer via Residual Learning",
+  "arxiv": "2503.21860",
+  "source": "https://arxiv.org/pdf/2503.21860",
+  "pages": 17,
+  "md_chars": 92970,
+  "sha256": "1748d45d003999fe7a00dc19df59bde1a9a3b82d882053a268af068330966942",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "hato_visuotactile_2024": {
+  "title": "Learning Visuotactile Skills with Two Multifingered Hands",
+  "arxiv": "2404.16823",
+  "source": "https://arxiv.org/pdf/2404.16823",
+  "pages": 9,
+  "md_chars": 48391,
+  "sha256": "2dd43b384b463b1b346f72ca0f08cd2cdb6685a620029cc3ba807a378d1f8d8a",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "omnih2o_2024": {
+  "title": "OmniH2O: Universal and Dexterous Human-to-Humanoid Whole-Body Teleoperation and Learning",
+  "arxiv": "2406.08858",
+  "source": "https://arxiv.org/pdf/2406.08858",
+  "pages": 25,
+  "md_chars": 75777,
+  "sha256": "bedce4c95c9776d64cd29587029c1f4d8171ad20f45017493627b27eb6b3138e",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "humanplus_2024": {
+  "title": "HumanPlus: Humanoid Shadowing and Imitation from Humans",
+  "arxiv": "2406.10454",
+  "source": "https://arxiv.org/pdf/2406.10454",
+  "pages": 17,
+  "md_chars": 65942,
+  "sha256": "94c5fe16631e2d1c5b5bdd8326adda17c719ad63b2630979ca6aa9e0a7af4dd2",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "bimangrasp_2024": {
+  "title": "Bimanual Grasp Synthesis for Dexterous Robot Hands",
+  "arxiv": "2411.15903",
+  "source": "https://arxiv.org/pdf/2411.15903",
+  "pages": 8,
+  "md_chars": 44655,
+  "sha256": "dac020a296f9b9acc328e2852277f1184511662e6541242ab9d0ab6e8806077c",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "bidexgrasp_2026": {
+  "title": "BiDexGrasp: Coordinated Bimanual Dexterous Grasps across Object Geometries and Sizes",
+  "arxiv": "2604.06589",
+  "source": "https://arxiv.org/pdf/2604.06589",
+  "pages": 21,
+  "md_chars": 64985,
+  "sha256": "261cf7c64d73c0ee715d3d28186a3eb967b48c200bef40feb4d7ab29e296e510",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "artigrasp_2023": {
+  "title": "ArtiGrasp: Physically Plausible Synthesis of Bi-Manual Dexterous Grasping and Articulation",
+  "arxiv": "2309.03891",
+  "source": "https://arxiv.org/pdf/2309.03891",
+  "pages": 15,
+  "md_chars": 68442,
+  "sha256": "fb69acf240b9856b58950b9d8e94ea817ef7e11b3e1e4d8fcd3d5081e1e04ddd",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "arctic_2022": {
+  "title": "ARCTIC: A Dataset for Dexterous Bimanual Hand-Object Manipulation",
+  "arxiv": "2204.13662",
+  "source": "https://arxiv.org/pdf/2204.13662",
+  "pages": 22,
+  "md_chars": 98431,
+  "sha256": "0ca69d38a8afd7d963693f56e22ed52d14f716f9f901a4b0c5042e87c66950e4",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "taco_2024": {
+  "title": "TACO: Benchmarking Generalizable Bimanual Tool-ACtion-Object Understanding",
+  "arxiv": "2401.08399",
+  "source": "https://arxiv.org/pdf/2401.08399",
+  "pages": 21,
+  "md_chars": 83124,
+  "sha256": "2cd9fef96e133851d367c485aad1578b4979baef4d9b57037a1a246476735efd",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "oakink2_2024": {
+  "title": "OAKINK2: A Dataset of Bimanual Hands-Object Manipulation in Complex Task Completion",
+  "arxiv": "2403.19417",
+  "source": "https://arxiv.org/pdf/2403.19417",
+  "pages": 26,
+  "md_chars": 107208,
+  "sha256": "1f3a28b3e275e09b4c3ca93438cae8426a75041911851f019e0c477fd6734964",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "hot3d_2024": {
+  "title": "HOT3D: Hand and Object Tracking in 3D from Egocentric Multi-View Videos",
+  "arxiv": "2411.19167",
+  "source": "https://arxiv.org/pdf/2411.19167",
+  "pages": 14,
+  "md_chars": 68807,
+  "sha256": "cbe0c55d8c952c673dbff8633b5f23eb87963f7cf09429416eb2f1ac58236232",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "gigahands_2024": {
+  "title": "GigaHands: A Massive Annotated Dataset of Bimanual Hand Activities",
+  "arxiv": "2412.04244",
+  "source": "https://arxiv.org/pdf/2412.04244",
+  "pages": 35,
+  "md_chars": 139039,
+  "sha256": "72ec0e0e8f28943883d85bc210460c286effb120f360740a68ca28de51fd3c3c",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "aloha_act_2023": {
+  "title": "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware",
+  "arxiv": "2304.13705",
+  "source": "https://arxiv.org/pdf/2304.13705",
+  "pages": 18,
+  "md_chars": 86636,
+  "sha256": "2e2fe25860f5f9cee9e655a2714e9f2264a7a5078bcd267c16d3f39af461345a",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "rdt1b_2024": {
+  "title": "RDT-1B: a Diffusion Foundation Model for Bimanual Manipulation",
+  "arxiv": "2410.07864",
+  "source": "https://arxiv.org/pdf/2410.07864",
+  "pages": 28,
+  "md_chars": 109779,
+  "sha256": "fabfa885b63f2d68b8e7868549563c346d4323a596d24ee3e43d0a62b4ef9667",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "gr_dexter_2025": {
+  "title": "GR-Dexter Technical Report",
+  "arxiv": "2512.24210",
+  "source": "https://arxiv.org/pdf/2512.24210",
+  "pages": 17,
+  "md_chars": 47529,
+  "sha256": "5ff86922a33f99488656858bbd49f386d77d933847fd2c60c8d2f0e78de2ac43",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "robopianist_2023": {
+  "title": "RoboPianist: Dexterous Piano Playing with Deep Reinforcement Learning",
+  "arxiv": "2304.04150",
+  "source": "https://arxiv.org/pdf/2304.04150",
+  "pages": 19,
+  "md_chars": 59769,
+  "sha256": "43aa10df99c97947323d6c990d9cf42091e55266c2ed03f05a1b54ad18928f5f",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "rp1m_2024": {
+  "title": "RP1M: A Large-Scale Motion Dataset for Piano Playing with Bi-Manual Dexterous Robot Hands",
+  "arxiv": "2408.11048",
+  "source": "https://arxiv.org/pdf/2408.11048",
+  "pages": 19,
+  "md_chars": 63726,
+  "sha256": "61668f66bfa4a430a03412df0c82f10cf1af7660a9c5df7347d860c6ad898bf3",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "pianomime_2024": {
+  "title": "PianoMime: Learning a Generalist, Dexterous Piano Player from Internet Demonstrations",
+  "arxiv": "2407.18178",
+  "source": "https://arxiv.org/pdf/2407.18178",
+  "pages": 19,
+  "md_chars": 55301,
+  "sha256": "51b8b57c8997865264eb8f7ae3233085a82af306737556695bd3ff5aa1e7aebd",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexcap_2024": {
+  "title": "DexCap: Scalable and Portable Mocap Data Collection System for Dexterous Manipulation",
+  "arxiv": "2403.07788",
+  "source": "https://arxiv.org/pdf/2403.07788",
+  "pages": 20,
+  "md_chars": 92630,
+  "sha256": "ad87015fd70061e5d0b6d4b21c22411c8071328766892a55f133b652d16de87a",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "bidex_teleop_2024": {
+  "title": "Bimanual Dexterity for Complex Tasks",
+  "arxiv": "2411.13677",
+  "source": "https://arxiv.org/pdf/2411.13677",
+  "pages": 20,
+  "md_chars": 56476,
+  "sha256": "15cea952e2326d8880dedf17b44f305a90f01ae775bc6d7b34f60f0b93dc2096",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "open_television_2024": {
+  "title": "Open-TeleVision: Teleoperation with Immersive Active Visual Feedback",
+  "arxiv": "2407.01512",
+  "source": "https://arxiv.org/pdf/2407.01512",
+  "pages": 21,
+  "md_chars": 68044,
+  "sha256": "935d6394079cce3959b5c76ec5733ae2b2a7d7017ebe40eb2c2aca8796e81f38",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexmimicgen_2024": {
+  "title": "DexMimicGen: Automated Data Generation for Bimanual Dexterous Manipulation via Imitation Learning",
+  "arxiv": "2410.24185",
+  "source": "https://arxiv.org/pdf/2410.24185",
+  "pages": 10,
+  "md_chars": 58102,
+  "sha256": "96349aac2708b5637bbbefa9964067b5ed7eac0fb51ba0248b8d8dcbe49352a2",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "humanoidgen_2025": {
+  "title": "HumanoidGen: Data Generation for Bimanual Dexterous Manipulation via LLM Reasoning",
+  "arxiv": "2507.00833",
+  "source": "https://arxiv.org/pdf/2507.00833",
+  "pages": 41,
+  "md_chars": 167305,
+  "sha256": "58b1c5ebff226f3b58bf0cf1b7110d8ec295fb08d8fc71fc0e2e5982101dcf07",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "humanoid_sim2real_recipe_2025": {
+  "title": "Sim-to-Real Reinforcement Learning for Vision-Based Dexterous Manipulation on Humanoids",
+  "arxiv": "2502.20396",
+  "source": "https://arxiv.org/pdf/2502.20396",
+  "pages": 15,
+  "md_chars": 52220,
+  "sha256": "4310f02064f966bd803001dfa70a0470335239a9ddabe9fa29ce1b55f01f1df9",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexman_2025": {
+  "title": "DexMan: Learning Bimanual Dexterous Manipulation from Human and Generated Videos",
+  "arxiv": "2510.08475",
+  "source": "https://arxiv.org/pdf/2510.08475",
+  "pages": 27,
+  "md_chars": 78604,
+  "sha256": "2ca475e0ce95c107447fec3cda29b7d55017e5330b813416aec82fb6979ba64e",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "deximit_2026": {
+  "title": "DexImit: Learning Bimanual Dexterous Manipulation from Monocular Human Videos",
+  "arxiv": "2602.10105",
+  "source": "https://arxiv.org/pdf/2602.10105",
+  "pages": 17,
+  "md_chars": 73214,
+  "sha256": "30ce5455c69c3916dfc09574bcde835c75da2a3d506fdef76b4561748a922678",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "asymdex_2024": {
+  "title": "AsymDex: Asymmetry and Relative Coordinates for RL-based Bimanual Dexterity",
+  "arxiv": "2411.13020",
+  "source": "https://arxiv.org/pdf/2411.13020",
+  "pages": 18,
+  "md_chars": 65713,
+  "sha256": "56f529de716e2c5f72e697671752aea4546f543d74afd773f26da8ce6f315fd9",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dynamic_handover_2023": {
+  "title": "Dynamic Handover: Throw and Catch with Bimanual Hands",
+  "arxiv": "2309.05655",
+  "source": "https://arxiv.org/pdf/2309.05655",
+  "pages": 15,
+  "md_chars": 50399,
+  "sha256": "c4be81a0e2c897a0618ebfe96baadc54adfc0d48a2ed3300822ed2400e85c37a",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexterous_handover_2025": {
+  "title": "Learning Dexterous Object Handover",
+  "arxiv": "2506.16822",
+  "source": "https://arxiv.org/pdf/2506.16822",
+  "pages": 8,
+  "md_chars": 42666,
+  "sha256": "fa87ed53cae886a32103f74b7df1c3978ab43c091ae8e563485954322558d66e",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dydexhandover_2025": {
+  "title": "DyDexHandover: Human-like Bimanual Dynamic Dexterous Handover using RGB-only Perception",
+  "arxiv": "2509.17350",
+  "source": "https://arxiv.org/pdf/2509.17350",
+  "pages": 8,
+  "md_chars": 37374,
+  "sha256": "b7985b6dd0b69359734f37d4d7bf1e18b90870ab422d84d6cb56e3d9b2d249c1",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "leap_hand_2023": {
+  "title": "LEAP Hand: Low-Cost, Efficient, and Anthropomorphic Hand for Robot Learning",
+  "arxiv": "2309.06440",
+  "source": "https://arxiv.org/pdf/2309.06440",
+  "pages": 11,
+  "md_chars": 52198,
+  "sha256": "ac08a57eceab8eb14aae7a322d54507567d2791f482a681b1d64bca74335d8e3",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "ruka_2025": {
+  "title": "RUKA: Rethinking the Design of Humanoid Hands with Learning",
+  "arxiv": "2504.13165",
+  "source": "https://arxiv.org/pdf/2504.13165",
+  "pages": 13,
+  "md_chars": 48719,
+  "sha256": "3a19161f9159c496178a4f744e9d6395c2b6f9545db5a1ab8083278be3ec66fd",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "ruka_v2_2026": {
+  "title": "Ruka-v2: Tendon Driven Open-Source Dexterous Hand with Wrist and Abduction for Robot Learning",
+  "arxiv": "2603.26660",
+  "source": "https://arxiv.org/pdf/2603.26660",
+  "pages": 20,
+  "md_chars": 49253,
+  "sha256": "d71d6f904e92bab47db06a201efeaeed70d5edecf90ae3704a69bd28424762c1",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "orca_hand_2025": {
+  "title": "ORCA: An Open-Source, Reliable, Cost-Effective, Anthropomorphic Robotic Hand for Uninterrupted Dexterous Task Learning",
+  "arxiv": "2504.04259",
+  "source": "https://arxiv.org/pdf/2504.04259",
+  "pages": 8,
+  "md_chars": 44805,
+  "sha256": "f3967f2e354949e31756aeb762a3b5277398aa9ea7c1f86c1af08a4f14236164",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "faive_hand_2023": {
+  "title": "Getting the Ball Rolling: Learning a Dexterous Policy for a Biomimetic Tendon-Driven Hand with Rolling Contact Joints",
+  "arxiv": "2308.02453",
+  "source": "https://arxiv.org/pdf/2308.02453",
+  "pages": 7,
+  "md_chars": 37561,
+  "sha256": "13feb7531e617a5b000e7efab0142cf1b3e97cf60016b4331c28639ff4dace6e",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "bidexhand_2025": {
+  "title": "BiDexHand: Design and Evaluation of an Open-Source 16-DoF Biomimetic Dexterous Hand",
+  "arxiv": "2504.14712",
+  "source": "https://arxiv.org/pdf/2504.14712",
+  "pages": 5,
+  "md_chars": 17892,
+  "sha256": "89f397156b2b5499e31d3c6db78f39088a7f86211790e93625ad6e3b5b7208c9",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "pisa_iit_softhand_2014": {
+  "title": "Adaptive synergies for the design and control of the Pisa/IIT SoftHand",
+  "arxiv": null,
+  "source": "https://www.centropiaggio.unipi.it/sites/default/files/PisaIIT_SoftHand_0.pdf",
+  "pages": 14,
+  "md_chars": 59302,
+  "sha256": "9c9cd17f22b732fa6fcaaad57fc426164d98c8df292f2eb2f9774f27c7fcb676",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "ilda_hand_2021": {
+  "title": "Integrated linkage-driven dexterous anthropomorphic robotic hand",
+  "arxiv": null,
+  "source": "https://www.nature.com/articles/s41467-021-27261-0.pdf",
+  "pages": 13,
+  "md_chars": 59587,
+  "sha256": "ed0e19c2f9a796154a2b3c2b7c040bc5d64746eaf74161f8654fb81ea489a700",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "digit_2020": {
+  "title": "DIGIT: A Novel Design for a Low-Cost Compact High-Resolution Tactile Sensor with Application to In-Hand Manipulation",
+  "arxiv": "2005.14679",
+  "source": "https://arxiv.org/pdf/2005.14679",
+  "pages": 8,
+  "md_chars": 46897,
+  "sha256": "dbcae130d003bcea9c4a61075458f3ea11597c60e029c18b88f254958fc97d14",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "digit360_2024": {
+  "title": "Digitizing Touch with an Artificial Multimodal Fingertip",
+  "arxiv": "2411.02479",
+  "source": "https://arxiv.org/pdf/2411.02479",
+  "pages": 28,
+  "md_chars": 89943,
+  "sha256": "bdb3afd25aa39944f195e68b7ac2929c1af5b1d01115f700117a90cff2d962e6",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "sparsh_2024": {
+  "title": "Sparsh: Self-supervised touch representations for vision-based tactile sensing",
+  "arxiv": "2410.24090",
+  "source": "https://arxiv.org/pdf/2410.24090",
+  "pages": 31,
+  "md_chars": 106666,
+  "sha256": "cec1645aaf0c1fd369013cff4b0edcfd7c157eb2c6aaf966916311c4789b2796",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "xela_uskin_2020": {
+  "title": "XELA uSkin magnetic 3-axis tactile skin (Allegro Hand fingertips)",
+  "arxiv": null,
+  "source": "https://www.hannovermesse.de/apollo/hannover_messe_2022/obs/Binary/A1167836/XELA%20Robotics%20-%20uSkin%20Curved%20(A4).pdf",
+  "pages": 2,
+  "md_chars": 2931,
+  "sha256": "9700cf97ce37dda1ca90eb477ad0d39e4cdd9460bafbe12dbc974a429f46f345",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "shadow_dexterous_hand_2005": {
+  "title": "Shadow Dexterous Hand (technical specification, Dec 2024)",
+  "arxiv": null,
+  "source": "https://shadowrobot.com/wp-content/uploads/2024/12/shadow_dexterous_hand_e_technical_specification_20241204.pdf",
+  "pages": 11,
+  "md_chars": 11637,
+  "sha256": "66541d0245e23ca6061035db8267bc0b23a7058a69a2e95d5dae6ff84362e954",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "tesla_optimus_hand_2025": {
+  "title": "Tesla Optimus hands: Gen 2 (11 DoF, in-hand actuators, 2023) and Gen 3 / V3 (22 DoF, forearm-actuated tendons, patents 2025-2026)",
+  "arxiv": null,
+  "source": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/9505134",
+  "pages": 20,
+  "md_chars": 369,
+  "sha256": "93664ecb625c5b543fea64b0c27245f46f12215909d68f1fcfb9019e0cb6c8e3",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "diffusion_policy_2023": {
+  "title": "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion",
+  "arxiv": "2303.04137",
+  "source": "https://arxiv.org/pdf/2303.04137",
+  "pages": 19,
+  "md_chars": 98169,
+  "sha256": "b65c474b696a4802d8f1457d86b637ce2c5521412570d3aa928cd54563babc8f",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dp3_2024": {
+  "title": "3D Diffusion Policy: Generalizable Visuomotor Policy Learning via Simple 3D Representations",
+  "arxiv": "2403.03954",
+  "source": "https://arxiv.org/pdf/2403.03954",
+  "pages": 17,
+  "md_chars": 80592,
+  "sha256": "916ecb6011e5e311daa9a8ca53d0ec2d8f44f7d2034d9ba368de7102737d9682",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "umi_2024": {
+  "title": "Universal Manipulation Interface: In-The-Wild Robot Teaching Without In-The-Wild Robots",
+  "arxiv": "2402.10329",
+  "source": "https://arxiv.org/pdf/2402.10329",
+  "pages": 18,
+  "md_chars": 87231,
+  "sha256": "a9452cbaf9f5d2a77d5f8b631632fa7f45ae4bbc32400be1cc939b91a36e1609",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexpilot_2020": {
+  "title": "DexPilot: Vision Based Teleoperation of Dexterous Robotic Hand-Arm System",
+  "arxiv": "1910.03135",
+  "source": "https://arxiv.org/pdf/1910.03135",
+  "pages": 18,
+  "md_chars": 64078,
+  "sha256": "d04e6f165fdfd64b02de0545d69feef99ae77351c3635f9190394594aad472d1",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "anyteleop_2023": {
+  "title": "AnyTeleop: A General Vision-Based Dexterous Robot Arm-Hand Teleoperation System",
+  "arxiv": "2307.04577",
+  "source": "https://arxiv.org/pdf/2307.04577",
+  "pages": 15,
+  "md_chars": 59517,
+  "sha256": "b22aa89d7700120945fdf2aca68d0fbbc8a4d43387ffc94e2fe43db9f1de0560",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "holo_dex_2022": {
+  "title": "Holo-Dex: Teaching Dexterity with Immersive Mixed Reality",
+  "arxiv": "2210.06463",
+  "source": "https://arxiv.org/pdf/2210.06463",
+  "pages": 10,
+  "md_chars": 45974,
+  "sha256": "128267313c366d5d8bad557d834ccff38cdf289e265dfa9a21de3a606fd5069f",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dime_2022": {
+  "title": "Dexterous Imitation Made Easy: A Learning-Based Framework for Efficient Dexterous Manipulation",
+  "arxiv": "2203.13251",
+  "source": "https://arxiv.org/pdf/2203.13251",
+  "pages": 9,
+  "md_chars": 40690,
+  "sha256": "f82d1d6976aa8fe8cc7d6c586bb5ca3ca1b15d407a3d70fcbcca6568c45f0cc7",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "bunny_visionpro_2024": {
+  "title": "Bunny-VisionPro: Real-Time Bimanual Dexterous Teleoperation for Imitation Learning",
+  "arxiv": "2407.03162",
+  "source": "https://arxiv.org/pdf/2407.03162",
+  "pages": 18,
+  "md_chars": 55378,
+  "sha256": "b7d90e8eee389250695d3ad41efbffad358e85edb4834ef88725136d1db6fa1b",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "ace_teleop_2024": {
+  "title": "ACE: A Cross-Platform Visual-Exoskeletons System for Low-Cost Dexterous Teleoperation",
+  "arxiv": "2408.11805",
+  "source": "https://arxiv.org/pdf/2408.11805",
+  "pages": 17,
+  "md_chars": 53659,
+  "sha256": "6a84240fad4e3b341be1174201150857a35519c33799015e403e71d4cf37a2b3",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "doglove_2025": {
+  "title": "DOGlove: Dexterous Manipulation with a Low-Cost Open-Source Haptic Force Feedback Glove",
+  "arxiv": "2502.07730",
+  "source": "https://arxiv.org/pdf/2502.07730",
+  "pages": 13,
+  "md_chars": 55342,
+  "sha256": "9017daea9f30ec90d59a1ad3cbf9b5d06092bbd7e52e76e68c89c412927088f6",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "teledexter_2026": {
+  "title": "Towards Human-level Dexterous Teleoperation",
+  "arxiv": "2607.11481",
+  "source": "https://arxiv.org/pdf/2607.11481",
+  "pages": 27,
+  "md_chars": 90261,
+  "sha256": "ee5ffe42b301b501a652f72e57d6b0cf62126ee1c93fb5579d7e5951e556ee79",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexteleop0_2026": {
+  "title": "DexTeleop-0: Force-Aware Bimanual Dexterous Teleoperation with Ego-Centric Perception towards Shared Autonomy",
+  "arxiv": "2606.23431",
+  "source": "https://arxiv.org/pdf/2606.23431",
+  "pages": 15,
+  "md_chars": 46222,
+  "sha256": "de4598a6dffca2e2553162458bb2900d2f89c575b504660aac3bbb58619d807a",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "geometric_retargeting_2025": {
+  "title": "Geometric Retargeting: A Principled, Ultrafast Neural Hand Retargeting Algorithm",
+  "arxiv": "2503.07541",
+  "source": "https://arxiv.org/pdf/2503.07541",
+  "pages": 8,
+  "md_chars": 33157,
+  "sha256": "ec5cafe26ffbc60e3c94c7b707bf20d17d35e2e203e710f1e85f5c7fc32d0267",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexmv_2021": {
+  "title": "DexMV: Imitation Learning for Dexterous Manipulation from Human Videos",
+  "arxiv": "2108.05877",
+  "source": "https://arxiv.org/pdf/2108.05877",
+  "pages": 25,
+  "md_chars": 68814,
+  "sha256": "9b2e0e5207253be4594aaf3dfca6db8d38527e937738239409e5536ef3cf57c4",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexvip_2022": {
+  "title": "DexVIP: Learning Dexterous Grasping with Human Hand Pose Priors from Video",
+  "arxiv": "2202.00164",
+  "source": "https://arxiv.org/pdf/2202.00164",
+  "pages": 18,
+  "md_chars": 69935,
+  "sha256": "2ac5bb0ffb44e0f5071dc506b2e07bc5fa53eb9501ad04cec45d1ea03f2bbca6",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "videodex_2022": {
+  "title": "VideoDex: Learning Dexterity from Internet Videos",
+  "arxiv": "2212.04498",
+  "source": "https://arxiv.org/pdf/2212.04498",
+  "pages": 17,
+  "md_chars": 63583,
+  "sha256": "3e534fbd4d130bcc949c4d9f1a2445cad8029887bb041eab70773a3df34de80b",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "pgdm_2023": {
+  "title": "Learning Dexterous Manipulation from Exemplar Object Trajectories and Pre-Grasps",
+  "arxiv": "2209.11221",
+  "source": "https://arxiv.org/pdf/2209.11221",
+  "pages": 16,
+  "md_chars": 73869,
+  "sha256": "c4a7bc47bf94f03032e958acedd067fcd195c657fdc95f37cdb20214d6dc33f0",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "cyberdemo_2024": {
+  "title": "CyberDemo: Augmenting Simulated Human Demonstration for Real-World Dexterous Manipulation",
+  "arxiv": "2402.14795",
+  "source": "https://arxiv.org/pdf/2402.14795",
+  "pages": 17,
+  "md_chars": 78824,
+  "sha256": "608910175ae8ffec96a2cff8e0857f3e7e6c4be6f3a05f6e150cdd993fdd833c",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "okami_2024": {
+  "title": "OKAMI: Teaching Humanoid Robots Manipulation Skills through Single Video Imitation",
+  "arxiv": "2410.11792",
+  "source": "https://arxiv.org/pdf/2410.11792",
+  "pages": 19,
+  "md_chars": 61122,
+  "sha256": "5f5cb32c2fc00a9be46b107eb30429e6bab4ed32b626255bed6e1d14ae639a2a",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "hudor_2024": {
+  "title": "Bridging the Human to Robot Dexterity Gap through Object-Oriented Rewards",
+  "arxiv": "2410.23289",
+  "source": "https://arxiv.org/pdf/2410.23289",
+  "pages": 10,
+  "md_chars": 48451,
+  "sha256": "8a7385b8851fbba604e3ade1764cfc7e5b86336f7e2fb28861f8b9994be75391",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "egomimic_2024": {
+  "title": "EgoMimic: Scaling Imitation Learning via Egocentric Video",
+  "arxiv": "2410.24221",
+  "source": "https://arxiv.org/pdf/2410.24221",
+  "pages": 12,
+  "md_chars": 60116,
+  "sha256": "227fe304bd198d2c54242ec3aaf5c7eaa78579059820228f46005734a3784c85",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "egozero_2025": {
+  "title": "EgoZero: Robot Learning from Smart Glasses",
+  "arxiv": "2505.20290",
+  "source": "https://arxiv.org/pdf/2505.20290",
+  "pages": 19,
+  "md_chars": 50127,
+  "sha256": "876d46f8677d910fbbd1dbfad1affb5929bb07e0c508f4bf5ae0daa2c7e3e261",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "humanoid_policy_human_policy_2025": {
+  "title": "Humanoid Policy ~ Human Policy",
+  "arxiv": "2503.13441",
+  "source": "https://arxiv.org/pdf/2503.13441",
+  "pages": 19,
+  "md_chars": 60160,
+  "sha256": "1452568a6e3bd9d6567ddc7dfab40417e230c2178e9d67976595beb066f519df",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "h_rdt_2025": {
+  "title": "H-RDT: Human Manipulation Enhanced Bimanual Robotic Manipulation",
+  "arxiv": "2507.23523",
+  "source": "https://arxiv.org/pdf/2507.23523",
+  "pages": 12,
+  "md_chars": 52378,
+  "sha256": "edc3c84e1b8e263d6a7d760801a3a22e266b0339aa1937a7d329fcc63a272ed8",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexwild_2025": {
+  "title": "DexWild: Dexterous Human Interactions for In-the-Wild Robot Policies",
+  "arxiv": "2505.07813",
+  "source": "https://arxiv.org/pdf/2505.07813",
+  "pages": 15,
+  "md_chars": 69791,
+  "sha256": "e69ee7d5ce51d631b2402843ca6b5bd30e4d3194ff3c387e1994253f24ddc63a",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexumi_2025": {
+  "title": "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation",
+  "arxiv": "2505.21864",
+  "source": "https://arxiv.org/pdf/2505.21864",
+  "pages": 23,
+  "md_chars": 74873,
+  "sha256": "91858c34c4f7f79f32ba636e058a847fcf905e242ba53b5d6118d0fc311af80c",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dex1b_2025": {
+  "title": "Dex1B: Learning with 1B Demonstrations for Dexterous Manipulation",
+  "arxiv": "2506.17198",
+  "source": "https://arxiv.org/pdf/2506.17198",
+  "pages": 13,
+  "md_chars": 61453,
+  "sha256": "5ca588800296bec195499c2fd31b4e373872e4b5b38474a42396742c606cfcd1",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexteritygen_2025": {
+  "title": "DexterityGen: Foundation Controller for Unprecedented Dexterity",
+  "arxiv": "2502.04307",
+  "source": "https://arxiv.org/pdf/2502.04307",
+  "pages": 14,
+  "md_chars": 63526,
+  "sha256": "8658ddb91b39fcf47b8f1ebf32798be79ca5185d31208f6d9ea9154a23beab02",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "egoscale_2026": {
+  "title": "EgoScale: Scaling Dexterous Manipulation with Diverse Egocentric Human Data",
+  "arxiv": "2602.16710",
+  "source": "https://arxiv.org/pdf/2602.16710",
+  "pages": 22,
+  "md_chars": 69700,
+  "sha256": "39c691baf374a154e26ffc0098b97037875909495013d4017d97761716ff2735",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "unidex_2026": {
+  "title": "UniDex: A Robot Foundation Suite for Universal Dexterous Hand Control from Egocentric Human Videos",
+  "arxiv": "2603.22264",
+  "source": "https://arxiv.org/pdf/2603.22264",
+  "pages": 15,
+  "md_chars": 62311,
+  "sha256": "2ccb2df92e35428fd2d1d3949366ff7161c0ca0ef4fd5498c9b03e7e62530975",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "wm_dex_human_videos_2025": {
+  "title": "World Models for Learning Dexterous Hand-Object Interactions from Human Videos",
+  "arxiv": "2512.13644",
+  "source": "https://arxiv.org/pdf/2512.13644",
+  "pages": 23,
+  "md_chars": 78924,
+  "sha256": "caa494829e49b893346ae4fcedbe462e99f197192c7e84d27405a2776723a390",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "cross_embodiment_world_models_2025": {
+  "title": "Scaling Cross-Embodiment World Models for Dexterous Manipulation",
+  "arxiv": "2511.01177",
+  "source": "https://arxiv.org/pdf/2511.01177",
+  "pages": 8,
+  "md_chars": 44605,
+  "sha256": "03999898f908a5fafdc4de8c7ce732112f2d0443ff35d66f2aeff1cd28395e09",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "pi0_2024": {
+  "title": "pi0: A Vision-Language-Action Flow Model for General Robot Control",
+  "arxiv": "2410.24164",
+  "source": "https://arxiv.org/pdf/2410.24164",
+  "pages": 17,
+  "md_chars": 91375,
+  "sha256": "fbdfba56258bdbd220207ba63410c6c943e43a73e97a7a5a47ca0bc74204f821",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "pi05_2025": {
+  "title": "pi0.5: a Vision-Language-Action Model with Open-World Generalization",
+  "arxiv": "2504.16054",
+  "source": "https://arxiv.org/pdf/2504.16054",
+  "pages": 19,
+  "md_chars": 102621,
+  "sha256": "6a1029fd8ab6944b74cf22f5e5d30e60bc15699d964b2900af799b807a34b64c",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "pistar06_2025": {
+  "title": "pi*0.6: a VLA That Learns From Experience",
+  "arxiv": "2511.14759",
+  "source": "https://arxiv.org/pdf/2511.14759",
+  "pages": 18,
+  "md_chars": 93657,
+  "sha256": "9f4f5a3070ad9549ea7687ea54baa19858820dbcc0834cc805212d68fd6c8cb3",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "openvla_2024": {
+  "title": "OpenVLA: An Open-Source Vision-Language-Action Model",
+  "arxiv": "2406.09246",
+  "source": "https://arxiv.org/pdf/2406.09246",
+  "pages": 37,
+  "md_chars": 140574,
+  "sha256": "353c37df34458f12f969b14dfd8b77175b727b9cddea7bb891759beddeefe1be",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "groot_n1_2025": {
+  "title": "GR00T N1: An Open Foundation Model for Generalist Humanoid Robots",
+  "arxiv": "2503.14734",
+  "source": "https://arxiv.org/pdf/2503.14734",
+  "pages": 36,
+  "md_chars": 121832,
+  "sha256": "76e38cf679637b816b16edf7170340883dd09175bf334aeeaed49392777731b9",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "gemini_robotics_2025": {
+  "title": "Gemini Robotics: Bringing AI into the Physical World",
+  "arxiv": "2503.20020",
+  "source": "https://arxiv.org/pdf/2503.20020",
+  "pages": 64,
+  "md_chars": 171280,
+  "sha256": "f2c1ab4e73a76013b9ebf5a4ff90bb3d291eee0730304d3ebf4531256a204b78",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "gemini_robotics_15_2025": {
+  "title": "Gemini Robotics 1.5: Pushing the Frontier of Generalist Robots with Advanced Embodied Reasoning, Thinking, and Motion Transfer",
+  "arxiv": "2510.03342",
+  "source": "https://arxiv.org/pdf/2510.03342",
+  "pages": 62,
+  "md_chars": 176699,
+  "sha256": "771398d4d6dd458b137ae362de1d3434a7ff259cd8d7249b54f2fd7ebefcff45",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "being_h0_2025": {
+  "title": "Being-H0: Vision-Language-Action Pretraining from Large-Scale Human Videos",
+  "arxiv": "2507.15597",
+  "source": "https://arxiv.org/pdf/2507.15597",
+  "pages": 37,
+  "md_chars": 143455,
+  "sha256": "45da27c6b5a1c44cb38b4419b165eaa1894032d6a36843998ed2e55e260d3f49",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "being_h05_2026": {
+  "title": "Being-H0.5: Scaling Human-Centric Robot Learning for Cross-Embodiment Generalization",
+  "arxiv": "2601.12993",
+  "source": "https://arxiv.org/pdf/2601.12993",
+  "pages": 44,
+  "md_chars": 161029,
+  "sha256": "6253888be0b50fd682984cc769d3d60c82de21aba8c798738674a5b7aacbad35",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexvla_2025": {
+  "title": "DexVLA: Vision-Language Model with Plug-In Diffusion Expert for General Robot Control",
+  "arxiv": "2502.05855",
+  "source": "https://arxiv.org/pdf/2502.05855",
+  "pages": 22,
+  "md_chars": 74757,
+  "sha256": "17c827d9dafb7f1e2af751dc1a3e2594ae14cd27646badde3044b28d0fe95fb3",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexgraspvla_2025": {
+  "title": "DexGraspVLA: A Vision-Language-Action Framework Towards General Dexterous Grasping",
+  "arxiv": "2502.20900",
+  "source": "https://arxiv.org/pdf/2502.20900",
+  "pages": 18,
+  "md_chars": 85711,
+  "sha256": "dbd34b755eb1fc2baa9bbfa06c746d234ec65469aa9b5c051cb29d723f6f109e",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "metis_2025": {
+  "title": "METIS: Multi-Source Egocentric Training for Integrated Dexterous Vision-Language-Action Model",
+  "arxiv": "2511.17366",
+  "source": "https://arxiv.org/pdf/2511.17366",
+  "pages": 17,
+  "md_chars": 76267,
+  "sha256": "61264b36d8373c5107c6b9bdc2ebf30aaf972ced00f6c76523529e7ad6bcfd44",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexora_2026": {
+  "title": "Dexora: Open-source VLA for High-DoF Bimanual Dexterity",
+  "arxiv": "2605.18722",
+  "source": "https://arxiv.org/pdf/2605.18722",
+  "pages": 8,
+  "md_chars": 45474,
+  "sha256": "2697499e1db77e636fc99ec53a170a7d6853e2c8806f2dd3c9f4718c6c0b918c",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "h2o_dataset_2021": {
+  "title": "H2O: Two Hands Manipulating Objects for First Person Interaction Recognition",
+  "arxiv": "2104.11181",
+  "source": "https://arxiv.org/pdf/2104.11181",
+  "pages": 19,
+  "md_chars": 75072,
+  "sha256": "162d68ceb131ef1a7d535e5bb30d96c41675b20391db29f6e87a48d48032d9f6",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "hoi4d_2022": {
+  "title": "HOI4D: A 4D Egocentric Dataset for Category-Level Human-Object Interaction",
+  "arxiv": "2203.01577",
+  "source": "https://arxiv.org/pdf/2203.01577",
+  "pages": 17,
+  "md_chars": 69487,
+  "sha256": "82c5f0bf505f59eed426c1efa03f12a4155a5e18416ff03477d9e25c301be74f",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "oakink_2022": {
+  "title": "OakInk: A Large-scale Knowledge Repository for Understanding Hand-Object Interaction",
+  "arxiv": "2203.15709",
+  "source": "https://arxiv.org/pdf/2203.15709",
+  "pages": 17,
+  "md_chars": 68069,
+  "sha256": "596a5ba7c3850d92b5349c8697b37c8b1d4fa567a5966e525b9191b72c96a743",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "egodex_2025": {
+  "title": "EgoDex: Learning Dexterous Manipulation from Large-Scale Egocentric Video",
+  "arxiv": "2505.11709",
+  "source": "https://arxiv.org/pdf/2505.11709",
+  "pages": 20,
+  "md_chars": 63657,
+  "sha256": "7ea269e5885392e65a7e206c2d6b5792022ec499367a070c2c269cbcf187e2b8",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "openai_dexterity_2018": {
+  "title": "Learning Dexterous In-Hand Manipulation",
+  "arxiv": "1808.00177",
+  "source": "https://arxiv.org/pdf/1808.00177",
+  "pages": 27,
+  "md_chars": 85532,
+  "sha256": "da6ec44dd0941d674ec58334ff630f83d7bd19e6062ab2837ccfa0b3b94f6f73",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "openai_rubiks_cube_2019": {
+  "title": "Solving Rubik's Cube with a Robot Hand",
+  "arxiv": "1910.07113",
+  "source": "https://arxiv.org/pdf/1910.07113",
+  "pages": 51,
+  "md_chars": 172673,
+  "sha256": "2a6fe43013ddc8d148b0cdebc8468dfe83d11319ed626a1aeaa79b510e2ed48c",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dextreme_2022": {
+  "title": "DeXtreme: Transfer of Agile In-hand Manipulation from Simulation to Reality",
+  "arxiv": "2210.13702",
+  "source": "https://arxiv.org/pdf/2210.13702",
+  "pages": 28,
+  "md_chars": 86059,
+  "sha256": "753b6f9b9aa09b49d2dfd945d74a42a0513f6860e4665b6ca98f5eede719a28f",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexpbt_2023": {
+  "title": "DexPBT: Scaling up Dexterous Manipulation for Hand-Arm Systems with Population Based Training",
+  "arxiv": "2305.12127",
+  "source": "https://arxiv.org/pdf/2305.12127",
+  "pages": 11,
+  "md_chars": 57466,
+  "sha256": "66bc06ade6905f17a4dbb4b15a94cd2eb88129c56be3eb1d2fe1351d72304722",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "visual_dexterity_2022": {
+  "title": "Visual Dexterity: In-Hand Reorientation of Novel and Complex Object Shapes",
+  "arxiv": "2211.11744",
+  "source": "https://arxiv.org/pdf/2211.11744",
+  "pages": 78,
+  "md_chars": 130678,
+  "sha256": "b35ada5deee57612366ea50639e3f1a468c483cc8a41f5cf5b10de9a51e1d7d8",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "hora_2022": {
+  "title": "In-Hand Object Rotation via Rapid Motor Adaptation",
+  "arxiv": "2210.04887",
+  "source": "https://arxiv.org/pdf/2210.04887",
+  "pages": 16,
+  "md_chars": 64468,
+  "sha256": "d18d851fd7836d6195abd8e102caccd70dae5c54d206013f8aabf510c3133066",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "rotateit_2023": {
+  "title": "General In-Hand Object Rotation with Vision and Touch",
+  "arxiv": "2309.09979",
+  "source": "https://arxiv.org/pdf/2309.09979",
+  "pages": 16,
+  "md_chars": 58844,
+  "sha256": "6f0d51408b914da24ea2efeeaabc6a93c4149be4710a6153085ce407acb94170",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "rotating_without_seeing_2023": {
+  "title": "Rotating without Seeing: Towards In-hand Dexterity through Touch",
+  "arxiv": "2303.10880",
+  "source": "https://arxiv.org/pdf/2303.10880",
+  "pages": 15,
+  "md_chars": 64372,
+  "sha256": "7be48b3f9573efaf8d53b2abf94f23ae16532d6afa2408bc803bc14d4286a5ba",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "robot_synesthesia_2023": {
+  "title": "Robot Synesthesia: In-Hand Manipulation with Visuotactile Sensing",
+  "arxiv": "2312.01853",
+  "source": "https://arxiv.org/pdf/2312.01853",
+  "pages": 8,
+  "md_chars": 43857,
+  "sha256": "31f8ee6b8519f967fdcefa09edf65ece34e7cf5aaf72c7afe04a3a06be765ef1",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "anyrotate_2024": {
+  "title": "AnyRotate: Gravity-Invariant In-Hand Object Rotation with Sim-to-Real Touch",
+  "arxiv": "2405.07391",
+  "source": "https://arxiv.org/pdf/2405.07391",
+  "pages": 21,
+  "md_chars": 72708,
+  "sha256": "e5adc8090f8cec5f9938282f2690e6c9869dc36f68b0035a79b24feed2ca90a2",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "penspin_2024": {
+  "title": "Lessons from Learning to Spin \"Pens\"",
+  "arxiv": "2407.18902",
+  "source": "https://arxiv.org/pdf/2407.18902",
+  "pages": 15,
+  "md_chars": 53160,
+  "sha256": "645b99b2abf29fe3a0cdc3f8ee660e60761c66f30152312ab0684a797eb13064",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexremoe_2025": {
+  "title": "DexReMoE: In-hand Reorientation of General Object via Mixtures of Experts",
+  "arxiv": "2508.01695",
+  "source": "https://arxiv.org/pdf/2508.01695",
+  "pages": 11,
+  "md_chars": 55407,
+  "sha256": "ad5eb155b69473aef8c5a221925669be04a41370d82d49ed5bb846324ec52529",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexndm_2025": {
+  "title": "DexNDM: Closing the Reality Gap for Dexterous In-Hand Rotation via Joint-Wise Neural Dynamics Model",
+  "arxiv": "2510.08556",
+  "source": "https://arxiv.org/pdf/2510.08556",
+  "pages": 47,
+  "md_chars": 171931,
+  "sha256": "856c1304141c18131ce7e72747b022f3af4347ab74234788e8d0a453439cfe91",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "viserdex_2026": {
+  "title": "ViserDex: Visual Sim-to-Real for Robust Dexterous In-hand Reorientation",
+  "arxiv": "2604.11138",
+  "source": "https://arxiv.org/pdf/2604.11138",
+  "pages": 15,
+  "md_chars": 88385,
+  "sha256": "cb31fd2053abffc406dd58f5d00deb5a35b701dde52070be567b1d669fd7f67d",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "poise_2026": {
+  "title": "Learning In-Hand Object Reaching to General 6D Poses",
+  "arxiv": "2609.13761",
+  "source": "https://arxiv.org/pdf/2609.13761",
+  "pages": 8,
+  "md_chars": 41991,
+  "sha256": "a062b246ac9b73282c32900d4a3b468bbb7fd7608078909c078045d57cd0fae9",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexpoint_2022": {
+  "title": "DexPoint: Generalizable Point Cloud Reinforcement Learning for Sim-to-Real Dexterous Manipulation",
+  "arxiv": "2211.09423",
+  "source": "https://arxiv.org/pdf/2211.09423",
+  "pages": 13,
+  "md_chars": 48656,
+  "sha256": "c77516db0f09ad6c3964ee279b56c4db445502827af860fa3c1f5c7c517ae93d",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "unidexgrasp_2023": {
+  "title": "UniDexGrasp: Universal Robotic Dexterous Grasping via Learning Diverse Proposal Generation and Goal-Conditioned Policy",
+  "arxiv": "2303.00938",
+  "source": "https://arxiv.org/pdf/2303.00938",
+  "pages": 19,
+  "md_chars": 86431,
+  "sha256": "29cf96b2743c418c533c57104b11361dc025cd87fd4f721a7a696b5155c365cd",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "unidexgrasp_pp_2023": {
+  "title": "UniDexGrasp++: Improving Dexterous Grasping Policy Learning via Geometry-aware Curriculum and Iterative Generalist-Specialist Learning",
+  "arxiv": "2304.00464",
+  "source": "https://arxiv.org/pdf/2304.00464",
+  "pages": 17,
+  "md_chars": 76232,
+  "sha256": "12f8ed959fbeff3cc360a129a20f5a5b1d6d19670a3eb040556b646c59000c72",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "resdex_2024": {
+  "title": "Efficient Residual Learning with Mixture-of-Experts for Universal Dexterous Grasping",
+  "arxiv": "2410.02475",
+  "source": "https://arxiv.org/pdf/2410.02475",
+  "pages": 15,
+  "md_chars": 52614,
+  "sha256": "acda709ba64ed9123c707f9ad2075cf21ea14ba1c97e3a6d4a763d9ccc65fdeb",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexterous_functional_grasping_2023": {
+  "title": "Dexterous Functional Grasping",
+  "arxiv": "2312.02975",
+  "source": "https://arxiv.org/pdf/2312.02975",
+  "pages": 15,
+  "md_chars": 49216,
+  "sha256": "c12f68a582bc9f3d1113f38610b62a3a337054583da3e89945e4d10c719903b9",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "graspxl_2024": {
+  "title": "GraspXL: Generating Grasping Motions for Diverse Objects at Scale",
+  "arxiv": "2403.19649",
+  "source": "https://arxiv.org/pdf/2403.19649",
+  "pages": 23,
+  "md_chars": 61267,
+  "sha256": "52837875f52d6e66c661c39c1ae9c09d10c5b420c4661ba2f0b6f8d93448b602",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "clutterdexgrasp_2025": {
+  "title": "ClutterDexGrasp: A Sim-to-Real System for General Dexterous Grasping in Cluttered Scenes",
+  "arxiv": "2506.14317",
+  "source": "https://arxiv.org/pdf/2506.14317",
+  "pages": 21,
+  "md_chars": 62540,
+  "sha256": "5c24e6cc08368c7a3a44d48bf32a18908df3a2ce589c772a224e18a40706ed92",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "force_grasp_sim2real_2026": {
+  "title": "Closing the Reality Gap: Zero-Shot Sim-to-Real Deployment for Dexterous Force-Based Grasping and Manipulation",
+  "arxiv": "2601.02778",
+  "source": "https://arxiv.org/pdf/2601.02778",
+  "pages": 23,
+  "md_chars": 79149,
+  "sha256": "534fc74f838820bed69510e8fb6a96945f6a19a78e4a31ffb59fc7259ba2da4f",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "articulated_tools_inhand_2025": {
+  "title": "In-Hand Manipulation of Articulated Tools with Dexterous Robot Hands with Sim-to-Real Transfer",
+  "arxiv": "2509.23075",
+  "source": "https://arxiv.org/pdf/2509.23075",
+  "pages": 8,
+  "md_chars": 45598,
+  "sha256": "acba413a9c7dbcdb11152da0360e70fb974d0fef8ad4788baa390b1b0e689a81",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "simtoolreal_2026": {
+  "title": "SimToolReal: An Object-Centric Policy for Zero-Shot Dexterous Tool Manipulation",
+  "arxiv": "2602.16863",
+  "source": "https://arxiv.org/pdf/2602.16863",
+  "pages": 23,
+  "md_chars": 101992,
+  "sha256": "d8d399c29b85c68fbe8a283c151f0abdc716183117ce01cabbd96142db9355c4",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "physhoi_2023": {
+  "title": "PhysHOI: Physics-Based Imitation of Dynamic Human-Object Interaction",
+  "arxiv": "2312.04393",
+  "source": "https://arxiv.org/pdf/2312.04393",
+  "pages": 20,
+  "md_chars": 82948,
+  "sha256": "b0079392f13fb84e20140483313146ce7017a3e1f0f67a3bf0f48f8b206179ec",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "omnigrasp_2024": {
+  "title": "Omnigrasp: Grasping Diverse Objects with Simulated Humanoids",
+  "arxiv": "2407.11385",
+  "source": "https://arxiv.org/pdf/2407.11385",
+  "pages": 18,
+  "md_chars": 80813,
+  "sha256": "6c22ac6e260b6c93f78492ae9a84386a768bc1c85a0df6de8a06096cffc20d00",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "objdex_2024": {
+  "title": "Object-Centric Dexterous Manipulation from Human Motion Data",
+  "arxiv": "2411.04005",
+  "source": "https://arxiv.org/pdf/2411.04005",
+  "pages": 20,
+  "md_chars": 61148,
+  "sha256": "17fb38eec54290b77e9e1c2b1e2ba436ca15dea87d5acefc8a99ea513e387665",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dexplore_2025": {
+  "title": "Dexplore: Scalable Neural Control for Dexterous Manipulation from Reference-Scoped Exploration",
+  "arxiv": "2509.09671",
+  "source": "https://arxiv.org/pdf/2509.09671",
+  "pages": 16,
+  "md_chars": 55213,
+  "sha256": "fc7c9d943dccd6f7c46e9cfe9c02d3d4f03cc47fdf706f76e35d0908271e81a1",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "toporetarget_2026": {
+  "title": "TopoRetarget: Interaction-Preserving Retargeting for Dexterous Manipulation",
+  "arxiv": "2606.16272",
+  "source": "https://arxiv.org/pdf/2606.16272",
+  "pages": 16,
+  "md_chars": 44195,
+  "sha256": "21c06a125430854dcff0d778283963b7fe107c8dfa79e3982639a80c21b206ab",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dapg_2017": {
+  "title": "Learning Complex Dexterous Manipulation with Deep Reinforcement Learning and Demonstrations",
+  "arxiv": "1709.10087",
+  "source": "https://arxiv.org/pdf/1709.10087",
+  "pages": 9,
+  "md_chars": 51442,
+  "sha256": "555e6470f7c4249a2f0c6a0f19f995a12060386d686f0125d4e72862f767d7c5",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "demostart_2024": {
+  "title": "DemoStart: Demonstration-led auto-curriculum applied to sim-to-real with multi-fingered robots",
+  "arxiv": "2409.06613",
+  "source": "https://arxiv.org/pdf/2409.06613",
+  "pages": 15,
+  "md_chars": 78465,
+  "sha256": "8b3ec66f143e36ea6f97fcff60dcddf79bd8301f60a2b59f31b6f285628fa154",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "human2sim2robot_2025": {
+  "title": "Crossing the Human-Robot Embodiment Gap with Sim-to-Real RL using One Human Demonstration",
+  "arxiv": "2504.12609",
+  "source": "https://arxiv.org/pdf/2504.12609",
+  "pages": 24,
+  "md_chars": 91132,
+  "sha256": "15d5099c4864a1bad76d7f7e6f38b8077a678098279797f865922e7a5ea0702b",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "eureka_2023": {
+  "title": "Eureka: Human-Level Reward Design via Coding Large Language Models",
+  "arxiv": "2310.12931",
+  "source": "https://arxiv.org/pdf/2310.12931",
+  "pages": 45,
+  "md_chars": 147762,
+  "sha256": "aa3b6350a92e4e8b1d894d0879d0af72df2fe76b3fe5d9341151924cb5884f74",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "dreureka_2024": {
+  "title": "DrEureka: Language Model Guided Sim-To-Real Transfer",
+  "arxiv": "2406.01967",
+  "source": "https://arxiv.org/pdf/2406.01967",
+  "pages": 28,
+  "md_chars": 115003,
+  "sha256": "5931e0b03478694579daded847e39fb80115d5d9fa75cd250f059f691fb5f94c",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "pddm_2019": {
+  "title": "Deep Dynamics Models for Learning Dexterous Manipulation",
+  "arxiv": "1909.11652",
+  "source": "https://arxiv.org/pdf/1909.11652",
+  "pages": 12,
+  "md_chars": 46820,
+  "sha256": "a9da82c396d893db10eed0f44ba1ba7ae60e580a602cebcebcabdbfc8366a560",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "mjpc_2022": {
+  "title": "Predictive Sampling: Real-time Behaviour Synthesis with MuJoCo",
+  "arxiv": "2212.00541",
+  "source": "https://arxiv.org/pdf/2212.00541",
+  "pages": 14,
+  "md_chars": 47966,
+  "sha256": "393d890aa0c0096f33db5a8f0e509c7ce47e0462a41c18b9701b4703bc3ac0dd",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "pang_global_planning_2022": {
+  "title": "Global Planning for Contact-Rich Manipulation via Local Smoothing of Quasi-dynamic Contact Models",
+  "arxiv": "2206.10787",
+  "source": "https://arxiv.org/pdf/2206.10787",
+  "pages": 20,
+  "md_chars": 112373,
+  "sha256": "01bc984169c687f78ea38e78427213ed1f6070663cf5fb2a45437c9de5c4b54a",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "mujoco_playground_2025": {
+  "title": "MuJoCo Playground",
+  "arxiv": "2502.08844",
+  "source": "https://arxiv.org/pdf/2502.08844",
+  "pages": 42,
+  "md_chars": 111275,
+  "sha256": "1227d94174639184a24c907fa1dda4b0639edc6fabdcc7ec4cfe17198c30afe3",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "sapien_2020": {
+  "title": "SAPIEN: A SimulAted Part-based Interactive ENvironment",
+  "arxiv": "2003.08515",
+  "source": "https://arxiv.org/pdf/2003.08515",
+  "pages": 16,
+  "md_chars": 67663,
+  "sha256": "03aa9317d6e6fe091e724d2b2114143f9da4bc72fa723a7122bcf2cec15057ce",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "maniskill2_2023": {
+  "title": "ManiSkill2: A Unified Benchmark for Generalizable Manipulation Skills",
+  "arxiv": "2302.04659",
+  "source": "https://arxiv.org/pdf/2302.04659",
+  "pages": 30,
+  "md_chars": 107415,
+  "sha256": "89fb794345d860ee696ca2f4d7a75059b15352b615794eeadb0e6075426136f0",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "brax_2021": {
+  "title": "Brax - A Differentiable Physics Engine for Large Scale Rigid Body Simulation",
+  "arxiv": "2106.13281",
+  "source": "https://arxiv.org/pdf/2106.13281",
+  "pages": 21,
+  "md_chars": 48495,
+  "sha256": "e3e69a2d75eba75de04b33e12b218c9e52056d073981ebae63b22e6c5e9db212",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-17"
+ },
+ "castro_sap_contact_2021": {
+  "title": "An Unconstrained Convex Formulation of Compliant Contact",
+  "arxiv": "2110.10107",
+  "source": "https://arxiv.org/pdf/2110.10107",
+  "pages": 20,
+  "md_chars": 101480,
+  "sha256": "b67485bc9dcfdfa83cdc7934b1f9e388423d81f0ccc15d20648a1c24fa6a54f1",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-18"
+ },
+ "dojo_2022": {
+  "title": "Dojo: A Differentiable Physics Engine for Robotics",
+  "arxiv": "2203.00806",
+  "source": "https://arxiv.org/pdf/2203.00806",
+  "pages": 18,
+  "md_chars": 87880,
+  "sha256": "729928039c101eba82d02ddfe215d7d19e592414bff32f690014be9f3e071bf7",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-18"
+ },
+ "dexdeform_2023": {
+  "title": "DexDeform: Dexterous Deformable Object Manipulation with Human Demonstrations and Differentiable Physics",
+  "arxiv": "2304.03223",
+  "source": "https://arxiv.org/pdf/2304.03223",
+  "pages": 22,
+  "md_chars": 73022,
+  "sha256": "5a7444a6c22561e915f4d73916115df48eacb79745eab09d30440222dc51fe42",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-18"
+ },
+ "contact_models_comparison_2023": {
+  "title": "Contact Models in Robotics: a Comparative Analysis",
+  "arxiv": "2304.06372",
+  "source": "https://arxiv.org/pdf/2304.06372",
+  "pages": 17,
+  "md_chars": 101515,
+  "sha256": "c7387d838bbc6e0a2e69f731f5693b63c530f17bd0bffb181e90e294d4247ce8",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-18"
+ },
+ "nine_physics_engines_review_2024": {
+  "title": "A Review of Nine Physics Engines for Reinforcement Learning Research",
+  "arxiv": "2407.08590",
+  "source": "https://arxiv.org/pdf/2407.08590",
+  "pages": 11,
+  "md_chars": 64756,
+  "sha256": "26050d031891b73472ce252d37bc40d0d15c9066592687724156f86bfcd22a0b",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-18"
+ },
+ "comfree_sim_2026": {
+  "title": "ComFree-Sim: A GPU-Parallelized Analytical Contact Physics Engine for Scalable Contact-Rich Robotics Simulation and Control",
+  "arxiv": "2603.12185",
+  "source": "https://arxiv.org/pdf/2603.12185",
+  "pages": 9,
+  "md_chars": 49539,
+  "sha256": "c6fda8b30d2f419b976cc421a1651f7f4d87c774e538b4df8b8b1cfead918cb6",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-18"
+ },
+ "tacto_2020": {
+  "title": "TACTO: A Fast, Flexible, and Open-source Simulator for High-Resolution Vision-based Tactile Sensors",
+  "arxiv": "2012.08456",
+  "source": "https://arxiv.org/pdf/2012.08456",
+  "pages": 8,
+  "md_chars": 47484,
+  "sha256": "3d656371a5d15141d5e352680c2c95cdddbbf9e5ce89fc96278e0c6e7b544838",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-18"
+ },
+ "taxim_2021": {
+  "title": "Taxim: An Example-based Simulation Model for GelSight Tactile Sensors",
+  "arxiv": "2109.04027",
+  "source": "https://arxiv.org/pdf/2109.04027",
+  "pages": 8,
+  "md_chars": 40346,
+  "sha256": "24feb04024fe5b03fd7c43c5cd6a6e5d9101f60188ae8418270a63d2c394d8ca",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-18"
+ },
+ "tactile_genesis_2026": {
+  "title": "Tactile Genesis: Exploring Tactile Sensors at Scale for Learning Dexterous Tasks",
+  "arxiv": "2606.22332",
+  "source": "https://arxiv.org/pdf/2606.22332",
+  "pages": 24,
+  "md_chars": 73470,
+  "sha256": "e2d96852db38119c9e1276a7eabc424aa5bf44cc594b8d60cce7d7c82f3e605c",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-18"
+ },
+ "dm_control_2020": {
+  "title": "dm_control: Software and Tasks for Continuous Control",
+  "arxiv": "2006.12983",
+  "source": "https://arxiv.org/pdf/2006.12983",
+  "pages": 34,
+  "md_chars": 83450,
+  "sha256": "b86046012fbed2d9006920c1913865470b2cb8f71c570e2865484872c2f77342",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-09-18"
+ },
+ "bicchi_grasping_chapter_2001": {
+  "title": "bicchi_grasping_chapter_2001",
+  "pages": 22,
+  "md_chars": 57793,
+  "sha256": "a71e60a65fb5d6a03100f96109fcbe5bb4181df340f5212ddee9f8a6bf7657f0",
+  "converter": "pymupdf-raw",
+  "fetched": "2026-09-18"
+ },
+ "ma_dollar_dexterity_2011": {
+  "title": "ma_dollar_dexterity_2011",
+  "pages": 7,
+  "md_chars": 36241,
+  "sha256": "949ad9341c94d5b02400826410d95868b62dbd8feec13c78716effec4e32ed29",
+  "converter": "pymupdf-raw",
+  "fetched": "2026-09-18"
+ }
+}

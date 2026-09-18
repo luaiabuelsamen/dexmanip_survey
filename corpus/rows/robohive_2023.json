@@ -1,0 +1,37 @@
+{
+  "key": "robohive_2023",
+  "year": 2023,
+  "class": "benchmark",
+  "task_family": [
+    "functional/tool",
+    "reorient",
+    "grasp",
+    "track-human-ref"
+  ],
+  "paradigm": [
+    "RL",
+    "BC",
+    "RL+demo"
+  ],
+  "algorithm": "NPG (DAPG-style experts), TorchRL RL baselines, BC on R3M/RRL/VC1 visual features",
+  "hand": "Adroit Hand (benchmarked results); framework also supports Shadow, Allegro, MPL, D'Hand, D'Manus, MyoHand",
+  "hand_dof": null,
+  "bimanual": false,
+  "arm": null,
+  "sim": "MuJoCo",
+  "n_envs": null,
+  "real_robot": true,
+  "real_trials": null,
+  "sim_episodes": null,
+  "success_criterion": "per-env 'solved' flag: door hinge angle > 1.35 rad; hammer target-goal distance < 0.010; pen rotation cosine > 0.95 and not dropped; relocate object-target distance < 0.1",
+  "headline_metric": "success rate (bar charts, Figs. 7-8)",
+  "headline_value": null,
+  "objects_train": null,
+  "objects_test_unseen": null,
+  "human_data": "RoboSet (Table 2): teleoperated and expert demonstrations across real kitchen, bin, Franka kitchen, Adroit, and D'Kitty",
+  "penetration": null,
+  "reward_terms": null,
+  "code_released": true,
+  "paper_code_mismatch": "Hammer v1 code's 'lifted' bonus condition drops the tool-height term present in v0 (obj_pos z>0.04 * tool_pos z>0.04 becomes obj_pos>0.04 * obj_pos>0.04), a version-dependent reward change not mentioned in the paper.",
+  "note_gaps": "No hand DoF, timestep, control rate, or observation dimension is stated in either source; visual-baseline bar-chart values are not recoverable from the parsed figures."
+}

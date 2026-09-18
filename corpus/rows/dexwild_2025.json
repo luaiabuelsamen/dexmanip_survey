@@ -1,0 +1,40 @@
+{
+ "key": "dexwild_2025",
+ "year": 2025,
+ "class": "method",
+ "task_family": [
+  "grasp",
+  "functional/tool",
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "BC",
+  "data-collection"
+ ],
+ "algorithm": "diffusion U-Net policy (also compared against ACT) co-trained on human wearable-rig demonstrations and teleoperated robot demonstrations via fixed-ratio batch sampling",
+ "hand": "LEAP Hand / LEAP Hand V2 Advanced",
+ "hand_dof": 17,
+ "bimanual": true,
+ "arm": "xArm (primary), Franka Panda (cross-arm transfer)",
+ "sim": null,
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "task success rate, robot-only vs. human+robot co-trained (1:2 ratio)",
+ "headline_value": "In-Domain 64.7%->79.8%; In-the-Wild 28.5%->75.1%; In-the-Wild Extreme 22.0%->62.7% (Sec. V-A); human-only baseline 3.6% in-domain / 7.3% in-the-wild",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "own wearable-rig demonstrations (mocap glove + two palm cameras + wrist ArUco tracking); D_H = 9,290 demos across 5 tasks and 93 environments (Spray Bottle 3,000/30 envs, Toy Cleanup 3,000/30 envs, Pour 621/6 envs, Florist 1,545/15 envs, Clothes Folding 1,124/12 envs)",
+ "penetration": null,
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "[penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "operator_interface": "wearable, calibration-free rig: motion-capture glove + two palm-mounted stereo cameras (pinky-side and thumb-side) + wrist ArUco marker tracking, worn by untrained operators; no VR headset",
+ "retargeting_objective": "robot hand kinematics optimized to match observed human fingertip positions (fixed hyperparameters, no per-user tuning); a relative (delta) end-effector state-action representation removes the need for a global coordinate frame, and identical palm-camera mounting on human and robot hands makes RGB observations look the same across embodiments",
+ "data_hours": 46.2,
+ "data_trajectories": 9290,
+ "rig_cost_usd": null
+}

@@ -1,0 +1,35 @@
+{
+ "key": "humanoid_sim2real_recipe_2025",
+ "year": 2025,
+ "class": "method",
+ "task_family": [
+  "grasp",
+  "bimanual-coord",
+  "handover"
+ ],
+ "paradigm": [
+  "RL",
+  "distillation"
+ ],
+ "algorithm": "PPO (asymmetric actor-critic) for per-task specialist policies, distilled into a generalist via Diffusion Policy trained on filtered successful rollouts",
+ "hand": "Fourier GR1 hand (6 actuated + 5 underactuated DoF); cross-embodiment check also uses Inspire hand (6 actuated + 6 underactuated DoF)",
+ "hand_dof": 6,
+ "bimanual": true,
+ "arm": "Fourier GR1 humanoid, 7 DoF per arm",
+ "sim": "NVIDIA Isaac Gym",
+ "n_envs": 100,
+ "real_robot": true,
+ "real_trials": 10,
+ "sim_episodes": null,
+ "success_criterion": "task-specific binary success (e.g. grasp-and-reach = object placed at goal location); 'successful policy' for the initialization ablation defined as >60% episodic success",
+ "headline_metric": "best policy per task, real-world success rate averaged across test objects (\u00a74.7 System Capabilities, 10 trials per test object)",
+ "headline_value": "grasp-and-reach 62.3%, box lift 80%, bimanual handover 52.5% (\u00a74.7); Abstract separately states 90% on seen objects and 60-80% on novel objects",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none (task-aware human 'play' initialization data, <30s per task, is object poses + robot joint positions collected via teleoperation in sim, not full demonstrations)",
+ "penetration": null,
+ "reward_terms": 2,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": "[penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

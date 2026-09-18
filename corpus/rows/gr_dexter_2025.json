@@ -1,0 +1,33 @@
+{
+ "key": "gr_dexter_2025",
+ "year": 2025,
+ "class": "method",
+ "task_family": [
+  "bimanual-coord",
+  "grasp"
+ ],
+ "paradigm": [
+  "VLA"
+ ],
+ "algorithm": "GR-Dexter (Mixture-of-Transformer VLA, flow matching + next-token prediction, following GR-3)",
+ "hand": "ByteDexter V2, two",
+ "hand_dof": 21,
+ "bimanual": true,
+ "arm": "Franka Research 3 (FR3), two",
+ "sim": null,
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": "pick-and-place: robot picks up target object and places it into the container",
+ "headline_metric": "average success rate (pick-and-place, unseen objects)",
+ "headline_value": "GR-Dexter 0.93 (Basic, 50 trials), 0.85 (Unseen Objects, 50 trials) (Fig. 8)",
+ "objects_train": 20,
+ "objects_test_unseen": 23,
+ "human_data": "human egocentric video (>800 hours, unnamed) + Pico VR data",
+ "penetration": "not addressed",
+ "reward_terms": null,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": "exact state-vector composition beyond o_t/s_t not stated; loss weighting between the flow-matching and next-token-prediction objectives not given; OOD numeric success rates for the plain-VLA/no-cross-embodiment ablations are described only qualitatively ('drops significantly') without numbers"
+}

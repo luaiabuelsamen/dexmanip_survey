@@ -1,0 +1,32 @@
+{
+ "key": "openai_dexterity_2018",
+ "year": 2018,
+ "class": "method",
+ "task_family": [
+  "reorient"
+ ],
+ "paradigm": [
+  "RL"
+ ],
+ "algorithm": "PPO",
+ "hand": "ShadowRobot Dexterous Hand (EDC electric-motor version)",
+ "hand_dof": 24,
+ "bimanual": false,
+ "arm": null,
+ "sim": "MuJoCo",
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": 10,
+ "sim_episodes": 100,
+ "success_criterion": "d_t+1 < 0.4 rad (goal achieved within a tolerance of 0.4 rad)",
+ "headline_metric": "median consecutive successful rotations",
+ "headline_value": "Block (state): sim 43.4\u00b113.8 (median 50), physical 18.8\u00b117.1 (median 13); Octagonal prism (state): sim 29.0\u00b119.7 (median 30), physical 7.8\u00b17.8 (median 5) (Table 3)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none",
+ "penetration": "not addressed",
+ "reward_terms": 3,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": null
+}

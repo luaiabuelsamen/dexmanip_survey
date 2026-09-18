@@ -1,0 +1,33 @@
+{
+ "key": "twisting_lids_2024",
+ "year": 2024,
+ "class": "method",
+ "task_family": [
+  "functional/tool",
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "RL"
+ ],
+ "algorithm": "PPO (asymmetric actor-critic)",
+ "hand": "Allegro Hand, two",
+ "hand_dof": 16,
+ "bimanual": true,
+ "arm": "UR5e (fixed, x2)",
+ "sim": "Isaac Gym",
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": "lid completely detached from the object body",
+ "headline_metric": "Angular Displacement (AD, degrees) over 30s real trials",
+ "headline_value": "BlueBottle AD 946.33+/-383.81 deg, TTF 23.67+/-10.97s (Table 1); lid removal overall 33.75% across household objects (Table 4)",
+ "objects_train": null,
+ "objects_test_unseen": 15,
+ "human_data": "none",
+ "penetration": "not addressed",
+ "reward_terms": 5,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": "which of alpha1-alpha5 maps to which reward term is inferred, not stated; work/action penalty formulas left to an unextracted appendix; object dimensions in Sec.7 printed as cm are likely mm-scale relative to Fig.1"
+}

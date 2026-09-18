@@ -1,0 +1,33 @@
+{
+ "key": "openai_rubiks_cube_2019",
+ "year": 2019,
+ "class": "method",
+ "task_family": [
+  "reorient"
+ ],
+ "paradigm": [
+  "RL",
+  "distillation"
+ ],
+ "algorithm": "PPO with Automatic Domain Randomization (ADR); Policy Cloning (DAGGER/distillation-style) for architecture changes",
+ "hand": "Shadow Dexterous E Series Hand (E3M5R)",
+ "hand_dof": 20,
+ "bimanual": false,
+ "arm": null,
+ "sim": "MuJoCo (+ ORRB/Unity3D for rendered vision training images)",
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": 10,
+ "sim_episodes": null,
+ "success_criterion": "block: orientation within 0.4 rad of target; Rubik's cube: 'half' success = \u226522/43 rotations+flips on the fixed fair-scramble sequence, 'full' success = all 43 (26 rotations + 17 flips)",
+ "headline_metric": "mean successful rotations+flips over 10 real-robot trials on a fixed WCA fair-scramble sequence",
+ "headline_value": "ADR (XXL) with Giiker face angles: 26.8\u00b14.9 mean successes (median 22.0, half-success 60%, full-success 20%) over 10 real trials (Table 6)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none",
+ "penetration": "not addressed",
+ "reward_terms": 3,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": null
+}

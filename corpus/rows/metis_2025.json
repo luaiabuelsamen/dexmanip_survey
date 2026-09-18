@@ -1,0 +1,40 @@
+{
+ "key": "metis_2025",
+ "year": 2025,
+ "class": "method",
+ "task_family": [
+  "grasp",
+  "functional/tool",
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "VLA"
+ ],
+ "algorithm": "Autoregressive next-token cross-entropy over discretized 'motion-aware dynamics' tokens (VQ-VAE visual dynamics + RQ-VAE motion dynamics), plus a supervised continuous-action regression head (Action Decoder); combined loss L = Lar + lambda*Laction",
+ "hand": "Inspire dexterous hand (paired, main real-robot eval); cross-embodiment eval uses 22-DoF SharpaWave Dexterous Hand",
+ "hand_dof": 6,
+ "bimanual": true,
+ "arm": "Unitree G1 humanoid dual arm (2x7 DoF arm joints)",
+ "sim": null,
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": 20,
+ "sim_episodes": null,
+ "success_criterion": "Qualitative per-task description judged by experimenters (e.g. 'Success is achieved if the apple is successfully placed into the plate'); no numeric threshold in metres/seconds given for any task",
+ "headline_metric": "Success Rate (SR)",
+ "headline_value": "85.0% SR on Pick and Place (Table 2); per-task SR ranges 70-95% across 6 real tasks, best or tied-best on 5 of 6",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "EgoAtlas: 343K trajectories / 89.72M image-action pairs across 8 sources (H2O, OAKINK, PH2D, ARCTIC, EgoDex, HoloAssist, ActionNet, 'Our Enhanced Data'), mixing human wearable-capture data (Manus Quantum Metagloves + VIVE trackers) and vision-based human datasets with teleoperated robot data",
+ "penetration": "not addressed",
+ "reward_terms": 2,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": "Action chunk length disagrees between Sec 4.3 (30 steps) and App D.2 (32) with no reconciliation given; lambda weighting in the combined loss not stated; no simulator/domain-randomization or contact/penetration treatment appears anywhere (real-world-only, no-sim, no-code paper).",
+ "backbone": "Prismatic-7B initialization: SigLIP + DINOv2 hybrid vision encoder, LLaMA-2 7B LLM (decoder-only Transformer, 32 sequential blocks)",
+ "params": "7B (LLaMA-2 7B backbone)",
+ "action_head": "Autoregressive discrete dynamics tokens (VQ-VAE visual + RQ-VAE motion, 44 tokens total) decoded by a separate Action Decoder (multi-head attention pooling over dynamics+visual features, proprioception via 2-layer MLP, linear projection) into continuous fingertip-space actions",
+ "pretrain_data": "EgoAtlas: 343K trajectories / 89.72M image-action pairs across 8 sources (H2O, OAKINK, PH2D, ARCTIC, EgoDex, HoloAssist, ActionNet, 'Our Enhanced Data')",
+ "dexterous_hand_evaluated": true,
+ "dexterous_evidence": "For hardware platform, we use a Unitree G1 humanoid robot equipped with a pair of Inspire 6-DoF dexterous hands for fine-grained manipulation. (Sec 5.1)"
+}

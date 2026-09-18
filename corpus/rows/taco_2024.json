@@ -1,0 +1,31 @@
+{
+ "key": "taco_2024",
+ "year": 2024,
+ "class": "dataset",
+ "task_family": [
+  "functional/tool",
+  "bimanual-coord"
+ ],
+ "paradigm": null,
+ "algorithm": null,
+ "hand": null,
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": null,
+ "sim": null,
+ "n_envs": null,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "cooperative grasp synthesis: Interpenetration Volume (Pen.V, cm^3) / Contact Ratio (Con.R, %) / Collision Ratio (Col.R, %)",
+ "headline_value": "HALO-VAE S1+S3: Pen.V 0.26, Con.R 82.86%, Col.R 2.39%, FID 2.02 (Table 5)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": null,
+ "penetration": "measured",
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "the penetration loss L_p equation was dropped by the PDF converter, only its text description recovered; Table 3 compositional-action-recognition numeric values were not extracted (qualitative text only)"
+}

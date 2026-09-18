@@ -1,0 +1,34 @@
+{
+ "key": "omnih2o_2024",
+ "year": 2024,
+ "class": "method",
+ "task_family": [
+  "track-human-ref",
+  "locomanipulation"
+ ],
+ "paradigm": [
+  "RL",
+  "distillation"
+ ],
+ "algorithm": "PPO (teacher) + DAgger (student) + diffusion policy (autonomy layer)",
+ "hand": "Inspire hands (open-loop, DoF not stated)",
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": "Unitree H1 humanoid (19-DoF whole body)",
+ "sim": null,
+ "n_envs": 4096,
+ "real_robot": true,
+ "real_trials": 20,
+ "sim_episodes": 14000,
+ "success_criterion": "average deviation from reference <=0.5m at every point in time",
+ "headline_metric": "Succ (%) motion tracking success rate, sim",
+ "headline_value": "OmniH2O sim Succ 94.10% (Table 1) vs H2O 87.52%; real E_g-mpjpe 47.94mm vs H2O 87.33mm (Table 2)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "AMASS",
+ "penetration": null,
+ "reward_terms": 24,
+ "code_released": true,
+ "paper_code_mismatch": "stumble weight -0.00125 (paper) vs -1250 (code); max-feet-height sign/magnitude differ (+1000 paper vs -2500 code, a penalty not a bonus); paper's exp(-c*||.||) form vs code's exp(-err^2/sigma); curriculum level-down threshold 40 (paper) vs 50 (code)",
+ "note_gaps": "hand model DoF, the simulator name, and any hand contact/penetration handling are absent from both paper and code sources [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

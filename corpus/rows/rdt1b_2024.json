@@ -1,0 +1,32 @@
+{
+ "key": "rdt1b_2024",
+ "year": 2024,
+ "class": "method",
+ "task_family": [
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "diffusion"
+ ],
+ "algorithm": "RDT (DiT + cross-attention, QKNorm/RMSNorm, MLP decoder, Alternating Condition Injection)",
+ "hand": "parallel-jaw gripper (ALOHA-style, Cobot Mobile ALOHA), two",
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": "2x7-DoF arms (Cobot Mobile ALOHA)",
+ "sim": null,
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": "task-specific behavioural definitions with sub-task breakdowns, e.g. Wash Cup: Pick Up -> Turn On Faucet -> Get Water -> Pour Out -> Place Back",
+ "headline_metric": "task success rate (%), real robot",
+ "headline_value": "Wash Cup total (seen/unseen1/unseen2) 87.5/62.5/50% vs ACT/OpenVLA/Octo all 0% (Table 3)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none",
+ "penetration": "not addressed",
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "the denoising-loss equation is rendered as an unlabeled image in the PDF; code md captures only function signatures (not bodies) for train.py/sample.py; ManiSkill/RoboTwin sim results are code-repo-only, post-publication additions not in the parsed paper"
+}

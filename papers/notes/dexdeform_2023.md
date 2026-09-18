@@ -1,0 +1,45 @@
+# dexdeform_2023 — DexDeform: Dexterous Deformable Object Manipulation with Human Demonstrations and Differentiable Physics (Li, Huang, Chen, Du, Su, Tenenbaum, Gan; ICLR 2023)
+
+sources: papers/md/dexdeform_2023.md [5a7444a6] ; code/md/dexdeform_2023.md [72f5087e]
+
+## One-line contribution
+Learns a latent "skill" abstraction of dexterous two-Shadow-hand demonstrations on deformable (dough/rope) objects, then refines skill-planned trajectories on novel goals with first-order gradients from a differentiable MPM simulator, feeding the refined rollouts back as new demonstrations (Abstract).
+
+## Setting
+- hand(s): Shadow Dexterous hand (simulated), 28 DoF with a movable base per hand (Sec. 3.1). Single-hand tasks (Folding, Wrap, Flip, action dim 20-26) and dual-hand tasks (Rope, Dumpling, Bun, action dim 52 with movable bases) (Sec. 3.1, App. A).
+- simulator / physics: built on PlasticineLab (Huang et al. 2021), a differentiable simulator using the MLS-MPM algorithm (Moving Least Squares Material Point Method, Hu et al. 2018) (App. A). Simulation backend is written in CUDA for performance and is "differentiable ... with communications with PyTorch modules" (code/md, "Implementation Details").
+- observation: full point-cloud observation of the scene (hand(s) + deformable object(s)), encoded via a Convolutional Occupancy Network (ConvONet) into 2D feature maps, then compressed by a VAE into a latent scene code s_t (Sec. 2.2). Partial point-cloud (4 RGBD viewpoints) is also evaluated in an appendix (App. F).
+- action space: relative joint-angle deltas, q_{t+1}^joint = q_t^joint + a_t (App. A.1). Teleoperation for demo collection is via a Leap Motion optical hand-tracking controller retargeted to the simulated Shadow hand through an IK model, controlled by a position-based PD controller (Sec. 2.1); teleop+sim+render runs at 15-20 FPS on a laptop RTX 3070 (App. B).
+- objects / data: 6 tasks (Folding ×4 direction-variants, Wrap, Flip, Bun, Rope, Dumpling), 10 human demonstrations per task variant, ≈60,000 environment steps / ≈2 hours of human interaction total (Sec. 3.1). Task episode lengths: Folding/Bun/Rope/Dumpling 250 steps, Wrap/Flip 500 steps (App. A).
+
+## Physics block
+- contact model: MPM-based hand-deformable contact (particle/grid transfer, MLS-MPM); no explicit complementarity or penalty contact-force formula is given in the paper text — contact between hand and dough/rope is implicit in the MPM material-point/grid interaction inherited from PlasticineLab. The `MPMSimulator` constructor (code/md, `mpm/simulator.py`) exposes parameters `ground_friction, gravity, n_particles, dx, dt, grid_size, max_steps, substeps, yield_stress, vol, mass, E, nu` — i.e. elastoplastic material parameters (Young's modulus E, Poisson's ratio nu, yield_stress) plus grid spacing dx and substep count, but no numeric defaults for any of these are present in the captured code or paper text.
+- solver and iterations: MLS-MPM particle-to-grid-to-particle (P2G/grid_op/G2P) time-stepping, implemented in CUDA with per-substep kernels (`p2g`, `grid_op`, `g2p`, and their `_grad` counterparts for backprop) (code/md, `mpm/simulator.py` signatures). No iterative contact solve (e.g. no PGS/ADMM/interior-point loop) is exposed; MPM handles contact implicitly through the shared background grid.
+- differentiability: yes, end-to-end — this is the paper's mechanism for trajectory refinement: "we use trajectories planned by the skill model as optimization initialization ... and use the gradient-based optimizer to refine the planned trajectories within tens of iterations" (Sec. 2.3). Both forward (`substep`) and backward (`substep_grad`, `p2g_grad`, `grid_op_grad`, `g2p_grad`, `compute_svd_grad`) kernels are present in `mpm/simulator.py` (code/md).
+- timestep: not stated numerically in either source — `dt` and `substeps` are constructor parameters of `MPMSimulator` (code/md) but no value is given in the parsed paper or code excerpts.
+- friction model: `ground_friction` and a per-body `mu` (friction coefficient) are constructor/init parameters (`MPMSimulator.__init__`, `init_bodies(..., mu, ...)`, code/md `mpm/simulator.py`), but the functional form (Coulomb, viscous, etc.) and numeric values are not stated in the parsed text.
+- how penetration is resolved / is depth exposed: not addressed in the paper text — MPM's grid-mediated contact does not produce a separate "penetration depth" quantity in this codebase's exposed API (no `get_penetration`-style accessor appears in the `mpm/simulator.py` or `mpm/hand.py` signatures in code/md); hand-object interaction is via SDF queries (`lh_sdf_given_p`, `rh_sdf_given_p`, `primitive_sdf_given_p` in `mpm/hand.py`), which give signed distance to the hand's collision primitives, not a scalar interpenetration report.
+- GPU or CPU: GPU (CUDA). "For optimal performance, the simulation backend is written in CUDA and implements PlasticineLab" (code/md, "Implementation Details"); `mpm/cuda_env.py` names the environment class `CudaEnv`.
+- throughput: not reported as a simulation-steps/sec number. The only speed figure given is for the interactive teleoperation pipeline (sim+render+teleop together): "15-20 FPS on a laptop with NVIDIA GeForce RTX3070 Laptop GPU" (App. B) — this is a full-pipeline number, not isolated physics throughput, and is not presented in a table.
+
+## Evaluation
+- metrics (exact definition): normalized improvement in Earth Mover's Distance (EMD), d(t) = (d₀ − d_t)/d₀, where d₀ and d_t are initial and current EMD to the goal shape, thresholded at a minimum of 0 (Sec. 3.1); EMD is approximated via Sinkhorn Divergence between source and target particle sets.
+- headline numbers (Table 1): DexDeform vs. best baseline (mean ± std normalized improvement) — Folding 0.970±0.021 (BC 0.685±0.388), Rope 0.972±0.010 (BC 0.557±0.377), Bun 0.874±0.078 (BC 0.379±0.258), Dumpling 0.888±0.055 (BC 0.506±0.314), Wrap 0.845±0.050 (BC 0.134±0.595), Flip 0.842±0.057 (PPO 0.223±0.328, next best). Ablation (Table 2): DexDeform vs. Skill-Only (no differentiable-physics refinement) — e.g. Folding 0.970±0.021 vs. 0.908±0.058, Dumpling 0.888±0.055 vs. 0.725±0.244.
+- baselines beaten: PPO (model-free RL on point clouds), Behavior Cloning with hindsight relabeling, DAPG (demonstration-augmented PPO), TrajOpt (gradient-based trajectory optimization on full state), and an ablation NN-TrajOpt (nearest-neighbor demo + gradient refinement, no skill model).
+- real robot? none — all results are in the PlasticineLab/MLS-MPM simulator.
+
+## Limitations stated by the authors
+- "Our work assumes full point cloud observation." Partial-observation (4-camera RGBD) results are reported separately and are weaker (Sec. 5, App. F).
+- "It is also intriguing to speed up the soft-body simulation for large-scale learning with RL" — the authors attribute the weak RL(PPO)/DAPG baselines partly to "the speed of soft-body simulation limit[ing] the speed of convergence" on the harder dual-hand tasks (Sec. 3.2, Sec. 5).
+- Pure EMD is noted as potentially "not a good measure for soft bodies with large topological variations" (Sec. 3.3, ablation discussion).
+
+## Quotable claims (verbatim, with section)
+- "Reinforcement learning approaches for dexterous rigid object manipulation would struggle in this setting due to the complexity of physics interaction with deformable objects." (Abstract)
+- "We build our simulation environments on top of PlasticineLab (Huang et al., 2021), a differentiable physics simulator based on the MLS-MPM algorithm (Hu et al., 2018)." (App. A)
+- "Due to the sample complexity of RL approaches, the speed of soft-body simulation limits the speed of convergence." (Sec. 3.2)
+- "Our system runs teleoperation, simulation, and rendering with multiprocessing, and achieves 15-20 FPS on a laptop with NVIDIA GeForce RTX3070 Laptop GPU." (App. B)
+
+## Notes for the survey
+- This is the survey's example of a differentiable-MPM hand-deformable pipeline; unlike the rigid-contact engines in this batch (Dojo, ComFree-Sim, Castro/SAP), no explicit contact-force law, solver-iteration count, or penetration metric is exposed anywhere in the parsed paper or code — contact is entirely implicit in the MPM grid transfer, which is a genuine architectural difference worth calling out in the comparison table (a blank "penetration depth exposed?" cell here is not a parsing gap, it reflects the method).
+- The 15-20 FPS figure is a full teleoperation-pipeline number (sim + render + human-in-the-loop network I/O) on a laptop GPU, not a batched-simulation throughput figure; it should not be placed in the same throughput column as the batched-env FPS numbers reported for ComFree-Sim, MuJoCo Warp, or Tactile Genesis.
+- Code md provenance: `code/md/dexdeform_2023.md` contains Python method signatures only (no kernel bodies), so all MPM parameter names above (dt, dx, E, nu, yield_stress, mu, ground_friction) are confirmed to exist as constructor arguments but their numeric defaults are unverified from the parsed sources.

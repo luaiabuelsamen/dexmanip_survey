@@ -1,0 +1,32 @@
+{
+  "key": "dexart_2023",
+  "year": 2023,
+  "class": "benchmark",
+  "task_family": [
+    "functional/tool"
+  ],
+  "paradigm": [
+    "RL"
+  ],
+  "algorithm": "PPO",
+  "hand": "Allegro Hand",
+  "hand_dof": 16,
+  "bimanual": false,
+  "arm": "XArm6 (6-DoF)",
+  "sim": "SAPIEN",
+  "n_envs": null,
+  "real_robot": false,
+  "real_trials": null,
+  "sim_episodes": null,
+  "success_criterion": "task-specific: Faucet rotated by around 90 degrees; Bucket lifted to a given height; Laptop lid angle changed; Toilet lid opened past a threshold degree (exact numeric thresholds not stated in the paper text)",
+  "headline_metric": "success rate (mean +/- std over 3 seeds), seen/unseen objects",
+  "headline_value": "best pre-training method (Segmentation on DAM), Table 2: Faucet 0.79+/-0.02 / 0.58+/-0.07, Bucket 0.75+/-0.04 / 0.76+/-0.07, Laptop 0.92+/-0.02 / 0.60+/-0.07, Toilet 0.85+/-0.01 / 0.55+/-0.01",
+  "objects_train": 50,
+  "objects_test_unseen": 32,
+  "human_data": "none",
+  "penetration": null,
+  "reward_terms": 4,
+  "code_released": true,
+  "paper_code_mismatch": "Paper describes the reward as an indicator-based reach term, a contact term requiring palm+2 fingers touching, a part-manipulation progress term, and an action-penalty term ('more details in supplementary material', not on disk); the actual code implements a 3-stage state-machine reward with an early-done time bonus, a controller-error penalty, and (for Bucket) explicit forbidden-base-contact and lift-rate terms not described in the paper text.",
+  "note_gaps": "Success-rate numeric thresholds (rotation degrees, lift height, lid angle) are stated qualitatively in the paper but the exact numbers live in un-extracted code (is_done); physics settings (timestep, substeps, friction) are not reported anywhere in either source."
+}

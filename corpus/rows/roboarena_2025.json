@@ -1,0 +1,33 @@
+{
+  "key": "roboarena_2025",
+  "year": 2025,
+  "class": "eval-protocol",
+  "task_family": [
+    "other"
+  ],
+  "paradigm": [
+    "VLA",
+    "flow"
+  ],
+  "algorithm": "pi0-flow-DROID, pi0-FAST-DROID, PG-flow-DROID, PG-FAST-DROID, PG-FAST+-DROID, PG-FSQ-DROID, PG-Bin-DROID",
+  "hand": null,
+  "hand_dof": null,
+  "bimanual": false,
+  "arm": "Franka Panda 7-DoF with Robotiq 2F-85 gripper (DROID platform)",
+  "sim": null,
+  "n_envs": null,
+  "real_robot": true,
+  "real_trials": 612,
+  "sim_episodes": null,
+  "success_criterion": "continuous progress score [0,100] plus a binary pairwise preference label, aggregated via a task-aware Bradley-Terry ranking model",
+  "headline_metric": "Pearson r and MMRV of the crowd-sourced ranking vs an exhaustive oracle ranking",
+  "headline_value": "task-aware Bradley-Terry ranking: Pearson r ~0.98, MMRV ~1-2%; conventional 17-task/44-episode ('Regular') protocol: Pearson r 0.69, MMRV 13% (Fig. 6)",
+  "objects_train": null,
+  "objects_test_unseen": null,
+  "human_data": "none (policies are DROID-trained; RoboArena itself collects no new training data, only evaluation feedback)",
+  "penetration": null,
+  "reward_terms": null,
+  "code_released": false,
+  "paper_code_mismatch": null,
+  "note_gaps": "Figure 6 bar labels for the BT/TASK/PROG methods are flattened/ambiguous in the parse (two bars both read 0.98 Pearson; MMRV assignment between 1.8%/1.1% unclear); the Bradley-Terry model equation itself did not survive PDF conversion."
+}

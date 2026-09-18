@@ -1,0 +1,215 @@
+[fail] okamura_overview_2000: download https://doi.org/10.1109/ROBOT.2000.844067
+[fail] bicchi_hands_2000: download https://doi.org/10.1109/70.897777
+[fail] ma_dollar_dexterity_2011: download https://doi.org/10.1109/ICAR.2011.6088576
+[fail] piazza_century_2019: download https://doi.org/10.1146/annurev-control-060117-105003
+[ok] zhao_sim2real_survey_2020: 8 pages, 49597 chars
+[ok] firoozi_foundation_models_2023: 33 pages, 213828 chars
+[ok] an_dexil_survey_2025: 32 pages, 217190 chars
+[ok] welte_iil_survey_2025: 27 pages, 111330 chars
+[ok] bai_unified_manip_survey_2025: 212 pages, 770391 chars
+[ok] zhao_dexhand_survey_2026: 22 pages, 150079 chars
+[ok] plappert_multigoal_2018: 16 pages, 34734 chars
+[ok] bidexhands_2022: 38 pages, 123311 chars
+[ok] dexart_2023: 11 pages, 53163 chars
+[ok] robohive_2023: 18 pages, 64399 chars
+[ok] humanoidbench_2024: 24 pages, 96703 chars
+[ok] dexverse_2026: 22 pages, 72871 chars
+[ok] bench2dex_2026: 43 pages, 131986 chars
+[ok] isaacgym_2021: 32 pages, 94175 chars
+[ok] isaaclab_2025: 53 pages, 177363 chars
+[ok] maniskill3_2024: 30 pages, 112186 chars
+[ok] rlbench_2019: 8 pages, 43176 chars
+[ok] libero_2023: 44 pages, 89040 chars
+[ok] colosseum_2024: 33 pages, 94515 chars
+[ok] kress_gazit_policy_eval_2024: 20 pages, 61523 chars
+[ok] simpler_2024: 22 pages, 113235 chars
+[ok] autoeval_2025: 21 pages, 90114 chars
+[ok] roboarena_2025: 29 pages, 98035 chars
+[ok] lbm_careful_examination_2025: 39 pages, 154072 chars
+[ok] suresim_2025: 24 pages, 86483 chars
+[ok] beyond_binary_success_2026: 21 pages, 108370 chars
+[ok] ycb_2015: 35 pages, 105983 chars
+[ok] dexycb_2021: 22 pages, 74404 chars
+[fail] ferrari_canny_1992: download https://doi.org/10.1109/ROBOT.1992.219918
+[fail] roa_suarez_grasp_quality_2015: download https://doi.org/10.1007/s10514-014-9402-3
+[ok] grab_2020: 37 pages, 88639 chars
+[ok] bidexhd_2024: 23 pages, 76078 chars
+[ok] twisting_lids_2024: 16 pages, 53038 chars
+[ok] dexmachina_2025: 18 pages, 60655 chars
+[ok] maniptrans_2025: 17 pages, 92970 chars
+[ok] hato_visuotactile_2024: 9 pages, 48391 chars
+[ok] omnih2o_2024: 25 pages, 75777 chars
+[ok] humanplus_2024: 17 pages, 65942 chars
+[ok] bimangrasp_2024: 8 pages, 44655 chars
+[ok] bidexgrasp_2026: 21 pages, 64985 chars
+[ok] artigrasp_2023: 15 pages, 68442 chars
+[ok] arctic_2022: 22 pages, 98431 chars
+[ok] taco_2024: 21 pages, 83124 chars
+[ok] oakink2_2024: 26 pages, 107208 chars
+[ok] hot3d_2024: 14 pages, 68807 chars
+[ok] gigahands_2024: 35 pages, 139039 chars
+[ok] aloha_act_2023: 18 pages, 86636 chars
+[ok] rdt1b_2024: 28 pages, 109779 chars
+[ok] gr_dexter_2025: 17 pages, 47529 chars
+[ok] robopianist_2023: 19 pages, 59769 chars
+[ok] rp1m_2024: 19 pages, 63726 chars
+[ok] pianomime_2024: 19 pages, 55301 chars
+[ok] dexcap_2024: 20 pages, 92630 chars
+[ok] bidex_teleop_2024: 20 pages, 56476 chars
+[ok] open_television_2024: 21 pages, 68044 chars
+[ok] dexmimicgen_2024: 10 pages, 58102 chars
+[ok] humanoidgen_2025: 41 pages, 167305 chars
+[ok] humanoid_sim2real_recipe_2025: 15 pages, 52220 chars
+[ok] dexman_2025: 27 pages, 78604 chars
+[ok] deximit_2026: 17 pages, 73214 chars
+[ok] asymdex_2024: 18 pages, 65713 chars
+[ok] dynamic_handover_2023: 15 pages, 50399 chars
+[ok] dexterous_handover_2025: 8 pages, 42666 chars
+[ok] dydexhandover_2025: 8 pages, 37374 chars
+[ok] leap_hand_2023: 11 pages, 52198 chars
+[skip] leap_hand_v2_adv_2025: no pdf source
+[ok] ruka_2025: 13 pages, 48719 chars
+[ok] ruka_v2_2026: 20 pages, 49253 chars
+[ok] orca_hand_2025: 8 pages, 44805 chars
+[ok] faive_hand_2023: 7 pages, 37561 chars
+[ok] bidexhand_2025: 5 pages, 17892 chars
+[skip] dexhand_open_source_2023: no pdf source
+[ok] pisa_iit_softhand_2014: 14 pages, 59302 chars
+[ok] ilda_hand_2021: 13 pages, 59587 chars
+[skip] dlr_hand_ii_2001: no pdf source
+[ok] digit_2020: 8 pages, 46897 chars
+[ok] digit360_2024: 28 pages, 89943 chars
+[ok] sparsh_2024: 31 pages, 106666 chars
+[ok] xela_uskin_2020: 2 pages, 2931 chars
+[skip] paxini_dexh13_2024: no pdf source
+[skip] allegro_hand_v4_2016: no pdf source
+[ok] shadow_dexterous_hand_2005: 11 pages, 11637 chars
+[skip] shadow_dex_ee_2024: no pdf source
+[skip] inspire_rh56dfx_2023: no pdf source
+[skip] psyonic_ability_hand_2021: no pdf source
+[skip] robotera_xhand1_2024: no pdf source
+[skip] brainco_revo2_2025: no pdf source
+[skip] linkerbot_l20_2025: no pdf source
+[ok] tesla_optimus_hand_2025: 20 pages, 369 chars
+[skip] figure_03_hand_2025: no pdf source
+[skip] onex_neo_hand_2026: no pdf source
+[skip] sanctuary_phoenix_hand_2024: no pdf source
+[skip] boston_dynamics_atlas_hand_2026: no pdf source
+[skip] unitree_dex5_2025: no pdf source
+[skip] sharpa_wave_2026: no pdf source
+[skip] wuji_hand_2025: no pdf source
+[skip] proception_prohand_2026: no pdf source
+[skip] daxo_muscle_v0_2025: no pdf source
+[fail] tesollo_dg5f_2024: download https://en.tesollo.com/wp-content/uploads/2025/02/TESOLLO-DG-5F-catalogue-En-2.pdf
+[skip] xiaomi_cyberone_hand_2026: no pdf source
+[skip] agibot_omnihand_2025: no pdf source
+[skip] clone_robotics_hand_2024: no pdf source
+[ok] diffusion_policy_2023: 19 pages, 98169 chars
+[ok] dp3_2024: 17 pages, 80592 chars
+[ok] umi_2024: 18 pages, 87231 chars
+[ok] dexpilot_2020: 18 pages, 64078 chars
+[ok] anyteleop_2023: 15 pages, 59517 chars
+[ok] holo_dex_2022: 10 pages, 45974 chars
+[ok] dime_2022: 9 pages, 40690 chars
+[ok] bunny_visionpro_2024: 18 pages, 55378 chars
+[ok] ace_teleop_2024: 17 pages, 53659 chars
+[ok] doglove_2025: 13 pages, 55342 chars
+[ok] teledexter_2026: 27 pages, 90261 chars
+[ok] dexteleop0_2026: 15 pages, 46222 chars
+[ok] geometric_retargeting_2025: 8 pages, 33157 chars
+[ok] dexmv_2021: 25 pages, 68814 chars
+[ok] dexvip_2022: 18 pages, 69935 chars
+[ok] videodex_2022: 17 pages, 63583 chars
+[ok] pgdm_2023: 16 pages, 73869 chars
+[ok] cyberdemo_2024: 17 pages, 78824 chars
+[ok] okami_2024: 19 pages, 61122 chars
+[ok] hudor_2024: 10 pages, 48451 chars
+[ok] egomimic_2024: 12 pages, 60116 chars
+[ok] egozero_2025: 19 pages, 50127 chars
+[ok] humanoid_policy_human_policy_2025: 19 pages, 60160 chars
+[ok] h_rdt_2025: 12 pages, 52378 chars
+[ok] dexwild_2025: 15 pages, 69791 chars
+[ok] dexumi_2025: 23 pages, 74873 chars
+[ok] dex1b_2025: 13 pages, 61453 chars
+[ok] dexteritygen_2025: 14 pages, 63526 chars
+[ok] egoscale_2026: 22 pages, 69700 chars
+[ok] unidex_2026: 15 pages, 62311 chars
+[ok] wm_dex_human_videos_2025: 23 pages, 78924 chars
+[ok] cross_embodiment_world_models_2025: 8 pages, 44605 chars
+[ok] pi0_2024: 17 pages, 91375 chars
+[ok] pi05_2025: 19 pages, 102621 chars
+[ok] pistar06_2025: 18 pages, 93657 chars
+[ok] openvla_2024: 37 pages, 140574 chars
+[ok] groot_n1_2025: 36 pages, 121832 chars
+[fail] groot_n16_2025: download https://research.nvidia.com/labs/gear/gr00t-n1_6/
+[fail] helix_2025: download https://www.figure.ai/news/helix
+[ok] gemini_robotics_2025: 64 pages, 171280 chars
+[ok] gemini_robotics_15_2025: 62 pages, 176699 chars
+[ok] being_h0_2025: 37 pages, 143455 chars
+[ok] being_h05_2026: 44 pages, 161029 chars
+[ok] dexvla_2025: 22 pages, 74757 chars
+[ok] dexgraspvla_2025: 18 pages, 85711 chars
+[ok] metis_2025: 17 pages, 76267 chars
+[ok] dexora_2026: 8 pages, 45474 chars
+[ok] h2o_dataset_2021: 19 pages, 75072 chars
+[ok] hoi4d_2022: 17 pages, 69487 chars
+[ok] oakink_2022: 17 pages, 68069 chars
+[ok] egodex_2025: 20 pages, 63657 chars
+[ok] openai_dexterity_2018: 27 pages, 85532 chars
+[ok] openai_rubiks_cube_2019: 51 pages, 172673 chars
+[ok] dextreme_2022: 28 pages, 86059 chars
+[ok] dexpbt_2023: 11 pages, 57466 chars
+[ok] visual_dexterity_2022: 78 pages, 130678 chars
+[ok] hora_2022: 16 pages, 64468 chars
+[ok] rotateit_2023: 16 pages, 58844 chars
+[ok] rotating_without_seeing_2023: 15 pages, 64372 chars
+[ok] robot_synesthesia_2023: 8 pages, 43857 chars
+[ok] anyrotate_2024: 21 pages, 72708 chars
+[ok] penspin_2024: 15 pages, 53160 chars
+[ok] dexremoe_2025: 11 pages, 55407 chars
+[ok] dexndm_2025: 47 pages, 171931 chars
+[ok] viserdex_2026: 15 pages, 88385 chars
+[ok] poise_2026: 8 pages, 41991 chars
+[ok] dexpoint_2022: 13 pages, 48656 chars
+[ok] unidexgrasp_2023: 19 pages, 86431 chars
+[ok] unidexgrasp_pp_2023: 17 pages, 76232 chars
+[ok] resdex_2024: 15 pages, 52614 chars
+[ok] dexterous_functional_grasping_2023: 15 pages, 49216 chars
+[ok] graspxl_2024: 23 pages, 61267 chars
+[ok] clutterdexgrasp_2025: 21 pages, 62540 chars
+[ok] force_grasp_sim2real_2026: 23 pages, 79149 chars
+[ok] articulated_tools_inhand_2025: 8 pages, 45598 chars
+[ok] simtoolreal_2026: 23 pages, 101992 chars
+[ok] physhoi_2023: 20 pages, 82948 chars
+[ok] omnigrasp_2024: 18 pages, 80813 chars
+[ok] objdex_2024: 20 pages, 61148 chars
+[ok] dexplore_2025: 16 pages, 55213 chars
+[ok] toporetarget_2026: 16 pages, 44195 chars
+[ok] dapg_2017: 9 pages, 51442 chars
+[ok] demostart_2024: 15 pages, 78465 chars
+[ok] human2sim2robot_2025: 24 pages, 91132 chars
+[ok] eureka_2023: 45 pages, 147762 chars
+[ok] dreureka_2024: 28 pages, 115003 chars
+[ok] pddm_2019: 12 pages, 46820 chars
+[ok] mjpc_2022: 14 pages, 47966 chars
+[ok] pang_global_planning_2022: 20 pages, 112373 chars
+[ok] mujoco_playground_2025: 42 pages, 111275 chars
+[skip] mujoco_warp_2025: no pdf source
+[skip] newton_2025: no pdf source
+[ok] sapien_2020: 16 pages, 67663 chars
+[ok] maniskill2_2023: 30 pages, 107415 chars
+[skip] genesis_2024: no pdf source
+[skip] pybullet_2016: no pdf source
+[ok] brax_2021: 21 pages, 48495 chars
+[fail] raisim_2018: download https://www.research-collection.ethz.ch/bitstream/20.500.11850/335381/1/contact-iteration-method%284%29.pdf
+[ok] castro_sap_contact_2021: 20 pages, 101480 chars
+[ok] dojo_2022: 18 pages, 87880 chars
+[ok] dexdeform_2023: 22 pages, 73022 chars
+[ok] contact_models_comparison_2023: 17 pages, 101515 chars
+[ok] nine_physics_engines_review_2024: 11 pages, 64756 chars
+[ok] comfree_sim_2026: 9 pages, 49539 chars
+[ok] tacto_2020: 8 pages, 47484 chars
+[ok] taxim_2021: 8 pages, 40346 chars
+[ok] tactile_genesis_2026: 24 pages, 73470 chars
+[ok] dm_control_2020: 34 pages, 83450 chars
+FETCH_PAPERS_DONE

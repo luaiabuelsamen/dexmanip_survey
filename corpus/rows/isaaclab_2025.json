@@ -1,0 +1,35 @@
+{
+ "key": "isaaclab_2025",
+ "year": 2025,
+ "class": "simulator",
+ "task_family": [
+  "grasp",
+  "reorient"
+ ],
+ "paradigm": [
+  "RL",
+  "distillation",
+  "BC"
+ ],
+ "algorithm": null,
+ "hand": "KUKA Allegro hand (dexterous suite); Shadow/Ability hands appear only via third-party GraspQP",
+ "hand_dof": null,
+ "bimanual": false,
+ "arm": "KUKA arm (paired with Allegro hand)",
+ "sim": "Isaac Lab (PhysX 5, GPU-resident; Newton/MJWarp backend option)",
+ "n_envs": 16384,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "training throughput (frames per second)",
+ "headline_value": "DextrAH teacher task: over 900,000 FPS with 8 GPUs and 16384 environments; Franka cabinet drawer: over 1.6 million FPS at the same setting",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none (framework paper); IL tooling supports RoboMimic HDF5 demonstrations",
+ "penetration": null,
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "No physics timestep, decimation, or solver-iteration values are stated anywhere in the paper; dexterous reward/success-threshold bodies are absent from the parsed code (no Allegro/Shadow/dexsuite env config present). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

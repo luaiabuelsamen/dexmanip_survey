@@ -1,0 +1,32 @@
+{
+ "key": "rotating_without_seeing_2023",
+ "year": 2023,
+ "class": "method",
+ "task_family": [
+  "reorient"
+ ],
+ "paradigm": [
+  "RL"
+ ],
+ "algorithm": "PPO",
+ "hand": "Allegro Hand",
+ "hand_dof": 16,
+ "bimanual": false,
+ "arm": "XArm robot arm",
+ "sim": "IsaacGym",
+ "n_envs": 8192,
+ "real_robot": true,
+ "real_trials": 30,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "Cumulative Rotation Angle (CRA) / Time-to-Fall (TTF)",
+ "headline_value": "Seen Object C1: CRA 4.91\u00b10.52 rounds, TTF 30.00\u00b10.00 s vs best baseline CT-Sensor 2.50\u00b13.25 / 20.00\u00b18.66 (Table I)",
+ "objects_train": null,
+ "objects_test_unseen": 5,
+ "human_data": "none",
+ "penetration": "not addressed",
+ "reward_terms": 6,
+ "code_released": null,
+ "paper_code_mismatch": null,
+ "note_gaps": "No code source exists for this key. The r_fall and r_torque appendix formulas are unextracted images in the source, real-world sensor threshold default value is not stated, and sim palm orientation / arm-mounting are not stated."
+}

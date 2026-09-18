@@ -1,0 +1,35 @@
+{
+  "key": "humanoidbench_2024",
+  "year": 2024,
+  "class": "benchmark",
+  "task_family": [
+    "locomanipulation",
+    "functional/tool",
+    "reorient",
+    "bimanual-coord"
+  ],
+  "paradigm": [
+    "RL"
+  ],
+  "algorithm": "DreamerV3, TD-MPC2, SAC, PPO; hierarchical variant uses a frozen low-level reaching policy",
+  "hand": "Shadow Hand (forearms removed), x2",
+  "hand_dof": 25,
+  "bimanual": true,
+  "arm": "Unitree H1 (humanoid)",
+  "sim": "MuJoCo",
+  "n_envs": null,
+  "real_robot": false,
+  "real_trials": null,
+  "sim_episodes": null,
+  "success_criterion": "task-specific 'Target' return thresholds (Table V/VI); push and package have explicit success flags (goal_dist<0.05 / dist<0.1 in code); most tasks scored by return vs Target rather than binary success",
+  "headline_metric": "average episode return @10M steps (TD-MPC2 @2M) vs per-task Target",
+  "headline_value": "no manipulation task's average return exceeds its Target (Table V); e.g. push -1251.9+/-659.8 (DreamerV3) vs Target 700; cube 111.2+/-59.9 (DreamerV3) vs Target 370",
+  "objects_train": null,
+  "objects_test_unseen": null,
+  "human_data": "none",
+  "penetration": null,
+  "reward_terms": null,
+  "code_released": true,
+  "paper_code_mismatch": "Paper's push reward defaults (alpha_s=1000 target-distance weight) differ from the shipped DreamerV3 config (target_dist weight 0.1, success bonus 10); Robotiq gripper named '2F-85' in the main text and '2F-45' in Appendix A; Shadow Hand DoF given as 25 here (with wrist) vs 24 in the vendor spec / plappert_multigoal_2018.",
+  "note_gaps": "Numeric bar/curve values for Figs. 7 and 9 (hand-ablation and hierarchical-policy results) are not recoverable from the parse; the cube task's code reward returns no success flag, so no in-hand success rate exists in this source."
+}

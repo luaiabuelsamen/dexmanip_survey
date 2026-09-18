@@ -1,0 +1,33 @@
+{
+ "key": "h2o_dataset_2021",
+ "year": 2021,
+ "class": "dataset",
+ "task_family": [
+  "track-human-ref",
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "data-collection"
+ ],
+ "algorithm": "Baseline joint two-hand+object pose estimation: YOLOv2-backbone fully convolutional network extended from Tekin et al. predicting 3D grids of per-cell pose vectors for left hand, right hand, and object simultaneously; baseline action recognition: TA-GCN (graph-based, with interconnection/attention terms)",
+ "hand": "MANO (two-hand parametric mesh model, both left and right hands fit per frame, 21-joint skeleton mapped to OpenPose convention)",
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": null,
+ "sim": null,
+ "n_envs": null,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "Interaction (verb-noun) action recognition accuracy (%), TA-GCN baseline",
+ "headline_value": "86.78% val / 79.25% test accuracy (Table 4-right), best among compared methods (C2D, I3D, SlowFast, H+O, ST-GCN)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "571,645 egocentric RGB-D frames, 4 subjects, 8 objects, 3 environments (hall/office/kitchen), captured with 5 synchronized Azure Kinect DK cameras (4 static + 1 head-mounted); MANO two-hand pose + 6D object pose + camera pose + verb-noun action labels (36 classes) annotated per frame",
+ "penetration": "penalised",
+ "reward_terms": null,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": "No sequence count given anywhere in the parsed text (only frame counts); no explicit licence statement found; not a robot dataset so arm/sim/hand_dof/real_robot fields are not applicable to a physical embodiment."
+}

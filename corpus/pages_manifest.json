@@ -1,0 +1,279 @@
+{
+ "okamura_overview_2000": {
+  "urls": [
+   "https://doi.org/10.1109/ROBOT.2000.844067"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 132
+ },
+ "bicchi_hands_2000": {
+  "urls": [
+   "https://doi.org/10.1109/70.897777"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 171
+ },
+ "ma_dollar_dexterity_2011": {
+  "urls": [
+   "https://doi.org/10.1109/ICAR.2011.6088576"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 137
+ },
+ "piazza_century_2019": {
+  "urls": [
+   "https://doi.org/10.1146/annurev-control-060117-105003"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 131
+ },
+ "ferrari_canny_1992": {
+  "urls": [
+   "https://doi.org/10.1109/ROBOT.1992.219918"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 115
+ },
+ "roa_suarez_grasp_quality_2015": {
+  "urls": [
+   "https://doi.org/10.1007/s10514-014-9402-3"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 430
+ },
+ "leap_hand_v2_adv_2025": {
+  "urls": [
+   "https://v2-adv.leaphand.com/"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 3520
+ },
+ "dexhand_open_source_2023": {
+  "urls": [
+   "https://www.dexhand.org/"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 6444
+ },
+ "pisa_iit_softhand_2014": {
+  "urls": [
+   "https://www.centropiaggio.unipi.it/sites/default/files/PisaIIT_SoftHand_0.pdf"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 57126
+ },
+ "ilda_hand_2021": {
+  "urls": [
+   "https://www.nature.com/articles/s41467-021-27261-0.pdf"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 58671
+ },
+ "xela_uskin_2020": {
+  "urls": [
+   "https://www.hannovermesse.de/apollo/hannover_messe_2022/obs/Binary/A1167836/XELA%20Robotics%20-%20uSkin%20Curved%20(A4).pdf",
+   "https://xelarobotics.com/products/uscu-alha/"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 18206
+ },
+ "paxini_dexh13_2024": {
+  "urls": [
+   "https://humanoid.guide/product/dexh13/,",
+   "https://www.prnewswire.com/news-releases/paxini-unveils-the-tactile-infrastructure-for-embodied-ai-redefining-full-stack-product-matrix-at-ces-2026-302655238.html"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 50200
+ },
+ "allegro_hand_v4_2016": {
+  "urls": [
+   "https://www.allegrohand.com/v4",
+   "http://wiki.wonikrobotics.com/AllegroHandWiki/index.php/Allegro_Hand_v4.0."
+  ],
+  "fetched": "2026-09-17",
+  "chars": 524
+ },
+ "shadow_dexterous_hand_2005": {
+  "urls": [
+   "https://shadowrobot.com/wp-content/uploads/2024/12/shadow_dexterous_hand_e_technical_specification_20241204.pdf",
+   "https://shadowrobot.com/dexterous-hand-series/"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 20211
+ },
+ "shadow_dex_ee_2024": {
+  "urls": [
+   "https://shadowrobot.com/dex-ee_series/"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 9747
+ },
+ "inspire_rh56dfx_2023": {
+  "urls": [
+   "https://en.inspire-robots.com/product/rh56dfx/"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 17758
+ },
+ "psyonic_ability_hand_2021": {
+  "urls": [
+   "https://www.psyonic.io/robots"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 4830
+ },
+ "robotera_xhand1_2024": {
+  "urls": [
+   "https://humanoid.guide/product/xhand1/"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 12310
+ },
+ "brainco_revo2_2025": {
+  "urls": [
+   "https://www.brainco-hz.com/docs/revolimb-hand/en/revo2/parameters.html"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 7978
+ },
+ "linkerbot_l20_2025": {
+  "urls": [
+   "https://openelab.io/products/linker-hand-linkerbot-l20-21,",
+   "https://www.roboticscenter.ai/hardware/linker-bot-o6"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 14731
+ },
+ "tesla_optimus_hand_2025": {
+  "urls": [
+   "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/9505134",
+   "https://www.notateslaapp.com/news/1821/tesla-unveils-optimus-robot-gen-2-tesla-designed-fingertip-sensors-actuators-and-ten-other-improvements-video",
+   "https://www.teslarati.com/tesla-optimus-v3-hand-arm-details-revealed-new-patents/,",
+   "https://en.wikipedia.org/wiki/Optimus_(robot"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 39363
+ },
+ "figure_03_hand_2025": {
+  "urls": [
+   "https://www.figure.ai/news/introducing-figure-03;",
+   "https://humanoid.guide/product/figure-03/"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 18145
+ },
+ "onex_neo_hand_2026": {
+  "urls": [
+   "https://www.1x.tech/discover/neos-hands"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 13683
+ },
+ "sanctuary_phoenix_hand_2024": {
+  "urls": [
+   "https://sanctuary.ai/news/sanctuary-ai-demonstrates-in-hand-manipulation-capabilities-for-improved-general-purpose-robot-dexterity/,",
+   "https://www.automationmag.com/sanctuary-ais-hydraulic-actuation-brings-human-level-dexterity-to-general-purpose-robots/"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 24581
+ },
+ "boston_dynamics_atlas_hand_2026": {
+  "urls": [
+   "https://bostondynamics.com/blog/boston-dynamics-unveils-new-atlas-robot-to-revolutionize-industry/,",
+   "https://www.humanoidsdaily.com/news/the-alien-in-the-factory-boston-dynamics-launches-production-ready-atlas-at-ces-2026"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 35126
+ },
+ "unitree_dex5_2025": {
+  "urls": [
+   "https://www.unitree.com/Dex5-1"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 9527
+ },
+ "sharpa_wave_2026": {
+  "urls": [
+   "https://www.sharpa.com/pages/wave"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 8500
+ },
+ "wuji_hand_2025": {
+  "urls": [
+   "https://docs.wuji.tech/docs/en/wuji-hand/latest/overview/,",
+   "https://www.wuji.tech/en/hand2"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 4206
+ },
+ "proception_prohand_2026": {
+  "urls": [
+   "https://www.ycombinator.com/launches/R78-proception-the-dexterous-robot-hand-we-wish-existed,",
+   "https://techcrunch.com/2026/06/29/robot-hand-company-settles-tesla-trade-secret-suit-and-announces-11m-raise/"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 24736
+ },
+ "daxo_muscle_v0_2025": {
+  "urls": [
+   "https://www.daxo-robotics.com/,",
+   "https://humanoid.guide/welcome-muscle-v0/"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 12203
+ },
+ "tesollo_dg5f_2024": {
+  "urls": [
+   "https://en.tesollo.com/wp-content/uploads/2025/02/TESOLLO-DG-5F-catalogue-En-2.pdf",
+   "https://www.tesollo.com/products/grippers/dg-5f-m"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 8199
+ },
+ "xiaomi_cyberone_hand_2026": {
+  "urls": [
+   "https://eu.36kr.com/en/p/3947315943472512,",
+   "https://interestingengineering.com/ai-robotics/xiaomi-cyberone-humanoid-robotic-hand"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 17190
+ },
+ "agibot_omnihand_2025": {
+  "urls": [
+   "https://store.agibot.com/products/omnihand-2025,",
+   "https://store.agibot.com/products/omnihand-pro-2025"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 206
+ },
+ "clone_robotics_hand_2024": {
+  "urls": [
+   "https://www.theresarobotforthat.com/clones-robot-hand-has-artificial-muscles/,",
+   "https://interestingengineering.com/ai-robotics/clone-demos-creepy-humanoid-hand"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 26998
+ },
+ "groot_n16_2025": {
+  "urls": [
+   "https://research.nvidia.com/labs/gear/gr00t-n1_6/"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 6666
+ },
+ "helix_2025": {
+  "urls": [
+   "https://www.figure.ai/news/helix"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 16740
+ },
+ "raisim_2018": {
+  "urls": [
+   "https://www.research-collection.ethz.ch/bitstream/20.500.11850/335381/1/contact-iteration-method%284%29.pdf"
+  ],
+  "fetched": "2026-09-17",
+  "chars": 200
+ }
+}

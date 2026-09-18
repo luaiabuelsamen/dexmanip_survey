@@ -1,0 +1,34 @@
+{
+ "key": "bimangrasp_2024",
+ "year": 2024,
+ "class": "method",
+ "task_family": [
+  "grasp",
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "grasp-synthesis",
+  "diffusion"
+ ],
+ "algorithm": "MALA (Metropolis-adjusted Langevin) energy optimisation + DDPM (BimanGrasp-DDPM)",
+ "hand": "Shadow Hand, pair",
+ "hand_dof": 22,
+ "bimanual": true,
+ "arm": null,
+ "sim": "Isaac Gym",
+ "n_envs": null,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": "object held for 2.0s (120 steps @60Hz) over 6 randomised-gravity trials, no penetration >1.5mm total",
+ "headline_metric": "grasp success rate (%) at density rho=2500 kg/m^3",
+ "headline_value": "Both hands 54.03% success (Table II, rho=2500, friction=3); BimanGrasp-DDPM 54.06% on unseen objects at the same density (69.87% at rho=500)",
+ "objects_train": 900,
+ "objects_test_unseen": 225,
+ "human_data": "none",
+ "penetration": "penalised",
+ "reward_terms": 7,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": "the weights of the Table I energy-term sum are never stated; the paper's threshold symbol delta and the text's epsilon are not reconciled"
+}

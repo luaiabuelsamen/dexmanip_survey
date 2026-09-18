@@ -1,0 +1,34 @@
+{
+ "key": "ruka_2025",
+ "year": 2025,
+ "class": "hand",
+ "task_family": [
+  "grasp",
+  "reorient"
+ ],
+ "paradigm": [
+  "RL+demo",
+  "teleop-system"
+ ],
+ "algorithm": "HuDOR (imitation from in-scene human video + residual policy fine-tuning)",
+ "hand": "RUKA",
+ "hand_dof": 11,
+ "bimanual": false,
+ "arm": null,
+ "sim": null,
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": "Kapandji test (classical clinical thumb-opposition protocol, not redefined in text)",
+ "headline_metric": "Kapandji thumb-opposition score vs. Allegro and LEAP",
+ "headline_value": "10/10 (RUKA) vs. 9/10 each for Allegro and LEAP",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "MANUS Haptic Glove mocap data (autonomous controller-training data collection); HuDOR uses in-scene human video demonstrations",
+ "penetration": null,
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "Weight of the assembled hand is not stated anywhere; licence type is unresolved (a LICENSE file exists in the repo but its content was not captured in code/md, so the note declines to state a licence type). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

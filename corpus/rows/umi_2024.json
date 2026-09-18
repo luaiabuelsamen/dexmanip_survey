@@ -1,0 +1,37 @@
+{
+ "key": "umi_2024",
+ "year": 2024,
+ "class": "method",
+ "task_family": [
+  "functional/tool",
+  "bimanual-coord",
+  "other"
+ ],
+ "paradigm": [
+  "BC",
+  "diffusion",
+  "data-collection",
+  "teleop-system"
+ ],
+ "algorithm": "Diffusion Policy (unmodified loss/decoder); contribution is the hand-held data-collection hardware and the observation/action interface (relative-trajectory representation, inference-time latency matching)",
+ "hand": null,
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": "UR5 and Franka FR2 (cross-embodiment / cross-robot transfer of the same checkpoint)",
+ "sim": null,
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": "per-task written rubric, manually judged binary success (App. C.3), e.g. 'cup is placed upright on the saucer with its handle within +/-15 deg to the left of the robot'; episode terminated on Safety Concern, Robot Fault, Timeout, or Task Success",
+ "headline_metric": "task success rate (task-specific, manually judged)",
+ "headline_value": "Cup Arrangement 20/20 (cross-robot Franka transfer 18/20=90%); Dynamic Tossing 105/120=87.5%; Bimanual Cloth Folding 14/20=70%; Dish Washing 14/20=70%; in-the-wild Cup Arrangement 43/60=71.7% (28/40 training cups, 15/20 testing cups)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "self-collected hand-held demonstrations via the UMI gripper: Cup Arrangement 305, Dynamic Tossing 280, Bimanual Cloth Folding 250, Dish Washing 258; plus an in-the-wild scale-up of 1400 demonstrations across 30 physical locations with 15 espresso cups",
+ "penetration": null,
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "A few equations in Appendix A (latency-measurement formulas) are unrecovered images but are not load-bearing for the method; otherwise no material parse gaps. No hand or retargeting formulation in this paper (parallel-jaw gripper only). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

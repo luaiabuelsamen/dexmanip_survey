@@ -1,0 +1,33 @@
+{
+ "key": "hato_visuotactile_2024",
+ "year": 2024,
+ "class": "method",
+ "task_family": [
+  "handover",
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "diffusion"
+ ],
+ "algorithm": "Diffusion Policy (DDPM, CNN-based)",
+ "hand": "Psyonic Ability Hand, two",
+ "hand_dof": 6,
+ "bimanual": true,
+ "arm": "UR5e (x2)",
+ "sim": null,
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": 10,
+ "sim_episodes": null,
+ "success_criterion": "task-specific, e.g. Handover: receiving hand holds object and moves >10cm from the first hand",
+ "headline_metric": "task success rate (10 trials per task)",
+ "headline_value": "Handover 10/10, Stacking 10/10, Pouring 9/10, Serving 5/10 (Table I)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none",
+ "penetration": "not addressed",
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "training loss body not captured in code md (signatures only); Table IV and Table I/III give conflicting Steak Serving numbers (10/10 vs 5/10) not resolved in the parse"
+}

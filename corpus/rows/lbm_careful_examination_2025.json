@@ -1,0 +1,33 @@
+{
+  "key": "lbm_careful_examination_2025",
+  "year": 2025,
+  "class": "eval-protocol",
+  "task_family": [
+    "bimanual-coord",
+    "functional/tool"
+  ],
+  "paradigm": [
+    "diffusion"
+  ],
+  "algorithm": "Diffusion Transformer (DDIM), 8 blocks, adaLN conditioning; CLIP ViT-B/16 image encoder + frozen CLIP text encoder",
+  "hand": null,
+  "hand_dof": null,
+  "bimanual": true,
+  "arm": "2x Franka FR3",
+  "sim": "Drake ('lbm eval')",
+  "n_envs": null,
+  "real_robot": true,
+  "real_trials": 50,
+  "sim_episodes": 200,
+  "success_criterion": "binary success rate (SR) plus rubric-based Task Completion (TC): milestone credits summed and divided by milestone count",
+  "headline_metric": "success rate (SR) and task completion (TC), with Beta-posterior violin plots and Bonferroni-corrected Compact Letter Display pairwise comparisons",
+  "headline_value": "finetuned LBM statistically same-or-better than the single-task baseline on 3/3 seen real tasks and 15/16 seen sim tasks; needs less than 30% of the data to match single-task performance in sim (Sec. III-A)",
+  "objects_train": null,
+  "objects_test_unseen": null,
+  "human_data": "TRI-Ramen (545h, 532 tasks, 64,262 demos) + OXE-Ramen (~1150h subset of Open-X)",
+  "penetration": null,
+  "reward_terms": null,
+  "code_released": null,
+  "paper_code_mismatch": "A data-normalization bug was discovered after the real-world evaluations were run (some datagrams normalized with another source's parameters); the real-world experiments were not re-run to correct for it, only a simulation re-check was performed.",
+  "note_gaps": null
+}

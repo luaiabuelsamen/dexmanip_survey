@@ -1,0 +1,34 @@
+{
+ "key": "artigrasp_2023",
+ "year": 2023,
+ "class": "method",
+ "task_family": [
+  "grasp",
+  "functional/tool",
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "RL"
+ ],
+ "algorithm": "PPO (D-Grasp-based implementation)",
+ "hand": "MANO hand model, two",
+ "hand_dof": 51,
+ "bimanual": true,
+ "arm": null,
+ "sim": "RaiSim",
+ "n_envs": 21,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": 7500,
+ "success_criterion": "Task success: PE<0.05m, AE<0.2rad, AAE<0.5rad",
+ "headline_metric": "Task Success Rate (Suc. T)",
+ "headline_value": "Ours 0.50 vs D-Grasp 0.11 (composed task, Table 3)",
+ "objects_train": 8,
+ "objects_test_unseen": 1,
+ "human_data": "ARCTIC",
+ "penetration": "not addressed",
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": "paper's two regulariser weights (w_rh=0.5, w_ro=0.2) correspond to five separate velocity penalties in code (-0.5,-0.2,-0.5,-0.5,-0.3); the fingertip weight 12.0 and lambda 5.0 in Table 6 do not appear in the yaml; reward weights differ between curriculum phase-1 and phase-2 configs though Table 6 reports only one set",
+ "note_gaps": "reward equations (Sec 4.3) were dropped by the PDF converter, leaving only prose descriptions and yaml coefficients; the reward body is C++ and not captured in the code md"
+}

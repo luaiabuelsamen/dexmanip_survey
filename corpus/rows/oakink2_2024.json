@@ -1,0 +1,31 @@
+{
+ "key": "oakink2_2024",
+ "year": 2024,
+ "class": "dataset",
+ "task_family": [
+  "bimanual-coord",
+  "track-human-ref"
+ ],
+ "paradigm": null,
+ "algorithm": null,
+ "hand": null,
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": null,
+ "sim": null,
+ "n_envs": null,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "Penetration Depth (cm) on lifted grasps",
+ "headline_value": "OAKINK2-Grasp Penet. Depth 0.25cm vs OakInk-Core 0.18cm vs OakInk-Shape 0.11cm (App. Table 6)",
+ "objects_train": 75,
+ "objects_test_unseen": null,
+ "human_data": null,
+ "penetration": "measured",
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "fitting energy weights lambda_i are never given; complex-task-completion success rate is deferred to unextracted supplementary material; no licence statement was found in either source"
+}

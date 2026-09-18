@@ -1,0 +1,34 @@
+{
+ "key": "robopianist_2023",
+ "year": 2023,
+ "class": "benchmark",
+ "task_family": [
+  "music",
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "RL",
+  "BC"
+ ],
+ "algorithm": "DroQ (regularised SAC)",
+ "hand": "Shadow Dexterous Hand (E3M5), two",
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": null,
+ "sim": "MuJoCo",
+ "n_envs": null,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "F1 score (precision/recall of correct key presses) on ROBOPIANIST-ETUDE-12",
+ "headline_value": "mean F1 0.79 (DroQ) vs 0.43 (MPC/Predictive Sampling) (Sec 5.1)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "PIG dataset (fingering labels) + REPERTOIRE-150 MIDI corpus",
+ "penetration": "not addressed",
+ "reward_terms": 3,
+ "code_released": true,
+ "paper_code_mismatch": "the code's CompositeReward sums 5 terms by default (key_press, sustain, energy, fingering, forearm) vs the paper's Table 2 documenting only 3 (Key Press, Energy Penalty, Finger Close to Key); sustain_reward and forearm_reward exist in code but are undocumented in the paper",
+ "note_gaps": "exact Shadow Hand per-hand DoF count is never stated (only the combined 45-dim action space); domain-randomisation ranges (augmentations/randomize_hand_positions) are not detailed; CompositeReward.compute's internal weighting logic is not captured in code md, only its signature"
+}

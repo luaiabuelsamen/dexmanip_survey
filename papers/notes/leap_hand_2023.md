@@ -1,0 +1,52 @@
+# leap_hand_2023 — LEAP Hand: Low-Cost, Efficient, and Anthropomorphic Hand for Robot Learning (Shaw, Agarwal, Pathak; RSS 2023)
+
+sources: papers/md/leap_hand_2023.md [ac08a57e] ; code/md/leap_hand_2023.md [b0d00c88, github.com/leap-hand/LEAP_Hand_API]
+
+## One-line contribution
+A direct-drive 16-DoF anthropomorphic hand with a novel "universal abduction-adduction" MCP mechanism that keeps all DoF at any finger pose, assembled in under 4 hours for 2000 USD (1/8 the cost of Allegro, 1/50 of ShadowHand), released with URDF, CAD and an Isaac Gym/PyBullet sim.
+
+## Hand record
+- maker / lab: Kenneth Shaw, Ananye Agarwal, Deepak Pathak, Carnegie Mellon University (title page).
+- DoF / actuated DoF: 16 total, all 16 actuated ("16 values" of joint angles fed to the sim2real policy, Sec. VI-D). Kinematic structure: 4 fingers × 4 DoF each, following the human MCP(2)+PIP(1)+DIP(1) layout (Sec. III), with a "universal abduction-adduction mechanism" at the MCP so abduction/adduction range is retained "regardless of finger pose" (Abstract, Sec. III-A) — unlike Allegro and the "LEAP-C" variant, which each lose one DoF's range at one extreme of flexion (Fig. 4).
+- actuation type: direct-drive. Motors: Dynamixel (code README motor manual link is to "xc330-m288"); joint velocity "around 8 rad/sec" (Sec. IV-B). Torque-/current-limiting supported for safety (Sec. IV-B, V).
+- cost of BOM (quote verbatim): "LEAP Hand is low-cost and can be assembled in 4 hours at a cost of 2000 USD from readily available parts" (Abstract); "1/8th the cost of the Allegro Hand and 1/50th to that of ShadowHand" (Sec. I). Repair/fabrication tooling: "a commodity 3D printer that costs around 200 USD" (Sec. IV-A); "A $200 Ender 3 3D printer [66] was used with PLA plastic over a 2 day period" (Sec. V, for the printed parts specifically, not the whole 4-hour assembly). Off-the-shelf reinforced plastic finger brackets from Robotis are "inexpensive ($10)" each (Sec. IV-B).
+- build time: "assembled in under 4 hours" (Abstract, Sec. IV-A); Sec. V: "The assembly process for LEAP Hand takes around 4 hours" (this is after the 3D-printed parts, which take the separate 2-day print job above, are on hand).
+- weight: "The 4-finger LEAP Hand weighs 595g" (Sec. V).
+- fingertip / grip force: Table III (Pullout Test, force in N to induce 15° joint error or slip): LEAP Hand 19.5 N, LEAP-C Hand 21.5 N, vs. Allegro 8.5 N, D'Manus 27.8 N, Inmoov 5.8 N, adult human hand 26.5 N. Power density (N·DOF/cm²): LEAP 1.045, LEAP-C 1.15, human 2.199. Endurance test: held a 2 kg weight on one fingertip for an hour, top-motor current reaching 250 mA of a 600 mA max (Sec. IV-B-1, Fig. 8).
+- tactile sensing: none built in. Conclusion states future work: "we plan to develop and integrate LEAP Hand with low-cost touch sensors" (Sec. VII) — confirms no tactile sensing as of this paper.
+- control interface and rate: code README — official APIs are Python, C++, ROS, ROS2, over Dynamixel SDK via USB (Micro-USB) at up to 500 Hz for querying "Position only" or "Position + velocity + current" ("Higher rates can slow USB communication"). Control modes: PID position (default), current, current-based position, velocity (README "Functionality"; paper Sec. V "Software" lists the same four modes). In the sim2real task the trained policy outputs target joint angles "at 20 Hz" (Sec. VI-D) — a policy-loop rate, not the hand's native query/control ceiling.
+- licence: code README, "License: Code: MIT License; CAD: CC BY-NC-SA (non-commercial use with attribution)". Paper Sec. VII: "We open source the URDF model, 3D CAD files, and a development platform with useful APIs."
+- what the paper demonstrates: (1) grasping-strength/perturbation-resistance test across power/intermediate/precision grasps vs. Allegro, D'Manus, Inmoov, LEAP-C (Table V); (2) teleoperated task suite of 10 everyday tasks vs. Allegro using a Manus Meta VR glove, LEAP Hand wins 9/10 on success rate and 8/10 on completion time (Table IV); (3) teleoperation from uncalibrated/internet human video via Robotic Telekinesis retargeting (Sec. VI-B); (4) behavior cloning from Epic-Kitchens video pretraining + ~100 teleop demos via VideoDex, LEAP beats Allegro on 12/14 train/test task pairs (Table VI); (5) sim2real blind in-hand cube rotation trained with PPO+BPTT in Isaac Gym, reward `r_rot = clip(ω_z, -0.25, 0.25)` plus penalties (weights -0.1, -1, -0.1, -0.3) for grasp-pose deviation, mechanical work, motor torque and object linear velocity, rotation-reward scale 1.25 (Sec. VI-D); LEAP Hand reaches 0.2288 rad/s average cube angular velocity in sim vs. Allegro's 0.0828 rad/s (Table VII, "LEAP Hand leads to faster rotations" because it can support the cube from the sides without releasing it to reorient, unlike Allegro).
+
+## Setting
+- hand(s): LEAP Hand (16 DoF); comparisons run against Allegro Hand, LEAP-C Hand (a variant), D'Manus, Inmoov.
+- simulator / physics: Isaac Gym (Sec. VI-D, "IsaacGym [71]"); a PyBullet "detailed 3D assembly" model is also built for hobbyist replication (Sec. V, "Simulation"). PPO trained with BPTT (Sec. VI-D). No env count, timestep or GPU stated in the parsed text.
+- observation: for the sim2real task, "joint angles (16 values) from the motors" only — object pose is inferred from joint-angle history, not observed directly (Sec. VI-D).
+- action space: target joint angles (16), position commands, policy outputs at 20 Hz (Sec. VI-D).
+- objects / data: a cube for sim2real rotation (Sec. VI-D); everyday objects (mustard bottle, golf ball, softball, drill, Pringles can, pan, chopsticks, wood cylinder, 1" cube, M&M, wine glass, credit card — Table V) and household task objects (dice/dino toy, box, scissors, cups, drawer — Table IV) for the real-world tests; Epic-Kitchens video for VideoDex pretraining (Sec. VI-C).
+
+## Method
+- paradigm: hardware + kinematics design paper, with RL (sim2real) and IL (teleop/BC) demonstrations of the hardware, not a new learning algorithm.
+- reward or loss (sim2real cube rotation, Sec. VI-D, quoted): "The policy is then rewarded for turning the cube _r_rot = clip(ω_z, −0.25, 0.25) ... We add additional penalties for deviation from the stable grasp pose, mechanical work done, motor torques, and object linear velocity. The scale for the rotation reward is 1.25. The scales for the penalties are -0.1, -1, -0.1, -0.3 respectively." Algorithm: "We train PPO [74] with BPPT [75] in IsaacGym [71]."
+- key trick(s): universal abduction-adduction MCP mechanism retaining DoF range at all flexion angles (Sec. III-A); off-the-shelf Robotis reinforced plastic finger brackets instead of custom machined parts, to cut cost while keeping strength (Sec. IV-B); modular finger/palm design for repairability (Sec. IV-A).
+
+## Evaluation
+- metrics (exact definitions): opposability volume in mm³, from 25,000 randomly sampled joint configurations, recording thumb-finger contact points and the volume they sweep (Table II, caption). Power density = "total amount of motor force per square area of the hand," N·DOF/cm² (Table III caption). Pull-out force test: "the amount of momentary outward force that can be resisted by a flexed finger... before failure," failure = motor/gear slip or >15° deviation (Sec. IV-B-3). Repeatability test: joint-angle tracking error over 1 hour of 5 Hz cyclic grasping (Sec. IV-B-2). Teleoperated task success rate and completion time (Table IV), averaged/std over a trained operator's runs (parenthetical values are presumably std dev, not labeled explicitly in the parsed text).
+- headline numbers: Table II opposability volume — LEAP Hand index finger 1,125,556 mm³ vs. Allegro 409,135 mm³. Table III pull-out force — LEAP 19.5 N vs. Allegro 8.5 N. Table IV teleop — LEAP outperforms/matches Allegro on 9/10 tasks by success rate, 8/10 by completion time. Table VI VideoDex — LEAP 12/14 task×split wins. Table VII sim cube rotation — LEAP 0.2288 rad/s vs. Allegro 0.0828 rad/s.
+- baselines beaten: Allegro Hand (primary comparison throughout), D'Manus, Inmoov Hand, Bauer et al.'s soft tendon hand (strength/power-density table only), LEAP-C Hand (a same-authors ablation with a different MCP design).
+- real robot? yes — LEAP Hand physical unit used for endurance/repeatability/pull-out tests, teleoperated grasping and task suites, and sim2real cube rotation transfer (Sec. VI, Fig. 11). Trial counts beyond the tables are not stated (e.g. how many repetitions per teleop task cell).
+
+## Limitations stated by the authors
+- "While we acknowledge this is still not affordable for all, we believe it is a step towards democratizing dexterous manipulation research" (Sec. I) — the $2000 cost is still explicitly not universally affordable.
+- No tactile sensing yet: "In future work, we plan to develop and integrate LEAP Hand with low-cost touch sensors" (Sec. VII).
+- Scissor Pickup task (Table IV): LEAP Hand underperforms Allegro on both success rate (0.6 vs 0.7) and completion time (32.4 s vs 28.6 s) — the one task where the baseline wins, noted in the table itself but not discussed in prose.
+
+## Quotable claims (verbatim, with section)
+- "LEAP Hand significantly outperforms its closest competitor Allegro Hand in all our experiments while being 1/8th of the cost." (Abstract)
+- "LEAP Hand is able to consistently exerting large torques over long durations of time." (Abstract, as printed)
+- "We open source the URDF model, assembly instructions, ROS/Python API, mapping methods from human hands to LEAP Hand, and an Isaac Gym simulation environment." (Sec. I)
+
+## Notes for the survey
+- Cost anchor for the open-hardware cost table: LEAP Hand $2000 BOM + a $200 printer, 4-hour assembly, 595 g, 16 DoF direct-drive. Compare against ruka_2025 (~$1300, tendon), orca_hand_2025 (<2000 CHF, tendon, tactile), faive_hand_2023 (rolling-contact tendon), bidexhand_2025 (16 DoF cable-driven).
+- The paper's own released repo (LEAP_Hand_API, this code/md) contains only the Python/C++/ROS/ROS2 control API and Dynamixel drivers — its file tree has no .urdf/.xacro/.mjcf/.xml sim assets. The paper claims the URDF and Isaac Gym/PyBullet sim are released "on our website" (Sec. I, V), i.e. in a separate repo/asset bundle not captured by this code/md; do not claim "ships with the code" for this specific repo.
+- Control-rate figures to keep distinct: hand's native serial query ceiling (≤500 Hz) vs. the sim2real policy's control-loop rate (20 Hz) — these answer different questions and should not be conflated in the survey's control-rate table.

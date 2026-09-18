@@ -1,0 +1,35 @@
+{
+ "key": "maniptrans_2025",
+ "year": 2025,
+ "class": "method",
+ "task_family": [
+  "track-human-ref",
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "RL",
+  "BC",
+  "diffusion"
+ ],
+ "algorithm": "PPO (two-stage: frozen generalist imitator + per-task residual policy)",
+ "hand": "Inspire Hand (12-DoF sim); also Shadow(22), MANO(22), Allegro(16)",
+ "hand_dof": 12,
+ "bimanual": true,
+ "arm": null,
+ "sim": "Isaac Gym",
+ "n_envs": 4096,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": "SR = all four error metrics below thresholds: 30deg rotation, 3cm translation, 8cm joint error, 6cm fingertip error",
+ "headline_metric": "Success Rate (SR, %) on OakInk-V2 validation (single/bimanual)",
+ "headline_value": "ManipTrans SR 58.1% single / 39.5% bimanual (Table 1, Inspire hand)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "OakInk-V2 (quantitative); GRAB and ARCTIC (qualitative)",
+ "penetration": "not addressed",
+ "reward_terms": 5,
+ "code_released": true,
+ "paper_code_mismatch": "paper's PPO learning rate (5e-4) and env count (4096) differ from the shipped README/yaml defaults (2e-4, 8192)",
+ "note_gaps": "displayed equations (Eq.1 r_finger, Eq.2 r_contact, SE(3) wrist terms) are images blank in the markdown; code truncates compute_imitation_reward before the object-rotation/contact/total-sum lines"
+}

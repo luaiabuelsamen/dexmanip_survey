@@ -1,0 +1,34 @@
+{
+ "key": "hoi4d_2022",
+ "year": 2022,
+ "class": "dataset",
+ "task_family": [
+  "grasp"
+ ],
+ "paradigm": [
+  "data-collection",
+  "RL",
+  "RL+demo"
+ ],
+ "algorithm": "Dataset baselines: CAPTRA/BundleTrack/ICP (category-level object/part pose tracking), PSTNet/P4Transformer (4D point-cloud segmentation), MS-TCN/MS-TCN++/ASFormer (action segmentation, I3D features). Appendix D feasibility study: SAC (RL) vs GAIL (IL, using SAC internally), both with a PointNet+Transformer backbone, on a SAPIEN/ManiSkill-style 'Pick Up' task with a 30-DoF Adroit Hand",
+ "hand": "MANO (human capture, single-hand only); Appendix D retargets to a 30-DoF Adroit Hand via DexMV-inspired task-space-vector optimization",
+ "hand_dof": 30,
+ "bimanual": false,
+ "arm": null,
+ "sim": "SAPIEN (ManiSkill-style environment, timestep 0.05) \u2014 Appendix D only",
+ "n_envs": null,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": "Toy car brought to a target height and held static for a period; episode time limit 200 steps (Appendix D.1, Pick Up task)",
+ "headline_metric": "Success rate (%) on Pick Up task (Adroit Hand, toy-car category), 3 random seeds",
+ "headline_value": "GAIL 17.4% (std 7.9) vs SAC 3.5% (std 3.2) (Table 10, App. D.3) \u2014 a single-category, 12-demo feasibility demo, not a general benchmark",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "2.4M RGB-D egocentric frames, 4,000 sequences, participant count contradicts internally (Abstract states 4 participants, Sec 1 states 9), 800 object instances (16 categories) across 610 rooms; MANO single-hand pose + category-level 9D object/part pose + action-segmentation labels. Appendix D retargets HOI4D MANO (51-DoF) hand poses to a 30-DoF Adroit Hand via DexPilot-style task-space-vector optimization, using 12 hand-selected high-quality demonstrations as GAIL's expert trajectories.",
+ "penetration": null,
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": "Code repo (github.com/leolyliu/HOI4D-Instructions) contains only dataset-format definitions, segmentation label lists, task definitions and 4D-segmentation preparation scripts, not the data itself (data hosted separately at www.hoi4d.top); a LICENSE file exists in the repo tree but its text content was not captured, so licence type is not stated.",
+ "note_gaps": "Two internal numeric contradictions: participant count is '4' in the Abstract vs '9' in Sec 1 body text; task count is '54' in Sec 4 vs '76' in App A.3. The Contact loss L_Contact equation (App A.4) is an unrendered PDF image and its functional form was not captured. HOI4D is explicitly single-hand-per-sequence only (authors' own stated limitation), so it is not a bimanual/two-hands-jointly-annotated corpus. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

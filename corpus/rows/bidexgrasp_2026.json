@@ -1,0 +1,34 @@
+{
+ "key": "bidexgrasp_2026",
+ "year": 2026,
+ "class": "method",
+ "task_family": [
+  "grasp",
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "grasp-synthesis",
+  "diffusion"
+ ],
+ "algorithm": "bi-level QP-ADMM optimisation (region-pair init + decoupled per-hand force closure) + DDPM generator",
+ "hand": "Shadow Hand pair (sim); Inspire and BrainCo hands (real)",
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": "Unitree G1, Piper, Nero (real)",
+ "sim": "MuJoCo",
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": 260,
+ "sim_episodes": null,
+ "success_criterion": "object translation/rotation within 5cm/15deg for >=3s after squeeze execution (SUC); SUC-F adds six-direction force disturbances",
+ "headline_metric": "SUC-L (lift success rate, %) in sim; real success rate (%)",
+ "headline_value": "generator SUC-L 66.8% (Table 4) vs SceneDiffuser 15.2%, DGTR 41.5%; real robot 74.6% average over 260 trials on 30 objects (Sec 6.6)",
+ "objects_train": 2397,
+ "objects_test_unseen": 30,
+ "human_data": "none",
+ "penetration": "measured",
+ "reward_terms": null,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": "the main optimisation equation (Sec 4.3) and generator loss formula (App C.2) were dropped by the PDF converter; Tables 3-5 column assignments are partly garbled/ambiguous in the parse"
+}

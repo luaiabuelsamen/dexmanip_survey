@@ -1,0 +1,34 @@
+{
+ "key": "bidexhd_2024",
+ "year": 2024,
+ "class": "method",
+ "task_family": [
+  "functional/tool",
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "RL",
+  "distillation"
+ ],
+ "algorithm": "IPPO (teacher) + DAgger (student distillation)",
+ "hand": "LEAP Hand, left and right",
+ "hand_dof": 16,
+ "bimanual": true,
+ "arm": "RealMan RM65 6-DoF (x2)",
+ "sim": "Isaac Gym (PhysX)",
+ "n_envs": 15000,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": "stage-2 tracking within tolerance epsilon=0.1 (per-step object pose match)",
+ "headline_metric": "r_2 (stage-2 average tracking rate, %)",
+ "headline_value": "BiDexHD-IPPO+DAgger r_2 = 74.59% Train, 48.43% Test Comb, 53.71% Test New at epsilon=0.1 (Table 1)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "TACO",
+ "penetration": "not addressed",
+ "reward_terms": 4,
+ "code_released": true,
+ "paper_code_mismatch": "Table 5 weights (w_r, w_t, w1-w4, lambda_w=0.12, lambda_ft=0.48) cannot be matched to code reward lines because the code md truncates the reward function before stage-2/final sum; lambda_w and lambda_ft numerically match the code's grasp-condition thresholds (0.12, 0.12x4 fingers) rather than confirmed reward weights",
+ "note_gaps": "Eq.1-7 (observation vector and all reward formulas) were dropped by PDF-to-markdown conversion; reward terms/weights are reconstructed from surrounding prose and code only"
+}

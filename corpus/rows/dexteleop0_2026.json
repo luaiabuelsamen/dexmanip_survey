@@ -1,0 +1,40 @@
+{
+ "key": "dexteleop0_2026",
+ "year": 2026,
+ "class": "method",
+ "task_family": [
+  "grasp",
+  "functional/tool",
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "teleop-system",
+  "MPC"
+ ],
+ "algorithm": "box-constrained QP shared-autonomy residual controller (force tracking + multi-contact force-torque balance + nominal stabilization terms) on top of DexPilot-style vector retargeting",
+ "hand": "Sharpa Wave (x2)",
+ "hand_dof": 22,
+ "bimanual": true,
+ "arm": "Universal Robots UR7e (x2)",
+ "sim": "NVIDIA IsaacSim 4.5",
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": 35,
+ "sim_episodes": null,
+ "success_criterion": "Multi-Stage Success Rate: long-horizon tasks decomposed into stages, failures in non-sequential stages do not penalize later independent stages",
+ "headline_metric": "per-stage Multi-Stage Success Rate and mean\u00b1std thumb contact force (N)",
+ "headline_value": "Food Sorting (Table 4, 4 stages): DexTeleop-0 91.43/97.14/82.86/74.29%, 4.94\u00b11.80N vs. No-Residual 71.43/51.43/54.29/48.57%, 6.92\u00b11.48N; Ball Assembly sim (Table 2): DexTeleop-0 100/98/97%, 11.15\u00b15.01N vs. No-Residual 99/10/4%, 31.58\u00b110.48N",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none",
+ "penetration": null,
+ "reward_terms": 3,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": "[penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
+ "operator_interface": "VR headset (Meta Quest 3), egocentric hand/wrist tracking (26 tracked hand-joint transforms per hand), no external motion capture",
+ "retargeting_objective": "DexPilot-style vector matching of critical inter-joint/finger-to-palm target vectors for the hand, plus analytical IK on wrist pose for the arm, producing a raw joint command that a real-time QP then corrects to keep fingertip contact forces in a safe window and balance net object force/torque",
+ "data_hours": null,
+ "data_trajectories": null,
+ "rig_cost_usd": null
+}

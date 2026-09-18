@@ -1,0 +1,32 @@
+{
+  "key": "kress_gazit_policy_eval_2024",
+  "year": 2024,
+  "class": "eval-protocol",
+  "task_family": [
+    "other"
+  ],
+  "paradigm": [
+    "BC"
+  ],
+  "algorithm": null,
+  "hand": null,
+  "hand_dof": null,
+  "bimanual": true,
+  "arm": "Franka Emika Panda (single arm for Bowl; two arms for Pancake and Shirt)",
+  "sim": null,
+  "n_envs": null,
+  "real_robot": true,
+  "real_trials": null,
+  "sim_episodes": null,
+  "success_criterion": "task-specific, defined ahead of time by the behavior designer (e.g. energy-bar task: 'Energy bar is on the wooden tray and the tray is on the table'; collisions not counted as failures)",
+  "headline_metric": "success rate, recommended to be reported as a Bayesian posterior over the Bernoulli success probability rather than a point estimate",
+  "headline_value": null,
+  "objects_train": null,
+  "objects_test_unseen": null,
+  "human_data": "human teleoperation demonstrations (task-specific, e.g. 154 for Bowl)",
+  "penetration": null,
+  "reward_terms": null,
+  "code_released": false,
+  "paper_code_mismatch": null,
+  "note_gaps": null
+}

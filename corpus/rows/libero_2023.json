@@ -1,0 +1,32 @@
+{
+  "key": "libero_2023",
+  "year": 2023,
+  "class": "benchmark",
+  "task_family": [
+    "other"
+  ],
+  "paradigm": [
+    "BC"
+  ],
+  "algorithm": "BC with a Gaussian-mixture policy head; lifelong methods SEQL, ER, EWC, PackNet, MTL (upper bound)",
+  "hand": null,
+  "hand_dof": null,
+  "bimanual": false,
+  "arm": "Franka Panda",
+  "sim": "MuJoCo (via robosuite)",
+  "n_envs": null,
+  "real_robot": false,
+  "real_trials": null,
+  "sim_episodes": null,
+  "success_criterion": "BDDL goal-predicate conjunction verified true (e.g. Open + In predicates over object/region states)",
+  "headline_metric": "AUC of the success-rate curve (lifelong-learning metric)",
+  "headline_value": "RESNET-T, LIBERO-LONG (Table 2): SEQL 0.15, ER 0.32, EWC 0.02, PACKNET 0.25, MTL 0.48",
+  "objects_train": 130,
+  "objects_test_unseen": null,
+  "human_data": "human teleoperated demonstrations (50 per task, 3Dconnexion SpaceMouse)",
+  "penetration": null,
+  "reward_terms": 1,
+  "code_released": true,
+  "paper_code_mismatch": null,
+  "note_gaps": "FWT/NBT/AUC formulas, the BC loss equation, control frequency, controller type, camera names, and the On/In geometric success thresholds are all missing from the parsed sources (equations lost to PDF conversion; code is signatures-only except reward())."
+}

@@ -1,0 +1,758 @@
+{
+ "dextrack_2025": {
+  "url": "https://github.com/Meowuu7/DexTrack",
+  "commit": "1005fad6158c3fa0e4e8df01323de2f62d539f7a",
+  "bytes": 721520632,
+  "md_chars": 339576
+ },
+ "firoozi_foundation_models_2023": {
+  "url": "https://github.com/robotics-survey/Awesome-Robotics-Foundation-Models",
+  "commit": "58ebfc2a5144442f8972e16078cfcb2e6494b074",
+  "bytes": 540939,
+  "md_chars": 27352
+ },
+ "bai_unified_manip_survey_2025": {
+  "url": "https://github.com/BaiShuanghao/Awesome-Robotics-Manipulation",
+  "commit": "b208a6634908074a5e17f883024385889df836e0",
+  "bytes": 15410633,
+  "md_chars": 30611
+ },
+ "plappert_multigoal_2018": {
+  "url": "https://github.com/Farama-Foundation/Gymnasium-Robotics",
+  "commit": "4d1ebecbc6436806cfbc0e42ebc36f594d05844e",
+  "bytes": 590051480,
+  "md_chars": 86050
+ },
+ "bidexhands_2022": {
+  "url": "https://github.com/PKU-MARL/DexterousHands",
+  "commit": "dc41afd134cebfe4d80a5b861f0b8c15d734320a",
+  "bytes": 597539988,
+  "md_chars": 572934
+ },
+ "dexart_2023": {
+  "url": "https://github.com/Kami-code/dexart-release",
+  "commit": "d6ab75e1a0b81384d1ac918cbfd4d97b1f230149",
+  "bytes": 2276184,
+  "md_chars": 65406
+ },
+ "robohive_2023": {
+  "url": "https://github.com/vikashplus/robohive",
+  "commit": "6c14798e48b9904dd8c9151837a1d2468b87bcf3",
+  "bytes": 39000834,
+  "md_chars": 123721
+ },
+ "humanoidbench_2024": {
+  "url": "https://github.com/carlosferrazza/humanoid-bench",
+  "commit": "cb1189039151c8aadaaa987b442da54383c87fab",
+  "bytes": 403762792,
+  "md_chars": 123262
+ },
+ "bench2dex_2026": {
+  "url": "https://github.com/Bench2Dex/Bench2Dex",
+  "commit": "766d542d6a52609d37a4598d08f1c3cef657353c",
+  "bytes": 48770227,
+  "md_chars": 304924
+ },
+ "isaacgym_2021": {
+  "url": "https://github.com/isaac-sim/IsaacGymEnvs",
+  "commit": "aeed298638a1f7b5421b38f5f3cc2d1079b6d9c3",
+  "bytes": 286451571,
+  "md_chars": 363280
+ },
+ "isaaclab_2025": {
+  "url": "https://github.com/isaac-sim/IsaacLab",
+  "commit": "291e9c67172318037fdc093d7301935637d1ff3e",
+  "bytes": 121037569,
+  "md_chars": 446872
+ },
+ "maniskill3_2024": {
+  "url": "https://github.com/haosulab/ManiSkill",
+  "commit": "62ff3a5896b4d5b4cf0ac4c8d79afe600c9404a3",
+  "bytes": 627005867,
+  "md_chars": 184715
+ },
+ "rlbench_2019": {
+  "url": "https://github.com/stepjam/RLBench",
+  "commit": "02720bba4c73fe02eb75df946b8791b806028a9d",
+  "bytes": 775809470,
+  "md_chars": 63246
+ },
+ "libero_2023": {
+  "url": "https://github.com/Lifelong-Robot-Learning/LIBERO",
+  "commit": "8f1084e3132a39270c3a13ebe37270a43ece2a01",
+  "bytes": 667073797,
+  "md_chars": 48971
+ },
+ "colosseum_2024": {
+  "url": "https://github.com/robot-colosseum/robot-colosseum",
+  "commit": "098a910ae1d490524adb49b8d50735b00a1a62de",
+  "bytes": 671410599,
+  "md_chars": 10280
+ },
+ "simpler_2024": {
+  "url": "https://github.com/simpler-env/SimplerEnv",
+  "commit": "06accaca93535902d408da4855f21cece12bceb7",
+  "bytes": 10715230,
+  "md_chars": 28708
+ },
+ "autoeval_2025": {
+  "url": "https://github.com/zhouzypaul/auto_eval",
+  "commit": "3ea3ff44c6950433cfbcb4294a3deaa616533745",
+  "bytes": 2486565,
+  "md_chars": 36095
+ },
+ "dexycb_2021": {
+  "url": "https://github.com/NVlabs/dex-ycb-toolkit",
+  "commit": "64551b001d360ad83bc383157a559ec248fb9100",
+  "bytes": 5823926,
+  "md_chars": 30905
+ },
+ "grab_2020": {
+  "url": "https://github.com/otaheri/GRAB",
+  "commit": "284cba757bd10364fd38eb883c33d4490c4d98f5",
+  "bytes": 27427393,
+  "md_chars": 11926
+ },
+ "bidexhd_2024": {
+  "url": "https://github.com/zhoubohan0/BiDexHD",
+  "commit": "172737bf20274abb817478ce4f2864f7577a1627",
+  "bytes": 1533769291,
+  "md_chars": 435584
+ },
+ "dexmachina_2025": {
+  "url": "https://github.com/MandiZhao/dexmachina",
+  "commit": "adae5bf620c57723d185b2757ee3ce9656927c20",
+  "bytes": 521862142,
+  "md_chars": 49975
+ },
+ "maniptrans_2025": {
+  "url": "https://github.com/ManipTrans/ManipTrans",
+  "commit": "a3d08cfe3c3a5868a7f057533bcaf759c5af4705",
+  "bytes": 64161636,
+  "md_chars": 96497
+ },
+ "hato_visuotactile_2024": {
+  "url": "https://github.com/ToruOwO/hato",
+  "commit": "3b6f4496e11a386df8f362f398b36e832944b2b8",
+  "bytes": 39714273,
+  "md_chars": 10461
+ },
+ "omnih2o_2024": {
+  "url": "https://github.com/LeCAR-Lab/human2humanoid",
+  "commit": "750f1fa052641f0fde43669d50cb4e407dabe6c8",
+  "bytes": 204123497,
+  "md_chars": 137618
+ },
+ "humanplus_2024": {
+  "url": "https://github.com/MarkFzp/humanplus",
+  "commit": "ff7148903303ac2951857cf0b7df686d77323917",
+  "bytes": 80148940,
+  "md_chars": 30350
+ },
+ "artigrasp_2023": {
+  "url": "https://github.com/zdchan/artigrasp",
+  "commit": "92fb30785da8938dc37328987f430eeaff0e9097",
+  "bytes": 3161383584,
+  "md_chars": 101776
+ },
+ "arctic_2022": {
+  "url": "https://github.com/zc-alexfan/arctic",
+  "commit": "49f3eb4b7f01663172576357bb3d95695d7a7689",
+  "bytes": 50881941,
+  "md_chars": 12208
+ },
+ "taco_2024": {
+  "url": "https://github.com/leolyliu/TACO-Instructions",
+  "commit": "b385ac1e89f35214bfbbef0d63e6df0ac8dac02e",
+  "bytes": 111588327,
+  "md_chars": 12515
+ },
+ "oakink2_2024": {
+  "url": "https://github.com/oakink/OakInk2",
+  "commit": "502a02809b50b7f5d0037f92a1ccd2a479051ad1",
+  "bytes": 26410294,
+  "md_chars": 19320
+ },
+ "hot3d_2024": {
+  "url": "https://github.com/facebookresearch/hot3d",
+  "commit": "146b34afef8c1a32adeef7e981c070109f225c87",
+  "bytes": 106954923,
+  "md_chars": 18055
+ },
+ "gigahands_2024": {
+  "url": "https://github.com/brown-ivl/GigaHands",
+  "commit": "8ad3ef9a50157f44a7eef5645b0766362110a961",
+  "bytes": 44087611,
+  "md_chars": 20126
+ },
+ "aloha_act_2023": {
+  "url": "https://github.com/tonyzhaozh/act",
+  "commit": "742c753c0d4a5d87076c8f69e5628c79a8cc5488",
+  "bytes": 2254787,
+  "md_chars": 15610
+ },
+ "rdt1b_2024": {
+  "url": "https://github.com/thu-ml/RoboticsDiffusionTransformer",
+  "commit": "cd79363a1387e8f81c7724d070ef7e45fd23150f",
+  "bytes": 10585237,
+  "md_chars": 28758
+ },
+ "robopianist_2023": {
+  "url": "https://github.com/google-research/robopianist",
+  "commit": "0d9736c64eba5faafdf214ed7d38d648ffbd5c7f",
+  "bytes": 4058476,
+  "md_chars": 29729
+ },
+ "pianomime_2024": {
+  "url": "https://github.com/sNiper-Qian/pianomime",
+  "commit": "c4abefac8d2941f5a08ca656b12f5e047cab7155",
+  "bytes": 1061560696,
+  "md_chars": 63423
+ },
+ "dexcap_2024": {
+  "url": "https://github.com/j96w/DexCap",
+  "commit": "4b0bed0966c87368f3cde4476aadb7585c3b94b5",
+  "bytes": 90413359,
+  "md_chars": 127177
+ },
+ "open_television_2024": {
+  "url": "https://github.com/OpenTeleVision/TeleVision",
+  "commit": "e6e25afdb16c1b326b5bf37bd0ae79919bf79f26",
+  "bytes": 88323522,
+  "md_chars": 9646
+ },
+ "dexmimicgen_2024": {
+  "url": "https://github.com/NVlabs/dexmimicgen",
+  "commit": "940e8a1b3ad70eb1925ada6b364b197de6bb2af9",
+  "bytes": 62334147,
+  "md_chars": 26079
+ },
+ "asymdex_2024": {
+  "url": "https://github.com/GT-STAR-Lab/AsymDex",
+  "commit": "40b29f950f8ee12024f685a5300e0e4a57729026",
+  "bytes": 590346916,
+  "md_chars": 679183
+ },
+ "leap_hand_2023": {
+  "url": "https://github.com/leap-hand/LEAP_Hand_API",
+  "commit": "b0d00c881d0119077b2cab771a6de44f5aaec904",
+  "bytes": 3131752,
+  "md_chars": 15315
+ },
+ "leap_hand_v2_adv_2025": {
+  "url": "https://github.com/leap-hand/LEAP_Hand_V2_Adv_API",
+  "commit": "a0936196e8fa0bcefff045d6fc02523d6da591f2",
+  "bytes": 95095707,
+  "md_chars": 5680
+ },
+ "ruka_2025": {
+  "url": "https://github.com/ruka-hand/RUKA",
+  "commit": "fe4f60805e7415bbeda8e7d49ef6fc094d653c41",
+  "bytes": 16808238,
+  "md_chars": 30198
+ },
+ "ruka_v2_2026": {
+  "url": "https://github.com/ruka-hand/RUKA",
+  "commit": "fe4f60805e7415bbeda8e7d49ef6fc094d653c41",
+  "bytes": 16808238,
+  "md_chars": 30201
+ },
+ "faive_hand_2023": {
+  "url": "https://github.com/srl-ethz/faive_gym_oss",
+  "commit": "e46ae11fe3f52619ba52284adf8a34e92ed73a14",
+  "bytes": 7091538,
+  "md_chars": 48771
+ },
+ "bidexhand_2025": {
+  "url": "https://github.com/wengmister/BiDexHand",
+  "commit": "6cd2c754f53393cad13f752c16c3ea51cfce3b21",
+  "bytes": 215608762,
+  "md_chars": 50224
+ },
+ "dexhand_open_source_2023": {
+  "url": "https://github.com/TheRobotStudio/V1.0-Dexhand",
+  "commit": "e88ebd74def7f30c8f966e913471b92690c89a31",
+  "bytes": 30025275,
+  "md_chars": 8346
+ },
+ "pisa_iit_softhand_2014": {
+  "url": "https://github.com/CentroEPiaggio/pisa-iit-soft-hand",
+  "commit": "174eebc6e9e33c886cab7995f749830a436de3e8",
+  "bytes": 6900647,
+  "md_chars": 12950
+ },
+ "digit_2020": {
+  "url": "https://github.com/facebookresearch/digit-design",
+  "commit": "de292229d43eed1deba58b856b2fe1ee04097631",
+  "bytes": 108836646,
+  "md_chars": 4582
+ },
+ "digit360_2024": {
+  "url": "https://github.com/facebookresearch/digit360",
+  "commit": "b78b6b9181a11bc3699da995c5085968b9d75cb7",
+  "bytes": 216549245,
+  "md_chars": 8265
+ },
+ "sparsh_2024": {
+  "url": "https://github.com/facebookresearch/sparsh",
+  "commit": "fee6a05a97330eca014b59c71ac41596fe3974a7",
+  "bytes": 108615558,
+  "md_chars": 70504
+ },
+ "allegro_hand_v4_2016": {
+  "url": "https://github.com/simlabrobotics/allegro_hand_ros_v4",
+  "commit": "b19b18ea130c4fbe343f2c178eec6cb55186a4ac",
+  "bytes": 5012447,
+  "md_chars": 37678
+ },
+ "shadow_dexterous_hand_2005": {
+  "url": "https://github.com/shadow-robot/sr_common",
+  "commit": "172c3d9c3715ee75eb10dfe4ee57e26a342b4529",
+  "bytes": 31871423,
+  "md_chars": 106920
+ },
+ "psyonic_ability_hand_2021": {
+  "url": "https://github.com/psyonicinc/ability-hand-api",
+  "commit": "34c9a9324d3739d976e6de441e56ccefafd0000b",
+  "bytes": 416827860,
+  "md_chars": 9030
+ },
+ "linkerbot_l20_2025": {
+  "url": "https://github.com/linkerbotai/linker_hand_sdk",
+  "commit": "fdf0c26dde308296a516619879df6d6e659b7d2a",
+  "bytes": 425564406,
+  "md_chars": 396662
+ },
+ "unitree_dex5_2025": {
+  "url": "https://github.com/unitreerobotics/unitree_sdk2",
+  "commit": "c753829882fba461ed07ba25aaabee0a25d83663",
+  "bytes": 123358121,
+  "md_chars": 3601
+ },
+ "diffusion_policy_2023": {
+  "url": "https://github.com/real-stanford/diffusion_policy",
+  "commit": "5ba07ac6661db573af695b419a7947ecb704690f",
+  "bytes": 31634538,
+  "md_chars": 243174
+ },
+ "dp3_2024": {
+  "url": "https://github.com/YanjieZe/3D-Diffusion-Policy",
+  "commit": "47385d9d6f5bde3f2ebdf2400ecb8261cc9e6b97",
+  "bytes": 138362426,
+  "md_chars": 101103
+ },
+ "umi_2024": {
+  "url": "https://github.com/real-stanford/universal_manipulation_interface",
+  "commit": "d095ba9590df789df5189eea5ee7e431689038a6",
+  "bytes": 57476444,
+  "md_chars": 257141
+ },
+ "anyteleop_2023": {
+  "url": "https://github.com/dexsuite/dex-retargeting",
+  "commit": "3f56141bc8bd2760d5e452e382937269554ebb21",
+  "bytes": 58215878,
+  "md_chars": 48291
+ },
+ "holo_dex_2022": {
+  "url": "https://github.com/SridharPandian/Holo-Dex",
+  "commit": "3a5c201124cd6a26b13cbdac5982640fd0607646",
+  "bytes": 5419276,
+  "md_chars": 51799
+ },
+ "dime_2022": {
+  "url": "https://github.com/NYU-robot-learning/DIME-Models",
+  "commit": "337236adb3e43f53f10f0df869c2f0e2e62b9a80",
+  "bytes": 164512,
+  "md_chars": 3753
+ },
+ "bunny_visionpro_2024": {
+  "url": "https://github.com/Dingry/BunnyVisionPro",
+  "commit": "ea55fccf4d56209562310207b40395557fea778a",
+  "bytes": 111367316,
+  "md_chars": 4679
+ },
+ "geometric_retargeting_2025": {
+  "url": "https://github.com/facebookresearch/GeoRT",
+  "commit": "fb2075e2a3272be372016580c0b6ebd6120228f0",
+  "bytes": 111036695,
+  "md_chars": 12063
+ },
+ "dexmv_2021": {
+  "url": "https://github.com/yzqin/dexmv-sim",
+  "commit": "d857c16e4d6888a60560b12f5eca20c36e4073f6",
+  "bytes": 143576120,
+  "md_chars": 51290
+ },
+ "okami_2024": {
+  "url": "https://github.com/UT-Austin-RPL/OKAMI",
+  "commit": "de4edba5e4f061bc2ab8f09a48ffbd6505a5b2b1",
+  "bytes": 1780605824,
+  "md_chars": 219741
+ },
+ "egomimic_2024": {
+  "url": "https://github.com/SimarKareer/EgoMimic",
+  "commit": "6d63e9a3cd1dcc1d24860a11d7d9c5b2d5cba645",
+  "bytes": 12476439,
+  "md_chars": 17312
+ },
+ "egozero_2025": {
+  "url": "https://github.com/vliu15/egozero",
+  "commit": "51dc1c622b564bcc10515777c6a8489b5833b3b5",
+  "bytes": 94160123,
+  "md_chars": 46788
+ },
+ "humanoid_policy_human_policy_2025": {
+  "url": "https://github.com/RogerQi/human-policy",
+  "commit": "2d9d73cc5a3859094ef705f35b8f2faecfc2bc4f",
+  "bytes": 227473284,
+  "md_chars": 28856
+ },
+ "dexwild_2025": {
+  "url": "https://github.com/DexWild/dexwild",
+  "commit": "5fa34af5115bb6f54320d0071c3b1d4864cd224a",
+  "bytes": 286791495,
+  "md_chars": 37707
+ },
+ "dexumi_2025": {
+  "url": "https://github.com/real-stanford/DexUMI",
+  "commit": "acddb8f8a89a8f0186868bbec44306eb7808114a",
+  "bytes": 75291366,
+  "md_chars": 48187
+ },
+ "pi0_2024": {
+  "url": "https://github.com/Physical-Intelligence/openpi",
+  "commit": "215abfb217dbac7d5f1273282331b9b1866c0479",
+  "bytes": 2129523,
+  "md_chars": 47574
+ },
+ "pi05_2025": {
+  "url": "https://github.com/Physical-Intelligence/openpi",
+  "commit": "215abfb217dbac7d5f1273282331b9b1866c0479",
+  "bytes": 2129523,
+  "md_chars": 47575
+ },
+ "pistar06_2025": {
+  "url": "https://github.com/Physical-Intelligence/openpi",
+  "commit": "215abfb217dbac7d5f1273282331b9b1866c0479",
+  "bytes": 2129523,
+  "md_chars": 47579
+ },
+ "openvla_2024": {
+  "url": "https://github.com/openvla/openvla",
+  "commit": "c8f03f48af692657d3060c19588038c7220e9af9",
+  "bytes": 904481,
+  "md_chars": 41615
+ },
+ "groot_n1_2025": {
+  "url": "https://github.com/NVIDIA/Isaac-GR00T",
+  "commit": "51d4c89f72fda44cbf77285c6a8114b52676b8a1",
+  "bytes": 1015702115,
+  "md_chars": 100378
+ },
+ "groot_n16_2025": {
+  "url": "https://github.com/NVIDIA/Isaac-GR00T",
+  "commit": "51d4c89f72fda44cbf77285c6a8114b52676b8a1",
+  "bytes": 1015702115,
+  "md_chars": 100379
+ },
+ "being_h0_2025": {
+  "url": "https://github.com/BeingBeyond/Being-H0",
+  "commit": "ae92e46f671f48d91161ef1c8cc956bcdffab606",
+  "bytes": 75266637,
+  "md_chars": 17962
+ },
+ "being_h05_2026": {
+  "url": "https://github.com/BeingBeyond/Being-H",
+  "commit": "e12ac44f6ecc619695a42772913f06ca264ccb85",
+  "bytes": 2496991,
+  "md_chars": 37300
+ },
+ "dexvla_2025": {
+  "url": "https://github.com/juruobenruo/DexVLA",
+  "commit": "fc21a822f4c774e242eb6f1ab4a235788de7aba9",
+  "bytes": 75188536,
+  "md_chars": 23985
+ },
+ "dexgraspvla_2025": {
+  "url": "https://github.com/Psi-Robot/DexGraspVLA",
+  "commit": "0144c7928817c5149ae836da2682291360828a21",
+  "bytes": 2553693,
+  "md_chars": 18598
+ },
+ "hoi4d_2022": {
+  "url": "https://github.com/leolyliu/HOI4D-Instructions",
+  "commit": "15478666c44af86740d537e89b72cd47efeb44f8",
+  "bytes": 406710,
+  "md_chars": 8333
+ },
+ "oakink_2022": {
+  "url": "https://github.com/oakink/OakInk",
+  "commit": "73dc7c85dfd006a4e6fc51fa8182d864a08af1ca",
+  "bytes": 4423813,
+  "md_chars": 6369
+ },
+ "egodex_2025": {
+  "url": "https://github.com/apple/ml-egodex",
+  "commit": "718d9ebd8ec17187f72a74a08c66deea80178cb6",
+  "bytes": 76012,
+  "md_chars": 8761
+ },
+ "dextreme_2022": {
+  "url": "https://github.com/isaac-sim/IsaacGymEnvs",
+  "commit": "aeed298638a1f7b5421b38f5f3cc2d1079b6d9c3",
+  "bytes": 286451571,
+  "md_chars": 363280
+ },
+ "dexpbt_2023": {
+  "url": "https://github.com/NVIDIA-Omniverse/IsaacGymEnvs",
+  "commit": "aeed298638a1f7b5421b38f5f3cc2d1079b6d9c3",
+  "bytes": 286451599,
+  "md_chars": 363285
+ },
+ "visual_dexterity_2022": {
+  "url": "https://github.com/Improbable-AI/dexenv",
+  "commit": "ad9634e9d26cf5555d18728244a58f5b412c1eb2",
+  "bytes": 440466,
+  "md_chars": 55252
+ },
+ "hora_2022": {
+  "url": "https://github.com/HaozhiQi/hora",
+  "commit": "410d95824dd28b198f6d6910cb4c09330a6303be",
+  "bytes": 24197770,
+  "md_chars": 23152
+ },
+ "penspin_2024": {
+  "url": "https://github.com/HaozhiQi/penspin",
+  "commit": "5035c52dc949e81313af71d9a0ca5ead8b463a5a",
+  "bytes": 38417739,
+  "md_chars": 30120
+ },
+ "dexpoint_2022": {
+  "url": "https://github.com/yzqin/dexpoint-release",
+  "commit": "17f1e238bb120d92baabe8207494d48476fea289",
+  "bytes": 124118159,
+  "md_chars": 12847
+ },
+ "unidexgrasp_2023": {
+  "url": "https://github.com/PKU-EPIC/UniDexGrasp",
+  "commit": "36c9bfcf7cedc987dd15e2384c548e51d5aadc21",
+  "bytes": 153320611,
+  "md_chars": 113201
+ },
+ "unidexgrasp_pp_2023": {
+  "url": "https://github.com/PKU-EPIC/UniDexGrasp2",
+  "commit": "6c9e710b04769bf5d9765e3233820101cb3d718f",
+  "bytes": 120652620,
+  "md_chars": 76184
+ },
+ "resdex_2024": {
+  "url": "https://github.com/PKU-RL/ResDex",
+  "commit": "d40e36aed78441be24ee49db9f2d775434850187",
+  "bytes": 469625268,
+  "md_chars": 135878
+ },
+ "graspxl_2024": {
+  "url": "https://github.com/zdchan/graspxl",
+  "commit": "53ab112d05c55712030af58c10a6055e6f3da36a",
+  "bytes": 2280869399,
+  "md_chars": 126642
+ },
+ "physhoi_2023": {
+  "url": "https://github.com/wyhuai/PhysHOI",
+  "commit": "6095c605e22bd01f78ed356e8b08250edf3c5da6",
+  "bytes": 6427892,
+  "md_chars": 21503
+ },
+ "omnigrasp_2024": {
+  "url": "https://github.com/ZhengyiLuo/Omnigrasp",
+  "commit": "f7740cdc31aa4a0e152533b96d10de7d4d7aaacd",
+  "bytes": 2051580012,
+  "md_chars": 85775
+ },
+ "dexplore_2025": {
+  "url": "https://github.com/NVlabs/dexplore",
+  "commit": "d0b9320aa0495bf3df78d0cd44c2fad718f8a622",
+  "bytes": 466827324,
+  "md_chars": 37917
+ },
+ "dapg_2017": {
+  "url": "https://github.com/aravindr93/hand_dapg",
+  "commit": "9a1de23df6574e1b94e1da742e3326eb1f61c013",
+  "bytes": 42095356,
+  "md_chars": 3730
+ },
+ "human2sim2robot_2025": {
+  "url": "https://github.com/tylerlum/human2sim2robot",
+  "commit": "894eae2ec3ae39a573b81bd1860d14cc6bdfa6df",
+  "bytes": 6531417,
+  "md_chars": 102552
+ },
+ "eureka_2023": {
+  "url": "https://github.com/eureka-research/Eureka",
+  "commit": "9eee42808b52d8abc14845d1547bfde886403ccc",
+  "bytes": 554885240,
+  "md_chars": 489772
+ },
+ "dreureka_2024": {
+  "url": "https://github.com/eureka-research/DrEureka",
+  "commit": "1d4e00700423170717654516f4ef4b24cb0f3a84",
+  "bytes": 159948860,
+  "md_chars": 68856
+ },
+ "pddm_2019": {
+  "url": "https://github.com/google-research/pddm",
+  "commit": "06b88cdbafa7fc35451b3feb3e01aa6726113f72",
+  "bytes": 71529607,
+  "md_chars": 33084
+ },
+ "mjpc_2022": {
+  "url": "https://github.com/google-deepmind/mujoco_mpc",
+  "commit": "ff572a21e7c2bf9fda62e1862a758da7e9a8719b",
+  "bytes": 7017635,
+  "md_chars": 12011
+ },
+ "pang_global_planning_2022": {
+  "url": "https://github.com/pangtao22/quasistatic_simulator",
+  "commit": "c9177559ab5393ba800ebd264b3d97e4f7113fe9",
+  "bytes": 5872760,
+  "md_chars": 35039
+ },
+ "mujoco_2012": {
+  "url": "https://github.com/google-deepmind/mujoco",
+  "commit": "2fec922375a5e001a4d844c06ebfdb0f5c5e823b",
+  "bytes": 188912688,
+  "md_chars": 24832
+ },
+ "mujoco_convex_contact_2014": {
+  "url": "https://github.com/google-deepmind/mujoco",
+  "commit": "2fec922375a5e001a4d844c06ebfdb0f5c5e823b",
+  "bytes": 188912688,
+  "md_chars": 24847
+ },
+ "orbit_2023": {
+  "url": "https://github.com/isaac-sim/IsaacLab",
+  "commit": "291e9c67172318037fdc093d7301935637d1ff3e",
+  "bytes": 121037827,
+  "md_chars": 446869
+ },
+ "isaac_sim_2026": {
+  "url": "https://github.com/isaac-sim/IsaacSim",
+  "commit": "7c206f75bdadd9e05fc457f19863ca4c3f0cb693",
+  "bytes": 1423681597,
+  "md_chars": 453202
+ },
+ "mujoco_playground_2025": {
+  "url": "https://github.com/google-deepmind/mujoco_playground",
+  "commit": "4057c147714b6ac09b395377f1a1724bbeacc4d3",
+  "bytes": 30092218,
+  "md_chars": 39793
+ },
+ "mujoco_warp_2025": {
+  "url": "https://github.com/google-deepmind/mujoco_warp",
+  "commit": "87e742d31c96f69a70741c51b9ade43bd8d1b60b",
+  "bytes": 53599778,
+  "md_chars": 14550
+ },
+ "newton_2025": {
+  "url": "https://github.com/newton-physics/newton",
+  "commit": "ecc03b490d6a15ecff7d5e8870f4d67f97c98631",
+  "bytes": 45067623,
+  "md_chars": 117884
+ },
+ "sapien_2020": {
+  "url": "https://github.com/haosulab/SAPIEN",
+  "commit": "8c5643df19798501295a781167ef886da23a6857",
+  "bytes": 816528716,
+  "md_chars": 18482
+ },
+ "maniskill2_2023": {
+  "url": "https://github.com/haosulab/ManiSkill2",
+  "commit": "63e0e7db636664bf0c323df5174ce9ca19b726e7",
+  "bytes": 28985,
+  "md_chars": 714
+ },
+ "genesis_2024": {
+  "url": "https://github.com/Genesis-Embodied-AI/Genesis",
+  "commit": "c27875eb56947808b3105d25d3c09b6dd96484b3",
+  "bytes": 313670718,
+  "md_chars": 61663
+ },
+ "pybullet_2016": {
+  "url": "https://github.com/bulletphysics/bullet3",
+  "commit": "63c4d67e337017f9d8b298c900e9aabdb69296e7",
+  "bytes": 459357345,
+  "md_chars": 196196
+ },
+ "brax_2021": {
+  "url": "https://github.com/google/brax",
+  "commit": "8253c01f208a0ce2e008bf214fb4e8cd67efd609",
+  "bytes": 251917862,
+  "md_chars": 56421
+ },
+ "raisim_2018": {
+  "url": "https://github.com/raisimTech/raisimLib",
+  "commit": "74b836fba1dbd3227ce61f8abf7bffbd8f6e41ca",
+  "bytes": 3030366038,
+  "md_chars": 68125
+ },
+ "castro_sap_contact_2021": {
+  "url": "https://github.com/RobotLocomotion/drake",
+  "commit": "5a73436cd6941519684786d409c67ce25ce16305",
+  "bytes": 82858787,
+  "md_chars": 28553
+ },
+ "dojo_2022": {
+  "url": "https://github.com/dojo-sim/Dojo.jl",
+  "commit": "be7b5183965e2408a176c162b2d08bf9a810de5e",
+  "bytes": 321136608,
+  "md_chars": 7298
+ },
+ "dexdeform_2023": {
+  "url": "https://github.com/sizhe-li/DexDeform",
+  "commit": "72f5087ed4e46cf88092f36d6ced9a72978d8c01",
+  "bytes": 70356279,
+  "md_chars": 36286
+ },
+ "contact_models_comparison_2023": {
+  "url": "https://github.com/Simple-Robotics/Simple",
+  "commit": "03d4784ed87b2b4986c74564d20ef5544b30936d",
+  "bytes": 593047,
+  "md_chars": 8323
+ },
+ "comfree_sim_2026": {
+  "url": "https://github.com/asu-iris/comfree_warp",
+  "commit": "ba8b9969f5f7859d51b1f738f458f8d2f49be080",
+  "bytes": 107983067,
+  "md_chars": 18000
+ },
+ "tacto_2020": {
+  "url": "https://github.com/facebookresearch/tacto",
+  "commit": "a21d0c4626d74a546d94859226c2fea348babb6a",
+  "bytes": 107574373,
+  "md_chars": 24174
+ },
+ "taxim_2021": {
+  "url": "https://github.com/Robo-Touch/Taxim",
+  "commit": "4936657a42e00f09a94301111830250ef2c96a89",
+  "bytes": 487670777,
+  "md_chars": 6492
+ },
+ "tactile_genesis_2026": {
+  "url": "https://github.com/neuroagents-lab/tactile-genesis",
+  "commit": "3023bcd2d43fe947327713ddce3c2123d475735d",
+  "bytes": 300524101,
+  "md_chars": 157969
+ },
+ "dm_control_2020": {
+  "url": "https://github.com/google-deepmind/dm_control",
+  "commit": "3e9cd0bf3ec5141f3c6225e77f3ef99b42df2426",
+  "bytes": 255064812,
+  "md_chars": 79944
+ },
+ "orca_hand_2025": {
+  "url": "https://github.com/orcahand/orca_core",
+  "commit": "4a99afd8ef8b368d4cb84a10e4a1d5e732aca660",
+  "bytes": 2099559,
+  "md_chars": 77862
+ }
+}

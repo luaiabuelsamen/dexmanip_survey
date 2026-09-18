@@ -1,0 +1,34 @@
+{
+ "key": "humanplus_2024",
+ "year": 2024,
+ "class": "method",
+ "task_family": [
+  "track-human-ref",
+  "locomanipulation"
+ ],
+ "paradigm": [
+  "RL",
+  "BC"
+ ],
+ "algorithm": "PPO (HST shadowing policy) + decoder-only Transformer BC (HIT)",
+ "hand": "Inspire-Robots RH56DFX, two",
+ "hand_dof": 6,
+ "bimanual": true,
+ "arm": "Unitree H1 humanoid (4-DoF arms x2, 33 DoF total)",
+ "sim": "Isaac Gym-based legged_gym/rsl_rl",
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": 10,
+ "sim_episodes": null,
+ "success_criterion": "number of successful attempts / total attempts per subtask",
+ "headline_metric": "whole-task success rate (%), real robot, 10 trials/task",
+ "headline_value": "Fold Clothes 100% (HIT), Warehouse 90%, Rearrange Objects 90%, Type AI 80%, Two-Robot Greeting 90%, Wear Shoe and Walk 60% (Table 5)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "AMASS",
+ "penetration": "not addressed",
+ "reward_terms": 8,
+ "code_released": true,
+ "paper_code_mismatch": "code implements a superset of legged_gym reward terms (lin_vel_z, ang_vel_xy, orientation, base_height, torques, dof_vel, dof_acc, action_rate, collision, termination, dof/torque limits, tracking_lin/ang_vel, feet_air_time, stumble, stand_still, feet_contact_forces, target_jt) beyond the 8 terms documented in the paper's Table 1",
+ "note_gaps": "HIT's exact loss weighting (L2 feature term) could not be confirmed from code, signature only; no hand-object collision handling is quantified anywhere in either source"
+}

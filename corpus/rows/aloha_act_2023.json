@@ -1,0 +1,32 @@
+{
+ "key": "aloha_act_2023",
+ "year": 2023,
+ "class": "method",
+ "task_family": [
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "BC"
+ ],
+ "algorithm": "ACT (Action Chunking with Transformers, CVAE)",
+ "hand": "parallel-jaw gripper (not dexterous), two",
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": "ViperX 300 6-DoF (follower) x2, WidowX 6-DoF (leader) x2",
+ "sim": "MuJoCo",
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": 25,
+ "sim_episodes": 300,
+ "success_criterion": "task-specific behavioural success, e.g. Put On Shoe: shoe clings to foot after both arms release",
+ "headline_metric": "task success rate (%), real robot, 25 trials",
+ "headline_value": "Slide Ziploc 88% (final Open stage), Slot Battery 96% (final Insert stage) vs baselines 0% (Table I)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none",
+ "penetration": "not addressed",
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": "Algorithm 1 pseudocode states L_reconst = MSE, but Sec.IV.C's prose explicitly states L1 loss is used instead; the algorithm box and the implementation text disagree; code/md captures only function signatures, not bodies, for policy.py's loss implementation",
+ "note_gaps": "policy.py loss function bodies were not captured in code md, only signatures; the README's quoted reproduction success rates (~90%/~50%) do not exactly match Table I's 97/82 and 90/60"
+}

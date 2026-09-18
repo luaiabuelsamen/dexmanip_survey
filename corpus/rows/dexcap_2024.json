@@ -1,0 +1,36 @@
+{
+ "key": "dexcap_2024",
+ "year": 2024,
+ "class": "method",
+ "task_family": [
+  "grasp",
+  "bimanual-coord",
+  "functional/tool"
+ ],
+ "paradigm": [
+  "BC",
+  "diffusion",
+  "data-collection"
+ ],
+ "algorithm": "Diffusion Policy with Perceiver point-cloud encoder (DP-perc)",
+ "hand": "LEAP Hand",
+ "hand_dof": 16,
+ "bimanual": true,
+ "arm": "Franka Emika (two arms)",
+ "sim": "none",
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": 60,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "task success rate (Table I, DexCap-only data, 20 trials/task)",
+ "headline_value": "72% average success across 3 basic tasks (Sponge Picking 85%, Ball Collecting 60%, Plate Wiping 70%), DP-perc (Ours), Table I",
+ "objects_train": 6,
+ "objects_test_unseen": 9,
+ "human_data": "self-collected DexCap human mocap demonstrations (Rokoko EMF gloves + SLAM wrist tracking + chest RGB-D)",
+ "penetration": null,
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "Exact data-collection throughput (demos/hour) is not given, only a qualitative '3x faster than traditional teleoperation' claim; the diffusion-policy training loss is not restated as a formula in the parsed text. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

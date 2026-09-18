@@ -1,0 +1,35 @@
+{
+ "key": "rp1m_2024",
+ "year": 2024,
+ "class": "dataset",
+ "task_family": [
+  "music",
+  "bimanual-coord"
+ ],
+ "paradigm": [
+  "RL",
+  "BC",
+  "diffusion"
+ ],
+ "algorithm": "DroQ (RL data generation) + OT fingering assignment; downstream BC-MLP/BeT/Diffusion Policy",
+ "hand": "Shadow Hand, two",
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": null,
+ "sim": "RoboPianist (MuJoCo) + MJX (MuJoCo-XLA) for parallel GPU sim",
+ "n_envs": null,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "average F1 score (precision/recall over active key presses)",
+ "headline_value": "79.00% of RL specialist agents achieve F1>0.75, 99.89% achieve F1>0.5 (Sec 4.3, Fig.4); dataset ~1M expert trajectories over ~2k pieces (Table 1)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "PIG dataset + GiantMIDI-Piano (subset, 1788 pieces)",
+ "penetration": null,
+ "reward_terms": 4,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": "reward equations 1-3 are images that did not survive PDF-to-markdown conversion; the reward block is a prose reconstruction, not a verified equation transcription; hand DoF count is never given as a number [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

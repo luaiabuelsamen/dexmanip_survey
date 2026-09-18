@@ -1,0 +1,34 @@
+{
+ "key": "sparsh_2024",
+ "year": 2024,
+ "class": "method",
+ "task_family": [
+  "grasp",
+  "other"
+ ],
+ "paradigm": [
+  "BC",
+  "diffusion"
+ ],
+ "algorithm": "Sparsh self-supervised encoders (MAE, DINO, DINOv2, I-JEPA, V-JEPA) with frozen-encoder task decoders; Diffusion Policy for the T6 bead-maze task",
+ "hand": null,
+ "hand_dof": null,
+ "bimanual": false,
+ "arm": "7-DoF robot arm (T6 bead maze)",
+ "sim": null,
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "average improvement over end-to-end baselines across TacBench's 6 tasks",
+ "headline_value": "95.1% average improvement vs. task/sensor-specific end-to-end models when models see only 33%-50% of labeled data per task (Abstract, Sec. 8)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none",
+ "penetration": null,
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "Table 4's exact per-task classification-accuracy numbers are not reproduced in the parsed excerpt; the DIGIT operating resolution stated here (320x240) is inconsistent with DIGIT's own spec (640x480 in digit_2020) and is not reconciled within this paper; licence type is referenced but not captured. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

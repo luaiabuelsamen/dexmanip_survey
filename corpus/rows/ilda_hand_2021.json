@@ -1,0 +1,31 @@
+{
+ "key": "ilda_hand_2021",
+ "year": 2021,
+ "class": "hand",
+ "task_family": [
+  "grasp",
+  "functional/tool"
+ ],
+ "paradigm": null,
+ "algorithm": null,
+ "hand": "ILDA hand",
+ "hand_dof": 15,
+ "bimanual": false,
+ "arm": "UR-5",
+ "sim": null,
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "fingertip force",
+ "headline_value": "34 N fingertip force (bent pose), 28 N (stretched pose), 18 kg payload, 1.1 kg hand weight (Table 1)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none",
+ "penetration": null,
+ "reward_terms": null,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": "Reliability test results (long-time operation, repeatability, heating/current, Fig. 7 / Supplementary Text 5) are described only as existing in the supplement, not captured in the parsed text; control loop rate and trial counts for the scissors/tweezers demonstrations are not stated. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

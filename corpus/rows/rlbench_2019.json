@@ -1,0 +1,32 @@
+{
+  "key": "rlbench_2019",
+  "year": 2019,
+  "class": "benchmark",
+  "task_family": [
+    "other"
+  ],
+  "paradigm": [
+    "data-collection"
+  ],
+  "algorithm": null,
+  "hand": null,
+  "hand_dof": null,
+  "bimanual": false,
+  "arm": "Franka Emika Panda (7-DoF)",
+  "sim": "CoppeliaSim (V-REP) + PyRep",
+  "n_envs": null,
+  "real_robot": false,
+  "real_trials": null,
+  "sim_episodes": null,
+  "success_criterion": "binary success from registered condition sets (e.g. GraspedCondition + DetectedCondition by a proximity sensor)",
+  "headline_metric": null,
+  "headline_value": null,
+  "objects_train": 100,
+  "objects_test_unseen": null,
+  "human_data": "none (demonstrations from motion planning on authored waypoints, not human data)",
+  "penetration": null,
+  "reward_terms": null,
+  "code_released": true,
+  "paper_code_mismatch": "Paper states a purely sparse +1 reward; the maintained repo (since 2022) ships opt-in dense shaping (negative L2 distance terms) for at least three tasks (reach_target, take_lid_off_saucepan, slide_block_to_target), off by default. Paper claims 100 tasks; the repo file tree at this commit has 107 .ttm task files.",
+  "note_gaps": "The underlying physics engine (Bullet/ODE/Vortex/Newton) and simulation timestep are not stated in either source; no FPS/throughput numbers are reported anywhere."
+}

@@ -1,0 +1,30 @@
+{
+ "key": "suresim_2025",
+ "year": 2025,
+ "class": "eval-protocol",
+ "task_family": [
+  "grasp"
+ ],
+ "paradigm": null,
+ "algorithm": "SureSim (prediction-powered inference) + WSR betting confidence sequences",
+ "hand": "Franka Panda parallel-jaw gripper",
+ "hand_dof": null,
+ "bimanual": false,
+ "arm": "Franka Panda",
+ "sim": "ManiSkill3",
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "CI width vs Classical WSR baseline, and % real trials saved",
+ "headline_value": "DP (n=60,N=700,alpha=0.1): SureSim mean CI width 0.16 vs Classical 0.187 (-14.4%), >25% trials saved (Fig.4,5); pi0 moderate correlation rho=0.59: >20% savings",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": null,
+ "penetration": "not addressed",
+ "reward_terms": null,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": "ManiSkill3 timestep/contact model not stated; real-trial count n varies by experiment (60 DP/pi0, 100 sim2sim) so no single real_trials/sim_episodes value applies"
+}

@@ -1,0 +1,30 @@
+{
+ "key": "pisa_iit_softhand_2014",
+ "year": 2014,
+ "class": "hand",
+ "task_family": [
+  "grasp"
+ ],
+ "paradigm": null,
+ "algorithm": null,
+ "hand": "Pisa/IIT SoftHand",
+ "hand_dof": 1,
+ "bimanual": false,
+ "arm": "KUKA Light-Weight Robot (LWR)",
+ "sim": null,
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "holding force / holding torque",
+ "headline_value": "maximum holding torque 2 Nm and holding force ~20 N along z axis (stock 6W motor); 3.5 Nm / 28 N with a stronger motor (Sec. V.A)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none",
+ "penetration": null,
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "Weight, price, and control-loop rate are not stated in the paper text; only bib-claims (e.g. ~0.5 kg for the commercial qb SoftHand) exist and are flagged as unconfirmed. No success rates or trial counts reported for the grasp demonstrations. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

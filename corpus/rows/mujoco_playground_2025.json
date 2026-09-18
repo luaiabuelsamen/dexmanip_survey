@@ -1,0 +1,34 @@
+{
+ "key": "mujoco_playground_2025",
+ "year": 2025,
+ "class": "benchmark",
+ "task_family": [
+  "reorient",
+  "grasp",
+  "other"
+ ],
+ "paradigm": [
+  "RL"
+ ],
+ "algorithm": "PPO (brax PPO, primary; also SAC and a torch-based RSL-RL PPO comparison for locomotion)",
+ "hand": "LEAP Hand",
+ "hand_dof": null,
+ "bimanual": false,
+ "arm": "Franka Emika Panda (+ Robotiq gripper for the non-prehensile block task); Aloha bi-arm platform (peg insertion, non-dexterous)",
+ "sim": "MJX (MuJoCo XLA, JAX-based GPU branch of MuJoCo) with the Madrona batch renderer for on-device vision",
+ "n_envs": 8192,
+ "real_robot": true,
+ "real_trials": 10,
+ "sim_episodes": null,
+ "success_criterion": "within 3 cm of the goal position and within 10 degrees of the desired orientation (non-prehensile block-reorientation task, Sec. IV-C2-a)",
+ "headline_metric": "consecutive successful rotations before failure (LEAP Hand real-world cube reorientation)",
+ "headline_value": "median 3.5, mean 7.1 consecutive successful rotations across 10 real-world trials (Table I)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": null,
+ "penetration": null,
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": "The shipped code adds a second, tendon-driven hand (TetherIA Aero Hand Open, aero_hand/) with its own RotateZAxis task, nowhere mentioned in the paper text, which discusses only the LEAP Hand; do not attribute Aero Hand results or DoF to this paper.",
+ "note_gaps": "MJX's contact cost scales with possible geom pairs, not active contacts (JAX static-shape requirement), requiring per-environment max_contact_points/max_geom_pairs tuning (Table III) not reflected in a single reward_terms count; the code-derived cube-spin reward (angvel + 5 cost terms) is a different task/reward design from the paper's headline CubeReorient task, whose own reward-term count is not enumerated in the paper text, so reward_terms is left null. LEAP-hand Table I per-trial rotation counts have an OCR ambiguity around trials 7-8 ('4<br>1'). Real-hardware trial counts differ by deployment: LEAP hand 10 (used above as the headline), non-prehensile Franka+Robotiq block reorientation 35 trials (85.7% mean success), pixel-based Franka pick-cube 12 trials (100% success). The cross-simulator throughput comparison vs. IsaacLab/ManiSkill3 is explicitly flagged by the authors as non-rigorous. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

@@ -1,0 +1,36 @@
+{
+ "key": "leap_hand_2023",
+ "year": 2023,
+ "class": "hand",
+ "task_family": [
+  "reorient",
+  "grasp",
+  "track-human-ref"
+ ],
+ "paradigm": [
+  "RL",
+  "BC",
+  "teleop-system"
+ ],
+ "algorithm": "PPO+BPTT (sim2real cube rotation); VideoDex (behavior cloning from video pretraining + teleop demos)",
+ "hand": "LEAP Hand",
+ "hand_dof": 16,
+ "bimanual": false,
+ "arm": null,
+ "sim": "IsaacGym",
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "opposability workspace volume vs. Allegro (Table II)",
+ "headline_value": "1,125,556 mm\u00b3 (LEAP index finger) vs. 409,135 mm\u00b3 (Allegro)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "Epic-Kitchens video (pretraining for VideoDex behavior cloning)",
+ "penetration": null,
+ "reward_terms": 5,
+ "code_released": true,
+ "paper_code_mismatch": "The paper claims the URDF model and Isaac Gym/PyBullet simulation are released on the project website, but the released LEAP_Hand_API repo's file tree contains only the Python/C++/ROS/ROS2 control API and Dynamixel drivers, with no .urdf/.xacro/.mjcf/.xml sim assets.",
+ "note_gaps": "[penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

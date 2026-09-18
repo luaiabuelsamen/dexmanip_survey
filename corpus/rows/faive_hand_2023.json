@@ -1,0 +1,32 @@
+{
+ "key": "faive_hand_2023",
+ "year": 2023,
+ "class": "hand",
+ "task_family": [
+  "reorient"
+ ],
+ "paradigm": [
+  "RL"
+ ],
+ "algorithm": "A2C/PPO (rl_games), asymmetric actor-critic",
+ "hand": "Faive Hand Proto 0",
+ "hand_dof": 11,
+ "bimanual": false,
+ "arm": null,
+ "sim": "IsaacGym",
+ "n_envs": 4096,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": "object y-axis angular velocity within the reward's target band (~1-3 rad/s, direction reversible)",
+ "headline_metric": "real-robot sphere rotation angular velocity vs. target band",
+ "headline_value": "DR policy achieves the target rotational velocity for the majority of measurements on hardware; non-DR policy fails to rotate the sphere, only rocking it (Sec. IV-B, Fig. 6; no single scalar success rate given)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none",
+ "penetration": null,
+ "reward_terms": 4,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "The action-space scaling formula is described but not reproduced verbatim; no real-robot control-loop Hz beyond the 20 Hz sim policy rate is stated; the released repo (faive_gym_oss) is the IsaacGym training environment only, the real-robot control stack (faive_franka_control) is a separate, unparsed repo; no BOM cost figure is stated for the hand. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

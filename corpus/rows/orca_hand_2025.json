@@ -1,0 +1,36 @@
+{
+ "key": "orca_hand_2025",
+ "year": 2025,
+ "class": "hand",
+ "task_family": [
+  "reorient",
+  "grasp",
+  "functional/tool"
+ ],
+ "paradigm": [
+  "RL",
+  "diffusion",
+  "teleop-system"
+ ],
+ "algorithm": "A2C (IsaacGymEnvs) for zero-shot sim-to-real RL; diffusion transformer policy for imitation learning",
+ "hand": "ORCA hand",
+ "hand_dof": 17,
+ "bimanual": false,
+ "arm": "Franka Emika Panda",
+ "sim": "Isaac Gym (IsaacGymEnvs wrapper reused from the Faive rolling-contact hand codebase)",
+ "n_envs": 4096,
+ "real_robot": true,
+ "real_trials": 60,
+ "sim_episodes": null,
+ "success_criterion": "successful cube pick-up per trial (Fig. 7, 6 subareas x 10 trials/subarea)",
+ "headline_metric": "imitation-learning cube pick-and-place success rate (masked-image policy ablation, Fig. 7)",
+ "headline_value": "86.6% overall success across 6 subareas x 10 trials (masked-image policy, Fig. 7)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "214 teleoperated demonstrations collected via ROKOKO motion-capture gloves",
+ "penetration": null,
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "No control-loop Hz stated for the hand's own controller (only <0.2 s end-to-end sine-tracking latency); the RL reward formula and the diffusion-policy training loss are not given in the parsed text; the repo's LICENSE file exists but its content/type was not captured, so no licence can be confirmed. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

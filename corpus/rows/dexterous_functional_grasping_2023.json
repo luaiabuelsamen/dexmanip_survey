@@ -1,0 +1,36 @@
+{
+ "key": "dexterous_functional_grasping_2023",
+ "year": 2023,
+ "class": "method",
+ "task_family": [
+  "functional/tool"
+ ],
+ "paradigm": [
+  "RL"
+ ],
+ "algorithm": "PPO",
+ "hand": "LEAP hand",
+ "hand_dof": 16,
+ "bimanual": false,
+ "arm": "xArm6",
+ "sim": "IsaacGym",
+ "n_envs": 8192,
+ "real_robot": true,
+ "real_trials": 70,
+ "sim_episodes": null,
+ "success_criterion": "a success is counted when the arm does not drop the object at anytime",
+ "headline_metric": "success rate",
+ "headline_value": "Ours real-world success across 7 objects, e.g. Hammer(heavy) 0.8, Screwdriver 0.7 (Table 2, 10 trials/object)",
+ "objects_train": null,
+ "objects_test_unseen": 5,
+ "human_data": null,
+ "penetration": null,
+ "reward_terms": 2,
+ "reward_term_names": [
+  "r_threshold",
+  "r_hand-obj"
+ ],
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": "The exact functional form of r_hand-obj ('a sum of exponentials and an L2 distance') did not survive PDF-to-markdown conversion, and the paper's own stated observation dimensionality (7+16 vs. o_t \u2208 R^16) is internally inconsistent. [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

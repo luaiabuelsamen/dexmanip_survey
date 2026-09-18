@@ -1,0 +1,33 @@
+{
+ "key": "robot_synesthesia_2023",
+ "year": 2023,
+ "class": "method",
+ "task_family": [
+  "reorient"
+ ],
+ "paradigm": [
+  "RL",
+  "distillation"
+ ],
+ "algorithm": "PPO",
+ "hand": "Allegro Hand",
+ "hand_dof": 16,
+ "bimanual": false,
+ "arm": "XArm6",
+ "sim": "Isaac Gym",
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": 5,
+ "sim_episodes": 500,
+ "success_criterion": null,
+ "headline_metric": "Cumulative Rotation Reward (CRR) / Time-to-Fall (TTF)",
+ "headline_value": "4-way wrench: Ours CRR 1011.1\u00b1329.9, TTF 47.5\u00b10.4 vs PS 440.7\u00b1590.3/22.6\u00b118.5 vs Visual RL 10.9\u00b12.2/8.1\u00b13.2 (Table I)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none",
+ "penetration": "not addressed",
+ "reward_terms": 6,
+ "code_released": false,
+ "paper_code_mismatch": null,
+ "note_gaps": "No code source exists for this key. Simulator timestep, number of parallel training environments, GPU model, wall-clock training time, domain-randomization ranges, numeric reward weights, discount factor, contact-solver settings, and palm orientation/arm mounting are all not stated in the note."
+}

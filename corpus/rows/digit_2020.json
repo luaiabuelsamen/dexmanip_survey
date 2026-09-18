@@ -1,0 +1,32 @@
+{
+ "key": "digit_2020",
+ "year": 2020,
+ "class": "sensor",
+ "task_family": [
+  "other"
+ ],
+ "paradigm": [
+  "MPC"
+ ],
+ "algorithm": "Struct-NN keypoint autoencoder + learned forward-dynamics model + CEM-based model-predictive control",
+ "hand": "Allegro hand",
+ "hand_dof": null,
+ "bimanual": false,
+ "arm": "Sawyer",
+ "sim": null,
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": 50,
+ "sim_episodes": null,
+ "success_criterion": null,
+ "headline_metric": "marble drop rate / distance-to-goal in keypoint space",
+ "headline_value": "~25% of trials end with the marble dropping before reaching the goal, over 50 repeated real-robot trials (Sec. V-B, Fig. 8)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "none",
+ "penetration": null,
+ "reward_terms": 1,
+ "code_released": true,
+ "paper_code_mismatch": null,
+ "note_gaps": "Sensor DIGIT is 'considering the manufacturing of 1000 pieces' for its $15 cost figure, but the comparable GelSight cost's batch size is not given in the parsed Table I, so the two costs are not on a confirmed identical basis; no simulator is used or proposed by this paper itself (TACTO is a separate later paper). [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]"
+}

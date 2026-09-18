@@ -1,0 +1,33 @@
+{
+  "key": "autoeval_2025",
+  "year": 2025,
+  "class": "eval-protocol",
+  "task_family": [
+    "other"
+  ],
+  "paradigm": [
+    "BC",
+    "VLA"
+  ],
+  "algorithm": "success classifier: fine-tuned PaliGemma-3B VLM (LoRA); reset policy: fine-tuned OpenVLA (LoRA, behavior-cloning loss)",
+  "hand": null,
+  "hand_dof": null,
+  "bimanual": false,
+  "arm": "WidowX 250 6-DoF",
+  "sim": "SIMPLER/ManiSkill (comparison baseline only, with an added drawer scene)",
+  "n_envs": null,
+  "real_robot": true,
+  "real_trials": 50,
+  "sim_episodes": null,
+  "success_criterion": "drawer: completely closed or opened >= 1.5 cm; sink: eggplant fully inside sink/basket; cloth: folded at least a quarter of the way diagonally",
+  "headline_metric": "Pearson correlation and MMRV between AutoEval and human-run oracle evaluation",
+  "headline_value": "Pearson 0.942, MMRV 0.015 (Sec. 5.2)",
+  "objects_train": null,
+  "objects_test_unseen": null,
+  "human_data": "none for the evaluated policies (BridgeData-trained checkpoints); ~1000 teleop images for the success classifier, 50-100 teleop demos for the reset policy",
+  "penetration": null,
+  "reward_terms": null,
+  "code_released": true,
+  "paper_code_mismatch": "README's OpenVLA reset-policy fine-tune example uses batch_size 32 / lora_rank 64 / max_steps 3000, vs Appendix G's batch 64 / 1000 iterations; README describes 'about 50' reset demos vs Sec. 3's 'approximately 100'.",
+  "note_gaps": "Success-detector and eval-loop function bodies are absent from the code extract (signatures only); the RankViolation/MMRV formula is truncated in the parse."
+}

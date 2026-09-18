@@ -1,0 +1,36 @@
+{
+ "key": "diffusion_policy_2023",
+ "year": 2023,
+ "class": "method",
+ "task_family": [
+  "grasp",
+  "functional/tool",
+  "bimanual-coord",
+  "other"
+ ],
+ "paradigm": [
+  "BC",
+  "diffusion"
+ ],
+ "algorithm": "conditional DDPM over action sequences (CNN or transformer noise-prediction network), DDIM at inference",
+ "hand": null,
+ "hand_dof": null,
+ "bimanual": true,
+ "arm": "UR5 (real Push-T); Franka (real mug flip, pouring/spreading, bimanual tasks); Robomimic's Panda arm (sim)",
+ "sim": "task-specific: Robomimic (MuJoCo-backed), Push-T (custom 2D physics per IBC), BlockPush (per BET), Franka Kitchen (per Relay Policy Learning); no single engine/timestep stated for the combined benchmark",
+ "n_envs": null,
+ "real_robot": true,
+ "real_trials": null,
+ "sim_episodes": null,
+ "success_criterion": "success rate for most tasks; Push-T uses target-area coverage (IoU of pushed T-block vs goal region), thresholded against the minimum achieved IoU in the human demonstration dataset for the real-world criterion",
+ "headline_metric": "average success-rate improvement over best baseline (LSTM-GMM, IBC, BET) across 15 tasks / 4 benchmarks",
+ "headline_value": "46.9% average improvement (Abstract; Sec. 5; App. B.2 exact calc: avg=0.46858)",
+ "objects_train": null,
+ "objects_test_unseen": null,
+ "human_data": "human-teleoperated demonstrations for Robomimic/Push-T/Kitchen/real tasks (200-566 per task); BlockPush uses 1000 scripted-oracle demos with no human data",
+ "penetration": "not addressed",
+ "reward_terms": null,
+ "code_released": true,
+ "paper_code_mismatch": "the paper's core loss equations (DDPM training loss, EBM/InfoNCE, score-matching) are unrecovered images in the parsed text, and code/md is a signature-only API map, so compute_loss's body could not be verified from code; only the exact shipped noise-scheduler config (DDPMScheduler, 100 train steps) is confirmed.",
+ "note_gaps": "Core equations (Eq. 1-9) rendered as images and did not survive conversion to text; code/md has class/def signatures and config YAMLs only, no function bodies. No hand/dexterous-manipulation results in this paper itself (included as the shared policy-head architecture for dp3_2024 and umi_2024)."
+}

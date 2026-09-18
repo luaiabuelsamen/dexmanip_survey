@@ -1,0 +1,32 @@
+{
+  "key": "colosseum_2024",
+  "year": 2024,
+  "class": "benchmark",
+  "task_family": [
+    "other"
+  ],
+  "paradigm": [
+    "BC"
+  ],
+  "algorithm": "R3M-MLP, MVP-MLP, PerAct, RVT (trained); VoxPoser (zero-shot)",
+  "hand": null,
+  "hand_dof": null,
+  "bimanual": false,
+  "arm": "Franka Panda (parallel gripper)",
+  "sim": "CoppeliaSim (via RLBench/PyRep)",
+  "n_envs": null,
+  "real_robot": true,
+  "real_trials": null,
+  "sim_episodes": 5875,
+  "success_criterion": "task completes fully per RLBench's per-task success conditions (e.g. slide_block_to_target: part of block inside target area; open_drawer: prismatic joint fully extended)",
+  "headline_metric": "task-averaged success rate across perturbation factors",
+  "headline_value": "success degrades 30-50% under single perturbation factors; >=75% degradation when all factors are combined (abstract)",
+  "objects_train": 20,
+  "objects_test_unseen": null,
+  "human_data": "none (100 scripted demos per task for sim training; 5 HTC-Vive teleop demos per task for real, on 4 tasks)",
+  "penetration": null,
+  "reward_terms": null,
+  "code_released": true,
+  "paper_code_mismatch": null,
+  "note_gaps": "Success-condition bodies are inherited from RLBench and not present in the parsed code, so the App. X success metrics could not be checked against code; the abstract's R-bar^2=0.614 correlation figure is not derived anywhere in the text; Table IV's All-variations average (7.2%) does not match the Fig. 7 ablation number (6.4%), left unresolved as ambiguous."
+}

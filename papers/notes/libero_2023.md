@@ -1,0 +1,62 @@
+# libero_2023 — LIBERO: Benchmarking Knowledge Transfer for Lifelong Robot Learning (Liu, Zhu, Gao, Feng, Liu, Zhu, Stone; NeurIPS Datasets and Benchmarks 2023)
+
+sources: papers/md/libero_2023.md [ff7d943e] ; code/md/libero_2023.md [8f1084e3]
+
+## One-line contribution
+A procedurally generated, language-conditioned gripper-manipulation benchmark (130 tasks in four suites, 50 human teleop demos per task) built on robosuite, with a fixed lifelong-imitation protocol (FWT / NBT / AUC on success rate) and a baseline study of three lifelong algorithms x three policy architectures (Abstract; Sec. 4).
+
+## Setting
+- hand(s): none. Robot is a Franka Panda single arm with its default gripper: code `libero/libero/envs/robots/mounted_panda.py` and `on_the_ground_panda.py` (`class MountedPanda(ManipulatorModel)`, docstring "Panda is a sensitive single-arm robot designed by Franka"; `default_gripper()` exists but its body is not in the parsed code). The paper never names the robot or gripper; the parsed code only names Panda. Single-arm.
+- simulator / physics: robosuite [76] ("Our generation pipeline is built on top of Robosuite", Sec. 4.1), which is MuJoCo (`BDDLBaseDomain(SingleArmEnv)`, `set_state(self, mujoco_state)`, `MUJOCO_EGL_DEVICE_ID` in the README run command). Timestep, contact model and control frequency are NOT stated in either source; `control_freq` and `controller_configs` are constructor arguments of `BDDLBaseDomain` and `ControlEnv` (`libero/libero/envs/bddl_base_domain.py`, `env_wrapper.py`) but their defaults are not in the parsed code. Episodes: max 600 steps (Appendix D; `eval/default.yaml: max_steps: 600`). Evaluation is multi-process (`eval/default.yaml: use_mp: true, num_procs: 20`), not GPU-batched.
+- observation: RGB images plus robot state and a language instruction. README example creates `OffScreenRenderEnv` with `camera_heights: 128, camera_widths: 128`. Sec. 2.2: o_t "is the robot's sensory input, including the perceptual observation and the information about the robot's joints and gripper". Camera names are not stated in the parsed sources.
+- action space: 7-dim continuous end-effector action (README example `dummy_action = [0.] * 7`; Sec. 4.4: "a robot executes a policy by sampling a continuous value for end-effector action from the output distribution"). Controller type (OSC vs joint) is not stated in the parsed sources.
+- objects / data: 130 tasks (Abstract). LIBERO-SPATIAL, -OBJECT, -GOAL: 10 tasks each; LIBERO-100: 100 tasks, split into LIBERO-90 (short-horizon, pretraining) and LIBERO-LONG / LIBERO-10 (10 long-horizon, downstream evaluation) (Sec. 4.2; README). 50 human teleoperated demonstrations per task, collected with a 3Dconnexion SpaceMouse (Sec. 4.4). Task instructions are derived from language templates extracted from Ego4D [22] (Sec. 4.1). Scenes: kitchen, living room, study, coffee table, floor, tabletop arenas (`libero/libero/envs/arenas/*.py`, `envs/problems/*.py`); object sets include Google Scanned Objects, HOPE and TurboSquid assets (`envs/objects/google_scanned_objects.py`, `hope_objects.py`, `turbosquid_objects.py`).
+
+## Method
+- paradigm: IL (behavioural cloning) inside a lifelong-learning protocol; "Due to the challenge of sparse-reward reinforcement learning, we consider a practical alternative setting where a user would provide a small demonstration dataset for each task" (Sec. 2.2). README: "Currently, we only support sparse reward function (i.e., the agent receives +1 when the task is finished). As sparse-reward RL is extremely hard to learn, currently we mainly focus on lifelong imitation learning."
+- reward or loss: environment reward is the sparse success indicator, `libero/libero/envs/bddl_base_domain.py`:
+  ```
+  def reward(self, action=None):
+      """Sparse un-normalized reward: a discrete reward of 1.0 is provided if the task succeeds."""
+      reward = 0.0
+      if self._check_success():
+          reward = 1.0
+      if self.reward_scale is not None:
+          reward *= self.reward_scale / 1.0
+      return reward
+  ```
+  Formally, Sec. 2.1: "we assume a sparse-reward setting and replace R with a goal predicate g: S -> {0,1}". Training loss is BC negative log-likelihood under a Gaussian-mixture policy head (Sec. 2.2, Eq. 2 — the equation itself did not survive PDF parsing; `configs/policy/policy_head/gmm_head.yaml: num_modes: 5, min_std: 0.0001`).
+- task / success definition: each task is a PDDL-style BDDL file with `:regions` (object placement ranges and yaw), `:init` predicates and a `:goal` conjunction; e.g. the Appendix C.2 example goal for "open the top drawer of the cabinet and put the bowl in it" is `(:goal (And (Open wooden_cabinet_1_top_region) (In akita_black_bowl_1 wooden_cabinet_1_top_region)))`. "The simulation terminates when all predicates are verified true" (Sec. 4.1). Predicates implemented in `libero/libero/envs/predicates/base_predicates.py`: `In`, `On`, `Up`, `Stack`, `InContactPredicateFn` (binary), `Open`, `Close`, `TurnOn`, `TurnOff` (unary); they are evaluated through `ObjectState.check_contact / check_contain / check_ontop / is_open / is_close` in `envs/object_states/base_object_states.py`. Each scene class (`envs/problems/libero_*_manipulation.py`) implements `_check_success` and `_eval_predicate(state)`; their bodies are not in the parsed code (signatures only), so the geometric thresholds behind `On`/`In` cannot be quoted.
+- key trick(s): (1) fixed initial states per task for benchmarking — `task_suite.get_task_init_states(task_id)` ("for benchmarking purpose, we fix the a set of initial states", README); (2) three FLOPS-matched architectures (~13.5 GFLOPS each, Appendix D): RESNET-RNN, RESNET-T, VIT-T, all with a GMM head and BERT task embeddings (Sec. 4.4); (3) five algorithms: SEQL (lower bound), ER (`n_memories: 1000`), EWC (`e_lambda: 50000, gamma: 0.9`), PACKNET (`prune_perc: 0.75, post_prune_epochs: 50`), MTL (upper bound) (Sec. 4.3; `configs/lifelong/*.yaml`).
+
+## Evaluation
+- metrics (exact definitions, Sec. 5.1): c_{i,j,e} = success rate on task j after learning i-1 previous tasks and e epochs (e in {0,5,...,50}) on task i; c_{i,i} = max_e c_{i,i,e}; e*_i = earliest epoch achieving it; for j != i, c_{i,j} = c_{i,j,e*_i}. FWT (forward transfer, higher better), NBT (negative backward transfer, lower better), AUC (area under the success-rate curve, higher better) are then defined by three displayed equations that were lost in PDF parsing (Sec. 5.1, Fig. 3); the note cannot quote the formulas. "All metrics are computed in terms of success rate, as previous literature has shown that the success rate is a more reliable metric than training loss" (Sec. 5.1; Appendix E.2).
+- protocol (Appendix D; `configs/eval/default.yaml`, `configs/train/default.yaml`): 50 epochs of BC per task on 50 demos; evaluation every 5 epochs (`eval_every: 5`) over 20 rollouts (`n_eval: 20`) of max 600 steps; the best checkpoint is kept (Robomimic convention); after each task, the best checkpoint is evaluated on all previously learned tasks with 20 rollouts each. Adam, batch 32, cosine LR 1e-4 -> 1e-5. 3 seeds {100, 200, 300} per (algorithm, architecture, suite), 180 experiments total; Tables report mean +/- standard error; significance via two-tailed Student's t-test, p = 0.05 (Table 1, 2 captions). Compute: one A100 or A40 per run (Appendix B).
+- headline numbers:
+  - Table 2 (RESNET-T fixed), AUC: LIBERO-LONG SEQL 0.15, ER 0.32, EWC 0.02, PACKNET 0.25, MTL 0.48; LIBERO-SPATIAL 0.20 / 0.56 / 0.06 / 0.63 / 0.83; LIBERO-OBJECT 0.26 / 0.44 / 0.16 / 0.60 / 0.54; LIBERO-GOAL 0.22 / 0.49 / 0.06 / 0.75 / 0.80. SEQL has the best FWT on every suite (0.54 / 0.72 / 0.78 / 0.77) and the worst NBT (0.63 / 0.81 / 0.76 / 0.82).
+  - Table 1 (architectures under ER / PACKNET): RESNET-RNN is worst everywhere (e.g. LIBERO-LONG ER AUC 0.08 vs 0.32 RESNET-T, 0.25 VIT-T); PACKNET+VIT-T best on LIBERO-LONG (AUC 0.34) and LIBERO-GOAL (0.76).
+  - Table 3 (language embeddings, ER + RESNET-T, LIBERO-LONG): BERT AUC 0.32, CLIP 0.35, GPT-2 0.30, Task-ID 0.33; "no statistically significant difference".
+  - Table 8 (full grid) adds MTL AUC per architecture, e.g. LIBERO-OBJECT MTL VIT-T 0.78 vs RESNET-T 0.54.
+  - Fig. 4: task ordering changes results, "statistically significant for PACKNET". Fig. 5: pretraining on LIBERO-90 "can hurt" downstream lifelong performance on LIBERO-LONG.
+- baselines beaten: none claimed; the paper is a benchmark plus study. Findings (Sec. 5.2): "all lifelong learning algorithms we consider actually hurt forward transfer"; ER "is robust across all task suites"; PACKNET best on LIBERO-X but "outperformed by ER significantly on LIBERO-LONG".
+- real robot? No. Simulation only.
+
+## Limitations stated by the authors
+- Sec. 7 lists open directions rather than limitations: better architectures for spatial/temporal information, algorithms with better forward transfer, and pretraining that helps rather than hurts. Footnote 4: "A suite of 10 tasks is enough to observe catastrophic forgetting while maintaining computation efficiency."
+- Sec. 5.2 / Table 3: sentence embeddings act "as bag-of-words that differentiates different tasks"; the benchmark does not exploit language semantics.
+- README: only sparse reward is supported; RL is not the intended use.
+- Appendix E.2: BC loss "can be a misleading indicator of task success rate" (EWC had the lowest loss and poor success).
+
+## Quotable claims (verbatim, with section)
+- "we create four task suites (130 tasks in total)" and "we provide high-quality human-teleoperated demonstration data for all tasks" (Abstract).
+- "sequential finetuning outperforms existing lifelong learning methods in forward transfer, no single visual encoder architecture excels at all types of knowledge transfer, and naive supervised pretraining can hinder agents' performance in the subsequent LLDM" (Abstract).
+- "We evaluate the agent's average success rate over 20 test rollout trajectories of a maximum length of 600 every 5 epochs." (Appendix D)
+- "we run the lifelong learning method 3 times with random seeds {100, 200, 300} (180 experiments in total)" (Appendix D).
+- "The simulation terminates when all predicates are verified true." (Sec. 4.1)
+- "success rates, instead of behavioral cloning loss, should be the right metric to evaluate whether a model checkpoint is good or not." (Appendix E.2)
+
+## Notes for the survey (which sections this feeds; contradictions with other notes)
+- Benchmarks section: the reference point for a standardised IL benchmark that dexterous-hand work lacks: fixed init states per task, predicate-defined success, 50 demos/task, 20 rollouts x 3 seeds, mean +/- s.e. with t-tests. Note the trial count is small (20 rollouts per task per checkpoint), which the evaluation-protocol notes (kress_gazit_policy_eval_2024) will argue against; LIBERO reports standard error over 3 seeds, not confidence intervals over trials.
+- Evaluation section: the "keep the best checkpoint by evaluated success rate" convention (Appendix D) means reported numbers are max-over-checkpoints, an optimistic selection on the test rollouts themselves; flag when comparing to protocols that fix the checkpoint a priori.
+- Simulator section: no hand; gripper only; MuJoCo via robosuite; no throughput or physics settings are given in either source, so LIBERO cannot be cited for contact fidelity or FPS.
+- Gaps in the sources: FWT/NBT/AUC formulas, the BC loss equation, control frequency, controller type, camera names, and the `On`/`In` geometric thresholds are all missing from the parsed files (equations lost to PDF parsing; code md is signatures-only except `reward()`). Fetch from the PDF/repo before quoting any of them.

@@ -1,0 +1,35 @@
+{
+  "key": "bidexhands_2022",
+  "year": 2022,
+  "class": "benchmark",
+  "task_family": [
+    "bimanual-coord",
+    "handover",
+    "reorient",
+    "functional/tool"
+  ],
+  "paradigm": [
+    "RL"
+  ],
+  "algorithm": "PPO, SAC, TRPO, DDPG, TD3, HAPPO, HATRPO, MAPPO, IPPO, MADDPG, BCQ, TD3+BC, IQL, MAML, ProMP",
+  "hand": "Shadow Dexterous Hand (x2)",
+  "hand_dof": 24,
+  "bimanual": true,
+  "arm": null,
+  "sim": "Isaac Gym (PhysX)",
+  "n_envs": 2048,
+  "real_robot": false,
+  "real_trials": null,
+  "sim_episodes": null,
+  "success_criterion": null,
+  "headline_metric": "episode reward and normalized offline-RL / multi-task score (no success rate reported in the paper)",
+  "headline_value": null,
+  "objects_train": null,
+  "objects_test_unseen": null,
+  "human_data": "none",
+  "penetration": "not addressed",
+  "reward_terms": null,
+  "code_released": true,
+  "paper_code_mismatch": "Paper states the policy controls joints via relative position at 30 Hz; shipped yaml configs use controlFrequencyInv=1 (60 Hz comment) with useRelativeControl=False. Lift Underarm reward in the paper is an ungated 0.985 constant, but code gates it on both hands within 8 cm of the handles and uses 0.385. HAPPO hyperparameters (lr, max grad norm, env steps) differ between paper Table 44 and shipped cfg/happo/config.yaml. Paper claims 30,000+ FPS; README claims 40,000+ mean FPS.",
+  "note_gaps": null
+}

@@ -1,0 +1,33 @@
+{
+ "key": "visual_dexterity_2022",
+ "year": 2022,
+ "class": "method",
+ "task_family": [
+  "reorient"
+ ],
+ "paradigm": [
+  "RL",
+  "distillation"
+ ],
+ "algorithm": "PPO (teacher, privileged state) + DAgger imitation distillation to a depth-point-cloud student (two-stage: synthetic-PC pretrain then rendered-occluded-PC fine-tune)",
+ "hand": "D'Claw (open-source, low-cost; 3-finger and modified 4-finger versions)",
+ "hand_dof": null,
+ "bimanual": false,
+ "arm": null,
+ "sim": "Isaac Gym (PhysX)",
+ "n_envs": 32000,
+ "real_robot": true,
+ "real_trials": 20,
+ "sim_episodes": null,
+ "success_criterion": "orientation error <=0.4 rad (also reported at <=0.8 rad) between object and goal, via a three-part stop criterion (orientation error + finger-motion + object-motion all under threshold)",
+ "headline_metric": "real-robot success rate at orientation error <=0.4 rad, on-table (Table 1)",
+ "headline_value": "soft fingertips: train objects 79% [71,86]%, OOD test objects 55% [44,62]%; rigid fingertips: train 81% [73,90]%, test 45% [32,58]%; simulation: train 96% [94,97]%, test 85% [82,88]% (Table 1)",
+ "objects_train": 150,
+ "objects_test_unseen": 12,
+ "human_data": "none",
+ "penetration": "not addressed",
+ "reward_terms": 7,
+ "code_released": true,
+ "paper_code_mismatch": "Table S1 states 32000 teacher training environments, but the released config sets alg.num_envs to 8000 (parent config 16384); fallDistance differs across two shipped configs (0.24 vs 0.15, only the latter matching Table S1's threshold); the paper's Eq 8 penultimate-joint penalty (c7=-2) does not appear anywhere in the released reward code; the config carries a dead distRewardScale=-10.0 key never used in compute_reward; and the paper's table-friction lower bound (0.05) differs by a factor of 10 from the code's randomized lower bound (0.005).",
+ "note_gaps": "the paper's reward equations (Eq 1-8) are embedded as images and were not recoverable as text from the PDF conversion; the quoted equations/coefficients are reconstructed from surrounding prose and Table S1 constants, not read directly off the formulas."
+}

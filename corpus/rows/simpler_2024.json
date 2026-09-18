@@ -1,0 +1,33 @@
+{
+  "key": "simpler_2024",
+  "year": 2024,
+  "class": "eval-protocol",
+  "task_family": [
+    "other"
+  ],
+  "paradigm": [
+    "BC",
+    "VLA"
+  ],
+  "algorithm": null,
+  "hand": null,
+  "hand_dof": null,
+  "bimanual": false,
+  "arm": "Google Robot (mobile manipulator), WidowX-250 6-DoF",
+  "sim": "SAPIEN (also reproduced in Isaac Sim for an ablation)",
+  "n_envs": null,
+  "real_robot": true,
+  "real_trials": 1500,
+  "sim_episodes": null,
+  "success_criterion": "task-specific binary success (e.g. pick coke can: grasp and lift; drawer: opened/closed fully)",
+  "headline_metric": "Pearson r and Mean Maximum Rank Violation (MMRV) between simulated and real success rates",
+  "headline_value": "Visual Matching: Pearson r 0.924, MMRV 0.056 average (Google Robot, Table I)",
+  "objects_train": null,
+  "objects_test_unseen": null,
+  "human_data": "none (uses existing RT-1/Bridge real evaluation datasets for system identification; no new human demos collected)",
+  "penetration": "constrained",
+  "reward_terms": null,
+  "code_released": true,
+  "paper_code_mismatch": "MMRV formula and SysID loss equations are images lost by the PDF converter; success predicates live in the un-fetched ManiSkill2_real2sim repo; metrics.py bodies (mean_maximum_rank_violation, pearson_correlation) are signatures only in the code extract.",
+  "note_gaps": "MMRV and SysID-loss formulas were dropped by the PDF converter; success-predicate implementations are in a repo not captured in the code extract."
+}

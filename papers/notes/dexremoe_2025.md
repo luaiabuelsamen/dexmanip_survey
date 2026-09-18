@@ -1,0 +1,59 @@
+# dexremoe_2025 — DexReMoE: In-hand Reorientation of General Object via Mixtures of Experts (Wan, Liu, Dong; arXiv 2025)
+
+sources: papers/md/dexremoe_2025.md [ad5eb155] ; no code
+
+Parse caveat: the reward equation (Eq. 1), the MDP objective equation, and the five-metric definitions (Sec. IV-B) are typeset math that comes through as blank lines or scrambled inline fragments in the pymupdf4llm parse. Reward weights and thresholds below are taken from Table II (Appendix, hyperparameter table) rather than from the (unreadable) Eq. 1 itself; one weight (angular-velocity penalty cω) is named in prose but never appears in Table II.
+
+## One-line contribution
+Trains four shape-specialised expert policies (by fine-tuning a shared base policy on subsets of a 150-object set) and a lightweight softmax gating network over a shared point-cloud + category embedding, raising the worst-case ("floor") consecutive-success count for mid-air, palm-down in-hand reorientation from 0.69–3.80 (best single-policy baseline) to 4.11–6.05 (abstract; Table I).
+
+## Setting
+- hand(s): "our custom GX11 three-fingered dexterous hand," 11 DoF (Sec. IV-A). No arm; hand-only, object initialized already grasped. Single-hand.
+- simulator / physics: IsaacGym [10]. Simulation and control frequency both 60 Hz (Sec. IV-A). 32,768 parallel envs (Sec. IV-A; Table II). Timestep, GPU, and wall-clock training time not stated.
+- observation: proprioceptive o_t = [q_{t-2}, q_{t-1}, q_t, a_{t-3}, a_{t-2}, a_{t-1}] (last 3 joint positions + last 3 executed actions), concatenated with privileged embedding z_t (Sec. III-B). Privileged input e_t = [e_phys_t ∈ R^23 (mass, center of mass, friction, uniform scale, position, orientation quaternion, linear velocity, angular velocity), e_shape_t ∈ R^38 (32-d PointNet++-derived embedding f_t + 6-d one-hot category vector c)], passed through encoder μ_e to a 66-d embedding z_t = μ_e(e_t) (Sec. III-B). Actions are smoothed with an EMA before execution: â_t = α a_t + (1-α) â_{t-1} (Sec. III-B); α value not stated.
+- action space: policy output a_t = π_base(o_t, z_t) is "executed by the PD controller"; not stated whether it is an absolute joint target or a delta/residual.
+- objects / data: 150 object meshes "sourced from online repositories such as Google Scanned Objects" (Sec. IV-A). Appendix: 100 selected at random for training, 50 held out for out-of-distribution eval; meshes centered and scaled by 0.8 to fit the hand's workspace, convex-decomposed with V-HACD (Appendix, "Object Dataset," "Convex Decomposition"). Note: Sec. IV-C and the ablations instead say "100 objects from the training set," and the abstract's "150 objects" line does not match the 100/50 split in the appendix — the within-/out-of-distribution object counts used per experiment are not fully reconciled in the text.
+
+## Method
+- paradigm: RL only, two-stage (base policy, then expert fine-tuning) plus a third stage that trains only the gating network with experts and encoders frozen (Sec. III-A-C, Fig. 2). Algorithm: PPO [29], shared policy/critic weights with an extra linear projection head for the value function (Sec. III-B, "Policy Optimization").
+- stage 1 (base policy): jointly trains π_base, PointNet++ point-cloud encoder μ_pc, and object encoder μ_e on data pooled across all 100 training objects (Sec. III-B).
+- stage 2 (experts): freezes μ_pc, μ_e; initializes 4 experts {π_e_i} from π_base's weights; each is fine-tuned on data restricted to one shape category — "generalist" (broad set), "airplane" (elongated, discontinuous surfaces), "train" (slender, high-aspect-ratio), "complex animal" (non-uniform, intricate topology) (Sec. III-C, "Expert Knowledge"). Category-to-expert assignment is manual, not learned.
+- stage 3 (gating): π_gate is a 2-layer MLP (W1 ∈ R^{64×d}, W2 ∈ R^{n×64}, ELU) mapping e_shape_t to n unnormalized scores, softmax-normalized to routing weights, output = weighted sum of frozen experts' actions ("Soft Mixture-of-Experts," Sec. III-C, steps 1-3). Compared against hard Top-K routing, which the paper says "converges much less reliably" than the dense soft gate under sparse reward (Sec. III-C) — no numbers given for that comparison.
+- reward or loss (paper, Sec. III-B "Reward Function," equation itself blank in the parse): described as a weighted sum of (i) a sparse per-step success term for reaching/holding the target pose, (ii) a penalty on position error |δp| and orientation error |δθ|, (iii) a penalty on joint angular velocity above a clip ω_clip, (iv) a penalty on action magnitude. Text states explicitly: "Our reward function does not include the penalty for the object falling, as we found during experiments that such a term suppresses exploratory actions and adversely affects the overall training performance."
+- reward weights (Table II, Appendix — the only place numeric weights survive the parse): c_success = 800, c_dist = -10.0, c_rot = -1.0, c_a = -0.0002. c_ω (the angular-velocity penalty weight named in Sec. III-B prose) has no entry in Table II — mismatch between prose and the hyperparameter table.
+- success/threshold constants (Table II): τ_θ = 0.1 (rotational distance tolerance), τ_q = 10.0 (per-joint velocity threshold), τ_v = 0.04 (object linear velocity threshold), τ_ω = 0.5 (object angular velocity threshold), "success tolerance" = 0.4 (unlabeled units).
+- PPO hyperparameters (Table II): num envs 32768, episode length 600, horizon length 8, minibatch size 16384, learning rate 5e-3, clip range 0.2, KL threshold 0.02, gamma 0.99, tau 0.95.
+- domain randomization: not described anywhere in the parse (no randomized-quantity list; mass/COM/friction/scale appear only as privileged *observations*, not as randomization ranges).
+- key trick(s): dense/soft gating (vs. sparse Top-K) to avoid abrupt expert switching under a sparse reward; category one-hot fused with point-cloud embedding specifically to give the router "global directional cues" on the hardest shapes (Sec. IV-D ablation); manual curriculum shown necessary to make the DR/ADR baselines converge under the paper's strict hold-based success criterion, while the authors' own modular architecture "eliminates the necessity for curriculum training" (Sec. IV-E).
+
+## Reproducibility
+- Code: "We will release our codebase and simulation environment to facilitate further research" (Sec. I) — stated as a future intent, not a link; no github field in the bib entry and no code/md exists for this key. Nothing in this note is verified against an implementation.
+- Assets: the 150-object mesh set is attributed to "online repositories such as Google Scanned Objects [32]" but no explicit list or split file is given beyond Fig. 7's illustration and the appendix's 100/50 description.
+- Network sizes given explicitly (Appendix, "Policy architecture"): π_base 2 hidden layers × 512 units; μ_pc (PointNet++-based) 3 layers × 32 units; μ_e 2 layers (256, 128 units); π_gate 2 layers × 64 units, ELU. All MLPs trained with Adam.
+- None of Table I, Table II, or the ablation figures (Fig. 3-6) can be checked against a repo — everything here is paper-only.
+
+## Contact / penetration handling
+Not addressed as a measured quantity anywhere in the text. The only contact-adjacent detail is that object and hand meshes are convex-decomposed with V-HACD "for fast collision detection in the simulator" (Appendix, "Convex Decomposition") — a collision-modeling choice, not a penetration metric or penalty.
+
+## Evaluation
+- metrics: "consecutive success count" per object, S_i — the number of back-to-back successful reorientations within a fixed time window (episode length 600 steps at 60 Hz). Success at a control step requires simultaneously: rotational distance to goal ≤ τ_θ, every finger-joint velocity < τ_q, object linear velocity < τ_v, object angular velocity < τ_ω, and — to reject transient/incidental alignment — all four conditions must hold continuously through the episode's final control cycle (Sec. IV-A, "Reorientation Success Criterion"). Five summary statistics reported per method (Sec. IV-B, equations blank in parse but described in Table I's caption): S_min, S_max, mean of 5 worst objects (S̄_5-), mean of 5 best objects (S̄_5+), overall mean S̄.
+- headline numbers (Table I, "Within Training Distribution" vs. "Out-of-Distribution"): Ours S_min 6.05 / 4.11, S_max 23.56 / 23.69, S̄_5- 7.90 / 9.14, S̄_5+ 23.43 / 23.53, S̄ 19.62 / 19.12. Best baseline MMoE: S_min 3.36 / 3.80, S̄ 18.97 / 18.18. Weakest baselines DR and ADR: S_min 0.11–0.85, S̄ ≈ 11–12.
+- baselines beaten (Table I, all "trained with the same reward and penalty settings"): DR [OpenAI 2018], PrivFeat [rapid motor adaptation, 2022-era], PrivShape [Visual Dexterity-style, point-cloud privileged input], ADR [DeXtreme-style], Res (residual-action policy), SparseMoE, Switch Transformer routing, MLoRE, MMoE.
+- ablations (Sec. IV-D, Fig. 5, 6000 episodes each): expert count 1/4/6/8 — 4 experts gives the best S_min/S̄_5-, more experts degrade due to "routing inefficiencies and diminished per-expert data." Gating-input ablation: point-cloud-only vs. category-only vs. both — both together wins on worst-case metrics specifically.
+- real robot? None. "We have yet to validate Soft MoE on physical hardware; conducting real-world trials is a primary goal for our next research phase" (Sec. V). All numbers are sim-only.
+
+## Limitations stated by the authors (Sec. V, "Limitations and Future Work")
+- "Our reliance on manually labeled object categories limits scalability." (expert-to-category assignment is hand-designed, not learned)
+- No real-hardware validation at all; explicitly deferred to future work.
+
+## Quotable claims (verbatim, with section)
+- "Our reward function does not include the penalty for the object falling, as we found during experiments that such a term suppresses exploratory actions and adversely affects the overall training performance." (Sec. III-B)
+- "the four-expert configuration unexpectedly achieves superior S_min and S̄_5- ... outperforming both the single-expert and the larger expert variants" (Sec. IV-D)
+- "When initially reproducing the baseline DR and ADR [1, 2] under our strict success criterion, which requires maintaining a stable hold at the goal orientation, training failed to converge. ... To restore performance, we implemented curriculum learning." (Sec. IV-E)
+- "We have yet to validate Soft MoE on physical hardware; conducting real-world trials is a primary goal for our next research phase." (Sec. V)
+
+## Notes for the survey
+- Feeds: the survey's "what's actually new in 2025 in-hand reorientation" section — this paper's novelty is entirely in the policy-combination layer (shape-conditioned soft MoE + a shared extrinsics embedding) laid on top of an otherwise 2022-2023-style privileged-state RL recipe (DR/ADR/PrivFeat/PrivShape ancestry, PPO in IsaacGym); it does not introduce a new reward primitive or a new sim-to-real mechanism, and every baseline is re-trained under the authors' own reward/threshold settings rather than quoted from the original papers.
+- No real-robot evaluation at all (not even video-only) — flag this against articulated_tools_inhand_2025, simtoolreal_2026, poise_2026, viserdex_2026 for the survey's sim-only vs. real-world split.
+- Zero interpenetration measurement or penalty — another zero-touch entry for the survey's contact/penetration-handling table (only convex decomposition for the collision solver is mentioned).
+- The 150-objects abstract claim vs. the 100-train/50-OOD appendix split is internally inconsistent; do not quote "150" as an evaluated set size without noting this.

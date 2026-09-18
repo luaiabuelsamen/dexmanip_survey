@@ -1,0 +1,36 @@
+{
+  "key": "dexverse_2026",
+  "year": 2026,
+  "class": "benchmark",
+  "task_family": [
+    "grasp",
+    "functional/tool",
+    "bimanual-coord",
+    "other"
+  ],
+  "paradigm": [
+    "VLA",
+    "diffusion"
+  ],
+  "algorithm": "pi0.5 (VLA, flow matching), OpenVLA+OFT (L1 regression), Diffusion Policy, DP3",
+  "hand": "Sharpa Wave, WUJI Hand, Shadow Hand, Inspire Hand, Allegro Hand, LEAP Hand (6 hands, each with a floating-wrist variant)",
+  "hand_dof": null,
+  "bimanual": true,
+  "arm": "Franka Research 3, UR10e, xArm 7",
+  "sim": "Isaac Lab",
+  "n_envs": null,
+  "real_robot": false,
+  "real_trials": null,
+  "sim_episodes": null,
+  "success_criterion": "task-specific simulator predicate per task (e.g. PickCube: object lifted >= 0.20 m above resetting height; NutThread: centered within ~0.0025 m of the bolt axis and threaded to within ~0.002 m of target depth)",
+  "headline_metric": "mean online success rate over 50 rollouts/task (19 tasks, Table 3)",
+  "headline_value": "DP3 0.34, pi0.5 0.34, DP 0.32, OpenVLA 0.19 (Table 3, mean across 19 tasks)",
+  "objects_train": null,
+  "objects_test_unseen": null,
+  "human_data": "none (VR-teleoperated demonstrations collected by the authors, not from an existing human dataset)",
+  "penetration": null,
+  "reward_terms": null,
+  "code_released": false,
+  "paper_code_mismatch": null,
+  "note_gaps": "Hand DoF, per-hand vendor beyond the 6 names, exact arm-hand pairing matrix (Fig. 5a), physics engine/timestep, and licence/code-release plan are all deferred to a supplementary material section not present in the parsed source."
+}

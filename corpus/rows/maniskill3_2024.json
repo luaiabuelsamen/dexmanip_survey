@@ -1,0 +1,36 @@
+{
+  "key": "maniskill3_2024",
+  "year": 2024,
+  "class": "simulator",
+  "task_family": [
+    "grasp",
+    "reorient",
+    "other"
+  ],
+  "paradigm": [
+    "RL",
+    "BC",
+    "diffusion"
+  ],
+  "algorithm": "PPO, SAC, TD-MPC2, BC, Diffusion Policy, ACT, PerAct, RLPD, RFCL",
+  "hand": "Allegro Hand (incl. touch-sensor variant), Inspire Hand, Ability Hand, TriFinger",
+  "hand_dof": null,
+  "bimanual": false,
+  "arm": "Franka Panda, UR5, XArm7 (teleop), Koch v1.1 (sim2real)",
+  "sim": "SAPIEN (PhysX, GPU-parallel)",
+  "n_envs": 4096,
+  "real_robot": true,
+  "real_trials": 24,
+  "sim_episodes": null,
+  "success_criterion": null,
+  "headline_metric": "sim+render throughput (FPS) and GPU memory usage vs Isaac Lab",
+  "headline_value": "up to 30,000+ FPS; at 128 parallel environments with cameras, ManiSkill3 uses 3.5GB GPU memory vs Isaac Lab's 14.1GB",
+  "objects_train": null,
+  "objects_test_unseen": null,
+  "human_data": "none (motion-planning, RL, and teleop-generated demonstrations, not a human dataset)",
+  "penetration": null,
+  "reward_terms": null,
+  "code_released": true,
+  "paper_code_mismatch": "The paper's dexterous-manipulation section (App. VII-H) is two paragraphs with no task list, reward, or success definition; all concrete reward/success details had to be read from code, and evaluate() success-predicate bodies were not captured by the code parser so dexterous success thresholds remain unverified.",
+  "note_gaps": "Dexterous task success-predicate bodies, hand DoF/vendor specs, and the exact environment count behind the '30,000+ FPS' headline figure are not present in either parsed source."
+}

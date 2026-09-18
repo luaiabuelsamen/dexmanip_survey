@@ -1,0 +1,35 @@
+{
+  "key": "bench2dex_2026",
+  "year": 2026,
+  "class": "benchmark",
+  "task_family": [
+    "bimanual-coord",
+    "functional/tool"
+  ],
+  "paradigm": [
+    "BC",
+    "diffusion",
+    "VLA"
+  ],
+  "algorithm": "ACT, Diffusion Policy, pi0.5, GR00T N1.5",
+  "hand": "12 hands: DexHand021, Sharpa Wave, Allegro, Orca, Revo2 (BrainCo), RH56DFX, RH5DG2, Schunk SVH, Shadow Hand, Wuji, Ability, LEAP",
+  "hand_dof": null,
+  "bimanual": true,
+  "arm": "JAKA ZU7, KUKA IIWA7, Franka Panda, RM65, UR5, xArm7 (12 fixed arm-hand pairs, one per task)",
+  "sim": "Isaac Lab",
+  "n_envs": null,
+  "real_robot": false,
+  "real_trials": null,
+  "sim_episodes": null,
+  "success_criterion": "reach-and-stop: the terminal task predicate must hold continuously for a dwell time (default 0.5 s) before counting success (App. E.1)",
+  "headline_metric": "stable success rate (reach-and-stop), matched-scene 'None' channel, Table 2",
+  "headline_value": "GR00T N1.5 631/1300 (48.5%), ACT 383/1300 (29.5%), pi0.5 355/1300 (27.3%), DP 168/1300 (12.9%)",
+  "objects_train": null,
+  "objects_test_unseen": null,
+  "human_data": "none (teleoperated demonstrations collected by the authors)",
+  "penetration": null,
+  "reward_terms": null,
+  "code_released": true,
+  "paper_code_mismatch": null,
+  "note_gaps": "No paper text states hand DoF for any of the 12 hands or a physics timestep/engine version; the code pins Isaac Sim 5.1.0 but this is a code-only fact. The repository's LICENSE file content was not captured, so licence type is unstated in both sources."
+}

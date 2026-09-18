@@ -1,0 +1,33 @@
+{
+ "key": "hora_2022",
+ "year": 2022,
+ "class": "method",
+ "task_family": [
+  "reorient"
+ ],
+ "paradigm": [
+  "RL",
+  "distillation"
+ ],
+ "algorithm": "PPO",
+ "hand": "Allegro Hand (Wonik Robotics)",
+ "hand_dof": 16,
+ "bimanual": false,
+ "arm": null,
+ "sim": "IsaacGym",
+ "n_envs": 16384,
+ "real_robot": true,
+ "real_trials": 240,
+ "sim_episodes": 500000,
+ "success_criterion": null,
+ "headline_metric": "Time-to-Fall (TTF) / Rotation Reward (RotR)",
+ "headline_value": "RotR 222.27\u00b121.20, TTF 0.82\u00b10.02 (within-distribution, Table 1)",
+ "objects_train": null,
+ "objects_test_unseen": 30,
+ "human_data": "none",
+ "penetration": "not addressed",
+ "reward_terms": 5,
+ "code_released": true,
+ "paper_code_mismatch": "The parsed code commit's joint-noise range, disabled default disturbance force, and default cube object type differ from the paper's stated values; the code README itself says to use tag v0.0.1, not the parsed commit, to reproduce paper numbers.",
+ "note_gaps": null
+}
