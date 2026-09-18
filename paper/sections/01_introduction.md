@@ -65,6 +65,8 @@ covers simulators and contact models. Section 5 covers how policies are trained 
 section. Section 6 covers bimanual work as its own problem. Section 7 proposes an evaluation frame
 rather than a leaderboard. Section 8 states the gaps as claims with their evidence.
 
+{{figure:fig1_field}}
+
 <!--
 FIGURE 1. The field on one page.
 

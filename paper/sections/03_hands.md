@@ -57,7 +57,11 @@ rarely the motors. ORCA's durability run found silicone skin degrading on two fi
 about 2,000 to 4,000 grasp cycles and sensor wires snapping on three after about 4,500 to 7,000
 `orca_hand_2025`. The sensing wore out an order of magnitude sooner than the hand.
 
+{{table:table2_hands_available}}
+
 ## 3.2 The hands the research literature actually runs on
+
+{{figure:fig2_hands}}
 
 Two hand designs, one from 2005 and one from 2016, carry 52 of the 103 method rows that name a
 hand at all. Figure 2 counts, per hand, the method papers whose own experiments use it. Of 110
@@ -189,6 +193,8 @@ Ethernet, while two published survey tables round the weight to 1.7 and 1.8 kg a
 EtherCAT, which the page does not `tesollo_dg5f_2024`. The XHAND1 tracker page states no
 fingertip force, a survey table gives 15 N and the bibliography gives an 80 N grip
 `robotera_xhand1_2024`.
+
+{{table:table3_hands_announced}}
 
 ## 3.5 Tactile sensing as part of the hand
 

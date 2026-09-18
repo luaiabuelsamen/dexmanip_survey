@@ -2,8 +2,14 @@
  "key": "open_television_2024",
  "year": 2024,
  "class": "method",
- "task_family": ["bimanual-coord", "functional/tool"],
- "paradigm": ["teleop-system", "BC"],
+ "task_family": [
+  "bimanual-coord",
+  "functional/tool"
+ ],
+ "paradigm": [
+  "teleop-system",
+  "BC"
+ ],
  "algorithm": "ACT (Action Chunking Transformer) with DinoV2 ViT backbone",
  "hand": "Inspire Robots hand (6 actuated DoF, 12 total); Fourier GR-1 embodiment instead uses a 1-DoF parallel-jaw gripper",
  "hand_dof": 6,
@@ -25,12 +31,13 @@
  "code_released": true,
  "paper_code_mismatch": "The paper's prose states 25k training iterations, lr 5e-5, batch size 45, but the code repo's example training command instead shows 50000 epochs and an explicit kl_weight=10 not mentioned anywhere in the paper text.",
  "note_gaps": "One of the two embodiments (Fourier GR-1) uses a 1-DoF parallel-jaw gripper rather than a multi-fingered hand; exact trial counts vary by task (5 real-world episodes/task in general, but 30 sub-task trials specifically for GR-1 Can Sorting), so a single settled real_trials figure could not be extracted.",
- "mismatch_class": "contradiction",
- "mismatch_confidence": "high",
+ "mismatch_class": "code-absent",
+ "mismatch_confidence": "low",
  "operator_interface": "VR headset (Apple Vision Pro or Meta Quest 3) with active stereo video streamed back from a 2-3 DoF camera gimbal on the robot's neck",
  "retargeting_objective": "dex-retargeting keypoint-vector optimisation over five wrist-to-fingertip and two thumb-to-finger vectors, solved with SLSQP, with end-effector position taken relative to the head and orientation absolute",
  "latency": "60 Hz stereo round trip and 60 Hz control",
  "rig_cost_usd": null,
  "data_hours": null,
- "data_trajectories": null
+ "data_trajectories": null,
+ "mismatch_review": "R3 adversarial review: a behaviour-cloning paper with no reward; the charge compared paper iterations to a README example's epochs"
 }

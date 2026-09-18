@@ -33,5 +33,11 @@
  "note_gaps": "the meta-objective equation combining tolerance progress and success count was not fully OCR'd from the equation image (only the described behavior is quoted verbatim); the code/md dump truncates before PhysX contact-offset settings, the compute_full_state observation-assembly body, and the cuboid/stick size-generation function bodies.",
  "mismatch_class": "contradiction",
  "mismatch_confidence": "high",
- "reward_term_names": ["r_reach", "r_pick", "r_targ", "r_vel"]
+ "reward_term_names": [
+  "r_reach",
+  "r_pick",
+  "r_targ",
+  "r_vel"
+ ],
+ "mismatch_review": "R3 adversarial review: the disabled-randomisation half is withdrawn, since the note finds it consistent with the paper; the zeroed reward term stands"
 }

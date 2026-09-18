@@ -408,6 +408,7 @@ released artefacts do not settle the question. In none of the 37 does the paper 
 reward function before the reward table, and treat a printed weight as a hypothesis about the
 code.
 
+
 ### 5.9 The master table
 
 Table 7 is every method row on one set of axes, and its footer is worth reading before its rows.

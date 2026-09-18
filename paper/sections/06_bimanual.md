@@ -39,6 +39,8 @@ on single-hand sequences to 39.5 percent on bimanual ones.
 
 ## 6.2 Coordination architectures
 
+{{figure:fig5_bimanual}}
+
 Figure 5 sets the four architectures side by side with the counts on the panel borders. The
 denominator is the 25 corpus papers whose notes place a learned controller on two dexterous hands.
 Datasets, static grasp synthesis and the two-gripper papers are excluded.

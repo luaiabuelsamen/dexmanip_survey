@@ -78,6 +78,8 @@ covers simulators and contact models. Section 5 covers how policies are trained 
 section. Section 6 covers bimanual work as its own problem. Section 7 proposes an evaluation frame
 rather than a leaderboard. Section 8 states the gaps as claims with their evidence.
 
+![fig1_field](figures/fig1_field.svg)
+
 <!--
 FIGURE 1. The field on one page.
 
@@ -299,7 +301,36 @@ rarely the motors. ORCA's durability run found silicone skin degrading on two fi
 about 2,000 to 4,000 grasp cycles and sensor wires snapping on three after about 4,500 to 7,000
 `orca_hand_2025`. The sensing wore out an order of magnitude sooner than the hand.
 
+### Table 2. Hands that can be obtained
+
+| hand | maker | DoF | act. DoF | actuation | weight g | tip force N | tactile | price USD | open HW | status | source | corpus methods using it |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `shadow_dexterous_hand_2005` | Shadow Robot Company | 24 | 20 | tendon-driven, motors in the forearm (20 Smart Motor nodes, Maxon motors, PWM) | 4300 |   | Shadow Tactile Fingertips (STF): 17x3 DoF Hall-effect taxels, 1000 Hz, uncalibrated; up t… |   | no | sold | datasheet | 21: `asymdex_2024`, `bidexgrasp_2026`, `bimangrasp_2024`, … |
+| `sharpa_wave_2026` | Sharpa Robotics (Sharpa Pte Ltd) | 22 | 22 |   | 1300 | 20 N / 12 N (two unlabelled spec-table columns, likely two product configurations) | 'Dynamic Tactile Array' (DTA), camera-type array at the fingertip: resolution 240x240 / 6… |   | no | sold | vendor page | 6: `dexteleop0_2026`, `egoscale_2026`, `metis_2025`, … |
+| `proception_prohand_2026` | Proception Inc (YC W25) | 22 |   | tendon-driven, motors pull cables to move the fingers |   |   | integrated skin-like sensors detecting contact, supporting grip control; same 'sensor ski… |   | no | sold | press | 0 |
+| `bidexhand_2025` | Zhengyang Kris Weng, Center for Robotics and Biosystems, Northwestern University | 21 | 16 | cable-driven, N-configuration tendon routing (FeeTech servos, endless-loop antagonistic p… |   | 2.14 | none mentioned |   | yes | open-source | paper | 0 |
+| `wuji_hand_2025` | Wuji Technology (founded 2019) | 20 | 20 | direct-drive rotary, backdrivable |   |   | 'Multi-Axis Force/Torque Fingertip Sensing' confirmed present; no type, count or range gi… |   | no | sold | vendor page | 2: `toporetarget_2026`, `unidex_2026` |
+| `ruka_v2_2026` | Xinqi (Lucas) Liu, Ruoxi Hu, Alejandro Ojeda Olarte, Zhuoran Chen, Kenny Ma, Charles Chen… | 20 | 16 | tendon-driven, forearm-mounted actuators; decoupled parallel 2-DoF wrist via a passive sp… |   |   | optional e-flesh fingertips (magnetic touch-sensing form factor); not part of the base de… | 1500 | yes | open-source | paper | 0 |
+| `tesollo_dg5f_2024` | Tesollo Inc. (Incheon HQ, Gwangmyeong R&D/factory) | 20 | 20 | one integrated actuator per joint ('high-torque actuation', absolute encoder); page does… | 1763 |   | none standard; optional fingertip sensors (6-axis F/T, 3-axis force, or tactile) availabl… |   | no | sold | vendor page | 0 |
+| `unitree_dex5_2025` | Unitree Robotics (Yushu Technology Co., Ltd.) | 20 | 16 | in-joint geared motor ('hollow-cup motor' + high-precision encoder + low-damping small-cl… | 1100 | 10 | Dex5-1: none. Dex5-1P: 94 pressure sensors per hand (2x5 palm + 2x3x5 finger pad + 2x3x5… |   | no | sold | datasheet | 0 |
+| `orca_hand_2025` | Clemens C. Christoph, Maximilian Eberlein, Filippos Katsimalis, Arturo Roberti, Aristotel… | 17 | 17 | tendon-driven (antagonistic fishing-line tendon pairs per joint); wrist uses a GT2 timing… | 1200 | 19.6 | yes: FSR-based binary tactile sensing on all 5 fingertips (RP-C7.6-ST), absolute detectio… |   | yes | open-source | paper | 0 |
+| `leap_hand_2023` | Kenneth Shaw, Ananye Agarwal, Deepak Pathak, Carnegie Mellon University | 16 | 16 | direct-drive (Dynamixel servos, e.g. XC330-M288), joint velocity ~8 rad/s | 595 | 19.5 | none (future work only: 'we plan to develop and integrate LEAP Hand with low-cost touch s… | 2000 | yes | open-source | paper | 11: `bidex_teleop_2024`, `bidexhd_2024`, `cross_embodiment_world_models_2025`, … |
+| `allegro_hand_v4_2016` | Wonik Robotics Co. Ltd. (Seoul, South Korea); earlier versions 1.0/2.0 made by SimLab Co.… | 16 | 16 |   |   |   | none |   | no | sold | vendor page | 35: `anyrotate_2024`, `anyteleop_2023`, `asymdex_2024`, … |
+| `ruka_2025` | Anya Zorin, Irmak Guzey, Billy Yan, Aadhithya Iyer, Lisa Kondrich, Nikhil X. Bhattasali,… | 15 | 11 | tendon-driven (11 Dynamixel actuators in the forearm: XM430-W210T for the thumb, XL330-M2… |   | 2.74 | none (stated limitation: 'lacks tactile sensing') | 1300 | yes | open-source | paper | 0 |
+| `robotera_xhand1_2024` | ROBOTERA | 12 | 12 | gear-driven force-controlled joint modules per finger segment, back-drivable | 1100 |   | tactile/force sensors on every fingertip confirmed present (senses contact, force, temper… | 14000 | no | sold | vendor page | 8: `cross_embodiment_world_models_2025`, `deximit_2026`, `dexmachina_2025`, … |
+| `shadow_dex_ee_2024` | Shadow Robot Company, in collaboration with Google DeepMind | 12 |   |   | 4100 |   | stereo camera-based fingertip tactile sensors (hundreds of taxels each); multi-taxel 3-Do… |   | no | sold | vendor page | 1: `demostart_2024` |
+| `inspire_rh56dfx_2023` | Beijing Inspire Robots Technology Co., Ltd. | 12 | 6 |   | 540 | 10 N (fingers), 15 N (thumb); force resolution 0.50 N | none (this variant is the 'without tactile sensors' table; a tactile FTP variant exists p… |   | no | sold | vendor page | 19: `ace_teleop_2024`, `articulated_tools_inhand_2025`, `being_h05_2026`, … |
+| `brainco_revo2_2025` | BrainCo Inc. | 11 | 6 |   | 383 | pinch >=15 N; full fist grip >=50 N | Touch variant only: multi-dimensional fingertip tactile module with 'Tactile Adaptive Con… |   | no | sold | datasheet | 1: `bidexgrasp_2026` |
+| `agibot_omnihand_2025` |   |   |   |   |   |   |   |   |   |   | unavailable | 1: `clutterdexgrasp_2025` |
+| `linkerbot_l20_2025` | LinkerBot (SDK author 'CHIUS INC') |   |   |   |   |   | L10/L20: per finger 4 channels (normal force, tangential force, tangential direction, pro… |   | no | sold | vendor page | 1: `being_h05_2026` |
+| `psyonic_ability_hand_2021` | PSYONIC (San Diego, CA, USA) |   | 6 | linkage (repo file/function names indicate a four-bar finger linkage; not stated on the v… |   |   | 30 touch sensor values streamed (FSR-based per API and URDF 'no_fsr' variant); per-finger… |   | no | sold | vendor page | 7: `ace_teleop_2024`, `asymdex_2024`, `bunny_visionpro_2024`, … |
+| `dexhand_open_source_2023` | Rob Knight, The Robot Studio (design); electronics/firmware/ROS 2 by Trent Shumay, IoT De… |   | 16 | tendon (fishing line, Sufix 832 80lb / 0.8mm kiteline); Emax ES3301/ES3302/ES3351/ES3352… |   |   | none mentioned | 300 | yes | open-source | vendor page | 0 |
+
+*20 rows; 56 of 260 cells (21%) are values no source stated.*
+
 ## 3.2 The hands the research literature actually runs on
+
+![fig2_hands](figures/fig2_hands.svg)
 
 Two hand designs, one from 2005 and one from 2016, carry 52 of the 103 method rows that name a
 hand at all. Figure 2 counts, per hand, the method papers whose own experiments use it. Of 110
@@ -432,6 +463,26 @@ EtherCAT, which the page does not `tesollo_dg5f_2024`. The XHAND1 tracker page s
 fingertip force, a survey table gives 15 N and the bibliography gives an 80 N grip
 `robotera_xhand1_2024`.
 
+### Table 3. Hands announced but not purchasable
+
+| hand | maker | DoF | act. DoF | actuation | weight g | tip force N | tactile | price USD | open HW | status | source | corpus methods using it |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `clone_robotics_hand_2024` | Clone Robotics | 27 |   | hydraulic artificial muscle ('Myofiber' — small water-filled tubes that contract when pre… | 907 |   | pressure pads in the palm detect grip firmness (count not given); 70 inertial sensors tra… |   | no | internal-only | press | 0 |
+| `onex_neo_hand_2026` | 1X Technologies | 25 | 25 | quasi-direct-drive tendons via the '1X Tendon Drive' at low gear ratios (~5:1-15:1); moto… |   | 45 | high-resolution tactile sensing across fingertips and finger surfaces (normal force, cont… |   | no | announced | vendor page | 0 |
+| `tesla_optimus_hand_2025` | Tesla | 22 |   | V3: tendon-driven from forearm actuators, three tendons per finger through a crosstalk-ma… |   |   | Gen 2: tactile sensing on all fingers, demonstrated matching contact location and force i… |   | no | prototype | press | 0 |
+| `sanctuary_phoenix_hand_2024` | Sanctuary AI (Sanctuary Cognitive Systems Corporation) | 21 |   | hydraulic, 'unique miniaturized hydraulic valves' |   |   | not in the press release text; sidebar-only headlines mention new touch/tactile sensors a… |   | no | internal-only | press | 0 |
+| `leap_hand_v2_adv_2025` | Kenneth Shaw, Deepak Pathak, Carnegie Mellon University | 21 | 17 | tendon (PIP/DIP coupled by a single tendon per finger); motor type not stated |   |   | none mentioned | 3000 | yes | announced | vendor page | 2: `bidex_teleop_2024`, `dexwild_2025` |
+| `figure_03_hand_2025` | Figure AI | 20 |   |   |   |   | not stated on page for the hand itself; palm cameras in each hand are vision, not tactile |   | no | prototype | vendor page | 0 |
+| `ilda_hand_2021` | Ajou University, Korea Institute of Machinery & Materials, Korea University | 20 | 15 | linkage-driven, direct linear drive (3 Maxon DCX8M motors per finger with GPX8 16:1 gearb… | 1100 | 34 | 6-axis F/T sensor per fingertip (5 total), force resolution 62 mN, range +/-35 N; not a d… |   | no | prototype | paper | 0 |
+| `pisa_iit_softhand_2014` | Centro E. Piaggio, University of Pisa and IIT (Catalano, Grioli, Farnioli, Serio, Piazza,… | 19 | 1 | tendon-driven adaptive synergy, single motor via differential gears (6 W Maxon RE-max21,… |   |   | none (motor encoder only; a padded work glove supplied contact compliance during experime… |   | no | prototype | paper | 0 |
+| `faive_hand_2023` | Yasunori Toshimitsu, Benedek Forrai, Barnabas Gavin Cangan, Ulrich Steger, Manuel Knecht,… | 16 | 11 | tendon-driven, rolling-contact joints (16 Dynamixel XC330-T288-T servos, 6 antagonistic p… | 1100 |   | none on the physical hand; a simulated 'fingertip force' (15-dim, critic-only/privileged)… |   |   | prototype | paper | 1: `graspxl_2024` |
+| `paxini_dexh13_2024` | PaXini Tech |   |   |   |   |   | 1,140 ITPU multidimensional tactile processing units (press-release claim; unclear if PX-… |   |   | announced | press | 0 |
+| `boston_dynamics_atlas_hand_2026` | Boston Dynamics |   |   | electric (robot is fully electric); specific hand mechanism not stated |   |   | tactile sensing in the fingers and palms, confirmed present; type and count not stated |   | no | prototype | press | 0 |
+| `daxo_muscle_v0_2025` | Daxo Robotics |   | 120 | ultra-redundant tendon-driven; compliant structure with no rigid joints, flexible materia… | 750 |   |   |   |   | prototype | unavailable | 0 |
+| `xiaomi_cyberone_hand_2026` | Xiaomi |   |   | motors located in the hand (compact motors generate heat requiring liquid cooling); no te… |   |   | full-palm tactile sensing, area ~8,200 sq mm, detects pressure and contact across the who… |   | no | prototype | press | 0 |
+
+*13 rows; 49 of 169 cells (28%) are values no source stated.*
+
 ## 3.5 Tactile sensing as part of the hand
 
 DIGIT set the cost floor. It is 20 by 27 by 18 mm, weighs about 20 g, streams 640x480 at 60 fps,
@@ -537,6 +588,8 @@ unconverged and therefore resolved as overlap.
 
 ## 4.2 Contact models and solvers, engine by engine
 
+![fig3_sim_step](figures/fig3_sim_step.svg)
+
 Table 4 is the engine-by-engine comparison, one row per simulator, built only from what a note
 confirmed. Le Lidec et al. supply the taxonomy that organises it, checking each formulation
 against the Signorini condition, Coulomb's law, and the maximum dissipation principle. Linear
@@ -603,6 +656,28 @@ the corpus that measures penetration carefully measures it on the input.
 The rest of Table 4 is largely empty, and the emptiness is a result. Sixty-eight of its 165 cells,
 41 percent, are values no parsed source stated. Three of 15 engines state a default physics
 timestep, four state a solver iteration count, and seven ship any dexterous hand at all.
+
+### Table 4. Simulators and physics engines
+
+| engine | contact model | solver | iters | diff. | GPU | dt s | penetration exposed | throughput | hands shipped | licence |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `brax_2021` | rigid bodies in maximal coordinates; naive/quadratic-scaling pairwise collision detection… | not LCP-based; velocity-level collision updates with Baumgarte stabilization (inspired by… |   | yes | yes |   | no | millions of simulation steps/sec on a single accelerator (e.g. MuJoCo Ant equivalent on a… | synthetic 4-fingered claw hand (Grasp environment, non-commercial, from-scratch morpholog… |   |
+| `comfree_sim_2026` | complementarity-free, analytical (closed-form) contact resolution in the dual cone of the… | no complementarity solve; a 4-kernel GPU pipeline (Algorithm 1: smooth-velocity predictio… | none (closed-form, no per-step iterative solve) |   | yes | 0.002 | yes | AMD 32-core CPU + NVIDIA RTX 4090 GPU: ~3x faster (near-linear vs. MJWarp's superlinear)… |   |   |
+| `dojo_2022` | hard-contact nonlinear complementarity problem (NCP) with an exact nonlinear (second-orde… | custom primal-dual interior-point solver (Algorithm 2), based on Mehrotra's predictor-cor… | converges within 15 iterations for all three robots tested in the convergence study (Sec.… | yes | no |   | yes | Intel Core i9-10885H, 32GB RAM, CPU only (no GPU support; described as future work). Tabl… |   |   |
+| `genesis_2024` | Constraint-based rigid solver (equality/inequality constraints, plus an explicit noslip()… | ConstraintSolver with Newton-style line-search iterative resolve (linesearch.py) and cons… |   | yes | yes |   |   |   | Shadow Hand |   |
+| `isaacgym_2021` | Rigid-body contacts via PhysX; contact geometry can be primitive shapes or meshes loaded… | Temporal Gauss-Seidel (TGS) solver (Sec. 3, ref. 18), not classic PGS/LCP: folds sub-step… |   | no | yes | 0.008333333333333333 | no | Shadow Hand: 150,000 parallel environment steps/sec at 16,384 environments, single NVIDIA… | Shadow Dexterous Hand, Allegro Hand, TriFinger (3-finger, 9-DoF manipulator; the paper it… |   |
+| `isaaclab_2025` | Rigid contacts by default via PhysX 5 (SDF collisions, Featherstone articulation solver,… | NVIDIA PhysX 5's internal rigid-body/Featherstone-articulation solver, used as-is; Factor… |   | no | yes |   | no | DextrAH teacher task (state-based grasp-and-lift): over 900,000 FPS training throughput w… | KUKA Allegro hand (first-party dexterous suite, Sec. 7.2.3), ShadowHand (third-party Gras… |   |
+| `maniskill3_2024` | PhysX (via SAPIEN) rigid-body contacts on GPU; no statement of convex-vs-mesh contact gen… | PhysX (via SAPIEN), used as-is; no LCP/PGS/TGS/Newton solver-algorithm name given. Benchm… | 4 position / 0 velocity iterations (benchmarked cartpole configuration only, App. XI-A);… |   | yes |   |   | Up to 30,000+ FPS (RGBD+segmentation) on a single RTX 4090 GPU, environment count for tha… | Allegro Hand (incl. touch-sensor variant, AllegroHandRightTouch), Ability Hand, Inspire H… | Apache-2.0 |
+| `mujoco_2012` | soft, convex velocity-stepping contact; three interchangeable solvers replace the standar… | implicit-complementarity solver (customized non-smooth Newton method, most accurate); con… |   | no | no |   |   | up to ~400,000 dynamics evaluations/sec on a 12-physical-core machine (2x 6-core Intel X5… |   |   |
+| `mujoco_convex_contact_2014` | soft, convex, complementarity-free; a unified impulse vector covers joint dry friction, j… | GPGS (generalized projected Gauss-Seidel, described as the authors' own unpublished-at-th… | 5 and 50 (both tested, Fig. 3, Sec. VI-B) | no | no | 0.01 |   | single-core Intel i7-3930K (Windows 7): forward dynamics of a 27-dof humanoid with 10 con… |   |   |
+| `mujoco_warp_2025` | MuJoCo's native solref/solimp-parameterized soft-constraint contact model ported to Warp… | MuJoCo's default (implicit CCP-style) solver and Newton constraint solver (via a 'newton'… |   | no | yes |   |   |   |   |   |
+| `newton_2025` | Solver-dependent: MuJoCo-style soft-constraint (solref/solimp-style) contact via SolverMu… | Multi-solver architecture: SolverMuJoCo (wraps MJWarp), SolverKamino (Proximal-ADMM + DVI… |   | yes | yes |   |   |   | Allegro Hand |   |
+| `orbit_2023` | PhysX SDK 5 signed-distance-field (SDF) collision checking for rigid bodies (handles non-… | PhysX SDK 5's internal rigid-body and FEM solvers, used as-is; no LCP/PGS/TGS, Newton, or… |   | no | yes |   | no | 125,000 FPS physics-only ceiling (no env count stated); ~10x rigid-body throughput vs. CP… | Allegro hand |   |
+| `pybullet_2016` |   |   |   |   | yes |   |   |   |   |   |
+| `raisim_2018` |   |   |   |   |   |   |   |   |   | requires a valid license and activation key from the RaiSim Tech website; the repo README… |
+| `sapien_2020` | Rigid-body contact with convex-decomposed collision meshes (PhysX 4.1); three joint syste… | PhysX 4.1's internal rigid-body solver, used as-is; no LCP/PGS/TGS name or iteration coun… |   |   | no |   |   | ~5000 Hz engine, ~700 Hz OpenGL render; single-instance CPU-physics figure with no parall… |   |   |
+
+*15 rows; 68 of 165 cells (41%) are values no source stated.*
 
 ## 4.3 The GPU-parallel turn
 
@@ -1213,6 +1288,7 @@ released artefacts do not settle the question. In none of the 37 does the paper 
 reward function before the reward table, and treat a printed weight as a hypothesis about the
 code.
 
+
 ### 5.9 The master table
 
 Table 7 is every method row on one set of axes, and its footer is worth reading before its rows.
@@ -1436,6 +1512,8 @@ scores success only if both hands succeed, and its OakInk-V2 success rate falls 
 on single-hand sequences to 39.5 percent on bimanual ones.
 
 ## 6.2 Coordination architectures
+
+![fig5_bimanual](figures/fig5_bimanual.svg)
 
 Figure 5 sets the four architectures side by side with the counts on the panel borders. The
 denominator is the 25 corpus papers whose notes place a learned controller on two dexterous hands.

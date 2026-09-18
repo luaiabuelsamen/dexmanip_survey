@@ -38,6 +38,8 @@ unconverged and therefore resolved as overlap.
 
 ## 4.2 Contact models and solvers, engine by engine
 
+{{figure:fig3_sim_step}}
+
 Table 4 is the engine-by-engine comparison, one row per simulator, built only from what a note
 confirmed. Le Lidec et al. supply the taxonomy that organises it, checking each formulation
 against the Signorini condition, Coulomb's law, and the maximum dissipation principle. Linear
@@ -104,6 +106,8 @@ the corpus that measures penetration carefully measures it on the input.
 The rest of Table 4 is largely empty, and the emptiness is a result. Sixty-eight of its 165 cells,
 41 percent, are values no parsed source stated. Three of 15 engines state a default physics
 timestep, four state a solver iteration count, and seven ship any dexterous hand at all.
+
+{{table:table4_simulators}}
 
 ## 4.3 The GPU-parallel turn
 

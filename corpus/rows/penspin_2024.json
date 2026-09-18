@@ -2,8 +2,13 @@
  "key": "penspin_2024",
  "year": 2024,
  "class": "method",
- "task_family": ["reorient"],
- "paradigm": ["RL", "distillation"],
+ "task_family": [
+  "reorient"
+ ],
+ "paradigm": [
+  "RL",
+  "distillation"
+ ],
  "algorithm": "PPO + BC",
  "hand": "Allegro Hand",
  "hand_dof": 16,
@@ -27,5 +32,6 @@
  "paper_code_mismatch": "The released code disables the paper's tactile observation channel and zeroes the described disturbance-force domain randomization, and the code's reward scale-key names (e.g. rotate_reward_scale, pencil_z_dist_penalty_scale) do not 1:1 name-match the paper's Table 4 weight list, though matched values agree.",
  "note_gaps": "Per-cell real trial counts behind Table 1 are not stated, and oracle GPU/wall-clock training time beyond \"less than one day on a single GPU\" is not given.",
  "mismatch_class": "contradiction",
- "mismatch_confidence": "high"
+ "mismatch_confidence": "medium",
+ "mismatch_review": "R3 adversarial review: plausible alternative reading; held at medium confidence pending a direct code read"
 }

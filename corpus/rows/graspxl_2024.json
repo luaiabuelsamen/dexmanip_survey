@@ -2,8 +2,12 @@
  "key": "graspxl_2024",
  "year": 2024,
  "class": "method",
- "task_family": ["grasp"],
- "paradigm": ["RL"],
+ "task_family": [
+  "grasp"
+ ],
+ "paradigm": [
+  "RL"
+ ],
  "algorithm": "PPO",
  "hand": "MANO (also Shadow Hand, Allegro Hand, Faive Hand)",
  "hand_dof": 45,
@@ -22,10 +26,20 @@
  "human_data": "none",
  "penetration": "not addressed",
  "reward_terms": 8,
- "reward_term_names": ["r_dis", "r_v", "r_ω", "r_m", "r_c", "r_f", "r_reg", "r_anatomy"],
+ "reward_term_names": [
+  "r_dis",
+  "r_v",
+  "r_\u03c9",
+  "r_m",
+  "r_c",
+  "r_f",
+  "r_reg",
+  "r_anatomy"
+ ],
  "code_released": true,
  "paper_code_mismatch": "The code splits the paper's single r_reg = -w_h||u_h||^2 - w_o||u_o||^2 into four separately-weighted terms (wrist vel, wrist qvel, object vel, object qvel), and the floating-phase object-velocity coefficient (-1.5) does not match the paper's stated w_o=0.1, so the regularization weighting cannot be reconciled 1:1 with Table 9.",
- "note_gaps": "The C++ Environment.hpp that assembles the observation/reward is not present in code/md, so only YAML coefficient values (not the reward's functional form) are code-verified; the wrist-rotation weight w_ω has no clearly corresponding config field; the parallel-env count (32) is code-only, not stated in the paper.",
- "mismatch_class": "contradiction",
- "mismatch_confidence": "medium"
+ "note_gaps": "The C++ Environment.hpp that assembles the observation/reward is not present in code/md, so only YAML coefficient values (not the reward's functional form) are code-verified; the wrist-rotation weight w_\u03c9 has no clearly corresponding config field; the parallel-env count (32) is code-only, not stated in the paper.",
+ "mismatch_class": "parse-limitation",
+ "mismatch_confidence": "low",
+ "mismatch_review": "R3 adversarial review: the environment source is not in the parse and the note says the reward cannot be verified"
 }
