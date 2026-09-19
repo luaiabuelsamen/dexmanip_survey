@@ -35,14 +35,19 @@ figure it is recorded as unreadable rather than guessed. Tables are flattened, s
 from a table is quoted with the table it came from and, where the flattening is ambiguous, the
 ambiguity is stated.
 
-## Notes
-Each entry was read into a structured note under a fixed template: embodiment, learning method,
-objective, contact handling, evaluation, reproducibility, stated limitations, and quotable
-claims. Notes were written only from the parsed files. Where the source is silent the note says
-"not stated", and nothing was inferred from the reviewer's prior knowledge of the work. For method
-papers the reward or loss was quoted from the paper and, separately, from the released code, so
-that disagreements between the two are visible rather than smoothed over. Those disagreements
-turned out to be common enough to become a finding in their own right.
+## Notes Each entry was read into a structured note under a fixed template: embodiment,
+learning method, objective, contact handling, evaluation, reproducibility, stated limitations,
+and quotable claims. Notes were written only from the parsed files. Where the source is silent
+the note says "not stated", and nothing was inferred from the reviewer's prior knowledge of the
+work. For method papers the reward or loss was quoted from the paper and, separately, from the
+released code, so that disagreements between the two are visible rather than smoothed over.
+Those disagreements turned out to be common enough to become a finding in their own right. The
+reading into notes was done with language-model assistance, from the parsed files only. The
+template's conventions are the safeguard against what that can get wrong: a quotation rather
+than a paraphrase, "not stated" rather than an inference, and a named source beside every
+value, so a note can be checked against the file it came from. Two fields carrying a headline
+claim were re-read against the sources afterwards, the trial counts and the penetration field,
+and both audits are below; the coverage statistics are reported as floors for the same reason.
 
 ## Sources that could not be obtained
 Six works are cited by metadata only and no claim in this survey rests on their contents. Five
