@@ -450,8 +450,8 @@ in Section~\ref{sec:train:rl} now reaches the shipped policy through a dataset r
 % The first finding as a picture: the funnel from 112 method rows to the nine
 % whose code contradicts the paper, with the 29 disagreements in the other four
 % classes drawn at the same weight as the nine. Those 29 are classified, not
-% retracted; the eight accusations the survey withdrew are counted in section
-% 8.1 and in each accused row's mismatch_review field. Written by
+% retracted; the seven rows the survey withdrew are counted in section
+% 8.1 and in each row's mismatch_review field. Written by
 % tools/make_finding_figures.py from corpus/rows; the guard keeps the document
 % compiling until it is there. It sits in the subsection that argues the finding
 % and classifies the 38, which is where a reader needs it.
@@ -476,16 +476,18 @@ a later repository, and four are a paper disagreeing with itself. The fourth ver
 \cite{groot_n16_2025}, which ships a main branch one generation later than the checkpoint its page
 describes.
 
-Nine is the number to quote, eight at high confidence and one, PenSpin \cite{penspin_2024}, held
-at medium. Nine of 62 is 15 percent, bounded on both sides: a floor, because the census covers
-method rows only and RoboPianist \cite{robopianist_2023}, whose row is a benchmark, sums five
-reward terms against the three its Table~2 documents; a ceiling, because eight accusations an
-earlier draft of this section made were withdrawn, seven of them under adversarial review and an
-eighth, OmniH2O \cite{omnih2o_2024}, once writing to its authors sent someone back to the evidence,
-each with its reason recorded in the accused row beside the charge. Among the 21 reorientation
-methods scored term by term, seven released a repository and four of those state something
-different from their paper, the other three being a missing environment, a later generation and a
-default-value question their own READMEs settle.
+Nine is the number to quote, eight at high confidence and one, PenSpin \cite{penspin_2024},
+held at medium. Nine of 62 is 15 percent, and it is a floor rather than a rate: the census
+covers method rows only, so RoboPianist \cite{robopianist_2023}, whose row is a benchmark, does
+not enter it although it sums five reward terms against the three its Table~2 documents. It is
+also a screened count rather than a first pass. Sixteen rows were drawn at first and seven have
+since left the class, six under adversarial re-reading and one, OmniH2O \cite{omnih2o_2024},
+once writing to its authors sent someone back to the evidence; two more were narrowed and
+stayed, and each revision is recorded in the row it concerns beside the comparison it revises.
+That screening is evidence that the nine were checked, not a bound on how many a fuller reading
+would find. Among the 21 reorientation methods scored term by term, seven released a repository
+and four of those state something different from their paper, the other three being a missing
+environment, a later generation and a default-value question their own READMEs settle.
 
 PhysHOI \cite{physhoi_2023} is the clearest example. Its paper assigns nonzero weights to object
 rotation and rotation velocity on the GRAB dataset. In the public implementation, both errors are
@@ -520,10 +522,11 @@ records, including the file, both values, confidence, and review history.
 \textbf{Review and correction.} This is a result about publishing practice in
 robot learning rather than about dexterous manipulation in particular: the dexterous corpus is its
 sample, not its subject. Nine is a lower bound because 46 method papers released no code to inspect
-and four comparisons remain unsettled. It is also the result of a conservative review. The first
-draft identified sixteen conflicts; subsequent checks withdrew or narrowed eight. Six failed under
-adversarial rereading, one was partly withdrawn, and a final case was reclassified when its apparent
-weight mismatch proved consistent with a curriculum factor. PenSpin \cite{penspin_2024}, the sole
+and four comparisons remain unsettled. It is also the result of a conservative review. The
+first draft identified sixteen conflicts; seven have since left the count and two more were
+narrowed and remain in it. Six failed under adversarial rereading, and a seventh was
+reclassified when its apparent weight mismatch proved consistent with a curriculum factor.
+PenSpin \cite{penspin_2024}, the sole
 medium-confidence case retained, concerns a disabled disturbance rather than the tactile input
 claimed in an earlier draft. Each change and its reason is preserved with the underlying record.
 Future papers can avoid most of this ambiguity by generating the reward table directly from the

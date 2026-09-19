@@ -205,15 +205,20 @@ piezoresistive fingertip channels in the action vector and real-robot success ra
 `gr_dexter_2025`, not through a product page. That mechanism is available to every vendor in Table
 3 and none has used it.
 
-The gap runs the other way too, and the last column of Table 2 shows it. Eight hands that can be
-bought or built from published designs take zero method rows each: the Unitree Dex5 with 94
+The gap runs the other way too, and the last column of Table 2 shows it. Eight hands that can
+be bought or built from published designs take zero method rows each: the Unitree Dex5 with 94
 pressure sensors on its P variant `unitree_dex5_2025`, the fully actuated Tesollo DG-5F
-`tesollo_dg5f_2024`, the 22-DoF Proception ProHand `proception_prohand_2026`, ORCA, RUKA, Ruka-v2,
-BiDexHand and DexHand. Cheapness is established only for RUKA, Ruka-v2 and DexHand, because Table
-2's price cell is empty for Unitree, Tesollo, the ProHand, ORCA and BiDexHand, and the only Dex5
-price on disk is Ruka-v2's secondhand "~$25K" `ruka_v2_2026`. A reader choosing a hand on this
-corpus's evidence has two well-precedented options, an Allegro or an Inspire, and a third in LEAP
-if twelve papers is enough. Everything else is a press release or a hand nobody has published on.
+`tesollo_dg5f_2024`, the 22-DoF Proception ProHand `proception_prohand_2026`, ORCA, RUKA,
+Ruka-v2, BiDexHand and DexHand. Cheapness is established only for RUKA, Ruka-v2 and DexHand,
+because Table 2's price cell is empty for Unitree, Tesollo, the ProHand, ORCA and BiDexHand,
+and the only Dex5 price on disk is Ruka-v2's secondhand "~$25K" `ruka_v2_2026`. A reader
+choosing a hand on this corpus's evidence has four options with published precedent behind
+them: the Allegro at 35 method rows, a Shadow at 21 and 4 more for its Adroit model, the
+Inspire RH56 family at 19, and LEAP at 12, of which only LEAP has both a published design and a
+stated price. Below those four the record thins fast: eight rows for the XHand, seven for the
+Ability Hand, six for Sharpa, two each for Wuji and LEAP Hand v2, one each for five more, and
+none at all for the other 19 hands of Tables 2 and 3. Those 19 sit in the tables on their
+specifications alone, and no method row in this corpus runs on any of them.
 
 **What would close the gap.** Nineteen of the 33 hands in Tables 2 and 3 appear in no method row, and
 11 of those are neither sold nor open, so they appear in none for that reason and 33 is not the

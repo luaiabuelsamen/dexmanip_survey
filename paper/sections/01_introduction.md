@@ -28,19 +28,22 @@ Isaac Sim. Figure 1's routes converge on that same recipe: almost every path thr
 ends at a policy trained in a GPU simulator and then distilled down to a vision-only student.
 
 Three things this survey measured are worth stating before the reader commits to 27,000 words.
-Papers and their own released code state different things. Sixty-two of the 112 method rows
-released code that could be read against the paper, 38 of those record a disagreement, and nine
-are contradictions, where a value the paper prints and the value in a named file at a named commit
-are not the same. The sharpest is `physhoi_2023`: at commit `6095c605e2` of `wyhuai/PhysHOI`,
-`compute_humanoid_reward` sets the object rotation and rotation-velocity errors to zero, with the
-computation that would produce them commented out on the same lines, while the reward table in the
-paper lists weights of 0.1 and 0.01 for exactly those terms on GRAB. The success criterion behind
-its 95.4 percent is itself position-only, and that number is cited as a baseline. Section 5.6
-classifies all 38, gives each of the nine as a repository, a commit, a file and two values in
-Table 11, and states there, beside the finding, that none of the nine sets of authors was written
-to before this was posted, what a fetched commit can and cannot show, and how a disputed case is
-corrected. Seven further accusations an earlier draft made were withdrawn under adversarial
-review, an eighth while those letters were being drafted, and each is recorded beside the charge.
+A method row is one method paper read into this survey's structured record, and it is the unit
+every count below is taken over. Papers and their own released code state different things.
+Sixty-two of the 112 method rows released code that could be read against the paper, 38 of
+those record a disagreement, and nine are contradictions, where a value the paper prints and
+the value in a named file at a named commit are not the same. The sharpest is `physhoi_2023`:
+at commit `6095c605e2` of `wyhuai/PhysHOI`, `compute_humanoid_reward` sets the object rotation
+and rotation-velocity errors to zero, with the computation that would produce them commented
+out on the same lines, while the reward table in the paper lists weights of 0.1 and 0.01 for
+exactly those terms on GRAB. The success criterion behind its 95.4 percent is itself
+position-only, and that number is cited as a baseline. Section 5.6 classifies all 38, gives
+each of the nine as a repository, a commit, a file and two values in Table 11, and states
+there, beside the finding, that none of the nine sets of authors was written to before this was
+posted, what a fetched commit can and cannot show, and how a disputed case is corrected. Six
+further rows an earlier draft placed in that class were withdrawn from it under adversarial
+re-reading and a seventh while those letters were being drafted, two more were narrowed, and
+each revision is recorded in the row it concerns.
 
 How far a hand passes into the object it is holding is not a number the policies in this
 corpus report. Eleven of the
@@ -78,28 +81,30 @@ undocumented changes accumulated across one benchmark's own versions, which make
 between those versions unfair. Both establish it on a single codebase.
 
 The closest relative to the audit here is `knox_reward_misdesign_2023`, which reviews nineteen
-reinforcement-learning publications on autonomous driving, characterises the reward functions of
-ten of them exhaustively in a standard form, applies eight sanity checks and reports
-near-universal flaws in reward design. Its ground truth for what each reward was is the authors,
-obtained through correspondence with them rather than by reading a released repository, and what
-it establishes is that published reward descriptions are incomplete: one of the ten described its
-reward, discount factor, termination conditions and timestep thoroughly. Reading the code instead
-needs no correspondence and supports a different charge, which is that where code exists it
-sometimes contradicts the description. `raff_reproducibility_2019` took the opposite ground truth
-on purpose, reimplementing 255 papers from their text alone and never opening the authors' code,
-which is what makes the choice of arbiter a position rather than an accident.
+reinforcement-learning publications on autonomous driving, characterises the reward functions
+of ten of them exhaustively in a standard form, applies eight sanity checks and reports
+near-universal flaws in reward design. Its ground truth for what each reward was is the
+authors, obtained through correspondence with them rather than by reading a released
+repository, and what it establishes is that published reward descriptions are incomplete: one
+of the ten described its reward, discount factor, termination conditions and timestep
+thoroughly. Reading the code instead needs no correspondence and supports a different claim,
+which is that where code exists it sometimes contradicts the description.
+`raff_reproducibility_2019` took the opposite ground truth on purpose, reimplementing 255
+papers from their text alone and never opening the authors' code, which is what makes the
+choice of arbiter a position rather than an accident.
 
 So the claim here is narrow. We are aware of no prior work in robotics, and none in dexterous
 manipulation, that reads a field's released reward implementations against the rewards its own
 papers describe. Those seven works are cited from outside this corpus and enter none of its
-counts. The exposure of the claim belongs beside the count above: the evidence is a repository at
-a fetched commit, every hash recorded in the code manifest, and a repository at a commit is
-evidence about that repository rather than about the run that produced a paper's numbers, because
-the commit may postdate, precede or diverge from it. `hora_2022` states the problem in its own
-README, which directs a reader to tag v0.0.1 and not to the commit parsed here to reproduce the
-published numbers. Every accusation this survey has withdrawn, eight of them so far, is recorded
-in the accused row for the same reason: the withdrawals are the evidence that the charges left
-standing were checked rather than counted.
+counts. The exposure of the claim belongs beside the count above: the evidence is a repository
+at a fetched commit, every hash recorded in the code manifest, and a repository at a commit is
+evidence about that repository rather than about the run that produced a paper's numbers,
+because the commit may postdate, precede or diverge from it. `hora_2022` states the problem in
+its own README, which directs a reader to tag v0.0.1 and not to the commit parsed here to
+reproduce the published numbers. Every comparison this survey has revised, seven rows withdrawn
+from the count and two narrowed within it, is recorded in the row it concerns for the same
+reason: those revisions are the evidence that the nine left standing were checked rather than
+counted.
 
 Fourteen corpus entries are themselves surveys or engine-comparison studies. The technical supplement sets them
 on one set of columns in Table 10 and says what each covers. Four of the fourteen could not be

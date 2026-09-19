@@ -6,12 +6,13 @@ that would close it. Nothing is argued in this list: the denominator, the eviden
 prescription sit in the section named, at the end of it, so that a finding and its consequence are
 read together and stated once.
 
-1. Nine of the 62 method rows that released parseable code state, in a named file at a named commit,
-   something other than the value their paper prints, and eight further charges have been withdrawn
-   since the first draft of that census. Table 11 gives each of the nine as a repository, a commit, a
-   file and two values, and none of their authors was written to before this was posted: section 5.6
-   says that beside the finding, with the drafted and unsent letters in `outreach/` and the route by
-   which a disputed case is corrected (section 5.6 and the technical supplement).
+1. Nine of the 62 method rows that released parseable code state, in a named file at a named
+commit, something other than the value their paper prints, and seven further rows have been
+withdrawn from that count since its first draft, with two more narrowed. Table 11 gives each of
+the nine as a repository, a commit, a file and two values, and none of their authors was
+written to before this was posted: section 5.6 says that beside the finding, with the drafted
+and unsent letters in `outreach/` and the route by which a disputed case is corrected (section
+5.6 and the technical supplement).
 
 2. No closed-loop policy in the corpus reports interpenetration for the rollouts of its own trained
    policy, and all eleven rows that handle penetration at all sit on the reference side of the
@@ -67,8 +68,8 @@ per-trial outcomes. None of that needs a GPU.
 
 If you are running experiments, measure penetration depth over your evaluation rollouts on a dense
 surface sample, and never let that measure become a reward. `toporetarget_2026` shows what the
-number looks like when someone takes it seriously, and what the widely used retargeters look like
-when nobody does.
+number looks like when it is reported carefully, and what the widely used retargeters look like
+when it is not.
 
 If you are choosing hardware, the corpus names four hands and no more. The Allegro carries 35
 method rows, the Shadow 21, the Inspire 19 and LEAP 12, and every other hand in Tables 2 and 3

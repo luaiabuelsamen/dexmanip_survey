@@ -64,19 +64,22 @@ Isaac Sim. Figure 1's routes converge on that same recipe: almost every path thr
 ends at a policy trained in a GPU simulator and then distilled down to a vision-only student.
 
 Three things this survey measured are worth stating before the reader commits to 27,000 words.
-Papers and their own released code state different things. Sixty-two of the 112 method rows
-released code that could be read against the paper, 38 of those record a disagreement, and nine
-are contradictions, where a value the paper prints and the value in a named file at a named commit
-are not the same. The sharpest is `physhoi_2023`: at commit `6095c605e2` of `wyhuai/PhysHOI`,
-`compute_humanoid_reward` sets the object rotation and rotation-velocity errors to zero, with the
-computation that would produce them commented out on the same lines, while the reward table in the
-paper lists weights of 0.1 and 0.01 for exactly those terms on GRAB. The success criterion behind
-its 95.4 percent is itself position-only, and that number is cited as a baseline. Section 5.6
-classifies all 38, gives each of the nine as a repository, a commit, a file and two values in
-Table 11, and states there, beside the finding, that none of the nine sets of authors was written
-to before this was posted, what a fetched commit can and cannot show, and how a disputed case is
-corrected. Seven further accusations an earlier draft made were withdrawn under adversarial
-review, an eighth while those letters were being drafted, and each is recorded beside the charge.
+A method row is one method paper read into this survey's structured record, and it is the unit
+every count below is taken over. Papers and their own released code state different things.
+Sixty-two of the 112 method rows released code that could be read against the paper, 38 of
+those record a disagreement, and nine are contradictions, where a value the paper prints and
+the value in a named file at a named commit are not the same. The sharpest is `physhoi_2023`:
+at commit `6095c605e2` of `wyhuai/PhysHOI`, `compute_humanoid_reward` sets the object rotation
+and rotation-velocity errors to zero, with the computation that would produce them commented
+out on the same lines, while the reward table in the paper lists weights of 0.1 and 0.01 for
+exactly those terms on GRAB. The success criterion behind its 95.4 percent is itself
+position-only, and that number is cited as a baseline. Section 5.6 classifies all 38, gives
+each of the nine as a repository, a commit, a file and two values in Table 11, and states
+there, beside the finding, that none of the nine sets of authors was written to before this was
+posted, what a fetched commit can and cannot show, and how a disputed case is corrected. Six
+further rows an earlier draft placed in that class were withdrawn from it under adversarial
+re-reading and a seventh while those letters were being drafted, two more were narrowed, and
+each revision is recorded in the row it concerns.
 
 How far a hand passes into the object it is holding is not a number the policies in this
 corpus report. Eleven of the
@@ -114,28 +117,30 @@ undocumented changes accumulated across one benchmark's own versions, which make
 between those versions unfair. Both establish it on a single codebase.
 
 The closest relative to the audit here is `knox_reward_misdesign_2023`, which reviews nineteen
-reinforcement-learning publications on autonomous driving, characterises the reward functions of
-ten of them exhaustively in a standard form, applies eight sanity checks and reports
-near-universal flaws in reward design. Its ground truth for what each reward was is the authors,
-obtained through correspondence with them rather than by reading a released repository, and what
-it establishes is that published reward descriptions are incomplete: one of the ten described its
-reward, discount factor, termination conditions and timestep thoroughly. Reading the code instead
-needs no correspondence and supports a different charge, which is that where code exists it
-sometimes contradicts the description. `raff_reproducibility_2019` took the opposite ground truth
-on purpose, reimplementing 255 papers from their text alone and never opening the authors' code,
-which is what makes the choice of arbiter a position rather than an accident.
+reinforcement-learning publications on autonomous driving, characterises the reward functions
+of ten of them exhaustively in a standard form, applies eight sanity checks and reports
+near-universal flaws in reward design. Its ground truth for what each reward was is the
+authors, obtained through correspondence with them rather than by reading a released
+repository, and what it establishes is that published reward descriptions are incomplete: one
+of the ten described its reward, discount factor, termination conditions and timestep
+thoroughly. Reading the code instead needs no correspondence and supports a different claim,
+which is that where code exists it sometimes contradicts the description.
+`raff_reproducibility_2019` took the opposite ground truth on purpose, reimplementing 255
+papers from their text alone and never opening the authors' code, which is what makes the
+choice of arbiter a position rather than an accident.
 
 So the claim here is narrow. We are aware of no prior work in robotics, and none in dexterous
 manipulation, that reads a field's released reward implementations against the rewards its own
 papers describe. Those seven works are cited from outside this corpus and enter none of its
-counts. The exposure of the claim belongs beside the count above: the evidence is a repository at
-a fetched commit, every hash recorded in the code manifest, and a repository at a commit is
-evidence about that repository rather than about the run that produced a paper's numbers, because
-the commit may postdate, precede or diverge from it. `hora_2022` states the problem in its own
-README, which directs a reader to tag v0.0.1 and not to the commit parsed here to reproduce the
-published numbers. Every accusation this survey has withdrawn, eight of them so far, is recorded
-in the accused row for the same reason: the withdrawals are the evidence that the charges left
-standing were checked rather than counted.
+counts. The exposure of the claim belongs beside the count above: the evidence is a repository
+at a fetched commit, every hash recorded in the code manifest, and a repository at a commit is
+evidence about that repository rather than about the run that produced a paper's numbers,
+because the commit may postdate, precede or diverge from it. `hora_2022` states the problem in
+its own README, which directs a reader to tag v0.0.1 and not to the commit parsed here to
+reproduce the published numbers. Every comparison this survey has revised, seven rows withdrawn
+from the count and two narrowed within it, is recorded in the row it concerns for the same
+reason: those revisions are the evidence that the nine left standing were checked rather than
+counted.
 
 Fourteen corpus entries are themselves surveys or engine-comparison studies. The technical supplement sets them
 on one set of columns in Table 10 and says what each covers. Four of the fourteen could not be
@@ -605,15 +610,20 @@ piezoresistive fingertip channels in the action vector and real-robot success ra
 `gr_dexter_2025`, not through a product page. That mechanism is available to every vendor in Table
 3 and none has used it.
 
-The gap runs the other way too, and the last column of Table 2 shows it. Eight hands that can be
-bought or built from published designs take zero method rows each: the Unitree Dex5 with 94
+The gap runs the other way too, and the last column of Table 2 shows it. Eight hands that can
+be bought or built from published designs take zero method rows each: the Unitree Dex5 with 94
 pressure sensors on its P variant `unitree_dex5_2025`, the fully actuated Tesollo DG-5F
-`tesollo_dg5f_2024`, the 22-DoF Proception ProHand `proception_prohand_2026`, ORCA, RUKA, Ruka-v2,
-BiDexHand and DexHand. Cheapness is established only for RUKA, Ruka-v2 and DexHand, because Table
-2's price cell is empty for Unitree, Tesollo, the ProHand, ORCA and BiDexHand, and the only Dex5
-price on disk is Ruka-v2's secondhand "~$25K" `ruka_v2_2026`. A reader choosing a hand on this
-corpus's evidence has two well-precedented options, an Allegro or an Inspire, and a third in LEAP
-if twelve papers is enough. Everything else is a press release or a hand nobody has published on.
+`tesollo_dg5f_2024`, the 22-DoF Proception ProHand `proception_prohand_2026`, ORCA, RUKA,
+Ruka-v2, BiDexHand and DexHand. Cheapness is established only for RUKA, Ruka-v2 and DexHand,
+because Table 2's price cell is empty for Unitree, Tesollo, the ProHand, ORCA and BiDexHand,
+and the only Dex5 price on disk is Ruka-v2's secondhand "~$25K" `ruka_v2_2026`. A reader
+choosing a hand on this corpus's evidence has four options with published precedent behind
+them: the Allegro at 35 method rows, a Shadow at 21 and 4 more for its Adroit model, the
+Inspire RH56 family at 19, and LEAP at 12, of which only LEAP has both a published design and a
+stated price. Below those four the record thins fast: eight rows for the XHand, seven for the
+Ability Hand, six for Sharpa, two each for Wuji and LEAP Hand v2, one each for five more, and
+none at all for the other 19 hands of Tables 2 and 3. Those 19 sit in the tables on their
+specifications alone, and no method row in this corpus runs on any of them.
 
 **What would close the gap.** Nineteen of the 33 hands in Tables 2 and 3 appear in no method row, and
 11 of those are neither sold nor open, so they appear in none for that reason and 33 is not the
@@ -773,35 +783,39 @@ are blank. The word "penetration" appears nowhere in the Isaac Gym paper, and Is
 sensor reports force, duration and an average contact point with no contact-quality metric. The
 Isaac family carries 42 of the 112 method papers in this corpus.
 
-**The tooling exists and the number is still not recorded.** NVIDIA's own IsaacGymEnvs repository
-computes interpenetration depth in simulation. Its IndustReal tasks load plug and socket meshes
-into Warp, sample points on one, query them against the other, and reduce to a per-environment
-maximum interpenetration distance (`code/md/isaacgym_2021.md`, lines 8809 to 8862). The policy
-update is gated on that number. Environments are split on whether their maximum stays under a
-threshold, the reward of those that survive is scaled down as the maximum approaches it, and the
-threshold itself is `interpen_thresh: 0.001`, commented as the largest allowed interpenetration
-between plug and socket (lines 3630 and 3753). That is a shipped Isaac Gym task measuring
-simulated interpenetration per environment at a millimetre threshold, during RL, and acting on it.
-Table 4 records Isaac Gym as not exposing penetration, and so does its row in the corpus, which
-the code parse in that same corpus contradicts. Tactile Genesis makes the point from the other
-side, shipping penetration depth as a sensor on an analytic SDF backend and a BVH backend
-(`tactile_genesis_2026`, App. A.1), while Table 4 leaves the Genesis cell blank. The depth is
-computable from the poses and the meshes in a few lines of Warp, and the field's own benchmark
-repository already does it. Interpenetration in a dexterous rollout is a setting nobody records
-and a measurement nobody takes.
+**The tooling exists and the number is still not recorded.** NVIDIA's own IsaacGymEnvs
+repository computes interpenetration depth in simulation. Its IndustReal tasks load plug and
+socket meshes into Warp, sample points on one, query them against the other, and reduce to a
+per-environment maximum interpenetration distance (`code/md/isaacgym_2021.md`, lines 8809 to
+8862). The policy update is gated on that number. Environments are split on whether their
+maximum stays under a threshold, the reward of those that survive is scaled down as the maximum
+approaches it, and the threshold itself is `interpen_thresh: 0.001`, commented as the largest
+allowed interpenetration between plug and socket (lines 3630 and 3753). That is a shipped Isaac
+Gym task measuring simulated interpenetration per environment at a millimetre threshold, during
+RL, and acting on it. Table 4 records Isaac Gym as not exposing penetration, and so does its
+row in the corpus, which the code parse in that same corpus contradicts. Tactile Genesis makes
+the point from the other side, shipping penetration depth as a sensor on an analytic SDF
+backend and a BVH backend (`tactile_genesis_2026`, App. A.1), while Table 4 leaves the Genesis
+cell blank. The depth is computable from the poses and the meshes in a few lines of Warp, and
+the field's own benchmark repository already does it. Interpenetration in a dexterous rollout
+is a setting these engine papers do not document and a measurement no method row in this corpus
+reports.
 
-A policy will exploit what nobody looks at. DexTrack's configs carry PhysX's
-`max_depenetration_velocity` at 10.0 or 1000.0 depending on the task variant, with no explanation
-in the paper or in a config comment (`dextrack_2025`). The same parameter appears across unrelated
-stock IsaacGymEnvs tasks at 5.0, 10.0, 100.0 and 1000.0, at five places in the same parsed file,
-so DexTrack inherited a template rather than choosing per variant. The parameter caps the rate at
-which the solver pushes overlapping bodies apart, so it sets how long an overlap persists and how
-violently it is undone, not how deep the overlap gets. The one knob here that governs
-interpenetration behaviour is being copied without being read. DexTrack's paper defines a maximum
-hand-object penetration depth, applies it only to its input kinematic references, and presents
-tolerance of "severe hand-object penetrations" as evidence of robustness (App. B).
-`toporetarget_2026` is the one corpus method that reports the number carefully, and it reports it
-on retargeted references rather than on a rollout, which section 7 takes up.
+A policy will exploit what is not measured. DexTrack's configs carry PhysX's
+`max_depenetration_velocity` at 10.0 or 1000.0 depending on the task variant, with no
+explanation in the paper or in a config comment (`dextrack_2025`). The same parameter appears
+across unrelated stock IsaacGymEnvs tasks at 5.0, 10.0, 100.0 and 1000.0, at five places in the
+same parsed file, which is the signature of a stock template rather than of a per-variant
+choice. The parameter caps the rate at which the solver pushes overlapping bodies apart, so it
+sets how long an overlap persists and how violently it is undone, not how deep the overlap
+gets. So the one knob here that bears on interpenetration behaviour carries stock values and
+takes two of them across variants of one method. That pattern is what the corpus shows; why the
+values were chosen is not in the record, and matching numbers cannot establish it. DexTrack's
+paper defines a maximum hand-object penetration depth, applies it only to its input kinematic
+references, and presents tolerance of "severe hand-object penetrations" as evidence of
+robustness (App. B). `toporetarget_2026` is the one corpus method that reports the number
+carefully, and it reports it on retargeted references rather than on a rollout, which section 7
+takes up.
 
 The rest of Table 4 is largely empty, and the emptiness is a result. Sixty-nine of its 165 cells
 are values no parsed source stated, 41 percent, which is the share its own footer counts; over the
@@ -1539,14 +1553,17 @@ disagreeing with itself. The fourth version skew is `groot_n16_2025`, which ship
 one generation later than the checkpoint its page describes.
 
 Nine is the number to quote, eight at high confidence and one, `penspin_2024`, held at medium.
-Nine of 62 is 15 percent, bounded on both sides: a floor, because the census covers method rows
-only and `robopianist_2023`, whose row is a benchmark, sums five reward terms against the three its
-Table 2 documents; a ceiling, because eight accusations an earlier draft of this section made were
-withdrawn, seven of them under adversarial review and an eighth, `omnih2o_2024`, once writing to
-its authors sent someone back to the evidence, each with its reason recorded in the accused row
-beside the charge. Among the 21 reorientation methods of Table 5, seven released a repository and
-four of those state something different from their paper, the other three being a missing
-environment, a later generation and a default-value question their own READMEs settle.
+Nine of 62 is 15 percent, and it is a floor rather than a rate: the census covers method rows
+only, so `robopianist_2023`, whose row is a benchmark, does not enter it although it sums five
+reward terms against the three its Table 2 documents. It is also a screened count rather than a
+first pass. Sixteen rows were drawn at first and seven have since left the class, six under
+adversarial re-reading and one, `omnih2o_2024`, once writing to its authors sent someone back
+to the evidence; two more were narrowed and stayed, and each revision is recorded in the row it
+concerns beside the comparison it revises. That screening is evidence that the nine were
+checked, not a bound on how many a fuller reading would find. Among the 21 reorientation
+methods of Table 5, seven released a repository and four of those state something different
+from their paper, the other three being a missing environment, a later generation and a
+default-value question their own READMEs settle.
 
 Table 11 is the whole of the finding, in the form the finding is made: a public repository, the
 commit `tools/fetch_code.py` cloned, the file inside it, and the two values. The repository and
@@ -1593,78 +1610,83 @@ and `return 0.0`. The remaining six are in Table 11 in the same four parts, and 
 nine can be checked by opening the repository at the commit in that table.
 
 **Nobody was written to first.** The authors of these nine works were not contacted before this
-survey was posted. Ten letters were drafted, one per method, each quoting the claim, its evidence
-and the sentences the survey would print, and each asking whether the reading was right; they are
-in `outreach/` in the corpus that accompanies this survey, unsent and available from the author, so
-a reader can see exactly what every author would have been asked. Publishing without them narrows
-what this section may say, and what it says is written to the narrower form: a repository, a
-commit, a file, and two values. It attributes nothing to intent, and a reader with a browser can
-confirm or refute any line of Table 11 at the repository and commit that line names, without
-anyone's agreement and without this survey's own corpus. Two limits come with that, and neither is
-a hedge. A repository at a fetched commit is not the code that produced a paper's numbers: it may
-postdate that code, precede it, or have diverged from it on a branch nobody tagged, and a snapshot
-cannot say which, so each line compares a published document with one public artefact and claims
-nothing beyond the two. One work in this corpus says exactly that about itself. `hora_2022`'s
-README sends a reader to tag `v0.0.1` rather than to the default branch to reproduce the paper's
-numbers, which is why its row is classed version skew and is not one of the nine: told which commit
-to read, this survey read it, and nobody else was in a position to tell us, because nobody else was
-asked. The other limit is the remedy. Every one of the nine is correctable in public, and an author
-who shows that the file says something other than what Table 11 prints, or that the fetched commit
-is not the one behind their numbers, changes the row: `mismatch_class` and `mismatch_review` in
-`corpus/rows/`, the counts that follow from them, and the sentence in the next version, with the
-correction printed beside the original charge as the eight withdrawals already are. The route is
-the address in the author block of this paper. It is the only route this survey can offer today,
-because the corpus is not deposited yet: it is available from the author on request, and will be
-deposited with a persistent identifier. A correction asked for that way is a commit and a
-replacement version rather than a negotiation. Eight of the sixteen charges an earlier draft made
-have already gone that way on this survey's own evidence; a ninth would cost it nothing.
+survey was posted. Ten letters were drafted, one per method, each quoting the claim, its
+evidence and the sentences the survey would print, and each asking whether the reading was
+right; they are in `outreach/` in the corpus that accompanies this survey, unsent and available
+from the author, so a reader can see exactly what every author would have been asked.
+Publishing without them narrows what this section may say, and what it says is written to the
+narrower form: a repository, a commit, a file, and two values. It attributes nothing to intent,
+and a reader with a browser can confirm or refute any line of Table 11 at the repository and
+commit that line names, without anyone's agreement and without this survey's own corpus. Two
+limits come with that, and neither is a hedge. A repository at a fetched commit is not the code
+that produced a paper's numbers: it may postdate that code, precede it, or have diverged from
+it on a branch nobody tagged, and a snapshot cannot say which, so each line compares a
+published document with one public artefact and claims nothing beyond the two. One work in this
+corpus says exactly that about itself. `hora_2022`'s README sends a reader to tag `v0.0.1`
+rather than to the default branch to reproduce the paper's numbers, which is why its row is
+classed version skew and is not one of the nine: told which commit to read, this survey read
+it, and nobody else was in a position to tell us, because nobody else was asked. The other
+limit is the remedy. Every one of the nine is correctable in public, and an author who shows
+that the file says something other than what Table 11 prints, or that the fetched commit is not
+the one behind their numbers, changes the row: `mismatch_class` and `mismatch_review` in
+`corpus/rows/`, the counts that follow from them, and the sentence in the next version, with
+the correction printed beside the original comparison as the withdrawals already are. The route
+is the address in the author block of this paper. It is the only route this survey can offer
+today, because the corpus is not deposited yet: it is available from the author on request, and
+will be deposited with a persistent identifier. A correction asked for that way is a commit and
+a replacement version rather than a negotiation. Seven of the sixteen rows an earlier draft
+drew have already gone that way on this survey's own evidence and two more were narrowed; a
+further correction would cost it nothing.
 
-Zeroed terms recur, and they are not the same thing as a term that is missing. A term present and
-zeroed survives a reader's check of the file, which is why Table 5 marks it separately, and it is
-only worth marking where the paper claims the term. Weights differ as well: a penalty printed at
-one value in a table and set to another in a config, an equation's term that is not in the released
-reward file, a term in the file that the table does not list. And in 13 rows the repository does
-not settle the question at all, which is this survey's limit and not an accusation. The technical supplement
-prints all 38 row by row in their five classes, each with the file, the value on both sides, and
-the review note where a charge was narrowed or withdrawn.
+Zeroed terms recur, and they are not the same thing as a term that is missing. A term present
+and zeroed survives a reader's check of the file, which is why Table 5 marks it separately, and
+it is only worth marking where the paper claims the term. Weights differ as well: a penalty
+printed at one value in a table and set to another in a config, an equation's term that is not
+in the released reward file, a term in the file that the table does not list. And in 13 rows
+the repository does not settle the question at all, which is this survey's limit and not a
+finding against the paper. The technical supplement prints all 38 row by row in their five
+classes, each with the file, the value on both sides, and the review note where a comparison
+was narrowed or withdrawn.
 
 A reward table is a claim about a training run and the code is a claim about a repository. Here
 the two state different things in nine cases, in the other 29 the released artefacts do not settle
 the question, and in exactly one, `hora_2022`, the repository says so itself. Read the reward
 function before the reward table, and treat a printed weight as a hypothesis about the code.
 
-**The withdrawals, and what would close it.** This is a result about publishing practice in robot
-learning more than about dexterous manipulation: the dexterous corpus is its sample, not its subject.
-Nine is also a floor, since 46 method rows released nothing to check and four more are unsettled. The
-first count was sixteen. An adversarial re-reading withdrew six outright, `maniptrans_2025`,
-`eureka_2023`, `open_television_2024`, `dexmachina_2025`, `artigrasp_2023` and `graspxl_2024`: two
-refuted by the accused repository's own README, two resting on reward code that was never in the
-parse, one charging the code with structure the paper prints, one against a paper with no reward
-function. A seventh, `dexpbt_2023`, was narrowed rather than dropped, its domain-randomisation half
-withdrawn and its zeroed reward term left standing, so that row is still a contradiction and the
-narrowing takes nothing off the count. That left ten, and ten held until the letters to the authors
-were drafted. Writing to `omnih2o_2024` meant reading its accusation again before it went out, and
-reading it again is what broke it: four of its five reward-weight comparisons match the paper's own
-table to the digit once a systematic x1.25 curriculum factor is applied, and only the stumble weight
-differs, by a factor of about a million, which reads as a typo signature in a table rather than a
-policy trained on a different objective. Its hands are driven open-loop from a VR pose as well,
-outside the policy and outside the reward, which made the work a poor fit for a reward census in a
-dexterous-manipulation survey whatever the weight said. The charge is withdrawn and the row moves to
-an internal inconsistency, which is where the count above sits it. `penspin_2024` was narrowed the
-same way and before the same deadline: half of its charge, that the released code turns off the
-paper's tactile channel, is withdrawn, because the config that was read carries 96 observation
-dimensions and `enable_tactile: False`, which is what the paper's proprioception-only student should
-carry and not a claim the paper makes about that stage. What is left is the line in Table 11, and it
-is held at medium because this survey could not establish from the parse whether a second task config
-exists elsewhere in that repository.
+**The withdrawals, and what would close it.** This is a result about publishing practice in
+robot learning more than about dexterous manipulation: the dexterous corpus is its sample, not
+its subject. Nine is also a floor, since 46 method rows released nothing to check and four more
+are unsettled. The first count was sixteen. An adversarial re-reading withdrew six outright,
+`maniptrans_2025`, `eureka_2023`, `open_television_2024`, `dexmachina_2025`, `artigrasp_2023`
+and `graspxl_2024`: two refuted by the repository's own README, two resting on reward code that
+was never in the parse, one reading as a difference where the code carries the structure the
+paper prints, one against a paper with no reward function. `dexpbt_2023` was narrowed rather
+than dropped, its domain-randomisation half withdrawn and its zeroed reward term left standing,
+so that row is still a contradiction and the narrowing takes nothing off the count. That left
+ten, and ten held until the letters to the authors were drafted. Writing to `omnih2o_2024`
+meant reading the comparison again before the letter went out, and reading it again is what
+broke it: four of its five reward-weight comparisons match the paper's own table to the digit
+once a systematic x1.25 curriculum factor is applied, and only the stumble weight differs, by a
+factor of about a million, which reads as a typo signature in a table rather than a policy
+trained on a different objective. Its hands are driven open-loop from a VR pose as well,
+outside the policy and outside the reward, which made the work a poor fit for a reward census
+in a dexterous-manipulation survey whatever the weight said. The comparison is withdrawn and
+the row moves to an internal inconsistency, which is where the count above sits it.
+`penspin_2024` was narrowed the same way and before the same deadline: half of it, that the
+released code turns off the paper's tactile channel, is withdrawn, because the config that was
+read carries 96 observation dimensions and `enable_tactile: False`, which is what the paper's
+proprioception-only student should carry and not a claim the paper makes about that stage. What
+is left is the line in Table 11, and it is held at medium because this survey could not
+establish from the parse whether a second task config exists elsewhere in that repository.
 
-**The survey has now withdrawn eight accusations in total: seven of them under adversarial review,
-and the eighth at the point of writing to the authors, because someone sat down to write the letter
-and looked at the evidence again.** Each retraction and narrowing is recorded in its row beside the
-charge: a survey that names people should carry its corrections beside its accusations, in public and
-not just in the corpus. What would close the finding itself is a reward table generated from the
-released config at a named commit, so a reviewer diffs two artefacts instead of reading two
-documents.
+**Seven of the sixteen rows first drawn have left the contradiction count: six under
+adversarial re-reading, and one at the point of writing to the authors, because someone sat
+down to write the letter and looked at the evidence again. Two more were narrowed and remain in
+it.** Each retraction and narrowing is recorded in the row it concerns, beside the comparison
+it revises: a survey that names people should carry its corrections beside its findings, in
+public and not just in the corpus. What would close the finding itself is a reward table
+generated from the released config at a named commit, so a reviewer diffs two artefacts instead
+of reading two documents.
 
 # 6. Bimanual dexterous manipulation
 
@@ -2024,24 +2046,25 @@ pose, a trajectory or a contact model before anything executes and the four that
 policies scoring the references they were given, and we found none that reports the measurement for
 rollouts of its own trained policy.
 
-**The field behind that null was audited.** A null is worth what the search behind it is worth, and
-this survey's extraction under-counted every other field it was audited against, by twenty to
-forty-five percent. The 85 method rows whose contact-handling field records that the work does not
-address penetration were therefore sampled: 25 of the 85, drawn at random with a fixed seed, each
-read again in its own parsed source and its released repository rather than in the note the field
-was written from, since the note is the artefact under suspicion. Not one of the 25 reports a
-measurement of penetration depth, intersection volume or physical plausibility on its own rollouts.
-Zero recoveries in 25 bounds the rows that could be hiding one at 8 of the 85 at 95 percent
-confidence, so the eleven is a floor and nineteen a ceiling; had this field under-counted at even
-the mildest rate the other audits found, a sample of 25 would have missed every recoverable row with
-probability 0.001. The nearest miss is worth naming, because it is the one a reader might count
-differently: `graspxl_2024` puts hand-object interpenetration to 35 human raters as one of four
-dimensions of a single realism score, which is a judgement of its own rollouts rather than a
-measurement of one, and counting it would give one recovery in 25 and a bound of 13 rows. Three near
-misses recurred across the sample and none of them is a measurement of a rollout: self-collision
-avoidance in a retargeter, a binary self-collision penalty in a released reward, and an engine's
-de-penetration velocity left at its default. The draw, the seed and the per-row verdicts are in `reviews/penetration_audit.md`, and
-Appendix A states the method and the two fields that remain unaudited.
+**The field behind that null was audited.** A null is worth what the search behind it is worth,
+and this survey's extraction under-counted every other field it was audited against, by twenty
+to forty-five percent. The 85 method rows whose contact-handling field records that the work
+does not address penetration were therefore sampled: 25 of the 85, drawn at random with a fixed
+seed, each read again in its own parsed source and its released repository rather than in the
+note the field was written from, since the note is the artefact under suspicion. Not one of the
+25 reports a measurement of penetration depth, intersection volume or physical plausibility on
+its own rollouts. Zero recoveries in 25 bounds the rows that could be hiding one at 8 of the 85
+at 95 percent confidence, so the eleven is a floor and nineteen a ceiling; had this field
+under-counted at even the mildest rate the other audits found, a sample of 25 would have missed
+every recoverable row with probability 0.001. The nearest miss is worth naming, because it is
+the one a reader might count differently: `graspxl_2024` puts hand-object interpenetration to
+35 human raters as one of four dimensions of a single realism score, which is a judgement of
+its own rollouts rather than a measurement of one, and counting it would give one recovery in
+25 and a bound of 13 rows. Three near misses recurred across the sample and none of them is a
+measurement of a rollout: self-collision avoidance in a retargeter, a binary self-collision
+penalty in a released reward, and an engine's de-penetration velocity left at its default. The
+draw, the seed and the per-row results are in `reviews/penetration_audit.md`, and Appendix A
+states the method and the two fields that remain unaudited.
 
 Where in the pipeline those eleven act is the reference-versus-rollout split that section 1 takes
 from `zhao_dexhand_survey_2026`. A reference is a pose or a trajectory scored before execution,
@@ -2225,7 +2248,7 @@ paired count additionally rests on an assumed discordance of 0.3, which no paper
 reports. The perturbation axes are borrowed from `colosseum_2024` and `simpler_2024`, which run
 parallel-jaw grippers on rigid objects, where `simpler_2024` found physical parameters moved
 success rates by at most 15 percent. That is the sensitivity expected to grow with multi-finger
-contact, and nobody has measured it. The 2 mm penetration threshold is taken from
+contact, and no work in this corpus measures it. The 2 mm penetration threshold is taken from
 `toporetarget_2026` with no independent justification, and the captured human grasps in
 `grab_2020` sit above it at 3.25 mm, which makes 2 mm a simulator convention rather than a
 physical bound. So the three things this survey adds to the reference-versus-rollout axis are a
@@ -2249,12 +2272,13 @@ that would close it. Nothing is argued in this list: the denominator, the eviden
 prescription sit in the section named, at the end of it, so that a finding and its consequence are
 read together and stated once.
 
-1. Nine of the 62 method rows that released parseable code state, in a named file at a named commit,
-   something other than the value their paper prints, and eight further charges have been withdrawn
-   since the first draft of that census. Table 11 gives each of the nine as a repository, a commit, a
-   file and two values, and none of their authors was written to before this was posted: section 5.6
-   says that beside the finding, with the drafted and unsent letters in `outreach/` and the route by
-   which a disputed case is corrected (section 5.6 and the technical supplement).
+1. Nine of the 62 method rows that released parseable code state, in a named file at a named
+commit, something other than the value their paper prints, and seven further rows have been
+withdrawn from that count since its first draft, with two more narrowed. Table 11 gives each of
+the nine as a repository, a commit, a file and two values, and none of their authors was
+written to before this was posted: section 5.6 says that beside the finding, with the drafted
+and unsent letters in `outreach/` and the route by which a disputed case is corrected (section
+5.6 and the technical supplement).
 
 2. No closed-loop policy in the corpus reports interpenetration for the rollouts of its own trained
    policy, and all eleven rows that handle penetration at all sit on the reference side of the
@@ -2310,8 +2334,8 @@ per-trial outcomes. None of that needs a GPU.
 
 If you are running experiments, measure penetration depth over your evaluation rollouts on a dense
 surface sample, and never let that measure become a reward. `toporetarget_2026` shows what the
-number looks like when someone takes it seriously, and what the widely used retargeters look like
-when nobody does.
+number looks like when it is reported carefully, and what the widely used retargeters look like
+when it is not.
 
 If you are choosing hardware, the corpus names four hands and no more. The Allegro carries 35
 method rows, the Shadow 21, the Inspire 19 and LEAP 12, and every other hand in Tables 2 and 3
@@ -2425,35 +2449,35 @@ and moved the "never says" figure from 34 of 89 down to 19. Read every coverage 
 survey as a floor rather than as a rate, and read the bars in Figure 6 the same way.
 
 **The penetration field, audited the same way.** The same mechanism reaches the penetration,
-code-release and failure-mode fields. The penetration field has since been audited by hand, because
-this survey's second finding is a null over it and a null is worth what the search behind it is
-worth. The population is the 85 method rows whose contact-handling field records that the work does
-not address penetration. It excludes the 16 nulls, which are already counted as unsettled rather
-than as silence, so recovering one would not move the finding. Twenty-five of the 85, 29 percent,
-were drawn with `random.Random(20260919).sample` over the sorted population, so the draw is fixed
-and can be redrawn. Each sampled row was read again in `papers/md/`, in its OCR recovery where one
-exists, and in `code/md/` where a repository was parsed, but not in `papers/notes/`, because the
-note is the artefact under suspicion: a field is wrong exactly when the source says something the
-note did not carry. A regular expression over the whole source collected every occurrence of
-penetration, interpenetration, intersection, intersection volume, solid intersection, simulation
-displacement, contact consistency, physical plausibility, signed distance and contact depth, and of
-the words that are mistaken for them, and every hit was read in its context. A row counted as a
-recovery if its own source reported a measurement of any of those quantities on that method's own
-rollouts. A statement that penetration occurs, a citation whose title says physically plausible, a
-collision-avoidance constraint on a reference trajectory and a solver setting did not count, and the
-three recurring near misses of that kind are listed in section 7.2. Recoveries: none of the 25,
-against the 20 to 45 percent the three earlier audits recovered on the fields above. The one-sided
-95 percent bound, computed hypergeometrically over the finite population, is therefore 8 of the 85,
-and section 7.2 states it beside the claim and names the one borderline case that a reader might
-count differently. Why this field held where the others did not is visible in the verdicts: the
-recovered trial counts and criteria were numbers present in the source and dropped by a field shaped
-to hold a scalar, whereas a penetration number is absent from the source altogether. The earlier
-audits measured a defect in this schema; this one looked for an absence in the literature.
-`reviews/penetration_audit.md` holds the seed, the sample and a verdict per row beside the sentence
-it rests on, and `tools/audit_penetration.py` redraws the sample and re-runs the sweep. The
-code-release and failure-mode fields have still not been audited this way, and their counts stay
-floors.
-
+code-release and failure-mode fields. The penetration field has since been audited by hand,
+because this survey's second finding is a null over it and a null is worth what the search
+behind it is worth. The population is the 85 method rows whose contact-handling field records
+that the work does not address penetration. It excludes the 16 nulls, which are already counted
+as unsettled rather than as silence, so recovering one would not move the finding. Twenty-five
+of the 85, 29 percent, were drawn with `random.Random(20260919).sample` over the sorted
+population, so the draw is fixed and can be redrawn. Each sampled row was read again in
+`papers/md/`, in its OCR recovery where one exists, and in `code/md/` where a repository was
+parsed, but not in `papers/notes/`, because the note is the artefact under suspicion: a field
+is wrong exactly when the source says something the note did not carry. A regular expression
+over the whole source collected every occurrence of penetration, interpenetration,
+intersection, intersection volume, solid intersection, simulation displacement, contact
+consistency, physical plausibility, signed distance and contact depth, and of the words that
+are mistaken for them, and every hit was read in its context. A row counted as a recovery if
+its own source reported a measurement of any of those quantities on that method's own rollouts.
+A statement that penetration occurs, a citation whose title says physically plausible, a
+collision-avoidance constraint on a reference trajectory and a solver setting did not count,
+and the three recurring near misses of that kind are listed in section 7.2. Recoveries: none of
+the 25, against the 20 to 45 percent the three earlier audits recovered on the fields above.
+The one-sided 95 percent bound, computed hypergeometrically over the finite population, is
+therefore 8 of the 85, and section 7.2 states it beside the claim and names the one borderline
+case that a reader might count differently. Why this field held where the others did not is
+visible in the per-row results: the recovered trial counts and criteria were numbers present in
+the source and dropped by a field shaped to hold a scalar, whereas a penetration number is
+absent from the source altogether. The earlier audits measured a defect in this schema; this
+one looked for an absence in the literature. `reviews/penetration_audit.md` holds the seed, the
+sample and a result per row beside the sentence it rests on, and `tools/audit_penetration.py`
+redraws the sample and re-runs the sweep. The code-release and failure-mode fields have still
+not been audited this way, and their counts stay floors.
 
 ---
 

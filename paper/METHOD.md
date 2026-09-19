@@ -102,31 +102,32 @@ and moved the "never says" figure from 34 of 89 down to 19. Read every coverage 
 survey as a floor rather than as a rate, and read the bars in Figure 6 the same way.
 
 **The penetration field, audited the same way.** The same mechanism reaches the penetration,
-code-release and failure-mode fields. The penetration field has since been audited by hand, because
-this survey's second finding is a null over it and a null is worth what the search behind it is
-worth. The population is the 85 method rows whose contact-handling field records that the work does
-not address penetration. It excludes the 16 nulls, which are already counted as unsettled rather
-than as silence, so recovering one would not move the finding. Twenty-five of the 85, 29 percent,
-were drawn with `random.Random(20260919).sample` over the sorted population, so the draw is fixed
-and can be redrawn. Each sampled row was read again in `papers/md/`, in its OCR recovery where one
-exists, and in `code/md/` where a repository was parsed, but not in `papers/notes/`, because the
-note is the artefact under suspicion: a field is wrong exactly when the source says something the
-note did not carry. A regular expression over the whole source collected every occurrence of
-penetration, interpenetration, intersection, intersection volume, solid intersection, simulation
-displacement, contact consistency, physical plausibility, signed distance and contact depth, and of
-the words that are mistaken for them, and every hit was read in its context. A row counted as a
-recovery if its own source reported a measurement of any of those quantities on that method's own
-rollouts. A statement that penetration occurs, a citation whose title says physically plausible, a
-collision-avoidance constraint on a reference trajectory and a solver setting did not count, and the
-three recurring near misses of that kind are listed in section 7.2. Recoveries: none of the 25,
-against the 20 to 45 percent the three earlier audits recovered on the fields above. The one-sided
-95 percent bound, computed hypergeometrically over the finite population, is therefore 8 of the 85,
-and section 7.2 states it beside the claim and names the one borderline case that a reader might
-count differently. Why this field held where the others did not is visible in the verdicts: the
-recovered trial counts and criteria were numbers present in the source and dropped by a field shaped
-to hold a scalar, whereas a penetration number is absent from the source altogether. The earlier
-audits measured a defect in this schema; this one looked for an absence in the literature.
-`reviews/penetration_audit.md` holds the seed, the sample and a verdict per row beside the sentence
-it rests on, and `tools/audit_penetration.py` redraws the sample and re-runs the sweep. The
-code-release and failure-mode fields have still not been audited this way, and their counts stay
-floors.
+code-release and failure-mode fields. The penetration field has since been audited by hand,
+because this survey's second finding is a null over it and a null is worth what the search
+behind it is worth. The population is the 85 method rows whose contact-handling field records
+that the work does not address penetration. It excludes the 16 nulls, which are already counted
+as unsettled rather than as silence, so recovering one would not move the finding. Twenty-five
+of the 85, 29 percent, were drawn with `random.Random(20260919).sample` over the sorted
+population, so the draw is fixed and can be redrawn. Each sampled row was read again in
+`papers/md/`, in its OCR recovery where one exists, and in `code/md/` where a repository was
+parsed, but not in `papers/notes/`, because the note is the artefact under suspicion: a field
+is wrong exactly when the source says something the note did not carry. A regular expression
+over the whole source collected every occurrence of penetration, interpenetration,
+intersection, intersection volume, solid intersection, simulation displacement, contact
+consistency, physical plausibility, signed distance and contact depth, and of the words that
+are mistaken for them, and every hit was read in its context. A row counted as a recovery if
+its own source reported a measurement of any of those quantities on that method's own rollouts.
+A statement that penetration occurs, a citation whose title says physically plausible, a
+collision-avoidance constraint on a reference trajectory and a solver setting did not count,
+and the three recurring near misses of that kind are listed in section 7.2. Recoveries: none of
+the 25, against the 20 to 45 percent the three earlier audits recovered on the fields above.
+The one-sided 95 percent bound, computed hypergeometrically over the finite population, is
+therefore 8 of the 85, and section 7.2 states it beside the claim and names the one borderline
+case that a reader might count differently. Why this field held where the others did not is
+visible in the per-row results: the recovered trial counts and criteria were numbers present in
+the source and dropped by a field shaped to hold a scalar, whereas a penetration number is
+absent from the source altogether. The earlier audits measured a defect in this schema; this
+one looked for an absence in the literature. `reviews/penetration_audit.md` holds the seed, the
+sample and a result per row beside the sentence it rests on, and `tools/audit_penetration.py`
+redraws the sample and re-runs the sweep. The code-release and failure-mode fields have still
+not been audited this way, and their counts stay floors.

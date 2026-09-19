@@ -185,31 +185,35 @@ contact-quality metric. The Isaac family carries 42 of the 112 method papers in 
 \textbf{The tooling exists and the number is still not recorded.} NVIDIA's own IsaacGymEnvs
 repository computes interpenetration depth in simulation. Its IndustReal tasks load plug and
 socket meshes into Warp, sample points on one, query them against the other, and reduce to a
-per-environment maximum interpenetration distance (\path{code/md/isaacgym_2021.md}, lines 8809 to
-8862). The policy update is gated on that number. Environments are split on whether their maximum
-stays under a threshold, and the reward of those that survive falls as the maximum approaches it.
-The configured limit is 1 mm (lines 3630 and 3753). That is a shipped Isaac Gym task
-measuring simulated interpenetration per environment at a millimetre threshold, during RL, and
-acting on it. Table~\ref{tab:simulators} records Isaac Gym as not exposing penetration, and so
-does its row in the corpus, which the code parse in that same corpus contradicts. Tactile Genesis
-makes the point from the other side, shipping penetration depth as a sensor on an analytic SDF
-backend and a BVH backend \cite[App.~A.1]{tactile_genesis_2026}, while Table~\ref{tab:simulators}
-leaves the Genesis cell blank. The depth is computable from the poses and the meshes in a few
-lines of Warp, and the field's own benchmark repository already does it. Interpenetration in a
-dexterous rollout is a setting nobody records and a measurement nobody takes.
+per-environment maximum interpenetration distance (\path{code/md/isaacgym_2021.md}, lines 8809
+to 8862). The policy update is gated on that number. Environments are split on whether their
+maximum stays under a threshold, and the reward of those that survive falls as the maximum
+approaches it. The configured limit is 1 mm (lines 3630 and 3753). That is a shipped Isaac Gym
+task measuring simulated interpenetration per environment at a millimetre threshold, during RL,
+and acting on it. Table~\ref{tab:simulators} records Isaac Gym as not exposing penetration, and
+so does its row in the corpus, which the code parse in that same corpus contradicts. Tactile
+Genesis makes the point from the other side, shipping penetration depth as a sensor on an
+analytic SDF backend and a BVH backend \cite[App.~A.1]{tactile_genesis_2026}, while
+Table~\ref{tab:simulators} leaves the Genesis cell blank. The depth is computable from the
+poses and the meshes in a few lines of Warp, and the field's own benchmark repository already
+does it. Interpenetration in a dexterous rollout is a setting these engine papers do not
+document and a measurement no method row in this corpus reports.
 
-A policy will exploit what nobody looks at. DexTrack's configurations cap PhysX's separation
-velocity at 10.0 or 1000.0 depending on the task variant, with no explanation in the paper or in
-a configuration comment \cite{dextrack_2025}. The same parameter appears
-across unrelated stock IsaacGymEnvs tasks at 5.0, 10.0, 100.0 and 1000.0, at five places in the
-same parsed file, so DexTrack inherited a template rather than choosing per variant. The parameter
-caps the rate at which the solver pushes overlapping bodies apart, so it sets how long an overlap
-persists and how violently it is undone, not how deep the overlap gets. The one knob here that
-governs interpenetration behaviour is being copied without being read. DexTrack's paper defines a
-maximum hand-object penetration depth, applies it only to its input kinematic references, and
+A policy will exploit what is not measured. DexTrack's configurations cap PhysX's separation
+velocity at 10.0 or 1000.0 depending on the task variant, with no explanation in the paper or
+in a configuration comment \cite{dextrack_2025}. The same parameter appears across unrelated
+stock IsaacGymEnvs tasks at 5.0, 10.0, 100.0 and 1000.0, at five places in the same parsed
+file, which is the signature of a stock template rather than of a per-variant choice. The
+parameter caps the rate at which the solver pushes overlapping bodies apart, so it sets how
+long an overlap persists and how violently it is undone, not how deep the overlap gets. So the
+one knob here that bears on interpenetration behaviour carries stock values and takes two of
+them across variants of one method. That pattern is what the corpus shows; why the values were
+chosen is not in the record, and matching numbers cannot establish it. DexTrack's paper defines
+a maximum hand-object penetration depth, applies it only to its input kinematic references, and
 presents tolerance of ``severe hand-object penetrations'' as evidence of robustness (App.~B).
-TopoRetarget \cite{toporetarget_2026} is the one corpus method that reports the number carefully,
-and it reports it on retargeted references rather than on a rollout, which Section~VII takes up.
+TopoRetarget \cite{toporetarget_2026} is the one corpus method that reports the number
+carefully, and it reports it on retargeted references rather than on a rollout, which
+Section~VII takes up.
 
 The rest of Table~\ref{tab:simulators} is largely empty, and the emptiness is a result. Forty of
 the 105 cells in its seven property columns, 38 percent, are values no parsed source stated, which

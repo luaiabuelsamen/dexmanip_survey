@@ -40,5 +40,5 @@
  "rig_cost_usd": null,
  "data_hours": null,
  "data_trajectories": null,
- "mismatch_review": "R3 adversarial review: a behaviour-cloning paper with no reward; the charge compared paper iterations to a README example's epochs"
+ "mismatch_review": "R3 adversarial review: a behaviour-cloning paper with no reward; it compared paper iterations to a README example's epochs"
 }

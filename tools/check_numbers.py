@@ -32,6 +32,8 @@ def norm_sim(s):
 VLA = [r for r in M if "VLA" in (r.get("paradigm") or [])]
 import importlib.util as _il
 _sp=_il.spec_from_file_location("hand_usage", str(R/"tools/hand_usage.py")); _hu=_il.module_from_spec(_sp); _sp.loader.exec_module(_hu)
+_sm=_il.spec_from_file_location("make_tables", str(R/"tools/make_tables.py")); _mt=_il.module_from_spec(_sm); _sm.loader.exec_module(_mt)
+_USES=_mt.USES
 HU=_hu.partition()
 RL = [r for r in M if set(r.get("paradigm") or []) & {"RL", "RL+demo"}]
 RL_DOF = [r for r in RL if r.get("hand_dof") is not None]
@@ -118,6 +120,12 @@ FACTS = {
                           and r.get("open_hardware") is True
                           and r.get("release_status") in ("sold", "open-source"), ROWS),
  "bimanual_learned": len(BIMANUAL_28),
+ # The three hands ranked just below the big four. Section 3.2's closing paragraph names them by
+ # count, so the counts are registered, and they are read from make_tables' USES rather than from a
+ # third pattern set: the figure, the `uses` column and this check then cannot drift apart.
+ "xhand_rows": len(keys(_USES["robotera_xhand1_2024"])),
+ "ability_rows": len(keys(_USES["psyonic_ability_hand_2021"])),
+ "sharpa_rows": len(keys(_USES["sharpa_wave_2026"])),
 }
 
 # --- the reference list, against the corpus it is drawn from -------------------------------------
@@ -248,6 +256,14 @@ CLAIMS = [
  ("hand_named", P(rf"The {NUM} method rows that name their own hand")),
  ("hand_named", P(rf"of the {NUM} method rows that name a hand")),
  ("hand_named", P(rf"of the {NUM} hand-naming method rows")),
+ ("allegro_rows", P(rf"the Allegro at {NUM} method rows")),
+ ("shadow_rows", P(rf"a Shadow at {NUM} and \d+ more for its Adroit")),
+ ("inspire_rows", P(rf"the Inspire RH56 family at {NUM}, and LEAP")),
+ ("leap_rows", P(rf"and LEAP at {NUM}, of which only LEAP")),
+ ("xhand_rows", P(rf"{NUM} rows for the XHand")),
+ ("ability_rows", P(rf"{NUM} for the Ability Hand")),
+ ("sharpa_rows", P(rf"{NUM} for Sharpa, two each")),
+ ("hands_unused", P(rf"none at all for the other {NUM} hands")),
  ("allegro_rows", P(rf"The Allegro accounts for {NUM}")),
  ("allegro_rows", P(rf"Allegro appears in {NUM},")),
  ("allegro_rows", P(rf"It appears in {NUM} of the 112 method rows")),

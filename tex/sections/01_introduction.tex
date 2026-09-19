@@ -55,34 +55,35 @@ everything ends in a policy trained in a GPU simulator and distilled to vision.
 
 The survey has three main findings. The first concerns the link between papers and their code.
 Of the 112 method papers, 62 released code that could be compared with the paper. Thirty-eight
-comparisons required an explanatory note, and nine contain a direct conflict between a published
-value and the corresponding public implementation. PhysHOI \cite{physhoi_2023}, for example,
-assigns weights to object-rotation errors in its paper but sets those errors to zero in the public
-reward implementation. Its reported success criterion uses position alone, so it does not reveal
-the difference. This is a comparison between two public documents, not a claim about which code
-produced the reported experiments. Section~\ref{sec:train:code} explains the classification, and
-Table~\ref{tab:codegap} provides the repository, revision, file, and values for all nine cases. It
-also records eight claims removed during review and explains how corrections will be handled.
-\figurename~\ref{fig:codegap} draws the narrowing.
-
+comparisons required an explanatory note, and nine contain a direct conflict between a
+published value and the corresponding public implementation. PhysHOI \cite{physhoi_2023}, for
+example, assigns weights to object-rotation errors in its paper but sets those errors to zero
+in the public reward implementation. Its reported success criterion uses position alone, so it
+does not reveal the difference. This is a comparison between two public documents, not a claim
+about which code produced the reported experiments. Section~\ref{sec:train:code} explains the
+classification, and Table~\ref{tab:codegap} provides the repository, revision, file, and values
+for all nine cases. It also records seven rows withdrawn during review and two narrowed, and
+explains how corrections will be handled. \figurename~\ref{fig:codegap} draws the narrowing.
 
 The second finding concerns physical plausibility. How far a hand passes into the object it is
-holding is not a number the policies in this corpus report. Eleven of the
-96 method rows whose notes settle the question address interpenetration at all, seven of the
-eleven do it outside a closed-loop policy in a grasp synthesiser, a trajectory optimiser or a
-contact model, and we found none that reports a penetration number for its own trained policy's
-rollouts. The claim is about learned closed-loop control and not about the field. Grasp synthesis
-and hand-object reconstruction have reported penetration depth and intersection volume as
-comparative columns for years, and four rows of this corpus do it: OakInk \cite{oakink_2022}
-scores a dataset split on penetration depth, solid intersection volume and simulation
-displacement, BiDexGrasp \cite{bidexgrasp_2026} prints penetration depth beside a prior method's,
-BimanGrasp \cite{bimangrasp_2024} fails any grasp whose total penetration exceeds 1.5 mm, and
-TopoRetarget \cite{toporetarget_2026} reports a maximum penetration and a share of frames past 2
-mm against a baseline retargeter. Every one of those numbers scores a pose or a reference
-trajectory rather than the behaviour a trained policy produced, and it is the rollout that is
-missing. The obstacle is not the engines. NVIDIA's own IsaacGymEnvs repository already computes a
-per-environment maximum interpenetration depth in Warp and gates the policy update on a 1 mm
-threshold. Section~\ref{sec:sim:engines} has the file and the lines.
+holding is not a number the policies in this corpus report. A method row is one method paper
+read into this survey's structured record, and it is the unit its counts are taken over. Eleven
+of the 96 method rows whose notes settle the question address interpenetration at all, seven of
+the eleven do it outside a closed-loop policy in a grasp synthesiser, a trajectory optimiser or
+a contact model, and we found none that reports a penetration number for its own trained
+policy's rollouts. The claim is about learned closed-loop control and not about the field.
+Grasp synthesis and hand-object reconstruction have reported penetration depth and intersection
+volume as comparative columns for years, and four rows of this corpus do it: OakInk
+\cite{oakink_2022} scores a dataset split on penetration depth, solid intersection volume and
+simulation displacement, BiDexGrasp \cite{bidexgrasp_2026} prints penetration depth beside a
+prior method's, BimanGrasp \cite{bimangrasp_2024} fails any grasp whose total penetration
+exceeds 1.5 mm, and TopoRetarget \cite{toporetarget_2026} reports a maximum penetration and a
+share of frames past 2 mm against a baseline retargeter. Every one of those numbers scores a
+pose or a reference trajectory rather than the behaviour a trained policy produced, and it is
+the rollout that is missing. The obstacle is not the engines. NVIDIA's own IsaacGymEnvs
+repository already computes a per-environment maximum interpenetration depth in Warp and gates
+the policy update on a 1 mm threshold. Section~\ref{sec:sim:engines} has the file and the
+lines.
 
 The third finding concerns hardware coverage. Nineteen of the 33 hand rows in
 Table~\ref{tab:hands-available} and Table~\ref{tab:hands-announced} appear in no method row, and 8
@@ -111,7 +112,7 @@ near-universal flaws in reward design. Their ground truth for what each reward w
 obtained through correspondence with them rather than by reading a released repository, and what
 they establish is that published reward descriptions are incomplete: one of the ten described its
 reward, discount factor, termination conditions and timestep thoroughly. Reading the code instead
-needs no correspondence and supports a different charge, which is that where code exists it
+needs no correspondence and supports a different claim, which is that where code exists it
 sometimes contradicts the description. Raff \cite{raff_reproducibility_2019} took the opposite
 ground truth on purpose, reimplementing 255 papers from their text alone and never opening the
 authors' code, which is what makes the choice of arbiter a position rather than an accident.
@@ -119,14 +120,15 @@ authors' code, which is what makes the choice of arbiter a position rather than 
 So the claim here is narrow. We are aware of no prior work in robotics, and none in dexterous
 manipulation, that reads a field's released reward implementations against the rewards its own
 papers describe. Those seven works are cited from outside this corpus and enter none of its
-counts. The exposure of the claim belongs beside the count above: the evidence is a repository at
-a fetched commit, every hash recorded in the code manifest, and a repository at a commit is
-evidence about that repository rather than about the run that produced a paper's numbers, because
-the commit may postdate, precede or diverge from it. Hora \cite{hora_2022} states the problem in
-its own README, which directs a reader to tag v0.0.1 and not to the commit parsed here to
-reproduce the published numbers. Every accusation this survey has withdrawn, eight of them so far,
-is recorded in the accused row for the same reason: the withdrawals are the evidence that the
-charges left standing were checked rather than counted.
+counts. The exposure of the claim belongs beside the count above: the evidence is a repository
+at a fetched commit, every hash recorded in the code manifest, and a repository at a commit is
+evidence about that repository rather than about the run that produced a paper's numbers,
+because the commit may postdate, precede or diverge from it. Hora \cite{hora_2022} states the
+problem in its own README, which directs a reader to tag v0.0.1 and not to the commit parsed
+here to reproduce the published numbers. Every comparison this survey has revised, seven rows
+withdrawn from the count and two narrowed within it, is recorded in the row it concerns for the
+same reason: those revisions are the evidence that the nine left standing were checked rather
+than counted.
 
 %% The comparison to the predecessor surveys, generated by tools/make_tex_tables.py, with the
 %% paragraph that used to sit under it in six-point type set here as body prose.
