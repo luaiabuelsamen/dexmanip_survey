@@ -3,27 +3,25 @@
 ## 7.1 What the field reports, and why the numbers do not compare
 
 Of the 112 method rows in the corpus, 89 report a real-robot experiment, 22 do not and one row is
-unsettled: 79 percent of all 112 rows, or 80 percent of the 111 the note settled. Among those 89,
-70 state how many real trials produced the headline number, which is 79 percent of them and 62
-percent of all 112 method rows. The 89 is the denominator that belongs to this statistic: the 22
-rows with no real robot cannot state a real trial count, and counting them as silent turns a
-definitional impossibility into a reporting failure. Thirty-nine rows state a count of unseen test
-objects, 35 percent. Ninety-eight state how a rollout is scored, 88 percent. Sixty-two released
-code and 46 did not, with four rows unsettled: 55 percent of all rows, or 57 percent of the 108
-the note settled. Figure 6 draws these six shares, each against the denominator that belongs to
-it.
+unsettled, which is 80 percent of the 111 the note settled. Among those 89, 70 state how many real
+trials produced the headline number, 79 percent of them. The 89 is the denominator that belongs to
+this statistic: the 22 rows with no real robot cannot state a real trial count, and counting them
+as silent turns a definitional impossibility into a reporting failure. Thirty-nine rows state a
+count of unseen test objects, 35 percent. Ninety-eight state how a rollout is scored, 88 percent.
+Sixty-two released code and 46 did not, with four rows unsettled, 57 percent of the 108 the note
+settled. Figure 6 draws these six shares, each against the denominator that belongs to it.
 
 {{figure:fig6_reporting}}
 
 **These are counts of what this survey captured, not of what papers reported, and every one is a
-floor.** A row in `corpus/rows` holds a scalar. A paper that reports ten trials on each of nine
-tasks, or a scoring rubric instead of a threshold, or a count spread over four tables, has nothing
-the extraction can reduce to one integer, so it produces a null, and a null is then
-indistinguishable from a paper that said nothing. The bias runs one way: every miss converts a
-reporting paper into a silent one, and the survey's argument is that the field reports badly, so
-the artefact flatters the argument. Section 5.8 makes the same disclosure about the paper/code
-count, subtracting the 13 disagreements that are limitations of this survey's own parsing
-before declaring which number to quote, and the coverage statistics above need it more.
+floor.** A structured row holds a scalar. A paper that reports ten trials on each of nine tasks,
+or a scoring rubric instead of a threshold, or a count spread over four tables, has nothing the
+extraction can reduce to one integer, so it produces a null, and a null is then indistinguishable
+from a paper that said nothing. The bias runs one way: every miss converts a reporting paper into
+a silent one, and the survey's argument is that the field reports badly, so the artefact flatters
+the argument. Section 5.8 makes the same disclosure about the paper/code count, subtracting the 13
+disagreements that are limitations of this survey's own parsing before declaring which number to
+quote, and the coverage statistics above need it more.
 
 So the nulls were audited by hand against the notes they came from, and the numbers above are the
 audited ones. Of the 34 method rows with a real robot and no trial count, 15 had the count written
@@ -45,8 +43,8 @@ cannot be compared with anything.
 
 Where the denominator is stated it is small, and it is not one quantity. Some stored counts are
 per-cell, meaning ten trials on each task, or twenty per condition, or five per object. Others are
-grand totals over every cell. The rows now carry a `real_trials_kind` beside every value, and the
-two distributions are quoted separately. The 39 per-cell counts run from 5 to 100 with a median of 15
+grand totals over every cell. The rows now record which of the two each value is, and the two
+distributions are quoted separately. The 39 per-cell counts run from 5 to 100 with a median of 15
 and quartiles at 10 and 20. The modal cell is 10 trials, in 16 rows, then 20, in 12. The 24 grand
 totals run from 12 to 750 with a median of 110. Pooling the two gives a median of 20 and a range
 of 5 to 1287, and that pooled figure is the one an earlier draft of this section quoted. It
@@ -107,8 +105,8 @@ anchor is not the ranking under shift.
 **Physical plausibility of the contact.** Eleven of the 96 rows whose contact handling the note
 settled address it, 11 percent, with 16 rows unknown. Section 7.3 takes them apart.
 
-**Sample and wall-clock cost.** Thirty-one of 112 rows state a parallel environment count and 18
-a simulated episode count. `robopianist_2023` is the exception, at 5 million samples per song and
+**Sample and wall-clock cost.** Thirty-one of 112 rows state a parallel environment count and 18 a
+simulated episode count. `robopianist_2023` is the exception, at 5 million samples per song and
 roughly 5 hours per run on four Tesla K80 GPUs.
 
 **Real-robot transfer.** Simulated rank order is not real rank order. `autoeval_2025` scores
@@ -117,25 +115,22 @@ Open-π0 on put-eggplant-in-sink at 6 of 50 in SIMPLER and 47 of 50 on the real 
 statistical inferences about real-world outcomes from simulation results alone".
 
 **Reproducibility.** 62 rows released code that could be parsed against the paper, and 38 of the
-112 rows record a disagreement of some kind between the paper and that code. All 38 released
-code, so the raw rate among code-releasing rows is 61 percent. That raw rate is not
-the finding, because the 38 are not one thing. Section 8.1 classifies them: 9
-contradictions, 13 limitations of this survey's own parsing, 8
-components never released, 4 version skews and 4
-inconsistencies internal to a paper. Only the contradictions are a finding about the work rather
-than about this survey, so 9 of 62 code-releasing rows, which is
-15 percent, is the figure this section and Table 8 use.
-`physhoi_2023` is the clearest of the 9. It lists a non-zero object-orientation
-weight for GRAB in Table 4, and its released `compute_humanoid_reward` hard-sets that orientation
-error to zero, so the reward that produced the published numbers tracked the object in position
-only.
+112 rows record a disagreement of some kind between the paper and that code. All 38 released code,
+so the raw rate among code-releasing rows is 61 percent. That raw rate is not the finding, because
+the 38 are not one thing. Section 8.1 classifies them: 9 contradictions, 13 limitations of this
+survey's own parsing, 8 components never released, 4 version skews and 4 inconsistencies internal
+to a paper. Only the contradictions are a finding about the work rather than about this survey, so
+9 of 62 code-releasing rows, which is 15 percent, is the figure this section and Table 8 use.
+`physhoi_2023` is the clearest of the 9. It lists a non-zero object-orientation weight for GRAB in
+Table 4, and the reward function it released hard-sets that orientation error to zero, so the
+reward that produced the published numbers tracked the object in position only.
 
 ## 7.3 Physical plausibility as a first-class metric
 
 Eleven method rows handle interpenetration in any form: three penalise it, three measure it, five
-constrain it. The denominator is 96, not 112, because the `penetration` field is null for 16 rows,
-and a null there means the note did not settle the question, not that the paper ignored
-penetration. Eleven of 96 is 11 percent.
+constrain it, 11 percent of the settled rows. The denominator is 96, not 112, because the
+contact-handling field is null for 16 rows, and a null there means the note did not settle the
+question, not that the paper ignored penetration.
 
 That eleven is not a claim that penetration goes unmeasured in general, and reading it that way
 would be wrong. Outside closed-loop control the quantity is a standard comparative column, and has
@@ -143,25 +138,24 @@ been one for years in grasp synthesis and in hand-object reconstruction. Four ro
 show the practice. `bidexgrasp_2026` prints a penetration depth beside a prior method's,
 `bimangrasp_2024` fails any grasp that exceeds 1.5 mm of total penetration, `toporetarget_2026`
 reports a maximum penetration and a share of frames past 2 mm against a baseline retargeter, and
-`oakink_2022` scores a dataset split on penetration depth, solid intersection volume and simulation
-displacement. The finding is narrower than the field and concerns learned closed-loop control: all
-eleven score a pose or a reference trajectory, four of them are closed-loop policies, and we found
-none that reports the measurement for rollouts of its own trained policy.
+`oakink_2022` scores a dataset split on penetration depth, solid intersection volume and
+simulation displacement. The finding is narrower than the field and concerns learned closed-loop
+control: all eleven score a pose or a reference trajectory, four of them are closed-loop policies,
+and we found none that reports the measurement for rollouts of its own trained policy.
 
 Where in the pipeline those eleven act is the reference-versus-rollout split that section 1 takes
 from `zhao_dexhand_survey_2026`. A reference is a pose or a trajectory scored before execution,
 and a rollout is what the trained policy actually did. What this section supplies on that axis is
 a measurement method and a count, and it does not supply a threshold. The count is the eleven of
-96 above, with four closed-loop policies inside it and none we found reporting a number for its own
-rollouts. The method is the plausibility row of Table 8: maximum and mean penetration depth over
-the evaluation rollouts, on a dense surface sample, computed by code that never entered the reward
-or the termination rule. The threshold is borrowed, and section 7.7 says from where and why it
-does not bind. Six of the eleven are grasp synthesisers or trajectory
-optimisers, namely `bidexgrasp_2026`, `bimangrasp_2024`, `deximit_2026`,
-`pang_global_planning_2022`, `toporetarget_2026` and `unidexgrasp_2023`, and
-`castro_sap_contact_2021` is a contact model rather than a controller. That leaves four
-closed-loop policies in the whole corpus: `clutterdexgrasp_2025`, `dexmachina_2025`,
-`dextrack_2025` and `teledexter_2026`.
+96 above, with four closed-loop policies inside it and none we found reporting a number for its
+own rollouts. The method is the plausibility row of Table 8: maximum and mean penetration depth
+over the evaluation rollouts, on a dense surface sample, computed by code that never entered the
+reward or the termination rule. The threshold is borrowed, and section 7.7 says from where and why
+it does not bind. Six of the eleven are grasp synthesisers or trajectory optimisers, namely
+`bidexgrasp_2026`, `bimangrasp_2024`, `deximit_2026`, `pang_global_planning_2022`,
+`toporetarget_2026` and `unidexgrasp_2023`, and `castro_sap_contact_2021` is a contact model
+rather than a controller. That leaves four closed-loop policies in the whole corpus:
+`clutterdexgrasp_2025`, `dexmachina_2025`, `dextrack_2025` and `teledexter_2026`.
 
 The reason the number is four is a measurement trap. A quantity a policy optimises cannot also
 judge it, because the policy learns the measure rather than the property the measure stands for.
@@ -179,13 +173,13 @@ as a result: "Despite severe hand-object penetrations in Figure 4c and Figure 4a
 interacts effectively with the object, highlighting the resilience of our tracking controller".
 
 `toporetarget_2026` is the strongest case in the corpus and still stops one step short on the same
-reference-versus-rollout line. It
-constrains penetration during retargeting with a 1 mm soft tolerance and a 30 mm hard bound, and
-it reports two numbers on 25 ContactPose grasps: a maximum penetration of 1.07 mm and 0.00 percent
-of frames above 2 mm, against 22.22 mm and 96 percent of frames for its GeoRT baseline. Then a PPO
-controller tracks those references, and its four reward terms and its five termination criteria
-govern object pose, link position, joint error and action smoothness, never penetration. The
-constrained quantity is the reference, and the rollout is not re-measured.
+reference-versus-rollout line. It constrains penetration during retargeting with a 1 mm soft
+tolerance and a 30 mm hard bound, and it reports two numbers on 25 ContactPose grasps: a maximum
+penetration of 1.07 mm and 0.00 percent of frames above 2 mm, against 22.22 mm and 96 percent of
+frames for its GeoRT baseline. Then a PPO controller tracks those references, and its four reward
+terms and its five termination criteria govern object pose, link position, joint error and action
+smoothness, never penetration. The constrained quantity is the reference, and the rollout is not
+re-measured.
 
 Definitions are not shared either. `grab_2020` estimates contact by proximity, because "contact
 cannot be directly observed", with a 4.5 mm tolerance, and reports that "'Use' grasps have 3.25 ±
@@ -246,10 +240,10 @@ while a 20-point gap on binary success needs about 80.
 
 ## 7.5 A proposed protocol
 
-Every count below is printed by `tools/make_eval_tables.py --derive`, and each axis is derived for
-the statistic that axis actually reports: a single rate takes a Wilson half-width, a matched
-comparison takes McNemar, a ratio takes the standard error of the log ratio, a correlation takes
-the Fisher-z interval.
+Every count below is printed by `tools/make_eval_tables.py` in its derivation mode, and each axis
+is derived for the statistic that axis actually reports: a single rate takes a Wilson half-width,
+a matched comparison takes McNemar, a ratio takes the standard error of the log ratio, a
+correlation takes the Fisher-z interval.
 
 Fix the width first, then read off the count. Take a 95 percent Wilson interval on a single
 reported rate, at the worst case of p = 0.5. A half-width of 20 points needs 21 trials, 15 points
@@ -263,7 +257,8 @@ compared.
 
 For the A/B comparison the relevant calculation is power, and the design is paired. Table 8
 matches initial conditions by image overlay and interleaves the two policies in one session, so
-the unit is a matched pair and the count follows McNemar, which depends on the discordance rate. The share of initial conditions on which the two policies disagree, and not on the two rates
+the unit is a matched pair and the count follows McNemar, which depends on the discordance rate.
+The share of initial conditions on which the two policies disagree, and not on the two rates
 alone. To separate 50 from 70 percent at α = 0.05 with 80 percent power: 37 pairs per arm at a
 discordance of 0.2, 57 at 0.3, 77 at 0.4 and 96 at 0.5. The protocol assumes 0.3 and asks for 57,
 and states the sensitivity rather than hiding it, because 0.5 is the discordance the same two
@@ -322,39 +317,40 @@ leaving a reader to assume the larger one.
 ## 7.6 Table 9, an empty results matrix
 
 The rows are the 12 most-mentioned dexterous-hand policy methods in the corpus, and the rule is
-the one `tools/make_eval_tables.py` implements, stated here in the same words. A candidate is a
-method row with a non-null `hand`; its hand string must not contain "parallel" or "gripper"; it
-must carry at least one paradigm tag that produces a closed-loop policy and must not carry
-`teleop-system`, because an interface is scored on latency and operator effort rather than on a
-policy's success rate. And its name must be at least four characters, so that a short string does
-not match everything. Candidates are then scored by the number of other corpus papers whose parsed
-text in `papers/md` contains the name, and the top 12 by count, ties broken by key, are the rows.
+the one the table's generator implements, stated here in the same words. A candidate is a method
+row that names a hand; the hand string must not contain "parallel" or "gripper"; it must carry at
+least one paradigm tag that produces a closed-loop policy and must not be a teleoperation system,
+because an interface is scored on latency and operator effort rather than on a policy's success
+rate. And its name must be at least four characters, so that a short string does not match
+everything. Candidates are then scored by the number of other corpus papers whose parsed text
+contains the name, and the top 12 by count, ties broken by key, are the rows.
 
-Two corrections to that ranking are worth stating, because both changed it. The match is on a
-whole word. Under the bare substring test an earlier version used, "UniDex" matched inside
-"UniDexGrasp" and "UniDexGrasp++", and `unidex_2026`. A 2026 paper. Sat sixth in a ranking over
-a corpus written mostly before it, on 34 mentions that belonged to a different work. As a whole
-word it has 3 and it is not in the table. And the interface rule is now applied to every row that
-carries the tag rather than only to rows that carry nothing else, which drops `anyteleop_2023` at
-34 mentions, `dime_2022` at 28 and `holo_dex_2022` at 23, along with `dexpilot_2020`, which the
-earlier prose already excluded by hand. The mention counts are printed under the table so a reader
-can audit them.
+Two corrections changed that ranking. The match is on a whole word. Under the bare substring test
+an earlier version used, "UniDex" matched inside "UniDexGrasp" and "UniDexGrasp++", and
+`unidex_2026`. A 2026 paper. Sat sixth in a ranking over a corpus written mostly before it, on 34
+mentions that belonged to a different work. As a whole word it has 3 and it is not in the table.
+And the interface rule is now applied to every row that carries the tag rather than only to rows
+that carry nothing else, which drops `anyteleop_2023` at 34 mentions, `dime_2022` at 28 and
+`holo_dex_2022` at 23, along with `dexpilot_2020`, which the earlier prose already excluded by
+hand. The mention counts are printed under the table so a reader can audit them.
 
 The ranking is not one quantity even so. A method's name is taken from the first line of its note,
 which yields an acronym for some works and a full title for others, and a title is matched mostly
 inside reference lists while an acronym is matched in running text. Those have different base
 rates, so the table marks which kind each row was matched on and the two kinds are not comparable
-with each other. Mention counts are counts of mentions and not of use, as `METHOD.md` records.
+with each other. Mention counts are counts of mentions and not of use, as the method appendix
+records.
 
 Every cell is empty. This survey re-ran nothing, and no cell can be filled at the denominator
 Table 8 asks for. `dextreme_2022` comes closest and is the reason the claim is stated that
-narrowly: it reports a criterion, a trial count and an interval. Object orientation within 0.4
-rad of target, 27.8 ± 19.0 average consecutive successes with the ± a 90 percent confidence
-interval. On 10 trials. Table 7 is not a counter-example either, though it looks like one: it
-carries `trials`, `unseen obj`, `penetration` and `code` columns for all 112 method rows,
+narrowly: it reports a criterion, a trial count and an interval. Object orientation within 0.4 rad
+of target, 27.8 ± 19.0 average consecutive successes with the ± a 90 percent confidence interval.
+On 10 trials. Table 7 is not a counter-example either, though it looks like one: it carries
+trial-count, unseen-object, penetration and code-release columns for all 112 method rows,
 including all 12 of these. Table 7 records what each method reported. Table 9 asks for what Table
-8 defines. A value with an interval, a stated denominator and a criterion written before the run. And none of Table 7's values meets that. The first row of Table 9 is a worked example so that
-the format of a cell is unambiguous. Every number in it is fabricated and labelled as such.
+8 defines. A value with an interval, a stated denominator and a criterion written before the run.
+And none of Table 7's values meets that. The first row of Table 9 is a worked example so that the
+format of a cell is unambiguous. Every number in it is fabricated and labelled as such.
 
 {{table:table9_matrix}}
 
@@ -388,9 +384,8 @@ Somebody would have to run the penetration measure on their own rollouts, which 
 than a capability: section 4.2 shows the depth is computable from the poses and the meshes in a
 few lines of Warp, and IsaacGymEnvs already ships a task that does it every step. An earlier draft
 of this section made the engine the barrier, and that claim is withdrawn, because the released
-code refutes it. And the comparison would have to be
-sequential, because the savings in `beyond_binary_success_2026` are the only reason 100 is a cap
-rather than a cost.
+code refutes it. And the comparison would have to be sequential, because the savings in
+`beyond_binary_success_2026` are the only reason 100 is a cap rather than a cost.
 
 Four limits apply to the proposal itself. This survey re-ran no method, so every count in Table 8
 is derived from an interval width, a power calculation or another paper's measurement, and Table 9

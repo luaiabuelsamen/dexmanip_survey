@@ -4,38 +4,40 @@ The binding constraint on this field is not ideas. It is verification. Sixty-two
 released code that could be read against the paper, 38 of those record a discrepancy, and nine are
 contradictions where the shipped code states a different objective from the published one. The
 first count was sixteen. An adversarial re-reading withdrew six of them outright and narrowed a
-seventh, `dexpbt_2023`, to the half that still stands, and an eighth was withdrawn later still, when writing to `omnih2o_2024`'s authors sent someone back to its evidence
-and the reward-weight discrepancy it had rested on turned out to be a typo signature in the
-paper's own table, not a different trained objective. Each withdrawal is recorded in the row
-beside the charge. Nine is a floor, because forty-six method rows released nothing to check. A reward table in a paper is a claim about a document, not about a run.
-`physhoi_2023` is the case to remember, because the term its table weights at 0.1 is set to zero
-in the code, and its own success criterion could not have detected that.
+seventh, `dexpbt_2023`, to the half that still stands, and an eighth was withdrawn later still,
+when writing to `omnih2o_2024`'s authors sent someone back to its evidence and the reward-weight
+discrepancy it had rested on turned out to be a typo signature in the paper's own table, not a
+different trained objective. Each withdrawal is recorded in the row beside the charge. Nine is a
+floor, because forty-six method rows released nothing to check. A reward table in a paper is a
+claim about a document, not about a run. `physhoi_2023` is the case to remember, because the term
+its table weights at 0.1 is set to zero in the code, and its own success criterion could not have
+detected that.
 
-The second finding is that the quantity most specific to dexterous manipulation is the one
-closed-loop policies do not record. Contact is what separates a hand from a gripper. Eleven of the
-96 method rows whose notes settle the question address interpenetration at all, only four inside a
-closed-loop policy, and we found not one that reports a penetration number for its own policy's
-rollouts. Grasp synthesis and hand-object reconstruction have reported penetration comparatively
-for years, so what is missing is not the measure but the measurement of a trained policy's own
-behaviour. The obstacle is not the
-engines. IsaacGymEnvs ships a task that computes a per-environment maximum interpenetration depth
-against meshes and gates the policy update on a 1 mm threshold, and `tactile_genesis_2026` offers
+The quantity most specific to dexterous manipulation is the one closed-loop policies do not
+record. Contact is what separates a hand from a gripper. Eleven of the 96 method rows whose notes
+settle the question address interpenetration at all, only four inside a closed-loop policy, and we
+found not one that reports a penetration number for its own policy's rollouts. Grasp synthesis and
+hand-object reconstruction have reported penetration comparatively for years, so what is missing
+is the measurement of a trained policy's own behaviour. The obstacle is not the engines.
+IsaacGymEnvs ships a task that computes a per-environment maximum interpenetration depth against
+meshes and gates the policy update on a 1 mm threshold, and `tactile_genesis_2026` offers
 penetration depth on Genesis geometry as a sensor. The tooling sits in the field's own benchmark
 repository and the number is still not reported. `dextrack_2025` has the formula and points it at
 its inputs.
 
-The third is that hardware and software have come apart, on a narrower claim than the hand count
-first suggests. Tables 2 and 3 hold 33 hands and 19 appear in no method row. 11 of those 19
-are neither sold nor open and appear in none for that reason, which leaves 8 hands that can be
-bought today or built from published designs and that take zero method rows between them. Eight of
-the fourteen generalist policies that settle the question do evaluate on a dexterous hand, at a
-median of 6 degrees of freedom against 16 across the reinforcement-learning rows.
+Hardware and software have come apart, on a narrower claim than the hand count first suggests.
+Tables 2 and 3 hold 33 hands and 19 appear in no method row. 11 of those 19 are neither sold nor
+open and appear in none for that reason, which leaves 8 hands that can be bought today or built
+from published designs and that take zero method rows between them. Eight of the fourteen
+generalist policies that settle the question do evaluate on a dexterous hand, at a median of 6
+degrees of freedom against 16 across the reinforcement-learning rows.
 
 What this survey cannot establish is which method is better than which. It re-runs nothing, and
 Section 7 argues that the published numbers do not compare. Six works are cited by metadata only,
-and a seventh, Ma and Dollar 2011, is on disk but unread; no claim rests on any of them. Every coverage statistic here counts what this survey's extraction
-captured rather than what the literature reported. Each is a floor and not a rate, because every
-miss converts a reporting paper into a silent one.
+and a seventh, Ma and Dollar 2011, is on disk but unread; no claim rests on any of them. Every
+coverage statistic here counts what this survey's extraction captured rather than what the
+literature reported. Each is a floor and not a rate, because every miss converts a reporting paper
+into a silent one.
 
 Three things to do next week, cheapest first.
 

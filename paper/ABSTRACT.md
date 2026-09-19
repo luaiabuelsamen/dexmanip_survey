@@ -1,26 +1,18 @@
 ## Abstract
 
 A hand is dexterous when it can change an object's pose without putting the object down. This
-survey covers that problem for one hand and for two, across hands, simulators and the contact
-models underneath them, training methods and evaluation. The corpus holds 221 bibliography
-entries, 218 of which carry a structured row read from a note: 112 method papers, 33 hands, 15
-simulators, 15 datasets, 14 benchmarks, 14 surveys, 8 tactile sensors and 7 evaluation protocols.
+survey covers that problem for one hand and for two: hands, simulators, training, evaluation. It
+rests on 221 bibliography entries, 218 of them read into a structured row.
 
-Three findings are measured rather than asserted. Papers disagree with their own released code.
-Sixty-two method rows released code that could be read against the paper, 38 of those record a
-discrepancy, and nine are contradictions where the shipped code states a different objective from
-the published one. `physhoi_2023` is the sharpest case. Its `compute_humanoid_reward` sets the
-object rotation errors to zero while the reward table in the paper weights them at 0.1 and 0.01,
-and its position-only success criterion could not have detected that. Closed-loop policies do not
-measure the quantity most specific to a hand. Eleven of the 96 method rows whose notes settle the
-question address interpenetration at all, four of them inside a closed-loop policy, and we found none
-that reports it for its own policy's rollouts. Grasp synthesis and hand-object reconstruction have
-reported penetration depth and intersection volume comparatively for years, so the gap is specific to
-learned closed-loop control rather than to the field. IsaacGymEnvs already computes that depth and
-gates a policy update on it. Hardware and published work have come apart.
-19 of the 33 hand rows appear in no method row, and 8 of those can be bought or built
-today.
+Papers disagree with their own released code. Of 62 method rows whose code could be read against
+the paper, 38 record a discrepancy and nine are contradictions, where the code states a different
+objective from the paper: `physhoi_2023` zeroes an object-rotation error its own reward table
+weights at 0.1. Nobody measures interpenetration on a rollout. Eleven of the 96 method rows whose
+notes settle the question address it at all, and not one reports it for the rollouts of its own
+trained policy, though IsaacGymEnvs already computes that depth and gates a policy update on it.
+Hardware has come apart from published work: 19 of the 33 hand rows appear in no method row, 8 of
+them buyable or buildable today.
 
-This survey re-runs no method. It ranks nothing and publishes no leaderboard. On penetration it
-supplies a measurement method and a count, not a threshold. Every coverage statistic here is a
-floor over what this extraction captured, not a rate over what the literature reported.
+This survey re-runs no method and ranks nothing. On penetration it supplies a measurement method
+and a count, not a threshold, and every coverage statistic here is a floor over what this
+extraction captured.

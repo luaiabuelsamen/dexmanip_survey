@@ -24,85 +24,87 @@ rollout instead of certifying a configuration. Of the 112 method papers in this 
 with reinforcement learning and 35 run in Isaac Gym, against 7 on its successors Isaac Lab and
 Isaac Sim.
 
-Three things this survey measured are worth stating before the reader commits to 27,000 words. The
-first is that papers disagree with their own released code. Sixty-two of the 112 method rows
-released code that could be read against the paper, 38 of those record a discrepancy, and nine are
-contradictions where the shipped code states a different objective from the published one. The
-sharpest case is `physhoi_2023`. Its `compute_humanoid_reward` hardcodes the object rotation and
-rotation-velocity errors to zero, with the real computation commented out beside them, while the
-reward table in its own paper lists weights of 0.1 and 0.01 for exactly those terms on GRAB. Its
-position-only success criterion could not have caught that, and its headline 95.4 percent is cited
-as a baseline. Section 5.8 classifies all 38, and seven further accusations an earlier draft made
-were withdrawn under adversarial review and recorded beside the charge.
+Three things this survey measured are worth stating before the reader commits to 27,000 words.
+Papers disagree with their own released code. Sixty-two of the 112 method rows released code that
+could be read against the paper, 38 of those record a discrepancy, and nine are contradictions
+where the shipped code states a different objective from the published one. The sharpest case is
+`physhoi_2023`. Its `compute_humanoid_reward` hardcodes the object rotation and rotation-velocity
+errors to zero, with the real computation commented out beside them, while the reward table in its
+own paper lists weights of 0.1 and 0.01 for exactly those terms on GRAB. Its position-only success
+criterion could not have caught that, and its headline 95.4 percent is cited as a baseline.
+Section 5.8 classifies all 38, and seven further accusations an earlier draft made were withdrawn
+under adversarial review and recorded beside the charge.
 
-The second is that the quantity most specific to a hand is the one closed-loop policies do not
-record. Eleven of the 96 method rows whose notes settle the question address interpenetration at
-all, seven of the eleven do it outside a closed-loop policy in a grasp synthesiser, a trajectory
-optimiser or a contact model, and we found none that reports a penetration number for its own
-trained policy's rollouts. The claim is about learned closed-loop control and not about the field.
-Grasp synthesis and hand-object reconstruction have reported penetration depth and intersection
-volume as comparative columns for years, and four rows of this corpus do it: `oakink_2022` scores a
-dataset split on penetration depth, solid intersection volume and simulation displacement,
+The quantity most specific to a hand is the one closed-loop policies do not record. Eleven of the
+96 method rows whose notes settle the question address interpenetration at all, seven of the
+eleven do it outside a closed-loop policy in a grasp synthesiser, a trajectory optimiser or a
+contact model, and we found none that reports a penetration number for its own trained policy's
+rollouts. The claim is about learned closed-loop control and not about the field. Grasp synthesis
+and hand-object reconstruction have reported penetration depth and intersection volume as
+comparative columns for years, and four rows of this corpus do it: `oakink_2022` scores a dataset
+split on penetration depth, solid intersection volume and simulation displacement,
 `bidexgrasp_2026` prints penetration depth beside a prior method's, `bimangrasp_2024` fails any
-grasp whose total penetration exceeds 1.5 mm, and `toporetarget_2026` reports a maximum penetration
-and a share of frames past 2 mm against a baseline retargeter. Every one of those numbers scores a
-pose or a reference trajectory rather than the behaviour a trained policy produced, and it is the
-rollout that is missing. The obstacle is not the engines. NVIDIA's own IsaacGymEnvs repository already computes a
-per-environment maximum interpenetration depth in Warp and gates the policy update on a 1 mm
-threshold. Section 4.2 has the file and the lines.
+grasp whose total penetration exceeds 1.5 mm, and `toporetarget_2026` reports a maximum
+penetration and a share of frames past 2 mm against a baseline retargeter. Every one of those
+numbers scores a pose or a reference trajectory rather than the behaviour a trained policy
+produced, and it is the rollout that is missing. The obstacle is not the engines. NVIDIA's own
+IsaacGymEnvs repository already computes a per-environment maximum interpenetration depth in Warp
+and gates the policy update on a 1 mm threshold. Section 4.2 has the file and the lines.
 
-The third is that hardware and published work have come apart. 19 of the 33 hand rows in
-Tables 2 and 3 appear in no method row, and 8 of those can be bought today or built from
-published designs. Thirty-five method rows run on the Allegro, whose weight, joint torque, payload
-and price have no reachable source, because its product page returns HTTP 404 and everything Table
-2 confirms about it comes from its ROS driver.
+Hardware and published work have come apart. 19 of the 33 hand rows in Tables 2 and 3 appear in no
+method row, and 8 of those can be bought today or built from published designs. Thirty-five method
+rows run on the Allegro, whose weight, joint torque, payload and price have no reachable source,
+because its product page returns HTTP 404 and everything Table 2 confirms about it comes from its
+ROS driver.
 
 None of those three findings is a first, and the audit behind the first of them is not a new idea.
-`collberg_repeatability_2016` examined 601 papers in computer systems research for whether the code
-behind them could be obtained and built at all. `biocon_2026` aligns 48 bioinformatics projects with
-their publications at sentence-to-function granularity under expert annotation, and `scicoqa_2026`
-collects 92 real paper-code discrepancies, mined from issue trackers and reproducibility reports,
-into a benchmark for detecting such discrepancies automatically. In reinforcement learning the
-phenomenon itself is a known result. `engstrom_implementation_matters_2020` shows that code-level
-optimisations present only in the implementation account for most of PPO's reported gain over TRPO,
-and `metaworld_plus_2025` finds undocumented changes accumulated across one benchmark's own
-versions, which make comparisons between those versions unfair. Both establish it on a single
-codebase. The closest relative to the audit here is `knox_reward_misdesign_2023`, which reviews
-nineteen reinforcement-learning publications on autonomous driving, characterises the reward
-functions of ten of them exhaustively in a standard form, applies eight sanity checks and reports
+`collberg_repeatability_2016` examined 601 papers in computer systems research for whether the
+code behind them could be obtained and built at all. `biocon_2026` aligns 48 bioinformatics
+projects with their publications at sentence-to-function granularity under expert annotation, and
+`scicoqa_2026` collects 92 real paper-code discrepancies, mined from issue trackers and
+reproducibility reports, into a benchmark for detecting such discrepancies automatically. In
+reinforcement learning the phenomenon itself is a known result.
+`engstrom_implementation_matters_2020` shows that code-level optimisations present only in the
+implementation account for most of PPO's reported gain over TRPO, and `metaworld_plus_2025` finds
+undocumented changes accumulated across one benchmark's own versions, which make comparisons
+between those versions unfair. Both establish it on a single codebase.
+
+The closest relative to the audit here is `knox_reward_misdesign_2023`, which reviews nineteen
+reinforcement-learning publications on autonomous driving, characterises the reward functions of
+ten of them exhaustively in a standard form, applies eight sanity checks and reports
 near-universal flaws in reward design. Its ground truth for what each reward was is the authors,
-obtained through correspondence with them rather than by reading a released repository, and what it
-establishes is that published reward descriptions are incomplete: one of the ten described its
+obtained through correspondence with them rather than by reading a released repository, and what
+it establishes is that published reward descriptions are incomplete: one of the ten described its
 reward, discount factor, termination conditions and timestep thoroughly. Reading the code instead
 needs no correspondence and supports a different charge, which is that where code exists it
-sometimes contradicts the description. `raff_reproducibility_2019` took the opposite ground truth on
-purpose, reimplementing 255 papers from their text alone and never opening the authors' code, which
-is what makes the choice of arbiter a position rather than an accident.
+sometimes contradicts the description. `raff_reproducibility_2019` took the opposite ground truth
+on purpose, reimplementing 255 papers from their text alone and never opening the authors' code,
+which is what makes the choice of arbiter a position rather than an accident.
 
 So the claim here is narrow. We are aware of no prior work in robotics, and none in dexterous
 manipulation, that reads a field's released reward implementations against the rewards its own
-papers describe. Those seven works are cited from outside this corpus and enter none of its counts.
-The exposure of the claim belongs beside the count above: the evidence is a repository at a fetched
-commit, each hash recorded in `corpus/code_manifest.json`, and a repository at a commit is evidence
-about that repository rather than about the run that produced a paper's numbers, because the commit
-may postdate, precede or diverge from it. `hora_2022` states the problem in its own README, which
-directs a reader to tag v0.0.1 and not to the commit parsed here to reproduce the published
-numbers. Every accusation this survey has withdrawn, eight of them so far, is recorded in the
-accused row for the same reason: the withdrawals are the evidence that the charges left standing
-were checked rather than counted.
+papers describe. Those seven works are cited from outside this corpus and enter none of its
+counts. The exposure of the claim belongs beside the count above: the evidence is a repository at
+a fetched commit, every hash recorded in the code manifest, and a repository at a commit is
+evidence about that repository rather than about the run that produced a paper's numbers, because
+the commit may postdate, precede or diverge from it. `hora_2022` states the problem in its own
+README, which directs a reader to tag v0.0.1 and not to the commit parsed here to reproduce the
+published numbers. Every accusation this survey has withdrawn, eight of them so far, is recorded
+in the accused row for the same reason: the withdrawals are the evidence that the charges left
+standing were checked rather than counted.
 
 Fourteen corpus entries are themselves surveys or engine-comparison studies. Appendix D sets them
 on one set of columns in Table 10 and says what each covers. Four of the fourteen could not be
 obtained, or were fetched too late to read, and are entered as such. Two of the three things this
-survey adds are visible in that table as columns none of the fourteen fills. The first is Table 4, which
+survey adds are visible in that table as columns none of the fourteen fills. One is Table 4, which
 takes the engines `nine_physics_engines_review_2024` scored on documentation and usability and
 adds contact model, solver, iteration count, default timestep and penetration exposure,
 conditioned on what a hand does to a solver. `physics_engine_comparison_2015` and
 `contact_models_comparison_2023` do measure engines, on five engines and on four contact
-formulations, and neither surveys the field those engines are used in. The second is two hands on
+formulations, and neither surveys the field those engines are used in. The other is two hands on
 one object as its own problem, which none of the four field surveys gives more than a subsection.
 
-The third is the penetration measurement, on an axis a predecessor had already named.
+The third addition is the penetration measurement, on an axis a predecessor had already named.
 `zhao_dexhand_survey_2026` states in its Sec. IV-C that the field assesses "at least two layers of
 performance: the quality of grasps or poses prior to execution, and the performance of policies or
 generators during downstream execution", and names "physical plausibility, including penetration"
@@ -133,13 +135,13 @@ statistic is also a floor rather than a rate, because a value this survey failed
 indistinguishable from a value the paper never reported, and every such miss converts a reporting
 paper into a silent one.
 
-Figure 1 puts the field on one page. Section 2 sets out the task families and what makes each
-hard. Section 3 covers hands, their makers, and the gap between what is sold and what is run.
-Section 4 covers simulators and contact models. Section 5 covers how policies are trained. Section
-6 covers bimanual work as its own problem. Section 7 proposes an evaluation frame rather than a
-leaderboard, and is the longest section. Section 8 states the gaps as claims with their evidence.
-Section 9 says what to do about them, addressed to someone publishing, running experiments or
-buying a hand. Appendix A is the method, Appendix B and Appendix C are the full hand and reward
-extractions, and Appendix D is the comparison with the existing surveys.
+Figure 1 puts the field on one page. What follows works outward from the task: the six families
+and what makes each hard, then the hands and their makers, then the simulators and the contact
+models underneath them, then training, then two hands on one object as a problem of its own.
+Section 7 is the longest, and it proposes an evaluation frame rather than a leaderboard. Section 8
+states the gaps as claims with their evidence, and Section 9 says what to do about them, addressed
+to someone publishing, running experiments or buying a hand. Appendix A is the method and says
+where the tabulation this survey is built on lives; Appendices B and C are the full hand and
+reward extractions; Appendix D sets this survey beside the fourteen that precede it.
 
 {{figure:fig1_field}}

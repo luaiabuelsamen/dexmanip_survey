@@ -8,15 +8,16 @@ demonstration supervises imitation, a human reference trajectory supervises a ph
 tracker, which is imitation with a simulator in the loop, and nothing supervises a model-based
 planner, which is handed a cost and a model instead.
 
-The labels do not partition the corpus. Of the 112 method rows, 53 carry the tag `RL`, 27 `BC`, 23
-`distillation`, 18 `VLA`, 14 `teleop-system`, 14 `diffusion`, 10 `data-collection`, 8 `flow`, 6
-`RL+demo`, 6 `trajopt`, 5 `MPC`, 4 `grasp-synthesis` and 2 `world-model`. The tags sum to far more
-than 112 because most methods published since 2024 sit on two branches at once. Figure 4 draws the
-tree and the cross-links. Table 7 is the row-by-row version of the same thing, and is the table to
-scan when looking for work comparable to your own.
+The labels do not partition the corpus. Of the 112 method rows, 53 are tagged reinforcement
+learning, 27 behaviour cloning, 23 distillation, 18 generalist or vision-language-action, 14
+teleoperation systems, 14 diffusion, 10 data collection, 8 flow matching, 6 reinforcement learning
+from demonstrations, 6 trajectory optimisation, 5 model-predictive control, 4 grasp synthesis and
+2 world models. The tags sum to far more than 112 because most methods published since 2024 sit on
+two branches at once. Figure 4 draws the tree and the cross-links. Table 7 is the row-by-row
+version of the same thing, and is the table to scan when looking for work comparable to your own.
 
-What the deployed policy looks like once training is done matters more than the name a paper
-gives itself, and on that axis the field has converged hard. Section 5.7 shows why.
+What the deployed policy looks like once training is done matters more than the name a paper gives
+itself, and on that axis the field has converged hard. Section 5.7 shows why.
 
 {{figure:fig4_taxonomy}}
 
@@ -49,8 +50,9 @@ mechanism with a 256-sample queue and 40 percent of environments dedicated to bo
 Both publish the discovered ranges. Below that standard, two shipped configurations disagree with
 their own papers about what was randomised: `hora_2022` states a joint-noise range of U(0, 0.005)
 against a shipped `jointNoiseScale` of 0.02, in a commit its own README says is not the one that
-reproduces the paper, and `penspin_2024` zeroes the disturbance force its appendix describes. `dexpbt_2023`'s `randomize: False` is not a third case: it is the
-IsaacGymEnvs default and agrees with the paper's statement that randomisation was not used here.
+reproduces the paper, and `penspin_2024` zeroes the disturbance force its appendix describes.
+`dexpbt_2023`'s `randomize: False` is not a third case: it is the IsaacGymEnvs default and agrees
+with the paper's statement that randomisation was not used here.
 
 ### 5.2.2 Reward engineering
 
@@ -67,23 +69,22 @@ of the hand from a canonical grasp pose, a family the plan for this table did no
 which had to be added. Six penalise action rate or magnitude, five reward closing the distance
 from fingertips to the object, and four carry a contact or force mark at all.
 
-Three cells an earlier draft marked `code` print `code (0)` instead, because in each the term is
-in the released code with every shipped configuration setting its weight to zero: `dextreme_2022`'s
-`timeout_rew` and `dexpbt_2023`'s fall penalty through `fallPenalty: 0.0`, and `penspin_2024`'s
-`action_penalty_scale: 0.0`. Marking them `code` would tell a reader the code optimises something
-the paper does not state, and leaving them blank would hide a term that is in the file. The same
-mark carries the config key and value in `corpus/reward_matrix.json`. Section 5.8 says why the
-distinction matters.
+Three cells an earlier draft marked *code* print *code (0)* instead, because in each the term is
+in the released code with every shipped configuration setting its weight to zero:
+`dextreme_2022`'s timeout reward, `dexpbt_2023`'s fall penalty, and `penspin_2024`'s action
+penalty. Marking them *code* would tell a reader the code optimises something the paper does not
+state, and leaving them blank would hide a term that is in the file. The repository carries the
+config key and the zero beside each of the three marks.
 
-Three of the four contact marks are the finding, not four. `anyrotate_2024` scores good and bad
+Only three of the four contact marks are the finding. `anyrotate_2024` scores good and bad
 fingertip contacts, `poise_2026` rewards a friction-cone wrench margin, and
 `force_grasp_sim2real_2026` tracks a commanded grasp force. The fourth, `visual_dexterity_2022`,
 penalises the *object* touching the table, a task-shaping term against using the table as a third
-finger rather than a hand-object term, and its `pen_tb_contact` flag defaults to `False` with no
-shipped config setting it true. Three of 21 in-hand reorientation methods, then, put a hand-object
-contact or force quantity in the reward, and none puts interpenetration in it. `teledexter_2026`
-penalises interpenetration with a differentiable signed-distance term, but during offline
-reference construction, not in the policy's reward. Across all 112 method rows, 85 do not address
+finger rather than a hand-object term, and its table-contact flag defaults to off, with no shipped
+config setting it true. Three of 21 in-hand reorientation methods, then, put a hand-object contact
+or force quantity in the reward, and none puts interpenetration in it. `teledexter_2026` penalises
+interpenetration with a differentiable signed-distance term, but during offline reference
+construction, not in the policy's reward. Across all 112 method rows, 85 do not address
 penetration at all, 5 constrain it, 3 measure it, 3 penalise it and 16 say nothing either way. The
 physical quality of the contact is not something this literature optimises.
 
@@ -242,9 +243,9 @@ better, and this is the one result in the corpus that says so with an ablation.
 
 ## 5.4 Tracking a human reference with physics
 
-Twelve method rows carry the `track-human-ref` task family. Eight track a human hand on an object
-and are covered here; the other four sit at the edges, `human2sim2robot_2025` tracking only the
-object's trajectory, `dexman_2025` retargeting bimanual video onto a full humanoid, and
+Twelve method rows sit in the human-reference tracking family. Eight track a human hand on an
+object and are covered here; the other four sit at the edges, `human2sim2robot_2025` tracking only
+the object's trajectory, `dexman_2025` retargeting bimanual video onto a full humanoid, and
 `humanplus_2024` and `omnih2o_2024` tracking whole-body motion. A reference is retargeted onto the
 robot and a policy trained to make the simulated body follow it: the reference supplies the
 shaping reward engineering would otherwise have to invent, and the simulator the physical
@@ -280,14 +281,14 @@ pen-spinning set against 46.9 for the best baseline. It does not re-measure pene
 tracking policy runs, so the property it constrains is a property of the reference and not of the
 behaviour.
 
-That is the pattern across all eight, and it is the reference-versus-rollout split in its
-sharpest form. Penetration is handled at the reference, if at all, and never at the rollout. `objdex_2024` completes the set with the only real-robot numbers among them,
-from 100 percent on a microwave and a laptop down to 41.2 percent on a ketchup bottle over 20
-trials each.
+That is the pattern across all eight, and it is the reference-versus-rollout split in its sharpest
+form. Penetration is handled at the reference, if at all, and never at the rollout. `objdex_2024`
+completes the set with the only real-robot numbers among them, from 100 percent on a microwave and
+a laptop down to 41.2 percent on a ketchup bottle over 20 trials each.
 
 ## 5.5 Generalist and vision-language-action policies
 
-The finding is the size of the hand. Eighteen method rows carry the `VLA` tag. Fourteen of them
+The finding is the size of the hand. Eighteen rows carry the generalist tag. Fourteen of them
 settle whether the reported evaluation ran on a multi-fingered hand. Eight of those fourteen did,
 six report no hand result at all, and the remaining four never say, `groot_n16_2025` naming no end
 effector anywhere on its page. Section 8.4 counts the same eighteen the same way.
@@ -354,11 +355,10 @@ data without reinforcement learning at all, which is `dexmimicgen_2024`, `dex1b_
 method rows, holds the other two. The fourth wraps an RL policy in a residual, which is
 `resdex_2024` at 88.8 percent over 3,200 objects in 12 GPU-hours.
 
-The consequence is worth stating plainly. In the variants that dominate 2025 and 2026 work, the
-reward is no longer the objective of the deployed policy. It is the objective of the process that
-produced the deployed policy's training data. Reward engineering has moved upstream into data
-curation, and every reward-shaping pathology in section 5.2 now reaches the shipped policy through
-a dataset rather than a gradient.
+In the variants that dominate 2025 and 2026 work, the reward is no longer the objective of the
+deployed policy. It is the objective of the process that produced the deployed policy's training
+data. Reward engineering has moved upstream into data curation, and every reward-shaping pathology
+in section 5.2 now reaches the shipped policy through a dataset rather than a gradient.
 
 ## 5.8 What the released code says
 
@@ -368,20 +368,19 @@ kind of thing. Nine are contradictions, where paper and code state different val
 terms. Thirteen are limits of this survey's own parse, where the body or config that would settle
 the question was never recovered and the row says so. Eight released code without the described
 component in it, four are version skew against a later repository, and four are a paper
-disagreeing with itself. The fourth version skew is `groot_n16_2025`, which ships a main branch one
-generation later than the checkpoint its page describes.
+disagreeing with itself. The fourth version skew is `groot_n16_2025`, which ships a main branch
+one generation later than the checkpoint its page describes.
 
 Nine is the number to quote, eight at high confidence and one, `penspin_2024`, held at medium
-pending a direct read of the code. Nine of 62 is 15 percent, bounded on both sides:
-a floor, because the census covers method rows only and `robopianist_2023`, whose row is a
-benchmark, sums five reward terms against the three its Table 2 documents; a ceiling, because
-eight accusations an earlier draft of this section made were withdrawn, seven of them under
-adversarial review and an eighth, `omnih2o_2024`, once writing to its authors sent someone back to
-the evidence, each with its reason recorded in the accused row's `mismatch_review` field. Among the 21
-reorientation methods of Table 5, seven released a repository: four disagree with their paper, one
-(`dreureka_2024`) ships no cube-rotation environment at all, one (`hora_2022`) is a later
-generation its own README flags, and one (`eureka_2023`) was a default-value question the same
-README settles.
+pending a direct read of the code. Nine of 62 is 15 percent, bounded on both sides: a floor,
+because the census covers method rows only and `robopianist_2023`, whose row is a benchmark, sums
+five reward terms against the three its Table 2 documents; a ceiling, because eight accusations an
+earlier draft of this section made were withdrawn, seven of them under adversarial review and an
+eighth, `omnih2o_2024`, once writing to its authors sent someone back to the evidence, each with
+its reason recorded in the accused row beside the charge. Among the 21 reorientation methods of
+Table 5, seven released a repository: four disagree with their paper, one (`dreureka_2024`) ships
+no cube-rotation environment at all, one (`hora_2022`) is a later generation its own README flags,
+and one (`eureka_2023`) was a default-value question the same README settles.
 
 The most consequential case is `physhoi_2023`. Its `compute_humanoid_reward` hardcodes the body
 position-velocity error and both object rotation errors to zero, with the real computation
@@ -390,12 +389,12 @@ lists non-zero weights of 0.1 and 0.01 for those rotation terms on GRAB. The rew
 the paper's numbers never tracked object orientation: a method presented as tracking a 6-DoF
 reference was, in the code that ran, tracking the object in position only, with body rotation and
 body rotation-velocity still live. `omnigrasp_2024`, in the same file family, keeps its object
-rotation term live and fails the other way, internally: `compute_pregrasp_reward_time` takes
-weights as arguments and then hardcodes `w_pos, w_rot = 0.9, 0.1`.
+rotation term live and fails the other way, internally: `compute_pregrasp_reward_time` takes its
+weights as arguments and then hardcodes them to 0.9 and 0.1.
 
 Zeroed terms recur, and are not the same failure. A term present and zeroed is worse than a term
 missing, because it survives a reader's check of the file, but only when the paper claims it.
-`dexpbt_2023` sums eight components against the paper's four and multiplies `hand_delta_penalty`
+`dexpbt_2023` sums eight components against the paper's four and multiplies a hand-delta penalty
 by zero with the comment "currently disabled", a term the paper never claims, and its five named
 weights are present at their stated values. `pianomime_2024`'s Table 3 states two weighted terms
 while its environment sums roughly five unweighted ones, two of them inherited stubs returning
@@ -403,13 +402,13 @@ zero and a third, forearm collision, the paper never lists. `penspin_2024` ships
 against the disturbance force its appendix describes, which is the charge that survives. A second
 half of the original charge, that the same 96-dimensional observation disables the paper's tactile
 channel, is withdrawn: those dimensions are proprioception-only, consistent with the student
-policy the released config runs rather than the tactile-and-point-cloud oracle, and the paper never
-claims the student has tactile input. The disturbance-force charge alone is why the row still
-reads medium rather than high.
+policy the released config runs rather than the tactile-and-point-cloud oracle, and the paper
+never claims the student has tactile input. The disturbance-force charge alone is why the row
+still reads medium rather than high.
 
 Weights drift. `dextreme_2022` states an action-delta penalty of −0.25 in Table 2 and ships −0.2
 and −0.01 in its two DR yamls, neither matching. `visual_dexterity_2022`'s Eq. 8 penultimate-joint
-penalty is absent from `dexenv/envs/rewards.py`, and its two configs disagree about the fall
+penalty is absent from the released reward file, and its two configs disagree about the fall
 distance. `unidexgrasp_2023` and `dexpoint_2022` ship rewards structured differently from their
 equations, and `pddm_2019`'s Baoding reward carries a −10 wrist-height term Table 2 omits.
 
@@ -443,64 +442,56 @@ compared with any other row here.
 
 {{table:table7_methods}}
 
-<!--
-FIGURE 4. Taxonomy of training paradigms. Drawn by tools/make_flow_tree.py from corpus/rows at
-generation time; paper/figures/fig4_taxonomy.svg. This comment is the specification the drawn
+<!-- FIGURE 4. Taxonomy of training paradigms. Drawn by tools/make_flow_tree.py from corpus/rows
+at generation time; paper/figures/fig4_taxonomy.svg. This comment is the specification the drawn
 figure should satisfy.
 
 THE RULE, after the R3 review: a leaf label may assert only what its predicate tests. Three leaves
 previously read a paradigm tag and then claimed an algorithm, a simulator or a student modality
-the tag does not carry. They are now either re-predicated or renamed:
-  - "PPO in a GPU-parallel simulator, no distillation stage" reads `algorithm` and `sim`, not the
-    RL tag, so it no longer prints `pistar06_2025` (no simulator, parallel-jaw grippers) or claims
-    privileged state of `physhoi_2023`, which has none. There is no privileged-observation field
-    in the schema, so no leaf claims privileged state at all.
-  - "plus teacher-student distillation" no longer says "to vision"; the five papers whose student
-    really is a vision policy hang off it as an annotation, from the same list Sec. 5.7 names.
-  - "synthetic demonstration generation" takes its membership from Sec. 5.7 rather than from the
-    `data-collection` tag, which is mostly real human-capture rigs; those rigs are now their own
-    leaf. Membership lists the prose also states are defined once, in the figure code.
-  - The demonstration branch counts the union of `BC`, `diffusion` and `flow` (44), not their sum.
-  - The reward branch counts `RL` and `RL+demo` together (59), so the "seeded by demonstrations"
-    leaf is inside the branch it hangs from.
-  - "no learned policy" counts the three papers that learn no policy, not the 11 rows carrying a
-    trajopt or MPC tag; the other 8 use those methods inside a learned pipeline and the footer
-    says so. Where a branch's leaves do not cover it, the branch prints "N of M in a leaf", and a
-    truncated key list prints "and N more".
-  - The human-reference branch's six leaves now partition its 12 rows exactly: `pgdm_2023`, whose
-    task family is grasp and functional/tool, is out, and `dexman_2025`, `humanplus_2024` and
-    `omnih2o_2024` are in a "whole-body humanoid" leaf matching Sec. 5.4's four edge cases.
-    `physhoi_2023` and `omnigrasp_2024` stay under "no retargeting, reference already on the
-    embodiment", which is what their notes support; the earlier plan to move them under "whole
-    reference including fingers" and "object trajectory only" is superseded.
+the tag does not carry. They are now either re-predicated or renamed: - "PPO in a GPU-parallel
+simulator, no distillation stage" reads `algorithm` and `sim`, not the RL tag, so it no longer
+prints `pistar06_2025` (no simulator, parallel-jaw grippers) or claims privileged state of
+`physhoi_2023`, which has none. There is no privileged-observation field in the schema, so no leaf
+claims privileged state at all. - "plus teacher-student distillation" no longer says "to vision";
+the five papers whose student really is a vision policy hang off it as an annotation, from the
+same list Sec. 5.7 names. - "synthetic demonstration generation" takes its membership from Sec.
+5.7 rather than from the `data-collection` tag, which is mostly real human-capture rigs; those
+rigs are now their own leaf. Membership lists the prose also states are defined once, in the
+figure code. - The demonstration branch counts the union of `BC`, `diffusion` and `flow` (44), not
+their sum. - The reward branch counts `RL` and `RL+demo` together (59), so the "seeded by
+demonstrations" leaf is inside the branch it hangs from. - "no learned policy" counts the three
+papers that learn no policy, not the 11 rows carrying a trajopt or MPC tag; the other 8 use those
+methods inside a learned pipeline and the footer says so. Where a branch's leaves do not cover it,
+the branch prints "N of M in a leaf", and a truncated key list prints "and N more". - The
+human-reference branch's six leaves now partition its 12 rows exactly: `pgdm_2023`, whose task
+family is grasp and functional/tool, is out, and `dexman_2025`, `humanplus_2024` and
+`omnih2o_2024` are in a "whole-body humanoid" leaf matching Sec. 5.4's four edge cases.
+`physhoi_2023` and `omnigrasp_2024` stay under "no retargeting, reference already on the
+embodiment", which is what their notes support; the earlier plan to move them under "whole
+reference including fingers" and "object trajectory only" is superseded.
 
-STILL TO DO.
-1. THE CROSS-LINKS ARE MISSING AND THEY ARE THE POINT. The footer says the branches are not
-   exclusive, then a strict tree is drawn. Draw the overlaps as dashed curves behind the nodes, in
-   the muted accent colour, each labelled with one word:
-     reward-branch distillation leaf  ->  demonstration-branch architecture tags   "distil"
-     reward-branch PPO leaf           ->  synthetic demonstration generation       "generate"
-     egocentric video leaf            ->  human-reference branch                   "retarget"
-     human-reference branch           ->  demonstration-branch architecture tags   "distil"
-     no-learned-policy branch         ->  reward-branch PPO leaf                   "smooth"
-     teleoperated-on-robot leaf       ->  seeded by demonstrations                 "seed"
-   The fifth carries `pang_global_planning_2022`'s proof that randomised smoothing, which is what
-   a policy gradient does implicitly, and analytic log-barrier smoothing compute the same local
-   model of contact. It is the only edge that is a theorem rather than a pipeline; draw it
-   differently, for instance with a double dash.
-2. THE ARCHITECTURE AXIS IS ABSENT. Under the human-demonstration branch, what supervises the
-   policy and what shape the policy has are independent choices. Add four small tags, not full
-   nodes: action chunking `aloha_act_2023`; diffusion `diffusion_policy_2023`, `dp3_2024`; flow
-   matching `pi0_2024`, `groot_n1_2025`, `h_rdt_2025`, `unidex_2026`, `egoscale_2026`;
-   autoregressive action tokens `openvla_2024`, `metis_2025`. Tag counts are 1, 14 and 8 for the
-   first three from the `diffusion` and `flow` labels.
-3. SCARCITY MUST BE LEGIBLE. Population-based training over hyperparameters holds one paper,
-   `dexpbt_2023`, which the figure does not show; add it as an annotation off the PPO leaf with
-   the count 1. Size or shade every leaf by its count so a reader sees without reading a number
-   that the demonstration branch is wide, the non-learning branch is three single papers, and
-   automated reward design is two.
+STILL TO DO. 1. THE CROSS-LINKS ARE MISSING AND THEY ARE THE POINT. The footer says the branches
+are not exclusive, then a strict tree is drawn. Draw the overlaps as dashed curves behind the
+nodes, in the muted accent colour, each labelled with one word: reward-branch distillation leaf ->
+demonstration-branch architecture tags   "distil" reward-branch PPO leaf           -> synthetic
+demonstration generation       "generate" egocentric video leaf            -> human-reference
+branch                   "retarget" human-reference branch           -> demonstration-branch
+architecture tags   "distil" no-learned-policy branch         -> reward-branch PPO leaf "smooth"
+teleoperated-on-robot leaf       ->  seeded by demonstrations                 "seed" The fifth
+carries `pang_global_planning_2022`'s proof that randomised smoothing, which is what a policy
+gradient does implicitly, and analytic log-barrier smoothing compute the same local model of
+contact. It is the only edge that is a theorem rather than a pipeline; draw it differently, for
+instance with a double dash. 2. THE ARCHITECTURE AXIS IS ABSENT. Under the human-demonstration
+branch, what supervises the policy and what shape the policy has are independent choices. Add four
+small tags, not full nodes: action chunking `aloha_act_2023`; diffusion `diffusion_policy_2023`,
+`dp3_2024`; flow matching `pi0_2024`, `groot_n1_2025`, `h_rdt_2025`, `unidex_2026`,
+`egoscale_2026`; autoregressive action tokens `openvla_2024`, `metis_2025`. Tag counts are 1, 14
+and 8 for the first three from the `diffusion` and `flow` labels. 3. SCARCITY MUST BE LEGIBLE.
+Population-based training over hyperparameters holds one paper, `dexpbt_2023`, which the figure
+does not show; add it as an annotation off the PPO leaf with the count 1. Size or shade every leaf
+by its count so a reader sees without reading a number that the demonstration branch is wide, the
+non-learning branch is three single papers, and automated reward design is two.
 
 Palette, dark-mode handling and font stack follow the other figures in paper/figures/. All counts
 are recomputed from corpus/rows/*.json at generation time and never hardcoded, so the figure
-cannot drift from the corpus.
--->
+cannot drift from the corpus. -->

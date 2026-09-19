@@ -159,61 +159,91 @@ def stage(out, y, n, total, label, style):
     return w
 
 
-def bracket(out, x0, x1, y, label, up=True, accent=False):
-    """A square bracket over a span, in the house style: thin rules, no curls."""
-    t = 0.10 if up else -0.10
-    col = "accent" if accent else "black!45"
-    out.append(rf"\draw[line width=0.3pt,draw={col}] ({x0:.2f},{y:.2f}) -- ({x0:.2f},{y + t:.2f}) "
-               rf"-- ({x1:.2f},{y + t:.2f}) -- ({x1:.2f},{y:.2f});")
-    anc = "south" if up else "north"
-    sty = r"font=\scriptsize\color{accent}" if accent else r"font=\scriptsize"
-    out.append(rf"\node[{sty},anchor={anc}] at ({(x0 + x1) / 2:.2f},{y + 1.15 * t:.2f}) {{{label}}};")
-
-
 # --- figure: papers disagree with their own released code ----------------------------------------
-def fig_codegap():
-    c = F["classes"]
-    out = [PRE]
-    y = 0.0
-    stage(out, y, F["method_rows"], N, "method rows in the corpus", "barlight")
-    y -= PITCH
-    stage(out, y, F["code_released"], N, "released code that could be read against the paper",
-          "barmid")
-    y -= PITCH
-    w38 = stage(out, y, F["disagreements"], N,
-                rf"of those record a paper/code disagreement", "bar")
-    y -= BH
+def funnel(out, steps, w, x0=0.0, y0=0.0, bh=0.52, gap=0.26, labx=None):
+    """A funnel that narrows: centred bands whose width is the count, joined by sloping wedges.
 
-    # the same 38, at its own scale, split into what the survey kept and what it withdrew
-    yz = y - 0.82
-    zh = 0.34
-    out.append(rf"\draw[ghost] (0,{y:.2f}) -- (0,{yz + zh:.2f});")
-    out.append(rf"\draw[ghost] ({w38:.2f},{y:.2f}) -- ({W:.2f},{yz + zh:.2f});")
-    order = ["contradiction", "parse-limitation", "code-absent", "version-skew",
-             "internal-inconsistency"]
-    total = F["disagreements"]
-    x = 0.0
-    for name in order:
-        n = c[name]
-        w = W * n / total
-        style = "baracc" if name == "contradiction" else "barlight"
-        out.append(rf"\fill[{style}] ({x:.2f},{yz:.2f}) rectangle ({x + w:.2f},{yz + zh:.2f});")
-        if x:
-            out.append(rf"\draw[seg] ({x:.2f},{yz:.2f}) -- ({x:.2f},{yz + zh:.2f});")
-        col = "white" if name == "contradiction" else "black!70"
-        out.append(rf"\node[font=\scriptsize\color{{{col}}}] at ({x + w / 2:.2f},"
-                   rf"{yz + zh / 2:.2f}) {{{n}}};")
-        x += w
-    xk = W * c["contradiction"] / total
-    bracket(out, 0, xk, yz - 0.02, rf"{c['contradiction']} kept", up=False, accent=True)
-    bracket(out, xk, W, yz - 0.02, rf"{F['other_class']} not a contradiction", up=False)
-    out.append(rf"\node[lbl,anchor=north west,align=left,text=accent] at (0,{yz - 0.54:.2f}) "
-               rf"{{kept: the shipped code states a different objective}};")
-    out.append(rf"\node[small,anchor=north west,align=left] at (0,{yz - 0.82:.2f}) "
-               rf"{{not a contradiction: {c['parse-limitation']} a limit of this survey's own parse, "
-               rf"{c['code-absent']} the component\\"
-               rf"was never released, {c['version-skew']} version skew, "
-               rf"{c['internal-inconsistency']} a paper disagreeing with itself}};")
+    `steps` is [(count, label, fill)], widest first, each band's width proportional to its count
+    against the first. The wedge between two bands is the drop, so the reader sees what is lost
+    rather than reading two numbers. Returns the y of the last band's bottom edge and its width.
+    """
+    top = steps[0][0]
+    y = y0
+    prev = None
+    for n, label, fill in steps:
+        bw = w * n / top
+        cx = x0 + w / 2
+        l, r = cx - bw / 2, cx + bw / 2
+        if prev is not None:
+            pl, pr, py = prev
+            out.append(rf"\fill[black!7] ({pl:.2f},{py:.2f}) -- ({pr:.2f},{py:.2f}) -- "
+                       rf"({r:.2f},{y:.2f}) -- ({l:.2f},{y:.2f}) -- cycle;")
+        out.append(rf"\fill[{fill}] ({l:.2f},{y:.2f}) rectangle ({r:.2f},{y - bh:.2f});")
+        dark = fill != "barlight"
+        col = "white" if dark else "black!75"
+        out.append(rf"\node[font=\small\bfseries\color{{{col}}}] at ({cx:.2f},{y - bh / 2:.2f}) "
+                   rf"{{{n}}};")
+        out.append(rf"\node[lbl,anchor=west,align=left] at ({labx:.2f},{y - bh / 2:.2f}) {{{label}}};")
+        prev = (l, r, y - bh)
+        y -= bh + gap
+    return prev[2], prev[1] - prev[0]
+
+
+def unit_strip(out, y, x0, x1, n, n_hit, h=0.42, gap_frac=0.30):
+    """`n` tick marks, one per case, the first `n_hit` accented.
+
+    The last step of the funnel is the one the survey stands behind, and it is too small a slice
+    to read off a bar. Drawn one mark per paper it can be counted, and the accented run is the
+    finding at a glance. Nothing here is drawn twice: the marks are the only picture of the 38.
+    """
+    span = x1 - x0
+    pitch = span / n
+    tw = pitch / (1 + gap_frac)
+    for i in range(n):
+        x = x0 + i * pitch
+        sty = "baracc" if i < n_hit else "barlight"
+        out.append(rf"\fill[{sty}] ({x:.2f},{y:.2f}) rectangle ({x + tw:.2f},{y - h:.2f});")
+    return x0 + n_hit * pitch - (pitch - tw)
+
+
+def fig_codegap():
+    """112 papers, 62 with readable code, 38 that disagree with it, 9 of them contradictions.
+
+    Four quantities, each drawn once. The funnel narrows because a band's width is its count;
+    the final split is a strip of 38 marks rather than a fourth band, because 9 of 112 is a
+    slice too thin to see and the last step is the one the argument rests on.
+    """
+    c = F["classes"]
+    fw = 4.90          # the funnel, left of the label column
+    labx = 5.20        # labels start here, clear of the widest band
+    out = [PRE]
+    ybot, wlast = funnel(out, [
+        (F["method_rows"], "method papers\\\\in the corpus", "barlight"),
+        (F["code_released"], "released code that could\\\\be read against the paper", "barmid"),
+        (F["disagreements"], "disagree with their\\\\own code somehow", "bar"),
+    ], w=fw, labx=labx)
+
+    # the 38, one mark each, with the 9 the survey stands behind at the head of the run
+    ys = ybot - 0.66
+    c = F["classes"]
+    # the same 38, re-opened at its own scale: a wash fan rather than a leader line, so the strip
+    # is visibly the last band magnified and not a fourth, separate count
+    out.append(rf"\fill[black!5] ({(fw - wlast) / 2:.2f},{ybot:.2f}) -- "
+               rf"({(fw + wlast) / 2:.2f},{ybot:.2f}) -- ({W:.2f},{ys:.2f}) -- (0,{ys:.2f}) -- cycle;")
+    out.append(rf"\node[anchor=south east,font=\scriptsize\color{{black!45}}] at "
+               rf"({W:.2f},{ys + 0.06:.2f}) {{one mark, one paper}};")
+    unit_strip(out, ys, 0.0, W, F["disagreements"], F["contradictions"])
+    yt = ys - 0.42 - 0.14
+    out.append(rf"\draw[lnk] (0,{yt + 0.08:.2f}) -- ({W:.2f},{yt + 0.08:.2f});")
+    out.append(rf"\node[anchor=north west,align=left,font=\scriptsize\color{{accent}}] "
+               rf"at (0,{yt:.2f}) {{\textbf{{{F['contradictions']}}} contradictions: the shipped "
+               rf"code states a different objective}};")
+    out.append(rf"\node[anchor=north west,align=left,font=\scriptsize\color{{black!58}}] "
+               rf"at (0,{yt - 0.26:.2f}) "
+               rf"{{\textbf{{{F['other_class']}}} of another kind, classified and not retracted: "
+               rf"{c['parse-limitation']} a limit of this\\survey's own parse, "
+               rf"{c['code-absent']} a component never released, {c['version-skew']} version skew, "
+               rf"{c['internal-inconsistency']} a paper\\disagreeing with itself}};")
     out.append(r"\end{tikzpicture}")
     (OUT / "fig_codegap.tex").write_text("\n".join(out) + "\n")
     return F["contradictions"], F["other_class"]

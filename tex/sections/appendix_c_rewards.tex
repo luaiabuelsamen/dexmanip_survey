@@ -1,29 +1,25 @@
-%% Appendix C. Per-paper reward term extraction.
+%% Appendix C. Every paper-against-code disagreement, in full.
 %% Converted from paper/APPENDIX_C.md for the LaTeX edition. The markdown edition in paper/ is a
 %% separate edition of the same prose and is not written by this file.
+%% The markdown edition prints the 77-row reward extraction as well; this edition keeps the
+%% extraction in the repository and prints only the disagreements, which are read entry by entry.
 %% Every table number inside the disagreement entries is the cited paper's own table, so
 %% those stay literal numbers. Our own tables are cross-referenced.
-\section{Per-paper reward term extraction}
+\section{Paper against released code, in full}
 \label{app:rewards}
-
-Section~V marks nine recurring term families across the in-hand reorientation methods, from a matrix tabulated in the repository. This appendix is the extraction underneath that matrix, over every method row that records a reward at all. \texttt{terms stated} counts the terms the paper itself names. \texttt{where the reward was read} gives the section of the paper or the file in the released code that the note quotes. A row with a \texttt{paper/code class} is one where the two disagree, and the second part of this appendix prints the disagreement in full. Cells and entries reproduce the text stored in the row, with the source's own punctuation and wording.
-
-\subsection{The extraction}
-
-The extraction itself is a table of 77 rows and ten columns, and it is in the repository rather
-than here, with the rest of the tabulation Appendix~\ref{app:method} describes: as structured rows
-in \texttt{corpus/rows/} and as a markdown table in \texttt{paper/tables/}. Three things are worth
-knowing before reading it. 253 of its 770 cells are values no source stated. A blank
-\texttt{terms stated} with a filled \texttt{term names} column is a paper that names its terms
-without numbering them. And its \texttt{in reward matrix} column marks the rows that are also in the
-reward-term matrix itself, in \texttt{corpus/reward\_matrix.json}, which covers in-hand
-reorientation only.
-
-\subsection{Paper against released code, in full}
 \begingroup\sloppy
 \emergencystretch=3em
 
-Each entry below is the disagreement text stored in the row, unedited. The class is what Sec. 5.8 and Sec. 8.1 count. \texttt{contradiction} means the paper states one value and the shipped code demonstrably states another. \texttt{parse-limitation} means this survey's own parse could not settle it and the accusation is withdrawn. \texttt{code-absent} means the described component is not in the released repository. \texttt{version-skew} means the repository is a later generation than the paper. \texttt{internal-inconsistency} means the paper disagrees with itself and no code is implicated.
+Each entry below is the disagreement text stored in the row, unedited, and the class beside it is
+the one Section~\ref{sec:train:code} and Section~\ref{sec:gaps} count. A \emph{contradiction} is a
+paper stating one value where the shipped code demonstrably states another. A
+\emph{parse-limitation} is an accusation withdrawn because this survey's own parse could not settle
+it. \emph{Code-absent} means the described component is not in the released repository,
+\emph{version-skew} that the repository is a later generation than the paper, and
+\emph{internal-inconsistency} that the paper disagrees with itself with no code implicated. Where a
+charge was narrowed or withdrawn under review, the review note is printed beneath it. The
+reward-term extraction these rows were read out of is in the repository rather than here, with the
+rest of the tabulation Appendix~\ref{app:method} describes.
 
 \textbf{contradiction, 9 rows.}
 

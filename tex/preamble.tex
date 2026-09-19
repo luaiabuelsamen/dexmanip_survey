@@ -40,21 +40,23 @@
 \captionsetup[table]{position=top,skip=3pt}
 \captionsetup[sub]{font=small}
 
-% --- reproduced-figure credit line ------------------------------------------
-% Every reproduced figure states where it came from, under the caption.
-\newcommand{\credit}[1]{\par\vspace{1pt}{\scriptsize\textcolor{black!55}{Reproduced from #1.}}}
-% A reproduced figure states its source and, until permission is recorded, says so quietly.
-\newcommand{\pending}[1]{\par\vspace{1pt}{\scriptsize\textcolor{black!50}{\textit{Reproduced from} #1\textit{; permission not yet sought, see the register.}}}}
-% A cleared figure carries the credit its licence requires: creator and title, a link to the
-% source, the licence named and linked, and any change made to the plate (a crop or a greyscale
-% conversion is a change CC BY asks us to declare). Usage:
-%   \licensed[cropped to the right half]{Fig.~4 of S. Atar et al., ``...'', arXiv:2509.23075}%
+% --- reproduced-figure credit ------------------------------------------------
+% A reproduced plate names its source inside its own caption, as a short parenthetical, so the
+% credit reads as part of the sentence that describes the plate. The permission status is not
+% printed at all: tex/PERMISSIONS.md is the register, Appendix A states the position, and a
+% working note does not belong under every figure in a document meant to be read.
+\newcommand{\src}[1]{\ (Reproduced from #1.)}
+% A plate whose source carries CC BY prints the attribution the licence asks for: the work, the
+% licence named and linked, and any change made to the plate (a crop or a greyscale conversion
+% is a change CC BY asks us to declare). One line, under the caption, because the licence asks
+% for the attribution and not for four lines of it. Usage:
+%   \licensed[cropped]{Fig.~4 of Atar et al., arXiv:2509.23075}%
 %            {CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
 % The optional first argument is the statement of changes; omit it when the plate is unaltered.
 \makeatletter
 \newcommand{\licensed}[4][]{%
   \par\vspace{1pt}{\scriptsize\textcolor{black!55}{%
-    \textit{Reproduced from} #2\textit{, licensed under} \href{#4}{#3}%
+    #2, \href{#4}{#3}%
     \def\lic@changes{#1}\ifx\lic@changes\@empty.\else; #1.\fi}}}
 \makeatother
 

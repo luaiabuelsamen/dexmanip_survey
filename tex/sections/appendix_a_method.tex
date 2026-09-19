@@ -17,11 +17,11 @@ arXiv identifier was checked by fetching the abstract page and matching the titl
 that could not be checked that way are marked. The six lists were merged with deduplication on arXiv
 identifier and normalised title, giving 221 entries.
 
-Seven further bibliography entries are not part of that corpus and are not counted anywhere in this
-survey. They are the prior audits and case studies Section~\ref{sec:intro} positions this survey
-against, they carry the topic \texttt{related} in \texttt{corpus/bib\_related.json}, and none of
-them carries a structured row. No source for them was parsed either, so each is quoted only from its
-abstract and its stated method.
+Seven further bibliography entries are not part of that corpus and are not counted anywhere in
+this survey. They are the prior audits and case studies Section~\ref{sec:intro} positions this
+survey against, they sit in a bibliography of their own as prior work from outside the corpus, and
+none of them carries a structured row. No source for them was parsed either, so each is quoted
+only from its abstract and its stated method.
 
 \subsection{Acquisition}
 PDFs were downloaded from arXiv or, for work without a preprint, from the publisher or vendor
@@ -62,10 +62,10 @@ was written succeeded on 2026-09-18, so a seven-page PDF and its hash are in the
 note has been read from it. It is cited by metadata only for that reason and not because the
 source is unavailable.
 
-Three of the 221 bibliography entries carry no structured row. Two are the paywalled
-Bicchi 2000 and DLR-Hand II entries. The third is \cite{bicchi_grasping_chapter_2001}, which was read
-into a note and quoted throughout but is a book chapter rather than a work with an embodiment, a
-method or a result to record in a row.
+Three of the 221 bibliography entries carry no structured row. Two are the paywalled Bicchi 2000
+and DLR-Hand II entries. The third is \cite{bicchi_grasping_chapter_2001}, which was read into a
+note and quoted throughout but is a book chapter rather than a work with an embodiment, a method
+or a result to record in a row.
 
 \subsection{What this method cannot do}
 Mention counts over the corpus are counts of mentions, not of use: a related-work sentence
@@ -77,37 +77,37 @@ posted as a preprint. It also favours recent work. Of the 221 bibliography entri
 about a trend over time is a claim about 2022 onward.
 
 Every coverage statistic in this survey measures what this survey's extraction captured, not what
-the literature reported. A structured row holds a scalar. A paper that reports a per-task count,
-a rubric, or a total spread across several tables produces a null, and a null is then counted as
+the literature reported. A structured row holds a scalar. A paper that reports a per-task count, a
+rubric, or a total spread across several tables produces a null, and a null is then counted as
 silence. The bias runs one way. Every miss converts a reporting paper into a silent one, so the
 field is made to look worse at reporting than it is. The size of the effect was measured on the
-statistic the survey leads with. Of the 34 method rows that had a real robot and no recorded
-trial count, 15 carried a count in plain text in their own note, dropped because the paper
-reports it per task and the field takes a single integer. Those 15 have since been re-extracted,
-which moved the stated-trial-count row from 55 to 70. The success criterion and the unseen-object
-count were audited the same way, rising from 79 to 98 and from 32 to 39. The same mechanism
-reaches the penetration, code-release and failure-mode fields, none of which has been audited that
-way. Read every coverage statistic in this survey as a floor rather than as a rate, and read the
-bars in \figurename~\ref{fig:reporting} the same way.
+statistic the survey leads with. Of the 34 method rows that had a real robot and no recorded trial
+count, 15 carried a count in plain text in their own note, dropped because the paper reports it
+per task and the field takes a single integer. Those 15 have since been re-extracted, which moved
+the stated-trial-count row from 55 to 70. The success criterion and the unseen-object count were
+audited the same way, rising from 79 to 98 and from 32 to 39. The same mechanism reaches the
+penetration, code-release and failure-mode fields, none of which has been audited that way. Read
+every coverage statistic in this survey as a floor rather than as a rate, and read the bars in
+\figurename~\ref{fig:reporting} the same way.
 
 \subsection{Where the tabulation lives}
 \label{app:method:tabulation}
 Most of this survey's tabulation is not printed in this paper. The 112 method rows, the 21
-reward-term objectives scored against their released code, the 30 teleoperation
-systems, the 33 hand specifications with the source sentence behind each one, the 15 contact-model
+reward-term objectives scored against their released code inside a 77-row extraction whose ten
+columns hold 253 cells no source stated, the 30 teleoperation systems, the 33 hand specifications with the source sentence behind each one, the 15 contact-model
 and solver descriptions verbatim, and what each of the 14 predecessor surveys covers: all of it is
 reference material, consulted a row at a time and never read through. Printed, it ran to more pages
 than the argument it supports. It is in the repository instead.
 
-Read it there in one of three forms. \texttt{corpus/rows/} holds one JSON record per work, with
+Read it there in one of three forms. \path{corpus/rows/} holds one JSON record per work, with
 every field at full length and no cell cut; this is the form to query, and it is the form every
-number in this paper is computed from at build time. \texttt{paper/tables/} holds the same content
-as markdown tables, one file per table, for reading rather than querying. \texttt{papers/notes/}
+number in this paper is computed from at build time. \path{paper/tables/} holds the same content
+as markdown tables, one file per table, for reading rather than querying. \path{papers/notes/}
 holds the structured note each row was read from, with the quotation that supports each field, so
-that a cell can be traced to a sentence in a parsed source. \texttt{tools/} holds the generators:
-every table in this paper and in the repository is written by a script there from
-\texttt{corpus/rows/}, so a reader who disagrees with a classification can change it and rebuild
-rather than argue with a PDF.
+that a cell can be traced to a sentence in a parsed source. The generators are in \path{tools/}:
+every table in this paper and in the repository is written by a script there from those records,
+so a reader who disagrees with a classification can change it and rebuild rather than argue with a
+PDF.
 
 The repository is public, and the archived release this paper is submitted against will carry a
 DOI, which is the copy to cite for any number quoted here. A survey that argues for checkable
@@ -128,10 +128,11 @@ corpus entry it came from and to the page it was taken from. Eighteen are reprod
 stand in two positions. Seven are cleared: each source carries CC BY 4.0, read directly from the
 licence page on the date the register records, and those seven captions print the attribution the
 licence asks for, naming the creator, the work, the licence with a link and the change made to the
-plate. The other eleven are permission pending and their captions say so: two need a request
-through a publisher's own process and nine need an email to the authors, arXiv's non-exclusive
-licence to distribute granting a third party nothing. The register that records, per figure, the
-licence found, the URL it was read from and the action still open, is \texttt{tex/PERMISSIONS.md}.
+plate. The other eleven are permission pending: two need a request through a publisher's own
+process and nine need an email to the authors, arXiv's non-exclusive licence to distribute
+granting a third party nothing. No caption prints that status, because a permission still to be
+sought is a working note and not a finding. The register that records, per figure, the
+licence found, the URL it was read from and the action still open, is \path{tex/PERMISSIONS.md}.
 The build does not enforce that register.
 
 \input{tables/appendix_methods_full}

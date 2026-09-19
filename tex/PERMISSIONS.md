@@ -120,5 +120,6 @@ obstacle, so this figure stays `\pending` until the author replies.
   from `arxiv.org/pdf/<id>` unless `bib.json` gives a `pdf_url`, which is why every row but
   `ilda_hand_2021` reads "preprint". A crop does not create a new work and does not change the
   permission needed, but it *is* a change that CC attribution must declare.
-- The build does not enforce any of this. A person has to: figures still on `\pending` are the ones
-  with an open action above.
+- The build does not enforce any of this, and no plate prints its status: a caption credits its
+  source and, where the licence asks for it, the attribution. The figures with an open action are
+  the rows above, and this file is the only place that records them.

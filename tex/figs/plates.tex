@@ -10,24 +10,24 @@
 % single-column plates and moved nothing: where a plate lands pages after its
 % anchor, a full-width table is holding the page tops in between, not the spec.
 %
-% Seven plates carry \licensed, because their source is CC BY 4.0 and the caption
-% prints the attribution the licence requires. The other eleven carry \pending:
-% permission has not been sought for those, two needing a publisher request and
-% nine an author email. When a permission comes back, swap that plate's \pending
-% for \credit or \licensed and update the row in tex/PERMISSIONS.md.
+% Every plate credits its source inside its own caption, with \src. Seven carry
+% \licensed as well, because their source is CC BY 4.0 and the licence asks for
+% an attribution line: one line under the caption, naming the work, the licence
+% and the change made to the plate. No plate prints a permission status. That is
+% a working note, it is held in tex/PERMISSIONS.md, and Appendix A states where
+% each plate stands; when a permission comes back, the register is what changes.
 
 % =============================================================== Sec. III, hands
 
 \newcommand{\plateLeapOverview}{%
   \begin{figure*}[t]
     \centering
-    \includegraphics[width=\textwidth]{figs/selected/hand_leap_overview.png}
+    \includegraphics[width=0.66\textwidth]{figs/selected/hand_leap_overview.png}
     \caption{A low-cost hand in which each actuator \emph{is} a joint: the motor
       bodies are the phalanges, and the bracket-and-spacer stack sets the
       kinematics. The same hand in power and precision grasps on everyday
-      objects.}
+      objects.\src{\cite{leap_hand_2023}}}
     \label{fig:hand-leap-overview}
-    \pending{\cite{leap_hand_2023}}
   \end{figure*}}
 
 \newcommand{\plateHandScale}{%
@@ -36,37 +36,31 @@
     \includegraphics[width=\columnwidth]{figs/selected/hand_scale_to_human.png}
     \caption{Five research hands photographed to scale beside an adult human hand
       and a ruler. A count of actuated degrees of freedom says nothing about the
-      size of the hand that carries them.}
+      size of the hand that carries them.\src{\cite{leap_hand_2023}}}
     \label{fig:hand-scale}
-    \pending{\cite{leap_hand_2023}}
   \end{figure}}
 
 \newcommand{\plateIldaLinkage}{%
   \begin{figure}[t]
     \centering
-    \includegraphics[width=\columnwidth]{figs/selected/hand_ilda_linkage.png}
+    \includegraphics[width=0.60\columnwidth]{figs/selected/hand_ilda_linkage.png}
     \caption{A fully actuated linkage hand with the transmission left exposed:
       every joint is driven through its own metal four-bar and lead screw, with a
-      coin for scale. Greyscale; the source photograph is
-      near-monochrome~\cite{ilda_hand_2021}. The journal's CC BY licence
-      excludes anything marked there as third-party material; none is flagged
-      on this figure, but the author should confirm.}
+      coin for scale. Greyscale; the source
+      photograph is near-monochrome~\cite{ilda_hand_2021}.}
     \label{fig:hand-ilda}
-    \licensed[panels (a) and (b) only, converted to greyscale]{Fig.~5 of
-      U. Kim et al., ``Integrated linkage-driven dexterous anthropomorphic
-      robotic hand,'' \emph{Nature Communications} 12:7177 (2021),
-      DOI~10.1038/s41467-021-27261-0}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
+    \licensed[panels (a) and (b), greyscale]{Fig.~5 of Kim et al.,
+      \emph{Nat. Commun.} 12:7177}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
   \end{figure}}
 
 \newcommand{\plateCoupledLinkage}{%
   \begin{figure}[t]
     \centering
-    \includegraphics[width=\columnwidth]{figs/selected/hand_coupled_linkage.png}
+    \includegraphics[width=0.78\columnwidth]{figs/selected/hand_coupled_linkage.png}
     \caption{Where the actuator count is cut: an anti-parallelogram linkage ties
       the distal joint to the proximal one, so one motor sweeps two joints and the
-      finger's reachable set is a curve rather than a surface.}
+      finger's reachable set is a curve rather than a surface.\src{\cite{bidexhand_2025}}}
     \label{fig:hand-coupled-linkage}
-    \pending{\cite{bidexhand_2025}}
   \end{figure}}
 
 \newcommand{\plateInspireTactilePad}{%
@@ -78,10 +72,7 @@
       concentrates. The right panel shows the whole hand once
       padded~\cite{articulated_tools_inhand_2025}.}
     \label{fig:hand-inspire-pad}
-    \licensed[cropped to the right half of the page region]{Fig.~4 of S. Atar,
-      D. Huang, F. Richter and M. Yip, ``In-Hand Manipulation of Articulated
-      Tools with Dexterous Robot Hands with Sim-to-Real Transfer,''
-      arXiv:2509.23075}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
+    \licensed[cropped to the right half]{Fig.~4 of Atar et al., arXiv:2509.23075}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
   \end{figure}}
 
 \newcommand{\plateDigitFingertips}{%
@@ -90,9 +81,8 @@
     \includegraphics[width=\columnwidth]{figs/selected/hand_digit_fingertips.png}
     \caption{Vision-based tactile sensors used as the fingertips themselves: each
       unit is a camera and an illuminated gel, and the sensor body sets the
-      fingertip's size and shape.}
+      fingertip's size and shape.\src{\cite{digit_2020}}}
     \label{fig:hand-digit}
-    \pending{\cite{digit_2020}}
   \end{figure}}
 
 % ========================================================== Sec. IV, simulators
@@ -107,10 +97,7 @@
       thousands~\cite{isaacgym_2021}. The plate shows NVIDIA product imagery;
       CC BY 4.0 conveys no trademark rights.}
     \label{fig:sim-isaacgym-envs}
-    \licensed[re-rendered, not otherwise changed]{Fig.~13 of
-      V. Makoviychuk et al., ``Isaac Gym: High Performance GPU-Based Physics
-      Simulation For Robot Learning,''
-      arXiv:2108.10470}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
+    \licensed[re-rendered]{Fig.~13 of Makoviychuk et al., arXiv:2108.10470}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
   \end{figure*}}
 
 \newcommand{\plateTendonModel}{%
@@ -120,9 +107,8 @@
     \caption{A tendon-driven hand as the physics engine sees it: spatial tendons
       (green) routed over wrapping cylinders (yellow) inside the transparent
       shell. The routing geometry, not the joint limits, is what a sim-to-real
-      gap on this hand is made of.}
+      gap on this hand is made of.\src{\cite{openai_rubiks_cube_2019}}}
     \label{fig:sim-tendon}
-    \pending{\cite{openai_rubiks_cube_2019}}
   \end{figure}}
 
 \newcommand{\plateConvexDecomposition}{%
@@ -131,9 +117,8 @@
     \includegraphics[width=\columnwidth]{figs/selected/sim_convex_decomposition.png}
     \caption{The object the policy touches is not the object it sees. Left, the
       visual mesh; centre, its single convex hull; right, the convex decomposition
-      that restores the concavities contact needs.}
+      that restores the concavities contact needs.\src{\cite{dexremoe_2025}}}
     \label{fig:sim-convex}
-    \pending{\cite{dexremoe_2025}}
   \end{figure}}
 
 \newcommand{\plateTactileInterpenetration}{%
@@ -146,9 +131,7 @@
       an artefact to be removed~\cite{isaaclab_2025}. The plate shows NVIDIA
       product imagery; CC BY 4.0 conveys no trademark rights.}
     \label{fig:sim-tactile-penetration}
-    \licensed[cropped to the four labelled panels]{Fig.~10 of M. Mittal et al.
-      (NVIDIA), ``Isaac Lab: A GPU-Accelerated Simulation Framework for
-      Multi-Modal Robot Learning,''
+    \licensed[cropped to four panels]{Fig.~10 of Mittal et al.,
       arXiv:2511.04831}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
   \end{figure}}
 
@@ -163,9 +146,7 @@
       tactile fingertips: the working volume in which every demonstration from
       this rig was recorded~\cite{dexpilot_2020}.}
     \label{fig:teleop-studio}
-    \licensed[re-rendered and resampled]{Fig.~3 of A. Handa et al., ``DexPilot:
-      Vision Based Teleoperation of Dexterous Robotic Hand-Arm System,''
-      arXiv:1910.03135}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
+    \licensed[re-rendered and resampled]{Fig.~3 of Handa et al., arXiv:1910.03135}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
   \end{figure}}
 
 \newcommand{\plateBidexExoskeleton}{%
@@ -174,9 +155,8 @@
     \includegraphics[width=\columnwidth]{figs/selected/teleop_bidex_exoskeleton.png}
     \caption{The other end of the same problem: a worn bimanual exoskeleton that
       measures the operator's own finger motion directly, and the mobile
-      two-armed robot it drives. Greyscale; colour carried no information here.}
+      two-armed robot it drives. Greyscale; colour carried no information here.\src{\cite{bidex_teleop_2024}}}
     \label{fig:teleop-exoskeleton}
-    \pending{\cite{bidex_teleop_2024}}
   \end{figure}}
 
 \newcommand{\plateRetargetEmbodiments}{%
@@ -188,11 +168,7 @@
       of the embodiment gap a shared demonstration corpus has to
       cross~\cite{anyteleop_2023}.}
     \label{fig:teleop-retarget-embodiments}
-    \licensed[re-laid out from a row of panels into a stacked column: the four
-      gesture rows composited above the hand-label strip]{Fig.~10 of Y. Qin et
-      al., ``AnyTeleop: A General Vision-Based Dexterous Robot Arm-Hand
-      Teleoperation System,''
-      arXiv:2307.04577}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
+    \licensed[panels re-laid out as a column]{Fig.~10 of Qin et al., arXiv:2307.04577}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
   \end{figure}}
 
 \newcommand{\plateRetargetArtifacts}{%
@@ -202,9 +178,8 @@
     \caption{What retargeting gets wrong, magnified. Against the same source
       motion, two established methods place the fingertip off the object, drive it
       through the surface, or hyperextend a joint; the failure is in the contact
-      set, not in the joint-angle error a retargeting method usually reports.}
+      set, not in the joint-angle error a retargeting method usually reports.\src{\cite{toporetarget_2026}}}
     \label{fig:teleop-retarget-artifacts}
-    \pending{\cite{toporetarget_2026}}
   \end{figure*}}
 
 \newcommand{\plateArcticDataset}{%
@@ -214,9 +189,8 @@
     \caption{A bimanual hand-object capture, from source video to the fitted
       meshes and the dense contact field between them. The contact annotation is
       inferred from tracked geometry, which is why its accuracy is bounded by the
-      fit rather than measured at the surface.}
+      fit rather than measured at the surface.\src{\cite{arctic_2022}}}
     \label{fig:data-arctic}
-    \pending{\cite{arctic_2022}}
   \end{figure*}}
 
 % ========================================================== Sec. VI, two hands
@@ -227,9 +201,8 @@
     \includegraphics[width=\textwidth]{figs/selected/bimanual_handover_allegro.png}
     \caption{Two arms and two four-fingered hands as thrower and catcher, with the
       observation and action dimensions each policy sees. The hands never touch:
-      the coupling between them is the object's flight.}
+      the coupling between them is the object's flight.\src{\cite{dynamic_handover_2023}}}
     \label{fig:bimanual-handover}
-    \pending{\cite{dynamic_handover_2023}}
   \end{figure*}}
 
 \newcommand{\plateGraspPenetration}{%
@@ -242,9 +215,7 @@
       success rate quoted without a penetration measure says
       little~\cite{bimangrasp_2024}.}
     \label{fig:bimanual-penetration}
-    \licensed[cropped to Fig.~9 alone]{Fig.~9 of Y. Shao and C. Xiao, ``Bimanual
-      Grasp Synthesis for Dexterous Robot Hands,''
-      arXiv:2411.15903}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
+    \licensed[cropped to Fig.~9 alone]{Fig.~9 of Shao and Xiao, arXiv:2411.15903}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
   \end{figure*}}
 
 % ======================================================= Sec. VII, evaluation
@@ -256,7 +227,6 @@
     \caption{The apparatus behind a headline in-hand reorientation number: a caged
       rig carrying sixteen motion-capture cameras and three RGB cameras, beside
       the simulated scene the policy was trained in. Reproducing the result means
-      reproducing the left panel.}
+      reproducing the left panel.\src{\cite{openai_dexterity_2018}}}
     \label{fig:eval-cage}
-    \pending{\cite{openai_dexterity_2018}}
   \end{figure}}

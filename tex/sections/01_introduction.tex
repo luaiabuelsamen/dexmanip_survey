@@ -5,32 +5,33 @@
 A hand is dexterous when it can change an object's pose without putting the object down. That
 property, and not the finger count, is what separates a hand from a gripper. Bicchi
 \cite{bicchi_grasping_chapter_2001} draws the same line in Sec.~1.1, between restraining an object
-and ``manipulating objects with fingers, in contrast to manipulation with the robot arm''. Restraint
-is a static question about whether the contacts prevent motion. In-hand manipulation is a dynamic
-question about whether contacts can be broken and remade while the object stays held. An et al.
-\cite{an_dexil_survey_2025} put the same idea in their abstract as the ability ``to skillfully
-control, reorient, and manipulate objects through precise, coordinated finger movements and adaptive
-force modulation''. Both definitions place the work in the fingers rather than in the arm.
+and ``manipulating objects with fingers, in contrast to manipulation with the robot arm''.
+Restraint is a static question about whether the contacts prevent motion. In-hand manipulation is
+a dynamic question about whether contacts can be broken and remade while the object stays held. An
+et al. \cite{an_dexil_survey_2025} put the same idea in their abstract as the ability ``to
+skillfully control, reorient, and manipulate objects through precise, coordinated finger movements
+and adaptive force modulation''. Both definitions place the work in the fingers rather than in the
+arm.
 
 The analytic theory answered the static question and stalled on the dynamic one. Form closure has
 a first-order test on the grasp matrix and known contact counts, four in the plane and seven in
-three dimensions for any polyhedron, per \cite{bicchi_grasping_chapter_2001} Sec.~1.3.1. Force closure
-adds the wrench balance and the hand Jacobian. Neither delivers what a controller needs. The same
-chapter states in Sec.~1.5 that ``force closure does not guarantee stability'', and its Sec.~1.8
-names the reason the theory could not be pushed further, which is that ``the nonsmooth nature of
-grasp dynamics, because of the unilateral constraints on displacements and forces, has made a
-thorough analysis very difficult''. That verdict is one architect's, on one chapter, and this
-survey did not survey the tradition it judges. Learned control did not solve those modelling
+three dimensions for any polyhedron, per \cite{bicchi_grasping_chapter_2001} Sec.~1.3.1. Force
+closure adds the wrench balance and the hand Jacobian. Neither delivers what a controller needs.
+The same chapter states in Sec.~1.5 that ``force closure does not guarantee stability'', and its
+Sec.~1.8 names the reason the theory could not be pushed further, which is that ``the nonsmooth
+nature of grasp dynamics, because of the unilateral constraints on displacements and forces, has
+made a thorough analysis very difficult''. That verdict is one architect's, on one chapter, and
+this survey did not survey the tradition it judges. Learned control did not solve those modelling
 problems. It went around them by sampling a simulator instead of solving a model, and by scoring a
 rollout instead of certifying a configuration. Of the 112 method papers in this corpus, 53 train
 with reinforcement learning and 35 run in Isaac Gym, against 7 on its successors Isaac Lab and
 Isaac Sim.
 
-Three things this survey measured are worth stating before the reader commits to 27,000 words. The
-first is that papers disagree with their own released code. Sixty-two of the 112 method rows
-released code that could be read against the paper, 38 of those record a discrepancy, and nine are
-contradictions where the shipped code states a different objective from the published one. The
-sharpest case is \cite{physhoi_2023}. Its \texttt{compute\_humanoid\_reward} hardcodes the object rotation and
+Three things this survey measured are worth stating before the reader commits to 27,000 words.
+Papers disagree with their own released code. Sixty-two of the 112 method rows released code that
+could be read against the paper, 38 of those record a discrepancy, and nine are contradictions
+where the shipped code states a different objective from the published one. The sharpest case is
+\cite{physhoi_2023}. Its \texttt{compute\_humanoid\_reward} hardcodes the object rotation and
 rotation-velocity errors to zero, with the real computation commented out beside them, while the
 reward table in its own paper lists weights of 0.1 and 0.01 for exactly those terms on GRAB. Its
 position-only success criterion could not have caught that, and its headline 95.4 percent is cited
@@ -54,101 +55,93 @@ were withdrawn under adversarial review and recorded beside the charge.
   \centering
   \IfFileExists{figs/fig_codegap.tex}{\resizebox{\columnwidth}{!}{\input{figs/fig_codegap}}}{%
     \framebox[0.95\columnwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_codegap.tex pending}}}
-  \caption{Papers disagree with their own released code, and most of the disagreements are this
-  survey's own limits rather than theirs. Of the \fnRows{} method rows, \fnCode{} released code that
-  could be read against the paper and \fnDisagree{} of those record a disagreement. The lower bar
-  reopens those \fnDisagree{} at their own scale: \fnKept{} are contradictions, where the shipped
-  code states a different objective from the published one, and \fnOtherClass{} fall in four other
-  classes, most of them a limit of this survey's own parse or a component a repository never
-  shipped. Those \fnOtherClass{} are classified rather than retracted. Separately, eight
-  accusations an earlier draft made were withdrawn under adversarial review, each recorded in the
-  accused row's \texttt{mismatch\_review} field beside the charge.
-  Section~\ref{sec:train:code} classifies all \fnDisagree{} and names them.}
+  \caption{Papers disagree with their own released code, and the funnel ends at the \fnKept{} the survey stands behind as contradictions. Section~\ref{sec:train:code} classifies all \fnDisagree{} and names them.}
   \label{fig:codegap}
 \end{figure}
 
-The second is that the quantity most specific to a hand is the one closed-loop policies do not
-record. Eleven of the 96 method rows whose notes settle the question address interpenetration at all,
-seven of the eleven do it outside a closed-loop policy in a grasp synthesiser, a trajectory optimiser
-or a contact model, and we found none that reports a penetration number for its own trained policy's
-rollouts. The claim is about learned closed-loop control and not about the field. Grasp synthesis and
-hand-object reconstruction have reported penetration depth and intersection volume as comparative
-columns for years, and four rows of this corpus do it: OakInk \cite{oakink_2022} scores a dataset
-split on penetration depth, solid intersection volume and simulation displacement, BiDexGrasp
-\cite{bidexgrasp_2026} prints penetration depth beside a prior method's, BimanGrasp
-\cite{bimangrasp_2024} fails any grasp whose total penetration exceeds 1.5 mm, and TopoRetarget
-\cite{toporetarget_2026} reports a maximum penetration and a share of frames past 2 mm against a
-baseline retargeter. Every one of those numbers scores a pose or a reference trajectory rather than
-the behaviour a trained policy produced, and it is the rollout that is missing. The
-obstacle is not the engines. NVIDIA's own IsaacGymEnvs repository already computes a
+The quantity most specific to a hand is the one closed-loop policies do not record. Eleven of the
+96 method rows whose notes settle the question address interpenetration at all, seven of the
+eleven do it outside a closed-loop policy in a grasp synthesiser, a trajectory optimiser or a
+contact model, and we found none that reports a penetration number for its own trained policy's
+rollouts. The claim is about learned closed-loop control and not about the field. Grasp synthesis
+and hand-object reconstruction have reported penetration depth and intersection volume as
+comparative columns for years, and four rows of this corpus do it: OakInk \cite{oakink_2022}
+scores a dataset split on penetration depth, solid intersection volume and simulation
+displacement, BiDexGrasp \cite{bidexgrasp_2026} prints penetration depth beside a prior method's,
+BimanGrasp \cite{bimangrasp_2024} fails any grasp whose total penetration exceeds 1.5 mm, and
+TopoRetarget \cite{toporetarget_2026} reports a maximum penetration and a share of frames past 2
+mm against a baseline retargeter. Every one of those numbers scores a pose or a reference
+trajectory rather than the behaviour a trained policy produced, and it is the rollout that is
+missing. The obstacle is not the engines. NVIDIA's own IsaacGymEnvs repository already computes a
 per-environment maximum interpenetration depth in Warp and gates the policy update on a 1 mm
 threshold. Section~\ref{sec:sim:engines} has the file and the lines.
 
-The third is that hardware and published work have come apart. 19 of the 33 hand rows in
-Table~\ref{tab:hands-available} and Table~\ref{tab:hands-announced}
-appear in no method row, and 8 of those can be bought today or built from
-published designs. Thirty-five method rows run on the Allegro, whose weight, joint torque, payload
-and price have no reachable source, because its product page returns HTTP 404 and everything
-Table~\ref{tab:hands-available} confirms about it comes from its ROS driver.
+Hardware and published work have come apart. 19 of the 33 hand rows in
+Table~\ref{tab:hands-available} and Table~\ref{tab:hands-announced} appear in no method row, and 8
+of those can be bought today or built from published designs. Thirty-five method rows run on the
+Allegro, whose weight, joint torque, payload and price have no reachable source, because its
+product page returns HTTP 404 and everything Table~\ref{tab:hands-available} confirms about it
+comes from its ROS driver.
 
 None of those three findings is a first, and the audit behind the first of them is not a new idea.
 Collberg and Proebsting \cite{collberg_repeatability_2016} examined 601 papers in computer systems
 research for whether the code behind them could be obtained and built at all. Xu et al.
-\cite{biocon_2026} align 48 bioinformatics projects with their publications at sentence-to-function
-granularity under expert annotation, and SciCoQA \cite{scicoqa_2026} collects 92 real paper-code
-discrepancies, mined from issue trackers and reproducibility reports, into a benchmark for detecting
-such discrepancies automatically. In reinforcement learning the phenomenon itself is a known result.
-Engstrom et al. \cite{engstrom_implementation_matters_2020} show that code-level optimisations
-present only in the implementation account for most of PPO's reported gain over TRPO, and Meta-World+
-\cite{metaworld_plus_2025} finds undocumented changes accumulated across one benchmark's own
-versions, which make comparisons between those versions unfair. Both establish it on a single
-codebase. The closest relative to the audit here is Knox et al. \cite{knox_reward_misdesign_2023},
-who review nineteen reinforcement-learning publications on autonomous driving, characterise the
-reward functions of ten of them exhaustively in a standard form, apply eight sanity checks and report
+\cite{biocon_2026} align 48 bioinformatics projects with their publications at
+sentence-to-function granularity under expert annotation, and SciCoQA \cite{scicoqa_2026} collects
+92 real paper-code discrepancies, mined from issue trackers and reproducibility reports, into a
+benchmark for detecting such discrepancies automatically. In reinforcement learning the phenomenon
+itself is a known result. Engstrom et al. \cite{engstrom_implementation_matters_2020} show that
+code-level optimisations present only in the implementation account for most of PPO's reported
+gain over TRPO, and Meta-World+ \cite{metaworld_plus_2025} finds undocumented changes accumulated
+across one benchmark's own versions, which make comparisons between those versions unfair. Both
+establish it on a single codebase.
+
+The closest relative to the audit here is Knox et al. \cite{knox_reward_misdesign_2023}, who
+review nineteen reinforcement-learning publications on autonomous driving, characterise the reward
+functions of ten of them exhaustively in a standard form, apply eight sanity checks and report
 near-universal flaws in reward design. Their ground truth for what each reward was is the authors,
-obtained through correspondence with them rather than by reading a released repository, and what they
-establish is that published reward descriptions are incomplete: one of the ten described its reward,
-discount factor, termination conditions and timestep thoroughly. Reading the code instead needs no
-correspondence and supports a different charge, which is that where code exists it sometimes
-contradicts the description. Raff \cite{raff_reproducibility_2019} took the opposite ground truth on
-purpose, reimplementing 255 papers from their text alone and never opening the authors' code, which
-is what makes the choice of arbiter a position rather than an accident.
+obtained through correspondence with them rather than by reading a released repository, and what
+they establish is that published reward descriptions are incomplete: one of the ten described its
+reward, discount factor, termination conditions and timestep thoroughly. Reading the code instead
+needs no correspondence and supports a different charge, which is that where code exists it
+sometimes contradicts the description. Raff \cite{raff_reproducibility_2019} took the opposite
+ground truth on purpose, reimplementing 255 papers from their text alone and never opening the
+authors' code, which is what makes the choice of arbiter a position rather than an accident.
 
 So the claim here is narrow. We are aware of no prior work in robotics, and none in dexterous
-manipulation, that reads a field's released reward implementations against the rewards its own papers
-describe. Those seven works are cited from outside this corpus and enter none of its counts.
-The exposure of the claim belongs beside the count above: the evidence is a repository at a fetched
-commit, each hash recorded in \texttt{corpus/code\_manifest.json}, and a repository at a commit is
-evidence about that repository rather than about the run that produced a paper's numbers, because the
-commit may postdate, precede or diverge from it. Hora \cite{hora_2022} states the problem in its own
-README, which directs a reader to tag v0.0.1 and not to the commit parsed here to reproduce the
-published numbers. Every accusation this survey has withdrawn, eight of them so far, is recorded in
-the accused row for the same reason: the withdrawals are the evidence that the charges left standing
-were checked rather than counted.
+manipulation, that reads a field's released reward implementations against the rewards its own
+papers describe. Those seven works are cited from outside this corpus and enter none of its
+counts. The exposure of the claim belongs beside the count above: the evidence is a repository at
+a fetched commit, every hash recorded in the code manifest, and a repository at a commit is
+evidence about that repository rather than about the run that produced a paper's numbers, because
+the commit may postdate, precede or diverge from it. Hora \cite{hora_2022} states the problem in
+its own README, which directs a reader to tag v0.0.1 and not to the commit parsed here to
+reproduce the published numbers. Every accusation this survey has withdrawn, eight of them so far,
+is recorded in the accused row for the same reason: the withdrawals are the evidence that the
+charges left standing were checked rather than counted.
 
 Fourteen corpus entries are themselves surveys or engine-comparison studies. Appendix D says what
-each covers, on one set of columns tabulated in the repository. Four of the fourteen could
-not be obtained, or were fetched too late to read, and are entered as such. Two of the three things
-this survey adds are columns none of the fourteen fills. The first is
-Table~\ref{tab:simulators}, which takes the engines \cite{nine_physics_engines_review_2024} scored
-on documentation and usability and adds contact model, solver, iteration count, default timestep and
-penetration exposure, conditioned on what a hand does to a solver. Erez et al.
-\cite{physics_engine_comparison_2015} and Le Lidec et al. \cite{contact_models_comparison_2023} do
-measure engines, on five engines and on four contact formulations, and neither surveys the field
-those engines are used in. The second is two hands on one object as its own problem, which none of
-the four field surveys gives more than a subsection.
+each covers, on one set of columns tabulated in the repository. Four of the fourteen could not be
+obtained, or were fetched too late to read, and are entered as such. Two of the three things this
+survey adds are columns none of the fourteen fills. One is Table~\ref{tab:simulators}, which takes
+the engines \cite{nine_physics_engines_review_2024} scored on documentation and usability and adds
+contact model, solver, iteration count, default timestep and penetration exposure, conditioned on
+what a hand does to a solver. Erez et al. \cite{physics_engine_comparison_2015} and Le Lidec et
+al. \cite{contact_models_comparison_2023} do measure engines, on five engines and on four contact
+formulations, and neither surveys the field those engines are used in. The other is two hands on
+one object as its own problem, which none of the four field surveys gives more than a subsection.
 
-The third is the penetration measurement, on an axis a predecessor had already named. Zhao et al.
-\cite{zhao_dexhand_survey_2026} state in their Sec.~IV-C that the field assesses ``at least two
-layers of performance: the quality of grasps or poses prior to execution, and the performance of
-policies or generators during downstream execution'', and names ``physical plausibility, including
-penetration'' as the most common criterion for the first layer. That is the reference-versus-rollout
-split, named before this survey measured it, and the idea that contact quality belongs on the
-evaluation axis is Zhao's. What Sec.~IV-C does not give is a measurement method or a count, and this
-survey supplies those two. It does not supply a threshold. The 2 mm figure the field uses is taken
-from \cite{toporetarget_2026} with no independent justification, the captured human grasps in
-\cite{grab_2020} sit above it at 3.25 mm, and Section 7.7 states plainly that 2 mm is a simulator
-convention rather than a physical bound.
+The third addition is the penetration measurement, on an axis a predecessor had already named.
+Zhao et al. \cite{zhao_dexhand_survey_2026} state in their Sec.~IV-C that the field assesses ``at
+least two layers of performance: the quality of grasps or poses prior to execution, and the
+performance of policies or generators during downstream execution'', and names ``physical
+plausibility, including penetration'' as the most common criterion for the first layer. That is
+the reference-versus-rollout split, named before this survey measured it, and the idea that
+contact quality belongs on the evaluation axis is Zhao's. What Sec.~IV-C does not give is a
+measurement method or a count, and this survey supplies those two. It does not supply a threshold.
+The 2 mm figure the field uses is taken from \cite{toporetarget_2026} with no independent
+justification, the captured human grasps in \cite{grab_2020} sit above it at 3.25 mm, and Section
+7.7 states plainly that 2 mm is a simulator convention rather than a physical bound.
 
 The scope is single-hand and bimanual multi-fingered manipulation. Parallel-jaw manipulation
 enters only as a comparison, which matters because 12 of the 112 method rows name a parallel-jaw
@@ -156,8 +149,8 @@ gripper among their own embodiments. Locomotion is excluded. Prosthetics are exc
 a hand crosses over into robot use, as the Psyonic Ability Hand does. The corpus holds 221
 bibliography entries, of which 218 carry a structured row read from a note. Those 218 rows are 112
 method papers, 33 hands, 15 simulators, 15 datasets, 14 benchmarks, 14 surveys, 8 tactile sensors
-and 7 evaluation protocols. ``Method row'' throughout means one of the 112, and every headline count
-in this survey has one of those eight classes as its denominator.
+and 7 evaluation protocols. ``Method row'' throughout means one of the 112, and every headline
+count in this survey has one of those eight classes as its denominator.
 
 Two limits apply to every number here. This is a corpus of the learned era, which is a selection
 effect and not a judgement: 138 of the 221 entries are dated 2024 or later, 16 predate 2018, and
@@ -169,16 +162,18 @@ statistic is also a floor rather than a rate, because a value this survey failed
 indistinguishable from a value the paper never reported, and every such miss converts a reporting
 paper into a silent one.
 
-\figurename~\ref{fig:field} puts the field on one page. Section 2 sets out the task families and what makes each
-hard. Section 3 covers hands, their makers, and the gap between what is sold and what is run.
-Section 4 covers simulators and contact models. Section 5 covers how policies are trained. Section
-6 covers bimanual work as its own problem. Section 7 proposes an evaluation frame rather than a
-leaderboard, and is the longest section. Section 8 states the gaps as claims with their evidence.
-Section 9 says what to do about them, addressed to someone publishing, running experiments or
-buying a hand. Appendix A is the method, and says where the tabulation this survey is built on
-lives, which is the repository rather than these pages. Appendix B carries the three tables
-Sections 3 and 4 read cells out of, Appendix C is the reward extraction, and Appendix D is the
-comparison with the existing surveys.
+\figurename~\ref{fig:field} puts the field on one page. What follows works outward from the task:
+the six families and what makes each hard, then the hands and their makers, then the simulators
+and the contact models underneath them, then training, then two hands on one object as a problem
+of its own. Section~\ref{sec:evaluation} is the longest, and it proposes an evaluation frame
+rather than a leaderboard. Section~\ref{sec:gaps} states the gaps as claims with their evidence,
+and Section~\ref{sec:conclusion} says what to do about them, addressed to someone publishing,
+running experiments or buying a hand. Appendix~\ref{app:method} is the method, and says where the
+tabulation this survey is built on lives, which is the repository rather than these pages;
+Appendix~\ref{app:tables} carries the three tables Sections~\ref{sec:hands}
+and~\ref{sec:simulators} read cells out of; Appendix~\ref{app:rewards} prints every
+paper-against-code disagreement in full; and Appendix~\ref{app:surveys} sets this survey beside
+the fourteen that precede it.
 
 % ---------------------------------------------------------------------------
 % Figure 1, the field on one page. Full width: five columns of nodes with the

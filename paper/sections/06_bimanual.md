@@ -1,6 +1,6 @@
 # 6. Bimanual dexterous manipulation
 
-A warning first. Fifty-three corpus method rows record `bimanual: true`, and the flag says only
+A warning first. Fifty-three corpus method rows carry the two-hand flag, and that flag says only
 that the robot has two end effectors. Thirteen of the 53 put no dexterous hand on the robot at
 all. `aloha_act_2023`, `rdt1b_2024`, `egomimic_2024`, `h_rdt_2025` and `umi_2024` are parallel-jaw
 throughout; `pi0_2024`, `pi05_2025`, `pistar06_2025` and `diffusion_policy_2023` name no hand and
@@ -20,10 +20,10 @@ open-loop from the Vision Pro and sit outside its 19-DoF policy; `okami_2024`, w
 pipeline is open-loop retargeting with a learned policy only in a side experiment;
 `dexdeform_2023`, a skill model refined by trajectory optimisation rather than a closed-loop
 controller; and `omnigrasp_2024`, a simulated human body with no bimanual task.
-`dexterous_handover_2025` never enters, because its row records `bimanual: no`. Benchmarks and
-datasets are outside the 28 by class, `bidexhands_2022`, `bench2dex_2026` and `robopianist_2023`
-being benchmarks and `rp1m_2024` and `humanoidgen_2025` datasets; they are quoted here as evidence
-and never counted. Every paper below runs two multi-fingered hands unless said otherwise.
+`dexterous_handover_2025` never enters, because its row records one hand. Benchmarks and datasets
+are outside the 28 by class, `bidexhands_2022`, `bench2dex_2026` and `robopianist_2023` being
+benchmarks and `rp1m_2024` and `humanoidgen_2025` datasets; they are quoted here as evidence and
+never counted. Every paper below runs two multi-fingered hands unless said otherwise.
 
 ## 6.1 Why two hands is not twice one hand
 
@@ -69,9 +69,9 @@ demonstration pipelines `bidex_teleop_2024`, `dexcap_2024`, `dexwild_2025`, `dex
 `hato_visuotactile_2024` and `humanoid_policy_human_policy_2025`; and the generalist policies
 `gr_dexter_2025`, `groot_n1_2025`, `dexora_2026`, `metis_2025` and `egoscale_2026`. In every one
 of them a single network takes a concatenated two-hand observation and emits a two-hand action.
-Two rows do not say which they are, `bunny_visionpro_2024` and `deximit_2026`, whose notes describe
-the rig and the data pipeline but never the policy's own decomposition. The concentration is not
-the outcome of a comparison that was won.
+Two rows do not say which they are, `bunny_visionpro_2024` and `deximit_2026`, whose notes
+describe the rig and the data pipeline but never the policy's own decomposition. The concentration
+is not the outcome of a comparison that was won.
 
 Four of the 28 give each hand its own network, and the two papers that compare the choice
 disagree. `bidexhands_2022`, a benchmark row and so outside the 28, ships the MARL baselines and
@@ -105,9 +105,9 @@ Two purpose-built bimanual dexterous suites exist in the corpus, four years apar
 `bidexhands_2022` is 20 tasks on two Shadow Hands in Isaac Gym, ordered by the infant age at which
 humans acquire the skill, at 2048 environments and a reported 30,000-plus FPS. Its measurement
 discipline is weaker than its coverage. It reports reward and normalised score, never a success
-rate. The only success flag in the code is `goal_dist < 0.03`, a 3 cm object-to-goal test that
-ignores orientation and exists only in the four catching tasks. Any success rate later work
-attributes to Bi-DexHands comes from that flag or its own definition.
+rate. Its only success flag in code tests the object-to-goal distance against 3 cm, which ignores
+orientation and exists only in the four catching tasks. Any success rate later work attributes to
+Bi-DexHands comes from that flag or its own definition.
 
 `bench2dex_2026` is the more instrumented of the two. It runs 26 long-horizon tasks in Isaac Lab
 across 12 arm-and-hand embodiments, with roughly 1.3K teleoperated demonstrations in eight
@@ -154,8 +154,8 @@ physics simulation which exhibits no interpenetration."
 
 Comparability. `bimangrasp_2024` reports 54.03 percent success in Isaac Gym at friction 3.
 `bidexgrasp_2026` re-runs the same grasps in MuJoCo at friction 0.6 and gets 26.80 percent, at
-1.52 cm penetration depth. Neither number transfers, and section 5.4's re-implementation result is the same
-lesson on the training side.
+1.52 cm penetration depth. Neither number transfers, and section 5.4's re-implementation result is
+the same lesson on the training side.
 
 ## 6.5 Handover and in-hand transfer
 
@@ -172,10 +172,10 @@ regulariser toward a policy pretrained on human throws, which constrains style a
 The third case is weaker still. In `dexterous_handover_2025` only the receiver is learned. The
 giver is a UR5e with an Allegro hand that "holds the object without moving during the whole
 episode." There is one agent, one reward and no second policy, its row in Table 7 accordingly
-records `bimanual: no`, and it is one of the rows the 28 excludes. The 94 percent often attached to this paper needs its conditions. It is
-Total Success, which counts "Indetermination" cases where the simulator failed to resolve
-collisions and the object clipped through the giver's hand, on the short prism, in simulation,
-over 100 episodes, with no real robot in the paper.
+records one hand, and it is one of the rows the 28 excludes. The 94 percent often attached to this
+paper needs its conditions. It is Total Success, which counts "Indetermination" cases where the
+simulator failed to resolve collisions and the object clipped through the giver's hand, on the
+short prism, in simulation, over 100 episodes, with no real robot in the paper.
 
 Nothing in the handover literature measures contact quality. Contact appears only as a positive
 signal, a boolean per-phalange touch in `dexterous_handover_2025` and a boolean contact reward in
