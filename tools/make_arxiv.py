@@ -426,12 +426,21 @@ def _compile(tree: Path, texinputs: str | None) -> dict:
         # fell back to the whole document and counted every inline citation instead. It happened
         # to return the right number, which is how a bug like that survives. The count is checked
         # against the .bbl's own \bibitem count in lint(), and against 1..N being contiguous here.
-        heads = list(re.finditer(r"(?mi)^\s*R\s*EFERENCES\s*$", txt))
-        if not heads:
+        # The tail is taken by page and not by character offset. pdftotext reads a two-column page
+        # in its own order, so on the page where the list starts the heading can be extracted after
+        # some of the entries beside it: cutting at the heading's offset dropped the 32 entries that
+        # happened to precede it and reported a bibliography of 179 for a complete list of 211. The
+        # reference list runs from the page carrying the heading to the end of the document, so the
+        # pages from that one on are what is counted. Distinct numbers are counted, so a bracketed
+        # citation on the same page cannot inflate the total.
+        pages = txt.split("\f")
+        head_page = next((i for i, pg in enumerate(pages)
+                          if re.search(r"(?mi)^\s*R\s*EFERENCES\s*$", pg)), None)
+        if head_page is None:
             out["bibliography_heading_found"] = False
         else:
             out["bibliography_heading_found"] = True
-            tail = txt[heads[-1].end():]
+            tail = "\f".join(pages[head_page:])
             nums = [int(m.group(1)) for m in re.finditer(r"(?m)^\[(\d{1,4})\]", tail)]
             out["bibliography_entries"] = len(set(nums))
             out["bibliography_contiguous"] = bool(nums) and sorted(set(nums)) == list(
@@ -649,10 +658,18 @@ principle. Work down the list against the package in this directory and the form
    not downgrade or change a licence after announcement. Read the radio button, then read it
    again.
 
-4. **The corpus DOI is cited, if it exists yet.** If the Zenodo deposit is live, its DOI belongs
-   in the comments field and in the paper (`sections/appendix_a_method.tex` promises it). If it
-   is not live, leave the promise and do not paste a DOI that resolves to a draft: a dead DOI in
-   a survey about checkable artefacts is worse than no DOI.
+4. **If the repository and its persistent identifier exist by now, substitute them everywhere the
+   paper says they do not.** As posted, the paper offers the nine named groups one correction
+   route, the author's address, and states in four places that the corpus is available from the
+   author and is not yet deposited: the author block and its footnote in `main.tex`, the end of
+   Section V-F in `sections/05_training.tex`, the deposit paragraph in
+   `sections/appendix_a_method.tex`, and the pointer to the unsent letters in
+   `sections/appendix_c_rewards.tex`. If the repository is public and the deposit is live at upload
+   time, put the URL and the identifier in those four places, in the comments field, and in the
+   markdown edition's byline in `tools/assemble.py`, and drop the matching pins in
+   `tools/check_numbers.py` in the same commit. If either is still missing, change nothing: a link
+   or a DOI that resolves to a draft, in a survey about checkable artefacts, is worse than the
+   honest sentence it replaced.
 
 5. **Every figure renders in arXiv's preview.** Open the generated PDF arXiv shows you before
    announcement and look at all {pages} pages, not the first two. The paper has {num(n_figs)}

@@ -2,6 +2,10 @@
 
 Three things this script is responsible for beyond concatenation.
 
+The byline. The markdown edition carries the same author and address as the LaTeX edition,
+because Section 5.6 offers nine named research groups a correction route and that route is the
+address: an edition without it strands the disclosure.
+
 The front-matter count. "Works" is not one number. The corpus holds one count of bibliography
 entries, a smaller count of entries that were read into a structured row, and a smaller count
 again of entries with a parsed source on disk. The header states the first two and names the
@@ -27,6 +31,9 @@ CLASS_LABELS = [("method", "method papers"), ("hand", "hands"), ("simulator", "s
 HEAD = """# Dexterous Manipulation, Single-Hand and Bimanual
 
 ## Machines, simulators, and how policies are trained
+
+Luai Abuelsamen, `luai_abuelsamen@berkeley.edu`. Corrections go to that address, which is the
+route section 5.6 names; the corpus is available from the author and is not yet deposited.
 
 A survey of %d bibliography entries, %d of which carry a structured row read from a note: %s.
 "Method row" throughout means one of the %d, and every headline count here has one of those eight

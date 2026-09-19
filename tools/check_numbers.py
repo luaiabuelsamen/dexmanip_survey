@@ -76,6 +76,11 @@ FACTS = {
  "internal_inconsistency": cnt(lambda r: r.get("mismatch_class") == "internal-inconsistency"),
  "pen_settled": cnt(lambda r: r.get("penetration") is not None),
  "pen_handled": cnt(lambda r: r.get("penetration") in ("penalised", "measured", "constrained")),
+ # The population of the hand audit in reviews/penetration_audit.md. Three sentences in two
+ # sections print it, and the audit's 95 percent bound is computed against it, so a corpus edit
+ # that moves it has to break here: the sample would be drawn from a different population and the
+ # bound would be arithmetic about the wrong denominator.
+ "pen_not_addressed": cnt(lambda r: r.get("penetration") == "not addressed"),
  "real_robot": cnt(lambda r: r.get("real_robot") is True),
  "states_trials": cnt(lambda r: r.get("real_trials") is not None),
  "states_criterion": cnt(lambda r: bool(r.get("success_criterion"))),
@@ -114,6 +119,27 @@ FACTS = {
                           and r.get("release_status") in ("sold", "open-source"), ROWS),
  "bimanual_learned": len(BIMANUAL_28),
 }
+
+# --- the reference list, against the corpus it is drawn from -------------------------------------
+# Two different quantities used to be printed as though they were one: the corpus holds 221 entries
+# and the typeset reference list prints the subset some sentence, table or figure actually cites, so
+# a reader who counts the list gets a smaller number than the survey's own denominator. Appendix A
+# now states both and reconciles them, and these are the numbers it states, recounted here from
+# corpus/bib.json and from every file the LaTeX edition inputs.
+def _bib_counts():
+    bib = json.loads((R / "corpus/bib.json").read_text())
+    keys = {e["key"] for e in bib}
+    related = {e["key"] for e in bib if e.get("topic") == "related"}
+    corpus = keys - related
+    cited = set()
+    for pat in ("tex/main.tex", "tex/sections/*.tex", "tex/tables/*.tex", "tex/figs/*.tex"):
+        for f in sorted(R.glob(pat)):
+            for m in re.finditer(r"\\cite(?:\[[^\]]*\])?\{([^}]*)\}", f.read_text()):
+                cited |= {k.strip() for k in m.group(1).split(",") if k.strip()}
+    return {"bib_entries": len(corpus), "bib_related": len(related),
+            "bib_cited_corpus": len(corpus & cited), "bib_uncited": len(corpus - cited),
+            "bib_printed": len((corpus | related) & cited)}
+FACTS.update(_bib_counts())
 FACTS.update({k: len(v) for k, v in BI_ARCH.items()})
 
 _U = ("zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen "
@@ -160,6 +186,13 @@ CLAIMS = [
  ("pen_handled", "pen_settled", P(rf"{NUM} of the {NUM} method rows whose notes settle")),
  ("pen_handled", "pen_settled", P(rf"{NUM} of the {NUM} rows whose contact handling the note settled")),
  ("pen_handled", P(rf"{NUM} method rows handle interpenetration")),
+ # The hand audit of the null. Its population, its sample against that population, and the bound
+ # it puts on the rows a sample of 25 could have missed.
+ ("pen_not_addressed", P(rf"The {NUM} method rows whose contact-handling field records")),
+ ("pen_not_addressed", P(rf"25 of the {NUM}, drawn at random")),
+ ("pen_not_addressed", P(rf"one at 8 of the {NUM} at 95 percent")),
+ ("pen_not_addressed", P(rf"is therefore 8 of the {NUM},")),
+ ("pen_not_addressed", P(rf"Twenty-five of the {NUM}, 29 percent")),
  # --- coverage, after the section 7.1 null audit -------------------------------------------------
  ("states_trials", P(rf"only {NUM} state how many real trials")),
  ("states_trials", P(rf"{NUM} state how many real trials produced")),
@@ -251,6 +284,13 @@ CLAIMS = [
  ("arch_per_hand", "bimanual_learned", P(rf"{NUM} of the {NUM} give each hand its own network")),
  ("arch_leader_follower", "bimanual_learned", P(rf"{NUM} of the {NUM} assigns? explicit leader")),
  ("arch_unstated", P(rf"{NUM} rows do not say which they are")),
+ # --- the reference list against the corpus, the sentence Appendix A reconciles them in -----------
+ ("bib_printed", P(rf"[Ii]t prints {NUM} entries")),
+ ("bib_cited_corpus", P(rf"the {NUM} corpus entries that some sentence")),
+ ("bib_uncited", P(rf"The other {NUM} corpus entries")),
+ ("bib_related", P(rf"the {NUM} prior-work entries from outside the corpus")),
+ ("bib_printed", P(rf"reference list should get {NUM}")),
+ ("bib_entries", P(rf"counting the corpus should get {NUM}")),
 ]
 
 # --- reconciliations that are not quantities -----------------------------------------------------
@@ -288,7 +328,9 @@ REQUIRED_IN = {
    (r"reference-versus-rollout", "section 5.4 is the frame's clearest instance"),
    (r"were\s+not\s+contacted\s+before\s+this\s+survey\s+was\s+posted",
     "the nine were not written to"),
-   (r"in\s+`outreach/`\s+in\s+the\s+repository,\s+unsent",
+   # The pin is on the fact, not the sentence: the letters are somewhere a reader can reach and
+   # they are unsent. Two words between those, and the wording may move.
+   (r"`outreach/`[^.]{0,120}unsent",
     "the letters are in the repository, and named"),
    (r"not\s+the\s+code\s+that\s+produced\s+a\s+paper's\s+numbers",
     "a fetched commit may postdate, precede or diverge from the code behind the numbers"),
@@ -299,7 +341,7 @@ REQUIRED_IN = {
  "tex/sections/05_training.tex": [
    (r"were\s+not\s+contacted\s+before\s+this\s+survey\s+was\s+posted",
     "the nine were not written to"),
-   (r"in\s+the\s+repository,\s+unsent",
+   (r"outreach/\}[^.]{0,120}unsent",
     "the letters are in the repository, and named"),
    (r"not\s+the\s+code\s+that\s+produced\s+a\s+paper's\s+numbers",
     "a fetched commit may postdate, precede or diverge from the code behind the numbers"),
@@ -323,6 +365,234 @@ def text_problems(text):
             if not re.search(pat, body):
                 out.append(f"{rel} no longer carries /{pat}/ ({why})")
     return out
+
+# --- the posting blockers, pinned ----------------------------------------------------------------
+# Four things had to become true before a survey that names nine research groups could be posted
+# without writing to any of them, and each is one edit from being untrue again.
+#
+#   1  The correction route the disclosure offers exists on the page. That is an address in the
+#      author block of both editions, and no promise of a repository, an issue tracker or a DOI
+#      that nothing resolves to: the corpus is not deposited yet and the paper says so.
+#   2  The running head does not call the paper a draft and does not re-date itself per build.
+#   3  The abstract carries the scope and the non-contact clause, in one paragraph.
+#   4  The evidence table prints the confidence its rows record, and the funnel's in-graphic label
+#      says only what is true of all nine.
+#
+# NOT_IN is prose a file must no longer carry; MUST_IN is prose it must. Both are paths rather than
+# editions, because half of these live in a generator's output or in the preamble and never reach
+# the assembled prose the rest of this checker reads.
+# The address as a pattern, because LaTeX writes the underscore escaped and markdown does not.
+AUTHOR_EMAIL = r"luai\\?_abuelsamen@berkeley\.edu"
+CORRECTION_ROUTE = r"address\s+in\s+the\s+author\s+block"
+
+NOT_IN = {
+ "tex/main.tex": [
+   (r"Survey draft", "a posted paper does not call itself a draft on 20 of its 41 pages"),
+   (r"markboth\{[^}]*\\today", r"a running head with \today re-dates the paper on every rebuild"),
+ ],
+ "tex/sections/05_training.tex": [
+   (r"issue tracker of the deposited",
+    "there is no deposited corpus and no tracker to open an issue on"),
+ ],
+ "paper/sections/05_training.md": [
+   (r"issue tracker of the deposited",
+    "there is no deposited corpus and no tracker to open an issue on"),
+ ],
+ "tex/sections/appendix_a_method.tex": [
+   (r"The repository is public",
+    "it is not deposited yet, which is why the paper prints no link to it"),
+ ],
+ "tex/figs/fig_codegap.tex": [
+   (r"states a different objective",
+    "too strong for DeXtreme, where the difference is one weight of -0.25 against -0.2"),
+ ],
+ "tex/sections/04_simulators.tex": [
+   (r"\(Appendix\)", r"a bare (Appendix) reads as a broken \ref to one of this paper's five"),
+ ],
+ "paper/sections/04_simulators.md": [
+   (r"\(Appendix\)", "a bare (Appendix) reads as a reference to one of this paper's own"),
+ ],
+ # The topic sentence of section VII-B was moved and also left behind, verbatim, 24 pages apart.
+ # Section VII-B is where it belongs; page 1 introduces the same claim in different words.
+ "tex/sections/01_introduction.tex": [
+   (r"quantity most specific to a hand",
+    "this is section VII-B's topic sentence and page 1 had a verbatim copy of it"),
+ ],
+ "paper/sections/01_introduction.md": [
+   (r"quantity most specific to a hand",
+    "this is section 7.2's topic sentence and section 1 had a verbatim copy of it"),
+ ],
+ "tex/sections/appendix_c_rewards.tex": [
+   (r"before author contact",
+    "no author was contacted, so a review note cannot date itself against contact"),
+ ],
+ "corpus/rows/penspin_2024.json": [(r"before author contact", "no author was contacted")],
+ "corpus/rows/omnih2o_2024.json": [(r"before author contact", "no author was contacted")],
+}
+
+MUST_IN = {
+ "tex/main.tex": [
+   (AUTHOR_EMAIL, "the route the disclosure names is an address in the author block"),
+ ],
+ "tools/assemble.py": [
+   (AUTHOR_EMAIL, "the markdown edition's front matter carries the same address"),
+ ],
+ "tex/sections/05_training.tex": [
+   (CORRECTION_ROUTE, "the correction route names something that exists on the page"),
+ ],
+ "paper/sections/05_training.md": [
+   (CORRECTION_ROUTE, "the correction route names something that exists on the page"),
+ ],
+ "tex/figs/fig_codegap.tex": [
+   (r"a different value or term", "the label says what is true of all nine"),
+ ],
+ "tex/tables/table8_matrix.tex": [
+   (r"ast\$ matched on its full title", "the mark has a key on the page it is printed on"),
+ ],
+ "tex/sections/07_evaluation.tex": [
+   (r"an asterisk in Table", "the prose names the mark the table prints"),
+ ],
+ "paper/sections/07_evaluation.md": [
+   (r"&#10035; in Table 9", "the prose names the mark the table prints"),
+ ],
+}
+
+
+def _printed(rel, body):
+    """What a file actually sets. A LaTeX comment is a note to whoever edits the file, so a pin on
+    what the paper says must not be satisfied, or broken, by a comment about it."""
+    if rel.endswith((".tex", ".bbl")):
+        return re.sub(r"(?m)(?<!\\)%.*$", "", body)
+    return body
+
+
+def file_pin_problems():
+    out = []
+    for rel, rules in sorted(NOT_IN.items()):
+        f = R / rel
+        if not f.exists():
+            out.append(f"{rel} is missing")
+            continue
+        body = _printed(rel, f.read_text())
+        for pat, why in rules:
+            m = re.search(pat, body)
+            if m:
+                out.append(f"{rel} still carries {m.group(0)!r} ({why})")
+    for rel, rules in sorted(MUST_IN.items()):
+        f = R / rel
+        if not f.exists():
+            out.append(f"{rel} is missing")
+            continue
+        body = _printed(rel, f.read_text())
+        for pat, why in rules:
+            if not re.search(pat, body):
+                out.append(f"{rel} no longer carries /{pat}/ ({why})")
+    return out
+
+
+def abstract_problems():
+    """The abstract is quoted alone, so its scope and its disclosure are checked apart from the body.
+
+    Three things: it stays one paragraph and about 200 words, it scopes the penetration claim to
+    this corpus and to a policy's own rollouts in the conclusion's words rather than to nobody at
+    all, and it says in a clause that no author was contacted. Both editions hold the same prose,
+    which is also checked, because the LaTeX one is what gets submitted and the markdown one is what
+    gets read.
+    """
+    out = []
+    tex = re.sub(r"(?m)^%%.*$", "", (R / "tex/sections/abstract.tex").read_text()).strip()
+    md = (R / "paper/ABSTRACT.md").read_text()
+    md = re.sub(r"(?m)^##.*$", "", md).strip()
+    if " ".join(tex.split()) != " ".join(md.split()):
+        out.append("the two editions print different abstracts")
+    for name, body in (("latex", tex), ("markdown", md)):
+        n = len(body.split())
+        if n > 210:
+            out.append(f"the {name} abstract is {n} words, over the 200 it is held to")
+        if re.search(r"\n\s*\n", body):
+            out.append(f"the {name} abstract is more than one paragraph")
+        if re.search(r"Nobody\s+measures\s+interpenetration", body):
+            out.append(f"the {name} abstract still says nobody measures interpenetration, which is "
+                       "wider than the body: the claim is about this corpus and about a policy's "
+                       "own rollouts")
+        if not re.search(r"No\s+closed-loop\s+policy\s+in\s+the\s+corpus", body):
+            out.append(f"the {name} abstract no longer scopes the penetration claim to the corpus "
+                       "in the conclusion's words")
+        if not re.search(r"none\s+of\s+their\s+authors\s+was\s+contacted", body):
+            out.append(f"the {name} abstract makes the accusation without the clause that nobody "
+                       "was contacted before posting")
+    return out
+
+
+def confidence_problems():
+    """Every contradiction row's recorded confidence, against what each edition's table prints.
+
+    One of the nine is held at medium pending a code read this survey has not done. It used to print
+    flat among the other eight, with the qualification a column away in the prose and in Appendix C,
+    which is a qualification a screenshot of the table loses.
+    """
+    out = []
+    rows = sorted([r for r in M if r.get("mismatch_class") == "contradiction"],
+                  key=lambda r: r["key"])
+    editions = [("tex/tables/table10_codegap.tex", r"\hdr{conf.}"),
+                ("paper/tables/table11_codegap.md", "| confidence |")]
+    for rel, header in editions:
+        f = R / rel
+        if not f.exists():
+            out.append(f"{rel} is missing")
+            continue
+        body = f.read_text()
+        if header not in body:
+            out.append(f"{rel} prints the nine contradictions with no confidence column")
+            continue
+        for r in rows:
+            conf = r.get("mismatch_confidence")
+            if not conf:
+                out.append(f"`{r['key']}` is a contradiction with no mismatch_confidence")
+                continue
+            line = [l for l in body.splitlines() if re.search(r"\b" + re.escape(r["key"]) + r"\b", l)]
+            if not line:
+                out.append(f"{rel} prints no row for `{r['key']}`")
+            elif conf not in line[0]:
+                out.append(f"{rel} prints `{r['key']}` without its recorded confidence {conf!r}")
+    return out
+
+
+def cited_table_problems():
+    """A table number belonging to a cited paper, printed without saying whose it is.
+
+    This paper's own tables are roman, and four of the sources Section IV reads are IEEE-style
+    papers whose tables are roman too, so "Its Table II" collided head-on with Table II of this
+    paper. Renumbering them to arabic would have named a table none of those sources has, so the
+    numeral stays as the source prints it and the owner is named every time: "Table~II of \\cite{k}".
+    """
+    out = []
+    for f in sorted((R / "tex/sections").glob("*.tex")):
+        body = f.read_text()
+        for m in re.finditer(r"Table~([IVXLC]+)\b", body):
+            tail = body[m.end():m.end() + 40]
+            if not re.match(r"\s+of\s+\\cite\{", tail):
+                ctx = " ".join(body[max(0, m.start() - 60):m.end() + 30].split())
+                out.append(f"{f.name} prints {m.group(0)!r} with no owner named, where this "
+                           f"paper's own tables are roman too\n         ...{ctx}...")
+    return out
+
+
+def reference_list_problems():
+    """The reference list the paper promises, against the one a build actually writes."""
+    out = []
+    bbl = R / "tex/main.bbl"
+    if bbl.exists():
+        n = len(re.findall(r"\\bibitem", bbl.read_text()))
+        if n != FACTS["bib_printed"]:
+            out.append(f"tex/main.bbl holds {n} entries and the citations in the sources come to "
+                       f"{FACTS['bib_printed']}: the .bbl is stale, so rerun tools/build_tex.sh "
+                       f"before believing either number")
+    if FACTS["bib_printed"] != FACTS["bib_cited_corpus"] + FACTS["bib_related"]:
+        out.append("the printed reference list is not the cited corpus entries plus the "
+                   "outside-corpus prior work, so the sentence in Appendix A cannot be true")
+    return out
+
 
 def to_int(tok):
     if tok is None: return None
@@ -519,6 +789,18 @@ def main():
         bad += 1
         print(f"  CAPTION  {c}")
     if not cp: print(f"  {len(CAPTION_OWNERS)} table captions agree with their own section")
+    print("\n=== the posting blockers, pinned ===")
+    bl = (file_pin_problems() + abstract_problems() + confidence_problems()
+          + cited_table_problems() + reference_list_problems())
+    for b in bl:
+        bad += 1
+        print(f"  POSTING  {b}")
+    if not bl:
+        print(f"  correction route on the page in both editions, running head not a draft, "
+              f"abstract scoped and disclosed in {len((R / 'paper/ABSTRACT.md').read_text().split())} "
+              f"words, {FACTS['contradictions']} rows printing their recorded confidence, "
+              f"{FACTS['bib_printed']} reference entries against {FACTS['bib_entries']} corpus ones")
+
     print("\n=== claims in the prose ===")
     matched_any = set()
     for edition, body in (("markdown", text), ("latex", strip_tex(tex_text))):

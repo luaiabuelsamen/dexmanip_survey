@@ -60,14 +60,14 @@ PhysX linearises the cone, which places its model in the LCP family, and it does
 Its Temporal Gauss-Seidel scheme folds substepping into the Gauss-Seidel sweep and exposes
 position and velocity iteration counts separately (`isaacgym_2021`, Sec. 3).
 
-MuJoCo is inside that taxonomy rather than outside it. Le Lidec et al. classify it as CCP-MuJoCo,
-a convex relaxation solved by a Newton method on the primal QCQP, in the same family as CCP-Drake,
-the SAP-style scheme (Table III). The relaxation makes two errors of opposite sign in one engine.
-A loaded contact carries a violation, and a sliding contact carries force at a positive gap.
-Drake's SAP inherits the same pair, and its gliding effect at distance φ ≈ δt·µ·‖v_t‖
-"unfortunately does not go away as δt → 0" (`castro_sap_contact_2021`, Sec. V-A). Le Lidec et al.
-call that compliance a "numerical trick designed to circumvent the issues due to hyper-staticity
-or ill-conditioning at the cost of impairing the simulation".
+MuJoCo is inside that taxonomy rather than outside it. Le Lidec et al. classify it as CCP-MuJoCo, a
+convex relaxation solved by a Newton method on the primal QCQP, in the same family as CCP-Drake,
+the SAP-style scheme (`contact_models_comparison_2023`, Table III). The relaxation makes two errors
+of opposite sign in one engine. A loaded contact carries a violation, and a sliding contact carries
+force at a positive gap. Drake's SAP inherits the same pair, and its gliding effect at distance φ ≈
+δt·µ·‖v_t‖ "unfortunately does not go away as δt → 0" (`castro_sap_contact_2021`, Sec. V-A). Le
+Lidec et al. call that compliance a "numerical trick designed to circumvent the issues due to
+hyper-staticity or ill-conditioning at the cost of impairing the simulation".
 
 The depth a loaded contact carries is a chosen number. In a regularised formulation the
 steady-state violation at a contact is the normal load times the compliance. It is zero at zero
@@ -88,13 +88,13 @@ penetration" (`mujoco_2012`, Fig. 2).
 
 The first of two concrete measurements comes from the other end. Dojo solves a hard-contact
 nonlinear complementarity problem with an exact second-order friction cone, by an interior-point
-method converging within 15 iterations on the three robots of its convergence study. Its Table II
-drops an Atlas humanoid and reports foot-floor penetration against the timestep. MuJoCo penetrates
-−28 mm at Δt = 0.01 s and −46 mm at Δt = 0.001 s, while Dojo stays above the floor at every step
-tested (`dojo_2022`, Sec. V-A). The MuJoCo column is not a trend. A ten-times-smaller step
-produces more overlap, which no timestep-independent stabiliser does. Either that configuration
-ties the compliance to Δt, or the quantity is an impact transient on a drop. Neither reading is a
-steady-state grasp depth.
+method converging within 15 iterations on the three robots of its convergence study. Table II of
+`dojo_2022` drops an Atlas humanoid and reports foot-floor penetration against the timestep. MuJoCo
+penetrates −28 mm at Δt = 0.01 s and −46 mm at Δt = 0.001 s, while Dojo stays above the floor at
+every step tested (`dojo_2022`, Sec. V-A). The MuJoCo column is not a trend. A ten-times-smaller
+step produces more overlap, which no timestep-independent stabiliser does. Either that
+configuration ties the compliance to Δt, or the quantity is an impact transient on a drop. Neither
+reading is a steady-state grasp depth.
 
 Drake's SAP quotes 2.5×10^-5 m at δt = 10^-2 s and 2.5×10^-7 m at δt = 10^-3 s, three and five
 orders of magnitude below Dojo's two MuJoCo cells at the same steps, on an engine that is also
@@ -105,22 +105,23 @@ transient differ in load, effective inertia and regime, so the distance between 
 measurement of anything. What the pair of engines does show is that in a compliant formulation the
 depth follows from a stiffness that someone chose.
 
-Dojo's Table V times 1000 steps of forward simulation with gradients, at a matched Δt = 0.01 s,
-for engines that are not all computing gradients. MuJoCo is fastest on every system, 0.335 ± 0.001
-s against Dojo's 1.159 ± 0.077 s on a Franka Panda, and the authors call the comparison difficult
-because Dojo is stable at five times the step size (Sec. VI-B). What the regularisation buys, on
-Le Lidec's reading quoted above, is conditioning on a hyperstatic problem, and the depth it costs
-is tuned separately. Whether that is also what holds Erez's grasp at 16 ms is a question his data
-do not answer. His planar chain is contact-free, so its numbers speak to the coordinate
+Table V of `dojo_2022` times 1000 steps of forward simulation with gradients, at a matched Δt =
+0.01 s, for engines that are not all computing gradients. MuJoCo is fastest on every system, 0.335
+± 0.001 s against Dojo's 1.159 ± 0.077 s on a Franka Panda, and the authors call the comparison
+difficult because Dojo is stable at five times the step size (Sec. VI-B). What the regularisation
+buys, on Le Lidec's reading quoted above, is conditioning on a hyperstatic problem, and the depth
+it costs is tuned separately. Whether that is also what holds Erez's grasp at 16 ms is a question
+his data do not answer. His planar chain is contact-free, so its numbers speak to the coordinate
 formulation and not to contact: MuJoCo runs at 243.2 kHz there against Bullet's 22.8 and PhysX's
-6.4, and Bullet's articulated Featherstone mode at 81.4 kHz beats every Cartesian-coordinate
-engine (`physics_engine_comparison_2015`, Sec. IV-B). Those are throughput in evaluations per
-second, not a largest-stable-timestep result, and the articulated Bullet mode was never run on the
-grasp test at all, being usable only in tests without contact (Appendix). Joint coordinates
-explain the contact-free speed advantage. The grasp timestep is a contact result, and the paper
-attributes it to nothing: it reports that the other engines go unstable and "effectively simulate
-a different physics model which can no longer hold the object" (Sec. IV-D), without an experiment
-that separates the coordinate formulation from the soft absorption of penetration.
+6.4, and Bullet's articulated Featherstone mode at 81.4 kHz beats every Cartesian-coordinate engine
+(`physics_engine_comparison_2015`, Sec. IV-B). Those are throughput in evaluations per second, not
+a largest-stable-timestep result, and the articulated Bullet mode was never run on the grasp test
+at all, being usable only in tests without contact, which that paper's own appendix states of its
+Featherstone implementation. Joint coordinates explain the contact-free speed advantage. The grasp
+timestep is a contact result, and the paper attributes it to nothing: it reports that the other
+engines go unstable and "effectively simulate a different physics model which can no longer hold
+the object" (Sec. IV-D), without an experiment that separates the coordinate formulation from the
+soft absorption of penetration.
 
 The GPU era moved the compliance knob rather than removing it. ComFree-Sim resolves contact in
 closed form in the dual cone of the friction cone, so penetration becomes an explicit tuning

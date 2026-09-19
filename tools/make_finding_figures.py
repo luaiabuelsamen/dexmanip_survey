@@ -235,9 +235,13 @@ def fig_codegap():
     unit_strip(out, ys, 0.0, W, F["disagreements"], F["contradictions"])
     yt = ys - 0.42 - 0.14
     out.append(rf"\draw[lnk] (0,{yt + 0.08:.2f}) -- ({W:.2f},{yt + 0.08:.2f});")
+    # The label inside a graphic travels further than the caption under it, so it says only what is
+    # true of all nine. "A different objective" was true of most and too strong for DeXtreme, where
+    # the difference is one penalty weight of -0.25 against -0.2, so the label states the form the
+    # finding actually takes: a value or a term, paper against shipped code.
     out.append(rf"\node[anchor=north west,align=left,font=\scriptsize\color{{accent}}] "
-               rf"at (0,{yt:.2f}) {{\textbf{{{F['contradictions']}}} contradictions: the shipped "
-               rf"code states a different objective}};")
+               rf"at (0,{yt:.2f}) {{\textbf{{{F['contradictions']}}} contradictions: paper and "
+               rf"shipped code state a different value or term}};")
     out.append(rf"\node[anchor=north west,align=left,font=\scriptsize\color{{black!58}}] "
                rf"at (0,{yt - 0.26:.2f}) "
                rf"{{\textbf{{{F['other_class']}}} of another kind, classified and not retracted: "

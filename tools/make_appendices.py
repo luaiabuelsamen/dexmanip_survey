@@ -207,8 +207,9 @@ def appendix_c(rows):
               "and where in that file the value sits, so the entry can be checked without "
               "asking anyone. None of those authors was written to before this survey was "
               "posted; section 5.6 says so beside the finding, the letters that were drafted "
-              "and not sent are in `outreach/`, and the route by which a disputed entry is "
-              "corrected is stated there too.", ""]
+              "and not sent are in `outreach/` in the corpus, which is available from the "
+              "author at the address in the byline, and the route by which a disputed entry "
+              "is corrected is stated there too.", ""]
     order = ["contradiction", "internal-inconsistency", "version-skew", "code-absent",
              "parse-limitation"]
     for cls in order + [c for c in sorted(classes) if c not in order]:

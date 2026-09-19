@@ -27,7 +27,11 @@ number for its own trained policy's rollouts. The scope of that claim matters. G
 hand-object reconstruction have reported penetration depth and intersection volume comparatively
 for years, so the gap is specific to learned closed-loop control, not to the field. The tooling is
 not the obstacle either: NVIDIA's own benchmark repository computes per-environment maximum
-interpenetration depth and gates a policy update on a one-millimetre threshold.
+interpenetration depth and gates a policy update on a one-millimetre threshold. That finding is a
+null over this survey's own extraction, so the field behind it was audited by hand: 25 of the 85
+rows recorded as not addressing penetration, drawn with a fixed seed and read again in their own
+sources, recovered nothing, which bounds the rows that could be hiding a measurement at 8 of the 85.
+The sample and a verdict per row are in `reviews/penetration_audit.md`.
 
 Hardware and software have come apart. Thirty-three hands are tabulated, four of them appear in any
 simulator's own hand models, and of the hands that can actually be bought or built from published

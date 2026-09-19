@@ -292,21 +292,34 @@ if __name__ == "__main__":
                 key=lambda r: (r.get("year") or 0, r["key"]))
     miss = [r["key"] for r in cg if not r.get("mismatch_artifact")]
     assert not miss, f"contradiction rows with no mismatch_artifact: {miss}"
-    t11 = ["| method | repository, fetched commit | file in it, and where | "
+    # The confidence column is read from `mismatch_confidence`, not typed. Eight of the nine are
+    # high and one is medium; printing nine rows flat put the qualification a column away in the
+    # prose, where a screenshot of the table loses it.
+    noconf = [r["key"] for r in cg if not r.get("mismatch_confidence")]
+    assert not noconf, f"contradiction rows with no mismatch_confidence: {noconf}"
+    t11 = ["| method | confidence | repository, fetched commit | file in it, and where | "
            "what the paper prints | what that file contains |",
-           "|---|---|---|---|---|"]
+           "|---|---|---|---|---|---|"]
     for r in cg:
         a = r["mismatch_artifact"]
         slug = re.sub(r"^https?://github\.com/", "", a["repo"]).rstrip("/")
-        t11.append("| `%s` | %s <br>`%s` | `%s` <br>`%s` | %s | %s |" % (
-            r["key"], slug, a["commit"][:10], a["file"], a["locator"],
+        t11.append("| `%s` | %s | %s <br>`%s` | `%s` <br>`%s` | %s | %s |" % (
+            r["key"], r["mismatch_confidence"], slug, a["commit"][:10], a["file"], a["locator"],
             cell(a["paper"]), cell(a["code"])))
+    from collections import Counter as _C
+    nconf = _C(r["mismatch_confidence"] for r in cg)
+    split = ", ".join(f"{nconf[k]} {k}" for k in ("high", "medium", "low") if nconf.get(k))
+    held = [r["key"] for r in cg if r["mismatch_confidence"] != "high"]
     t11.append("\n*%d rows. The repository and the commit are the ones "
                "`corpus/code_manifest.json` records, and the file is in the parsed copy at "
                "`code/md/<key>.md`. `what the paper prints` names the table or equation the "
-               "value was read from. No cell states a cause, and none is a claim about what "
-               "the work's authors did: a reader with a browser settles every line of this "
-               "table without asking anyone.*" % len(cg))
+               "value was read from. `confidence` is the row's own `mismatch_confidence` field, "
+               "%s; %s %s held below high pending a direct code read this survey has not made, "
+               "and Appendix C prints the review note. No cell states a cause, and none is a "
+               "claim about what the work's authors did: a reader with a browser settles every "
+               "line of this table without asking anyone.*"
+               % (len(cg), split, ", ".join("`%s`" % k for k in held),
+                  "is" if len(held) == 1 else "are"))
     (outdir/"table11_codegap.md").write_text(
         "### Table 11. Paper and released repository, the nine rows that state different values"
         "\n\n" + "\n".join(t11))

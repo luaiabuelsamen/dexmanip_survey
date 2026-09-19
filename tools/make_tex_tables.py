@@ -501,8 +501,13 @@ def data_rows(body):
 
 
 def write_table(fname, label, caption, cols, body, wide=True, env=None, colsep=3,
-                size=r"\footnotesize", pos="!t", note=None, zebra=None, preamble=()):
+                size=r"\footnotesize", pos="!t", note=None, zebra=None, preamble=(), legend=None):
     """One table file. `cols` is a list of (header, width in pt, alignment).
+
+    `legend` is one line under the rule that says what a mark in the table means. It is the one
+    kind of note that belongs inside the float rather than in the section's prose, because a mark
+    with no key on the same page is unreadable, and a table travels as a picture of itself. The
+    caption cap leaves no room for it, so it is set small and grey beneath the bottom rule.
 
     Width discipline: the sum of the column widths plus 2*colsep per column must not exceed the
     text measure, 252 pt in one column and 516 pt in two. The sum is asserted here rather than
@@ -537,7 +542,12 @@ def write_table(fname, label, caption, cols, body, wide=True, env=None, colsep=3
         r"\midrule",
     ]
     lines += body_lines(body, len(cols), zebra)
-    lines += [r"\bottomrule", r"\end{tabular}"]
+    lines += [r"\bottomrule"]
+    if legend:
+        lines += [r"\addlinespace[2pt]",
+                  r"\multicolumn{%d}{@{}l}{\scriptsize\textcolor{black!55}{%s}} \\"
+                  % (len(cols), legend)]
+    lines += [r"\end{tabular}"]
     lines += [rf"\end{{{env}}}", ""]
     if fname in WITHDRAWN:
         return write_withdrawn(fname)
@@ -964,28 +974,62 @@ def repo_cell(art):
             % (tex(owner), tex(name), tex(art["commit"][:10])))
 
 
+def conf_sentence(rows):
+    """How the confidence column splits, as a sentence, counted rather than typed.
+
+    A qualification that lives only in one paragraph 25 pages from the table it qualifies is a
+    qualification a screenshot loses, which is why this is generated beside the column.
+    """
+    from collections import Counter
+    n = Counter(r.get("mismatch_confidence") for r in rows)
+    parts = ", ".join(f"{n[k]} {k}" for k in ("high", "medium", "low") if n.get(k))
+    held = [SUBJECT.get(r["key"], r["key"]) for r in rows
+            if r.get("mismatch_confidence") != "high"]
+    tail = ""
+    if held:
+        tail = (" " + ("The " if len(held) == 1 else "Those ")
+                + ("row" if len(held) == 1 else "rows") + " below high "
+                + ("is" if len(held) == 1 else "are") + " " + ", ".join(tex(h) for h in held)
+                + ", held there pending a direct read of a repository this survey has not made, "
+                  "and the reason is in the review note Appendix~\\ref{app:rewards} prints.")
+    return parts + "." + tail
+
+
 def table10():
+    """The nine contradictions, each with the confidence the row records.
+
+    The confidence column is read from `mismatch_confidence` and not typed. Eight of the nine are
+    high and one is medium, and the medium one is held there pending a direct read of a repository
+    this survey did not do. Printing nine rows flat, with the qualification a column later in the
+    prose and in Appendix C, put a screenshot of this table further than the sentence that
+    qualified it; the column travels with the table.
+    """
     rows = [r for r in METHODS if r.get("mismatch_class") == "contradiction"]
     rows.sort(key=lambda r: (r.get("year") or 0, r["key"]))
     missing = [r["key"] for r in rows if not r.get("mismatch_artifact")]
     assert not missing, f"contradiction rows with no mismatch_artifact: {missing}"
+    noconf = [r["key"] for r in rows if not r.get("mismatch_confidence")]
+    assert not noconf, f"contradiction rows with no mismatch_confidence: {noconf}"
     body = []
     for r in rows:
         a = r["mismatch_artifact"]
         body.append([
             subject(r["key"]),
+            tex(r["mismatch_confidence"]),
             repo_cell(a),
             path_tt(a["file"]) + r"\newline " + code_spans("`" + a["locator"] + "`"),
             code_spans(a["paper"]),
             code_spans(a["code"]),
         ])
     # The method column is wide enough for the longest name to set unhyphenated: at 46 pt the
-    # probe broke PianoMime as "Pi-anoMime", which is a name a reader has to reassemble.
-    cols = [("method", 58, "l"), ("repository, fetched commit", 86, "l"),
-            ("file in it, and where", 98, "l"), ("what the paper prints", 114, "l"),
-            ("what that file contains", 114, "l")]
+    # probe broke PianoMime as "Pi-anoMime", which is a name a reader has to reassemble. The
+    # confidence column takes its 30 pt from the two comparison columns, which are the only ones
+    # with words to spare; the measure is 516 pt and write_table asserts it.
+    cols = [("method", 56, "l"), ("conf.", 30, "l"), ("repository, fetched commit", 84, "l"),
+            ("file in it, and where", 94, "l"), ("what the paper prints", 106, "l"),
+            ("what that file contains", 106, "l")]
     cap = (r"The " + str(len(rows)) + r" rows where a paper and its released repository state "
-           r"different values, each at the commit this survey fetched.")
+           r"different values, at the commit fetched, with confidence.")
     note = (r"Table~\ref{tab:codegap} is the whole of the paper-against-code finding, in the form "
             r"the finding is made: a public repository, the commit \texttt{tools/fetch\_code.py} "
             r"cloned, the file inside it, and the two values. \emph{file in it, and where} gives "
@@ -996,7 +1040,8 @@ def table10():
             r"this survey about that repository is made from. The commit is the one in "
             r"\texttt{corpus/code\_manifest.json}, printed to ten characters; the rows print the "
             r"comparison and Appendix~\ref{app:rewards} prints each row's full text, its "
-            r"confidence and any review note. No cell states a cause, and none is a claim about "
+            r"confidence and any review note. \emph{conf.} is the row's own recorded confidence, "
+            + conf_sentence(rows) + r" No cell states a cause, and none is a claim about "
             r"what the work's authors did: a reader with a browser settles every line of this "
             r"table without asking anyone.")
     return write_table("table10_codegap.tex", "tab:codegap", cap, cols, body, note=note,
@@ -1242,6 +1287,12 @@ def table8():
     cap = (r"The matrix, for someone else to fill: " + str(len(picked)) + r" methods against "
            r"Table~\ref{tab:protocol}. All " + str(cells) + r" method cells empty; row one "
            r"fabricated.")
+    # The mark was printed on seven of twelve rows with nothing on the page to say what it meant.
+    # The caption is at its 20-word cap, and the sentence in the section that describes the two
+    # kinds of match cannot be read off a screenshot of the table, so the key is set under the rule.
+    marked = [k for _, k, _, kind in picked if kind == "title"]
+    legend = (r"$\ast$ matched on its full title rather than a short name, on %d of %d rows; the "
+              r"two kinds of count are not comparable" % (len(marked), len(picked))) if marked else None
     # The section already states the ranking rule, the whole-word correction, the $\ast$ mark and
     # the fabricated first row, in its own prose. The one thing it cannot state without the
     # generator is the counts themselves, so they are written as a sentence the section inputs
@@ -1251,7 +1302,7 @@ def table8():
         "% The mention counts behind the ranking of tables/table8_matrix.tex, as a sentence for the\n"
         "% body of Section VII, which is where the ranking rule they follow from is stated.\n"
         "The counts, on whole-word matches over \\path{papers/md}, are " + counts + ".\n")
-    return write_table("table8_matrix.tex", "tab:matrix", cap, cols, body)
+    return write_table("table8_matrix.tex", "tab:matrix", cap, cols, body, legend=legend)
 
 
 # --- Table IX: the predecessor surveys ---------------------------------------------------------

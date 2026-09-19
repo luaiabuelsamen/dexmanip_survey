@@ -141,6 +141,25 @@ pose, a trajectory or a contact model before anything executes and the four that
 policies scoring the references they were given, and we found none that reports the measurement for
 rollouts of its own trained policy.
 
+**The field behind that null was audited.** A null is worth what the search behind it is worth, and
+this survey's extraction under-counted every other field it was audited against, by twenty to
+forty-five percent. The 85 method rows whose contact-handling field records that the work does not
+address penetration were therefore sampled: 25 of the 85, drawn at random with a fixed seed, each
+read again in its own parsed source and its released repository rather than in the note the field
+was written from, since the note is the artefact under suspicion. Not one of the 25 reports a
+measurement of penetration depth, intersection volume or physical plausibility on its own rollouts.
+Zero recoveries in 25 bounds the rows that could be hiding one at 8 of the 85 at 95 percent
+confidence, so the eleven is a floor and nineteen a ceiling; had this field under-counted at even
+the mildest rate the other audits found, a sample of 25 would have missed every recoverable row with
+probability 0.001. The nearest miss is worth naming, because it is the one a reader might count
+differently: `graspxl_2024` puts hand-object interpenetration to 35 human raters as one of four
+dimensions of a single realism score, which is a judgement of its own rollouts rather than a
+measurement of one, and counting it would give one recovery in 25 and a bound of 13 rows. Three near
+misses recurred across the sample and none of them is a measurement of a rollout: self-collision
+avoidance in a retargeter, a binary self-collision penalty in a released reward, and an engine's
+de-penetration velocity left at its default. The draw, the seed and the per-row verdicts are in `reviews/penetration_audit.md`, and
+Appendix A states the method and the two fields that remain unaudited.
+
 Where in the pipeline those eleven act is the reference-versus-rollout split that section 1 takes
 from `zhao_dexhand_survey_2026`. A reference is a pose or a trajectory scored before execution,
 and a rollout is what the trained policy actually did. What this section supplies on that axis is
@@ -289,9 +308,9 @@ hand. The mention counts are printed under the table so a reader can audit them.
 The ranking is not one quantity even so. A method's name is taken from the first line of its note,
 which yields an acronym for some works and a full title for others, and a title is matched mostly
 inside reference lists while an acronym is matched in running text. Those have different base
-rates, so the table marks which kind each row was matched on and the two kinds are not comparable
-with each other. Mention counts are counts of mentions and not of use, as the method appendix
-records.
+rates, so a &#10035; in Table 9 marks every row matched on its full title rather than on a short
+name, and the two kinds are not comparable with each other. Mention counts are counts of mentions
+and not of use, as the method appendix records.
 
 Every cell is empty. This survey re-ran nothing, and no cell can be filled at the denominator
 Table 8 asks for. `dextreme_2022` comes closest and is the reason the claim is stated that

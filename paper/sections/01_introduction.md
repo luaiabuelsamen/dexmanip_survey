@@ -42,7 +42,8 @@ to before this was posted, what a fetched commit can and cannot show, and how a 
 corrected. Seven further accusations an earlier draft made were withdrawn under adversarial
 review, an eighth while those letters were being drafted, and each is recorded beside the charge.
 
-The quantity most specific to a hand is the one closed-loop policies do not record. Eleven of the
+How far a hand passes into the object it is holding is not a number the policies in this
+corpus report. Eleven of the
 96 method rows whose notes settle the question address interpenetration at all, seven of the
 eleven do it outside a closed-loop policy in a grasp synthesiser, a trajectory optimiser or a
 contact model, and we found none that reports a penetration number for its own trained policy's
