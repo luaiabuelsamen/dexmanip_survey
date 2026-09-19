@@ -28,5 +28,13 @@
  "paper_code_mismatch": "Table S1 states 32000 teacher training environments, but the released config sets alg.num_envs to 8000 (parent config 16384); fallDistance differs across two shipped configs (0.24 vs 0.15, only the latter matching Table S1's threshold); the paper's Eq 8 penultimate-joint penalty (c7=-2) does not appear anywhere in the released reward code; the config carries a dead distRewardScale=-10.0 key never used in compute_reward; and the paper's table-friction lower bound (0.05) differs by a factor of 10 from the code's randomized lower bound (0.005).",
  "note_gaps": "the paper's reward equations (Eq 1-8) are embedded as images and were not recoverable as text from the PDF conversion; the quoted equations/coefficients are reconstructed from surrounding prose and Table S1 constants, not read directly off the formulas.",
  "mismatch_class": "contradiction",
- "mismatch_confidence": "high"
+ "mismatch_confidence": "high",
+ "mismatch_artifact": {
+  "repo": "https://github.com/Improbable-AI/dexenv",
+  "commit": "ad9634e9d26cf5555d18728244a58f5b412c1eb2",
+  "file": "dexenv/conf/dclaw.yaml",
+  "locator": "alg.num_envs",
+  "paper": "32,000 teacher training environments, Table S1",
+  "code": "`num_envs: 8000`, and 16384 in the parent `hand_default.yaml`"
+ }
 }

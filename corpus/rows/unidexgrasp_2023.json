@@ -27,5 +27,13 @@
  "paper_code_mismatch": "The paper describes a four-term weighted reward (r_goal + r_reach + r_lift + r_move via Table 7's omega weights) but the released compute_hand_reward implements a different threshold-gated torch.where cascade with distinct hardcoded coefficients that do not map one-to-one onto the paper's weights.",
  "note_gaps": "Domain randomization is code-only and not mentioned in the paper text; the proposal-generation loss weights (L_cmap, L_pen, L_tpen, L_spen) were not cross-checked against a code loss-function source in this pass.",
  "mismatch_class": "contradiction",
- "mismatch_confidence": "high"
+ "mismatch_confidence": "high",
+ "mismatch_artifact": {
+  "repo": "https://github.com/PKU-EPIC/UniDexGrasp",
+  "commit": "36c9bfcf7cedc987dd15e2384c548e51d5aadc21",
+  "file": "dexgrasp_policy/dexgrasp/tasks/shadow_hand_grasp.py",
+  "locator": "compute_hand_reward, goal_cond branch",
+  "paper": "seven named weights from 0.1 to 10, Table 7",
+  "code": "a `torch.where` cascade on literals -0.5, -1.0, 0.9, 0.1, 0.2, none of the seven present"
+ }
 }

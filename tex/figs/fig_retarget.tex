@@ -1,0 +1,116 @@
+% Figure: why a retargeted pose can be scored good and still be inside the object. Drawn for the
+% LaTeX edition in the restrained palette: greyscale plus the one accent, thin rules, square
+% corners, document font. It replaces a reproduced photograph (one cell of a retargeting-artifact
+% grid, a fingertip driven through the temple of a pair of spectacles), which showed that the
+% failure exists but not why the metric misses it. The mechanism is geometric, so it is drawn:
+% the error the metric reports is a sum over joints, and the failure is a distance at one surface.
+%
+% Left, the metric's view: three joint angles, each a few degrees off the human reference, each
+% inside whatever per-joint tolerance is set. Right, the same pose at the contact: those few
+% degrees compose along the finger into a fingertip displacement, and a thin object is thinner
+% than that displacement, so the fingertip is through it.
+%
+% The figure prints no measurement. Every quantity behind it is stated with its citation in
+% Sec. V: TopoRetarget constrains penetration during retargeting with a 1 mm soft tolerance and a
+% 30 mm hard bound and reports maximum depth and the fraction of frames past 2 mm
+% (toporetarget_2026); it is the only corpus method that treats penetration as an evaluation
+% quantity, and it measures it on the reference rather than on the rollout. The stated retargeting
+% objectives that do not carry an object term at all are Sec. V's list, from a fingertip
+% keypoint-vector energy (anyteleop_2023) to a per-joint regression (dexumi_2025).
+%
+% Geometry: drawn 8.2 cm wide so that at one column the \scriptsize labels stay near 7 pt. Left
+% panel x 0-3.6, right panel x 4.2-8.2, a hairline between them, the note under a bottom rule.
+\begin{tikzpicture}[
+  font=\footnotesize,
+  palm/.style={draw=black!45,fill=wash,line width=0.3pt},
+  ref/.style={draw=black!50,line width=0.5pt,dash pattern=on 1.6pt off 1.4pt},
+  reftip/.style={draw=black!50,line width=0.5pt,dash pattern=on 1.6pt off 1.4pt,fill=none},
+  rob/.style={draw=accent,line width=0.7pt},
+  robtip/.style={draw=accent,line width=0.7pt,fill=white},
+  obj/.style={draw=black!65,line width=0.5pt,fill=black!12},
+  over/.style={draw=none,fill=accent,fill opacity=0.22},
+  dim/.style={draw=accent,line width=0.5pt,<->},
+  lead/.style={draw=black!45,line width=0.28pt},
+  ax/.style={draw=black!55,line width=0.4pt},
+  tol/.style={draw=black!45,line width=0.35pt,dash pattern=on 1.4pt off 1.2pt},
+  bar/.style={draw=black!45,fill=black!22,line width=0.3pt},
+  hd/.style={font=\scriptsize\bfseries,anchor=north,align=center},
+  sub/.style={font=\scriptsize\color{black!60},anchor=north,align=center,text width=34mm},
+  glab/.style={font=\scriptsize\color{black!60},anchor=west},
+  alab/.style={font=\scriptsize\color{accent},anchor=west},
+  tk/.style={font=\scriptsize\color{black!60},anchor=north},
+  note/.style={font=\scriptsize,anchor=north west,align=left},
+]
+
+% ================================================= left: what the metric sees ==
+\node[hd] at (1.80,3.12) {what the joint-angle error sees};
+
+% the finger: a palm stub and a three-link chain, drawn twice
+\draw[palm] (0.10,2.20) rectangle (0.45,2.70);
+% the human reference the retargeting is fitted to
+\draw[ref] (0.45,2.45) -- ++(-4:0.70) coordinate (t1)
+                       -- ++(-22:0.55) coordinate (t2)
+                       -- ++(-46:0.42) coordinate (t3);
+\draw[reftip] (t3) circle (0.15);
+% the retargeted pose: every joint a few degrees off, and the errors compose
+\draw[rob]    (0.45,2.45) -- ++(-10:0.70) coordinate (r1)
+                          -- ++(-31:0.55) coordinate (r2)
+                          -- ++(-58:0.42) coordinate (r3);
+\draw[robtip] (r3) circle (0.15);
+\fill[accent] (0.45,2.45) circle (0.05);
+\fill[accent] (r1) circle (0.05);
+\fill[accent] (r2) circle (0.05);
+
+\draw[lead] (t3) -- (2.28,2.02);
+\node[glab] at (2.30,2.02) {reference};
+\draw[lead] (r3) -- (2.28,1.62);
+\node[alab] at (2.30,1.62) {retargeted};
+
+% the per-joint error, as the metric reports it
+\draw[tol] (0.45,1.30) -- (3.05,1.30);
+\node[font=\scriptsize\color{black!55},anchor=south west] at (0.47,1.33) {tolerance};
+\draw[ax] (0.45,0.80) -- (3.05,0.80);
+\foreach \x/\h/\l in {0.80/0.18/MCP, 1.60/0.27/PIP, 2.40/0.36/DIP} {
+  \draw[bar] (\x,0.80) rectangle ++(0.34,\h);
+  \node[tk] at (\x+0.17,0.78) {\l};}
+\node[sub,text width=38mm] at (1.78,0.50) {per-joint angle error: a few degrees each, all inside
+                                           tolerance};
+
+% ------------------------------------------------------------- the hairline ----
+\draw[draw=black!20,line width=0.28pt] (3.88,-0.22) -- (3.88,3.02);
+
+% ============================================ right: what happens at a surface ==
+\node[hd] at (6.10,3.12) {what happens at the surface};
+
+% the object, in section: thinner than the displacement the errors compose into
+\draw[obj] (4.35,2.05) rectangle (6.10,2.19);
+\draw[lead] (4.35,2.12) -- (4.18,2.12);
+\node[font=\scriptsize\color{black!60},anchor=east] at (4.15,2.12) {$t$};
+
+% the fingertip the reference puts on the surface, and the one retargeting puts inside it
+\draw[reftip] (5.15,2.49) circle (0.30);
+\begin{scope}
+  \clip (4.35,2.05) rectangle (6.10,2.19);
+  \fill[over] (5.15,2.07) circle (0.30);
+\end{scope}
+\draw[robtip,fill=none] (5.15,2.07) circle (0.30);
+
+\draw[dim] (6.42,2.49) -- (6.42,2.07);
+\node[alab] at (6.50,2.28) {$\sum_i \ell_i \varepsilon_i$};
+
+\draw[lead] (4.62,2.05) -- (4.48,1.74);
+\node[glab,font=\scriptsize\color{black!60},anchor=north west] at (4.18,1.72)
+     {a thin object, in section};
+\node[sub,text width=40mm] at (6.15,1.26) {the composed displacement is larger than the object is
+                                           thick, so the fingertip is through it and the depth is
+                                           positive};
+
+% ==================================================================== the point
+\draw[draw=black!25,line width=0.28pt] (0,-0.34) -- (8.20,-0.34);
+\node[note,text width=79mm] at (0,-0.50)
+  {\textcolor{accent}{\textbf{The gap.}} Joint-angle error is a sum over joints and carries no term
+   for the object, so it cannot see the right-hand panel at all. Errors small enough to pass at
+   every joint compose along the finger into a fingertip displacement larger than a thin object is
+   thick, and the pose is scored as good with the object inside the finger. Sec.~V's one method
+   that measures penetration measures it on the reference, before the policy runs.};
+\end{tikzpicture}

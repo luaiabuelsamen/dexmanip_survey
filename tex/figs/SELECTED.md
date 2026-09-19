@@ -1,10 +1,10 @@
 # Selected reproduced figures
 
-**Three** figures, chosen from the 858 catalogued in `corpus/figure_catalogue.json` (166 source
-PDFs). An earlier draft of this paper carried eighteen. Fifteen were cut, and the table at the
-bottom of this file says what replaced each one.
+**One** figure, chosen from the 858 catalogued in `corpus/figure_catalogue.json` (166 source
+PDFs). An earlier draft of this paper carried eighteen. Seventeen were cut, and the tables at the
+bottom of this file say what replaced each one.
 
-## Why three
+## Why one
 
 Five well-made surveys were measured against this paper (`reviews/STYLE_GUIDE.md`) and every one
 of them reproduces **nothing**: every figure in them is the authors' own diagram, plot or
@@ -19,59 +19,36 @@ Where the cut plate was carrying an argument, the argument was redrawn in the pa
 style. Where it was illustrating a point the prose already made well, it was dropped and nothing
 was added.
 
-Every survivor is **single column** and none is a `figure*`: a borrowed plate has not earned the
-page width. Two of the three are a single panel. The third is a grid because the grid *is* the
-comparison. A borrowed multi-panel plate set at one column lands its panels at about 15 mm across
-with labels under 8 pt, which is not a figure but the memory of one.
+A second rule then cut two more, and it is about rights rather than layout. The paper is posted
+without a permission request and without writing to an author (`PUBLISHING.md`), so a plate whose
+reuse would need an email cannot be in it whatever it carries. Both plates in that position were
+under arXiv's non-exclusive licence to distribute, which grants a third party nothing. One was
+redrawn and one was dropped; the section below says which, and why the dropped one could not
+honestly be drawn.
+
+The survivor is **single column**, single panel, and not a `figure*`: a borrowed plate has not
+earned the page width. A borrowed multi-panel plate set at one column lands its panels at about
+15 mm across with labels under 8 pt, which is not a figure but the memory of one.
 
 ## Provenance
 
 Every file in `tex/figs/selected/` was **re-rendered from the source PDF**, not upscaled from the
 200 dpi catalogue preview: `tools/extract_figures.py` locates the figure rectangle, and the
 rectangle was rendered again at a dpi close to the embedded raster's own resolution, then cropped.
-All three plates are rebuilt by `tools/relayout_plates.py`, which holds their panel boxes as
-fractions of the trimmed source region and writes the file; run it to reproduce them.
+The plate is rebuilt by `tools/relayout_plates.py`, which holds its panel boxes as fractions of
+the trimmed source region and writes the file; run it to reproduce it. The two cut plates were
+removed from that script's table as well as from this directory, so a run of it cannot put an
+unlicensed PNG back.
 
-Colour. All three keep colour, and in two the colour *is* the content: the red and blue hand pair
-in `bimanual_grasp_penetration`, and the green robot hand against the tan object in
-`teleop_retarget_artifacts`.
+Colour. The plate keeps colour, and the colour *is* the content: the red and blue hand pair that
+makes an inter-hand penetration visible as such.
 
-Permission. One of the three is cleared under CC BY 4.0; the other two need an email to the
-authors. No plate prints its status. See `tex/PERMISSIONS.md`.
+Permission. The one plate is cleared under CC BY 4.0 and nothing is pending. The plate does not
+print its status. See `tex/PERMISSIONS.md`.
 
 ---
 
-## The three
-
-### `hand_scale_to_human.png` — 1676x1685, colour, `figure`
-- **Source** `leap_hand_2023`, Fig. 3, p. 2.
-- **Original caption** "Relative size of popular robot hands to scale. Left to right, adult human
-  hand, Allegro Hand [20], LEAP-C Hand, LEAP Hand, Inmoov [18], D'Manus [21]. ... The hands are
-  accurate to scale."
-- **Crop** re-laid out, 450 dpi. The source is one row of six hands, 3.68:1, which across the
-  full text width renders 49 mm tall and wastes a double-column slot on a strip. The row is cut on
-  the white gutters between the hands, at 0.2005, 0.3341, 0.4727, 0.6059 and 0.7532 of the width,
-  and set as two rows of three: human-with-ruler, Allegro, LEAP-C over LEAP, InMoov, D'Manus. Each
-  hand keeps the label under it and none is resampled, so at one column every hand is the same
-  30 mm wide it was across two (`tools/relayout_plates.py`).
-- **Why a drawing could not do this** How much larger than a human hand the hands the field
-  actually trains on are. A ruler and a real palm in frame settle a point no schematic can make
-  honestly, because the claim is about physical objects and not about topology. This is the "one
-  hand photograph for scale" the style guide allows.
-
-### `teleop_retarget_artifacts.png` — 441x200, colour, `figure`
-- **Source** `toporetarget_2026`, Fig. 3, p. 7.
-- **Original caption** "Retargeting artifacts of existing methods under hand-object and hand-only
-  cases."
-- **Crop** one cell of a 4x4 grid, 400 dpi: the hand-object row where DexPilot drives the
-  fingertip through the spectacle temple, at x 0.497–0.719 and y 0.280–0.455 of the region. The
-  source's own verdict labels are cropped away with it, both because at one column they set at
-  about 3 pt and because the caption carries the verdict in the document font instead. The whole
-  grid was previously set across both columns at 104 mm tall; one legible cell is worth more than
-  sixteen illegible ones, and the other three failure modes are named in the prose.
-- **Why a drawing could not do this** That a retargeting error is invisible in the pose and
-  unmistakable in the contact. Drawing it would beg the question: the reader has to see a posture
-  that genuinely looks right, and then see the surface pass through the finger.
+## The one
 
 ### `bimanual_grasp_penetration.png` — 753x767, colour, `figure`
 - **Source** `bimangrasp_2024`, Fig. 9, p. 7.
@@ -90,11 +67,61 @@ authors. No plate prints its status. See `tex/PERMISSIONS.md`.
 
 ---
 
+## Cut because the paper has no right to print them
+
+These two were kept through the first cut, on the argument that a photograph carried something a
+drawing could not. They go now for a different reason: reusing either needs an author's
+permission, the paper asks for none, and a borrowed figure the paper has no right to use is worse
+than no figure at all. Their crop boxes are kept here so either can be rebuilt if that ever
+changes; the PNGs and the `tools/relayout_plates.py` entries are gone.
+
+### `hand_scale_to_human.png` — dropped, not redrawn
+- **Source** `leap_hand_2023`, Fig. 3, p. 2. **Licence** arXiv non-exclusive distribution, which
+  grants a third party nothing.
+- **Original caption** "Relative size of popular robot hands to scale. Left to right, adult human
+  hand, Allegro Hand [20], LEAP-C Hand, LEAP Hand, Inmoov [18], D'Manus [21]. ... The hands are
+  accurate to scale."
+- **Crop, as it was** re-laid out at 450 dpi; the source row of six hands cut on the white gutters
+  at 0.2005, 0.3341, 0.4727, 0.6059 and 0.7532 of the width and set as two rows of three.
+- **Why it was not redrawn** The obvious redraw is a to-scale outline of each hand's envelope
+  beside a human hand, annotated in millimetres, and that drawing would be better than the
+  photograph because it could state the numbers. It cannot be made honestly. No row in
+  `corpus/rows/` states a hand's length or a width: there is no such field in the extraction
+  schema and no such column in either hand table, and the free-text fields of the twenty hands
+  that can be obtained give none either. Sources that gesture at it gesture only — Shadow's
+  specification says "similar in shape and size to a typical male hand" with no dimension, and
+  RUKA states that it compares hand length and width to a human's in a figure without giving the
+  numbers in text. A drawing would therefore have had to invent every envelope in it, which is the
+  one thing a survey about unchecked specifications cannot do.
+- **What carries the argument now** Sec.~III's prose, which makes the point the plate made and
+  adds the one the plate could not: neither hand table carries a dimension column, because no
+  source behind them gives a length or a width, so the specification a reader could hold against
+  their own hand is the one specification nobody publishes.
+
+### `teleop_retarget_artifacts.png` — redrawn as `figs/fig_retarget.tex`
+- **Source** `toporetarget_2026`, Fig. 3, p. 7. **Licence** arXiv non-exclusive distribution.
+- **Original caption** "Retargeting artifacts of existing methods under hand-object and hand-only
+  cases."
+- **Crop, as it was** one cell of a 4x4 grid at 400 dpi, the hand-object row where DexPilot drives
+  the fingertip through the spectacle temple, at x 0.497–0.719 and y 0.280–0.455 of the region.
+- **Why a drawing does it better** The earlier note here said a drawing would beg the question,
+  because the reader has to see a posture that genuinely looks right. That was an argument for a
+  photograph of the *symptom*. The paper's claim is about a *mechanism*, and the mechanism is
+  geometric: joint-angle error is a sum over joints and carries no term for the object, so errors
+  small enough to pass at every joint compose along the finger into a fingertip displacement
+  larger than a thin object is thick. A photograph can show only one side of that. The drawing
+  puts the metric and the geometry side by side, which is the comparison the argument actually
+  needs, and it is the paper's own argument so it should be the paper's own drawing. It prints no
+  measurement; the tolerances and depths are Sec.~V's, with their citation.
+
+---
+
 ## Cut, and what replaced each
 
-Fifteen plates were removed and their PNG files deleted from `tex/figs/selected/`, so nothing
-unlicensed ships in the arXiv source. Their catalogue entries in `corpus/figure_catalogue.json`
-are untouched and any of them can be re-rendered from `papers/pdf/` if a decision is reversed.
+Fifteen further plates were removed and their PNG files deleted from `tex/figs/selected/`, so
+nothing unlicensed ships in the arXiv source. Their catalogue entries in
+`corpus/figure_catalogue.json` are untouched and any of them can be re-rendered from
+`papers/pdf/` if a decision is reversed.
 
 | cut plate | source | what replaced it |
 |---|---|---|
@@ -109,7 +136,7 @@ are untouched and any of them can be re-rendered from `papers/pdf/` if a decisio
 | `sim_isaacgym_inhand_envs.png` | `isaacgym_2021` Fig. 13 | nothing. The prose has the number that matters: under an hour on one A100 against 30 hours on 6144 CPU cores and 8 V100s |
 | `teleop_dexpilot_studio.png` | `dexpilot_2020` Fig. 3 | nothing. The section's argument is about latency, cost and what the tabulation does not record, not about the size of one table |
 | `teleop_bidex_exoskeleton.png` | `bidex_teleop_2024` Fig. 2 | nothing. The fourth retargeting family — remove retargeting from the loop with an exoskeleton — is stated in the prose with its citation |
-| `teleop_retarget_embodiments.png` | `anyteleop_2023` Fig. 10 | nothing. Twenty panels at one column is the collage the style guide condemns, and the surviving `teleop_retarget_artifacts` carries the visual argument about retargeting |
+| `teleop_retarget_embodiments.png` | `anyteleop_2023` Fig. 10 | nothing. Twenty panels at one column is the collage the style guide condemns, and `figs/fig_retarget.tex` now carries the visual argument about retargeting |
 | `data_arctic_bimanual.png` | `arctic_2022` Fig. 1 | `figs/fig_contactlabel.tex`, which draws where a capture set's contact label comes from and what bounds it, rather than showing the outputs of that chain |
 | `bimanual_handover_allegro.png` | `dynamic_handover_2023` Fig. 2 | nothing. `figs/fig_bimanual.tex` already sets the four coordination architectures side by side, and the handover argument is that all three corpus papers share one reward across giver and receiver |
 | `eval_cage_sim_and_real.png` | `openai_dexterity_2018` Fig. 3 | nothing. The paragraph states the cost in rollouts and hours, which is the form a reader can act on; a photograph of a cage is not a cost estimate |

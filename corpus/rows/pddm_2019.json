@@ -26,5 +26,13 @@
  "paper_code_mismatch": "Table 2 states obs-dim 46 for In-hand Reorientation while the released cube_env.py code sums to 39; the Baoding reward code includes an extra -10*wrist_too_high term absent from Table 2's printed formula.",
  "note_gaps": null,
  "mismatch_class": "contradiction",
- "mismatch_confidence": "high"
+ "mismatch_confidence": "high",
+ "mismatch_artifact": {
+  "repo": "https://github.com/google-research/pddm",
+  "commit": "06b88cdbafa7fc35451b3feb3e01aa6726113f72",
+  "file": "pddm/envs/cube/cube_env.py",
+  "locator": "_get_obs",
+  "paper": "observation dimension 46 for in-hand reorientation, Table 2",
+  "code": "the six fields `_get_obs` concatenates sum to 39 on the code's own inline comments"
+ }
 }

@@ -283,6 +283,35 @@ if __name__ == "__main__":
     (outdir/"table6_teleop.md").write_text("### Table 6. Teleoperation and human-data systems\n\n"
         + table(tele, tc, th, sort=lambda r: (str(r.get("year")), r["key"]), widths=tw))
 
+    # --- Table 11. The nine artefact comparisons ---
+    # The paper-against-code finding, set as what it is: a repository, the commit that was
+    # fetched, the file inside it, and the two values. Every cell is the row's
+    # `mismatch_artifact` field, whose repo and commit are copied from corpus/code_manifest.json,
+    # so this table cannot name a commit the corpus did not fetch. No cell states a cause.
+    cg = sorted((r for r in ROWS.values() if r.get("mismatch_class") == "contradiction"),
+                key=lambda r: (r.get("year") or 0, r["key"]))
+    miss = [r["key"] for r in cg if not r.get("mismatch_artifact")]
+    assert not miss, f"contradiction rows with no mismatch_artifact: {miss}"
+    t11 = ["| method | repository, fetched commit | file in it, and where | "
+           "what the paper prints | what that file contains |",
+           "|---|---|---|---|---|"]
+    for r in cg:
+        a = r["mismatch_artifact"]
+        slug = re.sub(r"^https?://github\.com/", "", a["repo"]).rstrip("/")
+        t11.append("| `%s` | %s <br>`%s` | `%s` <br>`%s` | %s | %s |" % (
+            r["key"], slug, a["commit"][:10], a["file"], a["locator"],
+            cell(a["paper"]), cell(a["code"])))
+    t11.append("\n*%d rows. The repository and the commit are the ones "
+               "`corpus/code_manifest.json` records, and the file is in the parsed copy at "
+               "`code/md/<key>.md`. `what the paper prints` names the table or equation the "
+               "value was read from. No cell states a cause, and none is a claim about what "
+               "the work's authors did: a reader with a browser settles every line of this "
+               "table without asking anyone.*" % len(cg))
+    (outdir/"table11_codegap.md").write_text(
+        "### Table 11. Paper and released repository, the nine rows that state different values"
+        "\n\n" + "\n".join(t11))
+
     print("hands", len(hands), "sims", len(sims), "methods", len(meth),
-          "reward rows", len(rm["rows"]), "teleop rows", len(tele))
+          "reward rows", len(rm["rows"]), "teleop rows", len(tele),
+          "contradiction rows", len(cg))
     for f in sorted(outdir.glob("*.md")): print(" ", f.name, f.stat().st_size)

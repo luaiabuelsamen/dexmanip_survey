@@ -5,16 +5,15 @@
 \subsection{Design axes}
 \label{sec:hands:axes}
 
-% --- the one reproduced plate in this section -------------------------------
-% tex/figs/plates.tex defines one command per reproduced photograph; three
-% survive in the whole paper and one of them is here. Load the file if nothing
-% has loaded it already, so this section carries its plate whether or not the
-% preamble inputs it. The \providecommand before the call makes a missing plate
-% an empty command rather than an error. Read tex/PERMISSIONS.md before posting.
+% No reproduced plate in this section. The photograph that used to stand here
+% was five research hands shot to scale beside a human hand and a ruler, and it
+% carried a real argument: a degree-of-freedom count says nothing about size.
+% It was not redrawn, because it cannot be redrawn honestly. Not one row in
+% corpus/rows/ states a hand's length or its width -- there is no such field in
+% the extraction schema and no such column in either hand table -- so a to-scale
+% outline would have to invent every envelope it drew. The paragraph below makes
+% the argument in prose and says plainly that the dimension is not on record.
 % ---------------------------------------------------------------------------
-\makeatletter
-\@ifundefined{plateHandScale}{\IfFileExists{figs/plates.tex}{\input{figs/plates}}{}}{}
-\makeatother
 
 No degree-of-freedom, force, weight or price figure in Table~\ref{tab:hands-available} or
 Table~\ref{tab:hands-announced}, both set in Appendix~\ref{app:tables}, was measured by anyone
@@ -125,17 +124,17 @@ contains none \cite{leap_hand_2023}.
   \label{fig:hands}
 \end{figure}
 
-% Research hands photographed to scale, beside the count of who runs on what.
-\providecommand{\plateHandScale}{}\plateHandScale
-
 The two oldest designs in Table~\ref{tab:hands-available} carry 49 of the 103 method rows that
 name a hand at all, and seven rows use both. Neither design's date is confirmed by its own
 sources, so 2005 and 2016 are the bibliography's. \figurename~\ref{fig:hands} counts, per hand,
 the method papers whose own experiments use it. Of 112 method rows, 103 name a hand. The Allegro
 accounts for 35, Shadow for 21, the Inspire RH56 family for 19, a parallel-jaw gripper for 12 and
 LEAP for 12. Seventy-five of the 103 name an Allegro, a Shadow or Adroit model, LEAP or an
-Inspire. \figurename~\ref{fig:hand-scale} photographs five of them to scale beside an adult
-human hand, which is the comparison no degree-of-freedom column makes.
+Inspire. What no row states is how big any of them is. Neither hand table carries a dimension
+column, because no source behind them gives a hand's length or its width: the specification a
+reader could hold against their own hand is the one specification nobody publishes, while the
+degree-of-freedom count, which everybody publishes, is compatible with a hand of any size at all.
+Mass is the nearest thing on record and it is not the same quantity.
 
 The Allegro's position is the uncomfortable part. Its product page at allegrohand.com/v4 returned
 HTTP 404 while the Wonik wiki timed out \cite{allegro_hand_v4_2016}. Everything
@@ -206,8 +205,9 @@ on the hand, read by the deployed policy. Eight of 112 method rows meet it:
 and \cite{rotating_without_seeing_2023}. The rule excludes \cite{penspin_2024}, whose 20 binary
 contacts are simulated on an Allegro that has no tactile hardware and whose released config sets
 \texttt{enable\_tactile: False}, and it excludes \cite{dexndm_2025} and \cite{dexplore_2025} for
-the same reason. Sixty-five of the 112 method papers mention tactile sensing somewhere, which is
-the gap worth quoting. Thirty-five is the count over this survey's notes.
+the same reason. Sixty-three of the 112 method papers use the word tactile
+somewhere in their parsed text and 35 carry it in their structured note. Against the eight that meet
+the rule above, either number is the gap worth quoting.
 
 Almost none of the eight uses a high-resolution sensor. Yin et al.
 \cite{rotating_without_seeing_2023} remove vision entirely and rotate objects from 16 binary touch
@@ -294,8 +294,9 @@ of those are neither sold nor open and appear in none for that reason, so 33 is 
 for a software-lag claim: the eight hands of the paragraph above are. The rule that decides used
 from unused is one regular expression per hand against the method rows' own hand field, in
 \path{tools/hand_usage.py}, so the partition can be recomputed rather than argued about. The lag
-runs through the tooling as well as the papers. Only three of the fifteen simulator rows name a real
-hand at all, and the ones they do name are the field's defaults, while Bench2Dex
-\cite{bench2dex_2026} compares 12 hands and DexVerse \cite{dexverse_2026} six without stating a DoF
-count for any. What would close it is a conformance suite for hand models: one URDF or MJCF per
+runs through the tooling as well as the papers. Seven of the fifteen simulator rows ship a
+first-party hand model at all, six of those hands are real, Brax's being a synthetic claw, and every
+one of the six is an Allegro or a Shadow; only four of the 33 tabulated hands appear in any engine.
+Bench2Dex \cite{bench2dex_2026} meanwhile compares 12 hands and DexVerse \cite{dexverse_2026} six
+without stating a DoF count for any. What would close it is a conformance suite for hand models: one URDF or MJCF per
 hand, with fixed joint-limit, mass and collision checks and a published pass or fail per engine.

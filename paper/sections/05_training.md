@@ -278,7 +278,7 @@ completes the set with the only real-robot numbers among them, from 100 percent 
 a laptop down to 41.2 percent on a ketchup bottle over 20 trials each.
 
 **The retargeting map, and what would close it.** Human data does not port across hands, and the map
-is usually left unstated. Fifty-three method rows use human data and name 45 distinct hand strings
+is usually left unstated. Fifty-three method rows use human data and name 44 distinct hand strings
 between them; twenty of those appear in Table 6 with a stated retargeting objective. The other 33
 never say how the human motion reached the hand, and the objectives that are stated do not converge,
 running from a fingertip keypoint-vector energy in `anyteleop_2023` through a per-joint regression
@@ -367,44 +367,91 @@ in section 5.2 now reaches the shipped policy through a dataset rather than a gr
 
 ## 5.6 Paper against released code
 
-Thirty-eight of the 112 method rows record a discrepancy between a paper and the code it released,
-and all 38 released code, so they sit inside the 62 rows that released anything. They are not one
-kind of thing. Nine are contradictions, where paper and code state different values or different
-terms. Thirteen are limits of this survey's own parse, where the body or config that would settle
-the question was never recovered and the row says so. Eight released code without the described
-component in it, four are version skew against a later repository, and four are a paper
+Thirty-eight of the 112 method rows record a disagreement between a paper and the code it
+released, and all 38 released code, so they sit inside the 62 rows that released anything. They
+are not one kind of thing. Nine are contradictions, where paper and code state different values or
+different terms. Thirteen are limits of this survey's own parse, where the body or config that
+would settle the question was never recovered and the row says so. Eight released code without the
+described component in it, four are version skew against a later repository, and four are a paper
 disagreeing with itself. The fourth version skew is `groot_n16_2025`, which ships a main branch
 one generation later than the checkpoint its page describes.
 
-Nine is the number to quote, eight at high confidence and one, `penspin_2024`, held at medium
-pending a direct read of the code. Nine of 62 is 15 percent, bounded on both sides: a floor,
-because the census covers method rows only and `robopianist_2023`, whose row is a benchmark, sums
-five reward terms against the three its Table 2 documents; a ceiling, because eight accusations an
-earlier draft of this section made were withdrawn, seven of them under adversarial review and an
-eighth, `omnih2o_2024`, once writing to its authors sent someone back to the evidence, each with
-its reason recorded in the accused row beside the charge. Among the 21 reorientation methods of
-Table 5, seven released a repository and four of those disagree with their paper, the other three
-being a missing environment, a later generation and a default-value question their own READMEs
-settle.
+Nine is the number to quote, eight at high confidence and one, `penspin_2024`, held at medium.
+Nine of 62 is 15 percent, bounded on both sides: a floor, because the census covers method rows
+only and `robopianist_2023`, whose row is a benchmark, sums five reward terms against the three its
+Table 2 documents; a ceiling, because eight accusations an earlier draft of this section made were
+withdrawn, seven of them under adversarial review and an eighth, `omnih2o_2024`, once writing to
+its authors sent someone back to the evidence, each with its reason recorded in the accused row
+beside the charge. Among the 21 reorientation methods of Table 5, seven released a repository and
+four of those state something different from their paper, the other three being a missing
+environment, a later generation and a default-value question their own READMEs settle.
 
-The most consequential case is `physhoi_2023`. Its `compute_humanoid_reward` hardcodes the body
-position-velocity error and both object rotation errors to zero, with the real computation
-commented out beside them, and does so unconditionally rather than per dataset, while its Table 4
-lists non-zero weights of 0.1 and 0.01 for those rotation terms on GRAB. The reward that produced
-the paper's numbers never tracked object orientation: a method presented as tracking a 6-DoF
-reference was, in the code that ran, tracking the object in position only, with body rotation and
-body rotation-velocity still live.
+Table 11 is the whole of the finding, in the form the finding is made: a public repository, the
+commit `tools/fetch_code.py` cloned, the file inside it, and the two values. The repository and
+the commit are the ones `corpus/code_manifest.json` records; the file is in the parsed copy under
+`code/md/`, which is the same snapshot every other claim in this survey about that repository is
+made from; `what the paper prints` names the table or equation the value was read from. No cell
+states a cause, and none is a claim about what the work's authors did.
 
-Zeroed terms recur, and are not the same failure. A term present and zeroed is worse than a term
-missing, because it survives a reader's check of the file, but only when the paper claims it.
-Weights drift as well: a penalty printed at one value in a table and shipped at another, an
-equation's term absent from the released reward file, a term in the code that the table never
-lists. And in 13 rows the repository does not settle the question at all, which is this survey's
-limit and not an accusation. Appendix C prints all 38 row by row in their five classes, each with
-the file, the value on both sides, and the review note where a charge was narrowed or withdrawn.
+{{table:table11_codegap}}
+
+The case with the most at stake is `physhoi_2023`, and it is four items. The repository is
+`wyhuai/PhysHOI`, the commit is `6095c605e2`, the file is `physhoi/env/tasks/physhoi.py`, and
+inside `compute_humanoid_reward` the object rotation error and the object rotation-velocity error
+are set to `torch.zeros_like(ep)`, with the computation that would produce them commented out on
+the same two lines. The paper's Table 4 gives those two terms weights of 0.1 and 0.01 for GRAB.
+The paper does say that both are zero for BallPlay, which supplies no ball rotation; the zeroing
+in the file is not conditioned on the dataset. In that file the object's orientation error is the
+constant zero and its weight cannot change the reward, and the success criterion the paper scores
+its 95.4 percent with is itself position-only, so a run of that file would not report the
+difference either. Two documents say different things, and that is the whole of the claim.
+
+Two more read the same way and are quicker. `dextreme_2022`'s Table 2 prints an action-delta
+penalty weight of -0.25; at commit `aeed298638` of `isaac-sim/IsaacGymEnvs`,
+`AllegroHandDextremeADR.yaml` sets `actionDeltaPenaltyScale: -0.2` and the ManualDR yaml beside it
+sets -0.01. `pianomime_2024`'s Table 3 prints two weighted terms, at two thirds and one third; at
+commit `c4abefac8d` of `sNiper-Qian/pianomime`, `_set_rewards` in
+`single_task/piano_with_shadow_hands_res.py` sums five, and two of the five,
+`_compute_energy_reward` and `_compute_fingering_reward`, compute a value and then end `return 0`
+and `return 0.0`. The remaining six are in Table 11 in the same four parts, and every one of the
+nine can be checked by opening the repository at the commit in that table.
+
+**Nobody was written to first.** The authors of these nine works were not contacted before this
+survey was posted. Ten letters were drafted, one per method, each quoting the claim, its evidence
+and the sentences the survey would print, and each asking whether the reading was right; they are
+in `outreach/` in the repository, unsent, so a reader can see exactly what every author would have
+been asked. Publishing without them narrows what this section may say, and what it says is written
+to the narrower form: a repository, a commit, a file, and two values. It attributes nothing to
+intent, and a reader with a browser can confirm or refute any line of Table 11 without anyone's
+agreement. Two limits come with that, and neither is a hedge. A repository at a fetched commit is
+not the code that produced a paper's numbers: it may postdate that code, precede it, or have
+diverged from it on a branch nobody tagged, and a snapshot cannot say which, so each line compares
+a published document with one public artefact and claims nothing beyond the two. One work in this
+corpus says exactly that about itself. `hora_2022`'s README sends a reader to tag `v0.0.1` rather
+than to the default branch to reproduce the paper's numbers, which is why its row is classed
+version skew and is not one of the nine: told which commit to read, this survey read it, and
+nobody else was in a position to tell us, because nobody else was asked. The other limit is the
+remedy. Every one of the nine is correctable in public, and an author who shows that the file says
+something other than what Table 11 prints, or that the fetched commit is not the one behind their
+numbers, changes the row: `mismatch_class` and `mismatch_review` in `corpus/rows/`, the counts that
+follow from them, and the sentence in the next version, with the correction printed beside the
+original charge as the eight withdrawals already are. The routes are the corresponding author's
+address on this paper and the issue tracker of the deposited corpus, and a correction asked for
+either way is a commit and a replacement version rather than a negotiation. Eight of the sixteen
+charges an earlier draft made have already gone that way on this survey's own evidence; a ninth
+would cost it nothing.
+
+Zeroed terms recur, and they are not the same thing as a term that is missing. A term present and
+zeroed survives a reader's check of the file, which is why Table 5 marks it separately, and it is
+only worth marking where the paper claims the term. Weights differ as well: a penalty printed at
+one value in a table and set to another in a config, an equation's term that is not in the released
+reward file, a term in the file that the table does not list. And in 13 rows the repository does
+not settle the question at all, which is this survey's limit and not an accusation. Appendix C
+prints all 38 row by row in their five classes, each with the file, the value on both sides, and
+the review note where a charge was narrowed or withdrawn.
 
 A reward table is a claim about a training run and the code is a claim about a repository. Here
-the two contradict each other in nine cases, in the other 29 the released artefacts do not settle
+the two state different things in nine cases, in the other 29 the released artefacts do not settle
 the question, and in exactly one, `hora_2022`, the repository says so itself. Read the reward
 function before the reward table, and treat a printed weight as a hypothesis about the code.
 
@@ -425,7 +472,13 @@ differs, by a factor of about a million, which reads as a typo signature in a ta
 policy trained on a different objective. Its hands are driven open-loop from a VR pose as well,
 outside the policy and outside the reward, which made the work a poor fit for a reward census in a
 dexterous-manipulation survey whatever the weight said. The charge is withdrawn and the row moves to
-an internal inconsistency, which is where the count above sits it.
+an internal inconsistency, which is where the count above sits it. `penspin_2024` was narrowed the
+same way and before the same deadline: half of its charge, that the released code turns off the
+paper's tactile channel, is withdrawn, because the config that was read carries 96 observation
+dimensions and `enable_tactile: False`, which is what the paper's proprioception-only student should
+carry and not a claim the paper makes about that stage. What is left is the line in Table 11, and it
+is held at medium because this survey could not establish from the parse whether a second task config
+exists elsewhere in that repository.
 
 **The survey has now withdrawn eight accusations in total: seven of them under adversarial review,
 and the eighth at the point of writing to the authors, because someone sat down to write the letter

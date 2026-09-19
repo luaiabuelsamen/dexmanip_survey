@@ -27,5 +27,13 @@
  "paper_code_mismatch": "The released code hardcodes the body position-velocity error and the object rotation/rotation-velocity errors to zero in compute_humanoid_reward, so despite Table 4 listing nonzero λ^or=0.1/λ^orv=0.01 weights for GRAB, the trained reward never actually tracks object orientation (position-only in practice).",
  "note_gaps": "The reset/termination function compute_humanoid_reset is only a signature in code/md (body not extracted), so the stated 0.5 m termination threshold cannot be cross-checked against code; nearly all inline reward equations in Sec. 3.6 render blank in the parse, so the exp(-error*weight) functional form is confirmed from code, not the paper's own equations.",
  "mismatch_class": "contradiction",
- "mismatch_confidence": "high"
+ "mismatch_confidence": "high",
+ "mismatch_artifact": {
+  "repo": "https://github.com/wyhuai/PhysHOI",
+  "commit": "6095c605e22bd01f78ed356e8b08250edf3c5da6",
+  "file": "physhoi/env/tasks/physhoi.py",
+  "locator": "compute_humanoid_reward",
+  "paper": "object-rotation weights 0.1 and 0.01 for GRAB, Table 4",
+  "code": "`eor` and `eorv` set to `torch.zeros_like(ep)`, the computation commented out on the same lines"
+ }
 }

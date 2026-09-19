@@ -34,5 +34,13 @@
  "note_gaps": "Per-cell real trial counts behind Table 1 are not stated, and oracle GPU/wall-clock training time beyond \"less than one day on a single GPU\" is not given.",
  "mismatch_class": "contradiction",
  "mismatch_confidence": "medium",
- "mismatch_review": "Narrowed before author contact. The original charge also said the released code disables the paper's tactile channel, and that half is withdrawn: the config read has numObservations 96 and enable_tactile False, which is consistent with the proprioception-only student rather than the oracle, and the paper never claims the student has tactile input. The disturbance-force half is unaffected."
+ "mismatch_review": "Narrowed before author contact. The original charge also said the released code disables the paper's tactile channel, and that half is withdrawn: the config read has numObservations 96 and enable_tactile False, which is consistent with the proprioception-only student rather than the oracle, and the paper never claims the student has tactile input. The disturbance-force half is unaffected.",
+ "mismatch_artifact": {
+  "repo": "https://github.com/HaozhiQi/penspin",
+  "commit": "5035c52dc949e81313af71d9a0ca5ead8b463a5a",
+  "file": "configs/task/AllegroHandHora.yaml",
+  "locator": "forceScale",
+  "paper": "a disturbance force of 0.2 times object mass at probability 0.25, Table 8",
+  "code": "`forceScale: 0.0` and `randomForceProbScalar: 0.0`, the only shipped config naming either"
+ }
 }

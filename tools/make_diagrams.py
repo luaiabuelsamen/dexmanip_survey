@@ -96,14 +96,17 @@ def fig3():
     return svg(W,py+bh2+34,"".join(b),"A simulation step and where engines differ")
 
 def fig5():
-    # Counts: the 25 corpus papers whose notes place a learned controller on two
-    # dexterous hands. Datasets, static grasp-pose synthesis and two-gripper papers
-    # are excluded. bidexhands_2022 ships panels 1 and 2; asymdex_2024 uses 3 and 4.
+    # Counts: the 28 corpus rows whose notes place a learned closed-loop controller on
+    # two dexterous hands, the denominator section 6 defines. Datasets, static
+    # grasp-pose synthesis and two-gripper papers are excluded. The panels are not a
+    # partition of the 28: asymdex_2024 is the one row drawn in two of them, panels 3
+    # and 4, and the two rows whose notes never say which architecture they use,
+    # bunny_visionpro_2024 and deximit_2026, appear in none.
     W,H=940,326
     b=[f'<text class="t" x="24" y="30">Figure 5. Four ways to control two dexterous hands</text>',
-       f'<text class="s" x="24" y="50">Counts are the 25 corpus papers that put a learned controller on two dexterous hands. Two are counted twice.</text>']
+       f'<text class="s" x="24" y="50">Counts are the 28 corpus rows that put a learned closed-loop controller on two dexterous hands. asymdex_2024 is the one row in two panels; the two rows whose notes never say are in none.</text>']
     panels=[("one policy, both hands","observation of both hands and object|one network, joint action vector",
-             "21 of 28","twisting_lids_2024  dexmachina_2025|maniptrans_2025  dexman_2025|gr_dexter_2025  deximit_2026|and 15 more"),
+             "21 of 28","twisting_lids_2024  dexmachina_2025|maniptrans_2025  dexman_2025|gr_dexter_2025  groot_n1_2025|and 15 more"),
             ("a network per hand","each hand its own network|centralised critic, or own obs. only",
              "4 of 28","bidexhd_2024  artigrasp_2023|dynamic_handover_2023|dydexhandover_2025"),
             ("leader and follower","one hand assigned the dominant role|the other reacts to it",

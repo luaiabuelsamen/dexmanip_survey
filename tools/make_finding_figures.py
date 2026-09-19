@@ -319,9 +319,15 @@ def fig_reporting():
                rf"({xb + 0.10:.2f},{y0 + 0.16:.2f}) -- ({xb + 0.10:.2f},{y1 - 0.16:.2f}) -- "
                rf"({xb:.2f},{y1 - 0.16:.2f});")
     out.append(rf"\draw[lnk] (0.12,{-y + 0.16:.2f}) -- ({0.12 + width:.2f},{-y + 0.16:.2f});")
-    out.append(rf"\node[anchor=north west,align=left,font=\scriptsize\color{{accent}}] "
-               rf"at (-2.4,{-y + 0.04:.2f}) {{the two a reader needs in order to compare any two "
-               rf"methods}};")
+    # The annotation sits under the bar track, aligned with the bars it is about, and names the
+    # colour the two rows are already drawn in. Set at x = -2.4 it floated under the row labels at
+    # the far end of the chart from the bracket, with nothing joining the two; set to the right of
+    # the bracket instead it would widen the picture and the \resizebox would shrink every label
+    # in it, and this chart's text is already the smallest in the paper.
+    out.append(rf"\node[anchor=north west,align=left,text width={width}cm,"
+               rf"font=\scriptsize\color{{accent}}] "
+               rf"at (0.12,{-y + 0.04:.2f}) {{the two rows in this colour are the pair a reader "
+               rf"needs in order to compare any two methods}};")
     out.append(r"\end{tikzpicture}")
     (OUT / "fig_reporting.tex").write_text("\n".join(out) + "\n")
     return len(axes), sorted(lowest)

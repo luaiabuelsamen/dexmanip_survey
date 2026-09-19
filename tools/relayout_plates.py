@@ -1,12 +1,22 @@
-"""Re-render the three surviving reproduced plates from their source PDFs and cut them down.
+"""Re-render the one surviving reproduced plate from its source PDF and cut it down.
 
 Every plate in this survey is single column and, where the argument allows it, a single panel.
 A borrowed multi-panel plate set at one column lands its panels at about 15 mm across with
-labels under 8 pt, which is not a figure but the memory of one. So each plate here is either
-re-laid out so that no panel shrinks (`hand_scale_to_human`, six hands cut off one long row and
-stacked two deep) or cut down to the panels that carry the argument (`teleop_retarget_artifacts`,
-one of sixteen cells; `bimanual_grasp_penetration`, two of four). What is dropped is dropped
-because a diagram in the paper's own style now makes the point, or because the prose already did.
+labels under 8 pt, which is not a figure but the memory of one. So the plate here is cut down to
+the panels that carry the argument (`bimanual_grasp_penetration`, two of four). What is dropped is
+dropped because a diagram in the paper's own style now makes the point, or because the prose
+already did.
+
+Only one plate is left, and the reason is a licence rather than a layout. The paper is posted
+without asking anyone for anything, so a figure whose reuse would need an email cannot be in it.
+`hand_scale_to_human` (leap_hand_2023 Fig. 3) and `teleop_retarget_artifacts`
+(toporetarget_2026 Fig. 3) were both under arXiv's non-exclusive licence, which grants a third
+party nothing; the second was redrawn as tex/figs/fig_retarget.tex and the first was dropped,
+because no row in corpus/rows/ states a hand's length or width and a to-scale drawing would have
+had to invent every envelope in it. Their entries are gone from PLATES so that a run of this
+script cannot put an unlicensed PNG back into tex/figs/selected/; both are still catalogued in
+corpus/figure_catalogue.json and their crop boxes are recorded in tex/figs/SELECTED.md, so either
+can be rebuilt if the decision is ever reversed.
 
 `pre` crops the trimmed source region before the panel boxes are read, for a region the figure
 finder swept a neighbouring figure or a body-text column into.
@@ -34,13 +44,6 @@ OUT = R / "tex/figs/selected"
 # trimmed region. Rows are concatenated left to right at the source scale, then centred and
 # stacked, so no panel is resampled relative to any other.
 PLATES = {
-    # Six hands photographed to scale in one row: 3.68:1. Cut on the gutters between the hands
-    # and set two rows of three, each hand keeping the label under it. Nothing is dropped: the
-    # spread of sizes against the ruler is the whole content, so every hand stays.
-    "hand_scale_to_human": dict(
-        key="leap_hand_2023", fig=3, dpi=450,
-        rows=[[(0.0000, 0.2005), (0.2005, 0.3341), (0.3341, 0.4727)],
-              [(0.4727, 0.6059), (0.6059, 0.7532), (0.7532, 1.0000)]]),
     # Four failure panels over four zoomed insets, of which (A) hand-object penetration and
     # (C) inter-hand penetration are the two the section argues. (B) self-penetration and
     # (D) no-contact are dropped: at one column four panels put each inset at 20 mm, and the two
@@ -49,14 +52,6 @@ PLATES = {
     "bimanual_grasp_penetration": dict(
         key="bimangrasp_2024", fig=9, dpi=450, pre=(0.500, 1.000, 0.000, 1.000),
         rows=[[(0.0039, 0.2360), (0.4855, 0.7215)]]),
-    # A 4x4 grid of retargeting verdicts, 16 cells: at one column each cell is 22 mm and its
-    # verdict label 3 pt. One cell is kept -- the hand-object case where DexPilot drives the
-    # fingertip through the spectacle temple -- because one magnified contact set makes the
-    # argument and sixteen illegible ones do not. The source's own label strip is cropped away
-    # with it; the caption carries the verdict in the document font.
-    "teleop_retarget_artifacts": dict(
-        key="toporetarget_2026", fig=3, dpi=400,
-        rows=[[(0.4970, 0.7190, 0.2800, 0.4550)]]),
 }
 
 

@@ -39,5 +39,13 @@
   "r_targ",
   "r_vel"
  ],
- "mismatch_review": "R3 adversarial review: the disabled-randomisation half is withdrawn, since the note finds it consistent with the paper; the zeroed reward term stands"
+ "mismatch_review": "R3 adversarial review: the disabled-randomisation half is withdrawn, since the note finds it consistent with the paper; the zeroed reward term stands",
+ "mismatch_artifact": {
+  "repo": "https://github.com/NVIDIA-Omniverse/IsaacGymEnvs",
+  "commit": "aeed298638a1f7b5421b38f5f3cc2d1079b6d9c3",
+  "file": "isaacgymenvs/tasks/allegro_kuka/allegro_kuka_base.py",
+  "locator": "compute_kuka_reward",
+  "paper": "four staged reward terms, Sec. III-C",
+  "code": "eight summed components, `hand_delta_penalty` multiplied by 0 with the comment `currently disabled`"
+ }
 }

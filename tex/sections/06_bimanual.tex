@@ -2,12 +2,13 @@
 \section{Bimanual dexterous manipulation}
 \label{sec:bimanual}
 
-% --- the one reproduced plate in this section -------------------------------
-% Three reproduced plates survive in the whole paper; one of them is here, and
-% it is the only one of the three already cleared under CC BY 4.0. Load
-% tex/figs/plates.tex if nothing has loaded it already. The \providecommand
-% before the call makes a missing plate an empty command rather than an error.
-% Read tex/PERMISSIONS.md before posting.
+% --- the only reproduced plate in the paper ---------------------------------
+% One reproduced plate survives in the whole paper and it is here, because it is
+% the only one whose source is CC BY 4.0 and so the only one this paper has the
+% right to print without asking anyone. Its caption carries the attribution the
+% licence asks for. Load tex/figs/plates.tex if nothing has loaded it already.
+% The \providecommand before the call makes a missing plate an empty command
+% rather than an error. tex/PERMISSIONS.md is the register; nothing is pending.
 % ---------------------------------------------------------------------------
 \makeatletter
 \@ifundefined{plateGraspPenetration}{\IfFileExists{figs/plates.tex}{\input{figs/plates}}{}}{}
@@ -82,13 +83,17 @@ bimanual ones.
 \centering
 \IfFileExists{figs/fig_bimanual.tex}{\input{figs/fig_bimanual}}{%
   \framebox[0.7\textwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_bimanual.tex pending}}}
-\caption{Four ways to control two dexterous hands, counted over the 28 corpus rows with a learned
-closed-loop controller on two multi-fingered hands, each read from its note.}
+\caption{Four mechanisms for controlling two dexterous hands, counted over the 28 corpus rows with
+a learned closed-loop controller on two multi-fingered hands, each read from its note. The panels
+are not a partition: the fourth is the same single row as the third, and the two rows whose notes
+never say which architecture they use appear in neither.}
 \label{fig:bimanual}
 \end{figure*}
 
-\figurename~\ref{fig:bimanual} sets the four architectures side by side. Every row of the 28 is
-assigned to exactly one of them, read from its note.
+\figurename~\ref{fig:bimanual} sets the four mechanisms side by side. Every row of the 28 carries
+exactly one architecture, read from its note: one policy over both hands, a network per hand,
+leader and follower, or a note that does not say. The fourth panel is not a fourth architecture but
+the relative frame, and it is the same single row as the third.
 
 Twenty-one of the 28 put one policy over both hands, which is three quarters of the set: the
 trackers and tracking-adjacent methods

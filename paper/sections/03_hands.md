@@ -145,8 +145,9 @@ on the hand, read by the deployed policy. Eight of 112 method rows meet it: `any
 `robot_synesthesia_2023`, `rotateit_2023` and `rotating_without_seeing_2023`. The rule excludes
 `penspin_2024`, whose 20 binary contacts are simulated on an Allegro that has no tactile hardware
 and whose released config sets `enable_tactile: False`, and it excludes `dexndm_2025` and
-`dexplore_2025` for the same reason. Sixty-five of the 112 method papers mention tactile sensing
-somewhere, which is the gap worth quoting. Thirty-five is the count over this survey's notes.
+`dexplore_2025` for the same reason. Sixty-three of the 112 method papers use the word tactile
+somewhere in their parsed text and 35 carry it in their structured note. Against the eight that meet
+the rule above, either number is the gap worth quoting.
 
 Almost none of the eight uses a high-resolution sensor. `rotating_without_seeing_2023` removes
 vision entirely and rotates objects from 16 binary touch sensors over the palm, links and
@@ -219,8 +220,9 @@ if twelve papers is enough. Everything else is a press release or a hand nobody 
 denominator for a software-lag claim; the eight hands named just above are. What decides used from
 unused is one regular expression per hand run against the method rows' own hand field, in
 `tools/hand_usage.py`, so the partition is recomputed rather than argued about. The lag runs through
-the tooling too: only three of the fifteen simulator rows name a real hand at all, and the ones they
-name are the field's defaults, while `bench2dex_2026` compares 12 hands and `dexverse_2026` six
-without stating a DoF count for any. What would close it is a conformance suite for hand models: one
+the tooling too. Seven of the fifteen simulator rows ship a first-party hand model at all, six of
+those hands are real, Brax's being a synthetic claw, and every one of the six is an Allegro or a
+Shadow; only four of the 33 tabulated hands appear in any engine. `bench2dex_2026` meanwhile
+compares 12 hands and `dexverse_2026` six without stating a DoF count for any. What would close it is a conformance suite for hand models: one
 URDF or MJCF per hand, fixed joint-limit, mass and collision checks, and a published pass or fail per
 engine.

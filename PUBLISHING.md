@@ -3,32 +3,30 @@
 A plan, in the order the steps actually have to happen. Dates are relative because the gating
 step is other people replying to email.
 
-## Before anything is public
+## The decision this plan is written against
 
-**1. Contact the ten authors whose code the survey says contradicts their paper.**
-`outreach/` holds one file per paper with the exact claim, the evidence, and the wording that
-would appear in print, plus a covering letter to adapt. Give two to three weeks. A reply that
-corrects the survey changes the row and the text. A reply that disputes it without evidence is
-recorded as a dispute. No reply is recorded as no reply, not as agreement.
+No permission will be requested and no author will be written to before posting. That is a
+deliberate choice and it changes what the paper has to do for itself. Three consequences, each of
+which has been handled rather than waived.
 
-This step is not optional politeness. Naming a research group as having shipped an objective
-different from the one they published is a serious claim, and the cheapest way to find out you are
-wrong is to ask before you publish rather than after.
+**Nothing in the paper depends on a reply.** Every reproduced figure whose reuse needed an email
+has been redrawn or dropped. What remains is the survey's own artwork plus figures under a licence
+that permits reuse with attribution. The permissions register records the final position.
 
-**2. Settle the figure permissions.** `tex/PERMISSIONS.md` is the register, and it is now two
-emails rather than eleven requests. Redrawing a figure yourself removes the question entirely, and
-it was the right answer for most of what the paper used to reproduce: of eighteen plates, fifteen
-were cut, the ones carrying an argument redrawn in the paper's own style and the rest dropped
-because the prose already made the point. What is left is two emails to authors, for
-`hand_scale_to_human` (Shaw, Agarwal, Pathak) and `teleop_retarget_artifacts` (Wu et al.), and one
-figure already cleared under CC BY 4.0. If either email is refused or goes unanswered, the
-fallback is the one taken fifteen times already.
+**The claim about other people's code is framed as a claim about public artifacts.** The paper says
+what a named repository contains at a named commit, which anyone can check in a minute, rather
+than what its authors did or intended. Beside that finding the paper states plainly that the
+authors were not contacted first, that a commit may not be the code behind a paper's reported
+numbers, and how a disputed case will be corrected. The letters that would have been sent are kept
+in `outreach/` and the paper points at them, so a reader can see exactly what each author would
+have been asked.
 
-**3. Decide the novelty claim.** `reviews/NOVELTY.md` records what prior work exists and what the
-introduction can honestly say. Claim what the evidence supports and not a word more, because the
-first reviewer who finds a prior artifact audit will discount everything else in the paper.
+**Correction is a published route, not a private one.** Because there is no pre-publication
+exchange, the post-publication one has to be real. The route is stated in the paper and the
+repository is public, so a correction is a commit and a replacement version, not a negotiation.
 
-## Posting the preprint
+## Posting
+
 
 **4. arXiv, cs.RO.** This is the right first move. It is free, it is immediate, it establishes the
 date, and it costs nothing if a journal later wants changes. Choose the licence deliberately:

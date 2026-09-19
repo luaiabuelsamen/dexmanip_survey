@@ -28,5 +28,13 @@
  "paper_code_mismatch": "The released code's reward adds several terms absent from the paper's four-term Eq. 5 (a lift-threshold bonus, a target-distance term, a rotation bonus, and an IK controller-tracking penalty) and reshapes the reach/lift terms into inverse-distance and clipped forms rather than the paper's plain distance/height-difference formulas.",
  "note_gaps": "Parallel env count, exact per-modality observation dimensions (Fig. 3, not extracted), and per-cell real trial totals behind the multi-object success tables are not stated numerically; the door-opening environment/reward code was not present in the parsed repo tree, so Table 2's door rows and Table 4 are not reproducible from the parse.",
  "mismatch_class": "contradiction",
- "mismatch_confidence": "high"
+ "mismatch_confidence": "high",
+ "mismatch_artifact": {
+  "repo": "https://github.com/yzqin/dexpoint-release",
+  "commit": "17f1e238bb120d92baabe8207494d48476fea289",
+  "file": "dexpoint/env/rl_env/relocate_env.py",
+  "locator": "AllegroRelocateRLEnv.get_reward",
+  "paper": "a four-term reward, Eq. 5",
+  "code": "`get_reward` sums nine, among them `1.0 / (0.06 + finger_object_dist)` and `controller_penalty`"
+ }
 }

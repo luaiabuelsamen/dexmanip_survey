@@ -136,8 +136,10 @@ show the practice. `bidexgrasp_2026` prints a penetration depth beside a prior m
 reports a maximum penetration and a share of frames past 2 mm against a baseline retargeter, and
 `oakink_2022` scores a dataset split on penetration depth, solid intersection volume and
 simulation displacement. The finding is narrower than the field and concerns learned closed-loop
-control: all eleven score a pose or a reference trajectory, four of them are closed-loop policies,
-and we found none that reports the measurement for rollouts of its own trained policy.
+control: all eleven measure at the reference rather than at the rollout, seven of them scoring a
+pose, a trajectory or a contact model before anything executes and the four that are closed-loop
+policies scoring the references they were given, and we found none that reports the measurement for
+rollouts of its own trained policy.
 
 Where in the pipeline those eleven act is the reference-versus-rollout split that section 1 takes
 from `zhao_dexhand_survey_2026`. A reference is a pose or a trajectory scored before execution,
@@ -276,9 +278,9 @@ everything. Candidates are then scored by the number of other corpus papers whos
 contains the name, and the top 12 by count, ties broken by key, are the rows.
 
 Two corrections changed that ranking. The match is on a whole word. Under the bare substring test
-an earlier version used, "UniDex" matched inside "UniDexGrasp" and "UniDexGrasp++", and
-`unidex_2026`. A 2026 paper. Sat sixth in a ranking over a corpus written mostly before it, on 34
-mentions that belonged to a different work. As a whole word it has 3 and it is not in the table.
+an earlier version used, "UniDex" matched inside "UniDexGrasp" and "UniDexGrasp++", so
+`unidex_2026`, a 2026 paper, sat sixth in a ranking over a corpus written mostly before it, on
+34 mentions that belonged to a different work. As a whole word it has 3 and it is not in the table.
 And the interface rule is now applied to every row that carries the tag rather than only to rows
 that carry nothing else, which drops `anyteleop_2023` at 34 mentions, `dime_2022` at 28 and
 `holo_dex_2022` at 23, along with `dexpilot_2020`, which the earlier prose already excluded by
@@ -357,4 +359,4 @@ protocols, a small denominator, and not one of them uses a dexterous hand: `sure
 parallel-jaw gripper and the other six state no hand. Everything proposed above is therefore
 assembled from work on grippers and on whole-arm tasks. What would close that, and close it cheaply,
 is to run the Table 8 protocol once, on one in-hand reorientation task with one 16-DoF hand, and
-release the rollouts as the first row of Table 9.
+release the rollouts as the first measured row of Table 9.

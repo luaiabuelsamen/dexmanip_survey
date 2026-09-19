@@ -247,9 +247,12 @@ PARADIGM_SHORT = {"RL": "RL", "BC": "BC", "RL+demo": "RL+demo", "distillation": 
                   "world-model": "world", "teleop-system": "teleop", "trajopt": "trajopt",
                   "grasp-synthesis": "grasp-syn", "data-collection": "data"}
 
+# A replacement here is plain text, never LaTeX. tex() escapes the cell after these run, so a
+# control space (`Univ.\ Pisa`) came out of the escaper as `Univ.\textbackslash{} Pisa` and printed
+# a literal backslash in the Pisa/IIT maker cell.
 MAKER_ABBREV = [
-    (r"\bUniversity of ([A-Z][a-z]+)", r"Univ.\ \1"), (r"\bUniversity\b", "Univ."),
-    (r"\bInstitute of Technology\b", "Inst.\\ Tech."), (r"\bInstitute\b", "Inst."),
+    (r"\bUniversity of ([A-Z][a-z]+)", r"Univ. \1"), (r"\bUniversity\b", "Univ."),
+    (r"\bInstitute of Technology\b", "Inst. Tech."), (r"\bInstitute\b", "Inst."),
     (r"\bTechnologies\b|\bTechnology\b", "Tech."), (r"\bCorporation\b|\bCompany\b", "Co."),
     (r"\bLaboratory\b", "Lab"), (r"\bCarnegie Mellon Univ\.", "CMU"),
     (r"\bNew York Univ\.", "NYU"), (r"\bRobotics\b", "Robotics"),
@@ -923,6 +926,84 @@ def table6():
     return write_table("table6_methods_top.tex", "tab:methods-top", cap, cols, body, note=note)
 
 
+# --- Table X: the nine artefact comparisons ------------------------------------------------------
+# The finding this table carries is the one the survey publishes without having written to anybody
+# first, so it is set as a claim about artefacts and nothing else: a repository, the commit that was
+# fetched, the file inside it, the value the paper prints and the value the file contains. Every
+# cell comes from the row's `mismatch_artifact` field, and the repository and commit inside that
+# field are copied from corpus/code_manifest.json, so the table cannot name a commit the corpus did
+# not fetch. Nothing here is a statement about what an author did.
+def code_spans(s):
+    """Backtick spans in a corpus string, set in monospace and breakable at their punctuation."""
+    out, parts = [], str(s).split("`")
+    for i, p in enumerate(parts):
+        if i % 2 == 0:
+            out.append(tex(p))
+        else:
+            body = tex(p)
+            # A shipped identifier is long and has no hyphen, so it needs its own break points:
+            # after each separator, and at every camelCase boundary. Without the second one
+            # `actionDeltaPenaltyScale` sets 50 pt wider than its column.
+            body = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", r"\\allowbreak{}", body)
+            for ch in ("_", "/", "."):
+                body = body.replace(tex(ch), tex(ch) + r"\allowbreak{}")
+            out.append(r"\texttt{" + body + "}")
+    return "".join(out)
+
+
+def path_tt(p):
+    """A path inside a repository, breakable at every separator so a long one wraps in its cell."""
+    return code_spans("`" + str(p) + "`")
+
+
+def repo_cell(art):
+    """The repository, as owner/name, with the short commit under it."""
+    slug = re.sub(r"^https?://github\.com/", "", art["repo"]).rstrip("/")
+    owner, _, name = slug.partition("/")
+    return (r"\texttt{%s/}\allowbreak{}\texttt{%s}\newline\texttt{%s}"
+            % (tex(owner), tex(name), tex(art["commit"][:10])))
+
+
+def table10():
+    rows = [r for r in METHODS if r.get("mismatch_class") == "contradiction"]
+    rows.sort(key=lambda r: (r.get("year") or 0, r["key"]))
+    missing = [r["key"] for r in rows if not r.get("mismatch_artifact")]
+    assert not missing, f"contradiction rows with no mismatch_artifact: {missing}"
+    body = []
+    for r in rows:
+        a = r["mismatch_artifact"]
+        body.append([
+            subject(r["key"]),
+            repo_cell(a),
+            path_tt(a["file"]) + r"\newline " + code_spans("`" + a["locator"] + "`"),
+            code_spans(a["paper"]),
+            code_spans(a["code"]),
+        ])
+    # The method column is wide enough for the longest name to set unhyphenated: at 46 pt the
+    # probe broke PianoMime as "Pi-anoMime", which is a name a reader has to reassemble.
+    cols = [("method", 58, "l"), ("repository, fetched commit", 86, "l"),
+            ("file in it, and where", 98, "l"), ("what the paper prints", 114, "l"),
+            ("what that file contains", 114, "l")]
+    cap = (r"The " + str(len(rows)) + r" rows where a paper and its released repository state "
+           r"different values, each at the commit this survey fetched.")
+    note = (r"Table~\ref{tab:codegap} is the whole of the paper-against-code finding, in the form "
+            r"the finding is made: a public repository, the commit \texttt{tools/fetch\_code.py} "
+            r"cloned, the file inside it, and the two values. \emph{file in it, and where} gives "
+            r"the path as that repository spells it and, beneath it, the function, configuration "
+            r"key or branch the value sits in. \emph{what the paper prints} names the table or "
+            r"equation the value was read from. \emph{what that file contains} is what is in the "
+            r"parsed copy under \path{code/md}, which is the same snapshot every other claim in "
+            r"this survey about that repository is made from. The commit is the one in "
+            r"\texttt{corpus/code\_manifest.json}, printed to ten characters; the rows print the "
+            r"comparison and Appendix~\ref{app:rewards} prints each row's full text, its "
+            r"confidence and any review note. No cell states a cause, and none is a claim about "
+            r"what the work's authors did: a reader with a browser settles every line of this "
+            r"table without asking anyone.")
+    return write_table("table10_codegap.tex", "tab:codegap", cap, cols, body, note=note,
+                       size=r"\scriptsize")
+
+
+
 def appendix_methods():
     """Every method row, one line each.
 
@@ -1155,10 +1236,12 @@ def table8():
     cells = len(picked) * len(AXES_SHORT)
     counts = "; ".join(f"{tex(SUBJECT.get(k, k))}~{n}" for n, k, _, _ in picked)
     cols = [("method", 86, "l")] + [(a, 54, "l") for a in AXES_SHORT]
-    # "All 84 cells are empty" printed directly above the filled worked example, which reads as
-    # false to a reader who looks at the table before the text. The caption says which 84.
+    # "All 84 cells are empty" printed directly above the filled worked example reads as false to a
+    # reader who looks at the table before the text, so the caption says which 84 and what the
+    # first row is.
     cap = (r"The matrix, for someone else to fill: " + str(len(picked)) + r" methods against the "
-           r"axes of Table~\ref{tab:protocol}. All " + str(cells) + r" empty.")
+           r"axes of Table~\ref{tab:protocol}. All " + str(cells) + r" method cells are empty; the "
+           r"first row is a worked example whose every number is fabricated.")
     # The section already states the ranking rule, the whole-word correction, the $\ast$ mark and
     # the fabricated first row, in its own prose. The one thing it cannot state without the
     # generator is the counts themselves, so they are written as a sentence the section inputs
@@ -1402,13 +1485,13 @@ def compile_probe(threshold=20.0):
 
 
 # --- main --------------------------------------------------------------------------------------
-BODY_ORDER = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
+BODY_ORDER = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"]
 
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     body = [table1(), table2(), table3(), table4(), table5(), table6(), table7(), table8(),
-            table9()]
+            table9(), table10()]
     appendix = [appendix_methods(), appendix_hands(), appendix_contact(), appendix_protocol(),
                 appendix_surveys()]
     appendix += write_stubs()

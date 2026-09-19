@@ -14,3 +14,4 @@ tex/probe*.pdf
 tex/tables_probe.*
 __pycache__/
 *.pyc
+dist/

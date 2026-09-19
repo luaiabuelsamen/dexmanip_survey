@@ -58,8 +58,10 @@ on single-hand sequences to 39.5 percent on bimanual ones.
 
 {{figure:fig5_bimanual}}
 
-Figure 5 sets the four architectures side by side. Every row of the 28 is assigned to exactly one
-of them, read from its note.
+Figure 5 sets the four mechanisms side by side. Every row of the 28 carries exactly one
+architecture, read from its note: one policy over both hands, a network per hand, leader and
+follower, or a note that does not say. The fourth panel is not a fourth architecture but the
+relative frame, and it is the same single row as the third.
 
 Twenty-one of the 28 put one policy over both hands, which is three quarters of the set: the
 trackers and tracking-adjacent methods `dexmachina_2025`, `dexman_2025`, `maniptrans_2025`,

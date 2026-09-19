@@ -40,9 +40,9 @@ enforces the gap at the next configuration carries no such term, which is why Do
 NCP keeps its feet above the floor at every timestep it was tested at. Constraint assembly fixes
 the compliance a loaded contact then rests at. A truncated solver leaves a residual that grows
 with conditioning. Which of the three dominates in a grasp is not measured anywhere in this
-corpus, and the three are not ordered here. A fourth item on the figure is not a source of overlap
-at all. It is a mismatch between the geometry the solver uses and the geometry the renderer draws,
-and it runs in both directions.
+corpus, and the three are not ordered here. A fourth thing is not on the figure, because it is
+not a stage of the step and not a source of overlap: a mismatch between the geometry the solver
+uses and the geometry the renderer draws, which runs in both directions.
 
 ## 4.2 Contact models and solvers
 

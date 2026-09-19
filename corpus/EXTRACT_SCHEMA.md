@@ -30,5 +30,23 @@ Use null when the note says "not stated" or does not settle it. Never guess.
  "reward_terms": int or null,              // count of terms in the paper's stated reward
  "code_released": true/false/null,
  "paper_code_mismatch": str or null,       // one sentence, or null if none found
- "note_gaps": str or null                  // what the note flagged as unreadable in the source
+ "note_gaps": str or null,                 // what the note flagged as unreadable in the source
+ "mismatch_class": str or null,            // contradiction, parse-limitation, code-absent,
+                                           // version-skew, internal-inconsistency
+ "mismatch_confidence": str or null,       // high, medium, low
+ "mismatch_review": str or null,           // what a re-reading changed, beside the charge it changed
+ "mismatch_artifact": object or null       // required on every `contradiction` row: the public
+                                           // artefact the claim is a claim about. Keys: repo,
+                                           // commit (both copied from corpus/code_manifest.json),
+                                           // file (its path inside that repository), locator
+                                           // (the function, key or config block inside the file),
+                                           // paper (the value the paper prints, with its table or
+                                           // equation), code (what the file at that commit
+                                           // contains). Backticks mark code spans; the table
+                                           // generators set them in monospace. The two values are
+                                           // the two halves of paper_code_mismatch and add
+                                           // nothing to it: the field exists so the comparison
+                                           // can be printed as a statement about a named
+                                           // artefact that a reader can check, rather than as a
+                                           // statement about what anyone did.
 }

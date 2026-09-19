@@ -54,15 +54,20 @@ Isaac Sim. The routes drawn in \figurename~\ref{fig:field} converge on that reci
 everything ends in a policy trained in a GPU simulator and distilled to vision.
 
 Three things this survey measured are worth stating before the reader commits to 27,000 words.
-Papers disagree with their own released code. Sixty-two of the 112 method rows released code that
-could be read against the paper, 38 of those record a discrepancy, and nine are contradictions
-where the shipped code states a different objective from the published one. The sharpest case is
-\cite{physhoi_2023}. Its \texttt{compute\_humanoid\_reward} hardcodes the object rotation and
-rotation-velocity errors to zero, with the real computation commented out beside them, while the
-reward table in its own paper lists weights of 0.1 and 0.01 for exactly those terms on GRAB. Its
-position-only success criterion could not have caught that, and its headline 95.4 percent is cited
-as a baseline. Section~\ref{sec:train:code} classifies all 38, and seven further accusations an earlier draft made
-were withdrawn under adversarial review and recorded beside the charge.
+Papers and their own released code state different things. Sixty-two of the 112 method rows
+released code that could be read against the paper, 38 of those record a disagreement, and nine
+are contradictions, where a value the paper prints and the value in a named file at a named commit
+are not the same. The sharpest is \cite{physhoi_2023}: at commit \texttt{6095c605e2} of
+\texttt{wyhuai/PhysHOI}, \texttt{compute\_humanoid\_reward} sets the object rotation and
+rotation-velocity errors to zero, with the computation that would produce them commented out on
+the same lines, while the reward table in the paper lists weights of 0.1 and 0.01 for exactly
+those terms on GRAB. The success criterion behind its 95.4 percent is itself position-only, and
+that number is cited as a baseline. Section~\ref{sec:train:code} classifies all 38, gives each of
+the nine as a repository, a commit, a file and two values in Table~\ref{tab:codegap}, and states
+there, beside the finding, that none of the nine sets of authors was written to before this was
+posted, what a fetched commit can and cannot show, and how a disputed case is corrected. Seven
+further accusations an earlier draft made were withdrawn under adversarial review, an eighth while
+those letters were being drafted, and each is recorded beside the charge.
 \figurename~\ref{fig:codegap} draws the narrowing.
 
 
