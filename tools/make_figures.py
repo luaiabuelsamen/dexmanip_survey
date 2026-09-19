@@ -28,14 +28,22 @@ def esc(s): return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">
 
 # ---------------- Figure 2: hands the literature actually runs on ----------------
 def fig_hands():
-    canon = [("Allegro", r"allegro"), ("Shadow", r"shadow"), ("LEAP", r"\bleap\b"), ("Adroit (sim)", r"adroit"),
-             ("Inspire", r"inspire"), ("Ability (PSYONIC)", r"psyonic|ability"), ("XHand", r"xhand"),
-             ("Faive/Mimic", r"faive|mimic"), ("ORCA", r"\borca\b"), ("RUKA", r"\bruka\b"),
-             ("Sharpa", r"sharpa"), ("D'Claw/TriFinger", r"d.?claw|trifinger"), ("Fourier", r"fourier"),
-             ("PsiBot", r"psibot"), ("Schunk", r"schunk"), ("Wuji", r"wuji"), ("BrainCo", r"brainco"),
-             ("Unitree Dex5", r"dex5|dex-5"), ("AgiBot", r"agibot"), ("LinkerBot", r"linker"),
-             ("Oymotion", r"oymotion"), ("Shadow DEX-EE", r"dex-?ee"), ("ByteDexter (ByteDance)", r"bytedexter"),
-             ("parallel-jaw gripper", r"parallel.?jaw|gripper")]
+    # The pattern per bar is make_tables.USES, which is also what Table 2's `uses` column counts,
+    # so the figure and the table cannot print two answers for one hand. Only the label is this
+    # edition's. A slug that is not a hand key is one of the categories with no row of its own.
+    from make_tables import uses_pattern
+    canon = [("Allegro", "allegro_hand_v4_2016"), ("Shadow", "shadow_dexterous_hand_2005"),
+             ("LEAP", "leap_hand_2023"), ("Adroit (sim)", "adroit"),
+             ("Inspire", "inspire_rh56dfx_2023"), ("Ability (PSYONIC)", "psyonic_ability_hand_2021"),
+             ("XHand", "robotera_xhand1_2024"), ("Faive/Mimic", "faive_hand_2023"),
+             ("ORCA", "orca_hand_2025"), ("RUKA", "ruka_2025"), ("Sharpa", "sharpa_wave_2026"),
+             ("D'Claw/TriFinger", "dclaw_trifinger"), ("Fourier", "fourier"),
+             ("PsiBot", "psibot"), ("Schunk", "schunk"), ("Wuji", "wuji_hand_2025"),
+             ("BrainCo", "brainco_revo2_2025"), ("Unitree Dex5", "unitree_dex5_2025"),
+             ("AgiBot", "agibot_omnihand_2025"), ("LinkerBot", "linkerbot_l20_2025"),
+             ("Oymotion", "oymotion"), ("Shadow DEX-EE", "shadow_dex_ee_2024"),
+             ("ByteDexter (ByteDance)", "bytedexter"), ("parallel-jaw gripper", "gripper")]
+    canon = [(label, uses_pattern(slug)) for label, slug in canon]
     status = {"Allegro": "sold", "Shadow": "sold", "LEAP": "open", "Adroit (sim)": "sim only", "Inspire": "sold",
               "Ability (PSYONIC)": "sold", "XHand": "sold", "Faive/Mimic": "open", "ORCA": "open", "RUKA": "open",
               "Sharpa": "sold", "D'Claw/TriFinger": "open", "Fourier": "sold", "PsiBot": "sold",

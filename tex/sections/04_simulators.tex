@@ -57,9 +57,9 @@ $\Delta t$; an engine that enforces the gap at the next configuration carries no
 why Dojo's hard-contact NCP keeps its feet above the floor at every timestep it was tested at.
 Constraint assembly fixes the compliance a loaded contact then rests at. A truncated solver leaves a
 residual that grows with conditioning. Which of the three dominates in a grasp is not measured
-anywhere in this corpus, and the three are not ordered here. A fourth item on the figure is not a
-source of overlap at all. It is a mismatch between the geometry the solver uses and the geometry the
-renderer draws, and it runs in both directions.
+anywhere in this corpus, and the three are not ordered here. A fourth thing is not on the figure,
+because it is not a stage of the step and not a source of overlap: a mismatch between the geometry
+the solver uses and the geometry the renderer draws, which runs in both directions.
 
 \subsection{Contact models and solvers, engine by engine}
 \label{sec:sim:engines}
@@ -75,8 +75,8 @@ renderer draws, and it runs in both directions.
   \label{fig:simstep}
 \end{figure*}
 
-Table~\ref{tab:simulators} is the engine-by-engine comparison, one row per simulator, built
-only from what a note confirmed. Le Lidec et al. supply the taxonomy that organises it, checking
+Table~\ref{tab:simulators}, set in Appendix~\ref{app:tables}, is the engine-by-engine comparison,
+one row per simulator, built only from what a note confirmed. Le Lidec et al. supply the taxonomy that organises it, checking
 each formulation against the Signorini condition, Coulomb's law, and the maximum dissipation
 principle. Linear complementarity, the family of Bullet, ODE, PhysX and DART, satisfies Signorini
 alone, because linearising the friction cone to a pyramid biases friction toward its corners. The
@@ -90,7 +90,7 @@ Gauss-Seidel sweep and exposes position and velocity iteration counts separately
 
 MuJoCo is inside that taxonomy rather than outside it. Le Lidec et al. classify it as CCP-MuJoCo, a
 convex relaxation solved by a Newton method on the primal QCQP, in the same family as CCP-Drake, the
-SAP-style scheme (Table~III). The relaxation makes two errors of opposite sign in one engine. A
+SAP-style scheme \cite[Table~III]{contact_models_comparison_2023}. The relaxation makes two errors of opposite sign in one engine. A
 loaded contact carries a violation, and a sliding contact carries force at a positive gap. Drake's
 SAP inherits the same pair, and its gliding effect at distance $\varphi \approx \delta t \cdot \mu
 \cdot \lVert v_t \rVert$ ``unfortunately does not go away as $\delta t \to 0$''
@@ -169,7 +169,7 @@ can compute. Two of the 15 engines report one, Dojo and ComFree-Sim, and both ar
 paper is about contact accuracy. Four are recorded as not reporting it: Brax, Isaac Gym, Isaac Lab
 and Orbit. Nine rows are blank. The word ``penetration'' appears nowhere in the Isaac Gym paper, and
 Isaac Lab's contact sensor reports force, duration and an average contact point with no
-contact-quality metric. Those two simulators carry 42 of the 112 method papers in this corpus.
+contact-quality metric. The Isaac family carries 42 of the 112 method papers in this corpus.
 
 \textbf{The tooling exists and the number is still not recorded.} NVIDIA's own IsaacGymEnvs
 repository computes interpenetration depth in simulation. Its IndustReal tasks load plug and socket
@@ -205,17 +205,19 @@ corpus method
 that reports the number carefully, and it reports it on retargeted references rather than on a
 rollout, which Section~VII takes up.
 
-The rest of Table~\ref{tab:simulators} is largely empty, and the emptiness is a result.
-Sixty-eight of its 165 cells are values no parsed source stated, which is 68 of the 150 cells
-outside the engine-key column, or 45 percent. No engine paper states a default physics timestep.
+The rest of Table~\ref{tab:simulators} is largely empty, and the emptiness is a result. Forty of the
+105 cells in its seven property columns, 38 percent, are values no parsed source stated, which is
+what its caption counts. The repository tabulation is emptier still, because it carries four columns
+this one does not: 69 of the 150 cells outside its engine column, 46 percent
+(\texttt{paper/tables/table4\_simulators.md}). No engine paper states a default physics timestep.
 Three report one for a named experiment, and the timestep column reports those experiment settings.
 Isaac Gym's cell is its Shadow Hand step, from the only per-task timestep table any engine paper
 here publishes, which runs 1/120 s for Shadow Hand and Allegro, 1/200 s for ANYmal and TriFinger and
 1/60 s for Franka \cite[Table~4]{isaacgym_2021}. MuJoCo's 0.01 s is the 27-DoF humanoid test's step
-and ComFree-Sim's 0.002 s is its benchmark step, against a stated stability limit near 0.02 s. Four
-engines state a solver iteration count and seven ship any dexterous hand at all. The licence column
-answers a question a reader choosing an engine actually has, and thirteen of fifteen rows do not
-answer it.
+and ComFree-Sim's 0.002 s is its benchmark step, against a stated stability limit near 0.02 s. Seven
+of the fifteen engines ship any dexterous hand at all. Two of the columns only the repository
+tabulation carries are worth the trip: four engines state a solver iteration count there, and two
+state a licence, which is the question a reader choosing an engine actually has.
 
 % The engine table is set in Appendix B rather than here: this section reads cells out of it, but
 % a reader consults it rather than reading it through.
@@ -231,7 +233,7 @@ resolves contacts with the Temporal Gauss-Seidel sweep described above. Its per-
 published, which is rare: the Shadow Hand runs a 1/120 s physics step under a 1/60 s control step,
 or 1/20 s in the OpenAI variant. The result that reorganised the field is that reproducing OpenAI's
 Shadow Hand cube reorientation took under an hour on one A100, against 30 hours on 6144 CPU cores
-and 8 V100s \cite[Sec.~6.4.1]{isaacgym_2021}. Thirty-six of the 112 method papers in this corpus run
+and 8 V100s \cite[Sec.~6.4.1]{isaacgym_2021}. Thirty-five of the 112 method papers in this corpus run
 on it.
 
 Orbit and Isaac Lab moved the stack to PhysX 5, and the dexterous offering is thinner than the

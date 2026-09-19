@@ -25,7 +25,7 @@ def has(pat, r, field="hand"): return bool(re.search(pat, str(r.get(field) or ""
 def keys(pat, field="hand"): return {r["key"] for r in M if has(pat, r, field)}
 def norm_sim(s):
     s = (s or "").lower()
-    if any(k in s for k in ("isaac lab", "isaaclab", "isaac sim", "orbit")): return "isaaclab"
+    if any(k in s for k in ("isaac lab", "isaaclab", "isaac sim", "isaacsim", "orbit")): return "isaaclab"
     if "isaac" in s: return "isaacgym"
     if "mjx" in s or "mujoco" in s: return "mujoco"
     return s
@@ -294,8 +294,25 @@ def shape_problems():
         out.append(f"section 6.2 assigns no architecture to `{k}`, which is one of the {len(BIMANUAL_28)}")
     return out
 
+def strip_tex(t):
+    """Reduce LaTeX source to running prose so the same patterns match both editions."""
+    t = re.sub(r"(?m)^\s*%.*$", " ", t)                    # comments
+    t = re.sub(r"\\(cite|ref|label|input)\{[^}]*\}", " ", t)  # references
+    t = re.sub(r"\\(texttt|textbf|emph|textit)\{([^{}]*)\}", r"\2", t)
+    t = re.sub(r"\\[a-zA-Z@]+\s*", " ", t)                 # any remaining command
+    t = t.replace("\\_", "_").replace("\\%", "%").replace("\\&", "&").replace("~", " ")
+    t = re.sub(r"[{}]", " ", t)
+    return re.sub(r"\s+", " ", t)
+
 def main():
+    # Both editions are checked. The checker previously read only paper/survey.md, so a clean
+    # report said nothing at all about the LaTeX edition, which is the one being submitted.
+    sources = [("markdown", R / "paper/survey.md")]
+    tex = sorted((R / "tex/sections").glob("*.tex"))
+    if tex:
+        sources.append(("latex", None))
     text = (R / "paper/survey.md").read_text()
+    tex_text = "\n".join(f.read_text() for f in tex)
     print("=== facts recomputed from corpus/rows ===")
     for k, v in FACTS.items(): print(f"  {v:>5}  {k}")
     bad = 0
@@ -314,25 +331,29 @@ def main():
     if not tp: print(f"  {len(FORBIDDEN)} withdrawn phrases absent, "
                      f"{sum(len(v) for v in REQUIRED_IN.values())} required phrases present")
     print("\n=== claims in the prose ===")
-    seen = {}
-    for entry in CLAIMS:
-        pat = entry[-1]
-        for m in re.finditer(pat, text, re.I):
-            for grp, key in enumerate(entry[:-1], 1):
-                want = FACTS[key]
-                got = to_int(m.group(grp))
-                if got is None: continue
-                seen.setdefault(key, set()).add(got)
-                if got != want:
-                    bad += 1
-                    ctx = text[max(0, m.start()-100):m.end()+50].replace("\n", " ")
-                    print(f"  WRONG  {key}: prose {got}, corpus {want}\n         ...{ctx}...")
-    for key, vals in sorted(seen.items()):
-        if len(vals) > 1:
-            bad += 1
-            print(f"  SPLIT  {key}: prose uses {sorted(vals)} for one quantity; corpus says {FACTS[key]}")
-    unchecked = sorted(set(FACTS) - set(seen))
-    if unchecked: print(f"  note: no prose matched for {', '.join(unchecked)}")
+    matched_any = set()
+    for edition, body in (("markdown", text), ("latex", strip_tex(tex_text))):
+        seen = {}
+        for entry in CLAIMS:
+            pat = entry[-1]
+            for m in re.finditer(pat, body, re.I):
+                for grp, key in enumerate(entry[:-1], 1):
+                    want = FACTS[key]
+                    got = to_int(m.group(grp))
+                    if got is None: continue
+                    seen.setdefault(key, set()).add(got)
+                    if got != want:
+                        bad += 1
+                        ctx = body[max(0, m.start()-100):m.end()+50].replace("\n", " ")
+                        print(f"  WRONG  [{edition}] {key}: prose {got}, corpus {want}\n         ...{ctx}...")
+        for key, vals in sorted(seen.items()):
+            if len(vals) > 1:
+                bad += 1
+                print(f"  SPLIT  [{edition}] {key}: prose uses {sorted(vals)} for one quantity; "
+                      f"corpus says {FACTS[key]}")
+        matched_any |= set(seen)
+    unchecked = sorted(set(FACTS) - matched_any)
+    if unchecked: print(f"  note: no prose in either edition matched {', '.join(unchecked)}")
     print(f"\n{bad} problems")
     return 1 if bad else 0
 

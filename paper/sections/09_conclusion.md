@@ -3,8 +3,8 @@
 The binding constraint on this field is not ideas. It is verification. Sixty-two method papers
 released code that could be read against the paper, 38 of those record a discrepancy, and nine are
 contradictions where the shipped code states a different objective from the published one. The
-first count was sixteen. An adversarial re-reading withdrew seven accusations, and an eighth was
-withdrawn later still, when writing to `omnih2o_2024`'s authors sent someone back to its evidence
+first count was sixteen. An adversarial re-reading withdrew six of them outright and narrowed a
+seventh, `dexpbt_2023`, to the half that still stands, and an eighth was withdrawn later still, when writing to `omnih2o_2024`'s authors sent someone back to its evidence
 and the reward-weight discrepancy it had rested on turned out to be a typo signature in the
 paper's own table, not a different trained objective. Each withdrawal is recorded in the row
 beside the charge. Nine is a floor, because forty-six method rows released nothing to check. A reward table in a paper is a claim about a document, not about a run.
@@ -25,15 +25,15 @@ repository and the number is still not reported. `dextrack_2025` has the formula
 its inputs.
 
 The third is that hardware and software have come apart, on a narrower claim than the hand count
-first suggests. Tables 2 and 3 hold 33 hands and 18 appear in no method row. 11 of those 18
-are neither sold nor open and appear in none for that reason, which leaves 7 hands that can be
+first suggests. Tables 2 and 3 hold 33 hands and 19 appear in no method row. 11 of those 19
+are neither sold nor open and appear in none for that reason, which leaves 8 hands that can be
 bought today or built from published designs and that take zero method rows between them. Eight of
 the fourteen generalist policies that settle the question do evaluate on a dexterous hand, at a
 median of 6 degrees of freedom against 16 across the reinforcement-learning rows.
 
 What this survey cannot establish is which method is better than which. It re-runs nothing, and
-Section 7 argues that the published numbers do not compare. Five works are cited by metadata only
-and no claim rests on them. Every coverage statistic here counts what this survey's extraction
+Section 7 argues that the published numbers do not compare. Six works are cited by metadata only,
+and a seventh, Ma and Dollar 2011, is on disk but unread; no claim rests on any of them. Every coverage statistic here counts what this survey's extraction
 captured rather than what the literature reported. Each is a floor and not a rate, because every
 miss converts a reporting paper into a silent one.
 

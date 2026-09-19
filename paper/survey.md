@@ -33,7 +33,7 @@ that reports it for its own policy's rollouts. Grasp synthesis and hand-object r
 reported penetration depth and intersection volume comparatively for years, so the gap is specific to
 learned closed-loop control rather than to the field. IsaacGymEnvs already computes that depth and
 gates a policy update on it. Hardware and published work have come apart.
-18 of the 33 hand rows appear in no method row, and 7 of those can be bought or built
+19 of the 33 hand rows appear in no method row, and 8 of those can be bought or built
 today.
 
 This survey re-runs no method. It ranks nothing and publishes no leaderboard. On penetration it
@@ -65,7 +65,8 @@ thorough analysis very difficult". That verdict is one architect's, on one chapt
 survey did not survey the tradition it judges. Learned control did not solve those modelling
 problems. It went around them by sampling a simulator instead of solving a model, and by scoring a
 rollout instead of certifying a configuration. Of the 112 method papers in this corpus, 53 train
-with reinforcement learning and 36 run in Isaac Gym, against 6 on its successor Isaac Lab.
+with reinforcement learning and 35 run in Isaac Gym, against 7 on its successors Isaac Lab and
+Isaac Sim.
 
 Three things this survey measured are worth stating before the reader commits to 27,000 words. The
 first is that papers disagree with their own released code. Sixty-two of the 112 method rows
@@ -92,10 +93,10 @@ and a share of frames past 2 mm against a baseline retargeter. Every one of thos
 pose or a reference trajectory rather than the behaviour a trained policy produced, and it is the
 rollout that is missing. The obstacle is not the engines. NVIDIA's own IsaacGymEnvs repository already computes a
 per-environment maximum interpenetration depth in Warp and gates the policy update on a 1 mm
-threshold. Section 7.3 has the file and the lines.
+threshold. Section 4.2 has the file and the lines.
 
-The third is that hardware and published work have come apart. 18 of the 33 hand rows in
-Tables 2 and 3 appear in no method row, and 7 of those can be bought today or built from
+The third is that hardware and published work have come apart. 19 of the 33 hand rows in
+Tables 2 and 3 appear in no method row, and 8 of those can be bought today or built from
 published designs. Thirty-five method rows run on the Allegro, whose weight, joint torque, payload
 and price have no reachable source, because its product page returns HTTP 404 and everything Table
 2 confirms about it comes from its ROS driver.
@@ -405,7 +406,7 @@ URDF is released and the released API repository contains none `leap_hand_2023`.
 | `tesollo_dg5f_2024` | Tesollo Inc. (Incheon HQ, Gwangmyeong <br>R&D/factory) | 20 | 20 | 20 | one integrated actuator per joint ('high-torque <br>actuation', absolute encoder); page does not say <br>direct-drive | 1763 |   |   | pinching 2.5 kg rated and 5 kg maximum; enveloping <br>10 kg rated and 20 kg maximum | 250 Hz over Modbus RTU or TCP and Ethernet TCP/IP |   | none standard; optional fingertip sensors (6-axis <br>F/T, 3-axis force, or tactile) available; count/type <br>not given |   | no | sold | vendor page | undated page, copyright 2026, download links dated <br>2026-08 | 0 |
 | `unitree_dex5_2025` | Unitree Robotics (Yushu Technology Co., <br>Ltd.) | 20 | 16 | 16 | in-joint geared motor ('hollow-cup motor' + <br>high-precision encoder + low-damping small-clearance <br>reducer), backdrivable; page does not use the words <br>tendon or linkage | 1100 | 10 | fingertip normal force under a 1 cm diameter <br>cylinder pressed vertically down (vendor footnote) | 3.5 kg palm down and 4.5 kg palm left, on a 5 cm <br>round hard object | 1000 Hz over USB 2.0, with per-joint stiffness and <br>damping commands |   | Dex5-1: none. Dex5-1P: 94 pressure sensors per hand <br>(2x5 palm + 2x3x5 finger pad + 2x3x5 fingertip + <br>2x3x4 finger root), range 10 g-2500 g. |   | no | sold | datasheet | undated page, copyright 2016-2025, fetched <br>2026-09-17 | 0 |
 | `orca_hand_2025` [7] | Clemens C. Christoph, Maximilian Eberlein, <br>Filippos Katsimalis, Arturo Roberti, <br>Aristotelis Sympetheros, Michel R. Vogt, <br>Davide Liconti, Chenyu Yang, Barnabas Gavin <br>Cangan, Ronan J. Hinchet, Robert K. <br>Katzschmann, Soft Robotics Lab, ETH Zurich | 17 | 17 | 17 | tendon-driven (antagonistic fishing-line tendon <br>pairs per joint); wrist uses a GT2 timing belt drive | 1200 |   |   | 10.5 kg on all four fingers and 2 kg on the index <br>finger alone, both at a fixed 600 mA motor current | serial to Dynamixel or Feetech motors; rate not <br>stated | URDF-derived kinematic constants only; no URDF or <br>MJCF file in the released tree | yes: FSR-based binary tactile sensing on all 5 <br>fingertips (RP-C7.6-ST), absolute detection <br>threshold as low as 0.05 N |   | yes | open-source | paper | paper, 2025 | 0 |
-| `leap_hand_2023` | Kenneth Shaw, Ananye Agarwal, Deepak Pathak, <br>Carnegie Mellon University | 16 | 16 | 16 | direct-drive (Dynamixel servos, e.g. XC330-M288), <br>joint velocity ~8 rad/s | 595 | 19.5 | pull-out resistance: the outward force a flexed <br>finger resists before slipping or deviating more <br>than 15 degrees (Table III) |   | up to 500 Hz querying over USB serial; the paper's <br>own sim-to-real policy runs at 20 Hz | URDF claimed in the paper; the released <br>LEAP_Hand_API repo contains no URDF, xacro or MJCF | none (future work only: 'we plan to develop and <br>integrate LEAP Hand with low-cost touch sensors') | 2000 | yes | open-source | paper | paper, 2023 | 11: `bidex_teleop_2024`, `bidexhd_2024`, <br>`cross_embodiment_world_models_2025`, … |
+| `leap_hand_2023` | Kenneth Shaw, Ananye Agarwal, Deepak Pathak, <br>Carnegie Mellon University | 16 | 16 | 16 | direct-drive (Dynamixel servos, e.g. XC330-M288), <br>joint velocity ~8 rad/s | 595 | 19.5 | pull-out resistance: the outward force a flexed <br>finger resists before slipping or deviating more <br>than 15 degrees (Table III) |   | up to 500 Hz querying over USB serial; the paper's <br>own sim-to-real policy runs at 20 Hz | URDF claimed in the paper; the released <br>LEAP_Hand_API repo contains no URDF, xacro or MJCF | none (future work only: 'we plan to develop and <br>integrate LEAP Hand with low-cost touch sensors') | 2000 | yes | open-source | paper | paper, 2023 | 12: `bidex_teleop_2024`, `bidexhd_2024`, <br>`cross_embodiment_world_models_2025`, … |
 | `allegro_hand_v4_2016` [8] | Wonik Robotics Co. Ltd. (Seoul, South <br>Korea); earlier versions 1.0/2.0 made by <br>SimLab Co. Ltd. | 16 | 16 | 16 |   |   |   |   |   | 333 Hz, CAN, the hand's own real-time clock (driver <br>README) | URDF and xacro, left and right, in the ROS driver <br>repo | none |   | no | sold | driver repo | driver repo, versions 1.0-4.0 undated, fetched <br>2026-09-17 | 35: `anyrotate_2024`, `anyteleop_2023`, <br>`asymdex_2024`, … |
 | `ruka_2025` | Anya Zorin, Irmak Guzey, Billy Yan, <br>Aadhithya Iyer, Lisa Kondrich, Nikhil X. <br>Bhattasali, Lerrel Pinto, New York <br>University | 15 | 11 | 11 | tendon-driven (11 Dynamixel actuators in the <br>forearm: XM430-W210T for the thumb, XL330-M288-T for <br>the other fingers) |   | 2.74 | pinch force, best of three trials, averaged over the <br>left and right hands (Table III) | 6.0 kg: weight added to a curled cloth-bag grip <br>until joint-angle error exceeds 15 degrees, best of <br>three trials | Dynamixel over a USB-to-serial bridge; rate not <br>stated, data collection ran at 15 Hz | MJCF | none (stated limitation: 'lacks tactile sensing') | 1300 | yes | open-source | paper | paper, 2025 | 0 |
 | `robotera_xhand1_2024` [9] | ROBOTERA | 12 | 12 |   | gear-driven force-controlled joint modules per <br>finger segment, back-drivable | 1100 |   |   | 25 kg, tracker's 'Strength' figure, over 25 kg <br>gripping palm-up | not stated | URDF exists but is licensed; `maniptrans_2025` <br>withholds it | tactile/force sensors on every fingertip confirmed <br>present (senses contact, force, temperature); count <br>and array size not stated | 14000 | no | sold | third-party tracker | undated tracker page, fetched 2026-09-17; the vendor <br>page was not fetched | 8: `cross_embodiment_world_models_2025`, <br>`deximit_2026`, `dexmachina_2025`, … |
@@ -459,14 +460,15 @@ simulated cube rotation, LEAP reaches 0.2288 rad/s against the Allegro's 0.0828 
 three-trial pinch test `ruka_2025`. A method compared only on Allegro hardware is compared at one
 point in a space where a single axis moves the headline number two or three times over. Two further
 patterns follow. Inspire, XHand and Sharpa take 29 of the 103 rows between them, four rows use two
-of the three, and none is earlier than 2024. ORCA, RUKA, Ruka-v2, BiDexHand, DexHand, the Tesollo
-DG-5F and the Unitree Dex5 take none at all.
+of the three, and none is earlier than 2024. Eight take none at all: ORCA, RUKA, Ruka-v2,
+BiDexHand, DexHand, the Proception ProHand, the Tesollo DG-5F and the Unitree Dex5.
 
 ## 3.3 Open hardware and the collapse in cost
 
-Seven rows in Table 2 are open hardware. Five state a dollar cost in the price column, ORCA states
-a material cost below 2,000 CHF that the column leaves unconverted, and BiDexHand states none
-`orca_hand_2025` `bidexhand_2025`. The Faive Hand states neither a cost nor a licence that could be
+Six rows in Table 2 are open hardware, and LEAP Hand V2 in Table 3 is a seventh. Five of the seven
+state a dollar cost: $2,000 for LEAP, $3,000 for LEAP Hand V2, $1,500 for Ruka-v2, $1,300 for RUKA
+and $300 for DexHand. ORCA states a material cost below 2,000 CHF that the price column leaves
+unconverted, and BiDexHand states none `orca_hand_2025` `bidexhand_2025`. The Faive Hand states neither a cost nor a licence that could be
 read, so it is not counted as open hardware here `faive_hand_2023`. Two of the stated bases need
 saying. DexHand's $300 is "additional total cost of components", excluding the printing and the
 wrist servos `dexhand_open_source_2023`, and ORCA's own figure sits against Ruka-v2's table listing
@@ -601,14 +603,15 @@ piezoresistive fingertip channels in the action vector and real-robot success ra
 `gr_dexter_2025`, not through a product page. That mechanism is available to every vendor in
 Table 3 and none has used it.
 
-The gap runs the other way too, and the last column of Table 2 shows it. Seven hands that are sold
-and documented take zero method rows each: the Unitree Dex5 with 94 pressure sensors on its P
-variant `unitree_dex5_2025`, the fully actuated Tesollo DG-5F `tesollo_dg5f_2024`, ORCA, RUKA,
-Ruka-v2, BiDexHand and DexHand. Cheapness is established only for RUKA, Ruka-v2 and DexHand,
-because Table 2's price cell is empty for Unitree, Tesollo, ORCA and BiDexHand, and the only Dex5
-price on disk is Ruka-v2's secondhand "~$25K" `ruka_v2_2026`. A reader choosing a hand on this
+The gap runs the other way too, and the last column of Table 2 shows it. Eight hands that can be
+bought or built from published designs take zero method rows each: the Unitree Dex5 with 94
+pressure sensors on its P variant `unitree_dex5_2025`, the fully actuated Tesollo DG-5F
+`tesollo_dg5f_2024`, the 22-DoF Proception ProHand `proception_prohand_2026`, ORCA, RUKA, Ruka-v2,
+BiDexHand and DexHand. Cheapness is established only for RUKA, Ruka-v2 and DexHand,
+because Table 2's price cell is empty for Unitree, Tesollo, the ProHand, ORCA and BiDexHand, and
+the only Dex5 price on disk is Ruka-v2's secondhand "~$25K" `ruka_v2_2026`. A reader choosing a hand on this
 corpus's evidence has two well-precedented options, an Allegro or an Inspire, and a third in LEAP
-if eleven papers is enough. Everything else is a press release or a hand nobody has published on.
+if twelve papers is enough. Everything else is a press release or a hand nobody has published on.
 
 # 4. Simulators and the physics underneath
 
@@ -749,8 +752,8 @@ whether a parsed source reported a penetration depth, not what an engine can com
 15 engines report one, Dojo and ComFree-Sim, and both are engines whose paper is about contact
 accuracy. Four are recorded as not reporting it: Brax, Isaac Gym, Isaac Lab and Orbit. Nine rows
 are blank. The word "penetration" appears nowhere in the Isaac Gym paper, and Isaac Lab's contact
-sensor reports force, duration and an average contact point with no contact-quality metric. Those
-two simulators carry 42 of the 112 method papers in this corpus.
+sensor reports force, duration and an average contact point with no contact-quality metric. The
+Isaac family carries 42 of the 112 method papers in this corpus.
 
 **The tooling exists and the number is still not recorded.** NVIDIA's own IsaacGymEnvs repository
 computes interpenetration depth in simulation. Its IndustReal tasks load plug and socket meshes
@@ -782,9 +785,9 @@ references, and presents tolerance of "severe hand-object penetrations" as evide
 (App. B). `toporetarget_2026` is the one corpus method that reports the number carefully, and it
 reports it on retargeted references rather than on a rollout, which section 7 takes up.
 
-The rest of Table 4 is largely empty, and the emptiness is a result. Sixty-eight of its 165 cells
-are values no parsed source stated, which is 68 of the 150 cells outside the engine-key column, or
-45 percent. No engine paper states a default physics timestep. Three report one for a named
+The rest of Table 4 is largely empty, and the emptiness is a result. Sixty-nine of its 165 cells
+are values no parsed source stated, which is 69 of the 150 cells outside the engine-key column, or
+46 percent, and the table's own footer counts the same 69. No engine paper states a default physics timestep. Three report one for a named
 experiment, and the timestep column reports those experiment settings. Isaac Gym's cell is its
 Shadow Hand step, from the only per-task timestep table any engine paper here publishes, which
 runs 1/120 s for Shadow Hand and Allegro, 1/200 s for ANYmal and TriFinger and 1/60 s for Franka
@@ -823,7 +826,7 @@ resolves contacts with the Temporal Gauss-Seidel sweep described above. Its per-
 published, which is rare: the Shadow Hand runs a 1/120 s physics step under a 1/60 s control step,
 or 1/20 s in the OpenAI variant. The result that reorganised the field is that reproducing OpenAI's
 Shadow Hand cube reorientation took under an hour on one A100, against 30 hours on 6144 CPU cores
-and 8 V100s (`isaacgym_2021`, Sec. 6.4.1). Thirty-six of the 112 method papers in this corpus run
+and 8 V100s (`isaacgym_2021`, Sec. 6.4.1). Thirty-five of the 112 method papers in this corpus run
 on it.
 
 Orbit and Isaac Lab moved the stack to PhysX 5, and the dexterous offering is thinner than the
@@ -1450,7 +1453,7 @@ prose says the network predicts noise while its config sets `prediction_type: sa
 printed in the paper.
 
 A reward table is a claim about a training run and the code is a claim about a repository. Here
-the two contradict each other in ten cases, in the other 28 the released artefacts do not settle
+the two contradict each other in nine cases, in the other 29 the released artefacts do not settle
 the question, and in exactly one, `hora_2022`, the repository says so itself. Read the reward
 function before the reward table, and treat a printed weight as a hypothesis about the code.
 
@@ -2252,11 +2255,13 @@ cases where the code was never released; four version skew; four inconsistencies
 with no code involved. Nine is the number to quote, eight at high confidence, with `penspin_2024`
 held at medium against an innocent reading a direct code read would settle.
 
-The first count was sixteen. An adversarial re-reading withdrew seven accusations:
-`maniptrans_2025`, `eureka_2023`, `open_television_2024`, `dexmachina_2025`, `artigrasp_2023`,
-`graspxl_2024`, and the domain-randomisation half of the charge against `dexpbt_2023`. Two
-refuted by the accused repository's own README, two resting on reward code never in the parse, one
-charging the code with structure the paper prints, one against a paper with no reward function.
+The first count was sixteen. An adversarial re-reading withdrew six of them outright and narrowed
+a seventh to the half that stands. The six were `maniptrans_2025`, `eureka_2023`,
+`open_television_2024`, `dexmachina_2025`, `artigrasp_2023` and `graspxl_2024`: two refuted by the
+accused repository's own README, two resting on reward code never in the parse, one charging the
+code with structure the paper prints, one against a paper with no reward function. The seventh is
+`dexpbt_2023`, where the domain-randomisation half of the charge is withdrawn and the zeroed reward
+term stands, so that row is still a contradiction and its withdrawal takes nothing off the count.
 That left ten, and ten held until the letters to the authors were drafted.
 
 Writing to `omnih2o_2024` meant reading its accusation again before sending it, and reading it
@@ -2333,10 +2338,10 @@ number.
 
 ## 8.5 The hands that can be bought go unused
 
-7 documented hands that can be bought or built from published designs take zero method rows
-between them: Unitree Dex5, Tesollo DG-5F, Proception ProHand, ORCA, RUKA, RUKA v2, BiDexHand. Only three
-of the fifteen simulator rows name a real hand at all, and the ones they do name are the field's
-defaults. 18 of the 33 hands in Tables 2 and 3 appear in no method row, but 11 are neither
+Eight documented hands that can be bought or built from published designs take zero method rows
+between them: Unitree Dex5, Tesollo DG-5F, Proception ProHand, ORCA, RUKA, Ruka-v2, BiDexHand and
+DexHand. Only three of the fifteen simulator rows name a real hand at all, and the ones they do
+name are the field's defaults. 19 of the 33 hands in Tables 2 and 3 appear in no method row, but 11 are neither
 sold nor open and appear in none for that reason, so 33 is not the denominator for a software-lag
 claim. The rule that decides used from unused is one regular expression per hand against the
 method rows' own hand field, in `tools/hand_usage.py`, so the partition can be recomputed rather
@@ -2371,8 +2376,8 @@ contact alignment, maximum penetration and share of frames past 2 mm, per hand a
 The binding constraint on this field is not ideas. It is verification. Sixty-two method papers
 released code that could be read against the paper, 38 of those record a discrepancy, and nine are
 contradictions where the shipped code states a different objective from the published one. The
-first count was sixteen. An adversarial re-reading withdrew seven accusations, and an eighth was
-withdrawn later still, when writing to `omnih2o_2024`'s authors sent someone back to its evidence
+first count was sixteen. An adversarial re-reading withdrew six of them outright and narrowed a
+seventh, `dexpbt_2023`, to the half that still stands, and an eighth was withdrawn later still, when writing to `omnih2o_2024`'s authors sent someone back to its evidence
 and the reward-weight discrepancy it had rested on turned out to be a typo signature in the
 paper's own table, not a different trained objective. Each withdrawal is recorded in the row
 beside the charge. Nine is a floor, because forty-six method rows released nothing to check. A reward table in a paper is a claim about a document, not about a run.
@@ -2393,15 +2398,15 @@ repository and the number is still not reported. `dextrack_2025` has the formula
 its inputs.
 
 The third is that hardware and software have come apart, on a narrower claim than the hand count
-first suggests. Tables 2 and 3 hold 33 hands and 18 appear in no method row. 11 of those 18
-are neither sold nor open and appear in none for that reason, which leaves 7 hands that can be
+first suggests. Tables 2 and 3 hold 33 hands and 19 appear in no method row. 11 of those 19
+are neither sold nor open and appear in none for that reason, which leaves 8 hands that can be
 bought today or built from published designs and that take zero method rows between them. Eight of
 the fourteen generalist policies that settle the question do evaluate on a dexterous hand, at a
 median of 6 degrees of freedom against 16 across the reinforcement-learning rows.
 
 What this survey cannot establish is which method is better than which. It re-runs nothing, and
-Section 7 argues that the published numbers do not compare. Five works are cited by metadata only
-and no claim rests on them. Every coverage statistic here counts what this survey's extraction
+Section 7 argues that the published numbers do not compare. Six works are cited by metadata only,
+and a seventh, Ma and Dollar 2011, is on disk but unread; no claim rests on any of them. Every coverage statistic here counts what this survey's extraction
 captured rather than what the literature reported. Each is a floor and not a rate, because every
 miss converts a reporting paper into a silent one.
 
@@ -2571,7 +2576,7 @@ Table 2 and Table 3 split these rows by whether the hand can be bought, and trun
 | `bidexhand_2025` | paper | paper, 2025 (ICRA Dexterity workshop abstract) | the paper states 16 independently actuated DoF and 21 joints; the README states 15 servos driving 15 joints | https://github.com/wengmister/BiDexHand | 5 pp, 89f39715, fetched 2026-09-17 | papers/notes/bidexhand_2025.md | 0 |
 | `ruka_v2_2026` | paper | paper, 2026 | the AS5600 encoders are attachable and detachable and are read for calibration and measurement only, not in the control loop | https://github.com/ruka-hand/RUKA | 20 pp, d71d6f90, fetched 2026-09-17 | papers/notes/ruka_v2_2026.md | 0 |
 | `orca_hand_2025` | paper | paper, 2025 | the 19.6 N previously tabulated as a fingertip force is the newton equivalent of the 2 kg index-finger payload at a control-imposed current limit, and no source states it as a force | https://github.com/orcahand/orca_core | 8 pp, f3967f2e, fetched 2026-09-17 | papers/notes/orca_hand_2025.md | 0 |
-| `leap_hand_2023` | paper | paper, 2023 |   | https://github.com/leap-hand/LEAP_Hand_API | 11 pp, ac08a57e, fetched 2026-09-17 | papers/notes/leap_hand_2023.md | 11: `bidex_teleop_2024`, `bidexhd_2024`, `cross_embodiment_world_models_2025`, `dexcap_2024`, `dexndm_2025`, `dexterous_functional_grasping_2023`, `dextrack_2025`, `dexwild_2025`, `dreureka_2024`, `unidex_2026`, `videodex_2022` |
+| `leap_hand_2023` | paper | paper, 2023 |   | https://github.com/leap-hand/LEAP_Hand_API | 11 pp, ac08a57e, fetched 2026-09-17 | papers/notes/leap_hand_2023.md | 12: `bidex_teleop_2024`, `bidexhd_2024`, `cross_embodiment_world_models_2025`, `dexcap_2024`, `dexndm_2025`, `dexterous_functional_grasping_2023`, `dextrack_2025`, `dexwild_2025`, `dreureka_2024`, `teledexter_2026`, `unidex_2026`, `videodex_2022` |
 | `ruka_2025` | paper | paper, 2025 |   | https://github.com/ruka-hand/RUKA | 13 pp, 3a19161f, fetched 2026-09-17 | papers/notes/ruka_2025.md | 0 |
 | `dexhand_open_source_2023` | project page and GitHub README | page posts 2023-08-08 to 2023-10-01; no hardware release date | no joint count is given anywhere, so no DoF figure can be quoted; the servo count is 16 finger and thumb micro-servos plus 2 wrist servos, with a third optional. The $300 is 'additional total cost of components', excluding printing and the wrist servos | https://github.com/TheRobotStudio/V1.0-Dexhand | no manifest entry | papers/notes/dexhand_open_source_2023.md | 0 |
 | `ilda_hand_2021` | paper | paper, accepted 2021-11-05 |   | https://www.nature.com/articles/s41467-021-27261-0.pdf | 13 pp, ed0e19c2, fetched 2026-09-17 | papers/notes/ilda_hand_2021.md | 0 |
@@ -2607,7 +2612,7 @@ Table 5 marks nine recurring term families across the in-hand reorientation meth
 
 ### C.1 The extraction
 
-| method | yr | paradigm | terms stated | term names as the paper names them | where the reward was read | in Table 5 | code released | paper/code class | confidence |
+| method | yr | paradigm | terms stated | term names as the paper names them | where the reward was read | in reward matrix | code released | paper/code class | confidence |
 |---|---|---|---|---|---|---|---|---|---|
 | `openai_dexterity_2018` | 2018 | RL | 3 |   | Method, reward (Sec 4.2 / App C.1) | yes | no |   |   |
 | `openai_rubiks_cube_2019` | 2019 | RL, distillation | 3 |   | Method, reward (Sec. 6.1) | yes | no |   |   |
@@ -2687,7 +2692,7 @@ Table 5 marks nine recurring term families across the in-hand reorientation meth
 | `toporetarget_2026` | 2026 | trajopt, RL | 4 | object, link-position, joint-position, action-smoothness |   |   | no |   |   |
 | `viserdex_2026` | 2026 | RL, distillation | 10 | orientation tracking, success bonus, object dropped, object distance, object velocity, joint velocity, action magnitude, action rate, joint work, joint torques | Method, reward (App. Table IX); no code released | yes | no |   |   |
 
-*77 rows. 253 of 770 cells (32 percent) are values no source stated. A blank `terms stated` with a filled `term names` column is a paper that names its terms without numbering them. `in Table 5` marks the rows that are also in the body matrix, which covers in-hand reorientation only.*
+*77 rows. 253 of 770 cells (32 percent) are values no source stated. A blank `terms stated` with a filled `term names` column is a paper that names its terms without numbering them. `in reward matrix` marks the rows that are also in the reward-term matrix, which covers in-hand reorientation only.*
 
 ### C.2 Paper against released code, in full
 
@@ -2703,16 +2708,16 @@ Each entry below is the disagreement text stored in the row, unedited. The class
   Review: R3 adversarial review: the disabled-randomisation half is withdrawn, since the note finds it consistent with the paper; the zeroed reward term stands
 - `physhoi_2023` (high). The released code hardcodes the body position-velocity error and the object rotation/rotation-velocity errors to zero in compute_humanoid_reward, so despite Table 4 listing nonzero λ^or=0.1/λ^orv=0.01 weights for GRAB, the trained reward never actually tracks object orientation (position-only in practice).
 - `unidexgrasp_2023` (high). The paper describes a four-term weighted reward (r_goal + r_reach + r_lift + r_move via Table 7's omega weights) but the released compute_hand_reward implements a different threshold-gated torch.where cascade with distinct hardcoded coefficients that do not map one-to-one onto the paper's weights.
-- `penspin_2024` (medium). The appendix states a randomised disturbance force and the released task config sets its scale to zero. A second half of the original charge, that the released code disables the paper's tactile observation channel, is withdrawn: the config read has 96 observation dimensions and `enable_tactile: False`, consistent with the proprioception-only student policy rather than the tactile-and-point-cloud oracle, and the paper never claims the student has tactile input. The code's reward scale-key names (e.g. rotate_reward_scale, pencil_z_dist_penalty_scale) also do not 1:1 name-match the paper's Table 4 weight list, though matched values agree.
-  Review: Narrowed before author contact. The tactile-channel half is withdrawn as a plausible reading of which pipeline stage the config belongs to; the disturbance-force half stands. Held at medium confidence pending a direct code read.
+- `penspin_2024` (medium). The appendix states a randomised disturbance force, and the released configs/task/AllegroHandHora.yaml ships forceScale: 0.0, so no shipped configuration applies it.
+  Review: Narrowed before author contact. The original charge also said the released code disables the paper's tactile channel, and that half is withdrawn: the config read has numObservations 96 and enable_tactile False, which is consistent with the proprioception-only student rather than the oracle, and the paper never claims the student has tactile input. The disturbance-force half is unaffected.
 - `pianomime_2024` (high). Paper's Table 3 states 2 weighted reward terms (Key Press 2/3, Mimic 1/3), but the released code sums roughly 5 unweighted terms (key press doubled, sustain, energy and fingering hardcoded to return 0, forearm-collision) plus a separately-added mimic wrapper term.
 
 **internal-inconsistency, 4 rows.**
 
 - `aloha_act_2023` (high). Algorithm 1 pseudocode states L_reconst = MSE, but Sec.IV.C's prose explicitly states L1 loss is used instead; the algorithm box and the implementation text disagree; code/md captures only function signatures, not bodies, for policy.py's loss implementation
 - `dp3_2024` (medium). the paper's prose states the network predicts the noise added to the data, but the shipped default config trains with prediction_type: sample (predicting the denoised action a^0 directly), not epsilon; the paper only qualifies this later in the same section (Fig. 7 ablates both).
-- `omnih2o_2024` (medium). stumble weight -0.00125 (paper) vs -1250 (code); max-feet-height sign/magnitude differ (+1000 paper vs -2500 code, a penalty not a bonus); paper's exp(-c*//.//) form vs code's exp(-err^2/sigma); curriculum level-down threshold 40 (paper) vs 50 (code).
-  Review: Withdrawn as a contradiction before author contact. Four of the five weight comparisons match the paper's table to the digit once a systematic x1.25 curriculum factor is accounted for, and only the stumble weight differs, by a factor of about a million, which is a typo signature in the paper's own table rather than evidence of a different trained objective. The hands in this work are also driven open-loop from VR pose, outside the policy and outside the reward, making it a poor fit for a dexterous-manipulation reward census regardless.
+- `omnih2o_2024` (medium). stumble weight -0.00125 (paper) vs -1250 (code); max-feet-height sign/magnitude differ (+1000 paper vs -2500 code, a penalty not a bonus); paper's exp(-c*//.//) form vs code's exp(-err^2/sigma); curriculum level-down threshold 40 (paper) vs 50 (code)
+  Review: Withdrawn as a contradiction before author contact. Four sibling weights match the paper to the digit under a systematic x1.25 curriculum factor and only the stumble weight differs, by a factor of about a million, which is a typo signature in the paper's own table rather than evidence of a different trained objective. The hands in this work are driven open-loop from VR pose, outside the policy and outside the reward, so it is a weak fit for a dexterous-manipulation reward census in the first place.
 - `dexmachina_2025` (low). paper describes a plain weighted sum lambda_task*r_task + lambda_imi*r_imi + lambda_bc*r_bc + lambda_con*r_con with unspecified weights; code implements a multiplicative task term with per-component beta decay, an unmentioned 0.1 force-penalty term, and curriculum-driven decay of auxiliary weights not described as such in the paper
   Review: R3 adversarial review: the multiplicative form credited to the code is printed in the paper itself
 

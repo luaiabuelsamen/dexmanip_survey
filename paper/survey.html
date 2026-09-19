@@ -65,14 +65,17 @@ entries, 218 of which carry a structured row read from a note: 112 method papers
 simulators, 15 datasets, 14 benchmarks, 14 surveys, 8 tactile sensors and 7 evaluation protocols.</p>
 <p>Three findings are measured rather than asserted. Papers disagree with their own released code.
 Sixty-two method rows released code that could be read against the paper, 38 of those record a
-discrepancy, and ten are contradictions where the shipped code states a different objective from
+discrepancy, and nine are contradictions where the shipped code states a different objective from
 the published one. <code>physhoi_2023</code> is the sharpest case. Its <code>compute_humanoid_reward</code> sets the
 object rotation errors to zero while the reward table in the paper weights them at 0.1 and 0.01,
-and its position-only success criterion could not have detected that. Nobody measures the quantity
-most specific to a hand. Eleven of the 96 method rows whose notes settle the question address
-interpenetration at all, and none reports it for its own policy's rollouts. IsaacGymEnvs already
-computes that depth and gates a policy update on it. Hardware and published work have come apart.
-18 of the 33 hand rows appear in no method row, and 7 of those can be bought or built
+and its position-only success criterion could not have detected that. Closed-loop policies do not
+measure the quantity most specific to a hand. Eleven of the 96 method rows whose notes settle the
+question address interpenetration at all, four of them inside a closed-loop policy, and we found none
+that reports it for its own policy's rollouts. Grasp synthesis and hand-object reconstruction have
+reported penetration depth and intersection volume comparatively for years, so the gap is specific to
+learned closed-loop control rather than to the field. IsaacGymEnvs already computes that depth and
+gates a policy update on it. Hardware and published work have come apart.
+19 of the 33 hand rows appear in no method row, and 8 of those can be bought or built
 today.</p>
 <p>This survey re-runs no method. It ranks nothing and publishes no leaderboard. On penetration it
 supplies a measurement method and a count, not a threshold. Every coverage statistic here is a
@@ -127,7 +130,7 @@ floor over what this extraction captured, not a rate over what the literature re
 <li class="l2"><a href="#7-6-table-9-an-empty-results-matrix">7.6 Table 9, an empty results matrix</a></li>
 <li class="l2"><a href="#7-7-what-would-have-to-be-true">7.7 What would have to be true</a></li>
 <li class="l2"><a href="#8-1-what-opening-the-repositories-showed">8.1 What opening the repositories showed</a></li>
-<li class="l2"><a href="#8-2-nobody-records-interpenetration-for-their-own-policy-s-rollouts">8.2 Nobody records interpenetration for their own policy's rollouts</a></li>
+<li class="l2"><a href="#8-2-no-closed-loop-policy-records-interpenetration-for-its-own-rollouts">8.2 No closed-loop policy records interpenetration for its own rollouts</a></li>
 <li class="l2"><a href="#8-3-the-evaluation-methodology-literature-contains-no-dexterous-hand">8.3 The evaluation-methodology literature contains no dexterous hand</a></li>
 <li class="l2"><a href="#8-4-generalist-policies-run-on-a-fraction-of-the-degrees-of-freedom">8.4 Generalist policies run on a fraction of the degrees of freedom</a></li>
 <li class="l2"><a href="#8-5-the-hands-that-can-be-bought-go-unused">8.5 The hands that can be bought go unused</a></li>
@@ -159,10 +162,11 @@ thorough analysis very difficult". That verdict is one architect's, on one chapt
 survey did not survey the tradition it judges. Learned control did not solve those modelling
 problems. It went around them by sampling a simulator instead of solving a model, and by scoring a
 rollout instead of certifying a configuration. Of the 112 method papers in this corpus, 53 train
-with reinforcement learning and 36 run in Isaac Gym, against 6 on its successor Isaac Lab.</p>
+with reinforcement learning and 35 run in Isaac Gym, against 7 on its successors Isaac Lab and
+Isaac Sim.</p>
 <p>Three things this survey measured are worth stating before the reader commits to 27,000 words. The
 first is that papers disagree with their own released code. Sixty-two of the 112 method rows
-released code that could be read against the paper, 38 of those record a discrepancy, and ten are
+released code that could be read against the paper, 38 of those record a discrepancy, and nine are
 contradictions where the shipped code states a different objective from the published one. The
 sharpest case is <code>physhoi_2023</code>. Its <code>compute_humanoid_reward</code> hardcodes the object rotation and
 rotation-velocity errors to zero, with the real computation commented out beside them, while the
@@ -170,22 +174,62 @@ reward table in its own paper lists weights of 0.1 and 0.01 for exactly those te
 position-only success criterion could not have caught that, and its headline 95.4 percent is cited
 as a baseline. Section 5.8 classifies all 38, and seven further accusations an earlier draft made
 were withdrawn under adversarial review and recorded beside the charge.</p>
-<p>The second is that the quantity most specific to a hand is the one nobody records. Eleven of the
-96 method rows whose notes settle the question address interpenetration at all, seven of the
-eleven do it outside a closed-loop policy in a grasp synthesiser, a trajectory optimiser or a
-contact model, and none reports a penetration number for its own trained policy's rollouts. The
-obstacle is not the engines. NVIDIA's own IsaacGymEnvs repository already computes a
+<p>The second is that the quantity most specific to a hand is the one closed-loop policies do not
+record. Eleven of the 96 method rows whose notes settle the question address interpenetration at
+all, seven of the eleven do it outside a closed-loop policy in a grasp synthesiser, a trajectory
+optimiser or a contact model, and we found none that reports a penetration number for its own
+trained policy's rollouts. The claim is about learned closed-loop control and not about the field.
+Grasp synthesis and hand-object reconstruction have reported penetration depth and intersection
+volume as comparative columns for years, and four rows of this corpus do it: <code>oakink_2022</code> scores a
+dataset split on penetration depth, solid intersection volume and simulation displacement,
+<code>bidexgrasp_2026</code> prints penetration depth beside a prior method's, <code>bimangrasp_2024</code> fails any
+grasp whose total penetration exceeds 1.5 mm, and <code>toporetarget_2026</code> reports a maximum penetration
+and a share of frames past 2 mm against a baseline retargeter. Every one of those numbers scores a
+pose or a reference trajectory rather than the behaviour a trained policy produced, and it is the
+rollout that is missing. The obstacle is not the engines. NVIDIA's own IsaacGymEnvs repository already computes a
 per-environment maximum interpenetration depth in Warp and gates the policy update on a 1 mm
-threshold. Section 7.3 has the file and the lines.</p>
-<p>The third is that hardware and published work have come apart. 18 of the 33 hand rows in
-Tables 2 and 3 appear in no method row, and 7 of those can be bought today or built from
+threshold. Section 4.2 has the file and the lines.</p>
+<p>The third is that hardware and published work have come apart. 19 of the 33 hand rows in
+Tables 2 and 3 appear in no method row, and 8 of those can be bought today or built from
 published designs. Thirty-five method rows run on the Allegro, whose weight, joint torque, payload
 and price have no reachable source, because its product page returns HTTP 404 and everything Table
 2 confirms about it comes from its ROS driver.</p>
+<p>None of those three findings is a first, and the audit behind the first of them is not a new idea.
+<code>collberg_repeatability_2016</code> examined 601 papers in computer systems research for whether the code
+behind them could be obtained and built at all. <code>biocon_2026</code> aligns 48 bioinformatics projects with
+their publications at sentence-to-function granularity under expert annotation, and <code>scicoqa_2026</code>
+collects 92 real paper-code discrepancies, mined from issue trackers and reproducibility reports,
+into a benchmark for detecting such discrepancies automatically. In reinforcement learning the
+phenomenon itself is a known result. <code>engstrom_implementation_matters_2020</code> shows that code-level
+optimisations present only in the implementation account for most of PPO's reported gain over TRPO,
+and <code>metaworld_plus_2025</code> finds undocumented changes accumulated across one benchmark's own
+versions, which make comparisons between those versions unfair. Both establish it on a single
+codebase. The closest relative to the audit here is <code>knox_reward_misdesign_2023</code>, which reviews
+nineteen reinforcement-learning publications on autonomous driving, characterises the reward
+functions of ten of them exhaustively in a standard form, applies eight sanity checks and reports
+near-universal flaws in reward design. Its ground truth for what each reward was is the authors,
+obtained through correspondence with them rather than by reading a released repository, and what it
+establishes is that published reward descriptions are incomplete: one of the ten described its
+reward, discount factor, termination conditions and timestep thoroughly. Reading the code instead
+needs no correspondence and supports a different charge, which is that where code exists it
+sometimes contradicts the description. <code>raff_reproducibility_2019</code> took the opposite ground truth on
+purpose, reimplementing 255 papers from their text alone and never opening the authors' code, which
+is what makes the choice of arbiter a position rather than an accident.</p>
+<p>So the claim here is narrow. We are aware of no prior work in robotics, and none in dexterous
+manipulation, that reads a field's released reward implementations against the rewards its own
+papers describe. Those seven works are cited from outside this corpus and enter none of its counts.
+The exposure of the claim belongs beside the count above: the evidence is a repository at a fetched
+commit, each hash recorded in <code>corpus/code_manifest.json</code>, and a repository at a commit is evidence
+about that repository rather than about the run that produced a paper's numbers, because the commit
+may postdate, precede or diverge from it. <code>hora_2022</code> states the problem in its own README, which
+directs a reader to tag v0.0.1 and not to the commit parsed here to reproduce the published
+numbers. Every accusation this survey has withdrawn, eight of them so far, is recorded in the
+accused row for the same reason: the withdrawals are the evidence that the charges left standing
+were checked rather than counted.</p>
 <p>Fourteen corpus entries are themselves surveys or engine-comparison studies. Appendix D sets them
 on one set of columns in Table 10 and says what each covers. Four of the fourteen could not be
 obtained, or were fetched too late to read, and are entered as such. Two of the three things this
-survey adds are visible in that table as columns nobody else fills. The first is Table 4, which
+survey adds are visible in that table as columns none of the fourteen fills. The first is Table 4, which
 takes the engines <code>nine_physics_engines_review_2024</code> scored on documentation and usability and
 adds contact model, solver, iteration count, default timestep and penetration exposure,
 conditioned on what a hand does to a solver. <code>physics_engine_comparison_2015</code> and
@@ -241,7 +285,7 @@ extractions, and Appendix D is the comparison with the existing surveys.</p>
  .xl{fill:none;stroke:var(--mut);stroke-width:1.1;stroke-dasharray:5 4;opacity:.75}
  .xt{fill:none;stroke:var(--mut);stroke-width:1.1;stroke-dasharray:6 3 2 3;opacity:.85}
  .xw{font-size:9.5px;fill:var(--mut);font-style:italic}
-</style><rect width="1010" height="585" fill="var(--bg)"/><text class="t" x="24" y="28">Figure 1. The field on one page</text><text class="s" x="24" y="48">Every node is a count over the 112 method papers in the corpus. Dashed nodes are reporting gaps, not choices.</text><text class="s" x="24" y="64">Paradigm counts exceed 112 because a method may use several. Recomputed from corpus/rows at draw time.</text><text class="h" x="113.0" y="80" text-anchor="middle">data source</text><rect class="box" x="24" y="92" width="178" height="49" rx="3"/><text class="l" x="32" y="107">human data named</text><text class="n" x="194" y="107" text-anchor="end">53</text><rect class="box" x="24" y="150" width="178" height="47" rx="3"/><text class="l" x="32" y="165">no demonstrations</text><text class="n" x="194" y="165" text-anchor="end">50</text><rect class="ghost" x="24" y="206" width="178" height="24" rx="3"/><text class="l" x="32" y="221">not stated</text><text class="n" x="194" y="221" text-anchor="end">9</text><text class="h" x="313.0" y="80" text-anchor="middle">embodiment</text><rect class="box" x="224" y="92" width="178" height="51" rx="3"/><text class="l" x="232" y="107">one hand</text><text class="n" x="394" y="107" text-anchor="end">56</text><rect class="box" x="224" y="152" width="178" height="49" rx="3"/><text class="l" x="232" y="167">two hands</text><text class="n" x="394" y="167" text-anchor="end">53</text><rect class="ghost" x="224" y="210" width="178" height="24" rx="3"/><text class="l" x="232" y="225">not stated</text><text class="n" x="394" y="225" text-anchor="end">3</text><text class="h" x="513.0" y="80" text-anchor="middle">simulator</text><rect class="ghost" x="424" y="92" width="178" height="39" rx="3"/><text class="l" x="432" y="107">not stated</text><text class="n" x="594" y="107" text-anchor="end">37</text><rect class="box" x="424" y="140" width="178" height="38" rx="3"/><text class="l" x="432" y="155">Isaac Gym</text><text class="n" x="594" y="155" text-anchor="end">36</text><rect class="box" x="424" y="187" width="178" height="26" rx="3"/><text class="l" x="432" y="202">MuJoCo</text><text class="n" x="594" y="202" text-anchor="end">16</text><rect class="box" x="424" y="222" width="178" height="24" rx="3"/><text class="l" x="432" y="237">Isaac Lab / Sim</text><text class="n" x="594" y="237" text-anchor="end">6</text><rect class="box" x="424" y="255" width="178" height="24" rx="3"/><text class="l" x="432" y="270">other</text><text class="n" x="594" y="270" text-anchor="end">5</text><rect class="box" x="424" y="288" width="178" height="24" rx="3"/><text class="l" x="432" y="303">SAPIEN</text><text class="n" x="594" y="303" text-anchor="end">4</text><rect class="box" x="424" y="321" width="178" height="24" rx="3"/><text class="l" x="432" y="336">no simulator</text><text class="n" x="594" y="336" text-anchor="end">3</text><text class="h" x="713.0" y="80" text-anchor="middle">training paradigm</text><rect class="box" x="624" y="92" width="178" height="49" rx="3"/><text class="l" x="632" y="107">RL</text><text class="n" x="794" y="107" text-anchor="end">53</text><rect class="box" x="624" y="150" width="178" height="32" rx="3"/><text class="l" x="632" y="165">BC</text><text class="n" x="794" y="165" text-anchor="end">27</text><rect class="box" x="624" y="191" width="178" height="30" rx="3"/><text class="l" x="632" y="206">distillation</text><text class="n" x="794" y="206" text-anchor="end">23</text><rect class="box" x="624" y="230" width="178" height="27" rx="3"/><text class="l" x="632" y="245">VLA</text><text class="n" x="794" y="245" text-anchor="end">18</text><rect class="box" x="624" y="266" width="178" height="24" rx="3"/><text class="l" x="632" y="281">teleop-system</text><text class="n" x="794" y="281" text-anchor="end">14</text><rect class="box" x="624" y="299" width="178" height="24" rx="3"/><text class="l" x="632" y="314">diffusion</text><text class="n" x="794" y="314" text-anchor="end">14</text><rect class="box" x="624" y="332" width="178" height="24" rx="3"/><text class="l" x="632" y="347">data-collection</text><text class="n" x="794" y="347" text-anchor="end">10</text><text class="h" x="913.0" y="80" text-anchor="middle">evaluation</text><rect class="box" x="824" y="92" width="178" height="72" rx="3"/><text class="l" x="832" y="107">real robot</text><text class="n" x="994" y="107" text-anchor="end">89</text><rect class="box" x="824" y="173" width="178" height="30" rx="3"/><text class="l" x="832" y="188">simulation only</text><text class="n" x="994" y="188" text-anchor="end">23</text><rect class="box" x="824" y="212" width="178" height="24" rx="3"/><text class="l" x="832" y="227">penetration addressed</text><text class="n" x="994" y="227" text-anchor="end">11</text><rect class="box" x="824" y="245" width="178" height="69" rx="3"/><text class="l" x="832" y="260">penetration not addressed</text><text class="n" x="994" y="260" text-anchor="end">85</text><path class="ed" d="M202,116.5 C218,116.5 208,117.5 224,117.5" stroke-width="2.8"/><path class="ed" d="M202,116.5 C218,116.5 208,176.5 224,176.5" stroke-width="2.7"/><path class="ed" d="M202,116.5 C218,116.5 208,222.0 224,222.0" stroke-width="1.3"/><path class="ed" d="M202,173.5 C218,173.5 208,117.5 224,117.5" stroke-width="2.7"/><path class="ed" d="M202,173.5 C218,173.5 208,176.5 224,176.5" stroke-width="2.6"/><path class="ed" d="M202,173.5 C218,173.5 208,222.0 224,222.0" stroke-width="1.3"/><path class="ed" d="M202,218.0 C218,218.0 208,117.5 224,117.5" stroke-width="1.4"/><path class="ed" d="M202,218.0 C218,218.0 208,176.5 224,176.5" stroke-width="1.3"/><path class="ed" d="M202,218.0 C218,218.0 208,222.0 224,222.0" stroke-width="0.6"/><path class="ed" d="M402,117.5 C418,117.5 408,111.5 424,111.5" stroke-width="2.2"/><path class="ed" d="M402,117.5 C418,117.5 408,159.0 424,159.0" stroke-width="2.2"/><path class="ed" d="M402,117.5 C418,117.5 408,200.0 424,200.0" stroke-width="1.5"/><path class="ed" d="M402,117.5 C418,117.5 408,234.0 424,234.0" stroke-width="1.4"/><path class="ed" d="M402,117.5 C418,117.5 408,267.0 424,267.0" stroke-width="1.4"/><path class="ed" d="M402,117.5 C418,117.5 408,300.0 424,300.0" stroke-width="1.4"/><path class="ed" d="M402,117.5 C418,117.5 408,333.0 424,333.0" stroke-width="1.4"/><path class="ed" d="M402,176.5 C418,176.5 408,111.5 424,111.5" stroke-width="2.1"/><path class="ed" d="M402,176.5 C418,176.5 408,159.0 424,159.0" stroke-width="2.1"/><path class="ed" d="M402,176.5 C418,176.5 408,200.0 424,200.0" stroke-width="1.4"/><path class="ed" d="M402,176.5 C418,176.5 408,234.0 424,234.0" stroke-width="1.3"/><path class="ed" d="M402,176.5 C418,176.5 408,267.0 424,267.0" stroke-width="1.3"/><path class="ed" d="M402,176.5 C418,176.5 408,300.0 424,300.0" stroke-width="1.3"/><path class="ed" d="M402,176.5 C418,176.5 408,333.0 424,333.0" stroke-width="1.3"/><path class="ed" d="M402,222.0 C418,222.0 408,111.5 424,111.5" stroke-width="1.0"/><path class="ed" d="M402,222.0 C418,222.0 408,159.0 424,159.0" stroke-width="1.0"/><path class="ed" d="M402,222.0 C418,222.0 408,200.0 424,200.0" stroke-width="0.7"/><path class="ed" d="M402,222.0 C418,222.0 408,234.0 424,234.0" stroke-width="0.6"/><path class="ed" d="M402,222.0 C418,222.0 408,267.0 424,267.0" stroke-width="0.6"/><path class="ed" d="M402,222.0 C418,222.0 408,300.0 424,300.0" stroke-width="0.6"/><path class="ed" d="M402,222.0 C418,222.0 408,333.0 424,333.0" stroke-width="0.6"/><path class="ed" d="M602,111.5 C618,111.5 608,116.5 624,116.5" stroke-width="2.1"/><path class="ed" d="M602,111.5 C618,111.5 608,166.0 624,166.0" stroke-width="1.4"/><path class="ed" d="M602,111.5 C618,111.5 608,206.0 624,206.0" stroke-width="1.3"/><path class="ed" d="M602,111.5 C618,111.5 608,243.5 624,243.5" stroke-width="1.2"/><path class="ed" d="M602,111.5 C618,111.5 608,278.0 624,278.0" stroke-width="1.0"/><path class="ed" d="M602,111.5 C618,111.5 608,311.0 624,311.0" stroke-width="1.0"/><path class="ed" d="M602,111.5 C618,111.5 608,344.0 624,344.0" stroke-width="1.0"/><path class="ed" d="M602,159.0 C618,159.0 608,116.5 624,116.5" stroke-width="2.1"/><path class="ed" d="M602,159.0 C618,159.0 608,166.0 624,166.0" stroke-width="1.4"/><path class="ed" d="M602,159.0 C618,159.0 608,206.0 624,206.0" stroke-width="1.3"/><path class="ed" d="M602,159.0 C618,159.0 608,243.5 624,243.5" stroke-width="1.1"/><path class="ed" d="M602,159.0 C618,159.0 608,278.0 624,278.0" stroke-width="1.0"/><path class="ed" d="M602,159.0 C618,159.0 608,311.0 624,311.0" stroke-width="1.0"/><path class="ed" d="M602,159.0 C618,159.0 608,344.0 624,344.0" stroke-width="1.0"/><path class="ed" d="M602,200.0 C618,200.0 608,116.5 624,116.5" stroke-width="1.4"/><path class="ed" d="M602,200.0 C618,200.0 608,166.0 624,166.0" stroke-width="0.9"/><path class="ed" d="M602,200.0 C618,200.0 608,206.0 624,206.0" stroke-width="0.9"/><path class="ed" d="M602,200.0 C618,200.0 608,243.5 624,243.5" stroke-width="0.8"/><path class="ed" d="M602,200.0 C618,200.0 608,278.0 624,278.0" stroke-width="0.7"/><path class="ed" d="M602,200.0 C618,200.0 608,311.0 624,311.0" stroke-width="0.7"/><path class="ed" d="M602,200.0 C618,200.0 608,344.0 624,344.0" stroke-width="0.7"/><path class="ed" d="M602,234.0 C618,234.0 608,116.5 624,116.5" stroke-width="1.3"/><path class="ed" d="M602,234.0 C618,234.0 608,166.0 624,166.0" stroke-width="0.9"/><path class="ed" d="M602,234.0 C618,234.0 608,206.0 624,206.0" stroke-width="0.8"/><path class="ed" d="M602,234.0 C618,234.0 608,243.5 624,243.5" stroke-width="0.7"/><path class="ed" d="M602,234.0 C618,234.0 608,278.0 624,278.0" stroke-width="0.6"/><path class="ed" d="M602,234.0 C618,234.0 608,311.0 624,311.0" stroke-width="0.6"/><path class="ed" d="M602,234.0 C618,234.0 608,344.0 624,344.0" stroke-width="0.6"/><path class="ed" d="M602,267.0 C618,267.0 608,116.5 624,116.5" stroke-width="1.3"/><path class="ed" d="M602,267.0 C618,267.0 608,166.0 624,166.0" stroke-width="0.9"/><path class="ed" d="M602,267.0 C618,267.0 608,206.0 624,206.0" stroke-width="0.8"/><path class="ed" d="M602,267.0 C618,267.0 608,243.5 624,243.5" stroke-width="0.7"/><path class="ed" d="M602,267.0 C618,267.0 608,278.0 624,278.0" stroke-width="0.6"/><path class="ed" d="M602,267.0 C618,267.0 608,311.0 624,311.0" stroke-width="0.6"/><path class="ed" d="M602,267.0 C618,267.0 608,344.0 624,344.0" stroke-width="0.6"/><path class="ed" d="M602,300.0 C618,300.0 608,116.5 624,116.5" stroke-width="1.3"/><path class="ed" d="M602,300.0 C618,300.0 608,166.0 624,166.0" stroke-width="0.9"/><path class="ed" d="M602,300.0 C618,300.0 608,206.0 624,206.0" stroke-width="0.8"/><path class="ed" d="M602,300.0 C618,300.0 608,243.5 624,243.5" stroke-width="0.7"/><path class="ed" d="M602,300.0 C618,300.0 608,278.0 624,278.0" stroke-width="0.6"/><path class="ed" d="M602,300.0 C618,300.0 608,311.0 624,311.0" stroke-width="0.6"/><path class="ed" d="M602,300.0 C618,300.0 608,344.0 624,344.0" stroke-width="0.6"/><path class="ed" d="M602,333.0 C618,333.0 608,116.5 624,116.5" stroke-width="1.3"/><path class="ed" d="M602,333.0 C618,333.0 608,166.0 624,166.0" stroke-width="0.9"/><path class="ed" d="M602,333.0 C618,333.0 608,206.0 624,206.0" stroke-width="0.8"/><path class="ed" d="M602,333.0 C618,333.0 608,243.5 624,243.5" stroke-width="0.7"/><path class="ed" d="M602,333.0 C618,333.0 608,278.0 624,278.0" stroke-width="0.6"/><path class="ed" d="M602,333.0 C618,333.0 608,311.0 624,311.0" stroke-width="0.6"/><path class="ed" d="M602,333.0 C618,333.0 608,344.0 624,344.0" stroke-width="0.6"/><path class="ed" d="M802,116.5 C818,116.5 808,128.0 824,128.0" stroke-width="3.2"/><path class="ed" d="M802,116.5 C818,116.5 808,188.0 824,188.0" stroke-width="1.6"/><path class="ed" d="M802,116.5 C818,116.5 808,224.0 824,224.0" stroke-width="1.3"/><path class="ed" d="M802,116.5 C818,116.5 808,279.5 824,279.5" stroke-width="3.2"/><path class="ed" d="M802,166.0 C818,166.0 808,128.0 824,128.0" stroke-width="2.6"/><path class="ed" d="M802,166.0 C818,166.0 808,188.0 824,188.0" stroke-width="1.1"/><path class="ed" d="M802,166.0 C818,166.0 808,224.0 824,224.0" stroke-width="0.9"/><path class="ed" d="M802,166.0 C818,166.0 808,279.5 824,279.5" stroke-width="2.5"/><path class="ed" d="M802,206.0 C818,206.0 808,128.0 824,128.0" stroke-width="2.4"/><path class="ed" d="M802,206.0 C818,206.0 808,188.0 824,188.0" stroke-width="1.0"/><path class="ed" d="M802,206.0 C818,206.0 808,224.0 824,224.0" stroke-width="0.8"/><path class="ed" d="M802,206.0 C818,206.0 808,279.5 824,279.5" stroke-width="2.3"/><path class="ed" d="M802,243.5 C818,243.5 808,128.0 824,128.0" stroke-width="2.2"/><path class="ed" d="M802,243.5 C818,243.5 808,188.0 824,188.0" stroke-width="0.9"/><path class="ed" d="M802,243.5 C818,243.5 808,224.0 824,224.0" stroke-width="0.7"/><path class="ed" d="M802,243.5 C818,243.5 808,279.5 824,279.5" stroke-width="2.1"/><path class="ed" d="M802,278.0 C818,278.0 808,128.0 824,128.0" stroke-width="1.9"/><path class="ed" d="M802,278.0 C818,278.0 808,188.0 824,188.0" stroke-width="0.8"/><path class="ed" d="M802,278.0 C818,278.0 808,224.0 824,224.0" stroke-width="0.6"/><path class="ed" d="M802,278.0 C818,278.0 808,279.5 824,279.5" stroke-width="1.8"/><path class="ed" d="M802,311.0 C818,311.0 808,128.0 824,128.0" stroke-width="1.9"/><path class="ed" d="M802,311.0 C818,311.0 808,188.0 824,188.0" stroke-width="0.8"/><path class="ed" d="M802,311.0 C818,311.0 808,224.0 824,224.0" stroke-width="0.6"/><path class="ed" d="M802,311.0 C818,311.0 808,279.5 824,279.5" stroke-width="1.8"/><path class="ed" d="M802,344.0 C818,344.0 808,128.0 824,128.0" stroke-width="1.9"/><path class="ed" d="M802,344.0 C818,344.0 808,188.0 824,188.0" stroke-width="0.8"/><path class="ed" d="M802,344.0 C818,344.0 808,224.0 824,224.0" stroke-width="0.6"/><path class="ed" d="M802,344.0 C818,344.0 808,279.5 824,279.5" stroke-width="1.8"/><text class="s" x="24" y="422">The routes converge. The heaviest single path is no demonstrations, one hand, Isaac Gym,</text><text class="s" x="24" y="438">reinforcement learning, real robot. Whatever enters on the left, almost everything leaves through a</text><text class="s" x="24" y="454">GPU simulator and arrives at a real robot without contact quality ever being measured.</text></svg></figure>
+</style><rect width="1010" height="585" fill="var(--bg)"/><text class="t" x="24" y="28">Figure 1. The field on one page</text><text class="s" x="24" y="48">Every node is a count over the 112 method papers in the corpus. Dashed nodes are reporting gaps, not choices.</text><text class="s" x="24" y="64">Paradigm counts exceed 112 because a method may use several. Recomputed from corpus/rows at draw time.</text><text class="h" x="113.0" y="80" text-anchor="middle">data source</text><rect class="box" x="24" y="92" width="178" height="49" rx="3"/><text class="l" x="32" y="107">human data named</text><text class="n" x="194" y="107" text-anchor="end">53</text><rect class="box" x="24" y="150" width="178" height="47" rx="3"/><text class="l" x="32" y="165">no demonstrations</text><text class="n" x="194" y="165" text-anchor="end">50</text><rect class="ghost" x="24" y="206" width="178" height="24" rx="3"/><text class="l" x="32" y="221">not stated</text><text class="n" x="194" y="221" text-anchor="end">9</text><text class="h" x="313.0" y="80" text-anchor="middle">embodiment</text><rect class="box" x="224" y="92" width="178" height="51" rx="3"/><text class="l" x="232" y="107">one hand</text><text class="n" x="394" y="107" text-anchor="end">56</text><rect class="box" x="224" y="152" width="178" height="49" rx="3"/><text class="l" x="232" y="167">two hands</text><text class="n" x="394" y="167" text-anchor="end">53</text><rect class="ghost" x="224" y="210" width="178" height="24" rx="3"/><text class="l" x="232" y="225">not stated</text><text class="n" x="394" y="225" text-anchor="end">3</text><text class="h" x="513.0" y="80" text-anchor="middle">simulator</text><rect class="ghost" x="424" y="92" width="178" height="39" rx="3"/><text class="l" x="432" y="107">not stated</text><text class="n" x="594" y="107" text-anchor="end">37</text><rect class="box" x="424" y="140" width="178" height="38" rx="3"/><text class="l" x="432" y="155">Isaac Gym</text><text class="n" x="594" y="155" text-anchor="end">35</text><rect class="box" x="424" y="187" width="178" height="26" rx="3"/><text class="l" x="432" y="202">MuJoCo</text><text class="n" x="594" y="202" text-anchor="end">16</text><rect class="box" x="424" y="222" width="178" height="24" rx="3"/><text class="l" x="432" y="237">Isaac Lab / Sim</text><text class="n" x="594" y="237" text-anchor="end">7</text><rect class="box" x="424" y="255" width="178" height="24" rx="3"/><text class="l" x="432" y="270">other</text><text class="n" x="594" y="270" text-anchor="end">5</text><rect class="box" x="424" y="288" width="178" height="24" rx="3"/><text class="l" x="432" y="303">SAPIEN</text><text class="n" x="594" y="303" text-anchor="end">4</text><rect class="box" x="424" y="321" width="178" height="24" rx="3"/><text class="l" x="432" y="336">no simulator</text><text class="n" x="594" y="336" text-anchor="end">3</text><text class="h" x="713.0" y="80" text-anchor="middle">training paradigm</text><rect class="box" x="624" y="92" width="178" height="49" rx="3"/><text class="l" x="632" y="107">RL</text><text class="n" x="794" y="107" text-anchor="end">53</text><rect class="box" x="624" y="150" width="178" height="32" rx="3"/><text class="l" x="632" y="165">BC</text><text class="n" x="794" y="165" text-anchor="end">27</text><rect class="box" x="624" y="191" width="178" height="30" rx="3"/><text class="l" x="632" y="206">distillation</text><text class="n" x="794" y="206" text-anchor="end">23</text><rect class="box" x="624" y="230" width="178" height="27" rx="3"/><text class="l" x="632" y="245">VLA</text><text class="n" x="794" y="245" text-anchor="end">18</text><rect class="box" x="624" y="266" width="178" height="24" rx="3"/><text class="l" x="632" y="281">teleop-system</text><text class="n" x="794" y="281" text-anchor="end">14</text><rect class="box" x="624" y="299" width="178" height="24" rx="3"/><text class="l" x="632" y="314">diffusion</text><text class="n" x="794" y="314" text-anchor="end">14</text><rect class="box" x="624" y="332" width="178" height="24" rx="3"/><text class="l" x="632" y="347">data-collection</text><text class="n" x="794" y="347" text-anchor="end">10</text><text class="h" x="913.0" y="80" text-anchor="middle">evaluation</text><rect class="box" x="824" y="92" width="178" height="72" rx="3"/><text class="l" x="832" y="107">real robot</text><text class="n" x="994" y="107" text-anchor="end">89</text><rect class="box" x="824" y="173" width="178" height="30" rx="3"/><text class="l" x="832" y="188">simulation only</text><text class="n" x="994" y="188" text-anchor="end">23</text><rect class="box" x="824" y="212" width="178" height="24" rx="3"/><text class="l" x="832" y="227">penetration addressed</text><text class="n" x="994" y="227" text-anchor="end">11</text><rect class="box" x="824" y="245" width="178" height="69" rx="3"/><text class="l" x="832" y="260">penetration not addressed</text><text class="n" x="994" y="260" text-anchor="end">85</text><path class="ed" d="M202,116.5 C218,116.5 208,117.5 224,117.5" stroke-width="2.8"/><path class="ed" d="M202,116.5 C218,116.5 208,176.5 224,176.5" stroke-width="2.7"/><path class="ed" d="M202,116.5 C218,116.5 208,222.0 224,222.0" stroke-width="1.3"/><path class="ed" d="M202,173.5 C218,173.5 208,117.5 224,117.5" stroke-width="2.7"/><path class="ed" d="M202,173.5 C218,173.5 208,176.5 224,176.5" stroke-width="2.6"/><path class="ed" d="M202,173.5 C218,173.5 208,222.0 224,222.0" stroke-width="1.3"/><path class="ed" d="M202,218.0 C218,218.0 208,117.5 224,117.5" stroke-width="1.4"/><path class="ed" d="M202,218.0 C218,218.0 208,176.5 224,176.5" stroke-width="1.3"/><path class="ed" d="M202,218.0 C218,218.0 208,222.0 224,222.0" stroke-width="0.6"/><path class="ed" d="M402,117.5 C418,117.5 408,111.5 424,111.5" stroke-width="2.2"/><path class="ed" d="M402,117.5 C418,117.5 408,159.0 424,159.0" stroke-width="2.2"/><path class="ed" d="M402,117.5 C418,117.5 408,200.0 424,200.0" stroke-width="1.5"/><path class="ed" d="M402,117.5 C418,117.5 408,234.0 424,234.0" stroke-width="1.4"/><path class="ed" d="M402,117.5 C418,117.5 408,267.0 424,267.0" stroke-width="1.4"/><path class="ed" d="M402,117.5 C418,117.5 408,300.0 424,300.0" stroke-width="1.4"/><path class="ed" d="M402,117.5 C418,117.5 408,333.0 424,333.0" stroke-width="1.4"/><path class="ed" d="M402,176.5 C418,176.5 408,111.5 424,111.5" stroke-width="2.1"/><path class="ed" d="M402,176.5 C418,176.5 408,159.0 424,159.0" stroke-width="2.1"/><path class="ed" d="M402,176.5 C418,176.5 408,200.0 424,200.0" stroke-width="1.4"/><path class="ed" d="M402,176.5 C418,176.5 408,234.0 424,234.0" stroke-width="1.3"/><path class="ed" d="M402,176.5 C418,176.5 408,267.0 424,267.0" stroke-width="1.3"/><path class="ed" d="M402,176.5 C418,176.5 408,300.0 424,300.0" stroke-width="1.3"/><path class="ed" d="M402,176.5 C418,176.5 408,333.0 424,333.0" stroke-width="1.3"/><path class="ed" d="M402,222.0 C418,222.0 408,111.5 424,111.5" stroke-width="1.0"/><path class="ed" d="M402,222.0 C418,222.0 408,159.0 424,159.0" stroke-width="1.0"/><path class="ed" d="M402,222.0 C418,222.0 408,200.0 424,200.0" stroke-width="0.7"/><path class="ed" d="M402,222.0 C418,222.0 408,234.0 424,234.0" stroke-width="0.6"/><path class="ed" d="M402,222.0 C418,222.0 408,267.0 424,267.0" stroke-width="0.6"/><path class="ed" d="M402,222.0 C418,222.0 408,300.0 424,300.0" stroke-width="0.6"/><path class="ed" d="M402,222.0 C418,222.0 408,333.0 424,333.0" stroke-width="0.6"/><path class="ed" d="M602,111.5 C618,111.5 608,116.5 624,116.5" stroke-width="2.1"/><path class="ed" d="M602,111.5 C618,111.5 608,166.0 624,166.0" stroke-width="1.4"/><path class="ed" d="M602,111.5 C618,111.5 608,206.0 624,206.0" stroke-width="1.3"/><path class="ed" d="M602,111.5 C618,111.5 608,243.5 624,243.5" stroke-width="1.2"/><path class="ed" d="M602,111.5 C618,111.5 608,278.0 624,278.0" stroke-width="1.0"/><path class="ed" d="M602,111.5 C618,111.5 608,311.0 624,311.0" stroke-width="1.0"/><path class="ed" d="M602,111.5 C618,111.5 608,344.0 624,344.0" stroke-width="1.0"/><path class="ed" d="M602,159.0 C618,159.0 608,116.5 624,116.5" stroke-width="2.1"/><path class="ed" d="M602,159.0 C618,159.0 608,166.0 624,166.0" stroke-width="1.4"/><path class="ed" d="M602,159.0 C618,159.0 608,206.0 624,206.0" stroke-width="1.3"/><path class="ed" d="M602,159.0 C618,159.0 608,243.5 624,243.5" stroke-width="1.1"/><path class="ed" d="M602,159.0 C618,159.0 608,278.0 624,278.0" stroke-width="1.0"/><path class="ed" d="M602,159.0 C618,159.0 608,311.0 624,311.0" stroke-width="1.0"/><path class="ed" d="M602,159.0 C618,159.0 608,344.0 624,344.0" stroke-width="1.0"/><path class="ed" d="M602,200.0 C618,200.0 608,116.5 624,116.5" stroke-width="1.4"/><path class="ed" d="M602,200.0 C618,200.0 608,166.0 624,166.0" stroke-width="0.9"/><path class="ed" d="M602,200.0 C618,200.0 608,206.0 624,206.0" stroke-width="0.9"/><path class="ed" d="M602,200.0 C618,200.0 608,243.5 624,243.5" stroke-width="0.8"/><path class="ed" d="M602,200.0 C618,200.0 608,278.0 624,278.0" stroke-width="0.7"/><path class="ed" d="M602,200.0 C618,200.0 608,311.0 624,311.0" stroke-width="0.7"/><path class="ed" d="M602,200.0 C618,200.0 608,344.0 624,344.0" stroke-width="0.7"/><path class="ed" d="M602,234.0 C618,234.0 608,116.5 624,116.5" stroke-width="1.3"/><path class="ed" d="M602,234.0 C618,234.0 608,166.0 624,166.0" stroke-width="0.9"/><path class="ed" d="M602,234.0 C618,234.0 608,206.0 624,206.0" stroke-width="0.8"/><path class="ed" d="M602,234.0 C618,234.0 608,243.5 624,243.5" stroke-width="0.7"/><path class="ed" d="M602,234.0 C618,234.0 608,278.0 624,278.0" stroke-width="0.6"/><path class="ed" d="M602,234.0 C618,234.0 608,311.0 624,311.0" stroke-width="0.6"/><path class="ed" d="M602,234.0 C618,234.0 608,344.0 624,344.0" stroke-width="0.6"/><path class="ed" d="M602,267.0 C618,267.0 608,116.5 624,116.5" stroke-width="1.3"/><path class="ed" d="M602,267.0 C618,267.0 608,166.0 624,166.0" stroke-width="0.9"/><path class="ed" d="M602,267.0 C618,267.0 608,206.0 624,206.0" stroke-width="0.8"/><path class="ed" d="M602,267.0 C618,267.0 608,243.5 624,243.5" stroke-width="0.7"/><path class="ed" d="M602,267.0 C618,267.0 608,278.0 624,278.0" stroke-width="0.6"/><path class="ed" d="M602,267.0 C618,267.0 608,311.0 624,311.0" stroke-width="0.6"/><path class="ed" d="M602,267.0 C618,267.0 608,344.0 624,344.0" stroke-width="0.6"/><path class="ed" d="M602,300.0 C618,300.0 608,116.5 624,116.5" stroke-width="1.3"/><path class="ed" d="M602,300.0 C618,300.0 608,166.0 624,166.0" stroke-width="0.9"/><path class="ed" d="M602,300.0 C618,300.0 608,206.0 624,206.0" stroke-width="0.8"/><path class="ed" d="M602,300.0 C618,300.0 608,243.5 624,243.5" stroke-width="0.7"/><path class="ed" d="M602,300.0 C618,300.0 608,278.0 624,278.0" stroke-width="0.6"/><path class="ed" d="M602,300.0 C618,300.0 608,311.0 624,311.0" stroke-width="0.6"/><path class="ed" d="M602,300.0 C618,300.0 608,344.0 624,344.0" stroke-width="0.6"/><path class="ed" d="M602,333.0 C618,333.0 608,116.5 624,116.5" stroke-width="1.3"/><path class="ed" d="M602,333.0 C618,333.0 608,166.0 624,166.0" stroke-width="0.9"/><path class="ed" d="M602,333.0 C618,333.0 608,206.0 624,206.0" stroke-width="0.8"/><path class="ed" d="M602,333.0 C618,333.0 608,243.5 624,243.5" stroke-width="0.7"/><path class="ed" d="M602,333.0 C618,333.0 608,278.0 624,278.0" stroke-width="0.6"/><path class="ed" d="M602,333.0 C618,333.0 608,311.0 624,311.0" stroke-width="0.6"/><path class="ed" d="M602,333.0 C618,333.0 608,344.0 624,344.0" stroke-width="0.6"/><path class="ed" d="M802,116.5 C818,116.5 808,128.0 824,128.0" stroke-width="3.2"/><path class="ed" d="M802,116.5 C818,116.5 808,188.0 824,188.0" stroke-width="1.6"/><path class="ed" d="M802,116.5 C818,116.5 808,224.0 824,224.0" stroke-width="1.3"/><path class="ed" d="M802,116.5 C818,116.5 808,279.5 824,279.5" stroke-width="3.2"/><path class="ed" d="M802,166.0 C818,166.0 808,128.0 824,128.0" stroke-width="2.6"/><path class="ed" d="M802,166.0 C818,166.0 808,188.0 824,188.0" stroke-width="1.1"/><path class="ed" d="M802,166.0 C818,166.0 808,224.0 824,224.0" stroke-width="0.9"/><path class="ed" d="M802,166.0 C818,166.0 808,279.5 824,279.5" stroke-width="2.5"/><path class="ed" d="M802,206.0 C818,206.0 808,128.0 824,128.0" stroke-width="2.4"/><path class="ed" d="M802,206.0 C818,206.0 808,188.0 824,188.0" stroke-width="1.0"/><path class="ed" d="M802,206.0 C818,206.0 808,224.0 824,224.0" stroke-width="0.8"/><path class="ed" d="M802,206.0 C818,206.0 808,279.5 824,279.5" stroke-width="2.3"/><path class="ed" d="M802,243.5 C818,243.5 808,128.0 824,128.0" stroke-width="2.2"/><path class="ed" d="M802,243.5 C818,243.5 808,188.0 824,188.0" stroke-width="0.9"/><path class="ed" d="M802,243.5 C818,243.5 808,224.0 824,224.0" stroke-width="0.7"/><path class="ed" d="M802,243.5 C818,243.5 808,279.5 824,279.5" stroke-width="2.1"/><path class="ed" d="M802,278.0 C818,278.0 808,128.0 824,128.0" stroke-width="1.9"/><path class="ed" d="M802,278.0 C818,278.0 808,188.0 824,188.0" stroke-width="0.8"/><path class="ed" d="M802,278.0 C818,278.0 808,224.0 824,224.0" stroke-width="0.6"/><path class="ed" d="M802,278.0 C818,278.0 808,279.5 824,279.5" stroke-width="1.8"/><path class="ed" d="M802,311.0 C818,311.0 808,128.0 824,128.0" stroke-width="1.9"/><path class="ed" d="M802,311.0 C818,311.0 808,188.0 824,188.0" stroke-width="0.8"/><path class="ed" d="M802,311.0 C818,311.0 808,224.0 824,224.0" stroke-width="0.6"/><path class="ed" d="M802,311.0 C818,311.0 808,279.5 824,279.5" stroke-width="1.8"/><path class="ed" d="M802,344.0 C818,344.0 808,128.0 824,128.0" stroke-width="1.9"/><path class="ed" d="M802,344.0 C818,344.0 808,188.0 824,188.0" stroke-width="0.8"/><path class="ed" d="M802,344.0 C818,344.0 808,224.0 824,224.0" stroke-width="0.6"/><path class="ed" d="M802,344.0 C818,344.0 808,279.5 824,279.5" stroke-width="1.8"/><text class="s" x="24" y="422">The routes converge. The heaviest single path is no demonstrations, one hand, Isaac Gym,</text><text class="s" x="24" y="438">reinforcement learning, real robot. Whatever enters on the left, almost everything leaves through a</text><text class="s" x="24" y="454">GPU simulator and arrives at a real robot without contact quality ever being measured.</text></svg></figure>
 <h1 class="sec" id="2-a-taxonomy-of-the-problem">2. A taxonomy of the problem</h1>
 <h2 id="2-1-task-families">2.1 Task families</h2>
 <p>The six families below are read off the rows rather than imposed on them, and Sec. 2.1's closing
@@ -703,7 +747,7 @@ URDF is released and the released API repository contains none <code>leap_hand_2
 <td>open-source</td>
 <td>paper</td>
 <td>paper, 2023</td>
-<td>11: <code>bidex_teleop_2024</code>, <code>bidexhd_2024</code>, <code>cross_embodiment_world_models_2025</code>, …</td>
+<td>12: <code>bidex_teleop_2024</code>, <code>bidexhd_2024</code>, <code>cross_embodiment_world_models_2025</code>, …</td>
 </tr>
 <tr>
 <td><code>allegro_hand_v4_2016</code> [8]</td>
@@ -940,7 +984,7 @@ URDF is released and the released API repository contains none <code>leap_hand_2
  text{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;fill:var(--ink)}
  .t{font-size:15px;font-weight:600}.s{font-size:11.5px;fill:var(--mut)}.l{font-size:11.5px}.n{font-size:10.5px;fill:var(--mut)}
  .ax{stroke:var(--line);stroke-width:1}
-</style><rect width="820" height="706" fill="var(--bg)"/><text class="t" x="24" y="30">Figure 2. Which hands the surveyed methods actually run on</text><text class="s" x="24" y="50">One count per method paper whose own experiments use the hand, from 112 method rows.</text><text class="s" x="24" y="66">Colour: blue sold commercially, green open hardware, purple simulation-only model, orange built in-house and not sold.</text><text class="l" x="200" y="97" text-anchor="end">Allegro</text><rect x="210" y="86" width="420" height="14" rx="2" fill="var(--a)"/><text class="n" x="637" y="97">35</text><text class="l" x="200" y="119" text-anchor="end">Shadow</text><rect x="210" y="108" width="252" height="14" rx="2" fill="var(--a)"/><text class="n" x="469" y="119">21</text><text class="l" x="200" y="141" text-anchor="end">Inspire</text><rect x="210" y="130" width="228" height="14" rx="2" fill="var(--a)"/><text class="n" x="445" y="141">19</text><text class="l" x="200" y="163" text-anchor="end">parallel-jaw gripper</text><rect x="210" y="152" width="144" height="14" rx="2" fill="var(--a)"/><text class="n" x="361" y="163">12</text><text class="l" x="200" y="185" text-anchor="end">LEAP</text><rect x="210" y="174" width="132" height="14" rx="2" fill="var(--d)"/><text class="n" x="349" y="185">11</text><text class="l" x="200" y="207" text-anchor="end">XHand</text><rect x="210" y="196" width="96" height="14" rx="2" fill="var(--a)"/><text class="n" x="313" y="207">8</text><text class="l" x="200" y="229" text-anchor="end">Ability (PSYONIC)</text><rect x="210" y="218" width="84" height="14" rx="2" fill="var(--a)"/><text class="n" x="301" y="229">7</text><text class="l" x="200" y="251" text-anchor="end">Sharpa</text><rect x="210" y="240" width="72" height="14" rx="2" fill="var(--a)"/><text class="n" x="289" y="251">6</text><text class="l" x="200" y="273" text-anchor="end">Adroit (sim)</text><rect x="210" y="262" width="48" height="14" rx="2" fill="var(--b)"/><text class="n" x="265" y="273">4</text><text class="l" x="200" y="295" text-anchor="end">Fourier</text><rect x="210" y="284" width="36" height="14" rx="2" fill="var(--a)"/><text class="n" x="253" y="295">3</text><text class="l" x="200" y="317" text-anchor="end">D'Claw/TriFinger</text><rect x="210" y="306" width="24" height="14" rx="2" fill="var(--d)"/><text class="n" x="241" y="317">2</text><text class="l" x="200" y="339" text-anchor="end">Wuji</text><rect x="210" y="328" width="24" height="14" rx="2" fill="var(--a)"/><text class="n" x="241" y="339">2</text><text class="l" x="200" y="361" text-anchor="end">ByteDexter (ByteDance)</text><rect x="210" y="350" width="12" height="14" rx="2" fill="var(--c)"/><text class="n" x="229" y="361">1</text><text class="l" x="200" y="383" text-anchor="end">Schunk</text><rect x="210" y="372" width="12" height="14" rx="2" fill="var(--a)"/><text class="n" x="229" y="383">1</text><text class="l" x="200" y="405" text-anchor="end">AgiBot</text><rect x="210" y="394" width="12" height="14" rx="2" fill="var(--a)"/><text class="n" x="229" y="405">1</text><text class="l" x="200" y="427" text-anchor="end">Shadow DEX-EE</text><rect x="210" y="416" width="12" height="14" rx="2" fill="var(--a)"/><text class="n" x="229" y="427">1</text><text class="l" x="200" y="449" text-anchor="end">Oymotion</text><rect x="210" y="438" width="12" height="14" rx="2" fill="var(--a)"/><text class="n" x="229" y="449">1</text><text class="l" x="200" y="471" text-anchor="end">PsiBot</text><rect x="210" y="460" width="12" height="14" rx="2" fill="var(--a)"/><text class="n" x="229" y="471">1</text><text class="l" x="200" y="493" text-anchor="end">Faive/Mimic</text><rect x="210" y="482" width="12" height="14" rx="2" fill="var(--d)"/><text class="n" x="229" y="493">1</text><text class="l" x="200" y="515" text-anchor="end">BrainCo</text><rect x="210" y="504" width="12" height="14" rx="2" fill="var(--a)"/><text class="n" x="229" y="515">1</text><text class="l" x="200" y="537" text-anchor="end">LinkerBot</text><rect x="210" y="526" width="12" height="14" rx="2" fill="var(--a)"/><text class="n" x="229" y="537">1</text><line class="ax" x1="24" y1="558" x2="796" y2="558"/><text class="l" x="200" y="593" text-anchor="end" fill="var(--warn)">announced, not sold (Table 3)</text><rect x="210" y="582" width="2" height="14" fill="var(--warn)"/><text class="n" x="219" y="593" fill="var(--warn)">0 &#8212; none of the 9 company-announced hands appears in any method row</text><text class="l" x="200" y="615" text-anchor="end">research prototypes (Table 3)</text><rect x="210" y="604" width="36" height="14" rx="2" fill="var(--mut)"/><text class="n" x="253" y="615">3, from 2 of the 4 lab hands in Table 3</text></svg></figure>
+</style><rect width="820" height="706" fill="var(--bg)"/><text class="t" x="24" y="30">Figure 2. Which hands the surveyed methods actually run on</text><text class="s" x="24" y="50">One count per method paper whose own experiments use the hand, from 112 method rows.</text><text class="s" x="24" y="66">Colour: blue sold commercially, green open hardware, purple simulation-only model, orange built in-house and not sold.</text><text class="l" x="200" y="97" text-anchor="end">Allegro</text><rect x="210" y="86" width="420" height="14" rx="2" fill="var(--a)"/><text class="n" x="637" y="97">35</text><text class="l" x="200" y="119" text-anchor="end">Shadow</text><rect x="210" y="108" width="252" height="14" rx="2" fill="var(--a)"/><text class="n" x="469" y="119">21</text><text class="l" x="200" y="141" text-anchor="end">Inspire</text><rect x="210" y="130" width="228" height="14" rx="2" fill="var(--a)"/><text class="n" x="445" y="141">19</text><text class="l" x="200" y="163" text-anchor="end">LEAP</text><rect x="210" y="152" width="144" height="14" rx="2" fill="var(--d)"/><text class="n" x="361" y="163">12</text><text class="l" x="200" y="185" text-anchor="end">parallel-jaw gripper</text><rect x="210" y="174" width="144" height="14" rx="2" fill="var(--a)"/><text class="n" x="361" y="185">12</text><text class="l" x="200" y="207" text-anchor="end">XHand</text><rect x="210" y="196" width="96" height="14" rx="2" fill="var(--a)"/><text class="n" x="313" y="207">8</text><text class="l" x="200" y="229" text-anchor="end">Ability (PSYONIC)</text><rect x="210" y="218" width="84" height="14" rx="2" fill="var(--a)"/><text class="n" x="301" y="229">7</text><text class="l" x="200" y="251" text-anchor="end">Sharpa</text><rect x="210" y="240" width="72" height="14" rx="2" fill="var(--a)"/><text class="n" x="289" y="251">6</text><text class="l" x="200" y="273" text-anchor="end">Adroit (sim)</text><rect x="210" y="262" width="48" height="14" rx="2" fill="var(--b)"/><text class="n" x="265" y="273">4</text><text class="l" x="200" y="295" text-anchor="end">Fourier</text><rect x="210" y="284" width="36" height="14" rx="2" fill="var(--a)"/><text class="n" x="253" y="295">3</text><text class="l" x="200" y="317" text-anchor="end">D'Claw/TriFinger</text><rect x="210" y="306" width="24" height="14" rx="2" fill="var(--d)"/><text class="n" x="241" y="317">2</text><text class="l" x="200" y="339" text-anchor="end">Wuji</text><rect x="210" y="328" width="24" height="14" rx="2" fill="var(--a)"/><text class="n" x="241" y="339">2</text><text class="l" x="200" y="361" text-anchor="end">ByteDexter (ByteDance)</text><rect x="210" y="350" width="12" height="14" rx="2" fill="var(--c)"/><text class="n" x="229" y="361">1</text><text class="l" x="200" y="383" text-anchor="end">Schunk</text><rect x="210" y="372" width="12" height="14" rx="2" fill="var(--a)"/><text class="n" x="229" y="383">1</text><text class="l" x="200" y="405" text-anchor="end">AgiBot</text><rect x="210" y="394" width="12" height="14" rx="2" fill="var(--a)"/><text class="n" x="229" y="405">1</text><text class="l" x="200" y="427" text-anchor="end">Shadow DEX-EE</text><rect x="210" y="416" width="12" height="14" rx="2" fill="var(--a)"/><text class="n" x="229" y="427">1</text><text class="l" x="200" y="449" text-anchor="end">Oymotion</text><rect x="210" y="438" width="12" height="14" rx="2" fill="var(--a)"/><text class="n" x="229" y="449">1</text><text class="l" x="200" y="471" text-anchor="end">PsiBot</text><rect x="210" y="460" width="12" height="14" rx="2" fill="var(--a)"/><text class="n" x="229" y="471">1</text><text class="l" x="200" y="493" text-anchor="end">Faive/Mimic</text><rect x="210" y="482" width="12" height="14" rx="2" fill="var(--d)"/><text class="n" x="229" y="493">1</text><text class="l" x="200" y="515" text-anchor="end">BrainCo</text><rect x="210" y="504" width="12" height="14" rx="2" fill="var(--a)"/><text class="n" x="229" y="515">1</text><text class="l" x="200" y="537" text-anchor="end">LinkerBot</text><rect x="210" y="526" width="12" height="14" rx="2" fill="var(--a)"/><text class="n" x="229" y="537">1</text><line class="ax" x1="24" y1="558" x2="796" y2="558"/><text class="l" x="200" y="593" text-anchor="end" fill="var(--warn)">announced, not sold (Table 3)</text><rect x="210" y="582" width="2" height="14" fill="var(--warn)"/><text class="n" x="219" y="593" fill="var(--warn)">0 &#8212; none of the 9 company-announced hands appears in any method row</text><text class="l" x="200" y="615" text-anchor="end">research prototypes (Table 3)</text><rect x="210" y="604" width="36" height="14" rx="2" fill="var(--mut)"/><text class="n" x="253" y="615">3, from 2 of the 4 lab hands in Table 3</text></svg></figure>
 <p>The two oldest designs in Table 2 carry 49 of the 103 method rows that name a hand at all, and
 seven rows use both. Neither design's date is confirmed by its own sources, so 2005 and 2016 are
 the bibliography's. Figure 2 counts, per hand, the method papers whose own experiments use it. Of
@@ -959,12 +1003,13 @@ simulated cube rotation, LEAP reaches 0.2288 rad/s against the Allegro's 0.0828 
 three-trial pinch test <code>ruka_2025</code>. A method compared only on Allegro hardware is compared at one
 point in a space where a single axis moves the headline number two or three times over. Two further
 patterns follow. Inspire, XHand and Sharpa take 29 of the 103 rows between them, four rows use two
-of the three, and none is earlier than 2024. ORCA, RUKA, Ruka-v2, BiDexHand, DexHand, the Tesollo
-DG-5F and the Unitree Dex5 take none at all.</p>
+of the three, and none is earlier than 2024. Eight take none at all: ORCA, RUKA, Ruka-v2,
+BiDexHand, DexHand, the Proception ProHand, the Tesollo DG-5F and the Unitree Dex5.</p>
 <h2 id="3-3-open-hardware-and-the-collapse-in-cost">3.3 Open hardware and the collapse in cost</h2>
-<p>Seven rows in Table 2 are open hardware. Five state a dollar cost in the price column, ORCA states
-a material cost below 2,000 CHF that the column leaves unconverted, and BiDexHand states none
-<code>orca_hand_2025</code> <code>bidexhand_2025</code>. The Faive Hand states neither a cost nor a licence that could be
+<p>Six rows in Table 2 are open hardware, and LEAP Hand V2 in Table 3 is a seventh. Five of the seven
+state a dollar cost: $2,000 for LEAP, $3,000 for LEAP Hand V2, $1,500 for Ruka-v2, $1,300 for RUKA
+and $300 for DexHand. ORCA states a material cost below 2,000 CHF that the price column leaves
+unconverted, and BiDexHand states none <code>orca_hand_2025</code> <code>bidexhand_2025</code>. The Faive Hand states neither a cost nor a licence that could be
 read, so it is not counted as open hardware here <code>faive_hand_2023</code>. Two of the stated bases need
 saying. DexHand's $300 is "additional total cost of components", excluding the printing and the
 wrist servos <code>dexhand_open_source_2023</code>, and ORCA's own figure sits against Ruka-v2's table listing
@@ -1363,14 +1408,15 @@ ByteDexter reaches a method row through a ByteDance technical report stating 21 
 piezoresistive fingertip channels in the action vector and real-robot success rates
 <code>gr_dexter_2025</code>, not through a product page. That mechanism is available to every vendor in
 Table 3 and none has used it.</p>
-<p>The gap runs the other way too, and the last column of Table 2 shows it. Seven hands that are sold
-and documented take zero method rows each: the Unitree Dex5 with 94 pressure sensors on its P
-variant <code>unitree_dex5_2025</code>, the fully actuated Tesollo DG-5F <code>tesollo_dg5f_2024</code>, ORCA, RUKA,
-Ruka-v2, BiDexHand and DexHand. Cheapness is established only for RUKA, Ruka-v2 and DexHand,
-because Table 2's price cell is empty for Unitree, Tesollo, ORCA and BiDexHand, and the only Dex5
-price on disk is Ruka-v2's secondhand "~$25K" <code>ruka_v2_2026</code>. A reader choosing a hand on this
+<p>The gap runs the other way too, and the last column of Table 2 shows it. Eight hands that can be
+bought or built from published designs take zero method rows each: the Unitree Dex5 with 94
+pressure sensors on its P variant <code>unitree_dex5_2025</code>, the fully actuated Tesollo DG-5F
+<code>tesollo_dg5f_2024</code>, the 22-DoF Proception ProHand <code>proception_prohand_2026</code>, ORCA, RUKA, Ruka-v2,
+BiDexHand and DexHand. Cheapness is established only for RUKA, Ruka-v2 and DexHand,
+because Table 2's price cell is empty for Unitree, Tesollo, the ProHand, ORCA and BiDexHand, and
+the only Dex5 price on disk is Ruka-v2's secondhand "~$25K" <code>ruka_v2_2026</code>. A reader choosing a hand on this
 corpus's evidence has two well-precedented options, an Allegro or an Inspire, and a third in LEAP
-if eleven papers is enough. Everything else is a press release or a hand nobody has published on.</p>
+if twelve papers is enough. Everything else is a press release or a hand nobody has published on.</p>
 <h1 class="sec" id="4-simulators-and-the-physics-underneath">4. Simulators and the physics underneath</h1>
 <h2 id="4-1-what-a-dexterous-simulation-must-get-right">4.1 What a dexterous simulation must get right</h2>
 <p>The clearest demonstration that hands are the hard case came from a benchmark that was not about
@@ -1512,8 +1558,8 @@ whether a parsed source reported a penetration depth, not what an engine can com
 15 engines report one, Dojo and ComFree-Sim, and both are engines whose paper is about contact
 accuracy. Four are recorded as not reporting it: Brax, Isaac Gym, Isaac Lab and Orbit. Nine rows
 are blank. The word "penetration" appears nowhere in the Isaac Gym paper, and Isaac Lab's contact
-sensor reports force, duration and an average contact point with no contact-quality metric. Those
-two simulators carry 42 of the 112 method papers in this corpus.</p>
+sensor reports force, duration and an average contact point with no contact-quality metric. The
+Isaac family carries 42 of the 112 method papers in this corpus.</p>
 <p><strong>The tooling exists and the number is still not recorded.</strong> NVIDIA's own IsaacGymEnvs repository
 computes interpenetration depth in simulation. Its IndustReal tasks load plug and socket meshes
 into Warp, sample points on one, query them against the other, and reduce to a per-environment
@@ -1542,9 +1588,9 @@ defines a maximum hand-object penetration depth, applies it only to its input ki
 references, and presents tolerance of "severe hand-object penetrations" as evidence of robustness
 (App. B). <code>toporetarget_2026</code> is the one corpus method that reports the number carefully, and it
 reports it on retargeted references rather than on a rollout, which section 7 takes up.</p>
-<p>The rest of Table 4 is largely empty, and the emptiness is a result. Sixty-eight of its 165 cells
-are values no parsed source stated, which is 68 of the 150 cells outside the engine-key column, or
-45 percent. No engine paper states a default physics timestep. Three report one for a named
+<p>The rest of Table 4 is largely empty, and the emptiness is a result. Sixty-nine of its 165 cells
+are values no parsed source stated, which is 69 of the 150 cells outside the engine-key column, or
+46 percent, and the table's own footer counts the same 69. No engine paper states a default physics timestep. Three report one for a named
 experiment, and the timestep column reports those experiment settings. Isaac Gym's cell is its
 Shadow Hand step, from the only per-task timestep table any engine paper here publishes, which
 runs 1/120 s for Shadow Hand and Allegro, 1/200 s for ANYmal and TriFinger and 1/60 s for Franka
@@ -1775,7 +1821,7 @@ resolves contacts with the Temporal Gauss-Seidel sweep described above. Its per-
 published, which is rare: the Shadow Hand runs a 1/120 s physics step under a 1/60 s control step,
 or 1/20 s in the OpenAI variant. The result that reorganised the field is that reproducing OpenAI's
 Shadow Hand cube reorientation took under an hour on one A100, against 30 hours on 6144 CPU cores
-and 8 V100s (<code>isaacgym_2021</code>, Sec. 6.4.1). Thirty-six of the 112 method papers in this corpus run
+and 8 V100s (<code>isaacgym_2021</code>, Sec. 6.4.1). Thirty-five of the 112 method papers in this corpus run
 on it.</p>
 <p>Orbit and Isaac Lab moved the stack to PhysX 5, and the dexterous offering is thinner than the
 predecessor's: the first-party suite is lifting, grasping and reorienting with the KUKA Allegro
@@ -2857,18 +2903,19 @@ a dataset rather than a gradient.</p>
 <h2 id="5-8-what-the-released-code-says">5.8 What the released code says</h2>
 <p>Thirty-eight of the 112 method rows record a discrepancy between a paper and the code it released,
 and all 38 released code, so they sit inside the 62 rows that released anything. They are not one
-kind of thing. Ten are contradictions, where paper and code state different values or different
+kind of thing. Nine are contradictions, where paper and code state different values or different
 terms. Thirteen are limits of this survey's own parse, where the body or config that would settle
 the question was never recovered and the row says so. Eight released code without the described
-component in it, four are version skew against a later repository, and three are a paper
+component in it, four are version skew against a later repository, and four are a paper
 disagreeing with itself. The fourth version skew is <code>groot_n16_2025</code>, which ships a main branch one
 generation later than the checkpoint its page describes.</p>
-<p>Ten is the number to quote, eight at high confidence and two, <code>penspin_2024</code> and <code>omnih2o_2024</code>,
-held at medium pending a direct read of the code. Ten of 62 is 16 percent, bounded on both sides:
+<p>Nine is the number to quote, eight at high confidence and one, <code>penspin_2024</code>, held at medium
+pending a direct read of the code. Nine of 62 is 15 percent, bounded on both sides:
 a floor, because the census covers method rows only and <code>robopianist_2023</code>, whose row is a
 benchmark, sums five reward terms against the three its Table 2 documents; a ceiling, because
-seven accusations an earlier draft of this section made were withdrawn under adversarial review,
-each with its reason recorded in the accused row's <code>mismatch_review</code> field. Among the 21
+eight accusations an earlier draft of this section made were withdrawn, seven of them under
+adversarial review and an eighth, <code>omnih2o_2024</code>, once writing to its authors sent someone back to
+the evidence, each with its reason recorded in the accused row's <code>mismatch_review</code> field. Among the 21
 reorientation methods of Table 5, seven released a repository: four disagree with their paper, one
 (<code>dreureka_2024</code>) ships no cube-rotation environment at all, one (<code>hora_2022</code>) is a later
 generation its own README flags, and one (<code>eureka_2023</code>) was a default-value question the same
@@ -2889,9 +2936,12 @@ by zero with the comment "currently disabled", a term the paper never claims, an
 weights are present at their stated values. <code>pianomime_2024</code>'s Table 3 states two weighted terms
 while its environment sums roughly five unweighted ones, two of them inherited stubs returning
 zero and a third, forearm collision, the paper never lists. <code>penspin_2024</code> ships <code>forceScale: 0.0</code>
-against the disturbance force in its appendix, and its 96-dimensional observation carries no
-tactile channel, which is also what its proprioception-only student should carry, hence the
-medium confidence.</p>
+against the disturbance force its appendix describes, which is the charge that survives. A second
+half of the original charge, that the same 96-dimensional observation disables the paper's tactile
+channel, is withdrawn: those dimensions are proprioception-only, consistent with the student
+policy the released config runs rather than the tactile-and-point-cloud oracle, and the paper never
+claims the student has tactile input. The disturbance-force charge alone is why the row still
+reads medium rather than high.</p>
 <p>Weights drift. <code>dextreme_2022</code> states an action-delta penalty of −0.25 in Table 2 and ships −0.2
 and −0.01 in its two DR yamls, neither matching. <code>visual_dexterity_2022</code>'s Eq. 8 penultimate-joint
 penalty is absent from <code>dexenv/envs/rewards.py</code>, and its two configs disagree about the fall
@@ -2910,7 +2960,7 @@ prose says the network predicts noise while its config sets <code>prediction_typ
 <code>dexmachina_2025</code>'s multiplicative task reward, charged to its code in an earlier draft, is
 printed in the paper.</p>
 <p>A reward table is a claim about a training run and the code is a claim about a repository. Here
-the two contradict each other in ten cases, in the other 28 the released artefacts do not settle
+the two contradict each other in nine cases, in the other 29 the released artefacts do not settle
 the question, and in exactly one, <code>hora_2022</code>, the repository says so itself. Read the reward
 function before the reward table, and treat a printed weight as a hypothesis about the code.</p>
 <h2 id="5-9-the-master-table">5.9 The master table</h2>
@@ -5038,13 +5088,13 @@ statistical inferences about real-world outcomes from simulation results alone".
 <p><strong>Reproducibility.</strong> 62 rows released code that could be parsed against the paper, and 38 of the
 112 rows record a disagreement of some kind between the paper and that code. All 38 released
 code, so the raw rate among code-releasing rows is 61 percent. That raw rate is not
-the finding, because the 38 are not one thing. Section 8.1 classifies them: 10
+the finding, because the 38 are not one thing. Section 8.1 classifies them: 9
 contradictions, 13 limitations of this survey's own parsing, 8
-components never released, 4 version skews and 3
+components never released, 4 version skews and 4
 inconsistencies internal to a paper. Only the contradictions are a finding about the work rather
-than about this survey, so 10 of 62 code-releasing rows, which is
-16 percent, is the figure this section and Table 8 use.
-<code>physhoi_2023</code> is the clearest of the 10. It lists a non-zero object-orientation
+than about this survey, so 9 of 62 code-releasing rows, which is
+15 percent, is the figure this section and Table 8 use.
+<code>physhoi_2023</code> is the clearest of the 9. It lists a non-zero object-orientation
 weight for GRAB in Table 4, and its released <code>compute_humanoid_reward</code> hard-sets that orientation
 error to zero, so the reward that produced the published numbers tracked the object in position
 only.</p>
@@ -5053,11 +5103,21 @@ only.</p>
 constrain it. The denominator is 96, not 112, because the <code>penetration</code> field is null for 16 rows,
 and a null there means the note did not settle the question, not that the paper ignored
 penetration. Eleven of 96 is 11 percent.</p>
+<p>That eleven is not a claim that penetration goes unmeasured in general, and reading it that way
+would be wrong. Outside closed-loop control the quantity is a standard comparative column, and has
+been one for years in grasp synthesis and in hand-object reconstruction. Four rows of this corpus
+show the practice. <code>bidexgrasp_2026</code> prints a penetration depth beside a prior method's,
+<code>bimangrasp_2024</code> fails any grasp that exceeds 1.5 mm of total penetration, <code>toporetarget_2026</code>
+reports a maximum penetration and a share of frames past 2 mm against a baseline retargeter, and
+<code>oakink_2022</code> scores a dataset split on penetration depth, solid intersection volume and simulation
+displacement. The finding is narrower than the field and concerns learned closed-loop control: all
+eleven score a pose or a reference trajectory, four of them are closed-loop policies, and we found
+none that reports the measurement for rollouts of its own trained policy.</p>
 <p>Where in the pipeline those eleven act is the reference-versus-rollout split that section 1 takes
 from <code>zhao_dexhand_survey_2026</code>. A reference is a pose or a trajectory scored before execution,
 and a rollout is what the trained policy actually did. What this section supplies on that axis is
 a measurement method and a count, and it does not supply a threshold. The count is the eleven of
-96 above, with four closed-loop policies inside it and none reporting a number for its own
+96 above, with four closed-loop policies inside it and none we found reporting a number for its own
 rollouts. The method is the plausibility row of Table 8: maximum and mean penetration depth over
 the evaluation rollouts, on a dense surface sample, computed by code that never entered the reward
 or the termination rule. The threshold is borrowed, and section 7.7 says from where and why it
@@ -5505,18 +5565,38 @@ behaviour a physicist would accept from behaviour they would not.</p>
 <p>This is a result rather than a gap, and a result about publishing practice in robot learning: the
 dexterous corpus is its sample, not its subject.</p>
 <p>Sixty-two method rows released code that could be parsed against the paper, and 38 carry
-a recorded discrepancy. The classification is the finding: ten contradictions, where the paper
+a recorded discrepancy. The classification is the finding: nine contradictions, where the paper
 states one value and the shipped code demonstrably states another; thirteen limits of this
 survey's own parse, which captured signatures or a truncated body rather than the component; eight
-cases where the code was never released; four version skew; three inconsistencies inside a paper
-with no code involved. Ten is the number to quote, eight at high confidence, with <code>penspin_2024</code>
-and <code>omnih2o_2024</code> held at medium against innocent readings a direct code read would settle.</p>
-<p>The first count was sixteen. An adversarial re-reading withdrew seven accusations. <code>maniptrans_2025</code>, <code>eureka_2023</code>, <code>open_television_2024</code>, <code>dexmachina_2025</code>, <code>artigrasp_2023</code>,
-<code>graspxl_2024</code>, and the domain-randomisation half of the charge against <code>dexpbt_2023</code>. Two
-refuted by the accused repository's own README, two resting on reward code never in the parse, one
-charging the code with structure the paper prints, one against a paper with no reward function.
-Each is recorded in its row in a <code>mismatch_review</code> field: a survey that names people should carry
-its retractions beside its accusations.</p>
+cases where the code was never released; four version skew; four inconsistencies inside a paper
+with no code involved. Nine is the number to quote, eight at high confidence, with <code>penspin_2024</code>
+held at medium against an innocent reading a direct code read would settle.</p>
+<p>The first count was sixteen. An adversarial re-reading withdrew six of them outright and narrowed
+a seventh to the half that stands. The six were <code>maniptrans_2025</code>, <code>eureka_2023</code>,
+<code>open_television_2024</code>, <code>dexmachina_2025</code>, <code>artigrasp_2023</code> and <code>graspxl_2024</code>: two refuted by the
+accused repository's own README, two resting on reward code never in the parse, one charging the
+code with structure the paper prints, one against a paper with no reward function. The seventh is
+<code>dexpbt_2023</code>, where the domain-randomisation half of the charge is withdrawn and the zeroed reward
+term stands, so that row is still a contradiction and its withdrawal takes nothing off the count.
+That left ten, and ten held until the letters to the authors were drafted.</p>
+<p>Writing to <code>omnih2o_2024</code> meant reading its accusation again before sending it, and reading it
+again is what broke it. Four of its five reward-weight comparisons match the paper's own table to
+the digit once a systematic ×1.25 curriculum factor is applied, and only the stumble weight
+differs, by a factor of about a million, which reads as a typo signature in the paper's own table,
+not a policy trained on a different objective. The work's hands are also driven open-loop from a VR pose,
+outside the policy and outside the reward, which made it a poor fit for a reward census in a
+dexterous-manipulation survey regardless of the weight. The charge is withdrawn and the row moves
+to an internal inconsistency, which is where the count above sits it. <strong>The survey has now
+withdrawn eight accusations in total: seven of them under adversarial review, and the eighth at
+the point of writing to the authors, because someone sat down to write the letter and looked at
+the evidence again.</strong> <code>penspin_2024</code> is narrowed rather than withdrawn, the same way the charge
+against <code>dexpbt_2023</code> was narrowed above: the half of it that said the released code disables the
+paper's tactile channel is dropped, because the configuration read has proprioception-only
+observation dimensions consistent with the student policy rather than the oracle, and the paper
+never claims the student has tactile input; the half that stands is that the appendix states a
+randomised disturbance force and the shipped configuration sets its scale to zero. Each retraction
+and narrowing is recorded in its row's <code>mismatch_review</code> field: a survey that names people should
+carry its corrections beside its accusations, in public and not just in the corpus.</p>
 <p><code>physhoi_2023</code> survived every attempt to break it. Table 4 weights object rotation at 0.1 for
 GRAB, and the released <code>compute_humanoid_reward</code> sets the object rotation and rotation-velocity
 errors to <code>torch.zeros_like</code>, unconditionally, so the dataset exemption the paper states does not
@@ -5524,19 +5604,23 @@ cover it. The reward behind its 95.4 percent tracked the object in position only
 position-only success criterion could not have caught that. <code>robot_synesthesia_2023</code>, at the other
 end, prints its six weights as symbols and released nothing, so that objective exists in no
 machine-readable form. <code>hora_2022</code> alone discloses its own gap, in its README.</p>
-<p>Ten is a floor, since forty-six method rows released nothing to check and four more are
+<p>Nine is a floor, since forty-six method rows released nothing to check and four more are
 unsettled. What would close it: publish
 the reward table generated from the released config at a named commit, so a reviewer diffs two
 artefacts instead of reading two documents.</p>
-<h2 id="8-2-nobody-records-interpenetration-for-their-own-policy-s-rollouts">8.2 Nobody records interpenetration for their own policy's rollouts</h2>
+<h2 id="8-2-no-closed-loop-policy-records-interpenetration-for-its-own-rollouts">8.2 No closed-loop policy records interpenetration for its own rollouts</h2>
 <p>Eleven method rows handle interpenetration at all, of the ninety-six whose notes settle the
 question, and only four of them are closed-loop policies. Every one of the eleven sits on the
 reference side of the reference-versus-rollout split, scoring a pose or a trajectory before
-execution rather than the behaviour that followed. The engines are not the obstacle:
+execution rather than the behaviour that followed. The gap is therefore specific to learned
+closed-loop control rather than general. Grasp synthesis and hand-object reconstruction report
+penetration depth and intersection volume comparatively, and <code>oakink_2022</code>, <code>bimangrasp_2024</code>,
+<code>bidexgrasp_2026</code> and <code>toporetarget_2026</code> do so within this corpus. What none of them scores is the
+behaviour a trained policy produced. The engines are not the obstacle:
 IsaacGymEnvs ships a task that computes a per-environment maximum interpenetration depth in Warp
 and gates its policy update on a 1 mm threshold, and <code>tactile_genesis_2026</code> offers two
 penetration-depth backends on Genesis geometry as sensors. The depth is computable by anyone from
-poses and meshes; nobody reports it for a dexterous rollout. What would close it: maximum and mean
+poses and meshes, and we found no paper that reports it for a dexterous rollout. What would close it: maximum and mean
 penetration depth over the evaluation rollouts, on a dense surface sample, from a measure the
 policy never optimised.</p>
 <h2 id="8-3-the-evaluation-methodology-literature-contains-no-dexterous-hand">8.3 The evaluation-methodology literature contains no dexterous hand</h2>
@@ -5559,10 +5643,10 @@ the reported evaluation ran on that hand. What would close it: one
 dexterous-hand task in the standard generalist suite, with the hand's DoF and vendor beside the
 number.</p>
 <h2 id="8-5-the-hands-that-can-be-bought-go-unused">8.5 The hands that can be bought go unused</h2>
-<p>7 documented hands that can be bought or built from published designs take zero method rows
-between them: Unitree Dex5, Tesollo DG-5F, Proception ProHand, ORCA, RUKA, RUKA v2, BiDexHand. Only three
-of the fifteen simulator rows name a real hand at all, and the ones they do name are the field's
-defaults. 18 of the 33 hands in Tables 2 and 3 appear in no method row, but 11 are neither
+<p>Eight documented hands that can be bought or built from published designs take zero method rows
+between them: Unitree Dex5, Tesollo DG-5F, Proception ProHand, ORCA, RUKA, Ruka-v2, BiDexHand and
+DexHand. Only three of the fifteen simulator rows name a real hand at all, and the ones they do
+name are the field's defaults. 19 of the 33 hands in Tables 2 and 3 appear in no method row, but 11 are neither
 sold nor open and appear in none for that reason, so 33 is not the denominator for a software-lag
 claim. The rule that decides used from unused is one regular expression per hand against the
 method rows' own hand field, in <code>tools/hand_usage.py</code>, so the partition can be recomputed rather
@@ -5589,31 +5673,36 @@ What would close it: a retargeting benchmark in TopoRetarget's form, reporting c
 contact alignment, maximum penetration and share of frames past 2 mm, per hand and per dataset.</p>
 <h1 class="sec" id="9-conclusion">9. Conclusion</h1>
 <p>The binding constraint on this field is not ideas. It is verification. Sixty-two method papers
-released code that could be read against the paper, 38 of those record a discrepancy, and ten are
+released code that could be read against the paper, 38 of those record a discrepancy, and nine are
 contradictions where the shipped code states a different objective from the published one. The
-first count was sixteen, and an adversarial re-reading withdrew seven accusations, each withdrawal
-recorded in the row beside the charge. Ten is a floor, because forty-six method rows released
-nothing to check. A reward table in a paper is a claim about a document, not about a run.
+first count was sixteen. An adversarial re-reading withdrew six of them outright and narrowed a
+seventh, <code>dexpbt_2023</code>, to the half that still stands, and an eighth was withdrawn later still, when writing to <code>omnih2o_2024</code>'s authors sent someone back to its evidence
+and the reward-weight discrepancy it had rested on turned out to be a typo signature in the
+paper's own table, not a different trained objective. Each withdrawal is recorded in the row
+beside the charge. Nine is a floor, because forty-six method rows released nothing to check. A reward table in a paper is a claim about a document, not about a run.
 <code>physhoi_2023</code> is the case to remember, because the term its table weights at 0.1 is set to zero
 in the code, and its own success criterion could not have detected that.</p>
-<p>The second finding is that the quantity most specific to dexterous manipulation is the one nobody
-records. Contact is what separates a hand from a gripper. Eleven of the 96 method rows whose notes
-settle the question address interpenetration at all, only four inside a closed-loop policy, and
-not one reports a penetration number for its own policy's rollouts. The obstacle is not the
+<p>The second finding is that the quantity most specific to dexterous manipulation is the one
+closed-loop policies do not record. Contact is what separates a hand from a gripper. Eleven of the
+96 method rows whose notes settle the question address interpenetration at all, only four inside a
+closed-loop policy, and we found not one that reports a penetration number for its own policy's
+rollouts. Grasp synthesis and hand-object reconstruction have reported penetration comparatively
+for years, so what is missing is not the measure but the measurement of a trained policy's own
+behaviour. The obstacle is not the
 engines. IsaacGymEnvs ships a task that computes a per-environment maximum interpenetration depth
 against meshes and gates the policy update on a 1 mm threshold, and <code>tactile_genesis_2026</code> offers
 penetration depth on Genesis geometry as a sensor. The tooling sits in the field's own benchmark
 repository and the number is still not reported. <code>dextrack_2025</code> has the formula and points it at
 its inputs.</p>
 <p>The third is that hardware and software have come apart, on a narrower claim than the hand count
-first suggests. Tables 2 and 3 hold 33 hands and 18 appear in no method row. 11 of those 18
-are neither sold nor open and appear in none for that reason, which leaves 7 hands that can be
+first suggests. Tables 2 and 3 hold 33 hands and 19 appear in no method row. 11 of those 19
+are neither sold nor open and appear in none for that reason, which leaves 8 hands that can be
 bought today or built from published designs and that take zero method rows between them. Eight of
 the fourteen generalist policies that settle the question do evaluate on a dexterous hand, at a
 median of 6 degrees of freedom against 16 across the reinforcement-learning rows.</p>
 <p>What this survey cannot establish is which method is better than which. It re-runs nothing, and
-Section 7 argues that the published numbers do not compare. Five works are cited by metadata only
-and no claim rests on them. Every coverage statistic here counts what this survey's extraction
+Section 7 argues that the published numbers do not compare. Six works are cited by metadata only,
+and a seventh, Ma and Dollar 2011, is on disk but unread; no claim rests on any of them. Every coverage statistic here counts what this survey's extraction
 captured rather than what the literature reported. Each is a floor and not a rate, because every
 miss converts a reporting paper into a silent one.</p>
 <p>Three things to do next week, cheapest first.</p>
@@ -5640,6 +5729,11 @@ seeded with the canonical works in each area and extended by search up to 2026-0
 arXiv identifier was checked by fetching the abstract page and matching the title, and entries
 that could not be checked that way are marked. The six lists were merged with deduplication on arXiv
 identifier and normalised title, giving 221 entries.</p>
+<p>Seven further bibliography entries are not part of that corpus and are not counted anywhere in this
+survey. They are the prior audits and case studies section 1 positions this survey against, they
+carry the topic <code>related</code> in <code>corpus/bib_related.json</code>, and none of them carries a structured row.
+No source for them was parsed either, so each is quoted only from its abstract and its stated
+method.</p>
 <h2 id="acquisition">Acquisition</h2>
 <p>PDFs were downloaded from arXiv or, for work without a preprint, from the publisher or vendor
 page recorded in the bibliography. Vendor pages for hands without any paper were fetched as HTML
@@ -6435,7 +6529,7 @@ bars in Figure 6 the same way.</p>
 <td>https://github.com/leap-hand/LEAP_Hand_API</td>
 <td>11 pp, ac08a57e, fetched 2026-09-17</td>
 <td>papers/notes/leap_hand_2023.md</td>
-<td>11: <code>bidex_teleop_2024</code>, <code>bidexhd_2024</code>, <code>cross_embodiment_world_models_2025</code>, <code>dexcap_2024</code>, <code>dexndm_2025</code>, <code>dexterous_functional_grasping_2023</code>, <code>dextrack_2025</code>, <code>dexwild_2025</code>, <code>dreureka_2024</code>, <code>unidex_2026</code>, <code>videodex_2022</code></td>
+<td>12: <code>bidex_teleop_2024</code>, <code>bidexhd_2024</code>, <code>cross_embodiment_world_models_2025</code>, <code>dexcap_2024</code>, <code>dexndm_2025</code>, <code>dexterous_functional_grasping_2023</code>, <code>dextrack_2025</code>, <code>dexwild_2025</code>, <code>dreureka_2024</code>, <code>teledexter_2026</code>, <code>unidex_2026</code>, <code>videodex_2022</code></td>
 </tr>
 <tr>
 <td><code>ruka_2025</code></td>
@@ -6683,7 +6777,7 @@ bars in Figure 6 the same way.</p>
 <th>terms stated</th>
 <th>term names as the paper names them</th>
 <th>where the reward was read</th>
-<th>in Table 5</th>
+<th>in reward matrix</th>
 <th>code released</th>
 <th>paper/code class</th>
 <th>confidence</th>
@@ -7131,7 +7225,7 @@ bars in Figure 6 the same way.</p>
 <td> </td>
 <td> </td>
 <td>yes</td>
-<td>contradiction</td>
+<td>internal-inconsistency</td>
 <td>medium</td>
 </tr>
 <tr>
@@ -7616,10 +7710,10 @@ bars in Figure 6 the same way.</p>
 </tr>
 </tbody>
 </table></div>
-<p><em>77 rows. 253 of 770 cells (32 percent) are values no source stated. A blank <code>terms stated</code> with a filled <code>term names</code> column is a paper that names its terms without numbering them. <code>in Table 5</code> marks the rows that are also in the body matrix, which covers in-hand reorientation only.</em></p>
+<p><em>77 rows. 253 of 770 cells (32 percent) are values no source stated. A blank <code>terms stated</code> with a filled <code>term names</code> column is a paper that names its terms without numbering them. <code>in reward matrix</code> marks the rows that are also in the reward-term matrix, which covers in-hand reorientation only.</em></p>
 <h3>C.2 Paper against released code, in full</h3>
 <p>Each entry below is the disagreement text stored in the row, unedited. The class is what Sec. 5.8 and Sec. 8.1 count. <code>contradiction</code> means the paper states one value and the shipped code demonstrably states another. <code>parse-limitation</code> means this survey's own parse could not settle it and the accusation is withdrawn. <code>code-absent</code> means the described component is not in the released repository. <code>version-skew</code> means the repository is a later generation than the paper. <code>internal-inconsistency</code> means the paper disagrees with itself and no code is implicated.</p>
-<p><strong>contradiction, 10 rows.</strong></p>
+<p><strong>contradiction, 9 rows.</strong></p>
 <ul>
 <li><code>pddm_2019</code> (high). Table 2 states obs-dim 46 for In-hand Reorientation while the released cube_env.py code sums to 39; the Baoding reward code includes an extra -10*wrist_too_high term absent from Table 2's printed formula.</li>
 <li><code>dexpoint_2022</code> (high). The released code's reward adds several terms absent from the paper's four-term Eq. 5 (a lift-threshold bonus, a target-distance term, a rotation bonus, and an IK controller-tracking penalty) and reshapes the reach/lift terms into inverse-distance and clipped forms rather than the paper's plain distance/height-difference formulas.</li>
@@ -7629,16 +7723,16 @@ bars in Figure 6 the same way.</p>
  Review: R3 adversarial review: the disabled-randomisation half is withdrawn, since the note finds it consistent with the paper; the zeroed reward term stands</li>
 <li><code>physhoi_2023</code> (high). The released code hardcodes the body position-velocity error and the object rotation/rotation-velocity errors to zero in compute_humanoid_reward, so despite Table 4 listing nonzero λ^or=0.1/λ^orv=0.01 weights for GRAB, the trained reward never actually tracks object orientation (position-only in practice).</li>
 <li><code>unidexgrasp_2023</code> (high). The paper describes a four-term weighted reward (r_goal + r_reach + r_lift + r_move via Table 7's omega weights) but the released compute_hand_reward implements a different threshold-gated torch.where cascade with distinct hardcoded coefficients that do not map one-to-one onto the paper's weights.</li>
-<li><code>omnih2o_2024</code> (medium). stumble weight -0.00125 (paper) vs -1250 (code); max-feet-height sign/magnitude differ (+1000 paper vs -2500 code, a penalty not a bonus); paper's exp(-c*//.//) form vs code's exp(-err^2/sigma); curriculum level-down threshold 40 (paper) vs 50 (code)
- Review: R3 adversarial review: plausible alternative reading; held at medium confidence pending a direct code read</li>
-<li><code>penspin_2024</code> (medium). The released code disables the paper's tactile observation channel and zeroes the described disturbance-force domain randomization, and the code's reward scale-key names (e.g. rotate_reward_scale, pencil_z_dist_penalty_scale) do not 1:1 name-match the paper's Table 4 weight list, though matched values agree.
- Review: R3 adversarial review: plausible alternative reading; held at medium confidence pending a direct code read</li>
+<li><code>penspin_2024</code> (medium). The appendix states a randomised disturbance force, and the released configs/task/AllegroHandHora.yaml ships forceScale: 0.0, so no shipped configuration applies it.
+ Review: Narrowed before author contact. The original charge also said the released code disables the paper's tactile channel, and that half is withdrawn: the config read has numObservations 96 and enable_tactile False, which is consistent with the proprioception-only student rather than the oracle, and the paper never claims the student has tactile input. The disturbance-force half is unaffected.</li>
 <li><code>pianomime_2024</code> (high). Paper's Table 3 states 2 weighted reward terms (Key Press 2/3, Mimic 1/3), but the released code sums roughly 5 unweighted terms (key press doubled, sustain, energy and fingering hardcoded to return 0, forearm-collision) plus a separately-added mimic wrapper term.</li>
 </ul>
-<p><strong>internal-inconsistency, 3 rows.</strong></p>
+<p><strong>internal-inconsistency, 4 rows.</strong></p>
 <ul>
 <li><code>aloha_act_2023</code> (high). Algorithm 1 pseudocode states L_reconst = MSE, but Sec.IV.C's prose explicitly states L1 loss is used instead; the algorithm box and the implementation text disagree; code/md captures only function signatures, not bodies, for policy.py's loss implementation</li>
 <li><code>dp3_2024</code> (medium). the paper's prose states the network predicts the noise added to the data, but the shipped default config trains with prediction_type: sample (predicting the denoised action a^0 directly), not epsilon; the paper only qualifies this later in the same section (Fig. 7 ablates both).</li>
+<li><code>omnih2o_2024</code> (medium). stumble weight -0.00125 (paper) vs -1250 (code); max-feet-height sign/magnitude differ (+1000 paper vs -2500 code, a penalty not a bonus); paper's exp(-c*//.//) form vs code's exp(-err^2/sigma); curriculum level-down threshold 40 (paper) vs 50 (code)
+ Review: Withdrawn as a contradiction before author contact. Four sibling weights match the paper to the digit under a systematic x1.25 curriculum factor and only the stumble weight differs, by a factor of about a million, which is a typo signature in the paper's own table rather than evidence of a different trained objective. The hands in this work are driven open-loop from VR pose, outside the policy and outside the reward, so it is a weak fit for a dexterous-manipulation reward census in the first place.</li>
 <li><code>dexmachina_2025</code> (low). paper describes a plain weighted sum lambda_task<em>r_task + lambda_imi</em>r_imi + lambda_bc<em>r_bc + lambda_con</em>r_con with unspecified weights; code implements a multiplicative task term with per-component beta decay, an unmentioned 0.1 force-penalty term, and curriculum-driven decay of auxiliary weights not described as such in the paper
  Review: R3 adversarial review: the multiplicative form credited to the code is printed in the paper itself</li>
 </ul>

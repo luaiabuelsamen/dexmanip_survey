@@ -21,7 +21,8 @@ thorough analysis very difficult". That verdict is one architect's, on one chapt
 survey did not survey the tradition it judges. Learned control did not solve those modelling
 problems. It went around them by sampling a simulator instead of solving a model, and by scoring a
 rollout instead of certifying a configuration. Of the 112 method papers in this corpus, 53 train
-with reinforcement learning and 36 run in Isaac Gym, against 6 on its successor Isaac Lab.
+with reinforcement learning and 35 run in Isaac Gym, against 7 on its successors Isaac Lab and
+Isaac Sim.
 
 Three things this survey measured are worth stating before the reader commits to 27,000 words. The
 first is that papers disagree with their own released code. Sixty-two of the 112 method rows
@@ -48,10 +49,10 @@ and a share of frames past 2 mm against a baseline retargeter. Every one of thos
 pose or a reference trajectory rather than the behaviour a trained policy produced, and it is the
 rollout that is missing. The obstacle is not the engines. NVIDIA's own IsaacGymEnvs repository already computes a
 per-environment maximum interpenetration depth in Warp and gates the policy update on a 1 mm
-threshold. Section 7.3 has the file and the lines.
+threshold. Section 4.2 has the file and the lines.
 
-The third is that hardware and published work have come apart. 18 of the 33 hand rows in
-Tables 2 and 3 appear in no method row, and 7 of those can be bought today or built from
+The third is that hardware and published work have come apart. 19 of the 33 hand rows in
+Tables 2 and 3 appear in no method row, and 8 of those can be bought today or built from
 published designs. Thirty-five method rows run on the Allegro, whose weight, joint torque, payload
 and price have no reachable source, because its product page returns HTTP 404 and everything Table
 2 confirms about it comes from its ROS driver.

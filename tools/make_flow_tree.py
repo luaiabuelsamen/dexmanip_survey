@@ -29,7 +29,7 @@ def esc(s): return str(s).replace("&","&amp;").replace("<","&lt;").replace(">","
 def norm_sim(s):
     s=(s or "").lower()
     if not s or "not stated" in s: return "not stated"
-    if "isaac lab" in s or "isaaclab" in s or "isaac sim" in s or "orbit" in s: return "Isaac Lab / Sim"
+    if "isaac lab" in s or "isaaclab" in s or "isaac sim" in s or "isaacsim" in s or "orbit" in s: return "Isaac Lab / Sim"
     if "isaac" in s: return "Isaac Gym"
     if "mjx" in s or "mujoco" in s: return "MuJoCo"
     if "sapien" in s or "maniskill" in s: return "SAPIEN"

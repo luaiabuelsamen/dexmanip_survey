@@ -1083,9 +1083,12 @@ def table8():
     cells = len(picked) * len(AXES_SHORT)
     counts = "; ".join(f"{tex(SUBJECT.get(k, k))}~{n}" for n, k, _, _ in picked)
     cols = [("method", 86, "l")] + [(a, 54, "l") for a in AXES_SHORT]
+    # "All 84 cells are empty" printed directly above the filled worked example, which reads as
+    # false to a reader who looks at the table before the text. The caption says which 84.
     cap = (r"The matrix, for someone else to fill: the " + str(len(picked)) + r" most-mentioned "
            r"dexterous-hand policy methods against the axes of Table~\ref{tab:protocol}. All "
-           + str(cells) + r" cells are empty. An empty cell here is not \na: it is a measurement "
+           + str(cells) + r" method cells are empty; the first row is a worked example and every "
+           r"number in it is fabricated. An empty cell here is not \na: it is a measurement "
            r"nobody has made, which is the point of the table, and no cell in it has a source to "
            r"be missing.")
     note = (r"The first row is a worked example and every number in it is fabricated. Rows are "

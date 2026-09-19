@@ -20,9 +20,14 @@
 \providecommand{\plateLeapOverview}{}\plateLeapOverview
 
 
-No degree-of-freedom, force, weight or price figure in Table~\ref{tab:hands-available} or Table~\ref{tab:hands-announced} was measured by anyone
+No degree-of-freedom, force, weight or price figure in Table~\ref{tab:hands-available} or
+Table~\ref{tab:hands-announced}, both set in Appendix~\ref{app:tables}, was measured by anyone
 outside the maker. Six rows are the exception, from peer-reviewed papers with stated protocols:
-ILDA, Pisa/IIT, ORCA, RUKA, LEAP and BiDexHand. Table~\ref{tab:hands-available} dates every other claim.
+ILDA, Pisa/IIT, ORCA, RUKA, LEAP and BiDexHand. Every other claim is dated at its source.
+Table~\ref{tab:hands-announced} prints the date beside each announced hand, and the dates for the
+hands that can be bought are in the repository tabulation
+(\texttt{paper/tables/table2\_hands\_available.md}, the \emph{claim date} column), which runs from
+Shadow's specification of 4 December 2024 to vendor pages fetched on 17 September 2026.
 
 The degree-of-freedom count is the first number a vendor states and the least comparable one.
 Shadow's specification of 4 December 2024 reads ``20 actuated DOF and a further 4 under-actuated
@@ -30,7 +35,7 @@ movements for a total of 24 joints'' \cite{shadow_dexterous_hand_2005}. Table~\r
 actuated DoF second, and the gap is the informative number. Where a vendor's own DoF figure
 differs from the joint count, the joint count is what the table prints, as with Inspire's ``Degrees
 of freedom 6, Numbers of joints 12'' \cite{inspire_rh56dfx_2023}. An actuator count is neither of those
-columns and has its own. DexHand states no joint count at all, only 16 finger micro-servos and
+two, and the repository tabulation keeps it in a column of its own. DexHand states no joint count at all, only 16 finger micro-servos and
 two wrist servos, so 18 servos is the only count quotable for it \cite{dexhand_open_source_2023}. Daxo
 states 120 actuators, no DoF figure, and a tendon structure with no rigid joints, which has far
 fewer kinematic degrees of freedom than actuators \cite{daxo_muscle_v0_2025}.
@@ -69,8 +74,15 @@ indenter for Unitree's 10 N, a calibrated five-trial fingertip force for BiDexHa
 peak vendor claim for 1X's 45 N, and two unlabelled spec columns for Sharpa's ``20 N \textbar{} 12 N''.
 BrainCo's whole-fist grip of 50 N is a separate figure and is no longer in the same column as a
 pinch. ORCA's 19.6 N was none of these. It is the newton equivalent of a 2 kg index-finger payload
-at a fixed 600 mA motor current, so its force cell is empty and its payload cell carries that
-protocol \cite{orca_hand_2025}. No two hands in Table~\ref{tab:hands-available} report payload under the same test either.
+at a fixed 600 mA motor current, so its force cell is empty and the figure is recorded as a payload
+instead \cite{orca_hand_2025}. Payload is no more comparable than force, which is why
+Table~\ref{tab:hands-available} does not print it. Nine of its twenty hands state one, in the
+repository tabulation (\texttt{paper/tables/table2\_hands\_available.md}, the \emph{payload}
+column), and no two state it under the same test: Shadow 4 kg in a power grasp with no protocol
+given, Tesollo 2.5 kg pinching and 10 kg enveloping as rated figures, Unitree 3.5 kg palm-down and
+4.5 kg palm-left on a 5 cm round object, ORCA 10.5 kg on four fingers and 2 kg on the index alone at
+a fixed motor current, BiDexHand 4.54 kg lifted, and RUKA 6.0 kg as the weight at which its
+joint-angle error passes 15 degrees.
 
 Compliance is repairability seen twice over, and both are mechanical fuses: the Pisa/IIT
 SoftHand's rolling-contact joints return to assembly after over-extension and ORCA's ``poppable''
@@ -80,12 +92,15 @@ What fails is rarely the motors. Its durability run found silicone skin degradin
 after about 2,000 to 4,000 grasp cycles and sensor wires snapping on three after about 4,500 to
 7,000. The sensing wore out an order of magnitude sooner than the hand.
 
-Two columns matter before any of the above and were missing. The first is the rate a loop can be
+Two properties matter before any of the above, and neither is a column of
+Table~\ref{tab:hands-available}: both are in the repository tabulation, which prints a
+\emph{control rate} and a \emph{URDF or MJCF} column for every row
+(\texttt{paper/tables/table2\_hands\_available.md}). The first is the rate a loop can be
 closed at, which spans 250 Hz on a Tesollo to 1 kHz on a Shadow, a Unitree or a Wuji, with the
 Allegro at 333 Hz on its own CAN clock and Inspire stating no rate at all. LEAP's 500 Hz is a
 serial query ceiling and its own sim-to-real policy runs at 20 Hz, which answer different questions
-\cite{leap_hand_2023}. A reader deploying torque control is bitten by that first. The second column says
-whether a URDF or MJCF exists and who ships it, which is the bridge to section 4 and to this
+\cite{leap_hand_2023}. A reader deploying torque control is bitten by that first. The second is
+whether a URDF or MJCF exists and who ships it, which is the bridge to Section~\ref{sec:simulators} and to this
 survey's recommendation to pick a hand a simulator already carries. Shadow, Sharpa, Wuji, the
 Ability Hand, RUKA, Faive and the Allegro driver ship one. LEAP is the warning: its paper says the
 URDF is released and the released API repository contains none \cite{leap_hand_2023}.
@@ -106,9 +121,11 @@ URDF is released and the released API repository contains none \cite{leap_hand_2
   \centering
   \resizebox{\columnwidth}{!}{\input{figs/fig_hands}}
   \caption{Which hands the literature actually runs on. Per hand, the number of method papers
-  whose own experiments use it, over the 103 of the 112 method rows that name a hand; a paper
+  whose own experiments use it. Of 112 method rows, 103 name a hand, and a paper
   using two hands is counted under both. The accented bar is the parallel-jaw gripper, which is
-  not a dexterous hand, and only three dexterous hands carry more method rows than it. Only
+  not a dexterous hand, and only three dexterous hands carry more method rows than it. The Adroit
+  is the MuJoCo model of a Shadow hand and takes a line of its own, three of whose four rows name
+  no Shadow, so the Shadow bar is the rows that name a Shadow itself. Only
   hands with at least one method row appear, so the nine company-announced hands of
   Table~\ref{tab:hands-announced} and the hands of Table~\ref{tab:hands-available}
   that no paper runs on are absent from the chart.}
@@ -138,15 +155,17 @@ simulated cube rotation, LEAP reaches 0.2288 rad/s against the Allegro's 0.0828 
 three-trial pinch test \cite{ruka_2025}. A method compared only on Allegro hardware is compared at one
 point in a space where a single axis moves the headline number two or three times over. Two further
 patterns follow. Inspire, XHand and Sharpa take 29 of the 103 rows between them, four rows use two
-of the three, and none is earlier than 2024. ORCA, RUKA, Ruka-v2, BiDexHand, DexHand, the Tesollo
-DG-5F and the Unitree Dex5 take none at all.
+of the three, and none is earlier than 2024. Eight take none at all: ORCA, RUKA, Ruka-v2,
+BiDexHand, DexHand, the Proception ProHand, the Tesollo DG-5F and the Unitree Dex5.
 
 \subsection{Open hardware and the collapse in cost}
 \label{sec:hands:open}
 
-Seven rows in Table~\ref{tab:hands-available} are open hardware. Five state a dollar cost in the price column, ORCA states
-a material cost below 2,000 CHF that the column leaves unconverted, and BiDexHand states none
-\cite{orca_hand_2025,bidexhand_2025}. The Faive Hand states neither a cost nor a licence that could be
+Six rows in Table~\ref{tab:hands-available} are open hardware, and LEAP Hand V2 in
+Table~\ref{tab:hands-announced} is a seventh. Five of the seven state a dollar cost: \$2,000 for
+LEAP, \$3,000 for LEAP Hand V2, \$1,500 for Ruka-v2, \$1,300 for RUKA and \$300 for DexHand. ORCA
+states a material cost below 2,000 CHF that the price column leaves unconverted, and BiDexHand
+states none \cite{orca_hand_2025,bidexhand_2025}. The Faive Hand states neither a cost nor a licence that could be
 read, so it is not counted as open hardware here \cite{faive_hand_2023}. Two of the stated bases need
 saying. DexHand's \$300 is ``additional total cost of components'', excluding the printing and the
 wrist servos \cite{dexhand_open_source_2023}, and ORCA's own figure sits against Ruka-v2's table listing
@@ -252,9 +271,11 @@ the maker describing its own unreleased hand, which is the evidence class the fi
 four research prototypes in Table~\ref{tab:hands-announced} are in a different position, since the Faive Hand and LEAP Hand
 v2 Advanced account for three method rows between them \cite{graspxl_2024,bidex_teleop_2024}.
 
-Table~\ref{tab:hands-announced}'s emptiness is measurable and part of the same finding. Over the twelve specification
-columns, 61 percent of its cells are values no source stated, against 39 percent for the hands that
-can be bought. The hands with the highest advertised DoF counts have the least specification behind
+Table~\ref{tab:hands-announced}'s emptiness is measurable and part of the same finding. Over the
+eight specification columns it prints, from DoF to price, 58 percent of its cells are values no
+source stated, against 42 percent for the hands that can be bought; both captions state their own
+count. Over the twelve specification columns the repository tabulation carries, the same split is 61
+to 39. The hands with the highest advertised DoF counts have the least specification behind
 them.
 
 The one hand that crosses the gap crosses it because its maker published rather than announced.
@@ -263,11 +284,13 @@ piezoresistive fingertip channels in the action vector and real-robot success ra
 \cite{gr_dexter_2025}, not through a product page. That mechanism is available to every vendor in
 Table~\ref{tab:hands-announced} and none has used it.
 
-The gap runs the other way too, and the last column of Table~\ref{tab:hands-available} shows it. Seven hands that are sold
-and documented take zero method rows each: the Unitree Dex5 with 94 pressure sensors on its P
-variant \cite{unitree_dex5_2025}, the fully actuated Tesollo DG-5F \cite{tesollo_dg5f_2024}, ORCA, RUKA,
+The gap runs the other way too, and the last column of Table~\ref{tab:hands-available} shows it. Eight hands that can be bought
+or built from published designs take zero method rows each: the Unitree Dex5 with 94 pressure
+sensors on its P variant \cite{unitree_dex5_2025}, the fully actuated Tesollo DG-5F
+\cite{tesollo_dg5f_2024}, the 22-DoF Proception ProHand \cite{proception_prohand_2026}, ORCA, RUKA,
 Ruka-v2, BiDexHand and DexHand. Cheapness is established only for RUKA, Ruka-v2 and DexHand,
-because Table~\ref{tab:hands-available}'s price cell is empty for Unitree, Tesollo, ORCA and BiDexHand, and the only Dex5
+because Table~\ref{tab:hands-available}'s price cell is empty for Unitree, Tesollo, the ProHand,
+ORCA and BiDexHand, and the only Dex5
 price on disk is Ruka-v2's secondhand ``\textasciitilde{}\$25K'' \cite{ruka_v2_2026}. A reader choosing a hand on this
 corpus's evidence has two well-precedented options, an Allegro or an Inspire, and a third in LEAP
-if eleven papers is enough. Everything else is a press release or a hand nobody has published on.
+if twelve papers is enough. Everything else is a press release or a hand nobody has published on.

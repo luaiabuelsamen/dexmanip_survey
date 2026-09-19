@@ -4,7 +4,7 @@ Table 5 marks nine recurring term families across the in-hand reorientation meth
 
 ### C.1 The extraction
 
-| method | yr | paradigm | terms stated | term names as the paper names them | where the reward was read | in Table 5 | code released | paper/code class | confidence |
+| method | yr | paradigm | terms stated | term names as the paper names them | where the reward was read | in reward matrix | code released | paper/code class | confidence |
 |---|---|---|---|---|---|---|---|---|---|
 | `openai_dexterity_2018` | 2018 | RL | 3 |   | Method, reward (Sec 4.2 / App C.1) | yes | no |   |   |
 | `openai_rubiks_cube_2019` | 2019 | RL, distillation | 3 |   | Method, reward (Sec. 6.1) | yes | no |   |   |
@@ -84,7 +84,7 @@ Table 5 marks nine recurring term families across the in-hand reorientation meth
 | `toporetarget_2026` | 2026 | trajopt, RL | 4 | object, link-position, joint-position, action-smoothness |   |   | no |   |   |
 | `viserdex_2026` | 2026 | RL, distillation | 10 | orientation tracking, success bonus, object dropped, object distance, object velocity, joint velocity, action magnitude, action rate, joint work, joint torques | Method, reward (App. Table IX); no code released | yes | no |   |   |
 
-*77 rows. 253 of 770 cells (32 percent) are values no source stated. A blank `terms stated` with a filled `term names` column is a paper that names its terms without numbering them. `in Table 5` marks the rows that are also in the body matrix, which covers in-hand reorientation only.*
+*77 rows. 253 of 770 cells (32 percent) are values no source stated. A blank `terms stated` with a filled `term names` column is a paper that names its terms without numbering them. `in reward matrix` marks the rows that are also in the reward-term matrix, which covers in-hand reorientation only.*
 
 ### C.2 Paper against released code, in full
 
@@ -100,16 +100,16 @@ Each entry below is the disagreement text stored in the row, unedited. The class
   Review: R3 adversarial review: the disabled-randomisation half is withdrawn, since the note finds it consistent with the paper; the zeroed reward term stands
 - `physhoi_2023` (high). The released code hardcodes the body position-velocity error and the object rotation/rotation-velocity errors to zero in compute_humanoid_reward, so despite Table 4 listing nonzero λ^or=0.1/λ^orv=0.01 weights for GRAB, the trained reward never actually tracks object orientation (position-only in practice).
 - `unidexgrasp_2023` (high). The paper describes a four-term weighted reward (r_goal + r_reach + r_lift + r_move via Table 7's omega weights) but the released compute_hand_reward implements a different threshold-gated torch.where cascade with distinct hardcoded coefficients that do not map one-to-one onto the paper's weights.
-- `penspin_2024` (medium). The appendix states a randomised disturbance force and the released task config sets its scale to zero. A second half of the original charge, that the released code disables the paper's tactile observation channel, is withdrawn: the config read has 96 observation dimensions and `enable_tactile: False`, consistent with the proprioception-only student policy rather than the tactile-and-point-cloud oracle, and the paper never claims the student has tactile input. The code's reward scale-key names (e.g. rotate_reward_scale, pencil_z_dist_penalty_scale) also do not 1:1 name-match the paper's Table 4 weight list, though matched values agree.
-  Review: Narrowed before author contact. The tactile-channel half is withdrawn as a plausible reading of which pipeline stage the config belongs to; the disturbance-force half stands. Held at medium confidence pending a direct code read.
+- `penspin_2024` (medium). The appendix states a randomised disturbance force, and the released configs/task/AllegroHandHora.yaml ships forceScale: 0.0, so no shipped configuration applies it.
+  Review: Narrowed before author contact. The original charge also said the released code disables the paper's tactile channel, and that half is withdrawn: the config read has numObservations 96 and enable_tactile False, which is consistent with the proprioception-only student rather than the oracle, and the paper never claims the student has tactile input. The disturbance-force half is unaffected.
 - `pianomime_2024` (high). Paper's Table 3 states 2 weighted reward terms (Key Press 2/3, Mimic 1/3), but the released code sums roughly 5 unweighted terms (key press doubled, sustain, energy and fingering hardcoded to return 0, forearm-collision) plus a separately-added mimic wrapper term.
 
 **internal-inconsistency, 4 rows.**
 
 - `aloha_act_2023` (high). Algorithm 1 pseudocode states L_reconst = MSE, but Sec.IV.C's prose explicitly states L1 loss is used instead; the algorithm box and the implementation text disagree; code/md captures only function signatures, not bodies, for policy.py's loss implementation
 - `dp3_2024` (medium). the paper's prose states the network predicts the noise added to the data, but the shipped default config trains with prediction_type: sample (predicting the denoised action a^0 directly), not epsilon; the paper only qualifies this later in the same section (Fig. 7 ablates both).
-- `omnih2o_2024` (medium). stumble weight -0.00125 (paper) vs -1250 (code); max-feet-height sign/magnitude differ (+1000 paper vs -2500 code, a penalty not a bonus); paper's exp(-c*//.//) form vs code's exp(-err^2/sigma); curriculum level-down threshold 40 (paper) vs 50 (code).
-  Review: Withdrawn as a contradiction before author contact. Four of the five weight comparisons match the paper's table to the digit once a systematic x1.25 curriculum factor is accounted for, and only the stumble weight differs, by a factor of about a million, which is a typo signature in the paper's own table rather than evidence of a different trained objective. The hands in this work are also driven open-loop from VR pose, outside the policy and outside the reward, making it a poor fit for a dexterous-manipulation reward census regardless.
+- `omnih2o_2024` (medium). stumble weight -0.00125 (paper) vs -1250 (code); max-feet-height sign/magnitude differ (+1000 paper vs -2500 code, a penalty not a bonus); paper's exp(-c*//.//) form vs code's exp(-err^2/sigma); curriculum level-down threshold 40 (paper) vs 50 (code)
+  Review: Withdrawn as a contradiction before author contact. Four sibling weights match the paper to the digit under a systematic x1.25 curriculum factor and only the stumble weight differs, by a factor of about a million, which is a typo signature in the paper's own table rather than evidence of a different trained objective. The hands in this work are driven open-loop from VR pose, outside the policy and outside the reward, so it is a weak fit for a dexterous-manipulation reward census in the first place.
 - `dexmachina_2025` (low). paper describes a plain weighted sum lambda_task*r_task + lambda_imi*r_imi + lambda_bc*r_bc + lambda_con*r_con with unspecified weights; code implements a multiplicative task term with per-component beta decay, an unmentioned 0.1 force-penalty term, and curriculum-driven decay of auxiliary weights not described as such in the paper
   Review: R3 adversarial review: the multiplicative form credited to the code is printed in the paper itself
 

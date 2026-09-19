@@ -4,10 +4,11 @@ The findings are stated in numbers in Section I, Section V-H, Section VII-C and 
 until now a reader had to reconstruct each one from a table. Each figure here is the argument of one
 finding: a funnel that ends where the evidence ends.
 
-  fig_codegap.tex      112 method rows narrowed to the 10 whose shipped code states a different
-                       objective from the paper, with the 28 charges the survey did not keep drawn
-                       at the same weight as the 10 it kept. A survey that names people has to draw
-                       its withdrawals.
+  fig_codegap.tex      112 method rows narrowed to the 9 whose shipped code states a different
+                       objective from the paper, with the 29 disagreements that fall in the four
+                       other classes drawn at the same weight as the 9 contradictions. Those 29 are
+                       not retractions: the accusations this survey withdrew are counted separately,
+                       in each accused row's `mismatch_review` field.
   fig_penetration.tex  the same narrowing for interpenetration, ending at zero: not one method row
                        reports a penetration number for its own trained policy's rollouts.
   fig_reporting.tex    what the field reports, ordered so the argument reads top to bottom, with the
@@ -72,7 +73,11 @@ def facts():
     by_class = Counter(r["mismatch_class"] for r in mismatch)
     f["classes"] = by_class
     f["contradictions"] = by_class["contradiction"]
-    f["withdrawn"] = len(mismatch) - by_class["contradiction"]
+    # Not "withdrawn": these are the four other classes of disagreement, and most were never
+    # charged as contradictions at all. The accusations the survey did withdraw are counted in
+    # `mismatch_review` and named in section 8.1; a figure that called these 29 withdrawn
+    # mislabelled the survey's own ledger.
+    f["other_class"] = len(mismatch) - by_class["contradiction"]
     f["reviewed"] = sum(1 for r in mismatch if r.get("mismatch_review"))
     if not all(r.get("code_released") is True for r in mismatch):
         sys.exit("a row records a paper/code disagreement without releasing code")
@@ -201,17 +206,17 @@ def fig_codegap():
         x += w
     xk = W * c["contradiction"] / total
     bracket(out, 0, xk, yz - 0.02, rf"{c['contradiction']} kept", up=False, accent=True)
-    bracket(out, xk, W, yz - 0.02, rf"{F['withdrawn']} withdrawn", up=False)
+    bracket(out, xk, W, yz - 0.02, rf"{F['other_class']} not a contradiction", up=False)
     out.append(rf"\node[lbl,anchor=north west,align=left,text=accent] at (0,{yz - 0.54:.2f}) "
                rf"{{kept: the shipped code states a different objective}};")
     out.append(rf"\node[small,anchor=north west,align=left] at (0,{yz - 0.82:.2f}) "
-               rf"{{withdrawn: {c['parse-limitation']} a limit of this survey's own parse, "
+               rf"{{not a contradiction: {c['parse-limitation']} a limit of this survey's own parse, "
                rf"{c['code-absent']} the component\\"
                rf"was never released, {c['version-skew']} version skew, "
                rf"{c['internal-inconsistency']} a paper disagreeing with itself}};")
     out.append(r"\end{tikzpicture}")
     (OUT / "fig_codegap.tex").write_text("\n".join(out) + "\n")
-    return F["contradictions"], F["withdrawn"]
+    return F["contradictions"], F["other_class"]
 
 
 # --- figure: nobody measures contact quality, and the funnel ends at zero -------------------------
@@ -352,7 +357,7 @@ def numbers():
         "fnCode": F["code_released"],
         "fnDisagree": F["disagreements"],
         "fnKept": F["contradictions"],
-        "fnWithdrawn": F["withdrawn"],
+        "fnOtherClass": F["other_class"],
         "fnParse": c["parse-limitation"],
         "fnAbsent": c["code-absent"],
         "fnSkew": c["version-skew"],
@@ -381,7 +386,7 @@ def numbers():
 
 if __name__ == "__main__":
     print("method rows:", N)
-    print("code gap:      %d kept, %d withdrawn" % fig_codegap())
+    print("code gap:      %d contradictions, %d in the other four classes" % fig_codegap())
     print("penetration:   %d handled, %d closed-loop, %d rollout numbers" % fig_penetration())
     print("reporting:     %d axes, marked %s" % fig_reporting())
     n, med, bins = fig_trials()

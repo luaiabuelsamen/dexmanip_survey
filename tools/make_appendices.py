@@ -156,7 +156,9 @@ def appendix_c(rows):
 
     meth = [r for r in rows.values() if r.get("class") == "method"]
     # Every method row carrying reward evidence of any kind: a term count, term names, a
-    # position in Table 5's matrix, or a recorded paper/code disagreement.
+    # position in the reward-term matrix, or a recorded paper/code disagreement. The column that
+    # marks the matrix is named after the matrix and not after a table number: the LaTeX edition
+    # tabulates the matrix in the repository, so "in Table 5" named nothing a reader could find.
     keep = [r for r in meth if r.get("reward_terms") or r.get("reward_term_names")
             or r["key"] in marks or r.get("paper_code_mismatch")]
     keep.sort(key=lambda r: (r.get("year") or 0, r["key"]))
@@ -168,7 +170,7 @@ def appendix_c(rows):
     cols = ["key", "year", "paradigm", "reward_terms", "_names", "_src", "_t5", "code_released",
             "mismatch_class", "mismatch_confidence"]
     head = ["method", "yr", "paradigm", "terms stated", "term names as the paper names them",
-            "where the reward was read", "in Table 5", "code released", "paper/code class",
+            "where the reward was read", "in reward matrix", "code released", "paper/code class",
             "confidence"]
 
     classes = {}
@@ -188,8 +190,9 @@ def appendix_c(rows):
              "### C.1 The extraction", "",
              table(keep, cols, head,
                    "A blank `terms stated` with a filled `term names` column is a paper that "
-                   "names its terms without numbering them. `in Table 5` marks the rows that are "
-                   "also in the body matrix, which covers in-hand reorientation only."), ""]
+                   "names its terms without numbering them. `in reward matrix` marks the rows "
+                   "that are also in the reward-term matrix, which covers in-hand reorientation "
+                   "only."), ""]
 
     parts += ["### C.2 Paper against released code, in full", "",
               "Each entry below is the disagreement text stored in the row, unedited. The class "

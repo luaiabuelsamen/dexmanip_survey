@@ -72,7 +72,10 @@ USES = {
     "allegro_hand_v4_2016":        r"allegro",
     "shadow_dexterous_hand_2005":  r"shadow(?!.*dex-?ee)",
     "shadow_dex_ee_2024":          r"dex-?ee",
-    "leap_hand_2023":              r"\bleap\b",
+    # \bleap\b missed `teledexter_2026`, whose hand field reads "also LeapHand (16-DoF)": a LEAP
+    # hand written as one word. The boundary goes before the name only, so the count is 12 and
+    # agrees with tools/check_numbers.py, section 3.2's prose and both editions' figure.
+    "leap_hand_2023":              r"\bleap",
     "leap_hand_v2_adv_2025":       r"leap hand v2",
     "inspire_rh56dfx_2023":        r"inspire",
     "psyonic_ability_hand_2021":   r"psyonic|\bability\b",
@@ -103,6 +106,30 @@ USES = {
     "proception_prohand_2026":     r"prohand",
     "paxini_dexh13_2024":          r"dexh13|paxini",
 }
+
+# The hand bar chart in each edition counts the same quantity as the `uses` column above, so it
+# reads its patterns from USES rather than keeping a second set. Four categories it draws have no
+# hand row of their own and carry their pattern here: two research fixtures, a gripper that is not
+# a dexterous hand, and the Adroit, which is the MuJoCo model of a Shadow hand. The Adroit is a
+# line of its own rather than folded into Shadow, because the prose, the `uses` column and
+# tools/check_numbers.py all count `shadow`: folding it in printed 24 in the LaTeX figure against
+# the 21 three lines below it.
+FIG_EXTRA = {
+    "adroit":           r"adroit",
+    "gripper":          r"parallel.?jaw|gripper",
+    "dclaw_trifinger":  r"d.?claw|trifinger",
+    "fourier":          r"fourier",
+    "psibot":           r"psibot",
+    "schunk":           r"schunk",
+    "oymotion":         r"oymotion",
+    "bytedexter":       r"bytedexter",
+}
+
+def uses_pattern(slug):
+    """The one pattern for `method rows whose own experiments use this hand`, by hand key or slug."""
+    if slug in USES: return USES[slug]
+    return FIG_EXTRA[slug]
+
 
 def used_by(key, methods, cap=3):
     """Method rows whose own experiments run on this hand, as 'n: key, key, ...'."""

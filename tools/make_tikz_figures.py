@@ -46,11 +46,20 @@ def hbar_chart(rows, total, width=6.4, rowsep=0.36, accent_when=None, note=None)
     return "\n".join(out)
 
 def fig_hands():
-    canon = [("Allegro", r"allegro"), ("Shadow or Adroit", r"shadow|adroit"), ("Inspire", r"inspire"),
-             ("LEAP", r"leap"), ("parallel-jaw gripper", r"parallel.?jaw|gripper"),
-             ("Ability", r"psyonic|ability"), ("XHand", r"xhand"), ("Sharpa", r"sharpa"),
-             ("Fourier", r"fourier"), ("Wuji", r"wuji"), ("D'Claw or TriFinger", r"d.?claw|trifinger"),
-             ("Faive", r"faive|mimic")]
+    """Figure 2: method rows per hand, on the pattern set tools/make_tables.py owns.
+
+    The label is this edition's wording; the count is not this figure's to define. It used to be:
+    the bar merged Shadow with Adroit and printed 24 against the 21 in the sentence under the
+    caption, and LEAP read 12 here against 11 in the table. Both now come from make_tables.USES.
+    """
+    from make_tables import uses_pattern
+    canon = [("Allegro", "allegro_hand_v4_2016"), ("Shadow", "shadow_dexterous_hand_2005"),
+             ("Inspire", "inspire_rh56dfx_2023"), ("LEAP", "leap_hand_2023"),
+             ("parallel-jaw gripper", "gripper"), ("Ability", "psyonic_ability_hand_2021"),
+             ("XHand", "robotera_xhand1_2024"), ("Sharpa", "sharpa_wave_2026"),
+             ("Adroit in simulation", "adroit"), ("Fourier", "fourier"), ("Wuji", "wuji_hand_2025"),
+             ("D'Claw or TriFinger", "dclaw_trifinger"), ("Faive", "faive_hand_2023")]
+    canon = [(label, uses_pattern(slug)) for label, slug in canon]
     c = Counter()
     for r in M:
         h = str(r.get("hand") or "")
@@ -72,7 +81,7 @@ def fig_field():
     import re
     def norm(s):
         s = (s or "").lower()
-        if any(k in s for k in ("isaac lab","isaaclab","isaac sim","orbit")): return "Isaac Lab or Sim"
+        if any(k in s for k in ("isaac lab","isaaclab","isaac sim","isaacsim","orbit")): return "Isaac Lab or Sim"
         if "isaac" in s: return "Isaac Gym"
         if "mjx" in s or "mujoco" in s: return "MuJoCo"
         if "sapien" in s or "maniskill" in s: return "SAPIEN"

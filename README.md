@@ -26,7 +26,7 @@ not the obstacle either: NVIDIA's own benchmark repository computes per-environm
 interpenetration depth and gates a policy update on a one-millimetre threshold.
 
 Hardware and software have come apart. Thirty-three hands are tabulated, the simulators name five
-between them, and of the hands that can actually be bought or built from published designs, seven
+between them, and of the hands that can actually be bought or built from published designs, eight
 appear in no method paper in this corpus.
 
 ## Layout

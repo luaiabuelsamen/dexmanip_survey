@@ -18,7 +18,7 @@ that reports it for its own policy's rollouts. Grasp synthesis and hand-object r
 reported penetration depth and intersection volume comparatively for years, so the gap is specific to
 learned closed-loop control rather than to the field. IsaacGymEnvs already computes that depth and
 gates a policy update on it. Hardware and published work have come apart.
-18 of the 33 hand rows appear in no method row, and 7 of those can be bought or built
+19 of the 33 hand rows appear in no method row, and 8 of those can be bought or built
 today.
 
 This survey re-runs no method. It ranks nothing and publishes no leaderboard. On penetration it

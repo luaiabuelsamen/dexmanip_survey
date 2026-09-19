@@ -427,7 +427,7 @@ prose says the network predicts noise while its config sets `prediction_type: sa
 printed in the paper.
 
 A reward table is a claim about a training run and the code is a claim about a repository. Here
-the two contradict each other in ten cases, in the other 28 the released artefacts do not settle
+the two contradict each other in nine cases, in the other 29 the released artefacts do not settle
 the question, and in exactly one, `hora_2022`, the repository says so itself. Read the reward
 function before the reward table, and treat a printed weight as a hypothesis about the code.
 

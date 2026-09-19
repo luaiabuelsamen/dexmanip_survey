@@ -13,11 +13,13 @@ cases where the code was never released; four version skew; four inconsistencies
 with no code involved. Nine is the number to quote, eight at high confidence, with `penspin_2024`
 held at medium against an innocent reading a direct code read would settle.
 
-The first count was sixteen. An adversarial re-reading withdrew seven accusations:
-`maniptrans_2025`, `eureka_2023`, `open_television_2024`, `dexmachina_2025`, `artigrasp_2023`,
-`graspxl_2024`, and the domain-randomisation half of the charge against `dexpbt_2023`. Two
-refuted by the accused repository's own README, two resting on reward code never in the parse, one
-charging the code with structure the paper prints, one against a paper with no reward function.
+The first count was sixteen. An adversarial re-reading withdrew six of them outright and narrowed
+a seventh to the half that stands. The six were `maniptrans_2025`, `eureka_2023`,
+`open_television_2024`, `dexmachina_2025`, `artigrasp_2023` and `graspxl_2024`: two refuted by the
+accused repository's own README, two resting on reward code never in the parse, one charging the
+code with structure the paper prints, one against a paper with no reward function. The seventh is
+`dexpbt_2023`, where the domain-randomisation half of the charge is withdrawn and the zeroed reward
+term stands, so that row is still a contradiction and its withdrawal takes nothing off the count.
 That left ten, and ten held until the letters to the authors were drafted.
 
 Writing to `omnih2o_2024` meant reading its accusation again before sending it, and reading it
@@ -94,10 +96,10 @@ number.
 
 ## 8.5 The hands that can be bought go unused
 
-7 documented hands that can be bought or built from published designs take zero method rows
-between them: Unitree Dex5, Tesollo DG-5F, Proception ProHand, ORCA, RUKA, RUKA v2, BiDexHand. Only three
-of the fifteen simulator rows name a real hand at all, and the ones they do name are the field's
-defaults. 18 of the 33 hands in Tables 2 and 3 appear in no method row, but 11 are neither
+Eight documented hands that can be bought or built from published designs take zero method rows
+between them: Unitree Dex5, Tesollo DG-5F, Proception ProHand, ORCA, RUKA, Ruka-v2, BiDexHand and
+DexHand. Only three of the fifteen simulator rows name a real hand at all, and the ones they do
+name are the field's defaults. 19 of the 33 hands in Tables 2 and 3 appear in no method row, but 11 are neither
 sold nor open and appear in none for that reason, so 33 is not the denominator for a software-lag
 claim. The rule that decides used from unused is one regular expression per hand against the
 method rows' own hand field, in `tools/hand_usage.py`, so the partition can be recomputed rather

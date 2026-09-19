@@ -13,7 +13,7 @@ PAT = {
  'psyonic_ability_hand_2021':'psyonic|ability hand','robotera_xhand1_2024':'xhand','sharpa_wave_2026':'sharpa',
  'wuji_hand_2025':'wuji','unitree_dex5_2025':'dex5|unitree.{0,12}hand','faive_hand_2023':'faive|mimic',
  'orca_hand_2025':'orca','ruka_2025':'ruka','ruka_v2_2026':'ruka v2','bidexhand_2025':'bidexhand',
- 'dexhand_open_source_2023':'dexhand','pisa_iit_softhand_2014':'pisa|softhand','ilda_hand_2021':'ilda',
+ 'dexhand_open_source_2023':r'(?<![-\w])dexhand\b','pisa_iit_softhand_2014':'pisa|softhand','ilda_hand_2021':'ilda',
  'tesollo_dg5f_2024':'tesollo|dg-?5f','brainco_revo2_2025':'brainco|revo','linkerbot_l20_2025':'linker',
  'paxini_dexh13_2024':'paxini|dexh13','agibot_omnihand_2025':'agibot|omnihand','tesla_optimus_hand_2025':'optimus',
  'figure_03_hand_2025':'figure ?03','onex_neo_hand_2026':r'\bneo\b','sanctuary_phoenix_hand_2024':'phoenix',
@@ -26,11 +26,14 @@ def partition():
     rows = [json.load(open(f)) for f in glob.glob(str(R / "corpus/rows/*.json"))]
     m = [r for r in rows if r.get("class") == "method"]
     hands = [r for r in rows if r.get("class") == "hand"]
-    hay = " | ".join(str(r.get("hand") or "") for r in m).lower()
+    # match per row, not against one joined string: a joined haystack lets a pattern match
+    # text that belongs to another row, and hides which row matched.
+    rows_h = [str(r.get("hand") or "").lower() for r in m]
     used, unused = [], []
     for h in hands:
         p = PAT.get(h["key"])
-        (used if (p and re.search(p, hay)) else unused).append(h)
+        hit = bool(p) and any(re.search(p, rh) for rh in rows_h)
+        (used if hit else unused).append(h)
     ob = [h for h in unused if h.get("release_status") in OBTAINABLE or h.get("open_hardware") is True]
     return dict(hands=len(hands), used=len(used), unused=len(unused),
                 unused_obtainable=len(ob), unused_unobtainable=len(unused) - len(ob),

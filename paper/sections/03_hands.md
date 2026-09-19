@@ -92,14 +92,15 @@ simulated cube rotation, LEAP reaches 0.2288 rad/s against the Allegro's 0.0828 
 three-trial pinch test `ruka_2025`. A method compared only on Allegro hardware is compared at one
 point in a space where a single axis moves the headline number two or three times over. Two further
 patterns follow. Inspire, XHand and Sharpa take 29 of the 103 rows between them, four rows use two
-of the three, and none is earlier than 2024. ORCA, RUKA, Ruka-v2, BiDexHand, DexHand, the Tesollo
-DG-5F and the Unitree Dex5 take none at all.
+of the three, and none is earlier than 2024. Eight take none at all: ORCA, RUKA, Ruka-v2,
+BiDexHand, DexHand, the Proception ProHand, the Tesollo DG-5F and the Unitree Dex5.
 
 ## 3.3 Open hardware and the collapse in cost
 
-Seven rows in Table 2 are open hardware. Five state a dollar cost in the price column, ORCA states
-a material cost below 2,000 CHF that the column leaves unconverted, and BiDexHand states none
-`orca_hand_2025` `bidexhand_2025`. The Faive Hand states neither a cost nor a licence that could be
+Six rows in Table 2 are open hardware, and LEAP Hand V2 in Table 3 is a seventh. Five of the seven
+state a dollar cost: $2,000 for LEAP, $3,000 for LEAP Hand V2, $1,500 for Ruka-v2, $1,300 for RUKA
+and $300 for DexHand. ORCA states a material cost below 2,000 CHF that the price column leaves
+unconverted, and BiDexHand states none `orca_hand_2025` `bidexhand_2025`. The Faive Hand states neither a cost nor a licence that could be
 read, so it is not counted as open hardware here `faive_hand_2023`. Two of the stated bases need
 saying. DexHand's $300 is "additional total cost of components", excluding the printing and the
 wrist servos `dexhand_open_source_2023`, and ORCA's own figure sits against Ruka-v2's table listing
@@ -206,11 +207,12 @@ piezoresistive fingertip channels in the action vector and real-robot success ra
 `gr_dexter_2025`, not through a product page. That mechanism is available to every vendor in
 Table 3 and none has used it.
 
-The gap runs the other way too, and the last column of Table 2 shows it. Seven hands that are sold
-and documented take zero method rows each: the Unitree Dex5 with 94 pressure sensors on its P
-variant `unitree_dex5_2025`, the fully actuated Tesollo DG-5F `tesollo_dg5f_2024`, ORCA, RUKA,
-Ruka-v2, BiDexHand and DexHand. Cheapness is established only for RUKA, Ruka-v2 and DexHand,
-because Table 2's price cell is empty for Unitree, Tesollo, ORCA and BiDexHand, and the only Dex5
-price on disk is Ruka-v2's secondhand "~$25K" `ruka_v2_2026`. A reader choosing a hand on this
+The gap runs the other way too, and the last column of Table 2 shows it. Eight hands that can be
+bought or built from published designs take zero method rows each: the Unitree Dex5 with 94
+pressure sensors on its P variant `unitree_dex5_2025`, the fully actuated Tesollo DG-5F
+`tesollo_dg5f_2024`, the 22-DoF Proception ProHand `proception_prohand_2026`, ORCA, RUKA, Ruka-v2,
+BiDexHand and DexHand. Cheapness is established only for RUKA, Ruka-v2 and DexHand,
+because Table 2's price cell is empty for Unitree, Tesollo, the ProHand, ORCA and BiDexHand, and
+the only Dex5 price on disk is Ruka-v2's secondhand "~$25K" `ruka_v2_2026`. A reader choosing a hand on this
 corpus's evidence has two well-precedented options, an Allegro or an Inspire, and a third in LEAP
-if eleven papers is enough. Everything else is a press release or a hand nobody has published on.
+if twelve papers is enough. Everything else is a press release or a hand nobody has published on.

@@ -137,8 +137,8 @@ whether a parsed source reported a penetration depth, not what an engine can com
 15 engines report one, Dojo and ComFree-Sim, and both are engines whose paper is about contact
 accuracy. Four are recorded as not reporting it: Brax, Isaac Gym, Isaac Lab and Orbit. Nine rows
 are blank. The word "penetration" appears nowhere in the Isaac Gym paper, and Isaac Lab's contact
-sensor reports force, duration and an average contact point with no contact-quality metric. Those
-two simulators carry 42 of the 112 method papers in this corpus.
+sensor reports force, duration and an average contact point with no contact-quality metric. The
+Isaac family carries 42 of the 112 method papers in this corpus.
 
 **The tooling exists and the number is still not recorded.** NVIDIA's own IsaacGymEnvs repository
 computes interpenetration depth in simulation. Its IndustReal tasks load plug and socket meshes
@@ -170,9 +170,9 @@ references, and presents tolerance of "severe hand-object penetrations" as evide
 (App. B). `toporetarget_2026` is the one corpus method that reports the number carefully, and it
 reports it on retargeted references rather than on a rollout, which section 7 takes up.
 
-The rest of Table 4 is largely empty, and the emptiness is a result. Sixty-eight of its 165 cells
-are values no parsed source stated, which is 68 of the 150 cells outside the engine-key column, or
-45 percent. No engine paper states a default physics timestep. Three report one for a named
+The rest of Table 4 is largely empty, and the emptiness is a result. Sixty-nine of its 165 cells
+are values no parsed source stated, which is 69 of the 150 cells outside the engine-key column, or
+46 percent, and the table's own footer counts the same 69. No engine paper states a default physics timestep. Three report one for a named
 experiment, and the timestep column reports those experiment settings. Isaac Gym's cell is its
 Shadow Hand step, from the only per-task timestep table any engine paper here publishes, which
 runs 1/120 s for Shadow Hand and Allegro, 1/200 s for ANYmal and TriFinger and 1/60 s for Franka
@@ -190,7 +190,7 @@ resolves contacts with the Temporal Gauss-Seidel sweep described above. Its per-
 published, which is rare: the Shadow Hand runs a 1/120 s physics step under a 1/60 s control step,
 or 1/20 s in the OpenAI variant. The result that reorganised the field is that reproducing OpenAI's
 Shadow Hand cube reorientation took under an hour on one A100, against 30 hours on 6144 CPU cores
-and 8 V100s (`isaacgym_2021`, Sec. 6.4.1). Thirty-six of the 112 method papers in this corpus run
+and 8 V100s (`isaacgym_2021`, Sec. 6.4.1). Thirty-five of the 112 method papers in this corpus run
 on it.
 
 Orbit and Isaac Lab moved the stack to PhysX 5, and the dexterous offering is thinner than the
