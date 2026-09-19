@@ -98,7 +98,7 @@ each string below names them. Use these verbatim as the second argument of `\lic
 Not cleared, for completeness: `hand_coupled_linkage.png` would be Fig. 2 of Z. K. Weng,
 "BiDexHand: Design and Evaluation of an Open-Source 16-DoF Biomimetic Dexterous Hand",
 arXiv:2504.14712, under CC BY-NC-SA 4.0 — the string is easy, the NC and SA conditions are the
-obstacle, so this figure stays `\pending` until the author replies.
+obstacle, so this figure keeps an open action in this register until the author replies.
 
 ## What these rows rest on, and what they do not
 

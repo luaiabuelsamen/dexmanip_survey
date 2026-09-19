@@ -262,7 +262,8 @@ def fig_field():
              for ci, (_, items) in enumerate(cols) for name, pred, _ in items}
 
     # --- layout, computed before anything is drawn so the edges can go underneath the boxes ---
-    cw, gap = 3.05, 0.42
+    # the gap is where the routes are read, so it is wide enough to see a width in
+    cw, gap = 2.92, 0.88
     mx = max(count.values()) or 1
     pos, geo = {}, {}
     for ci, (cname, items) in enumerate(cols):
@@ -291,7 +292,7 @@ def fig_field():
         w = 0.10 + 1.30 * n / mxe
         shade = 14 + int(34 * n / mxe)
         out.append(rf"\draw[draw=black!{shade},line width={w:.2f}pt] ({x + cw:.2f},{yy:.2f}) "
-                   rf".. controls ({x + cw + 0.55:.2f},{yy:.2f}) and ({x2 - 0.55:.2f},{y2:.2f}) "
+                   rf".. controls ({x + cw + 0.45:.2f},{yy:.2f}) and ({x2 - 0.45:.2f},{y2:.2f}) "
                    rf".. ({x2:.2f},{y2:.2f});")
     # --- the nodes, on top of them ------------------------------------------------------------
     for ci, (cname, items) in enumerate(cols):

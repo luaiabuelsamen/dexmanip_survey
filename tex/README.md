@@ -59,7 +59,10 @@ funnel in Section 1, the reporting bars in Section 7.1, and the penetration funn
 zero, in Section 7.3. Photographs and simulator renderings are reproduced
 from the source papers, each with its source stated in the caption.
 
-No permission has been sought for any reproduced figure. `PERMISSIONS.md` is the register, and
-every row currently says pending. Before this is posted or submitted, each figure needs a licence
-that permits redistribution, a granted permission, or replacement by a redrawing. The build does
-not enforce that.
+Eighteen figures are reproduced and they stand in two positions. Seven are cleared: their sources
+carry CC BY 4.0, and each of those captions prints the attribution the licence asks for, naming
+the work, the licence, and the change made to the plate. The other eleven credit their source in
+the caption and are still permission pending: two need a request through a publisher's process and
+nine need an email to the authors, since arXiv's non-exclusive licence grants a third party
+nothing. `PERMISSIONS.md` is the register and records, per figure, the licence found, the URL it
+was read from, and the action still open. The build does not enforce it.

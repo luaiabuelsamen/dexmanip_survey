@@ -21,7 +21,7 @@ content: the green tendons in `sim_tendon_model`, the red/green force arrows and
 interpenetration field in `sim_tactile_interpenetration`, the red/blue hand pair in
 `bimanual_grasp_penetration`, the red and green verdicts in `teleop_retarget_artifacts`.
 
-Permission. None has been sought. Every plate emits `\pending`, not `\credit`; see
+Permission. Where it has not been sought the register says so; no plate prints its status. See
 `tex/PERMISSIONS.md`.
 
 ---
