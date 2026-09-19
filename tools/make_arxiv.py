@@ -441,7 +441,17 @@ def _compile(tree: Path, texinputs: str | None) -> dict:
         else:
             out["bibliography_heading_found"] = True
             tail = "\f".join(pages[head_page:])
-            nums = [int(m.group(1)) for m in re.finditer(r"(?m)^\[(\d{1,4})\]", tail)]
+            # An entry mark is not always at a line start. pdftotext reads a two-column page in
+            # its own order, so a fragment of the neighbouring column can be emitted ahead of the
+            # mark on the same line, which is how entry [19] of a complete 205-entry list went
+            # uncounted and failed a package whose bibliography was intact. An entry mark is
+            # therefore a bracketed number that either opens a line or is followed by the start of
+            # an author name. Distinct numbers are still counted and the result is still checked
+            # against the .bbl's own \bibitem count and against 1..N being contiguous, so a
+            # genuinely missing entry still fails: an inline citation cannot invent a number
+            # outside 1..N, and a dropped entry still breaks the count against the .bbl.
+            nums = [int(m.group(1) or m.group(2)) for m in
+                    re.finditer(r"(?m)^\[(\d{1,4})\]|\[(\d{1,4})\]\s+[A-Z]", tail)]
             out["bibliography_entries"] = len(set(nums))
             out["bibliography_contiguous"] = bool(nums) and sorted(set(nums)) == list(
                 range(1, max(nums) + 1))

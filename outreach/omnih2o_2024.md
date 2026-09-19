@@ -1,4 +1,9 @@
 **DOUBT, FLAGGED PROMINENTLY — read before sending.** This is one of the two claims the survey
+
+> **Not sent, and not refreshed.** This claim was withdrawn before the letter went out, so
+> the passages quoted below are the ones from the draft in which it still stood. They are
+> left unaltered on purpose: they are the evidence for the withdrawal. The other nine notes
+> quote the paper as it stands today.
 already holds at medium confidence, and reading the underlying adversarial review
 (`reviews/r3_methods.md`, item 11) raises a further, specific concern that goes beyond "medium":
 four of the five weight comparisons in this row agree with the paper's table to the digit once a

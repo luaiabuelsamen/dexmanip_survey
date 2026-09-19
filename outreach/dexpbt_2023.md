@@ -2,7 +2,7 @@
 
 **Status note (read first):** the survey's own adversarial review (R3) already withdrew half of
 this claim. The row's `paper_code_mismatch` field still contains both halves for the record, but
-the running prose in `tex/sections/05_training.tex` and `tex/sections/08_gaps.tex` has been
+the running prose in Section V and the conclusion has been
 corrected to print only the surviving half. This letter follows the corrected, printed claim, not
 the stale full text — the withdrawn half is disclosed below for transparency but is not part of
 what we are asking the authors to confirm.
@@ -39,38 +39,46 @@ appear in the survey as an accusation; we mention it only so you can see exactly
 
 ## What the survey will say in print if you do not reply
 
-From `tex/sections/05_training.tex` (Reward engineering, the paragraph on zeroed terms):
+Quoted from the paper as it stands today, so that what you are being asked about is the
+wording that would actually appear. Only the sentences naming your work are reproduced;
+citation markers are replaced with the short name of the work cited.
 
-> "Zeroed terms recur, and are not the same failure. A term present and zeroed is worse than a term
-> missing, because it survives a reader's check of the file, but only when the paper claims it.
-> DexPBT \cite{dexpbt_2023} sums eight components against the paper's four and multiplies
-> \texttt{hand\_delta\_penalty} by zero with the comment ``currently disabled'', a term the paper
-> never claims, and its five named weights are present at their stated values."
+From Section V, *Training*:
 
-From `tex/sections/05_training.tex` (the three-zeroed-terms paragraph, listing this alongside
-DeXtreme and PenSpin):
+> DexPBT is consistent: its configuration disables randomisation, as the paper says.
 
-> "Three cells an earlier draft marked \texttt{code} print \texttt{code (0)} instead, because in
-> each the term is in the released code with every shipped configuration setting its weight to
-> zero: DeXtreme \cite{dextreme_2022}'s \texttt{timeout\_rew} and DexPBT \cite{dexpbt_2023}'s fall
-> penalty through \texttt{fallPenalty: 0.0}, and PenSpin \cite{penspin_2024}'s
-> \texttt{action\_penalty\_scale: 0.0}."
+> Three marks an earlier draft recorded as code now read code (0), because in each the term is
+> in the released code with every shipped configuration setting its weight to zero: DeXtreme's
+> timeout reward, DexPBT's fall penalty, and PenSpin's action penalty. Marking them code would
+> tell a reader the code optimises something the paper does not state, and leaving them
+> unmarked would hide a term that is in the file. The repository carries the config key and
+> the zero beside each of the three marks.
 
-From `tex/sections/08_gaps.tex`:
+> DexPBT tightens a success tolerance from 0.075 to 0.01 by a factor of 0.9 every 3000
+> environment steps once three successes are logged, and ManipTrans starts at zero gravity and
+> high friction and restores both while narrowing a fingertip threshold from 6 cm to 4 cm.
 
-> "An adversarial re-reading withdrew seven accusations. ManipTrans, Eureka, Open-TeleVision,
-> DexMachina, ArtiGrasp and GraspXL ..., and the domain-randomisation half of the charge against
-> DexPBT \cite{dexpbt_2023}."
+> DexPBT runs populations of 8, 16 and 32 agents, splits them 30/40/30, mutates the middle and
+> replaces the bottom with mutated copies of the top, each float hyperparameter multiplied or
+> divided by a factor drawn from U(1.1, 1.5) with probability 0.2. It reports 30 hours on a
+> single V100 for a five-billion-transition single-arm run, and 0.32 trillion environment
+> steps for its largest population.
 
-The appendix (`tex/sections/appendix_c_rewards.tex`) currently lists both the surviving and
-withdrawn halves together, with the review note attached:
+From Appendix C, the per-paper entry:
 
-> "DexPBT (high). Paper presents the reward as 4 mutually exclusive stage terms ... but code's
-> compute_kuka_reward sums 8 named components, one of which (hand_delta_penalty) is multiplied by
-> 0 and disabled ... Also, the paper reports zero experiments with domain randomization, yet the
-> shipped AllegroKuka.yaml already carries a fully specified DR schedule (disabled via randomize:
-> False). — Review: R3 adversarial review: the disabled-randomisation half is withdrawn, since the
-> note finds it consistent with the paper; the zeroed reward term stands"
+> DexPBT (high). Paper presents the reward as 4 mutually exclusive stage terms (r_reach,
+> r_pick, r_targ, -r_vel), but code's compute_kuka_reward sums 8 named components, one of
+> which (hand_delta_penalty) is multiplied by 0 and disabled; there is no single r_vel term in
+> code, instead separate kuka/allegro action penalties whose exact formula is not shown. Also,
+> the paper reports zero experiments with domain randomization, yet the shipped
+> AllegroKuka.yaml already carries a fully specified DR schedule (disabled via randomize:
+> False).
+>
+> Artefact: `NVIDIA-Omniverse/IsaacGymEnvs` at `aeed298638`,
+> `isaacgymenvs/tasks/allegro_kuka/allegro_kuka_base.py` (`compute_kuka_reward`).
+>
+> Review: R3 adversarial review: the disabled-randomisation half is withdrawn, since the note
+> finds it consistent with the paper; the zeroed reward term stands
 
 ## Questions for the authors
 

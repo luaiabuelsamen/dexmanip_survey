@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this survey or its corpus, please cite the paper and archived release."
-title: "Learning Dexterous Manipulation: Hands, Simulators, Training, and Evaluation"
+title: "Learning Dexterous Manipulation: Rewards, Contact, and Hardware, Checked Against the Field's Own Artifacts"
 type: article
 authors:
   - family-names: Abuelsamen
@@ -19,7 +19,7 @@ keywords:
   - reproducibility
 preferred-citation:
   type: article
-  title: "Learning Dexterous Manipulation: Hands, Simulators, Training, and Evaluation"
+  title: "Learning Dexterous Manipulation: Rewards, Contact, and Hardware, Checked Against the Field's Own Artifacts"
   authors:
     - family-names: Abuelsamen
       given-names: Luai

@@ -30,7 +30,7 @@ CLASS_LABELS = [("method", "method papers"), ("hand", "hands"), ("simulator", "s
 
 HEAD = """# Learning Dexterous Manipulation
 
-## Hands, simulators, training, and evaluation
+## Rewards, contact, and hardware, checked against the field's own artifacts
 
 Luai Abuelsamen, `luai_abuelsamen@berkeley.edu`. Corrections go to that address, which is the
 route section 5.6 names; the corpus is available from the author and is not yet deposited.

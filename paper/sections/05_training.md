@@ -104,8 +104,7 @@ used for every object.
 Weights are frequently unrecoverable. Three of the 21 rows give no numeric weight that survives
 PDF conversion, because the equation blocks are images, which is a limit of this survey and is
 recorded as such. `robot_synesthesia_2023` is a worse case. Its six coefficients are described
-only as "tuned hyper-parameters" and no number is printed anywhere in the paper, so the reward it
-reports cannot be reconstructed by anyone. `dexremoe_2025` names an angular-velocity penalty
+only as "tuned hyper-parameters" and no number is printed anywhere in the paper, so the reward it reports cannot be reconstructed from the paper. `dexremoe_2025` names an angular-velocity penalty
 weight in prose with no entry in its hyperparameter table, and `dextrack_2025` names an affinity
 reward that is missing from its weight table.
 
@@ -421,34 +420,38 @@ commit `c4abefac8d` of `sNiper-Qian/pianomime`, `_set_rewards` in
 and `return 0.0`. The remaining six are in Table 11 in the same four parts, and every one of the
 nine can be checked by opening the repository at the commit in that table.
 
-**Nobody was written to first.** The authors of these nine works were not contacted before this
-survey was posted. Ten letters were drafted, one per method, each quoting the claim, its
-evidence and the sentences the survey would print, and each asking whether the reading was
-right; they are in `outreach/` in the corpus that accompanies this survey, unsent and available
-from the author, so a reader can see exactly what every author would have been asked.
-Publishing without them narrows what this section may say, and what it says is written to the
-narrower form: a repository, a commit, a file, and two values. It attributes nothing to intent,
-and a reader with a browser can confirm or refute any line of Table 11 at the repository and
-commit that line names, without anyone's agreement and without this survey's own corpus. Two
-limits come with that, and neither is a hedge. A repository at a fetched commit is not the code
-that produced a paper's numbers: it may postdate that code, precede it, or have diverged from
-it on a branch nobody tagged, and a snapshot cannot say which, so each line compares a
-published document with one public artefact and claims nothing beyond the two. One work in this
-corpus says exactly that about itself. `hora_2022`'s README sends a reader to tag `v0.0.1`
-rather than to the default branch to reproduce the paper's numbers, which is why its row is
-classed version skew and is not one of the nine: told which commit to read, this survey read
-it, and nobody else was in a position to tell us, because nobody else was asked. The other
-limit is the remedy. Every one of the nine is correctable in public, and an author who shows
-that the file says something other than what Table 11 prints, or that the fetched commit is not
-the one behind their numbers, changes the row: `mismatch_class` and `mismatch_review` in
-`corpus/rows/`, the counts that follow from them, and the sentence in the next version, with
-the correction printed beside the original comparison as the withdrawals already are. The route
-is the address in the author block of this paper. It is the only route this survey can offer
-today, because the corpus is not deposited yet: it is available from the author on request, and
-will be deposited with a persistent identifier. A correction asked for that way is a commit and
-a replacement version rather than a negotiation. Seven of the sixteen rows an earlier draft
-drew have already gone that way on this survey's own evidence and two more were narrowed; a
-further correction would cost it nothing.
+**Everyone was written to first.** The authors of these nine works were written to on 19
+September 2026, before this survey was posted. Each letter quotes the claim, its evidence and
+the sentences the survey would print, and asks whether the reading is right, whether there is a
+reason the released configuration differs, and whether the authors want the wording changed;
+each gave until 10 October 2026 to reply, and said that silence would be recorded as silence
+and not as agreement. The letters are in `outreach/` in the corpus that accompanies this
+survey, so a reader can see exactly what every author was asked, and `outreach/RECIPIENTS.md`
+records the address each went to and where that address came from. A tenth letter was drafted
+and not sent, because drafting it broke its own claim; it is kept with the nine. Replies, and
+their effect on the rows, are recorded in `mismatch_review` in `corpus/rows/`. What this
+section says is still written to the narrow form: a repository, a commit, a file, and two
+values. It attributes nothing to intent, and a reader with a browser can confirm or refute any
+line of Table 11 at the repository and commit that line names, without anyone's agreement and
+without this survey's own corpus. Two limits come with that, and neither is a hedge. A
+repository at a fetched commit is not the code that produced a paper's numbers: it may postdate
+that code, precede it, or have diverged from it on a branch nobody tagged, and a snapshot
+cannot say which, so each line compares a published document with one public artefact and
+claims nothing beyond the two. One work in this corpus says exactly that about itself.
+`hora_2022`'s README sends a reader to tag `v0.0.1` rather than to the default branch to
+reproduce the paper's numbers, which is why its row is classed version skew and is not one of
+the nine: told which commit to read, this survey read it, and nobody else was in a position to
+tell us, because nobody else was asked. The other limit is the remedy. Every one of the nine is
+correctable in public, and an author who shows that the file says something other than what
+Table 11 prints, or that the fetched commit is not the one behind their numbers, changes the
+row: `mismatch_class` and `mismatch_review` in `corpus/rows/`, the counts that follow from
+them, and the sentence in the next version, with the correction printed beside the original
+comparison as the withdrawals already are. The route is the address in the author block of this
+paper. It is the only route this survey can offer today, because the corpus is not deposited
+yet: it is available from the author on request, and will be deposited with a persistent
+identifier. A correction asked for that way is a commit and a replacement version rather than a
+negotiation. Seven of the sixteen rows an earlier draft drew have already gone that way on this
+survey's own evidence and two more were narrowed; a further correction would cost it nothing.
 
 Zeroed terms recur, and they are not the same thing as a term that is missing. A term present
 and zeroed survives a reader's check of the file, which is why Table 5 marks it separately, and

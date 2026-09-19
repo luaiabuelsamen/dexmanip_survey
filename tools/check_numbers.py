@@ -345,8 +345,8 @@ REQUIRED_IN = {
  ],
  "paper/sections/08_conclusion.md": [
    (r"reference-versus-rollout", "the second of the seven claims is the gap the frame names"),
-   (r"none\s+of\s+their\s+authors\s+was\s+written\s+to",
-    "claim 1 carries the disclosure it rests on"),
+   (r"all\s+of\s+their\s+authors\s+were\s+written\s+to",
+    "claim 1 carries the disclosure it rests on: the nine were written to before posting"),
  ],
  # The paper-against-code finding is published without a reply from anyone it names. The paragraph
  # that says so, what a fetched commit can and cannot show, and how a disputed case is corrected is
@@ -354,12 +354,14 @@ REQUIRED_IN = {
  # edit. Its four parts are checked separately: an edit may reword any of them, but not drop one.
  "paper/sections/05_training.md": [
    (r"reference-versus-rollout", "section 5.4 is the frame's clearest instance"),
-   (r"were\s+not\s+contacted\s+before\s+this\s+survey\s+was\s+posted",
-    "the nine were not written to"),
-   # The pin is on the fact, not the sentence: the letters are somewhere a reader can reach and
-   # they are unsent. Two words between those, and the wording may move.
-   (r"`outreach/`[^.]{0,120}unsent",
+   (r"were\s+written\s+to\s+on\s+19\s+September\s+2026",
+    "the nine were written to, and the date is on the page"),
+   # The pin is on the fact, not the sentence: the letters were sent, they are somewhere a reader
+   # can reach, and who each went to is recorded. Two words between those, and the wording may move.
+   (r"`outreach/`[^.]{0,200}exactly what every author was asked",
     "the letters are in the repository, and named"),
+   (r"`outreach/RECIPIENTS\.md`",
+    "who each letter went to, and where that address came from"),
    (r"not\s+the\s+code\s+that\s+produced\s+a\s+paper's\s+numbers",
     "a fetched commit may postdate, precede or diverge from the code behind the numbers"),
    (r"says\s+exactly\s+that\s+about\s+itself",
@@ -367,10 +369,10 @@ REQUIRED_IN = {
    (r"correctable\s+in\s+public", "the route by which a disputed case is corrected"),
  ],
  "tex/sections/05_training.tex": [
-   (r"were\s+not\s+contacted\s+before\s+this\s+survey\s+was\s+posted",
-    "the nine were not written to"),
-   (r"outreach/\}[^.]{0,120}unsent",
-    "the letters are in the repository, and named"),
+   (r"were\s+written\s+to\s+on\s+19\s+September\s+2026",
+    "the nine were written to, and the date is on the page"),
+   (r"outreach/RECIPIENTS\.md",
+    "who each letter went to, and where that address came from"),
    (r"not\s+the\s+code\s+that\s+produced\s+a\s+paper's\s+numbers",
     "a fetched commit may postdate, precede or diverge from the code behind the numbers"),
    (r"says\s+exactly\s+that\s+about\s+itself",
@@ -452,10 +454,13 @@ NOT_IN = {
  ],
  "tex/sections/appendix_c_rewards.tex": [
    (r"before author contact",
-    "no author was contacted, so a review note cannot date itself against contact"),
+    "every narrowing predates the letters of 19 September 2026, so a note dating itself "
+    "against contact would invite the reader to think a reply caused it; none had arrived"),
  ],
- "corpus/rows/penspin_2024.json": [(r"before author contact", "no author was contacted")],
- "corpus/rows/omnih2o_2024.json": [(r"before author contact", "no author was contacted")],
+ "corpus/rows/penspin_2024.json": [(r"before author contact",
+    "the narrowing predates the letters; no reply caused it")],
+ "corpus/rows/omnih2o_2024.json": [(r"before author contact",
+    "the withdrawal predates the letters; no reply caused it")],
 }
 
 MUST_IN = {
@@ -517,7 +522,8 @@ def abstract_problems():
 
     Three things: it stays one paragraph and about 200 words, it scopes the penetration claim to
     this corpus and to a policy's own rollouts in the conclusion's words rather than to nobody at
-    all, and it says in a clause that no author was contacted. Both editions hold the same prose,
+    all, and it says in a clause that the authors were written to before posting. Both editions
+    hold the same prose,
     which is also checked, because the LaTeX one is what gets submitted and the markdown one is what
     gets read.
     """
@@ -540,9 +546,9 @@ def abstract_problems():
         if not re.search(r"[Nn]o\s+closed-loop\s+policy\s+in\s+the\s+corpus", body):
             out.append(f"the {name} abstract no longer scopes the penetration claim to the corpus "
                        "in the conclusion's words")
-        if not re.search(r"none\s+of\s+their\s+authors\s+was\s+contacted", body):
-            out.append(f"the {name} abstract makes the accusation without the clause that nobody "
-                       "was contacted before posting")
+        if not re.search(r"their\s+authors\s+were\s+written\s+to\s+before\s+posting", body):
+            out.append(f"the {name} abstract states the finding without the clause that the "
+                       "authors were written to before posting")
     return out
 
 

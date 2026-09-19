@@ -47,17 +47,26 @@ either source we parsed.
 
 ## What the survey will say in print if you do not reply
 
-From `tex/sections/05_training.tex` (the zeroed-terms paragraph):
+Quoted from the paper as it stands today, so that what you are being asked about is the
+wording that would actually appear. Only the sentences naming your work are reproduced;
+citation markers are replaced with the short name of the work cited.
 
-> "PianoMime \cite{pianomime_2024}'s Table~3 states two weighted terms while its environment sums
-> roughly five unweighted ones, two of them inherited stubs returning zero and a third, forearm
-> collision, the paper never lists."
+From Section V, *Training*:
 
-From `tex/sections/appendix_c_rewards.tex`:
+> PianoMime describes two reward terms, while its implementation sums five and forces two of
+> them to return zero. Table III gives the exact file, revision, and values for these and the
+> remaining six cases, where they can be checked without interrupting the argument with
+> source-code identifiers.
 
-> "PianoMime (high). Paper's Table 3 states 2 weighted reward terms (Key Press 2/3, Mimic 1/3), but
-> the released code sums roughly 5 unweighted terms (key press doubled, sustain, energy and
-> fingering hardcoded to return 0, forearm-collision) plus a separately-added mimic wrapper term."
+From Appendix C, the per-paper entry:
+
+> PianoMime (high). Paper's Table 3 states 2 weighted reward terms (Key Press 2/3, Mimic 1/3),
+> but the released code sums roughly 5 unweighted terms (key press doubled, sustain, energy
+> and fingering hardcoded to return 0, forearm-collision) plus a separately-added mimic
+> wrapper term.
+>
+> Artefact: `sNiper-Qian/pianomime` at `c4abefac8d`,
+> `single_task/piano_with_shadow_hands_res.py` (`_set_rewards`).
 
 ## Questions for the authors
 

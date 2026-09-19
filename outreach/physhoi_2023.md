@@ -40,39 +40,36 @@ explicit nonzero weights, and it is not one we were able to break under adversar
 
 ## What the survey will say in print if you do not reply
 
-From `tex/sections/08_gaps.tex`:
+Quoted from the paper as it stands today, so that what you are being asked about is the
+wording that would actually appear. Only the sentences naming your work are reproduced;
+citation markers are replaced with the short name of the work cited.
 
-> "PhysHOI \cite{physhoi_2023} survived every attempt to break it. Table 4 weights object rotation
-> at 0.1 for GRAB, and the released \texttt{compute\_\allowbreak{}humanoid\_\allowbreak{}reward}
-> sets the object rotation and rotation-velocity errors to \texttt{torch.zeros\_\allowbreak{}like},
-> unconditionally, so the dataset exemption the paper states does not cover it. The reward behind
-> its 95.4 percent tracked the object in position only, and its own position-only success criterion
-> could not have caught that."
+From Section V, *Training*:
 
-From `tex/sections/05_training.tex` (Section V-H, called out as "the most consequential case"):
+> PhysHOI is the origin of the reward form. It multiplies a body term, an object term, an
+> interaction-graph term and a contact-graph term, and reaches 95.4 percent success on GRAB
+> against 27.0 percent for a DeepMimic baseline. The contact-graph term exists to stop the
+> policy learning not to touch the object.
 
-> "The most consequential case is \cite{physhoi_2023}. Its
-> \texttt{compute\_\allowbreak{}humanoid\_\allowbreak{}reward} hardcodes the body position-velocity
-> error and both object rotation errors to zero, with the real computation commented out beside
-> them, and does so unconditionally rather than per dataset, while its Table~4 lists non-zero
-> weights of 0.1 and 0.01 for those rotation terms on GRAB. The reward that produced the paper's
-> numbers never tracked object orientation: a method presented as tracking a 6-DoF reference was,
-> in the code that ran, tracking the object in position only, with body rotation and body
-> rotation-velocity still live."
+> PhysHOI is the clearest example. Its paper assigns nonzero weights to object rotation and
+> rotation velocity on the GRAB dataset. In the public implementation, both errors are set to
+> zero and the calculations are commented out. The paper does specify zero weights for the
+> separate BallPlay task, but the implementation does not condition this choice on the
+> dataset. Its reported success criterion uses position alone, so that score cannot expose the
+> difference. The claim here is limited to this conflict between the paper and the public
+> revision listed in Table III; it does not establish which code produced the published
+> experiments.
 
-From `tex/sections/05_training.tex`, the Tracking-a-human-reference subsection:
+From Appendix C, the per-paper entry:
 
-> "PhysHOI \cite{physhoi_2023} is the origin of the reward form. It multiplies a body term, an
-> object term, an interaction-graph term and a contact-graph term, and reaches 95.4 percent success
-> on GRAB against 27.0 percent for a DeepMimic baseline. The contact-graph term exists to stop the
-> policy learning not to touch the object."
-
-From `tex/sections/appendix_c_rewards.tex`:
-
-> "PhysHOI (high). The released code hardcodes the body position-velocity error and the object
-> rotation/rotation-velocity errors to zero in compute_humanoid_reward, so despite Table 4 listing
-> nonzero λ^or=0.1/λ^orv=0.01 weights for GRAB, the trained reward never actually tracks object
-> orientation (position-only in practice)."
+> PhysHOI (high). The released compute_humanoid_reward sets the body position-velocity error
+> and the object rotation and rotation-velocity errors to zeros_like, unconditionally, with
+> the computation that would produce them commented out on the same lines, while Table 4 lists
+> nonzero lambda^or=0.1/lambda^orv=0.01 weights for GRAB: in that file the object's
+> orientation error is the constant zero and those weights cannot change the reward.
+>
+> Artefact: `wyhuai/PhysHOI` at `6095c605e2`, `physhoi/env/tasks/physhoi.py`
+> (`compute_humanoid_reward`).
 
 ## Questions for the authors
 

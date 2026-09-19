@@ -12,6 +12,14 @@ question about whether contacts can be broken and remade while the object stays 
 reorient, and manipulate objects through precise, coordinated finger movements and adaptive force
 modulation". Both definitions place the work in the fingers rather than in the arm.
 
+What follows is a survey in the ordinary sense, covering hands, simulators, training, bimanual
+control and evaluation, and it is built so that a second question can be asked of it. Fourteen
+entries in this corpus are themselves surveys of this field, and the technical supplement sets
+them on one set of columns. None of them, and no prior work in robotics we are aware of, reads
+a field's released code against the rewards its own papers describe. This one does. The three
+findings that survive are all places where the published record and the artefact behind it
+disagree, and every one of them names a file, a commit or a table a reader can open.
+
 The analytic theory answered the static question and stalled on the dynamic one. Form closure has
 a first-order test on the grasp matrix and known contact counts, four in the plane and seven in
 three dimensions for any polyhedron, per `bicchi_grasping_chapter_2001` Sec. 1.3.1. Force closure
@@ -39,7 +47,7 @@ out on the same lines, while the reward table in the paper lists weights of 0.1 
 exactly those terms on GRAB. The success criterion behind its 95.4 percent is itself
 position-only, and that number is cited as a baseline. Section 5.6 classifies all 38, gives
 each of the nine as a repository, a commit, a file and two values in Table 11, and states
-there, beside the finding, that none of the nine sets of authors was written to before this was
+there, beside the finding, that all nine sets of authors were written to before this was
 posted, what a fetched commit can and cannot show, and how a disputed case is corrected. Six
 further rows an earlier draft placed in that class were withdrawn from it under adversarial
 re-reading and a seventh while those letters were being drafted, two more were narrowed, and

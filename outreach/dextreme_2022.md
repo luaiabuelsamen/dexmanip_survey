@@ -47,24 +47,42 @@ the body text, not the appendix table.
 
 ## What the survey will say in print if you do not reply
 
-From `tex/sections/05_training.tex` (the "Weights drift" paragraph):
+Quoted from the paper as it stands today, so that what you are being asked about is the
+wording that would actually appear. Only the sentences naming your work are reproduced;
+citation markers are replaced with the short name of the work cited.
 
-> "Weights drift. DeXtreme \cite{dextreme_2022} states an action-delta penalty of $-0.25$ in
-> Table~2 and ships $-0.2$ and $-0.01$ in its two DR yamls, neither matching."
+From Section V, *Training*:
 
-From the same section, the zeroed-terms paragraph:
+> OpenAI gives the value network object and target orientation, joint angles, joint velocities
+> and object velocities the policy never sees, with a footnote recording that current object
+> orientation was left out of the policy inputs by accident, and DeXtreme uses the same
+> asymmetric critic with a 2048-unit LSTM against the actor's 1024.
 
-> "DeXtreme \cite{dextreme_2022}'s \texttt{timeout\_rew} and DexPBT \cite{dexpbt_2023}'s fall
-> penalty through \texttt{fallPenalty: 0.0}, and PenSpin \cite{penspin_2024}'s
-> \texttt{action\_penalty\_scale: 0.0}."
+> OpenAI made it adaptive, pushing each range boundary out when performance at that boundary
+> exceeds 20 successes and pulling it in below 10, and DeXtreme reproduced the mechanism with
+> a 256-sample queue and 40 percent of environments dedicated to boundary evaluation. Both
+> publish the discovered ranges.
 
-From `tex/sections/appendix_c_rewards.tex`:
+> Three marks an earlier draft recorded as code now read code (0), because in each the term is
+> in the released code with every shipped configuration setting its weight to zero: DeXtreme's
+> timeout reward, DexPBT's fall penalty, and PenSpin's action penalty. Marking them code would
+> tell a reader the code optimises something the paper does not state, and leaving them
+> unmarked would hide a term that is in the file. The repository carries the config key and
+> the zero beside each of the three marks.
 
-> "DeXtreme (high). Action Delta Penalty weight is -0.25 in paper Table 2 but -0.2 in the ADR yaml
-> and -0.01 in the ManualDR yaml; the Joint Velocity Penalty in code normalises velocity by
-> (max_velocity-vel_tolerance) unlike the paper's stated formula; code has a timeout_rew term
-> absent from the paper's reward table; Appendix Table 12 states critic learning rate 5e-4 and KL
-> threshold 0.16, vs body text/code values of 5e-5 and 0.016."
+> DeXtreme gives one action-change penalty in the paper and a different value in each of two
+> public configurations.
+
+From Appendix C, the per-paper entry:
+
+> DeXtreme (high). Action Delta Penalty weight is -0.25 in paper Table 2 but -0.2 in the ADR
+> yaml and -0.01 in the ManualDR yaml; the Joint Velocity Penalty in code normalises velocity
+> by (max_velocity-vel_tolerance) unlike the paper's stated formula; code has a timeout_rew
+> term absent from the paper's reward table; Appendix Table 12 states critic learning rate
+> 5e-4 and KL threshold 0.16, vs body text/code values of 5e-5 and 0.016.
+>
+> Artefact: `isaac-sim/IsaacGymEnvs` at `aeed298638`,
+> `isaacgymenvs/cfg/task/AllegroHandDextremeADR.yaml` (`actionDeltaPenaltyScale`).
 
 ## Questions for the authors
 

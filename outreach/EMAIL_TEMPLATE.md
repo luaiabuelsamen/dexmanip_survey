@@ -42,11 +42,13 @@ WEEKS OUT] if that's workable. If we don't hear back by then, we will note in th
 wrote to you and did not receive a reply — we won't treat silence as agreement with the claim, and
 we won't hold a non-reply against you in any way.
 
-For what it's worth: an earlier draft of this section made sixteen such claims across the corpus;
-seven were withdrawn after our own adversarial re-reading found them wrong or unfair, and each
-withdrawal is recorded in the paper's row alongside the original claim (`mismatch_review` field in
-our public data, `corpus/rows/<key>.json`). We would rather drop or correct a claim than publish
-one that doesn't hold up, and a reply from you is exactly the kind of check we're asking for.
+For what it's worth: an earlier draft of this section made sixteen such claims across the
+corpus. Seven have since been withdrawn — six after our own adversarial re-reading found them
+wrong or unfair, and one when writing the letter to its authors sent us back to the evidence —
+and two more were narrowed. Each withdrawal and narrowing is recorded in the paper's row
+alongside the original claim (`mismatch_review` field in our public data,
+`corpus/rows/<key>.json`). We would rather drop or correct a claim than publish one that
+doesn't hold up, and a reply from you is exactly the kind of check we're asking for.
 
 Thank you for your time, and for releasing the code in the first place — the survey's ability to
 check any of this against a paper's own claims exists only because you made that code public.

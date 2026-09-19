@@ -131,7 +131,7 @@ Weights are frequently unrecoverable. Three of the 21 rows give no numeric weigh
 PDF conversion, because the equation blocks are images, which is a limit of this survey and is
 recorded as such. Robot Synesthesia \cite{robot_synesthesia_2023} is a worse case. Its six
 coefficients are described only as ``tuned hyper-parameters'' and no number is printed anywhere in
-the paper, so the reward it reports cannot be reconstructed by anyone. DexReMoE
+the paper, so the reward it reports cannot be reconstructed from the paper. DexReMoE
 \cite{dexremoe_2025} names an angular-velocity penalty weight in prose with no entry in its
 hyperparameter table, and DexTrack \cite{dextrack_2025} names an affinity reward that is missing
 from its weight table.
@@ -504,15 +504,19 @@ two of them to return zero. Table~\ref{tab:codegap} gives the exact file, revisi
 these and the remaining six cases, where they can be checked without interrupting the argument
 with source-code identifiers.
 
-\textbf{Scope and correction.} The authors of the nine works were not contacted before this survey
-was posted. The comparison is therefore limited to two public artefacts: the paper and the
-repository revision named in Table~\ref{tab:codegap}. It makes no claim about intent or about the
-private code used for the reported experiments: a fetched commit is not the code that produced a
-paper's numbers. It may predate, postdate, or differ from that code. Hora \cite{hora_2022} says
-exactly that about itself by directing readers to a tagged release rather than its default branch.
-The letters in \path{outreach/} remain unsent and preserve the evidence that would have been sent
-to each author. Every comparison is correctable in public through the address in the author block;
-supporting evidence changes the record, the derived counts, and the next version of the text.
+\textbf{Scope and correction.} The authors of the nine works were written to on 19 September
+2026, before this survey was posted, and asked whether the reading was right and whether they
+wanted the wording changed; each was given until 10 October 2026, and told that silence would
+be recorded as silence rather than as agreement. The comparison is nonetheless limited to two
+public artefacts: the paper and the repository revision named in Table~\ref{tab:codegap}. It
+makes no claim about intent or about the private code used for the reported experiments: a
+fetched commit is not the code that produced a paper's numbers. It may predate, postdate, or
+differ from that code. Hora \cite{hora_2022} says exactly that about itself by directing
+readers to a tagged release rather than its default branch. The letters are in
+\path{outreach/}, with the address each went to and its provenance in
+\path{outreach/RECIPIENTS.md}, and replies are recorded in the row they concern. Every
+comparison is correctable in public through the address in the author block; supporting
+evidence changes the record, the derived counts, and the next version of the text.
 
 The classification distinguishes a term that is absent, present with zero weight, or assigned a
 different weight. In 13 cases the parsed repository cannot settle the comparison, and those cases

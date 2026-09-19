@@ -33,7 +33,7 @@ objective "often yields imbalanced solutions, where one hand dominates stability
 contributes marginally." `artigrasp_2023` reports simulation speed scaling "roughly quadratically
 with the number of contacts," and trains each hand alone before pairing them.
 
-Role asymmetry is an assumption almost everyone makes silently. `bidexhd_2024` states it outright:
+Role asymmetry is an assumption most of these systems make silently. `bidexhd_2024` states it outright:
 "we assume the robot to be right-handed by default, i.e., the left hand handles the target object
 and the right hand handles the tool," and `twisting_lids_2024` bakes the same split into its
 reward, putting reference contact keypoints on the bottle base for the left fingertips and on the

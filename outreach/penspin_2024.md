@@ -54,27 +54,48 @@ the code's scale keys one-to-one (`rotate_reward_scale`, `pencil_z_dist_penalty_
 
 ## What the survey will say in print if you do not reply
 
-From `tex/sections/05_training.tex` (domain-randomisation discipline paragraph):
+Quoted from the paper as it stands today, so that what you are being asked about is the
+wording that would actually appear. Only the sentences naming your work are reproduced;
+citation markers are replaced with the short name of the work cited.
 
-> "PenSpin \cite{penspin_2024} zeroes the disturbance force its appendix describes."
+From Section V, *Training*:
 
-From the same section (zeroed-terms paragraph):
+> PenSpin describes random disturbance forces, while the only public configuration that names
+> them disables them.
 
-> "PenSpin \cite{penspin_2024}'s \texttt{action\_penalty\_scale: 0.0}."
+> Three marks an earlier draft recorded as code now read code (0), because in each the term is
+> in the released code with every shipped configuration setting its weight to zero: DeXtreme's
+> timeout reward, DexPBT's fall penalty, and PenSpin's action penalty. Marking them code would
+> tell a reader the code optimises something the paper does not state, and leaving them
+> unmarked would hide a term that is in the file. The repository carries the config key and
+> the zero beside each of the three marks.
 
-From the "Weights drift"/reward-naming discussion:
+> Nine is the number to quote, eight at high confidence and one, PenSpin, held at medium.
 
-> "PenSpin \cite{penspin_2024} ships \texttt{forceScale: 0.0} against the disturbance force in its
-> appendix, and its 96-dimensional observation carries no tactile channel, which is also what its
-> proprioception-only student should carry, hence the medium confidence."
+> PenSpin, the sole medium-confidence case retained, concerns a disabled disturbance rather
+> than the tactile input claimed in an earlier draft. Each change and its reason is preserved
+> with the underlying record. Future papers can avoid most of this ambiguity by generating the
+> reward table directly from the configuration used for training and citing the corresponding
+> revision.
 
-From `tex/sections/appendix_c_rewards.tex`:
+From Appendix C, the per-paper entry:
 
-> "PenSpin (medium). The released code disables the paper's tactile observation channel and zeroes
-> the described disturbance-force domain randomization, and the code's reward scale-key names
-> (e.g. rotate_reward_scale, pencil_z_dist_penalty_scale) do not 1:1 name-match the paper's Table 4
-> weight list, though matched values agree. — Review: R3 adversarial review: plausible alternative
-> reading; held at medium confidence pending a direct code read"
+> PenSpin (medium). The appendix states a randomised disturbance force and the released task
+> config sets its scale to zero. A second half of the original comparison, that the released
+> code disables the paper's tactile observation channel, is withdrawn: the config read has 96
+> observation dimensions and `enable_tactile: False`, consistent with the proprioception-only
+> student policy rather than the tactile-and-point-cloud oracle, and the paper never claims
+> the student has tactile input. The code's reward scale-key names (e.g. rotate_reward_scale,
+> pencil_z_dist_penalty_scale) also do not 1:1 name-match the paper's Table 4 weight list,
+> though matched values agree.
+>
+> Artefact: `HaozhiQi/penspin` at `5035c52dc9`, `configs/task/AllegroHandHora.yaml`
+> (`forceScale`).
+>
+> Review: Narrowed at the point of drafting the letter to its authors, which was never sent.
+> The tactile-channel half is withdrawn as a plausible reading of which pipeline stage the
+> config belongs to; the disturbance-force half stands. Held at medium confidence pending a
+> direct code read.
 
 ## Questions for the authors
 

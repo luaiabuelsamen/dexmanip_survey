@@ -44,19 +44,22 @@ stated weights, once the gating structure is accepted as an implementation of `r
 
 ## What the survey will say in print if you do not reply
 
-From `tex/sections/05_training.tex` (Section V-H, "What the released code says," the "Weights
-drift" paragraph):
+Quoted from the paper as it stands today, so that what you are being asked about is the
+wording that would actually appear. Only the sentences naming your work are reproduced;
+citation markers are replaced with the short name of the work cited.
 
-> "UniDexGrasp \cite{unidexgrasp_2023} and DexPoint \cite{dexpoint_2022} ship rewards structured
-> differently from their equations, and PDDM \cite{pddm_2019}'s Baoding reward carries a $-10$
-> wrist-height term Table~2 omits."
+In the body of the paper this work appears only as a row of Table III, the evidence
+table; the statement of the claim is the appendix entry below.
 
-From `tex/sections/appendix_c_rewards.tex`:
+From Appendix C, the per-paper entry:
 
-> "DexPoint (high). The released code's reward adds several terms absent from the paper's
-> four-term Eq. 5 (a lift-threshold bonus, a target-distance term, a rotation bonus, and an IK
-> controller-tracking penalty) and reshapes the reach/lift terms into inverse-distance and clipped
-> forms rather than the paper's plain distance/height-difference formulas."
+> DexPoint (high). The released code's reward adds several terms absent from the paper's four-
+> term Eq. 5 (a lift-threshold bonus, a target-distance term, a rotation bonus, and an IK
+> controller-tracking penalty) and reshapes the reach/lift terms into inverse-distance and
+> clipped forms rather than the paper's plain distance/height-difference formulas.
+>
+> Artefact: `yzqin/dexpoint-release` at `17f1e238bb`, `dexpoint/env/rl_env/relocate_env.py`
+> (`AllegroRelocateRLEnv.get_reward`).
 
 ## Questions for the authors
 

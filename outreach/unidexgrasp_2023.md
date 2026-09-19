@@ -39,17 +39,23 @@ actual formula.
 
 ## What the survey will say in print if you do not reply
 
-From `tex/sections/05_training.tex` (the "Weights drift" paragraph):
+Quoted from the paper as it stands today, so that what you are being asked about is the
+wording that would actually appear. Only the sentences naming your work are reproduced;
+citation markers are replaced with the short name of the work cited.
 
-> "UniDexGrasp \cite{unidexgrasp_2023} and DexPoint \cite{dexpoint_2022} ship rewards structured
-> differently from their equations."
+In the body of the paper this work appears only as a row of Table III, the evidence
+table; the statement of the claim is the appendix entry below.
 
-From `tex/sections/appendix_c_rewards.tex`:
+From Appendix C, the per-paper entry:
 
-> "UniDexGrasp (high). The paper describes a four-term weighted reward (r_goal + r_reach + r_lift +
-> r_move via Table 7's omega weights) but the released compute_hand_reward implements a different
-> threshold-gated torch.where cascade with distinct hardcoded coefficients that do not map
-> one-to-one onto the paper's weights."
+> UniDexGrasp (high). The paper describes a four-term weighted reward (r_goal + r_reach +
+> r_lift + r_move via Table 7's omega weights) but the released compute_hand_reward implements
+> a different threshold-gated torch.where cascade with distinct hardcoded coefficients that do
+> not map one-to-one onto the paper's weights.
+>
+> Artefact: `PKU-EPIC/UniDexGrasp` at `36c9bfcf7c`,
+> `dexgrasp_policy/dexgrasp/tasks/shadow_hand_grasp.py` (`compute_hand_reward, goal_cond
+> branch`).
 
 ## Questions for the authors
 

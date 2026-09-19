@@ -46,33 +46,36 @@ code:
 
 ## What the survey will say in print if you do not reply
 
-From `tex/sections/05_training.tex` (Privilege/distillation paragraph, cited for the method
-generally):
+Quoted from the paper as it stands today, so that what you are being asked about is the
+wording that would actually appear. Only the sentences naming your work are reproduced;
+citation markers are replaced with the short name of the work cited.
 
-> "Visual Dexterity \cite{visual_dexterity_2022} distils twice, from a state teacher to a synthetic
-> point cloud and then to a rendered one, for a fivefold speedup."
+From Section V, *Training*:
 
-From the "Weights drift" paragraph (the mismatch claim itself):
+> Hora instead compresses nine privileged object properties into an eight-dimensional vector
+> regressed from 30 steps of proprioception, and Visual Dexterity distils twice, from a state
+> teacher to a synthetic point cloud and then to a rendered one, for a fivefold speedup.
 
-> "Visual Dexterity \cite{visual_dexterity_2022}'s Eq.~8 penultimate-joint penalty is absent from
-> \texttt{dexenv/envs/rewards.py}, and its two configs disagree about the fall distance."
+> The fourth, Visual Dexterity, penalises the object touching the table, a task-shaping term
+> against using the table as a third finger rather than a hand-object term, and its table-
+> contact flag defaults to off, with no shipped config setting it true. Three of 21 in-hand
+> reorientation methods, then, put a hand-object contact or force quantity in the reward, and
+> none puts interpenetration in it.
 
-From the reward-family/contact-mark paragraph:
+> The first distils a privileged teacher into a vision student inside one paper, which is
+> Hora, Visual Dexterity, RotateIt, Robot Synesthesia and ViserDex.
 
-> "The fourth, \cite{visual_dexterity_2022}, penalises the \emph{object} touching the table, a
-> task-shaping term against using the table as a third finger rather than a hand-object term, and
-> its \texttt{pen\_tb\_contact} flag defaults to \texttt{False} with no shipped config setting it
-> true."
+From Appendix C, the per-paper entry:
 
-From `tex/sections/appendix_c_rewards.tex`:
-
-> "Visual Dexterity (high). Table S1 states 32000 teacher training environments, but the released
-> config sets alg.num_envs to 8000 (parent config 16384); fallDistance differs across two shipped
-> configs (0.24 vs 0.15, only the latter matching Table S1's threshold); the paper's Eq 8
-> penultimate-joint penalty (c7=-2) does not appear anywhere in the released reward code; the
-> config carries a dead distRewardScale=-10.0 key never used in compute_reward; and the paper's
-> table-friction lower bound (0.05) differs by a factor of 10 from the code's randomized lower
-> bound (0.005)."
+> Visual Dexterity (high). Table S1 states 32000 teacher training environments, but the
+> released config sets alg.num_envs to 8000 (parent config 16384); fallDistance differs across
+> two shipped configs (0.24 vs 0.15, only the latter matching Table S1's threshold); the
+> paper's Eq 8 penultimate-joint penalty (c7=-2) does not appear anywhere in the released
+> reward code; the config carries a dead distRewardScale=-10.0 key never used in
+> compute_reward; and the paper's table-friction lower bound (0.05) differs by a factor of 10
+> from the code's randomized lower bound (0.005).
+>
+> Artefact: `Improbable-AI/dexenv` at `ad9634e9d2`, `dexenv/conf/dclaw.yaml` (`alg.num_envs`).
 
 ## Questions for the authors
 
