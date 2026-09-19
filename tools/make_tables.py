@@ -39,7 +39,7 @@ def cell(v, width=WRAP_MAX):
     if v is None or v == "" or v == []: return EM
     if isinstance(v, bool): return "yes" if v else "no"
     if isinstance(v, list): v = ", ".join(str(x) for x in v)
-    s = str(v).replace("|", "/").replace("\n", " ").strip()
+    s = str(v).replace("|", "/").replace("\n", " ").replace(" — ", "; ").strip()
     return soft_wrap(s, width)
 
 WRAPPED = ("\n*No cell is truncated. A value wider than its column is wrapped at a word boundary, "

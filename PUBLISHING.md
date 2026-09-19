@@ -21,9 +21,10 @@ numbers, and how a disputed case will be corrected. The letters that would have 
 in `outreach/` and the paper points at them, so a reader can see exactly what each author would
 have been asked.
 
-**Correction is a published route, not a private one.** Because there is no pre-publication
-exchange, the post-publication one has to be real. The route is stated in the paper and the
-repository is public, so a correction is a commit and a replacement version, not a negotiation.
+**Correction needs a published route.** Because there is no pre-publication exchange, the
+post-publication route has to be real. The paper currently gives the author's address; the
+repository must be made public before posting so that a correction can also be a visible commit
+and replacement version.
 
 ## Posting
 
@@ -56,6 +57,14 @@ paper reproduces only what `figs/selected/` holds. The assembled package is abou
 checkable against artefacts. Deposit the repository, get a DOI from Zenodo, and cite it in the
 paper. A survey that audits other people's reproducibility and is not itself reproducible will be
 noticed.
+
+The local release is prepared but not deposited. Before submission:
+
+1. Create the public repository and archive the exact release with Zenodo.
+2. Replace the future-tense corpus statements in `tex/main.tex` and
+   `tex/sections/appendix_a_method.tex` with the repository URL and DOI.
+3. Add the DOI to `CITATION.cff`, rebuild both PDFs, and rerun `python tools/check_numbers.py`.
+4. Rebuild `dist/arxiv/` with `python tools/make_arxiv.py`; upload that generated directory.
 
 ## Choosing a venue
 

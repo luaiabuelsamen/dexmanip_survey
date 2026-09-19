@@ -265,7 +265,7 @@ is derived for the statistic that axis actually reports: a single rate takes a W
 a matched comparison takes McNemar, a ratio takes the standard error of the log ratio, a
 correlation takes the Fisher-z interval.
 
-Appendix E works the derivation; what it concludes is the following, and every count in Table 8 is
+The technical supplement gives the full derivation; what it concludes is the following, and every count in Table 8 is
 one of these. A single reported rate takes 100 real rollouts per cell, because 93 is where the
 worst-case Wilson half-width falls to 10 points and 10 points is the coarsest width at which a rate
 is worth printing. A comparison is a different question and a harder one. The design is paired, so
@@ -285,45 +285,13 @@ computed for was the wrong one.
 
 {{table:table8_protocol}}
 
-## 7.4 The results matrix, and what filling it would cost
+## 7.4 Feasibility and limitations
 
-The rows are the 12 most-mentioned dexterous-hand policy methods in the corpus, and the rule is
-the one the table's generator implements, stated here in the same words. A candidate is a method
-row that names a hand; the hand string must not contain "parallel" or "gripper"; it must carry at
-least one paradigm tag that produces a closed-loop policy and must not be a teleoperation system,
-because an interface is scored on latency and operator effort rather than on a policy's success
-rate. And its name must be at least four characters, so that a short string does not match
-everything. Candidates are then scored by the number of other corpus papers whose parsed text
-contains the name, and the top 12 by count, ties broken by key, are the rows.
-
-Two corrections changed that ranking. The match is on a whole word. Under the bare substring test
-an earlier version used, "UniDex" matched inside "UniDexGrasp" and "UniDexGrasp++", so
-`unidex_2026`, a 2026 paper, sat sixth in a ranking over a corpus written mostly before it, on
-34 mentions that belonged to a different work. As a whole word it has 3 and it is not in the table.
-And the interface rule is now applied to every row that carries the tag rather than only to rows
-that carry nothing else, which drops `anyteleop_2023` at 34 mentions, `dime_2022` at 28 and
-`holo_dex_2022` at 23, along with `dexpilot_2020`, which the earlier prose already excluded by
-hand. The mention counts are printed under the table so a reader can audit them.
-
-The ranking is not one quantity even so. A method's name is taken from the first line of its note,
-which yields an acronym for some works and a full title for others, and a title is matched mostly
-inside reference lists while an acronym is matched in running text. Those have different base
-rates, so a &#10035; in Table 9 marks every row matched on its full title rather than on a short
-name, and the two kinds are not comparable with each other. Mention counts are counts of mentions
-and not of use, as the method appendix records.
-
-Every cell is empty. This survey re-ran nothing, and no cell can be filled at the denominator
-Table 8 asks for. `dextreme_2022` comes closest and is the reason the claim is stated that
-narrowly: it reports a criterion, a trial count and an interval. Object orientation within 0.4 rad
-of target, 27.8 ± 19.0 average consecutive successes with the ± a 90 percent confidence interval.
-On 10 trials. Table 7 is not a counter-example either, though it looks like one: it carries
-trial-count, unseen-object, penetration and code-release columns for all 112 method rows,
-including all 12 of these. Table 7 records what each method reported. Table 9 asks for what Table
-8 defines. A value with an interval, a stated denominator and a criterion written before the run.
-And none of Table 7's values meets that. The first row of Table 9 is a worked example so that the
-format of a cell is unambiguous. Every number in it is fabricated and labelled as such.
-
-{{table:table9_matrix}}
+The proposed protocol has not been run. In the twelve-method comparison assembled for this
+survey, no method supplied all the measurements needed for a complete protocol row. DeXtreme
+`dextreme_2022`, for example, reports a success criterion and a confidence interval, but uses ten
+trials. This limits retrospective comparison; it does not imply that the reported experiments
+failed their own stated objectives.
 
 **What would have to be true.** The bill comes first. Per policy and per task the protocol asks for 57 matched trials on the
 anchor set, which is the paired count from §7.3, and 100 on the unseen-object set, at 20 objects
@@ -357,8 +325,7 @@ code refutes it. And the comparison would have to be sequential, because the sav
 `beyond_binary_success_2026` are the only reason 100 is a cap rather than a cost.
 
 Four limits apply to the proposal itself. This survey re-ran no method, so every count in Table 8
-is derived from an interval width, a power calculation or another paper's measurement, and Table 9
-is empty because we filled no cell. The counts are worst-case at p = 0.5, so a method near 90
+is derived from an interval width, a power calculation or another paper's measurement. The counts are worst-case at p = 0.5, so a method near 90
 percent needs fewer trials for the same width and a method near 50 percent needs all 100, and the
 paired count additionally rests on an assumed discordance of 0.3, which no paper in this corpus
 reports. The perturbation axes are borrowed from `colosseum_2024` and `simpler_2024`, which run
@@ -378,4 +345,4 @@ protocols, a small denominator, and not one of them uses a dexterous hand: `sure
 parallel-jaw gripper and the other six state no hand. Everything proposed above is therefore
 assembled from work on grippers and on whole-arm tasks. What would close that, and close it cheaply,
 is to run the Table 8 protocol once, on one in-hand reorientation task with one 16-DoF hand, and
-release the rollouts as the first measured row of Table 9.
+release the rollouts and per-trial outcomes for independent analysis.

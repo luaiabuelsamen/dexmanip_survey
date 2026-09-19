@@ -187,9 +187,8 @@ repository computes interpenetration depth in simulation. Its IndustReal tasks l
 socket meshes into Warp, sample points on one, query them against the other, and reduce to a
 per-environment maximum interpenetration distance (\path{code/md/isaacgym_2021.md}, lines 8809 to
 8862). The policy update is gated on that number. Environments are split on whether their maximum
-stays under a threshold, the reward of those that survive is scaled down as the maximum approaches
-it, and the threshold itself is \texttt{interpen\_thresh: 0.001}, commented as the largest allowed
-interpenetration between plug and socket (lines 3630 and 3753). That is a shipped Isaac Gym task
+stays under a threshold, and the reward of those that survive falls as the maximum approaches it.
+The configured limit is 1 mm (lines 3630 and 3753). That is a shipped Isaac Gym task
 measuring simulated interpenetration per environment at a millimetre threshold, during RL, and
 acting on it. Table~\ref{tab:simulators} records Isaac Gym as not exposing penetration, and so
 does its row in the corpus, which the code parse in that same corpus contradicts. Tactile Genesis
@@ -199,9 +198,9 @@ leaves the Genesis cell blank. The depth is computable from the poses and the me
 lines of Warp, and the field's own benchmark repository already does it. Interpenetration in a
 dexterous rollout is a setting nobody records and a measurement nobody takes.
 
-A policy will exploit what nobody looks at. DexTrack's configs carry PhysX's
-\texttt{max\_depenetration\_velocity} at 10.0 or 1000.0 depending on the task variant, with no
-explanation in the paper or in a config comment \cite{dextrack_2025}. The same parameter appears
+A policy will exploit what nobody looks at. DexTrack's configurations cap PhysX's separation
+velocity at 10.0 or 1000.0 depending on the task variant, with no explanation in the paper or in
+a configuration comment \cite{dextrack_2025}. The same parameter appears
 across unrelated stock IsaacGymEnvs tasks at 5.0, 10.0, 100.0 and 1000.0, at five places in the
 same parsed file, so DexTrack inherited a template rather than choosing per variant. The parameter
 caps the rate at which the solver pushes overlapping bodies apart, so it sets how long an overlap
@@ -256,8 +255,8 @@ Newton changes how these names should be read. It is explicitly multi-solver: So
 MuJoCo Warp, SolverKamino is a proximal-ADMM and dual-variational-inequality contact solver, and
 XPBD and VBD do position-based constraint projection \cite{newton_2025}. Its contact model is
 solver-dependent, not a property of the engine, which is how Table~\ref{tab:simulators} records
-it. Isaac Lab's code already exposes a \texttt{--physics newton\_mjwarp} backend switch in its
-hands demo, and its roadmap announces Newton integration. An experiment reported as Isaac Lab may
+it. Isaac Lab already offers a Newton--MuJoCo Warp backend in its hands demo, and its roadmap
+announces Newton integration. An experiment reported as Isaac Lab may
 be running PhysX 5 with TGS, or MuJoCo's soft constraint rows under Warp, and those two make
 different contact errors. The name also fails to fix the physics inside one engine. MuJoCo's
 convex solver is a family, interior point or projected Newton, conjugate gradient or Gauss-Seidel

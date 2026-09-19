@@ -131,11 +131,23 @@ def _bib_counts():
     keys = {e["key"] for e in bib}
     related = {e["key"] for e in bib if e.get("topic") == "related"}
     corpus = keys - related
-    cited = set()
-    for pat in ("tex/main.tex", "tex/sections/*.tex", "tex/tables/*.tex", "tex/figs/*.tex"):
-        for f in sorted(R.glob(pat)):
-            for m in re.finditer(r"\\cite(?:\[[^\]]*\])?\{([^}]*)\}", f.read_text()):
-                cited |= {k.strip() for k in m.group(1).split(",") if k.strip()}
+    # Follow the files the reader-facing article actually inputs. Scanning every .tex file also
+    # counts citations in supplement-only appendices and makes the claimed reference-list length
+    # disagree with main.bbl after those appendices are separated from the article.
+    cited, seen, pending = set(), set(), [R / "tex/main.tex"]
+    while pending:
+        f = pending.pop()
+        if f in seen or not f.exists():
+            continue
+        seen.add(f)
+        body = f.read_text()
+        for m in re.finditer(r"\\cite(?:\[[^\]]*\])?\{([^}]*)\}", body):
+            cited |= {k.strip() for k in m.group(1).split(",") if k.strip()}
+        for m in re.finditer(r"\\input\{([^}]+)\}", body):
+            child = R / "tex" / m.group(1)
+            if child.suffix != ".tex":
+                child = child.with_suffix(".tex")
+            pending.append(child)
     return {"bib_entries": len(corpus), "bib_related": len(related),
             "bib_cited_corpus": len(corpus & cited), "bib_uncited": len(corpus - cited),
             "bib_printed": len((corpus | related) & cited)}
@@ -449,12 +461,6 @@ MUST_IN = {
  "tex/tables/table8_matrix.tex": [
    (r"ast\$ matched on its full title", "the mark has a key on the page it is printed on"),
  ],
- "tex/sections/07_evaluation.tex": [
-   (r"an asterisk in Table", "the prose names the mark the table prints"),
- ],
- "paper/sections/07_evaluation.md": [
-   (r"&#10035; in Table 9", "the prose names the mark the table prints"),
- ],
 }
 
 
@@ -515,7 +521,7 @@ def abstract_problems():
             out.append(f"the {name} abstract still says nobody measures interpenetration, which is "
                        "wider than the body: the claim is about this corpus and about a policy's "
                        "own rollouts")
-        if not re.search(r"No\s+closed-loop\s+policy\s+in\s+the\s+corpus", body):
+        if not re.search(r"[Nn]o\s+closed-loop\s+policy\s+in\s+the\s+corpus", body):
             out.append(f"the {name} abstract no longer scopes the penetration claim to the corpus "
                        "in the conclusion's words")
         if not re.search(r"none\s+of\s+their\s+authors\s+was\s+contacted", body):

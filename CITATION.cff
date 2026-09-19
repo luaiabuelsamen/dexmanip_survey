@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this survey or its corpus, please cite the paper and archived release."
+title: "Learning Dexterous Manipulation: Hands, Simulators, Training, and Evaluation"
+type: article
+authors:
+  - family-names: Abuelsamen
+    given-names: Luai
+version: 1.0.0
+date-released: 2026-09-19
+abstract: >-
+  A survey of learning-based dexterous manipulation covering hands, simulators, policy training,
+  bimanual control, evaluation practice, and reproducibility across 218 structured records.
+keywords:
+  - dexterous manipulation
+  - robot learning
+  - reinforcement learning
+  - imitation learning
+  - bimanual manipulation
+  - reproducibility
+preferred-citation:
+  type: article
+  title: "Learning Dexterous Manipulation: Hands, Simulators, Training, and Evaluation"
+  authors:
+    - family-names: Abuelsamen
+      given-names: Luai
+  year: 2026

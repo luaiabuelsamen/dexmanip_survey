@@ -450,7 +450,7 @@ zeroed survives a reader's check of the file, which is why Table 5 marks it sepa
 only worth marking where the paper claims the term. Weights differ as well: a penalty printed at
 one value in a table and set to another in a config, an equation's term that is not in the released
 reward file, a term in the file that the table does not list. And in 13 rows the repository does
-not settle the question at all, which is this survey's limit and not an accusation. Appendix C
+not settle the question at all, which is this survey's limit and not an accusation. The technical supplement
 prints all 38 row by row in their five classes, each with the file, the value on both sides, and
 the review note where a charge was narrowed or withdrawn.
 

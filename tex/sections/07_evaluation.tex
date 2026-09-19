@@ -206,25 +206,19 @@ before anything executes and the four that are closed-loop policies scoring the 
 were given, and we found none that reports the measurement for rollouts of its own trained
 policy.
 
-\textbf{The field behind that null was audited.} A null is worth what the search behind it is
-worth, and this survey's extraction under-counted every other field it was audited against, by
-twenty to forty-five percent. The 85 method rows whose contact-handling field records that the work
-does not address penetration were therefore sampled: 25 of the 85, drawn at random with a fixed
-seed, each read again in its own parsed source and its released repository rather than in the note
-the field was written from, since the note is the artefact under suspicion. Not one of the 25
-reports a measurement of penetration depth, intersection volume or physical plausibility on its own
-rollouts. Zero recoveries in 25 bounds the rows that could be hiding one at 8 of the 85 at 95
-percent confidence, so the eleven is a floor and nineteen a ceiling; had this field under-counted
-at even the mildest rate the other audits found, a sample of 25 would have missed every recoverable
-row with probability 0.001. The nearest miss is worth naming, because it is the one a reader might
-count differently: GraspXL \cite{graspxl_2024} puts hand-object interpenetration to 35 human raters
-as one of four dimensions of a single realism score, which is a judgement of its own rollouts
-rather than a measurement of one, and counting it would give one recovery in 25 and a bound of 13
-rows. Three near misses recurred across the sample and none of them is a measurement of a rollout:
-self-collision avoidance in a retargeter, a binary self-collision penalty in a released reward, and
-an engine's de-penetration velocity left at its default. The draw, the seed and a verdict per row are in the
-corpus that accompanies this survey, and Appendix~\ref{app:method} states the method and the two
-fields that remain unaudited.
+\textbf{The null result was audited.} Earlier audits showed that the extraction could miss reported
+values, so 25 of the 85 apparently silent methods were drawn with a fixed random seed and checked
+again against their papers and repositories. None reports penetration depth, intersection volume,
+or another quantitative plausibility measure on its own rollouts. With zero recoveries, a
+one-sided 95 percent finite-population bound allows at most 8 hidden cases among the 85. The
+reported count of eleven is therefore a lower bound and nineteen an upper bound.
+
+GraspXL \cite{graspxl_2024} is the closest borderline case: human raters considered
+interpenetration as one component of a broader realism score. We treat that as a judgement rather
+than a penetration measurement. Other near misses concern self-collision, trajectory constraints,
+or a solver's separation setting rather than measured hand--object overlap during a rollout. The
+sample, search terms, and verdict for every audited row are included with the corpus; Appendix
+\ref{app:method} gives the full procedure.
 
 Where in the pipeline those eleven act is the reference-versus-rollout split that
 Section~\ref{sec:intro} takes from \cite{zhao_dexhand_survey_2026}. A reference is a pose or a
@@ -287,8 +281,8 @@ with anything it measures on its own rollouts. Penetration is a quantity between
 needs a simulator or a mesh reconstruction, and the protocol below treats it as a simulation-only
 axis.
 
-\textbf{What would close it.} The gap is specific to learned closed-loop control rather than general,
-and it is a choice rather than a capability. What would close it is a maximum and a mean penetration
+\textbf{Reporting penetration.} The gap is specific to learned closed-loop control rather than general,
+and it is a choice rather than a capability. Evaluations should report maximum and mean penetration
 depth over the evaluation rollouts, on a dense surface sample, computed by a measure the policy never
 optimised.
 
@@ -340,7 +334,7 @@ axis is derived for the statistic that axis actually reports: a single rate take
 half-width, a matched comparison takes McNemar, a ratio takes the standard error of the log ratio,
 a correlation takes the Fisher-z interval.
 
-Appendix~\ref{app:protocol} works the derivation; what it concludes is the following, and every
+The reproducibility materials give the full derivation; its conclusions are as follows, and every
 count in Table~\ref{tab:protocol} is one of these. A single reported rate takes 100 real rollouts
 per cell, because 93 is where the worst-case Wilson half-width of \eqref{eq:wilson} falls to 10
 points and 10 points is the coarsest width at which a rate is worth printing. A comparison is a
@@ -366,70 +360,23 @@ wrong one.
   \framebox[0.95\columnwidth]{\rule{0pt}{1.4cm}}
   \end{table}}
 
-\subsection{The results matrix, and what filling it would cost}
+\subsection{Feasibility and limitations}
 \label{subsec:matrix}
 
-The rows are the 12 most-mentioned dexterous-hand policy methods in the corpus, and the rule is
-the one the table's generator implements, stated here in the same words. A candidate is a method
-row that names a hand; the hand string must not contain ``parallel'' or ``gripper''; it must carry
-at least one paradigm tag that produces a closed-loop policy and must not be a teleoperation
-system, because an interface is scored on latency and operator effort rather than on a policy's
-success rate. And its name must be at least four characters, so that a short string does not match
-everything. Candidates are then scored by the number of other corpus papers whose parsed text
-contains the name, and the top 12 by count, ties broken by key, are the rows.
-
-Two corrections changed that ranking. The match is on a whole word. Under the bare substring test
-an earlier version used, ``UniDex'' matched inside ``UniDexGrasp'' and ``UniDexGrasp++'', so
-\cite{unidex_2026}, a 2026 paper, sat sixth in a ranking over a corpus written mostly before
-it, on 34 mentions that belonged to a different work. As a whole word it has 3 and it is not in the
-table. And the interface rule is now applied to every row that carries the tag rather than only to
-rows that carry nothing else, which drops \cite{anyteleop_2023} at 34 mentions, \cite{dime_2022}
-at 28 and \cite{holo_dex_2022} at 23, along with \cite{dexpilot_2020}, which the earlier prose
-already excluded by hand.
-%% The counts themselves, generated with the table by tools/make_tex_tables.py. They used to be set
-%% under the float in six-point type; they are one sentence of the paragraph that states the rule
-%% they follow from.
-\input{tables/table8_matrix_counts}
-
-The ranking is not one quantity even so. A method's name is taken from the first line of its note,
-which yields an acronym for some works and a full title for others, and a title is matched mostly
-inside reference lists while an acronym is matched in running text. Those have different base
-rates, so an asterisk in Table~\ref{tab:matrix} marks every row matched on its full title rather
-than on a short name, and the two kinds are not comparable with each other. Mention counts are
-counts of mentions and not of use, as Appendix~\ref{app:method} records.
-
-Every cell is empty. This survey re-ran nothing, and no cell can be filled at the denominator
-Table~\ref{tab:protocol} asks for. DeXtreme \cite{dextreme_2022} comes closest and is the reason
-the claim is stated that narrowly: it reports a criterion, a trial count and an interval. Object
-orientation within 0.4 rad of target, $27.8 \pm 19.0$ average consecutive successes with the $\pm$
-a 90 percent confidence interval. On 10 trials. The method tabulation is not a counter-example
-either, though it looks like one: it carries trial-count, unseen-object, penetration and
-code-release columns for all 112 method rows, including all 12 of these. It records what each
-method reported. Table~\ref{tab:matrix} asks instead for what Table~\ref{tab:protocol} defines. A
-value with an interval, a stated denominator and a criterion written before the run. And no
-reported value meets that. The first row of Table~\ref{tab:matrix} is a worked example so that the
-format of a cell is unambiguous. Every number in it is fabricated and labelled as such.
-
-\IfFileExists{tables/table9_matrix.tex}{\input{tables/table9_matrix}}{%
-  \begin{table}[!t]\centering
-    \caption{Pending: the results matrix, generated by the table generator.}
-  \label{tab:matrix}
-  \framebox[0.95\columnwidth]{\rule{0pt}{1.4cm}}
-  \end{table}}
+The proposed protocol has not been run. In the twelve-method comparison assembled for this
+survey, no method supplied all the measurements needed for a complete protocol row. DeXtreme
+\cite{dextreme_2022}, for example, reports a success criterion and a confidence interval, but
+uses ten trials. This limits retrospective comparison; it does not imply that the reported
+experiments failed their own stated objectives.
 
 \textbf{What would have to be true.}\label{subsec:what_would_be_true}
-The bill comes first. Per policy and per task the protocol asks for 57 matched trials on the
-anchor set, which is the paired count from \S\ref{subsec:protocol}, and 100 on the unseen-object
-set, at 20 objects and 5 trials each, with robustness and plausibility absorbed by simulation. A
-two-policy comparison on three tasks is then 342 real rollouts on the matched set and 600 on the
-unseen-object set, 942 in all, and at one minute per rollout including the reset that is about 16
-hours of robot time, before failed resets, repairs and scoring. The same bill computed from the
-independent-arm count, which an earlier draft used, was 1200 rollouts and 20 hours. The pairing
-removes about a fifth of it rather than the four fifths the pair counts suggest, because a pair is
-two rollouts and only the anchor set is paired. AutoEval \cite{autoeval_2025} ran about 850
-episodes in 24 hours on a WidowX with three human interventions, and had to pause 20 minutes every
-6 hours once the motors overheated. A tendon-driven multi-finger hand is more fragile, so 16 hours
-of rollouts is most of a week of calendar time.
+The protocol is expensive. For each policy and task it calls for 57 matched anchor trials and 100
+unseen-object trials. Comparing two policies on three tasks therefore requires 942 real rollouts,
+or about 16 hours at one minute per rollout before repairs and scoring. Pairing saves roughly a
+fifth relative to an independent design because each pair still requires two rollouts. AutoEval
+\cite{autoeval_2025} completed about 850 WidowX episodes in 24 hours with three interventions and
+regular cooling pauses; a tendon-driven hand is likely to stretch the same workload across several
+days.
 
 That bill is large but not unprecedented. AutoEval \cite{autoeval_2025} records that evaluating
 OpenVLA against its baselines took more than 2500 rollouts and more than 100 hours of human labour
@@ -450,27 +397,18 @@ is withdrawn, because the released code refutes it. And the comparison would hav
 sequential, because the savings in \cite{beyond_binary_success_2026} are the only reason 100 is a
 cap rather than a cost.
 
-Four limits apply to the proposal itself. This survey re-ran no method, so every count in
-Table~\ref{tab:protocol} is derived from an interval width, a power calculation or another paper's
-measurement, and Table~\ref{tab:matrix} is empty because we filled no cell. The counts are
-worst-case at $\hat{p} = 0.5$, so a method near 90 percent needs fewer trials for the same width
-and a method near 50 percent needs all 100, and the paired count additionally rests on an assumed
-discordance of 0.3, which no paper in this corpus reports. The perturbation axes are borrowed from
-The Colosseum \cite{colosseum_2024} and SIMPLER \cite{simpler_2024}, which run parallel-jaw
-grippers on rigid objects, where SIMPLER found physical parameters moved success rates by at most
-15 percent. That is the sensitivity expected to grow with multi-finger contact, and nobody has
-measured it. The 2 mm penetration threshold is taken from \cite{toporetarget_2026} with no
-independent justification, and the captured human grasps in \cite{grab_2020} sit above it at 3.25
-mm, which makes 2 mm a simulator convention rather than a physical bound. So the three things this
-survey adds to the reference-versus-rollout axis are a count, a measurement method and a protocol
-slot for them, and a threshold is not among them. It is borrowed from one paper and reported as
-borrowed, and it will stay a convention until somebody measures penetration on rollouts across
-hands and engines and finds a value that separates behaviour a physicist would accept from
-behaviour they would not.
+The proposal has four limits. It has not been run, and its sample sizes come from power and interval
+calculations rather than dexterous-hand experiments. The worst-case calculation assumes a success
+rate of 0.5, while the paired design assumes a discordance rate of 0.3 that the literature does not
+report. Its perturbations come from parallel-jaw benchmarks \cite{colosseum_2024,simpler_2024},
+where contact is simpler. Finally, the 2 mm penetration threshold follows
+\cite{toporetarget_2026}; it is a simulator convention, not a physical limit. Captured human
+grasps in GRAB \cite{grab_2020} average 3.25 mm under the same kind of measurement. Establishing a
+meaningful threshold will require measurements across hands, engines, and accepted behaviours.
 
 \textbf{The methodology literature has no dexterous hand in it.} Seven corpus rows are evaluation
 protocols, a small denominator, and not one of them uses a dexterous hand: Badithela et al.
 \cite{suresim_2025} run a parallel-jaw gripper and the other six state no hand. Everything proposed
-above is therefore assembled from work on grippers and on whole-arm tasks. What would close that, and
-close it cheaply, is to run the Table~\ref{tab:protocol} protocol once, on one in-hand reorientation
-task with one 16-DoF hand, and release the rollouts as the first measured row of Table~\ref{tab:matrix}.
+above is therefore assembled from work on grippers and on whole-arm tasks. A modest first test would
+run the protocol in Table~\ref{tab:protocol} once, on one in-hand reorientation
+task with one 16-DoF hand, and release the rollouts and per-trial outcomes for independent analysis.

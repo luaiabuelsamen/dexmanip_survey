@@ -63,12 +63,12 @@ into a note and quoted throughout but is a book chapter rather than a work with 
 method or a result to record in a row.
 
 The reference list of the typeset edition is shorter than the corpus, and the two numbers are
-different quantities. It prints 211 entries: the 204 corpus entries that some sentence, table or
-figure of this paper cites, plus the 7 prior-work entries from outside the corpus. The other 17
+different quantities. It prints 205 entries: the 198 corpus entries that some sentence, table or
+figure of this paper cites, plus the 7 prior-work entries from outside the corpus. The other 23
 corpus entries carry a row and a note and are counted in every statistic here, but no passage in
 the paper names them, so they have nothing to be cited from and do not appear in the list. This
 edition cites by key rather than by number and prints no list, so the place to count all 221 is
-`corpus/bib.json`. A reader counting the typeset reference list should get 211, and a reader
+`corpus/bib.json`. A reader counting the typeset reference list should get 205, and a reader
 counting the corpus should get 221.
 
 ## What this method cannot do
@@ -109,7 +109,7 @@ not address penetration. It excludes the 16 nulls, which are already counted as 
 than as silence, so recovering one would not move the finding. Twenty-five of the 85, 29 percent,
 were drawn with `random.Random(20260919).sample` over the sorted population, so the draw is fixed
 and can be redrawn. Each sampled row was read again in `papers/md/`, in its OCR recovery where one
-exists, and in `code/md/` where a repository was parsed — and not in `papers/notes/`, because the
+exists, and in `code/md/` where a repository was parsed, but not in `papers/notes/`, because the
 note is the artefact under suspicion: a field is wrong exactly when the source says something the
 note did not carry. A regular expression over the whole source collected every occurrence of
 penetration, interpenetration, intersection, intersection volume, solid intersection, simulation

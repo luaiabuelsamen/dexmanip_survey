@@ -203,8 +203,8 @@ The usage number is the one to keep, and it needs its inclusion rule stated: a s
 on the hand, read by the deployed policy. Eight of 112 method rows meet it:
 \cite{anyrotate_2024,articulated_tools_inhand_2025,dexteleop0_2026,dexumi_2025,hato_visuotactile_2024,robot_synesthesia_2023,rotateit_2023}
 and \cite{rotating_without_seeing_2023}. The rule excludes \cite{penspin_2024}, whose 20 binary
-contacts are simulated on an Allegro that has no tactile hardware and whose released config sets
-\texttt{enable\_tactile: False}, and it excludes \cite{dexndm_2025} and \cite{dexplore_2025} for
+contacts are simulated on an Allegro without tactile hardware and whose released configuration
+disables tactile input; it also excludes \cite{dexndm_2025} and \cite{dexplore_2025} for
 the same reason. Sixty-three of the 112 method papers use the word tactile
 somewhere in their parsed text and 35 carry it in their structured note. Against the eight that meet
 the rule above, either number is the gap worth quoting.
@@ -288,7 +288,7 @@ hand on this corpus's evidence has two well-precedented options, an Allegro or a
 third in LEAP if twelve papers is enough. Everything else is a press release or a hand nobody has
 published on.
 
-\textbf{What would close the gap.} Nineteen of the 33 hands in
+\textbf{Model availability.} Nineteen of the 33 hands in
 Table~\ref{tab:hands-available} and Table~\ref{tab:hands-announced} appear in no method row, and 11
 of those are neither sold nor open and appear in none for that reason, so 33 is not the denominator
 for a software-lag claim: the eight hands of the paragraph above are. The rule that decides used
@@ -298,5 +298,5 @@ runs through the tooling as well as the papers. Seven of the fifteen simulator r
 first-party hand model at all, six of those hands are real, Brax's being a synthetic claw, and every
 one of the six is an Allegro or a Shadow; only four of the 33 tabulated hands appear in any engine.
 Bench2Dex \cite{bench2dex_2026} meanwhile compares 12 hands and DexVerse \cite{dexverse_2026} six
-without stating a DoF count for any. What would close it is a conformance suite for hand models: one URDF or MJCF per
+without stating a DoF count for any. A useful next step is a conformance suite for hand models: one URDF or MJCF per
 hand, with fixed joint-limit, mass and collision checks and a published pass or fail per engine.

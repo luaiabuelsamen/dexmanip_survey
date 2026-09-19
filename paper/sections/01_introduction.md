@@ -101,7 +101,7 @@ published numbers. Every accusation this survey has withdrawn, eight of them so 
 in the accused row for the same reason: the withdrawals are the evidence that the charges left
 standing were checked rather than counted.
 
-Fourteen corpus entries are themselves surveys or engine-comparison studies. Appendix D sets them
+Fourteen corpus entries are themselves surveys or engine-comparison studies. The technical supplement sets them
 on one set of columns in Table 10 and says what each covers. Four of the fourteen could not be
 obtained, or were fetched too late to read, and are entered as such. Two of the three things this
 survey adds are visible in that table as columns none of the fourteen fills. One is Table 4, which
@@ -151,6 +151,5 @@ those sections closes on the gap it owns, with the evidence and the experiment t
 Section 8 is the list of those claims in one place, one sentence each, and says what to do about
 them, addressed to someone publishing, running experiments or buying a hand. Appendix A is the
 method and says where the tabulation this survey is built on lives; Appendices B and C are the full
-hand and reward extractions; Appendix D sets this survey beside the fourteen that precede it; and
-Appendix E works the derivation behind every count in the proposed protocol.
-
+hand and reward extractions. The technical supplement sets this survey beside the fourteen that
+precede it and gives the derivation behind every count in the proposed protocol.

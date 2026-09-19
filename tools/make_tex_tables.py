@@ -991,7 +991,7 @@ def conf_sentence(rows):
                 + ("row" if len(held) == 1 else "rows") + " below high "
                 + ("is" if len(held) == 1 else "are") + " " + ", ".join(tex(h) for h in held)
                 + ", held there pending a direct read of a repository this survey has not made, "
-                  "and the reason is in the review note Appendix~\\ref{app:rewards} prints.")
+                  "and the reason is recorded in the accompanying reproducibility materials.")
     return parts + "." + tail
 
 
@@ -1039,7 +1039,7 @@ def table10():
             r"parsed copy under \path{code/md}, which is the same snapshot every other claim in "
             r"this survey about that repository is made from. The commit is the one in "
             r"\texttt{corpus/code\_manifest.json}, printed to ten characters; the rows print the "
-            r"comparison and Appendix~\ref{app:rewards} prints each row's full text, its "
+            r"comparison; the reproducibility materials retain each row's full text, its "
             r"confidence and any review note. \emph{conf.} is the row's own recorded confidence, "
             + conf_sentence(rows) + r" No cell states a cause, and none is a claim about "
             r"what the work's authors did: a reader with a browser settles every line of this "
@@ -1424,7 +1424,7 @@ def table9():
             r"outside the work's scope. Each level coarsens one sentence read from "
             r"\path{papers/notes/<key>.md}, and it is printed only while the quotation behind that "
             r"sentence is still in the note, so a glyph cannot outlive its evidence. The sentences "
-            r"themselves are Appendix~\ref{app:surveys} and "
+            r"supporting sentences are retained in the reproducibility materials and "
             r"\path{paper/tables/table10_surveys.md}. " + WORD[unobtained].capitalize() + r" of the fourteen "
             r"sources could not be obtained and " + WORD[unread] + r" is on disk and has never "
             r"been read, which is why their cells are empty; they are grouped as such rather than "

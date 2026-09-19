@@ -5,15 +5,12 @@
 %% written against either section still resolves.
 %% Converted from paper/sections/08_conclusion.md for the LaTeX edition. The markdown edition in
 %% paper/ is a separate edition of the same prose and is not written by this file.
-\section{Conclusion: the seven claims, and what to do next}
+\section{Conclusion}
 \label{sec:gaps}
 \label{sec:conclusion}
 
-The binding constraint on this field is not ideas. It is verification. Seven claims survive the
-corpus. Each is stated here in one sentence, with the section that carries its evidence and the
-experiment that would close it. Nothing in this list is argued here; the argument, the denominator
-and the prescription are in the section named, at the end of it, so that a finding and its
-consequence are read together and stated once.
+Progress in dexterous manipulation now depends as much on verification as on new methods. The
+evidence in this survey supports seven conclusions.
 
 \begin{enumerate}
 \item Nine of the 62 method rows that released parseable code state, in a named file at a named
@@ -22,7 +19,7 @@ withdrawn since the first draft. Table~\ref{tab:codegap} gives each of the nine 
 commit, a file and two values, and none of their authors was written to before this was posted:
 Section~\ref{sec:train:code} says that beside the finding, with the drafted and unsent letters in
 \path{outreach/} and the route by which a disputed case is corrected
-(Section~\ref{sec:train:code}, Appendix~\ref{app:rewards}).
+(Section~\ref{sec:train:code}).
 
 \item No closed-loop policy in the corpus reports interpenetration for the rollouts of its own
 trained policy, and every one of the eleven rows that handles penetration at all sits on the
@@ -51,9 +48,8 @@ rows that use human data never say how the human motion reached the robot hand
 (Section~\ref{sec:train:human}).
 \end{enumerate}
 
-Six of the seven are gaps in the literature. The first is a result about publishing practice, and
-the survey's own corrections to it are printed beside it in Section~\ref{sec:train:code} rather
-than held in the repository.
+Six concern gaps in the literature. The first concerns publishing practice; the corrections made
+during this review are recorded beside the result in Section~\ref{sec:train:code}.
 
 Three of those claims carry a case worth remembering. A reward table in a paper is a claim about a
 document, not about a run, and PhysHOI \cite{physhoi_2023} is the instance to keep in mind: the
@@ -75,19 +71,12 @@ of them. Every coverage statistic here counts what this survey's extraction capt
 what the literature reported. Each is a floor and not a rate, because every miss converts a
 reporting paper into a silent one.
 
-Three things to do next week, cheapest first.
-
-If you are publishing, generate the reward table from the config that trained the reported run,
-print it, and cite the commit. State the trial count, state the success predicate, and release the
-per-trial outcomes. None of that needs a GPU.
-
-If you are running experiments, measure penetration depth over your evaluation rollouts on a dense
-surface sample, and never let that measure become a reward. TopoRetarget \cite{toporetarget_2026}
-shows what the number looks like when someone takes it seriously, and what the widely used
-retargeters look like when nobody does.
-
-If you are choosing hardware, the corpus names four hands and no more. The Allegro carries 35
-method rows, the Shadow 21, the Inspire 19 and LEAP 12, and every other hand in
-Table~\ref{tab:hands-available} and Table~\ref{tab:hands-announced} carries eight rows or fewer.
-An announced hand has no URDF, no datasheet that can be checked, and no paper in this corpus that
-used it.
+Several practical changes require little additional computation. Authors can generate reward
+tables from the configurations used for the reported run, cite the exact revision, state the trial
+count and success criterion, and release per-trial outcomes. Evaluations can report penetration
+depth over policy rollouts as a diagnostic, without optimizing the policy against that measure.
+TopoRetarget \cite{toporetarget_2026} shows how informative the result can be. Hardware choices
+also deserve a broader base: the Allegro, Shadow, Inspire, and LEAP hands account for most of the
+published use in this corpus, while every other listed hand appears in eight method papers or
+fewer. Better reporting would make results easier to reproduce; broader hardware coverage would
+show which results survive a change of embodiment.

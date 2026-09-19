@@ -1,0 +1,31 @@
+%% Technical material separated from the reader-facing survey.
+%% Build main.tex first so xr-hyper can import its table and section numbers.
+\documentclass[journal]{IEEEtran}
+\input{preamble}
+\usepackage{xr-hyper}
+\input{figs/finding_numbers}
+\providecommand{\cvyes}{\textcolor{accent}{$\checkmark$}}
+\providecommand{\cvpart}{\textcolor{accent!55!black}{$\sim$}}
+\providecommand{\cvno}{\textcolor{black!45}{$\times$}}
+\externaldocument{main}
+
+\begin{document}
+
+\title{Learning Dexterous Manipulation:\\Technical Supplement}
+\author{Luai Abuelsamen}
+\maketitle
+
+This supplement preserves the detailed evidence behind three compact parts of the survey: the
+paper--code comparisons, the coding of earlier surveys, and the statistical calculations behind
+the proposed evaluation protocol. It is separated because these records support verification but
+do not form part of the paper's narrative.
+
+\appendices
+\input{sections/appendix_c_rewards}
+\input{sections/appendix_d_surveys}
+\input{sections/appendix_e_protocol}
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\end{document}

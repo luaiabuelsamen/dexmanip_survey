@@ -1,10 +1,9 @@
 # The LaTeX edition
 
-This is the survey formatted as a two-column IEEEtran paper, the shape robotics surveys take when
-they are posted to arXiv and submitted to a journal. It is a separate edition from `paper/`,
-which holds the markdown draft and its PDF. The markdown edition is kept because its numbers were
-checked by eight reviewers; this edition restates the same work and can drift from it, so
-`paper/` remains the reference until this one has been checked the same way.
+This is the publication edition of the survey, formatted as a two-column IEEEtran paper. The
+Markdown edition in `paper/` remains useful for reading and auditing the corpus, but `main.tex` is
+the authoritative submission source. Numerical claims in both editions are checked from the same
+structured records by `tools/check_numbers.py`.
 
 ## Build
 
@@ -12,9 +11,14 @@ checked by eight reviewers; this edition restates the same work and can drift fr
 python tools/make_bib.py --probe   # refs.bib from corpus/bib.json, and its compile probe
 tools/build_tex.sh probe_bib      # check the bibliography alone: bibtex must be silent
 tools/build_tex.sh                # pdflatex, bibtex, pdflatex twice; errors and overfull boxes
+tools/build_tex.sh supplement     # detailed evidence and statistical derivations
 ```
 
 `tools/build_tex.sh` takes an optional document name and defaults to `main`.
+
+The main article keeps the argument and the tables needed to follow it. `supplement.pdf` carries
+the full paper--code discrepancy catalogue, the prose audit behind the survey-comparison table,
+and the statistical derivations behind the proposed evaluation protocol.
 
 Everything the build needs is in `tex/`. `sty/` carries `IEEEtran.cls` and `IEEEtran.bst` from
 CTAN, because the class is not installed system-wide here.

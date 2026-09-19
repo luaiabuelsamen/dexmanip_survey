@@ -36,7 +36,7 @@ def cell(v):
         return "yes" if v else "no"
     if isinstance(v, list):
         v = ", ".join(str(x) for x in v)
-    return str(v).replace("|", "/").replace("\n", " ").strip()
+    return str(v).replace("|", "/").replace("\n", " ").replace(" — ", "; ").strip()
 
 
 def table(rows, cols, headers, note):

@@ -4,8 +4,10 @@ A literature review of learning-based dexterous manipulation, single-hand and bi
 simulators, hands and their makers including announced ones, how policies are trained, how they
 are evaluated, and where the gaps are. The review is written only from material parsed onto disk.
 
-The survey is `paper/survey.md`. It is assembled by `tools/assemble.py` from `paper/sections/`
-with the generated tables and figures inlined, so it should be regenerated rather than edited.
+The submission manuscript is `tex/main.tex`, with the compiled article at `tex/main.pdf` and its
+technical supplement at `tex/supplement.pdf`. The Markdown edition in `paper/` is a readable
+research edition assembled from its section sources; it is not the submission source. Regenerate
+it with `tools/assemble.py` rather than editing `paper/survey.md` directly.
 
 ## What it found
 
