@@ -796,10 +796,11 @@ def main():
         bad += 1
         print(f"  POSTING  {b}")
     if not bl:
+        words = len(re.sub(r"(?m)^##.*$", "", (R / "paper/ABSTRACT.md").read_text()).split())
         print(f"  correction route on the page in both editions, running head not a draft, "
-              f"abstract scoped and disclosed in {len((R / 'paper/ABSTRACT.md').read_text().split())} "
-              f"words, {FACTS['contradictions']} rows printing their recorded confidence, "
-              f"{FACTS['bib_printed']} reference entries against {FACTS['bib_entries']} corpus ones")
+              f"abstract scoped and disclosed in {words} words, {FACTS['contradictions']} rows "
+              f"printing their recorded confidence, {FACTS['bib_printed']} reference entries "
+              f"against {FACTS['bib_entries']} corpus ones")
 
     print("\n=== claims in the prose ===")
     matched_any = set()
