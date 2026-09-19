@@ -11,6 +11,7 @@
 % ---------------------------------------------------------------------------
 \makeatletter
 \@ifundefined{plateCageSimAndReal}{\IfFileExists{figs/plates.tex}{\input{figs/plates}}{}}{}
+\@ifundefined{fnLoaded}{\IfFileExists{figs/finding_numbers.tex}{\input{figs/finding_numbers}}{}}{}
 \makeatother
 
 \subsection{What the field reports, and why the numbers do not compare}
@@ -93,12 +94,13 @@ Seven further counts could not be assigned a basis at all.
   \centering
   \IfFileExists{figs/fig_trials.tex}{\resizebox{\columnwidth}{!}{\input{figs/fig_trials}}}{%
     \framebox[0.95\columnwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_trials.tex pending}}}
-  \caption{Where a denominator is stated it is small. The 39 method rows whose stated real-trial
-  count is per cell, meaning per task, per condition or per object, binned by fives and labelled on
-  each bin's upper edge, with the median of 15 marked. The modal evaluation is ten trials in a cell,
-  in 16 of the 39. The 24 rows that state a grand total over every cell are a different quantity,
-  and pooling the two is the error this section withdrew: they are counted beneath the axis rather
-  than drawn in the histogram.}
+  \caption{Where a denominator is stated it is small. The \fnTrials{} method rows whose stated
+  real-trial count is per cell, meaning per task, per condition or per object, binned by fives and
+  labelled on each bin's upper edge, with the median of \fnTrialsMedian{} marked. The modal
+  evaluation is \fnTrialsMode{} trials in a cell, in \fnTrialsModeN{} of the \fnTrials{}. The
+  \fnTotals{} rows that state a grand total over every cell are a different quantity, and pooling
+  the two is the error this section withdrew: they are counted beneath the axis rather than drawn in
+  the histogram.}
   \label{fig:trials}
 \end{figure}
 
@@ -179,11 +181,11 @@ simulation results alone''.
 \textbf{Reproducibility.} 62 rows released code that could be parsed against the paper, and 38 of
 the 112 rows record a disagreement of some kind between the paper and that code. All 38 released
 code, so the raw rate among code-releasing rows is 61 percent. That raw rate is not the finding,
-because the 38 are not one thing. Section~VIII-A classifies them: 10 contradictions, 13 limitations
-of this survey's own parsing, 8 components never released, 4 version skews and 3 inconsistencies
+because the 38 are not one thing. Section~VIII-A classifies them: 9 contradictions, 13 limitations
+of this survey's own parsing, 8 components never released, 4 version skews and 4 inconsistencies
 internal to a paper. Only the contradictions are a finding about the work rather than about this
-survey, so 10 of 62 code-releasing rows, which is 16 percent, is the figure this section and
-Table~\ref{tab:protocol} use. PhysHOI \cite{physhoi_2023} is the clearest of the 10. It lists a
+survey, so 9 of 62 code-releasing rows, which is 15 percent, is the figure this section and
+Table~\ref{tab:protocol} use. PhysHOI \cite{physhoi_2023} is the clearest of the 9. It lists a
 non-zero object-orientation weight for GRAB in its Table 4, and its released
 \texttt{compute\_\allowbreak humanoid\_\allowbreak reward} hard-sets that orientation error to zero,
 so the reward that produced the published numbers tracked the object in position only.
@@ -200,13 +202,14 @@ so the reward that produced the published numbers tracked the object in position
   \IfFileExists{figs/fig_penetration.tex}{%
     \resizebox{\columnwidth}{!}{\input{figs/fig_penetration}}}{%
     \framebox[0.95\columnwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_penetration.tex pending}}}
-  \caption{The quantity most specific to a hand is the one nobody records. Each bar is drawn
-  against all 112 method rows, the light track behind it. Of the 96 rows whose note settles the
-  question, 11 address interpenetration in any form, and four of those are closed-loop policies:
-  the other seven are grasp synthesisers, trajectory optimisers or a contact model, which score a
-  configuration rather than a controller. Not one of the 11 reports a penetration number for the
-  rollouts of its own trained policy, which is the last row and the point of the figure. Every one
-  of them sits on the reference side of the reference-versus-rollout split.}
+  \caption{The quantity most specific to a hand is the one closed-loop policies do not record. Each bar is drawn
+  against all \fnRows{} method rows, the light track behind it. Of the \fnPenSettled{} rows whose
+  note settles the question, \fnPenHandled{} address interpenetration in any form, and
+  \fnPenClosed{} of those are closed-loop policies: the other \fnPenOther{} are grasp synthesisers,
+  trajectory optimisers or a contact model, which score a configuration rather than a controller.
+  Of those \fnPenHandled{}, \fnPenRollout{} report a penetration number for the rollouts of their
+  own trained policy, which is the last row and the point of the figure: every one of them sits on
+  the reference side of the reference-versus-rollout split.}
   \label{fig:penetration}
 \end{figure}
 
@@ -215,12 +218,24 @@ constrain it. The denominator is 96, not 112, because the \texttt{penetration} f
 rows, and a null there means the note did not settle the question, not that the paper ignored
 penetration. Eleven of 96 is 11 percent.
 
+That eleven is not a claim that penetration goes unmeasured in general, and it would be wrong read
+that way. Outside closed-loop control the quantity is a standard comparative column, and has been for
+years in grasp synthesis and in hand-object reconstruction: OakInk \cite{oakink_2022} tabulates
+penetration depth, solid intersection volume and simulation displacement across methods, and inside
+this corpus BiDexGrasp \cite{bidexgrasp_2026} prints a penetration depth beside a prior method's,
+BimanGrasp \cite{bimangrasp_2024} fails any grasp that exceeds 1.5 mm of total penetration, and
+TopoRetarget \cite{toporetarget_2026} reports a maximum penetration and a share of frames past 2 mm
+against a baseline retargeter. The finding is narrower than the field and concerns learned
+closed-loop control: all eleven score a pose or a reference trajectory, four of them are closed-loop
+policies, and we found none that reports the measurement for rollouts of its own trained policy.
+
 Where in the pipeline those eleven act is the reference-versus-rollout split that
 Section~\ref{sec:intro} takes from \cite{zhao_dexhand_survey_2026}. A reference is a pose or a
 trajectory scored before execution, and a rollout is what the trained policy actually did. What this
 section supplies on that axis is a measurement method and a count, and it does not supply a
-threshold. The count is the eleven of 96 above, with four closed-loop policies inside it and none
-reporting a number for its own rollouts, which is \figurename~\ref{fig:penetration}. The method is the plausibility row of
+threshold. The count is the eleven of 96 above, with four closed-loop policies inside it and none we
+found reporting a number for its own rollouts, which is \figurename~\ref{fig:penetration}. The method is
+the plausibility row of
 Table~\ref{tab:protocol}: maximum and mean penetration depth over the evaluation rollouts, on a
 dense surface sample, computed by code that never entered the reward or the termination rule. The
 threshold is borrowed, and Section~\ref{subsec:what_would_be_true} says from where and why it does

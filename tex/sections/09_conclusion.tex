@@ -5,18 +5,24 @@
 \label{sec:conclusion}
 
 The binding constraint on this field is not ideas. It is verification. Sixty-two method papers
-released code that could be read against the paper, 38 of those record a discrepancy, and ten are
+released code that could be read against the paper, 38 of those record a discrepancy, and nine are
 contradictions where the shipped code states a different objective from the published one. The first
-count was sixteen, and an adversarial re-reading withdrew seven accusations, each withdrawal
-recorded in the row beside the charge. Ten is a floor, because forty-six method rows released
-nothing to check. A reward table in a paper is a claim about a document, not about a run. PhysHOI
+count was sixteen. An adversarial re-reading withdrew seven accusations, and an eighth fell later
+still: writing to OmniH2O's \cite{omnih2o_2024} authors sent someone back to its evidence, and the
+reward-weight discrepancy it rested on turned out to be a typo signature in the paper's own table,
+not a different trained objective. Each withdrawal is recorded in the row beside the charge. Nine
+is a floor, because forty-six method rows released nothing to check. A reward table in a paper is a
+claim about a document, not about a run. PhysHOI
 \cite{physhoi_2023} is the case to remember, because the term its table weights at 0.1 is set to
 zero in the code, and its own success criterion could not have detected that.
 
-The second finding is that the quantity most specific to dexterous manipulation is the one nobody
-records. Contact is what separates a hand from a gripper. Eleven of the 96 method rows whose notes
-settle the question address interpenetration at all, only four inside a closed-loop policy, and
-not one reports a penetration number for its own policy's rollouts. The obstacle is not the
+The second finding is that the quantity most specific to dexterous manipulation is the one
+closed-loop policies do not record. Contact is what separates a hand from a gripper. Eleven of the 96
+method rows whose notes settle the question address interpenetration at all, only four inside a
+closed-loop policy, and we found not one that reports a penetration number for its own policy's
+rollouts. Grasp synthesis and hand-object reconstruction have reported penetration comparatively for
+years, so what is missing is not the measure but the measurement of a trained policy's own
+behaviour. The obstacle is not the
 engines. IsaacGymEnvs ships a task that computes a per-environment maximum interpenetration depth
 against meshes and gates the policy update on a 1 mm threshold, and Tactile Genesis
 \cite{tactile_genesis_2026} offers

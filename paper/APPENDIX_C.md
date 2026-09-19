@@ -42,7 +42,7 @@ Table 5 marks nine recurring term families across the in-hand reorientation meth
 | `humanplus_2024` | 2024 | RL, BC | 8 |   |   |   | yes | parse-limitation | medium |
 | `objdex_2024` | 2024 | BC, RL, distillation | 3 | rotation, translation, joint angle |   |   | no |   |   |
 | `omnigrasp_2024` | 2024 | RL, distillation | 3 | r_approach, r_pre-grasp, r_obj |   |   | yes | parse-limitation | medium |
-| `omnih2o_2024` | 2024 | RL, distillation | 24 |   |   |   | yes | contradiction | medium |
+| `omnih2o_2024` | 2024 | RL, distillation | 24 |   |   |   | yes | internal-inconsistency | medium |
 | `open_television_2024` | 2024 | teleop-system, BC |   |   |   |   | yes | code-absent | low |
 | `penspin_2024` | 2024 | RL, distillation | 7 |   | Method, paper Table 4 against penspin/tasks/allegro_hand_hora.py and configs/task/AllegroHandHora.yaml | yes | yes | contradiction | medium |
 | `pi0_2024` | 2024 | VLA, flow |   |   |   |   | yes | version-skew | high |
@@ -90,7 +90,7 @@ Table 5 marks nine recurring term families across the in-hand reorientation meth
 
 Each entry below is the disagreement text stored in the row, unedited. The class is what Sec. 5.8 and Sec. 8.1 count. `contradiction` means the paper states one value and the shipped code demonstrably states another. `parse-limitation` means this survey's own parse could not settle it and the accusation is withdrawn. `code-absent` means the described component is not in the released repository. `version-skew` means the repository is a later generation than the paper. `internal-inconsistency` means the paper disagrees with itself and no code is implicated.
 
-**contradiction, 10 rows.**
+**contradiction, 9 rows.**
 
 - `pddm_2019` (high). Table 2 states obs-dim 46 for In-hand Reorientation while the released cube_env.py code sums to 39; the Baoding reward code includes an extra -10*wrist_too_high term absent from Table 2's printed formula.
 - `dexpoint_2022` (high). The released code's reward adds several terms absent from the paper's four-term Eq. 5 (a lift-threshold bonus, a target-distance term, a rotation bonus, and an IK controller-tracking penalty) and reshapes the reach/lift terms into inverse-distance and clipped forms rather than the paper's plain distance/height-difference formulas.
@@ -100,16 +100,16 @@ Each entry below is the disagreement text stored in the row, unedited. The class
   Review: R3 adversarial review: the disabled-randomisation half is withdrawn, since the note finds it consistent with the paper; the zeroed reward term stands
 - `physhoi_2023` (high). The released code hardcodes the body position-velocity error and the object rotation/rotation-velocity errors to zero in compute_humanoid_reward, so despite Table 4 listing nonzero λ^or=0.1/λ^orv=0.01 weights for GRAB, the trained reward never actually tracks object orientation (position-only in practice).
 - `unidexgrasp_2023` (high). The paper describes a four-term weighted reward (r_goal + r_reach + r_lift + r_move via Table 7's omega weights) but the released compute_hand_reward implements a different threshold-gated torch.where cascade with distinct hardcoded coefficients that do not map one-to-one onto the paper's weights.
-- `omnih2o_2024` (medium). stumble weight -0.00125 (paper) vs -1250 (code); max-feet-height sign/magnitude differ (+1000 paper vs -2500 code, a penalty not a bonus); paper's exp(-c*//.//) form vs code's exp(-err^2/sigma); curriculum level-down threshold 40 (paper) vs 50 (code)
-  Review: R3 adversarial review: plausible alternative reading; held at medium confidence pending a direct code read
-- `penspin_2024` (medium). The released code disables the paper's tactile observation channel and zeroes the described disturbance-force domain randomization, and the code's reward scale-key names (e.g. rotate_reward_scale, pencil_z_dist_penalty_scale) do not 1:1 name-match the paper's Table 4 weight list, though matched values agree.
-  Review: R3 adversarial review: plausible alternative reading; held at medium confidence pending a direct code read
+- `penspin_2024` (medium). The appendix states a randomised disturbance force and the released task config sets its scale to zero. A second half of the original charge, that the released code disables the paper's tactile observation channel, is withdrawn: the config read has 96 observation dimensions and `enable_tactile: False`, consistent with the proprioception-only student policy rather than the tactile-and-point-cloud oracle, and the paper never claims the student has tactile input. The code's reward scale-key names (e.g. rotate_reward_scale, pencil_z_dist_penalty_scale) also do not 1:1 name-match the paper's Table 4 weight list, though matched values agree.
+  Review: Narrowed before author contact. The tactile-channel half is withdrawn as a plausible reading of which pipeline stage the config belongs to; the disturbance-force half stands. Held at medium confidence pending a direct code read.
 - `pianomime_2024` (high). Paper's Table 3 states 2 weighted reward terms (Key Press 2/3, Mimic 1/3), but the released code sums roughly 5 unweighted terms (key press doubled, sustain, energy and fingering hardcoded to return 0, forearm-collision) plus a separately-added mimic wrapper term.
 
-**internal-inconsistency, 3 rows.**
+**internal-inconsistency, 4 rows.**
 
 - `aloha_act_2023` (high). Algorithm 1 pseudocode states L_reconst = MSE, but Sec.IV.C's prose explicitly states L1 loss is used instead; the algorithm box and the implementation text disagree; code/md captures only function signatures, not bodies, for policy.py's loss implementation
 - `dp3_2024` (medium). the paper's prose states the network predicts the noise added to the data, but the shipped default config trains with prediction_type: sample (predicting the denoised action a^0 directly), not epsilon; the paper only qualifies this later in the same section (Fig. 7 ablates both).
+- `omnih2o_2024` (medium). stumble weight -0.00125 (paper) vs -1250 (code); max-feet-height sign/magnitude differ (+1000 paper vs -2500 code, a penalty not a bonus); paper's exp(-c*//.//) form vs code's exp(-err^2/sigma); curriculum level-down threshold 40 (paper) vs 50 (code).
+  Review: Withdrawn as a contradiction before author contact. Four of the five weight comparisons match the paper's table to the digit once a systematic x1.25 curriculum factor is accounted for, and only the stumble weight differs, by a factor of about a million, which is a typo signature in the paper's own table rather than evidence of a different trained objective. The hands in this work are also driven open-loop from VR pose, outside the policy and outside the reward, making it a poor fit for a dexterous-manipulation reward census regardless.
 - `dexmachina_2025` (low). paper describes a plain weighted sum lambda_task*r_task + lambda_imi*r_imi + lambda_bc*r_bc + lambda_con*r_con with unspecified weights; code implements a multiplicative task term with per-component beta decay, an unmentioned 0.1 force-penalty term, and curriculum-driven decay of auxiliary weights not described as such in the paper
   Review: R3 adversarial review: the multiplicative form credited to the code is printed in the paper itself
 

@@ -6,19 +6,38 @@ This is a result rather than a gap, and a result about publishing practice in ro
 dexterous corpus is its sample, not its subject.
 
 Sixty-two method rows released code that could be parsed against the paper, and 38 carry
-a recorded discrepancy. The classification is the finding: ten contradictions, where the paper
+a recorded discrepancy. The classification is the finding: nine contradictions, where the paper
 states one value and the shipped code demonstrably states another; thirteen limits of this
 survey's own parse, which captured signatures or a truncated body rather than the component; eight
-cases where the code was never released; four version skew; three inconsistencies inside a paper
-with no code involved. Ten is the number to quote, eight at high confidence, with `penspin_2024`
-and `omnih2o_2024` held at medium against innocent readings a direct code read would settle.
+cases where the code was never released; four version skew; four inconsistencies inside a paper
+with no code involved. Nine is the number to quote, eight at high confidence, with `penspin_2024`
+held at medium against an innocent reading a direct code read would settle.
 
-The first count was sixteen. An adversarial re-reading withdrew seven accusations. `maniptrans_2025`, `eureka_2023`, `open_television_2024`, `dexmachina_2025`, `artigrasp_2023`,
+The first count was sixteen. An adversarial re-reading withdrew seven accusations:
+`maniptrans_2025`, `eureka_2023`, `open_television_2024`, `dexmachina_2025`, `artigrasp_2023`,
 `graspxl_2024`, and the domain-randomisation half of the charge against `dexpbt_2023`. Two
 refuted by the accused repository's own README, two resting on reward code never in the parse, one
 charging the code with structure the paper prints, one against a paper with no reward function.
-Each is recorded in its row in a `mismatch_review` field: a survey that names people should carry
-its retractions beside its accusations.
+That left ten, and ten held until the letters to the authors were drafted.
+
+Writing to `omnih2o_2024` meant reading its accusation again before sending it, and reading it
+again is what broke it. Four of its five reward-weight comparisons match the paper's own table to
+the digit once a systematic ×1.25 curriculum factor is applied, and only the stumble weight
+differs, by a factor of about a million, which reads as a typo signature in the paper's own table,
+not a policy trained on a different objective. The work's hands are also driven open-loop from a VR pose,
+outside the policy and outside the reward, which made it a poor fit for a reward census in a
+dexterous-manipulation survey regardless of the weight. The charge is withdrawn and the row moves
+to an internal inconsistency, which is where the count above sits it. **The survey has now
+withdrawn eight accusations in total: seven of them under adversarial review, and the eighth at
+the point of writing to the authors, because someone sat down to write the letter and looked at
+the evidence again.** `penspin_2024` is narrowed rather than withdrawn, the same way the charge
+against `dexpbt_2023` was narrowed above: the half of it that said the released code disables the
+paper's tactile channel is dropped, because the configuration read has proprioception-only
+observation dimensions consistent with the student policy rather than the oracle, and the paper
+never claims the student has tactile input; the half that stands is that the appendix states a
+randomised disturbance force and the shipped configuration sets its scale to zero. Each retraction
+and narrowing is recorded in its row's `mismatch_review` field: a survey that names people should
+carry its corrections beside its accusations, in public and not just in the corpus.
 
 `physhoi_2023` survived every attempt to break it. Table 4 weights object rotation at 0.1 for
 GRAB, and the released `compute_humanoid_reward` sets the object rotation and rotation-velocity
@@ -28,7 +47,7 @@ position-only success criterion could not have caught that. `robot_synesthesia_2
 end, prints its six weights as symbols and released nothing, so that objective exists in no
 machine-readable form. `hora_2022` alone discloses its own gap, in its README.
 
-Ten is a floor, since forty-six method rows released nothing to check and four more are
+Nine is a floor, since forty-six method rows released nothing to check and four more are
 unsettled. What would close it: publish
 the reward table generated from the released config at a named commit, so a reviewer diffs two
 artefacts instead of reading two documents.

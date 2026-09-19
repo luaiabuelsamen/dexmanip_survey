@@ -23,7 +23,7 @@ simulators, 15 datasets, 14 benchmarks, 14 surveys, 8 tactile sensors and 7 eval
 
 Three findings are measured rather than asserted. Papers disagree with their own released code.
 Sixty-two method rows released code that could be read against the paper, 38 of those record a
-discrepancy, and ten are contradictions where the shipped code states a different objective from
+discrepancy, and nine are contradictions where the shipped code states a different objective from
 the published one. `physhoi_2023` is the sharpest case. Its `compute_humanoid_reward` sets the
 object rotation errors to zero while the reward table in the paper weights them at 0.1 and 0.01,
 and its position-only success criterion could not have detected that. Nobody measures the quantity
@@ -66,7 +66,7 @@ with reinforcement learning and 36 run in Isaac Gym, against 6 on its successor 
 
 Three things this survey measured are worth stating before the reader commits to 27,000 words. The
 first is that papers disagree with their own released code. Sixty-two of the 112 method rows
-released code that could be read against the paper, 38 of those record a discrepancy, and ten are
+released code that could be read against the paper, 38 of those record a discrepancy, and nine are
 contradictions where the shipped code states a different objective from the published one. The
 sharpest case is `physhoi_2023`. Its `compute_humanoid_reward` hardcodes the object rotation and
 rotation-velocity errors to zero, with the real computation commented out beside them, while the
@@ -1342,19 +1342,20 @@ a dataset rather than a gradient.
 
 Thirty-eight of the 112 method rows record a discrepancy between a paper and the code it released,
 and all 38 released code, so they sit inside the 62 rows that released anything. They are not one
-kind of thing. Ten are contradictions, where paper and code state different values or different
+kind of thing. Nine are contradictions, where paper and code state different values or different
 terms. Thirteen are limits of this survey's own parse, where the body or config that would settle
 the question was never recovered and the row says so. Eight released code without the described
-component in it, four are version skew against a later repository, and three are a paper
+component in it, four are version skew against a later repository, and four are a paper
 disagreeing with itself. The fourth version skew is `groot_n16_2025`, which ships a main branch one
 generation later than the checkpoint its page describes.
 
-Ten is the number to quote, eight at high confidence and two, `penspin_2024` and `omnih2o_2024`,
-held at medium pending a direct read of the code. Ten of 62 is 16 percent, bounded on both sides:
+Nine is the number to quote, eight at high confidence and one, `penspin_2024`, held at medium
+pending a direct read of the code. Nine of 62 is 15 percent, bounded on both sides:
 a floor, because the census covers method rows only and `robopianist_2023`, whose row is a
 benchmark, sums five reward terms against the three its Table 2 documents; a ceiling, because
-seven accusations an earlier draft of this section made were withdrawn under adversarial review,
-each with its reason recorded in the accused row's `mismatch_review` field. Among the 21
+eight accusations an earlier draft of this section made were withdrawn, seven of them under
+adversarial review and an eighth, `omnih2o_2024`, once writing to its authors sent someone back to
+the evidence, each with its reason recorded in the accused row's `mismatch_review` field. Among the 21
 reorientation methods of Table 5, seven released a repository: four disagree with their paper, one
 (`dreureka_2024`) ships no cube-rotation environment at all, one (`hora_2022`) is a later
 generation its own README flags, and one (`eureka_2023`) was a default-value question the same
@@ -1377,9 +1378,12 @@ by zero with the comment "currently disabled", a term the paper never claims, an
 weights are present at their stated values. `pianomime_2024`'s Table 3 states two weighted terms
 while its environment sums roughly five unweighted ones, two of them inherited stubs returning
 zero and a third, forearm collision, the paper never lists. `penspin_2024` ships `forceScale: 0.0`
-against the disturbance force in its appendix, and its 96-dimensional observation carries no
-tactile channel, which is also what its proprioception-only student should carry, hence the
-medium confidence.
+against the disturbance force its appendix describes, which is the charge that survives. A second
+half of the original charge, that the same 96-dimensional observation disables the paper's tactile
+channel, is withdrawn: those dimensions are proprioception-only, consistent with the student
+policy the released config runs rather than the tactile-and-point-cloud oracle, and the paper never
+claims the student has tactile input. The disturbance-force charge alone is why the row still
+reads medium rather than high.
 
 Weights drift. `dextreme_2022` states an action-delta penalty of −0.25 in Table 2 and ships −0.2
 and −0.01 in its two DR yamls, neither matching. `visual_dexterity_2022`'s Eq. 8 penultimate-joint
@@ -1868,13 +1872,13 @@ statistical inferences about real-world outcomes from simulation results alone".
 **Reproducibility.** 62 rows released code that could be parsed against the paper, and 38 of the
 112 rows record a disagreement of some kind between the paper and that code. All 38 released
 code, so the raw rate among code-releasing rows is 61 percent. That raw rate is not
-the finding, because the 38 are not one thing. Section 8.1 classifies them: 10
+the finding, because the 38 are not one thing. Section 8.1 classifies them: 9
 contradictions, 13 limitations of this survey's own parsing, 8
-components never released, 4 version skews and 3
+components never released, 4 version skews and 4
 inconsistencies internal to a paper. Only the contradictions are a finding about the work rather
-than about this survey, so 10 of 62 code-releasing rows, which is
-16 percent, is the figure this section and Table 8 use.
-`physhoi_2023` is the clearest of the 10. It lists a non-zero object-orientation
+than about this survey, so 9 of 62 code-releasing rows, which is
+15 percent, is the figure this section and Table 8 use.
+`physhoi_2023` is the clearest of the 9. It lists a non-zero object-orientation
 weight for GRAB in Table 4, and its released `compute_humanoid_reward` hard-sets that orientation
 error to zero, so the reward that produced the published numbers tracked the object in position
 only.
@@ -2185,19 +2189,38 @@ This is a result rather than a gap, and a result about publishing practice in ro
 dexterous corpus is its sample, not its subject.
 
 Sixty-two method rows released code that could be parsed against the paper, and 38 carry
-a recorded discrepancy. The classification is the finding: ten contradictions, where the paper
+a recorded discrepancy. The classification is the finding: nine contradictions, where the paper
 states one value and the shipped code demonstrably states another; thirteen limits of this
 survey's own parse, which captured signatures or a truncated body rather than the component; eight
-cases where the code was never released; four version skew; three inconsistencies inside a paper
-with no code involved. Ten is the number to quote, eight at high confidence, with `penspin_2024`
-and `omnih2o_2024` held at medium against innocent readings a direct code read would settle.
+cases where the code was never released; four version skew; four inconsistencies inside a paper
+with no code involved. Nine is the number to quote, eight at high confidence, with `penspin_2024`
+held at medium against an innocent reading a direct code read would settle.
 
-The first count was sixteen. An adversarial re-reading withdrew seven accusations. `maniptrans_2025`, `eureka_2023`, `open_television_2024`, `dexmachina_2025`, `artigrasp_2023`,
+The first count was sixteen. An adversarial re-reading withdrew seven accusations:
+`maniptrans_2025`, `eureka_2023`, `open_television_2024`, `dexmachina_2025`, `artigrasp_2023`,
 `graspxl_2024`, and the domain-randomisation half of the charge against `dexpbt_2023`. Two
 refuted by the accused repository's own README, two resting on reward code never in the parse, one
 charging the code with structure the paper prints, one against a paper with no reward function.
-Each is recorded in its row in a `mismatch_review` field: a survey that names people should carry
-its retractions beside its accusations.
+That left ten, and ten held until the letters to the authors were drafted.
+
+Writing to `omnih2o_2024` meant reading its accusation again before sending it, and reading it
+again is what broke it. Four of its five reward-weight comparisons match the paper's own table to
+the digit once a systematic ×1.25 curriculum factor is applied, and only the stumble weight
+differs, by a factor of about a million, which reads as a typo signature in the paper's own table,
+not a policy trained on a different objective. The work's hands are also driven open-loop from a VR pose,
+outside the policy and outside the reward, which made it a poor fit for a reward census in a
+dexterous-manipulation survey regardless of the weight. The charge is withdrawn and the row moves
+to an internal inconsistency, which is where the count above sits it. **The survey has now
+withdrawn eight accusations in total: seven of them under adversarial review, and the eighth at
+the point of writing to the authors, because someone sat down to write the letter and looked at
+the evidence again.** `penspin_2024` is narrowed rather than withdrawn, the same way the charge
+against `dexpbt_2023` was narrowed above: the half of it that said the released code disables the
+paper's tactile channel is dropped, because the configuration read has proprioception-only
+observation dimensions consistent with the student policy rather than the oracle, and the paper
+never claims the student has tactile input; the half that stands is that the appendix states a
+randomised disturbance force and the shipped configuration sets its scale to zero. Each retraction
+and narrowing is recorded in its row's `mismatch_review` field: a survey that names people should
+carry its corrections beside its accusations, in public and not just in the corpus.
 
 `physhoi_2023` survived every attempt to break it. Table 4 weights object rotation at 0.1 for
 GRAB, and the released `compute_humanoid_reward` sets the object rotation and rotation-velocity
@@ -2207,7 +2230,7 @@ position-only success criterion could not have caught that. `robot_synesthesia_2
 end, prints its six weights as symbols and released nothing, so that objective exists in no
 machine-readable form. `hora_2022` alone discloses its own gap, in its README.
 
-Ten is a floor, since forty-six method rows released nothing to check and four more are
+Nine is a floor, since forty-six method rows released nothing to check and four more are
 unsettled. What would close it: publish
 the reward table generated from the released config at a named commit, so a reviewer diffs two
 artefacts instead of reading two documents.
@@ -2286,11 +2309,13 @@ contact alignment, maximum penetration and share of frames past 2 mm, per hand a
 # 9. Conclusion
 
 The binding constraint on this field is not ideas. It is verification. Sixty-two method papers
-released code that could be read against the paper, 38 of those record a discrepancy, and ten are
+released code that could be read against the paper, 38 of those record a discrepancy, and nine are
 contradictions where the shipped code states a different objective from the published one. The
-first count was sixteen, and an adversarial re-reading withdrew seven accusations, each withdrawal
-recorded in the row beside the charge. Ten is a floor, because forty-six method rows released
-nothing to check. A reward table in a paper is a claim about a document, not about a run.
+first count was sixteen. An adversarial re-reading withdrew seven accusations, and an eighth was
+withdrawn later still, when writing to `omnih2o_2024`'s authors sent someone back to its evidence
+and the reward-weight discrepancy it had rested on turned out to be a typo signature in the
+paper's own table, not a different trained objective. Each withdrawal is recorded in the row
+beside the charge. Nine is a floor, because forty-six method rows released nothing to check. A reward table in a paper is a claim about a document, not about a run.
 `physhoi_2023` is the case to remember, because the term its table weights at 0.1 is set to zero
 in the code, and its own success criterion could not have detected that.
 
@@ -2551,7 +2576,7 @@ Table 5 marks nine recurring term families across the in-hand reorientation meth
 | `humanplus_2024` | 2024 | RL, BC | 8 |   |   |   | yes | parse-limitation | medium |
 | `objdex_2024` | 2024 | BC, RL, distillation | 3 | rotation, translation, joint angle |   |   | no |   |   |
 | `omnigrasp_2024` | 2024 | RL, distillation | 3 | r_approach, r_pre-grasp, r_obj |   |   | yes | parse-limitation | medium |
-| `omnih2o_2024` | 2024 | RL, distillation | 24 |   |   |   | yes | contradiction | medium |
+| `omnih2o_2024` | 2024 | RL, distillation | 24 |   |   |   | yes | internal-inconsistency | medium |
 | `open_television_2024` | 2024 | teleop-system, BC |   |   |   |   | yes | code-absent | low |
 | `penspin_2024` | 2024 | RL, distillation | 7 |   | Method, paper Table 4 against penspin/tasks/allegro_hand_hora.py and configs/task/AllegroHandHora.yaml | yes | yes | contradiction | medium |
 | `pi0_2024` | 2024 | VLA, flow |   |   |   |   | yes | version-skew | high |
@@ -2599,7 +2624,7 @@ Table 5 marks nine recurring term families across the in-hand reorientation meth
 
 Each entry below is the disagreement text stored in the row, unedited. The class is what Sec. 5.8 and Sec. 8.1 count. `contradiction` means the paper states one value and the shipped code demonstrably states another. `parse-limitation` means this survey's own parse could not settle it and the accusation is withdrawn. `code-absent` means the described component is not in the released repository. `version-skew` means the repository is a later generation than the paper. `internal-inconsistency` means the paper disagrees with itself and no code is implicated.
 
-**contradiction, 10 rows.**
+**contradiction, 9 rows.**
 
 - `pddm_2019` (high). Table 2 states obs-dim 46 for In-hand Reorientation while the released cube_env.py code sums to 39; the Baoding reward code includes an extra -10*wrist_too_high term absent from Table 2's printed formula.
 - `dexpoint_2022` (high). The released code's reward adds several terms absent from the paper's four-term Eq. 5 (a lift-threshold bonus, a target-distance term, a rotation bonus, and an IK controller-tracking penalty) and reshapes the reach/lift terms into inverse-distance and clipped forms rather than the paper's plain distance/height-difference formulas.
@@ -2609,16 +2634,16 @@ Each entry below is the disagreement text stored in the row, unedited. The class
   Review: R3 adversarial review: the disabled-randomisation half is withdrawn, since the note finds it consistent with the paper; the zeroed reward term stands
 - `physhoi_2023` (high). The released code hardcodes the body position-velocity error and the object rotation/rotation-velocity errors to zero in compute_humanoid_reward, so despite Table 4 listing nonzero λ^or=0.1/λ^orv=0.01 weights for GRAB, the trained reward never actually tracks object orientation (position-only in practice).
 - `unidexgrasp_2023` (high). The paper describes a four-term weighted reward (r_goal + r_reach + r_lift + r_move via Table 7's omega weights) but the released compute_hand_reward implements a different threshold-gated torch.where cascade with distinct hardcoded coefficients that do not map one-to-one onto the paper's weights.
-- `omnih2o_2024` (medium). stumble weight -0.00125 (paper) vs -1250 (code); max-feet-height sign/magnitude differ (+1000 paper vs -2500 code, a penalty not a bonus); paper's exp(-c*//.//) form vs code's exp(-err^2/sigma); curriculum level-down threshold 40 (paper) vs 50 (code)
-  Review: R3 adversarial review: plausible alternative reading; held at medium confidence pending a direct code read
-- `penspin_2024` (medium). The released code disables the paper's tactile observation channel and zeroes the described disturbance-force domain randomization, and the code's reward scale-key names (e.g. rotate_reward_scale, pencil_z_dist_penalty_scale) do not 1:1 name-match the paper's Table 4 weight list, though matched values agree.
-  Review: R3 adversarial review: plausible alternative reading; held at medium confidence pending a direct code read
+- `penspin_2024` (medium). The appendix states a randomised disturbance force and the released task config sets its scale to zero. A second half of the original charge, that the released code disables the paper's tactile observation channel, is withdrawn: the config read has 96 observation dimensions and `enable_tactile: False`, consistent with the proprioception-only student policy rather than the tactile-and-point-cloud oracle, and the paper never claims the student has tactile input. The code's reward scale-key names (e.g. rotate_reward_scale, pencil_z_dist_penalty_scale) also do not 1:1 name-match the paper's Table 4 weight list, though matched values agree.
+  Review: Narrowed before author contact. The tactile-channel half is withdrawn as a plausible reading of which pipeline stage the config belongs to; the disturbance-force half stands. Held at medium confidence pending a direct code read.
 - `pianomime_2024` (high). Paper's Table 3 states 2 weighted reward terms (Key Press 2/3, Mimic 1/3), but the released code sums roughly 5 unweighted terms (key press doubled, sustain, energy and fingering hardcoded to return 0, forearm-collision) plus a separately-added mimic wrapper term.
 
-**internal-inconsistency, 3 rows.**
+**internal-inconsistency, 4 rows.**
 
 - `aloha_act_2023` (high). Algorithm 1 pseudocode states L_reconst = MSE, but Sec.IV.C's prose explicitly states L1 loss is used instead; the algorithm box and the implementation text disagree; code/md captures only function signatures, not bodies, for policy.py's loss implementation
 - `dp3_2024` (medium). the paper's prose states the network predicts the noise added to the data, but the shipped default config trains with prediction_type: sample (predicting the denoised action a^0 directly), not epsilon; the paper only qualifies this later in the same section (Fig. 7 ablates both).
+- `omnih2o_2024` (medium). stumble weight -0.00125 (paper) vs -1250 (code); max-feet-height sign/magnitude differ (+1000 paper vs -2500 code, a penalty not a bonus); paper's exp(-c*//.//) form vs code's exp(-err^2/sigma); curriculum level-down threshold 40 (paper) vs 50 (code).
+  Review: Withdrawn as a contradiction before author contact. Four of the five weight comparisons match the paper's table to the digit once a systematic x1.25 curriculum factor is accounted for, and only the stumble weight differs, by a factor of about a million, which is a typo signature in the paper's own table rather than evidence of a different trained objective. The hands in this work are also driven open-loop from VR pose, outside the policy and outside the reward, making it a poor fit for a dexterous-manipulation reward census regardless.
 - `dexmachina_2025` (low). paper describes a plain weighted sum lambda_task*r_task + lambda_imi*r_imi + lambda_bc*r_bc + lambda_con*r_con with unspecified weights; code implements a multiplicative task term with per-component beta decay, an unmentioned 0.1 force-penalty term, and curriculum-driven decay of auxiliary weights not described as such in the paper
   Review: R3 adversarial review: the multiplicative form credited to the code is printed in the paper itself
 

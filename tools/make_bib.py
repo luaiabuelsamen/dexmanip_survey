@@ -18,6 +18,11 @@ What the entry types mean here, which is a claim about the sources and not a for
 The six works whose full text was never obtained keep their entry and carry a note saying so, so
 that a reader who follows a citation to one of them learns that no claim rests on its contents.
 
+Entries with topic "related" are prior work cited from outside the dexterous-manipulation corpus:
+the audits and case studies Section 1 positions this survey against. They carry no structured row
+and enter no count, their arXiv primary class was read off the abstract page rather than a parsed
+stamp, and their note in the .bib says so.
+
 Usage:
     python tools/make_bib.py             # write tex/refs.bib, print the tally
     python tools/make_bib.py --probe     # also write tex/probe_bib.tex, a 20-citation probe
@@ -46,6 +51,13 @@ OUT_PROBE = R / "tex/probe_bib.tex"
 INPROC_WORDS = ("Conference", "CoRL", "ICRA", "IROS", "RSS", "NeurIPS", "ICLR", "ICML",
                 "CVPR", "ECCV", "ICCV", "AAAI", "Humanoids", "Symposium")
 ARTICLE_WORDS = ("Transactions", "Journal", "Letters", "Science", "Review", "Magazine")
+
+# Two journals cited as related work carry none of those words in their titles, and neither is an
+# abbreviation that could be expanded into one. They are named here so that a journal paper is not
+# demoted to @misc by a keyword list. The test runs after the conference keywords, so a conference
+# whose name contains one of these titles ("AAAI Conference on Artificial Intelligence") is still an
+# @inproceedings.
+JOURNAL_TITLES = ("Artificial Intelligence", "Communications of the ACM")
 
 # Venue strings in corpus/bib.json use abbreviations that contain none of those words. Expanding
 # them before the keyword test is what keeps a T-RO paper an @article instead of falling through
@@ -160,6 +172,8 @@ def keyword_type(expanded):
         return "inproceedings"
     if any(w in expanded for w in ARTICLE_WORDS):
         return "article"
+    if any(expanded.startswith(j) for j in JOURNAL_TITLES):
+        return "article"
     return None
 
 
@@ -208,6 +222,23 @@ def primary_classes():
 
 
 VISION_VENUES = ("CVPR", "ECCV", "ICCV", "3DV", "SIGGRAPH")
+
+# The arXiv primary class of a related-work entry (topic "related"), read off the abstract page when
+# the entry was added, because no PDF of it was parsed and so no stamp exists to read. These are
+# works cited from outside the corpus, so nothing else about them is taken from a parsed source.
+RELATED_CLASS = {
+    "knox_reward_misdesign_2023": "cs.LG",
+    "engstrom_implementation_matters_2020": "cs.LG",
+    "metaworld_plus_2025": "cs.AI",
+    "biocon_2026": "cs.LG",
+    "scicoqa_2026": "cs.CL",
+    "raff_reproducibility_2019": "cs.LG",
+}
+
+# What a related-work entry's note says, so that a reader of this .bib can tell a work the survey
+# parsed from one it cites as prior work.
+RELATED_NOTE = ("Related work outside this survey's corpus; no source parsed, no structured row, "
+                "and no count rests on it")
 
 
 def default_class(entry):
@@ -316,11 +347,17 @@ def build():
         fields.append(("year", str(e["year"])))
 
         if arxiv:
-            cls, how = stamped.get(key, (default_class(e), "venue"))
-            report["primary class from the arXiv stamp" if how == "stamp"
-                   else "primary class assumed from the venue"].append(key)
+            if key in stamped:
+                cls, how = stamped[key][0], "primary class from the arXiv stamp"
+            elif key in RELATED_CLASS:
+                cls, how = RELATED_CLASS[key], "primary class read from the arXiv abstract page"
+            else:
+                cls, how = default_class(e), "primary class assumed from the venue"
+            report[how].append(key)
             fields += [("eprint", arxiv), ("archivePrefix", "arXiv"), ("primaryClass", cls)]
 
+        if e.get("topic") == "related":
+            notes.append(RELATED_NOTE)
         if key in unobtainable:
             notes.insert(0, "Full text not obtained; cited by metadata only")
         if notes:
@@ -444,8 +481,10 @@ def main():
         print("\n%s: %d" % (label, len(items)))
         for it in items:
             print("  %s" % it)
-    print("\narXiv primary class: %d read from the parsed PDF's stamp, %d assumed from the venue"
+    print("\narXiv primary class: %d read from the parsed PDF's stamp, %d read from the abstract "
+          "page for a related-work entry, %d assumed from the venue"
           % (len(report.get("primary class from the arXiv stamp") or []),
+             len(report.get("primary class read from the arXiv abstract page") or []),
              len(report.get("primary class assumed from the venue") or [])))
 
     if "--probe" in sys.argv:

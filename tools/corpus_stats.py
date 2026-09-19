@@ -65,4 +65,4 @@ if __name__ == "__main__":
         print(f"\n== {label} (mentions across parsed sources)")
         for n, ks in res[label].items(): print(f"  {len(ks):3d}  {n}")
     (R / "corpus/stats.json").write_text(json.dumps(res, indent=1))
-    print(f"\nparsed sources: {sum(1 for k in bib if (R/f'papers/md/{k}.md').exists() or (R/f'code/md/{k}.md').exists())} of {len(bib)}")
+    print(f"\nparsed sources: {sum(1 for k in bib if (R/f'papers/md/{k}.md').exists() or (R/f'code/md/{k}.md').exists())} of {sum(1 for k in bib if bib[k].get("topic") != "related")}")

@@ -55,7 +55,10 @@ def expand(txt):
 def counts():
     """The three front-matter numbers, counted from the corpus rather than stated."""
     import json, glob
-    entries = len(json.loads((R / "corpus/bib.json").read_text()))
+    bib = json.loads((R / "corpus/bib.json").read_text())
+    # Entries with topic "related" are prior work cited from outside the dexterous-manipulation
+    # corpus. They carry no row and enter no count, so they are not part of this total.
+    entries = sum(1 for e in bib if e.get("topic") != "related")
     rows = [json.load(open(f)) for f in glob.glob(str(R / "corpus/rows/*.json"))]
     seen = {}
     for r in rows:

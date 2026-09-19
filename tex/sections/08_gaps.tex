@@ -12,12 +12,13 @@ This is a result rather than a gap, and a result about publishing practice in ro
 dexterous corpus is its sample, not its subject.
 
 Sixty-two method rows released code that could be parsed against the paper, and 38 carry
-a recorded discrepancy, drawn in \figurename~\ref{fig:codegap}. The classification is the finding: ten contradictions, where the paper
+a recorded discrepancy, drawn in \figurename~\ref{fig:codegap}. The classification is the finding:
+nine contradictions, where the paper
 states one value and the shipped code demonstrably states another; thirteen limits of this
 survey's own parse, which captured signatures or a truncated body rather than the component; eight
-cases where the code was never released; four version skew; three inconsistencies inside a paper
-with no code involved. Ten is the number to quote, eight at high confidence, with PenSpin
-\cite{penspin_2024} and OmniH2O \cite{omnih2o_2024} held at medium against innocent readings a
+cases where the code was never released; four version skew; four inconsistencies inside a paper
+with no code involved. Nine is the number to quote, eight at high confidence, with PenSpin
+\cite{penspin_2024} held at medium against an innocent reading a
 direct code read would settle.
 
 The first count was sixteen. An adversarial re-reading withdrew seven accusations. ManipTrans,
@@ -25,9 +26,28 @@ Eureka, Open-TeleVision, DexMachina, ArtiGrasp and GraspXL
 \cite{maniptrans_2025,eureka_2023,open_television_2024,dexmachina_2025,artigrasp_2023,graspxl_2024},
 and the domain-randomisation half of the charge against DexPBT \cite{dexpbt_2023}. Two refuted by
 the accused repository's own README, two resting on reward code never in the parse, one charging the
-code with structure the paper prints, one against a paper with no reward function. Each is recorded
-in its row in a \texttt{mismatch\_\allowbreak{}review} field: a survey that names people should
-carry its retractions beside its accusations.
+code with structure the paper prints, one against a paper with no reward function. That left ten,
+and ten held until the letters to the authors were drafted.
+
+Drafting the letter to OmniH2O \cite{omnih2o_2024} meant reading its accusation once more before it
+went out, and that second reading is what broke it. Four of its five reward-weight comparisons
+match the paper's own table to the digit once a systematic $\times 1.25$ curriculum factor is
+applied, and only the stumble weight differs, by a factor of about a million: a typo signature in
+the paper's own table, not a policy trained on a different objective. The work's hands are also
+driven open-loop from a VR pose, outside the policy and outside the reward, which made it a poor
+fit for a dexterous-manipulation reward census whatever the weight said. The charge is withdrawn
+and the row reclassified as an internal inconsistency, which is where the count above already
+places it. \textbf{The survey has now withdrawn eight accusations in total: seven of them under
+adversarial review, and the eighth at the point of writing to the authors, because someone sat
+down to write the letter and looked at the evidence again.} PenSpin \cite{penspin_2024} is
+narrowed rather than withdrawn, the same way the charge against DexPBT was narrowed above: the
+half of it that said the released code disables the paper's tactile channel is dropped, because
+the configuration read has proprioception-only observation dimensions consistent with the student
+policy rather than the oracle, and the paper never claims the student has tactile input; the half
+that stands is that the appendix states a randomised disturbance force and the shipped
+configuration sets its scale to zero. Each retraction and narrowing is recorded in its row's
+\texttt{mismatch\_\allowbreak{}review} field: a survey that names people should carry its
+corrections beside its accusations, in print and not only in the corpus.
 
 PhysHOI \cite{physhoi_2023} survived every attempt to break it. Table 4 weights object rotation at
 0.1 for GRAB, and the released \texttt{compute\_\allowbreak{}humanoid\_\allowbreak{}reward} sets the
@@ -38,24 +58,28 @@ not have caught that. Robot Synesthesia \cite{robot_synesthesia_2023}, at the ot
 six weights as symbols and released nothing, so that objective exists in no machine-readable form.
 Hora \cite{hora_2022} alone discloses its own gap, in its README.
 
-Ten is a floor, since forty-six method rows released nothing to check and four more are
+Nine is a floor, since forty-six method rows released nothing to check and four more are
 unsettled.
 
 \emph{What would close it:} publish
 the reward table generated from the released config at a named commit, so a reviewer diffs two
 artefacts instead of reading two documents.
 
-\subsection{Nobody records interpenetration for their own policy's rollouts}
+\subsection{No closed-loop policy records interpenetration for its own rollouts}
 
 Eleven method rows handle interpenetration at all, of the ninety-six whose notes settle the
 question, and only four of them are closed-loop policies
 (\figurename~\ref{fig:penetration}). Every one of the eleven sits on the
 reference side of the reference-versus-rollout split, scoring a pose or a trajectory before
-execution rather than the behaviour that followed. The engines are not the obstacle: IsaacGymEnvs
+execution rather than the behaviour that followed. The gap is therefore specific to learned
+closed-loop control rather than general. Grasp synthesis and hand-object reconstruction report
+penetration depth and intersection volume comparatively, and
+\cite{oakink_2022,bimangrasp_2024,bidexgrasp_2026} and \cite{toporetarget_2026} do so within this
+corpus; what none of them scores is the behaviour a trained policy produced. The engines are not the obstacle: IsaacGymEnvs
 ships a task that computes a per-environment maximum interpenetration depth in Warp and gates its
 policy update on a 1 mm threshold, and Tactile Genesis \cite{tactile_genesis_2026} offers two
 penetration-depth backends on Genesis geometry as sensors. The depth is computable by anyone from
-poses and meshes; nobody reports it for a dexterous rollout.
+poses and meshes, and we found no paper that reports it for a dexterous rollout.
 
 \emph{What would close it:} maximum and mean
 penetration depth over the evaluation rollouts, on a dense surface sample, from a measure the
