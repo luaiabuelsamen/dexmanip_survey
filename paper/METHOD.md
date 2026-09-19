@@ -80,7 +80,16 @@ statistic the survey leads with. Of the 34 method rows that had a real robot and
 trial count, 15 carried a count in plain text in their own note, dropped because the paper
 reports it per task and the field takes a single integer. Those 15 have since been re-extracted,
 which moved the stated-trial-count row from 55 to 70. The success criterion and the unseen-object
-count were audited the same way, rising from 79 to 98 and from 32 to 39. The same mechanism
+count were audited the same way, rising from 79 to 98 and from 32 to 39. What those 19 recovered criteria say is mostly
+not a threshold: eleven score by rubric or staged partial credit, five judge binary completion
+against a task description by eye, two defer to a benchmark's own definition, and exactly one,
+`pistar06_2025`, states a verbatim numeric threshold. The audit counted only cases where the note
+itself carried the number, so a count the note also missed is still uncounted, and 19 trial counts,
+8 unseen-object evaluations whose object count the note never gives, and 4 criteria remain
+genuinely unsettled. Fifteen of the recovered trial counts are named in the rows: `pi0_2024` at ten
+trials per task, `rdt1b_2024` at 139 across seven tasks, `umi_2024` at 260, `pistar06_2025` at 750,
+`gemini_robotics_2025` at twenty per task, and ten more, which is 44 percent of the audited nulls
+and moved the "never says" figure from 34 of 89 down to 19. The same mechanism
 reaches the penetration, code-release and failure-mode fields, none of which has been audited that
 way. Read every coverage statistic in this survey as a floor rather than as a rate, and read the
 bars in Figure 6 the same way.

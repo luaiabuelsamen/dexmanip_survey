@@ -383,9 +383,9 @@ five reward terms against the three its Table 2 documents; a ceiling, because ei
 earlier draft of this section made were withdrawn, seven of them under adversarial review and an
 eighth, `omnih2o_2024`, once writing to its authors sent someone back to the evidence, each with
 its reason recorded in the accused row beside the charge. Among the 21 reorientation methods of
-Table 5, seven released a repository: four disagree with their paper, one (`dreureka_2024`) ships
-no cube-rotation environment at all, one (`hora_2022`) is a later generation its own README flags,
-and one (`eureka_2023`) was a default-value question the same README settles.
+Table 5, seven released a repository and four of those disagree with their paper, the other three
+being a missing environment, a later generation and a default-value question their own READMEs
+settle.
 
 The most consequential case is `physhoi_2023`. Its `compute_humanoid_reward` hardcodes the body
 position-velocity error and both object rotation errors to zero, with the real computation
@@ -393,42 +393,15 @@ commented out beside them, and does so unconditionally rather than per dataset, 
 lists non-zero weights of 0.1 and 0.01 for those rotation terms on GRAB. The reward that produced
 the paper's numbers never tracked object orientation: a method presented as tracking a 6-DoF
 reference was, in the code that ran, tracking the object in position only, with body rotation and
-body rotation-velocity still live. `omnigrasp_2024`, in the same file family, keeps its object
-rotation term live and fails the other way, internally: `compute_pregrasp_reward_time` takes its
-weights as arguments and then hardcodes them to 0.9 and 0.1.
+body rotation-velocity still live.
 
 Zeroed terms recur, and are not the same failure. A term present and zeroed is worse than a term
 missing, because it survives a reader's check of the file, but only when the paper claims it.
-`dexpbt_2023` sums eight components against the paper's four and multiplies a hand-delta penalty
-by zero with the comment "currently disabled", a term the paper never claims, and its five named
-weights are present at their stated values. `pianomime_2024`'s Table 3 states two weighted terms
-while its environment sums roughly five unweighted ones, two of them inherited stubs returning
-zero and a third, forearm collision, the paper never lists. `penspin_2024` ships `forceScale: 0.0`
-against the disturbance force its appendix describes, which is the charge that survives. A second
-half of the original charge, that the same 96-dimensional observation disables the paper's tactile
-channel, is withdrawn: those dimensions are proprioception-only, consistent with the student
-policy the released config runs rather than the tactile-and-point-cloud oracle, and the paper
-never claims the student has tactile input. The disturbance-force charge alone is why the row
-still reads medium rather than high.
-
-Weights drift. `dextreme_2022` states an action-delta penalty of −0.25 in Table 2 and ships −0.2
-and −0.01 in its two DR yamls, neither matching. `visual_dexterity_2022`'s Eq. 8 penultimate-joint
-penalty is absent from the released reward file, and its two configs disagree about the fall
-distance. `unidexgrasp_2023` and `dexpoint_2022` ship rewards structured differently from their
-equations, and `pddm_2019`'s Baoding reward carries a −10 wrist-height term Table 2 omits.
-
-In 13 rows the repository does not settle the question, which is this survey's limit and not an
-accusation. The reward code is C++ and outside the parse in `graspxl_2024`, whose configs expose
-four velocity coefficients where the paper prints two, and in `artigrasp_2023`, whose two weight
-sets are the two phases of a curriculum the paper documents. `dextrack_2025` ships several
-unreconciled coefficient sets and which produced its headline table cannot be identified, and
-`maniptrans_2025`'s learning rate and environment count match its own config, the differing values
-being a README example's override and an unused fallback. `hora_2022` is the one repository that
-discloses its own gap, telling the reader to check out tag v0.0.1. Elsewhere a paper disagrees
-with itself: `aloha_act_2023`'s Algorithm 1 says MSE and its Section IV.C says L1, `dp3_2024`'s
-prose says the network predicts noise while its config sets `prediction_type: sample`, and
-`dexmachina_2025`'s multiplicative task reward, charged to its code in an earlier draft, is
-printed in the paper.
+Weights drift as well: a penalty printed at one value in a table and shipped at another, an
+equation's term absent from the released reward file, a term in the code that the table never
+lists. And in 13 rows the repository does not settle the question at all, which is this survey's
+limit and not an accusation. Appendix C prints all 38 row by row in their five classes, each with
+the file, the value on both sides, and the review note where a charge was narrowed or withdrawn.
 
 A reward table is a claim about a training run and the code is a claim about a repository. Here
 the two contradict each other in nine cases, in the other 29 the released artefacts do not settle

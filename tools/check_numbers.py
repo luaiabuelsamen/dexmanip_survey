@@ -249,8 +249,8 @@ REQUIRED_IN = {
    (r"does not supply a threshold",
     "section 1 promises a threshold, a method and a count; section 7 has to say which are delivered"),
  ],
- "paper/sections/08_gaps.md": [
-   (r"reference-versus-rollout", "section 8.2 is the gap the frame names"),
+ "paper/sections/08_conclusion.md": [
+   (r"reference-versus-rollout", "the second of the seven claims is the gap the frame names"),
  ],
 }
 

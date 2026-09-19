@@ -24,7 +24,8 @@ survey did not survey the tradition it judges. Learned control did not solve tho
 problems. It went around them by sampling a simulator instead of solving a model, and by scoring a
 rollout instead of certifying a configuration. Of the 112 method papers in this corpus, 53 train
 with reinforcement learning and 35 run in Isaac Gym, against 7 on its successors Isaac Lab and
-Isaac Sim.
+Isaac Sim. Figure 1's routes converge on that same recipe: almost every path through the field
+ends at a policy trained in a GPU simulator and then distilled down to a vision-only student.
 
 Three things this survey measured are worth stating before the reader commits to 27,000 words.
 Papers disagree with their own released code. Sixty-two of the 112 method rows released code that
@@ -142,9 +143,9 @@ and what makes each hard, then the hands and their makers, then the simulators a
 models underneath them, then training, then two hands on one object as a problem of its own.
 Section 7 is the longest, and it proposes an evaluation frame rather than a leaderboard. Each of
 those sections closes on the gap it owns, with the evidence and the experiment that would settle it;
-Section 8 is the list of those claims in one place, one sentence each, and Section 9 says what to do
-about them, addressed
-to someone publishing, running experiments or buying a hand. Appendix A is the method and says
-where the tabulation this survey is built on lives; Appendices B and C are the full hand and
-reward extractions; Appendix D sets this survey beside the fourteen that precede it.
+Section 8 is the list of those claims in one place, one sentence each, and says what to do about
+them, addressed to someone publishing, running experiments or buying a hand. Appendix A is the
+method and says where the tabulation this survey is built on lives; Appendices B and C are the full
+hand and reward extractions; Appendix D sets this survey beside the fourteen that precede it; and
+Appendix E works the derivation behind every count in the proposed protocol.
 

@@ -21,11 +21,8 @@
   \centering
   \IfFileExists{figs/fig_field.tex}{\input{figs/fig_field}}{%
     \framebox[0.7\textwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_field.tex pending}}}
-  \caption{The field on one page, and the map of this survey: every column head names the section
-  that covers it. Data sources, embodiment, simulator, training paradigm and evaluation, with
-  nodes sized by how many corpus papers sit in them and edges drawn only for routes the corpus
-  actually contains. The routes converge: almost everything ends in a policy trained in a GPU
-  simulator and distilled to vision.}
+  \caption{The field on one page, and the map of this survey: nodes sized by corpus papers, edges
+  drawn only for routes the corpus contains, each column head naming the section that covers it.}
   \label{fig:field}
 \end{figure*}
 
@@ -53,7 +50,8 @@ this survey did not survey the tradition it judges. Learned control did not solv
 problems. It went around them by sampling a simulator instead of solving a model, and by scoring a
 rollout instead of certifying a configuration. Of the 112 method papers in this corpus, 53 train
 with reinforcement learning and 35 run in Isaac Gym, against 7 on its successors Isaac Lab and
-Isaac Sim.
+Isaac Sim. The routes drawn in \figurename~\ref{fig:field} converge on that recipe: almost
+everything ends in a policy trained in a GPU simulator and distilled to vision.
 
 Three things this survey measured are worth stating before the reader commits to 27,000 words.
 Papers disagree with their own released code. Sixty-two of the 112 method rows released code that
@@ -184,11 +182,12 @@ the six families and what makes each hard, then the hands and their makers, then
 and the contact models underneath them, then training, then two hands on one object as a problem
 of its own. Section~\ref{sec:evaluation} is the longest, and it proposes an evaluation frame
 rather than a leaderboard. Each of those sections closes on the gap it owns, with the evidence and
-the experiment that would settle it; Section~\ref{sec:gaps} is the list of those claims in one place,
-one sentence each, and Section~\ref{sec:conclusion} says what to do about them, addressed to someone publishing,
+the experiment that would settle it; Section~\ref{sec:conclusion} is the list of those claims in
+one place, one sentence each, and says what to do about them, addressed to someone publishing,
 running experiments or buying a hand. Appendix~\ref{app:method} is the method, and says where the
 tabulation this survey is built on lives, which is the repository rather than these pages;
 Appendix~\ref{app:tables} carries the three tables Sections~\ref{sec:hands}
 and~\ref{sec:simulators} read cells out of; Appendix~\ref{app:rewards} prints every
-paper-against-code disagreement in full; and Appendix~\ref{app:surveys} is the prose behind
-Table~\ref{tab:surveys}, a sentence for every level in it.
+paper-against-code disagreement in full; Appendix~\ref{app:surveys} is the prose behind
+Table~\ref{tab:surveys}, a sentence for every level in it; and Appendix~\ref{app:protocol} works
+the derivation behind every count in the proposed protocol.

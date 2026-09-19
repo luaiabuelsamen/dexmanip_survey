@@ -396,7 +396,7 @@ WITHDRAWN = {
         "the contact-model and solver text behind the simulator vocabulary, verbatim. "
         "corpus/rows/ and papers/notes/",
     "appendix_protocol_long.tex":
-        "the design of each protocol measurement and the reason for each count. Section VII "
+        "the design of each protocol measurement and the reason for each count. Appendix E "
         "derives every one of them in prose. tools/make_eval_tables.py",
     "appendix_surveys_full.tex":
         "the full-length duplicate of the survey table, which no sentence in the paper referred "

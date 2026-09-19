@@ -82,14 +82,8 @@ bimanual ones.
 \centering
 \IfFileExists{figs/fig_bimanual.tex}{\input{figs/fig_bimanual}}{%
   \framebox[0.7\textwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_bimanual.tex pending}}}
-\caption{Four ways to control two dexterous hands. Counts are over the 28 corpus rows that put a
-learned closed-loop controller on two multi-fingered hands, each read from its note. The four
-architectures do not partition the 28: AsymDex \cite{asymdex_2024} is counted in both of the last
-two panels, being the only corpus paper that puts either mechanism inside a policy, and
-Bunny-VisionPro \cite{bunny_visionpro_2024} and DexImit \cite{deximit_2026} are unassigned because
-their notes describe
-the rig and the data pipeline rather than the policy's decomposition. The field is concentrated in
-the first panel; the two on the right are where the structure of the problem is actually used.}
+\caption{Four ways to control two dexterous hands, counted over the 28 corpus rows with a learned
+closed-loop controller on two multi-fingered hands, each read from its note.}
 \label{fig:bimanual}
 \end{figure*}
 

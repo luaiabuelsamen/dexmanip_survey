@@ -9,7 +9,12 @@ this statistic: the 22 rows with no real robot cannot state a real trial count, 
 as silent turns a definitional impossibility into a reporting failure. Thirty-nine rows state a
 count of unseen test objects, 35 percent. Ninety-eight state how a rollout is scored, 88 percent.
 Sixty-two released code and 46 did not, with four rows unsettled, 57 percent of the 108 the note
-settled. Figure 6 draws these six shares, each against the denominator that belongs to it.
+settled. Figure 6 draws these six shares, each against the denominator that belongs to it. Every
+bar is a lower bound, for the reason the next section gives. The two items flagged red there,
+unseen-object count and contact or penetration handling, are the pair a reader actually needs to
+compare two methods: no unseen-object count means no generalisation denominator for a success
+rate, and no contact handling means no way to tell whether the hand passed through the object. They
+are also the two the field states least often.
 
 {{figure:fig6_reporting}}
 
@@ -23,19 +28,10 @@ the argument. Section 5.6 makes the same disclosure about the paper/code count, 
 disagreements that are limitations of this survey's own parsing before declaring which number to
 quote, and the coverage statistics above need it more.
 
-So the nulls were audited by hand against the notes they came from, and the numbers above are the
-audited ones. Of the 34 method rows with a real robot and no trial count, 15 had the count written
-in their own note. `pi0_2024` at ten trials per task, `rdt1b_2024` at 139 across seven tasks,
-`umi_2024` at 260, `pistar06_2025` at 750, `gemini_robotics_2025` at twenty per task, and ten
-more. That is 44 percent of the audited nulls, and it moved the headline from 55 rows to 70, from
-62 percent of real-robot papers to 79 percent, and the "never says" figure from 34 of 89 down to
-19. The success criterion moved further: of 33 null rows, 19 do state a criterion, so the count
-rose from 79 to 98. The unseen-object count moved least, 7 recovered from 80 audited nulls, 32 to
-39. The audit only counted cases where the note itself carried the number, so a count that the
-note also missed is still uncounted, and 19 trial counts, 8 unseen-object evaluations whose object
-count the note never gives, and 4 criteria remain genuinely unsettled. Those nulls are now a
-defensible claim rather than an artefact. Every bar in Figure 6 should still be read as a lower
-bound.
+The nulls behind those six shares were therefore audited by hand against the notes they came from,
+and every number above is post-audit. Appendix A gives what that audit recovered and what it could
+not: the counts moved by tens of rows, 19 trial counts and 4 criteria remain genuinely unsettled,
+and every bar in Figure 6 is still a lower bound.
 
 The remaining gap is the one that matters. Nineteen of the 89 papers with a real robot never say
 how many times they ran it. A percentage with no denominator cannot be given an interval, so it
@@ -70,7 +66,7 @@ so 78 is a count of strings and not of hand designs. Matching on the string, All
 35, Shadow in 21, Inspire in 19 and LEAP in 12. A success rate on a 16-degree-of-freedom Allegro
 and a success rate on a 6-actuator Inspire hand are not measurements of the same thing.
 
-Nor are the criteria, and the audit changed what that sentence can claim. `dexverse_2026` counts
+Nor are the criteria. `dexverse_2026` counts
 PickCube a success when the cube is "lifted at least 0.20 m above its resetting height".
 `bench2dex_2026` requires its terminal predicate to hold for a continuous dwell time of 0.5 s, to
 reject transient contacts. `colosseum_2024` counts an episode successful "if the model completes
@@ -78,10 +74,10 @@ the task fully". `dextrack_2025` reports every success rate as a pair under two 
 which on GRAB gives 46.70 and 65.48 percent for the same rollouts. Of the 14 rows that still state
 no criterion, ten have no success predicate at all. They report radians rotated or time-to-fall
 and never define a success, which is a fact about the paper rather than a gap in this survey. And
-four are unsettled by the note. What the audit found in the other 19 was mostly not a threshold:
-eleven score by rubric or staged partial credit, five judge binary completion against a task
-description by eye, two defer to a benchmark's own definition, and exactly one, `pistar06_2025`,
-states a verbatim numeric threshold. A rubric is a milder failure than silence and a worse one
+four are unsettled by the note. Of the 19 criteria the audit recovered, all but one are a rubric, a
+staged partial credit, a judgement by eye or a deferral to a benchmark's own definition rather than
+a threshold, and exactly one, `pistar06_2025`, states a verbatim numeric one; Appendix A counts the
+four kinds. A rubric is a milder failure than silence and a worse one
 than a threshold, because it is reproducible inside a lab and not across two.
 
 **The axes that matter.** Seven quantities dissociate in the published data, so they have to be reported separately.
@@ -125,7 +121,9 @@ reward that produced the published numbers tracked the object in position only.
 
 ## 7.2 Physical plausibility
 
-Eleven method rows handle interpenetration in any form: three penalise it, three measure it, five
+The quantity most specific to a hand is the one closed-loop policies do not record; this section
+is the funnel that narrows to zero. Eleven method rows handle interpenetration in any form: three
+penalise it, three measure it, five
 constrain it, 11 percent of the settled rows. The denominator is 96, not 112, because the
 contact-handling field is null for 16 rows, and a null there means the note did not settle the
 question, not that the paper ignored penetration.
@@ -246,72 +244,23 @@ is derived for the statistic that axis actually reports: a single rate takes a W
 a matched comparison takes McNemar, a ratio takes the standard error of the log ratio, a
 correlation takes the Fisher-z interval.
 
-Fix the width first, then read off the count. Take a 95 percent Wilson interval on a single
-reported rate, at the worst case of p = 0.5. A half-width of 20 points needs 21 trials, 15 points
-needs 39, 10 points needs 93 and 5 points needs 381. Ten points is the coarsest width at which a
-single rate is worth printing, so the absolute-rate minimum is 93, rounded to 100. At 100 trials a
-reported 80 percent has an interval of 71 to 87 percent, and a reported 50 percent has 40 to 60. A
-comparison is a different question and a harder one: two rates each carrying ±10 points do not
-resolve a 10-point difference between them, because the difference's standard error is larger by a
-factor of √2, so the width argument sets a floor on what is worth reporting and not on what can be
-compared.
-
-For the A/B comparison the relevant calculation is power, and the design is paired. Table 8
-matches initial conditions by image overlay and interleaves the two policies in one session, so
-the unit is a matched pair and the count follows McNemar, which depends on the discordance rate.
-The share of initial conditions on which the two policies disagree, and not on the two rates
-alone. To separate 50 from 70 percent at α = 0.05 with 80 percent power: 37 pairs per arm at a
-discordance of 0.2, 57 at 0.3, 77 at 0.4 and 96 at 0.5. The protocol assumes 0.3 and asks for 57,
-and states the sensitivity rather than hiding it, because 0.5 is the discordance the same two
-rates produce when the pairing buys nothing, and at that value the paired count returns to the 93
-per arm an unpaired test would need. The saving from pairing is real but smaller than the pair
-counts suggest, since a pair costs two rollouts: 57 pairs is 114 rollouts against 186. An earlier
-version of this section quoted 93, 169 and 387 per arm for gaps of 20, 15 and 10 points, which are
-correct for independent arms and are the wrong test for this protocol. That 93 was also the same
-integer as the half-width calculation in the paragraph above, which is a coincidence of the
-worst-case arithmetic and not a second derivation of the same number.
-
-One hundred is a cap and not a bill, because on a graded score a sequential test reached its
-decision in 12 to 36 paired hardware trials in `beyond_binary_success_2026`. At 30 rollouts a
-continuous score already carries a half-width of ±0.36 standard deviations, which is why a graded
-score can stop where a binary one cannot. A cell that stops early does not report a Wilson
-interval. Optional stopping breaks the coverage of a fixed-n interval, which is the reason
-`beyond_binary_success_2026` and `suresim_2025` use anytime-valid betting intervals rather than
-Wilson, so Table 8 asks a cell run to a fixed 100 for a Wilson interval and a cell stopped early
-for a confidence sequence, and never for both. Intervals are also marginal rather than
-simultaneous. Table 8 has seven axes and Table 9 twelve methods. At 84 independent 95 percent
-intervals, four excursions are expected by construction, so a paper comparing k policies on m
-tasks corrects its k(k−1)/2 pairwise tests to a global 95 percent level, as
-`lbm_careful_examination_2025` does, or says its intervals are not simultaneous.
-
-Simulation is cheap, so simulated cells take 200 episodes, giving a 6.9-point half-width.
-Perturbation axes are screened rather than certified, and 40 per axis buys a 15-point half-width
-on each axis's own absolute rate, which is enough to rank the axes and pick the two worst for
-hardware. It is not enough for the ratio to the anchor that an earlier draft asked each cell to
-report. At 40 trials in each arm, a fall from a 0.50 anchor to 0.30 is a ratio of 0.60 with a 95
-percent interval of 0.34 to 1.06, which contains 1: at the screening count you cannot establish
-that the perturbation hurt at all. Certifying that same drop takes 101 per arm by the log-ratio
-standard error, so Table 8 now asks for absolute rates with their own intervals at 40, reports the
-ratio without an interval, and prescribes 101 before any claim that a named axis hurt.
-
-For unseen objects the resampling unit is the object and not the trial, so 20 objects at 5 trials
-each gives 100 trials and an object-level half-width near 20 points. That 20 points is the Wilson
-width at n = 20 and it treats each object's outcome as a single Bernoulli draw, which the five
-within-object trials are not. It is the right order of magnitude and the assumption belongs in the
-cell. A 10-point claim about an object distribution needs about 93 objects. Seven of the 39 rows
-that state an unseen count reach that: 225 in `bimangrasp_2024`, 241 in `resdex_2024` and
-`unidexgrasp_2023`, 360 in `dexgraspvla_2025`, 500 in `dexmv_2021`, 2029 in `clutterdexgrasp_2025`
-and 503409 in `graspxl_2024`. For a continuous score the half-width is 1.96 standard deviations
-over the square root of the count, so 100 rollouts give ±0.20 standard deviations, and the unit is
-the rollout because frames within one are correlated.
-
-The transfer axis is the one where 100 is least defensible. On 100 matched pairs a measured
-correlation of 0.70 carries a Fisher-z interval of 0.58 to 0.79, a half-width of about 0.10 that
-130 pairs would be needed to guarantee. That is enough to establish that a simulator tracks
-reality at all, and it is not enough to separate `suresim_2025`'s useful regime from its marginal
-one, since those differ by about 0.11 in correlation. Both limits come within 0.05 of the estimate
-only at about 457 pairs. Table 8 states which of the two decisions each count supports rather than
-leaving a reader to assume the larger one.
+Appendix E works the derivation; what it concludes is the following, and every count in Table 8 is
+one of these. A single reported rate takes 100 real rollouts per cell, because 93 is where the
+worst-case Wilson half-width falls to 10 points and 10 points is the coarsest width at which a rate
+is worth printing. A comparison is a different question and a harder one. The design is paired, so
+the count follows McNemar and depends on the discordance rate rather than on the two rates alone,
+and separating 50 from 70 percent at 80 percent power takes 57 matched pairs per arm at the assumed
+discordance of 0.3, which is 114 rollouts against the 186 two independent arms would need.
+Simulated cells take 200 episodes for a 6.9-point half-width. Perturbation axes are screened at 40
+per axis, which ranks the axes and cannot establish that any one of them hurt, and certified at 101
+per arm. Unseen objects resample the object rather than the trial, at 20 objects and 5 trials each,
+and a 10-point claim about an object distribution needs about 93 objects. The transfer axis takes
+the 100 real trials paired to 100 simulated, and about 457 pairs to separate two correlations 0.1
+apart. One hundred is a cap and not a bill, because a sequential test on a graded score reached its
+decision in 12 to 36 paired trials in `beyond_binary_success_2026`, and a cell that stops early
+reports a confidence sequence rather than a Wilson interval, never both. The appendix also keeps
+the counts an earlier draft of this section quoted and this one withdrew, since the test they were
+computed for was the wrong one.
 
 {{table:table8_protocol}}
 

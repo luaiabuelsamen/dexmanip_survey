@@ -1,0 +1,90 @@
+%% Section 8. Conclusion.
+%% Sections 8 (Gaps) and 9 (Conclusion) were one list of seven claims followed by a narrative that
+%% restated four of them. They are one section now: the list is the conclusion's spine, and what
+%% followed it keeps only what the list does not say. Both labels are kept, so every cross-reference
+%% written against either section still resolves.
+%% Converted from paper/sections/08_conclusion.md for the LaTeX edition. The markdown edition in
+%% paper/ is a separate edition of the same prose and is not written by this file.
+\section{Conclusion: the seven claims, and what to do next}
+\label{sec:gaps}
+\label{sec:conclusion}
+
+The binding constraint on this field is not ideas. It is verification. Seven claims survive the
+corpus. Each is stated here in one sentence, with the section that carries its evidence and the
+experiment that would close it. Nothing in this list is argued here; the argument, the denominator
+and the prescription are in the section named, at the end of it, so that a finding and its
+consequence are read together and stated once.
+
+\begin{enumerate}
+\item Nine of the 62 method rows that released parseable code contradict it, in the sense that the
+paper states one value or one term and the shipped code demonstrably states another, and eight
+further accusations have been withdrawn since the first draft
+(Section~\ref{sec:train:code}, Appendix~\ref{app:rewards}).
+
+\item No closed-loop policy in the corpus reports interpenetration for the rollouts of its own
+trained policy, and every one of the eleven rows that handles penetration at all sits on the
+reference side of the reference-versus-rollout split
+(Section~\ref{subsec:plausibility}, \figurename~\ref{fig:penetration}).
+
+\item The evaluation-methodology literature this survey builds its protocol on contains no
+dexterous hand at all: of its seven corpus rows, one runs a parallel-jaw gripper and the other six
+state no hand (Section~\ref{subsec:what_would_be_true}, Table~\ref{tab:protocol}).
+
+\item The generalist and vision-language-action policies that do evaluate on a multi-fingered hand
+run it at a median of 6 actuated degrees of freedom, against 16 across the reinforcement-learning
+rows that state a count, and the rows reaching the larger band on paper never say whether the hand
+was in the evaluation (Section~\ref{sec:train:vla}).
+
+\item Eight hands that can be bought today or built from published designs take zero method rows
+between them, while the corpus's experiments concentrate on four designs
+(Section~\ref{sec:hands:gap}, \figurename~\ref{fig:hands}).
+
+\item Twenty-one of the 28 rows that put a learned closed-loop controller on two multi-fingered
+hands run one policy over a concatenated two-hand observation, a choice compared twice with opposite
+outcomes and ablated once (Section~\ref{subsec:coordination}, \figurename~\ref{fig:bimanual}).
+
+\item Human data does not port across hands, and the map is usually unstated: 33 of the 53 method
+rows that use human data never say how the human motion reached the robot hand
+(Section~\ref{sec:train:human}).
+\end{enumerate}
+
+Six of the seven are gaps in the literature. The first is a result about publishing practice, and
+the survey's own corrections to it are printed beside it in Section~\ref{sec:train:code} rather
+than held in the repository.
+
+Three of those claims carry a case worth remembering. A reward table in a paper is a claim about a
+document, not about a run, and PhysHOI \cite{physhoi_2023} is the instance to keep in mind: the
+term its table weights at 0.1 is set to zero in the code, and its own success criterion could not
+have detected that. Contact is what separates a hand from a gripper, and the obstacle to measuring
+it is not the engines. IsaacGymEnvs ships a task that computes a per-environment maximum
+interpenetration depth against meshes and gates the policy update on a 1 mm threshold, and Tactile
+Genesis \cite{tactile_genesis_2026} offers penetration depth on Genesis geometry as a sensor. The
+tooling sits in the field's own benchmark repository and the number is still not reported. DexTrack
+\cite{dextrack_2025} has the formula and points it at its inputs. And hardware and software have
+come apart on a narrower claim than the hand count first suggests, because 11 of the 19 hands that
+take no method row are neither sold nor open and take none for that reason, which is why the fifth
+claim is eight hands and not nineteen.
+
+What this survey cannot establish is which method is better than which. It re-runs nothing, and
+Section~\ref{sec:evaluation} argues that the published numbers do not compare. Six works are cited
+by metadata only, and a seventh, Ma and Dollar 2011, is on disk but unread; no claim rests on any
+of them. Every coverage statistic here counts what this survey's extraction captured rather than
+what the literature reported. Each is a floor and not a rate, because every miss converts a
+reporting paper into a silent one.
+
+Three things to do next week, cheapest first.
+
+If you are publishing, generate the reward table from the config that trained the reported run,
+print it, and cite the commit. State the trial count, state the success predicate, and release the
+per-trial outcomes. None of that needs a GPU.
+
+If you are running experiments, measure penetration depth over your evaluation rollouts on a dense
+surface sample, and never let that measure become a reward. TopoRetarget \cite{toporetarget_2026}
+shows what the number looks like when someone takes it seriously, and what the widely used
+retargeters look like when nobody does.
+
+If you are choosing hardware, the corpus names four hands and no more. The Allegro carries 35
+method rows, the Shadow 21, the Inspire 19 and LEAP 12, and every other hand in
+Table~\ref{tab:hands-available} and Table~\ref{tab:hands-announced} carries eight rows or fewer.
+An announced hand has no URDF, no datasheet that can be checked, and no paper in this corpus that
+used it.

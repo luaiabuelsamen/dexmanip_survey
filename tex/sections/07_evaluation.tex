@@ -17,15 +17,9 @@
 \centering
 \IfFileExists{figs/fig_reporting.tex}{\resizebox{\columnwidth}{!}{\input{figs/fig_reporting}}}{%
   \framebox[0.95\columnwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_reporting.tex pending}}}
-\caption{What gets reported, and what does not. Each bar counts the corpus method rows that state
-the quantity, drawn against all 112 of them; the text gives the denominator that belongs to each
-share, which for the real-robot experiment is the 111 rows the note settled, for the trial count
-the 89 rows with a real robot, for released code the 108 rows the note settled, and for contact or
-penetration handling the 96 rows whose contact handling the note settled. Every bar is a lower
-bound, for the reason set out below. The two marked bars are the two a reader needs in order to
-compare any two methods: without a count of unseen objects a success rate has no generalisation
-denominator, and without contact handling it says nothing about whether the hand passed through the
-object. They are the two the field reports least.}
+\caption{What gets reported, and what does not: six shares of the 112 corpus method rows, each bar
+drawn against the denominator the text gives, with the two rarest reporting practices marked in
+colour.}
 \label{fig:reporting}
 \end{figure}
 
@@ -37,7 +31,11 @@ as silent turns a definitional impossibility into a reporting failure. Thirty-ni
 count of unseen test objects, 35 percent. Ninety-eight state how a rollout is scored, 88 percent.
 Sixty-two released code and 46 did not, with four rows unsettled, 57 percent of the 108 the note
 settled. \figurename~\ref{fig:reporting} draws these six shares, each against the denominator that
-belongs to it.
+belongs to it. Every bar is a lower bound, for the reason the next paragraph sets out. Two of the
+six are marked, because they are the pair a reader needs in order to compare any two methods:
+without a count of unseen objects a success rate has no generalisation denominator, and without
+contact or penetration handling it says nothing about whether the hand passed through the object.
+They are also the two the field reports least.
 
 \textbf{These are counts of what this survey captured, not of what papers reported, and every one
 is a floor.} A structured row holds a scalar. A paper that reports ten trials on each of nine
@@ -49,20 +47,10 @@ the artefact flatters the argument. Section~\ref{sec:train:code} makes the same 
 the paper/code count, subtracting the 13 disagreements that are limitations of this survey's own
 parsing before declaring which number to quote, and the coverage statistics above need it more.
 
-So the nulls were audited by hand against the notes they came from, and the numbers above are the
-audited ones. Of the 34 method rows with a real robot and no trial count, 15 had the count written
-in their own note. $\pi_0$ \cite{pi0_2024} at ten trials per task, RDT-1B \cite{rdt1b_2024} at 139
-across seven tasks, UMI \cite{umi_2024} at 260, $\pi^{*}_{0.6}$ \cite{pistar06_2025} at 750,
-Gemini Robotics \cite{gemini_robotics_2025} at twenty per task, and ten more. That is 44 percent
-of the audited nulls, and it moved the headline from 55 rows to 70, from 62 percent of real-robot
-papers to 79 percent, and the ``never says'' figure from 34 of 89 down to 19. The success
-criterion moved further: of 33 null rows, 19 do state a criterion, so the count rose from 79 to
-98. The unseen-object count moved least, 7 recovered from 80 audited nulls, 32 to 39. The audit
-only counted cases where the note itself carried the number, so a count that the note also missed
-is still uncounted, and 19 trial counts, 8 unseen-object evaluations whose object count the note
-never gives, and 4 criteria remain genuinely unsettled. Those nulls are now a defensible claim
-rather than an artefact. Every bar in \figurename~\ref{fig:reporting} should still be read as a
-lower bound.
+The nulls behind those six shares were therefore audited by hand against the notes they came from,
+and every number above is post-audit. Appendix~\ref{app:method} gives what that audit recovered and
+what it could not: the counts moved by tens of rows, 19 trial counts and 4 criteria remain
+genuinely unsettled, and every bar in \figurename~\ref{fig:reporting} is still a lower bound.
 
 The remaining gap is the one that matters. Nineteen of the 89 papers with a real robot never say
 how many times they ran it. A percentage with no denominator cannot be given an interval, so it
@@ -88,13 +76,9 @@ per-cell distribution.
   \centering
   \IfFileExists{figs/fig_trials.tex}{\resizebox{\columnwidth}{!}{\input{figs/fig_trials}}}{%
     \framebox[0.95\columnwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_trials.tex pending}}}
-  \caption{Where a denominator is stated it is small. The \fnTrials{} method rows whose stated
-  real-trial count is per cell, meaning per task, per condition or per object, binned by fives and
-  labelled on each bin's upper edge, with the median of \fnTrialsMedian{} marked. The modal
-  evaluation is \fnTrialsMode{} trials in a cell, in \fnTrialsModeN{} of the \fnTrials{}. The
-  \fnTotals{} rows that state a grand total over every cell are a different quantity, and pooling
-  the two is the error this section withdrew: they are counted beneath the axis rather than drawn in
-  the histogram.}
+  \caption{Where a denominator is stated it is small: the \fnTrials{} per-cell real-trial counts,
+  binned by fives, median \fnTrialsMedian{} marked. The \fnTotals{} grand totals are a separate
+  quantity, counted beneath the axis rather than pooled in.}
   \label{fig:trials}
 \end{figure}
 
@@ -123,7 +107,7 @@ so 78 is a count of strings and not of hand designs. Matching on the string, All
 35, Shadow in 21, Inspire in 19 and LEAP in 12. A success rate on a 16-degree-of-freedom Allegro
 and a success rate on a 6-actuator Inspire hand are not measurements of the same thing.
 
-Nor are the criteria, and the audit changed what that sentence can claim. DexVerse
+Nor are the criteria. DexVerse
 \cite{dexverse_2026} counts PickCube a success when the cube is ``lifted at least 0.20 m above its
 resetting height''. Bench2Dex \cite{bench2dex_2026} requires its terminal predicate to hold for a
 continuous dwell time of 0.5 s, to reject transient contacts. The Colosseum \cite{colosseum_2024}
@@ -132,10 +116,10 @@ counts an episode successful ``if the model completes the task fully''. DexTrack
 gives 46.70 and 65.48 percent for the same rollouts. Of the 14 rows that still state no criterion,
 ten have no success predicate at all. They report radians rotated or time-to-fall and never define
 a success, which is a fact about the paper rather than a gap in this survey. And four are
-unsettled by the note. What the audit found in the other 19 was mostly not a threshold: eleven
-score by rubric or staged partial credit, five judge binary completion against a task description
-by eye, two defer to a benchmark's own definition, and exactly one, \cite{pistar06_2025}, states a
-verbatim numeric threshold. A rubric is a milder failure than silence and a worse one than a
+unsettled by the note. Of the 19 criteria the audit recovered, all but one are a rubric, a staged
+partial credit, a judgement by eye or a deferral to a benchmark's own definition rather than a
+threshold, and exactly one, \cite{pistar06_2025}, states a verbatim numeric one;
+Appendix~\ref{app:method} counts the four kinds. A rubric is a milder failure than silence and a worse one than a
 threshold, because it is reproducible inside a lab and not across two.
 
 \textbf{The axes that matter.}\label{subsec:axes}
@@ -195,19 +179,16 @@ tracked the object in position only.
   \IfFileExists{figs/fig_penetration.tex}{%
     \resizebox{\columnwidth}{!}{\input{figs/fig_penetration}}}{%
     \framebox[0.95\columnwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_penetration.tex pending}}}
-  \caption{The quantity most specific to a hand is the one closed-loop policies do not record. Each bar is drawn
-  against all \fnRows{} method rows, the light track behind it. Of the \fnPenSettled{} rows whose
-  note settles the question, \fnPenHandled{} address interpenetration in any form, and
-  \fnPenClosed{} of those are closed-loop policies: the other \fnPenOther{} are grasp synthesisers,
-  trajectory optimisers or a contact model, which score a configuration rather than a controller.
-  Of those \fnPenHandled{}, \fnPenRollout{} report a penetration number for the rollouts of their
-  own trained policy, which is the last row and the point of the figure: every one of them sits on
-  the reference side of the reference-versus-rollout split.}
+  \caption{Interpenetration handling among all \fnRows{} method rows, the settled \fnPenSettled{}
+  shown against the light track behind them, split by closed-loop policy versus reference-only
+  scoring.}
   \label{fig:penetration}
 \end{figure}
 
-Eleven method rows handle interpenetration in any form: three penalise it, three measure it, five
-constrain it, 11 percent of the settled rows. The denominator is 96, not 112, because the
+The quantity most specific to a hand is the one closed-loop policies do not record, and
+\figurename~\ref{fig:penetration} is the funnel that narrows to zero. Eleven method rows handle
+interpenetration in any form: three penalise it, three measure it, five constrain it, 11 percent
+of the settled rows. The denominator is 96, not 112, because the
 contact-handling field is null for 16 rows, and a null there means the note did not settle the
 question, not that the paper ignored penetration.
 
@@ -337,107 +318,24 @@ axis is derived for the statistic that axis actually reports: a single rate take
 half-width, a matched comparison takes McNemar, a ratio takes the standard error of the log ratio,
 a correlation takes the Fisher-z interval.
 
-Fix the width first, then read off the count. Take a 95 percent Wilson interval on a single
-reported rate, at the worst case of $\hat{p} = 0.5$. Writing the half-width of \eqref{eq:wilson} as
-\begin{equation}
-w(n,\hat{p}) = \frac{z\sqrt{4n\hat{p}\,(1-\hat{p}) + z^{2}}}{2\,(n + z^{2})},
-\label{eq:halfwidth}
-\end{equation}
-the count a target width $w_{0}$ demands is
-$n_{\min}(w_{0}) = \min\{\,n : w(n,0.5) \le w_{0}\,\}$, which gives
-\begin{equation*}
-\begin{array}{lrrrr}
-\toprule
-\text{half-width } w_{0} \text{ (points)} & 20 & 15 & 10 & 5\\
-\midrule
-n_{\min} \text{ (trials)} & 21 & 39 & 93 & 381\\
-\bottomrule
-\end{array}
-\end{equation*}
-Ten points is the coarsest width at which a single rate is worth printing, so the absolute-rate
-minimum is 93, rounded to 100. At 100 trials a reported 80 percent has an interval of 71 to 87
-percent, and a reported 50 percent has 40 to 60. A comparison is a different question and a harder
-one: two rates each carrying $\pm 10$ points do not resolve a 10-point difference between them,
-because the difference's standard error is larger by a factor of $\sqrt{2}$, so the width argument
-sets a floor on what is worth reporting and not on what can be compared.
-
-For the A/B comparison the relevant calculation is power, and the design is paired.
-Table~\ref{tab:protocol} matches initial conditions by image overlay and interleaves the two
-policies in one session, so the unit is a matched pair and the count follows McNemar, which depends
-on the discordance rate. The share of initial conditions on which the two policies disagree, and
-not on the two rates alone. Write $\delta = |p_{1} - p_{2}|$ for the gap between the two success
-rates, $\pi_{d}$ for that discordance rate, $z_{1-\alpha/2} = 1.96$ at $\alpha = 0.05$ and
-$z_{1-\beta} = 0.84$ at 80 percent power; then the number of matched pairs is
-\begin{equation}
-n_{\mathrm{pairs}} =
-  \frac{\bigl[\,z_{1-\alpha/2}\sqrt{\pi_{d}}
-              + z_{1-\beta}\sqrt{\pi_{d} - \delta^{2}}\,\bigr]^{2}}{\delta^{2}}.
-\label{eq:mcnemar}
-\end{equation}
-To separate 50 from 70 percent, which is $\delta = 0.20$, at $\alpha = 0.05$ with 80 percent power,
-\eqref{eq:mcnemar} asks per arm for
-\begin{equation*}
-\begin{array}{lrrrr}
-\toprule
-\text{discordance } \pi_{d} & 0.2 & 0.3 & 0.4 & 0.5\\
-\midrule
-n_{\mathrm{pairs}} & 37 & 57 & 77 & 96\\
-\bottomrule
-\end{array}
-\end{equation*}
-The protocol assumes 0.3 and asks for 57, and states the sensitivity rather than hiding it, because
-0.5 is the discordance the same two rates produce when the pairing buys nothing, and at that value
-the paired count returns to the 93 per arm an unpaired test would need. The saving from pairing is
-real but smaller than the pair counts suggest, since a pair costs two rollouts: 57 pairs is 114
-rollouts against 186. An earlier version of this section quoted 93, 169 and 387 per arm for gaps of
-20, 15 and 10 points, which are correct for independent arms and are the wrong test for this
-protocol. That 93 was also the same integer as the half-width calculation in the paragraph above,
-which is a coincidence of the worst-case arithmetic and not a second derivation of the same number.
-
-One hundred is a cap and not a bill, because on a graded score a sequential test reached its
-decision in 12 to 36 paired hardware trials in \cite{beyond_binary_success_2026}. At 30 rollouts a
-continuous score already carries a half-width of $\pm 0.36$ standard deviations, which is why a
-graded score can stop where a binary one cannot. A cell that stops early does not report a Wilson
-interval. Optional stopping breaks the coverage of a fixed-$n$ interval, which is the reason
-Snyder et al. \cite{beyond_binary_success_2026} and Badithela et al. \cite{suresim_2025} use
-anytime-valid betting intervals rather than Wilson, so Table~\ref{tab:protocol} asks a cell run to
-a fixed 100 for a Wilson interval and a cell stopped early for a confidence sequence, and never
-for both. Intervals are also marginal rather than simultaneous. Table~\ref{tab:protocol} has seven
-axes and Table~\ref{tab:matrix} twelve methods. At 84 independent 95 percent intervals, four
-excursions are expected by construction, so a paper comparing $k$ policies on $m$ tasks corrects
-its $k(k-1)/2$ pairwise tests to a global 95 percent level, as the TRI LBM Team
-\cite{lbm_careful_examination_2025} does, or says its intervals are not simultaneous.
-
-Simulation is cheap, so simulated cells take 200 episodes, giving a 6.9-point half-width.
-Perturbation axes are screened rather than certified, and 40 per axis buys a 15-point half-width
-on each axis's own absolute rate, which is enough to rank the axes and pick the two worst for
-hardware. It is not enough for the ratio to the anchor that an earlier draft asked each cell to
-report. At 40 trials in each arm, a fall from a 0.50 anchor to 0.30 is a ratio of 0.60 with a 95
-percent interval of 0.34 to 1.06, which contains 1: at the screening count you cannot establish
-that the perturbation hurt at all. Certifying that same drop takes 101 per arm by the log-ratio
-standard error, so Table~\ref{tab:protocol} now asks for absolute rates with their own intervals
-at 40, reports the ratio without an interval, and prescribes 101 before any claim that a named
-axis hurt.
-
-For unseen objects the resampling unit is the object and not the trial, so 20 objects at 5 trials
-each gives 100 trials and an object-level half-width near 20 points. That 20 points is the Wilson
-width at $n = 20$ and it treats each object's outcome as a single Bernoulli draw, which the five
-within-object trials are not. It is the right order of magnitude and the assumption belongs in the
-cell. A 10-point claim about an object distribution needs about 93 objects. Seven of the 39 rows
-that state an unseen count reach that: 225 in \cite{bimangrasp_2024}, 241 in \cite{resdex_2024}
-and \cite{unidexgrasp_2023}, 360 in \cite{dexgraspvla_2025}, 500 in \cite{dexmv_2021}, 2029 in
-\cite{clutterdexgrasp_2025} and 503409 in \cite{graspxl_2024}. For a continuous score the
-half-width is 1.96 standard deviations over the square root of the count, $1.96\,s/\sqrt{n}$, so
-100 rollouts give $\pm 0.20$ standard deviations, and the unit is the rollout because frames
-within one are correlated.
-
-The transfer axis is the one where 100 is least defensible. On 100 matched pairs a measured
-correlation of 0.70 carries a Fisher-z interval of 0.58 to 0.79, a half-width of about 0.10 that
-130 pairs would be needed to guarantee. That is enough to establish that a simulator tracks
-reality at all, and it is not enough to separate \cite{suresim_2025}'s useful regime from its
-marginal one, since those differ by about 0.11 in correlation. Both limits come within 0.05 of the
-estimate only at about 457 pairs. Table~\ref{tab:protocol} states which of the two decisions each
-count supports rather than leaving a reader to assume the larger one.
+Appendix~\ref{app:protocol} works the derivation; what it concludes is the following, and every
+count in Table~\ref{tab:protocol} is one of these. A single reported rate takes 100 real rollouts
+per cell, because 93 is where the worst-case Wilson half-width of \eqref{eq:wilson} falls to 10
+points and 10 points is the coarsest width at which a rate is worth printing. A comparison is a
+different question and a harder one. The design is paired, so the count follows McNemar and depends
+on the discordance rate rather than on the two rates alone, and separating 50 from 70 percent at
+80 percent power takes 57 matched pairs per arm at the assumed discordance of 0.3, which is 114
+rollouts against the 186 two independent arms would need. Simulated cells take 200 episodes for a
+6.9-point half-width. Perturbation axes are screened at 40 per axis, which ranks the axes and
+cannot establish that any one of them hurt, and certified at 101 per arm. Unseen objects resample
+the object rather than the trial, at 20 objects and 5 trials each, and a 10-point claim about an
+object distribution needs about 93 objects. The transfer axis takes the 100 real trials paired to
+100 simulated, and about 457 pairs to separate two correlations 0.1 apart. One hundred is a cap and
+not a bill, because a sequential test on a graded score reached its decision in 12 to 36 paired
+trials in \cite{beyond_binary_success_2026}, and a cell that stops early reports a confidence
+sequence rather than a Wilson interval, never both. The appendix also keeps the counts an earlier
+draft of this section quoted and this one withdrew, since the test they were computed for was the
+wrong one.
 
 \IfFileExists{tables/table8_protocol.tex}{\input{tables/table8_protocol}}{%
   \begin{table}[!t]\centering

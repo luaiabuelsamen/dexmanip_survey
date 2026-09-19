@@ -27,7 +27,7 @@ Each `outreach/<key>.md` file has:
 - the evidence, as a path into `code/md/` plus the line or function, and the commit recorded in
   `corpus/code_manifest.json`;
 - the sentences that will actually appear in `tex/sections/05_training.tex`,
-  `tex/sections/08_gaps.tex`, and `tex/sections/appendix_c_rewards.tex` if the authors do not
+  `tex/sections/08_conclusion.tex`, and `tex/sections/appendix_c_rewards.tex` if the authors do not
   reply;
 - three questions: whether our reading is correct, whether there is a reason the shipped
   configuration differs from the paper, and whether they would like the wording changed.
@@ -53,7 +53,7 @@ A reply from the authors is not just filed — it changes two things:
    that instead, and the `mismatch_class`/`mismatch_confidence` are revised accordingly — including
    downgrading a claim to a different class (e.g., version skew, or no longer a mismatch at all) or
    removing it from the ten entirely, if that is what the evidence now shows.
-2. **The text.** Any sentence in `tex/sections/05_training.tex`, `08_gaps.tex`, or
+2. **The text.** Any sentence in `tex/sections/05_training.tex`, `08_conclusion.tex`, or
    `appendix_c_rewards.tex` that states the claim is updated to match what the row now says.
    Nothing about a paper's code is asserted in the final document that its authors have
    contradicted with a reply we have no reason to doubt.
