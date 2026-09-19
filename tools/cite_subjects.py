@@ -97,6 +97,24 @@ OVERRIDES = {
     "aloha_act_2023": "ALOHA",
     "bimangrasp_2024": "BimanGrasp",
     "bidex_teleop_2024": "Bidex",
+    # Title joins the name to the subtitle with a dash rather than a colon, so the prefix rule
+    # never sees it; the engine is Brax in this survey's prose and in the field.
+    "brax_2021": "Brax",
+    # Title names the method ("Per-Contact Iteration Method ...") and not the engine it ships in.
+    "raisim_2018": "RaiSim",
+    # "Todorov" is the author, but this row sits beside mujoco_2012 in the simulator table and
+    # the name has to say which MuJoCo formulation the row is about.
+    "mujoco_convex_contact_2014": "MuJoCo convex",
+    # Title prefix is a possessive, "NEO's", which is not a name; the hand is 1X's NEO hand.
+    "onex_neo_hand_2026": "1X NEO",
+    # Title spells the acronym out ("Integrated linkage-driven ..."); the prose uses ILDA.
+    "ilda_hand_2021": "ILDA hand",
+    # Title is a sentence about synergies; the hand is the Pisa/IIT SoftHand, as the prose has it.
+    "pisa_iit_softhand_2014": "Pisa/IIT SoftHand",
+    # Colon prefix is four words, one over the limit the rule allows.
+    "leap_hand_v2_adv_2025": "LEAP Hand V2",
+    # Title is a sentence ("Getting the Ball Rolling: ..."); the hand is the Faive Hand.
+    "faive_hand_2023": "Faive Hand",
     # The paper is "Learning Dexterous In-Hand Manipulation"; the field cites the lab.
     "openai_dexterity_2018": "OpenAI",
     "openai_rubiks_cube_2019": "OpenAI",

@@ -3,6 +3,10 @@
 % Build:  cd tex && TEXINPUTS=.:./sty:: pdflatex -interaction=nonstopmode tables_probe.tex
 \documentclass[journal,twoside]{IEEEtran}
 \input{preamble}
+% A row label carries \cite. The probe has no bibliography, so \cite is set to a three-digit
+% number here: that is the widest label the survey's 221 entries can produce, which makes the
+% probe's width measurement conservative rather than optimistic.
+\renewcommand{\cite}[1]{[199]}
 \begin{document}
 \title{Table probe}
 \author{}
@@ -24,5 +28,4 @@ file that was open when it was set.
 \input{tables/appendix_hands_full}
 \input{tables/appendix_contact_models}
 \input{tables/appendix_protocol_long}
-\input{tables/appendix_surveys_full}
 \end{document}

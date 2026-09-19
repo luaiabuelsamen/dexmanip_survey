@@ -52,6 +52,12 @@ EV = _load("make_eval_tables")     # bill(), table9_rows(), method_name(), the d
 SV = _load("make_survey_table")    # SPEC and its anchors, note_text(), UNOBTAINED, UNREAD
 HU = _load("hand_usage")           # the one hand partition
 CN = _load("check_numbers")        # norm_sim(), FACTS
+CS = _load("cite_subjects")        # the key -> readable-name map used by the prose style pass
+
+# The name the field uses for each work, derived from corpus/bib.json by tools/cite_subjects.py.
+# A row label is that name with its citation, not the corpus key: a key is a filename, it wraps
+# into three lines in a narrow column, and it tells a reader nothing the name does not.
+SUBJECT = {k: v[0] for k, v in CS.build_map(CS.load()).items()}
 
 ROWS = MT.ROWS
 METHODS = [r for r in ROWS.values() if r.get("class") == "method"]
@@ -101,6 +107,21 @@ def key_tt(k):
     """A corpus key, breakable at its underscores so a long key wraps instead of overflowing."""
     parts = str(k).split("_")
     return r"\texttt{" + r"\_\allowbreak ".join(tex(p) for p in parts) + "}"
+
+
+def subject(key):
+    """A row label: the name the field uses for the work, with its citation.
+
+    Names come from tools/cite_subjects.py, which derives them from corpus/bib.json, so the label
+    in a table and the noun phrase in the prose are the same string. A few names are already
+    LaTeX -- $\\pi_0$, \\texttt{dm\\_control} -- and are passed through unescaped. A key with no
+    name keeps the key, which is the only case where a raw key is still printed.
+    """
+    name = SUBJECT.get(key)
+    if not name:
+        return key_tt(key)
+    body = name if ("\\" in name or "$" in name) else tex(name)
+    return r"%s~\cite{%s}" % (body, key)
 
 
 def clip(s, n):
@@ -251,7 +272,7 @@ def maker_short(r):
         s = s.split(",")[-1].strip()
     for pat, rep in MAKER_ABBREV:
         s = re.sub(pat, rep, s)
-    return tex(clip(s, 34))
+    return tex(clip(s, 42))
 
 
 def claim_when(r):
@@ -295,13 +316,19 @@ def uses_count(key):
     return sum(1 for m in METHODS if re.search(pat, str(m.get("hand") or ""), re.I))
 
 
-def hand_short(v, n=26):
-    """A hand string for a narrow column: the first named hand, clipped."""
+def hand_short(v, n=36):
+    """A hand string for a narrow column: the first named hand.
+
+    The row's hand field lists every end effector the work used and often the arm it hung on.
+    Taking the run before the first separator, and before the clause that names the arm, gives
+    the hand itself, which is a whole value rather than a cut one: the longest in the corpus is
+    34 characters, so at the widths used here nothing is marked with an ellipsis.
+    """
     if not v:
         return NA
     s = " ".join(str(v).split())
     s = re.sub(r"\s*\(.*?\)", "", s)
-    s = re.split(r";|/|,| and ", s)[0].strip()
+    s = re.split(r";|/|,| and | mounted on | attached to | on a ", s)[0].strip()
     return tex(clip(s or "?", n))
 
 
@@ -313,9 +340,9 @@ def latency_short(r):
     m = re.search(r"(\d[\d.,]*)\s*(ms|kHz|Hz|s\b)", s)
     if m:
         return tex(f"{m.group(1)} {m.group(2)}")
-    if re.search(r"no number|not stated|claimed", s, re.I):
+    if re.search(r"no number|not stated|claimed|no figure", s, re.I):
         return NA
-    return tex(clip(s, 14))
+    return tex(clip(s, 20))
 
 
 def collected(r):
@@ -335,8 +362,22 @@ ALIGN = {"l": r">{\raggedright\arraybackslash\hspace{0pt}}p{%s}",
          "c": r">{\centering\arraybackslash}p{%s}"}
 
 
+def note_block(note, total):
+    """The note line under a table, set to the table's own measure.
+
+    A caption says what the table shows and how many of its cells are empty, and stops. What a
+    controlled vocabulary token means, how a ranking was scored, which column the reader should
+    read first: that is a note under the rules, where a reader meets it after the table rather
+    than before it.
+    """
+    if not note:
+        return []
+    return [r"\par\vspace{2pt}",
+            r"\parbox{%gpt}{\scriptsize\raggedright %s\par}" % (total, note)]
+
+
 def write_table(fname, label, caption, cols, body, wide=True, env=None, colsep=3,
-                size=r"\footnotesize", pos="!t"):
+                size=r"\footnotesize", pos="!t", note=None):
     """One table file. `cols` is a list of (header, width in pt, alignment).
 
     Width discipline: the sum of the column widths plus 2*colsep per column must not exceed the
@@ -365,13 +406,16 @@ def write_table(fname, label, caption, cols, body, wide=True, env=None, colsep=3
         r"\midrule",
     ]
     lines += [" & ".join(row) + r" \\" for row in body]
-    lines += [r"\bottomrule", r"\end{tabular}", rf"\end{{{env}}}", ""]
+    lines += [r"\bottomrule", r"\end{tabular}"]
+    lines += note_block(note, total)
+    lines += [rf"\end{{{env}}}", ""]
     (OUT / fname).write_text("\n".join(lines))
     return dict(file=fname, cols=len(cols), width="two" if wide else "one", rows=len(body),
                 pt=round(total))
 
 
-def write_longtable(fname, label, caption, cols, body, colsep=3, size=r"\scriptsize"):
+def write_longtable(fname, label, caption, cols, body, colsep=3, size=r"\scriptsize", note=None,
+                    extra_labels=()):
     """An appendix longtable, run across both columns by switching to one-column mode."""
     total = sum(w for _, w, _ in cols) + 2 * colsep * len(cols)
     assert total <= 516.0, f"{fname}: {total:.0f} pt over a 516 pt measure"
@@ -385,7 +429,10 @@ def write_longtable(fname, label, caption, cols, body, colsep=3, size=r"\scripts
         r"\setlength{\tabcolsep}{%gpt}" % colsep,
         r"\setlength{\emergencystretch}{2em}",
         r"\begin{longtable}{%s}" % spec,
-        r"\caption{%s}\label{%s}\\" % (caption, label),
+        # extra_labels are the names an older placeholder table used, kept so that a cross
+        # reference written against the placeholder still resolves to the table that replaced it.
+        r"\caption{%s}\label{%s}%s\\" % (caption, label,
+                                         "".join(r"\label{%s}" % x for x in extra_labels)),
         r"\toprule",
         r"\rowcolor{wash} " + head + r" \\",
         r"\midrule",
@@ -402,7 +449,9 @@ def write_longtable(fname, label, caption, cols, body, colsep=3, size=r"\scripts
         r"\endlastfoot",
     ]
     lines += [" & ".join(row) + r" \\" for row in body]
-    lines += [r"\end{longtable}", r"\twocolumn", r"\normalsize", ""]
+    lines += [r"\end{longtable}"]
+    lines += note_block(note, total)
+    lines += [r"\twocolumn", r"\normalsize", ""]
     (OUT / fname).write_text("\n".join(lines))
     return dict(file=fname, cols=len(cols), width="two (longtable, one-column mode)",
                 rows=len(body), pt=round(total))
@@ -427,7 +476,7 @@ BY_JOINTS = lambda r: (-(r.get("dof") or 0), r["key"])
 
 def hand_row(r, wide_kind=34):
     return [
-        key_tt(r["key"]),
+        subject(r["key"]),
         maker_short(r),
         num(r.get("dof")),
         num(r.get("actuated_dof")),
@@ -449,24 +498,25 @@ HAND_SPEC_IDX = [2, 3, 4, 5, 6, 7, 8, 9]   # the specification columns, as in ma
 def table1():
     rows = sorted([r for r in HANDS if r.get("release_status") in OBTAINABLE], key=BY_JOINTS)
     body = [hand_row(r) for r in rows]
-    cols = [("hand key", 56, "l"), ("maker", 52, "l"), ("DoF", 18, "r"), (r"act.\ DoF", 18, "r"),
-            ("actuation", 42, "l"), ("mass g", 22, "r"), ("force N", 20, "r"),
-            ("force kind", 40, "l"), ("tactile", 34, "l"), ("price USD", 28, "r"),
-            ("open HW", 20, "c"), ("status", 34, "l"), ("uses", 18, "r")]
+    cols = [("hand", 88, "l"), ("maker", 62, "l"), ("DoF", 16, "r"), (r"act.\ DoF", 16, "r"),
+            ("actuation", 42, "l"), ("mass g", 20, "r"), ("force N", 18, "r"),
+            ("force kind", 40, "l"), ("tactile", 34, "l"), ("price USD", 26, "r"),
+            ("open HW", 18, "c"), ("status", 36, "l"), ("uses", 14, "r")]
     cap = (r"Hands that can be obtained: sold, open-source, or with no release status stated. "
-           + str(len(rows)) + r" rows, sorted by joint count; a row whose joint count no source "
-           r"states sorts last rather than being ranked by a number nobody stated. "
-           + emptiness(body, HAND_SPEC_IDX, "specification columns (DoF through price)")
-           + r" The key, maker, open-hardware, status and usage columns are excluded from that "
-           r"count because they are never blank, and counting them would dilute the finding. "
-           r"\emph{actuation}, \emph{force kind} and \emph{tactile} are controlled vocabularies; "
-           r"the source sentence each was read from is in Table~\ref{tab:app-hands}. "
-           r"\emph{force N} is not a ranking: read \emph{force kind} first, because pull-out "
-           r"resistance, pinch force, a fingertip normal force under an indenter and an "
-           r"unlabelled vendor number are different measurements. \emph{uses} counts the method "
-           r"rows whose own experiments run on that hand. Every figure is the maker's or the "
-           r"authors' own claim.")
-    return write_table("table1_hands_available.tex", "tab:hands-available", cap, cols, body)
+           + str(len(rows)) + r" rows, sorted by joint count. "
+           + emptiness(body, HAND_SPEC_IDX, "specification columns (DoF through price)"))
+    note = (r"A row whose joint count no source states sorts last rather than being ranked by a "
+            r"number nobody stated. The hand, maker, open-hardware, status and usage columns are "
+            r"left out of the emptiness count because they are never blank, and counting them "
+            r"would dilute the finding. \emph{actuation}, \emph{force kind} and \emph{tactile} "
+            r"are controlled vocabularies; the source sentence each was read from is in "
+            r"Table~\ref{tab:app-hands}. \emph{force N} is not a ranking: read \emph{force kind} "
+            r"first, because pull-out resistance, pinch force, a fingertip normal force under an "
+            r"indenter and an unlabelled vendor number are different measurements. \emph{uses} "
+            r"counts the method rows whose own experiments run on that hand. Every figure is the "
+            r"maker's or the authors' own claim.")
+    return write_table("table1_hands_available.tex", "tab:hands-available", cap, cols, body,
+                       note=note)
 
 
 def table2():
@@ -474,37 +524,36 @@ def table2():
     body = []
     for r in rows:
         body.append(hand_row(r) + [claim_when(r), evidence_class(r)])
-    cols = [("hand key", 50, "l"), ("maker", 46, "l"), ("DoF", 18, "r"), (r"act.\ DoF", 18, "r"),
-            ("actuation", 34, "l"), ("mass g", 20, "r"), ("force N", 18, "r"),
-            ("force kind", 34, "l"), ("tactile", 30, "l"), ("price USD", 26, "r"),
-            ("open HW", 19, "c"), ("status", 34, "l"), ("uses", 18, "r"),
-            ("claim date", 40, "l"), ("evidence", 32, "l")]
+    cols = [("hand", 84, "l"), ("maker", 46, "l"), ("DoF", 16, "r"), (r"act.\ DoF", 16, "r"),
+            ("actuation", 34, "l"), ("mass g", 18, "r"), ("force N", 16, "r"),
+            ("force kind", 34, "l"), ("tactile", 30, "l"), ("price USD", 22, "r"),
+            ("open HW", 17, "c"), ("status", 36, "l"), ("uses", 14, "r"),
+            ("claim date", 38, "l"), ("evidence", 30, "l")]
     cap = (r"Hands announced, prototyped or held internally, which cannot be bought or built. "
-           + str(len(rows)) + r" rows, the same columns as Table~\ref{tab:hands-available} plus "
-           r"the date of the claim and the class of artefact the claim was read off: "
-           r"\emph{datasheet} for a paper, datasheet or vendor specification page, \emph{video} "
-           r"for a demonstration reel, \emph{press} for a press release or a third-party "
-           r"tracker. "
-           + emptiness(body, HAND_SPEC_IDX, "specification columns (DoF through price)")
-           + r" That share is far higher than in Table~\ref{tab:hands-available} and it is the "
-           r"finding of this table rather than a defect of it: an unreleased hand is announced "
-           r"without a specification. \emph{claim date} prints \emph{undated} where the source "
-           r"page carries no date of its own; a fetch date is not a claim date.")
+           + str(len(rows)) + r" rows, the columns of Table~\ref{tab:hands-available} plus the "
+           r"date of the claim and the class of artefact it was read off. "
+           + emptiness(body, HAND_SPEC_IDX, "specification columns (DoF through price)"))
+    note = (r"That share is far higher than in Table~\ref{tab:hands-available} and it is the "
+            r"finding of this table rather than a defect of it: an unreleased hand is announced "
+            r"without a specification. \emph{evidence} is \emph{datasheet} for a paper, datasheet "
+            r"or vendor specification page, \emph{video} for a demonstration reel, \emph{press} "
+            r"for a press release or a third-party tracker. \emph{claim date} prints "
+            r"\emph{undated} where the source page carries no date of its own; a fetch date is "
+            r"not a claim date.")
     return write_table("table2_hands_announced.tex", "tab:hands-announced", cap, cols, body,
-                       colsep=2)
+                       colsep=2, note=note)
 
 
 # --- Table III: the simulators -----------------------------------------------------------------
 HAND_NAME_CLEAN = re.compile(r"\s*\(.*?\)\s*")
 
 
-def hands_shipped_short(r):
+def hands_shipped_names(r):
+    """The first-party hand models the parsed snapshot ships, as a list of names."""
     v = r.get("hands_shipped")
     if not v:
-        return NA
-    names = [HAND_NAME_CLEAN.sub("", str(x)).strip() for x in v]
-    names = [n for n in names if n]
-    return tex(f"{len(names)}: " + clip("; ".join(names), 58))
+        return []
+    return [n for n in (HAND_NAME_CLEAN.sub("", str(x)).strip() for x in v) if n]
 
 
 def table3():
@@ -512,32 +561,39 @@ def table3():
     body = []
     for r in rows:
         dt = r.get("default_timestep_s")
+        names = hands_shipped_names(r)
         body.append([
-            key_tt(r["key"]),
+            subject(r["key"]),
             vocab("contact_model", r.get("contact_model"), r["key"]),
             vocab("solver", r.get("solver"), r["key"]),
             yesno(r.get("differentiable")),
             yesno(r.get("gpu")),
             NA if dt is None else f"{dt:.4g}",
             yesno(r.get("penetration_exposed")),
-            hands_shipped_short(r),
+            str(len(names)) if r.get("hands_shipped") else NA,
         ])
-    cols = [("engine", 60, "l"), ("contact model", 58, "l"), ("solver", 52, "l"),
-            ("diff.", 22, "c"), ("GPU", 22, "c"), ("dt (s)", 34, "r"),
-            ("penetration exposed", 42, "c"), ("hands shipped", 118, "l")]
-    cap = (str(len(rows)) + r" simulators and physics engines. "
-           + emptiness(body, [1, 2, 3, 4, 5, 6, 7], "property columns")
-           + r" \emph{contact model} and \emph{solver} are controlled vocabularies: "
-           r"\emph{soft} for a compliant or regularised contact, \emph{convex relaxation} for a "
-           r"convexified formulation, \emph{complementarity} for an LCP, \emph{hard NCP} for a "
-           r"nonlinear complementarity problem, \emph{impulse} for a velocity-level update, and "
-           r"\emph{rigid, model unstated} where the source describes collision geometry but "
-           r"names no contact law. The sentence each was read from runs to several hundred "
-           r"characters and is reproduced in full in Table~\ref{tab:app-contact}, because "
-           r"Section~IV's argument turns on its wording. \emph{penetration exposed} is whether "
-           r"the engine makes interpenetration depth readable by a user's code without patching "
-           r"it. \emph{hands shipped} counts first-party hand models in the parsed snapshot.")
-    return write_table("table3_simulators.tex", "tab:simulators", cap, cols, body)
+    cols = [("engine", 72, "l"), ("contact model", 78, "l"), ("solver", 68, "l"),
+            ("diff.", 24, "c"), ("GPU", 24, "c"), ("dt (s)", 38, "r"),
+            ("penetration exposed", 52, "c"), ("hands", 28, "r")]
+    cap = (str(len(rows)) + r" simulators and physics engines, with the contact formulation each "
+           r"names, whether it exposes interpenetration depth, and how many first-party hand "
+           r"models it ships. "
+           + emptiness(body, [1, 2, 3, 4, 5, 6, 7], "property columns"))
+    shipped = "; ".join(
+        r"\emph{%s} %s" % (tex(SUBJECT.get(r["key"], r["key"])), tex(", ".join(hands_shipped_names(r))))
+        for r in rows if hands_shipped_names(r))
+    note = (r"\emph{contact model} and \emph{solver} are controlled vocabularies: \emph{soft} for "
+            r"a compliant or regularised contact, \emph{convex relaxation} for a convexified "
+            r"formulation, \emph{complementarity} for an LCP, \emph{hard NCP} for a nonlinear "
+            r"complementarity problem, \emph{impulse} for a velocity-level update, and "
+            r"\emph{rigid, model unstated} where the source describes collision geometry but "
+            r"names no contact law. The sentence each was read from runs to several hundred "
+            r"characters and is reproduced in full in Table~\ref{tab:app-contact}, because "
+            r"Section~IV's argument turns on its wording. \emph{penetration exposed} is whether "
+            r"the engine makes interpenetration depth readable by a user's code without patching "
+            r"it. \emph{hands} counts first-party hand models in the parsed snapshot, and they "
+            r"are: " + shipped + r".")
+    return write_table("table3_simulators.tex", "tab:simulators", cap, cols, body, note=note)
 
 
 # --- Table IV: reward terms --------------------------------------------------------------------
@@ -557,27 +613,28 @@ def table4():
         marks = [MARK[row[f]] for f in fams]
         blank += sum(1 for m in marks if m == "")
         term_cells += len(marks)
-        body.append([key_tt(row["key"]), num(src.get("year"))] + marks + [
+        body.append([subject(row["key"]), num(src.get("year"))] + marks + [
             num(src.get("reward_terms")),
             yesno(src.get("code_released")),
             "yes" if src.get("paper_code_mismatch") else ("no" if src.get("code_released") else NA),
         ])
-    cols = ([("method", 62, "l"), ("yr", 18, "r")]
+    cols = ([("method", 100, "l"), ("yr", 18, "r")]
             + [(FAM_HDR[f], 26, "c") for f in fams]
             + [("terms", 20, "r"), ("code", 16, "c"), ("mismatch", 34, "c")])
     cap = (r"Reward-term families across the " + str(len(rows)) + r" in-hand reorientation "
-           r"methods whose objective could be read term by term. A mark is \textbf{P} where the "
-           r"term is in the paper and either no code was released or it is absent from the "
-           r"released reward code, \textbf{C} where it is in the released code and not in the "
-           r"paper's stated reward, \textbf{B} where it is in both, and \textbf{Z} where the "
-           r"released code carries the term with a weight of zero. "
+           r"methods whose objective could be read term by term. "
            + f"{blank} of the {term_cells} term cells ({100*blank/max(term_cells,1):.0f}\\%) are "
-           r"blank, which means the method does not use that family. A blank here is not the same "
-           r"mark as \na: the objective was read in full for every row in this table, so nothing "
-           r"in a term column is unstated. The one column that carries \na is \emph{mismatch}, which cannot be settled for a method that released no "
-           r"code. \emph{terms} is the count of reward terms the paper states. Marks are read "
-           r"from the per-method source section recorded in \texttt{corpus/reward\_matrix.json}.")
-    return write_table("table4_rewards.tex", "tab:rewards", cap, cols, body)
+           r"blank, which means the method does not use that family; the only column that carries "
+           r"\na is \emph{mismatch}, which no method that released no code can settle.")
+    note = (r"A mark is \textbf{P} where the term is in the paper and either no code was released "
+            r"or it is absent from the released reward code, \textbf{C} where it is in the "
+            r"released code and not in the paper's stated reward, \textbf{B} where it is in both, "
+            r"and \textbf{Z} where the released code carries the term with a weight of zero. A "
+            r"blank is not the same mark as \na: the objective was read in full for every row in "
+            r"this table, so nothing in a term column is unstated. \emph{terms} is the count of "
+            r"reward terms the paper states. Marks are read from the per-method source section "
+            r"recorded in \texttt{corpus/reward\_matrix.json}.")
+    return write_table("table4_rewards.tex", "tab:rewards", cap, cols, body, note=note)
 
 
 # --- Table V: teleoperation and human-data systems ---------------------------------------------
@@ -586,27 +643,26 @@ def table5():
     body = []
     for r in rows:
         body.append([
-            key_tt(r["key"]),
+            subject(r["key"]),
             vocab("operator_interface", r.get("operator_interface"), r["key"]),
             hand_short(r.get("hand"), 34),
             latency_short(r),
             NA if r.get("rig_cost_usd") is None else thousands(r["rig_cost_usd"]),
             collected(r),
         ])
-    cols = [("system", 64, "l"), ("interface", 62, "l"), ("robot hand", 80, "l"),
-            ("latency", 38, "l"), ("rig USD", 34, "r"), ("data collected", 50, "l")]
+    cols = [("system", 100, "l"), ("interface", 62, "l"), ("robot hand", 90, "l"),
+            ("latency", 58, "l"), ("rig USD", 34, "r"), ("data collected", 50, "l")]
     cap = (str(len(rows)) + r" teleoperation and human-data systems, every corpus row that names "
-           r"an operator interface. Two columns rather than one: the interface and hand columns "
-           r"need about 140\,pt between them before the hand names start breaking mid-word, and "
-           r"at that width six columns do not fit 252\,pt. "
-           + emptiness(body, [1, 2, 3, 4, 5], "columns other than the key")
-           + r" \emph{interface} is a controlled vocabulary. \emph{latency} is whatever the "
-           r"source measured, reduced to its leading figure, and is \na where a paper claims low "
-           r"latency without a number, which is the usual case. \emph{rig USD} is the authors' "
-           r"own bill of materials where they published one. \emph{data collected} is the "
-           r"released trajectory count and hours, and a system built to be an interface rather "
-           r"than a dataset states neither.")
-    return write_table("table5_teleop.tex", "tab:teleop", cap, cols, body)
+           r"an operator interface. "
+           + emptiness(body, [1, 2, 3, 4, 5], "columns other than the system"))
+    note = (r"Two columns rather than one: the interface and hand columns need about 150\,pt "
+            r"between them before the hand names start breaking mid-word. \emph{interface} is a "
+            r"controlled vocabulary. \emph{latency} is whatever the source measured, reduced to "
+            r"its leading figure, and is \na where a paper claims low latency without a number, "
+            r"which is the usual case. \emph{rig USD} is the authors' own bill of materials where "
+            r"they published one. \emph{data collected} is the released trajectory count and "
+            r"hours, and a system built to be an interface rather than a dataset states neither.")
+    return write_table("table5_teleop.tex", "tab:teleop", cap, cols, body, note=note)
 
 
 # --- Table VI: the method table, body version and appendix longtable ---------------------------
@@ -672,14 +728,29 @@ def tags(field, short, r, cap=2):
     return tex(", ".join(out) + ("+" if len(v) > cap else ""))
 
 
+def sim_short(r):
+    """The engine a method ran in, as a name rather than as a sentence.
+
+    `check_numbers.norm_sim` folds the spellings together but keeps whatever qualification the
+    row carried, which runs to 185 characters in one case. The leading clause of that, capped at
+    three words, is the engine's name; the qualification is in \\texttt{corpus/rows/}. Nothing is
+    marked with an ellipsis, because a name is not a truncated sentence.
+    """
+    v = CN.norm_sim(r.get("sim")) if r.get("sim") else None
+    if not v:
+        return NA
+    lead = re.split(r"[(;,]", str(v))[0].strip()
+    return tex(" ".join(lead.split()[:3]) or str(v)[:16])
+
+
 def method_cells(r, wide=False):
     return [
-        key_tt(r["key"]),
+        subject(r["key"]),
         num(r.get("year")),
         tags("task_family", TASK_SHORT, r),
         tags("paradigm", PARADIGM_SHORT, r),
-        hand_short(r.get("hand"), 30 if not wide else 48),
-        tex(clip(CN.norm_sim(r.get("sim")) or "", 16)) if r.get("sim") else NA,
+        hand_short(r.get("hand"), 36 if not wide else 48),
+        sim_short(r),
         num(r.get("real_trials")),
         PENETRATION.get(r.get("penetration"), NA),
         yesno(r.get("code_released")),
@@ -692,84 +763,90 @@ METH_BODY_N = 20
 def table6():
     scored = cached("mentions_all", mention_counts)[:METH_BODY_N]
     body = [method_cells(ROWS[k]) for _, k, _, _ in scored]
-    cols = [("method", 62, "l"), ("yr", 18, "r"), ("task", 46, "l"), ("paradigm", 40, "l"),
-            ("hand", 62, "l"), ("simulator", 40, "l"), ("real trials", 24, "r"),
+    cols = [("method", 106, "l"), ("yr", 18, "r"), ("task", 46, "l"), ("paradigm", 40, "l"),
+            ("hand", 70, "l"), ("simulator", 44, "l"), ("real trials", 24, "r"),
             ("penetration", 40, "l"), ("code", 16, "c")]
-    counts = "; ".join(rf"\texttt{{{tex(k).replace('_', chr(92)+'_')}}}~{n}" for n, k, _, _ in scored)
-    counts = "; ".join(f"{key_tt(k)}~{n}" for n, k, _, _ in scored)
-    cap = (r"The " + str(METH_BODY_N) + r" most-mentioned method papers in the corpus, as a body "
-           r"version of the full method table. The full table is " + str(len(METHODS)) +
-           r" rows and eleven columns and cannot be read in a body float at any type size, so it "
-           r"runs as Table~\ref{tab:app-methods} in the appendix with the algorithm, DoF, "
-           r"bimanual and unseen-object columns restored. Rows are ranked by whole-word mentions "
-           r"in the other parsed papers of \texttt{papers/md}, by the rule of "
-           r"Section~VII: " + counts + r". A mention count is a count of mentions, not of use. "
-           + emptiness(body, [2, 3, 4, 5, 6, 7, 8], "columns other than the key and the year")
-           + r" \emph{penetration} is \emph{none} where the row's note settles that the work does "
-           r"not address interpenetration, and \na where no note settles it either way; no row in "
-           r"the corpus reports a penetration number for its own trained policy. \emph{task} and "
-           r"\emph{paradigm} print the first two tags of a row that carries more, marked with a "
-           r"trailing plus. \emph{simulator} is normalised by the same rule "
-           r"\texttt{tools/check\_numbers.py} uses, which folds Isaac Gym spellings together and "
-           r"keeps Isaac Lab apart from it.")
-    return write_table("table6_methods_top.tex", "tab:methods-top", cap, cols, body)
+    counts = "; ".join(f"{tex(SUBJECT.get(k, k))}~{n}" for n, k, _, _ in scored)
+    cap = (r"The " + str(METH_BODY_N) + r" most-mentioned method papers in the corpus, ranked by "
+           r"whole-word mentions in the other parsed papers of \texttt{papers/md}. All "
+           + str(len(METHODS)) + r" rows, with the DoF, bimanual and unseen-object columns "
+           r"restored, are in Table~\ref{tab:app-methods}. "
+           + emptiness(body, [2, 3, 4, 5, 6, 7, 8], "columns other than the method and the year"))
+    note = (r"A mention count is a count of mentions, not of use; by the rule of Section~VII the "
+            r"counts are " + counts + r". \emph{penetration} is \emph{none} where the row's note "
+            r"settles that the work does not address interpenetration, and \na where no note "
+            r"settles it either way; no row in the corpus reports a penetration number for its "
+            r"own trained policy. \emph{task} and \emph{paradigm} print the first two tags of a "
+            r"row that carries more, marked with a trailing plus. \emph{simulator} is normalised "
+            r"by the same rule \texttt{tools/check\_numbers.py} uses, which folds Isaac Gym "
+            r"spellings together and keeps Isaac Lab apart from it.")
+    return write_table("table6_methods_top.tex", "tab:methods-top", cap, cols, body, note=note)
 
 
 def appendix_methods():
+    """Every method row, one line each.
+
+    The algorithm column is gone. It carried the corpus `algorithm` string cut at 110 characters,
+    which made three rows in four two to four lines tall, took the table to eight pages, and
+    ended most of its cells in an ellipsis that told a reader neither the method nor where the
+    rest of it was. A table whose job is to let 112 rows be compared on their columns is worth
+    more than a paragraph printed 112 times; the field is in \\texttt{corpus/rows/} in full, and
+    Section~V describes the algorithms in prose.
+    """
     rows = sorted(METHODS, key=lambda r: (str(r.get("year")), r["key"]))
     body = []
     for r in rows:
         body.append([
-            key_tt(r["key"]),
+            subject(r["key"]),
             num(r.get("year")),
             tags("task_family", TASK_SHORT, r, cap=3),
             tags("paradigm", PARADIGM_SHORT, r, cap=3),
-            tex(clip(r.get("algorithm") or "", 110)) if r.get("algorithm") else NA,
-            tex(clip(" ".join(str(r.get("hand")).split()), 60)) if r.get("hand") else NA,
+            hand_short(r.get("hand"), 40),
             num(r.get("hand_dof")),
             yesno(r.get("bimanual")),
-            tex(clip(r.get("sim") or "", 22)) if r.get("sim") else NA,
+            sim_short(r),
             yesno(r.get("real_robot")),
             num(r.get("real_trials")),
             num(r.get("objects_test_unseen")),
             PENETRATION.get(r.get("penetration"), NA),
             yesno(r.get("code_released")),
         ])
-    # The key column is sized to the longest underscore-separated part of any method key, because
-    # a corpus key breaks at its underscores and nowhere else: `clutterdexgrasp_2025` needs 70 pt
-    # at this type size and takes it from the algorithm column.
-    cols = [("method", 70, "l"), ("yr", 17, "r"), ("task", 38, "l"), ("paradigm", 36, "l"),
-            ("algorithm", 73, "l"), ("hand", 58, "l"), ("DoF", 14, "r"), ("bi", 12, "c"),
-            ("simulator", 40, "l"), ("real", 14, "c"), ("trials", 18, "r"), ("unseen", 22, "r"),
-            ("penetration", 32, "l"), ("code", 14, "c")]
-    idx = list(range(2, 14))
-    cap = (r"Every method row in the corpus, " + str(len(rows)) + r" of them, in the long form "
-           r"the body version of Table~\ref{tab:methods-top} cuts down. Run across both columns "
-           r"in one-column mode because fourteen columns do not fit a two-column float. "
-           + emptiness(body, idx, "columns other than the key and the year")
-           + r" The algorithm, hand and simulator columns are the corpus strings, cut at a word "
-           r"boundary where a cell would otherwise run past its column; \texttt{corpus/rows/} "
-           r"holds every field at full length.")
+    cols = [("method", 88, "l"), ("yr", 16, "r"), ("task", 52, "l"), ("paradigm", 44, "l"),
+            ("hand", 82, "l"), ("DoF", 14, "r"), ("bi", 11, "c"), ("simulator", 48, "l"),
+            ("real", 14, "c"), ("trials", 19, "r"), ("unseen", 22, "r"),
+            ("penetration", 38, "l"), ("code", 14, "c")]
+    idx = list(range(2, 13))
+    cap = (r"Every method row in the corpus, " + str(len(rows)) + r" of them, on the columns the "
+           r"body version of Table~\ref{tab:methods-top} cuts down to twenty rows. Run across "
+           r"both columns in one-column mode. "
+           + emptiness(body, idx, "columns other than the method and the year"))
+    note = (r"\emph{hand} is the first end effector the row names, without the arm it hangs on, "
+            r"and \emph{simulator} is the leading clause of the normalised engine string: both "
+            r"are names, so neither is cut and neither carries an ellipsis. The "
+            r"\texttt{algorithm} field is not printed. It ran to a paragraph a row, which made "
+            r"this table eight pages of ellipses; Section~V describes the algorithms, and "
+            r"\texttt{corpus/rows/} holds that field, the full hand string and the full engine "
+            r"string at their own length.")
     return write_longtable("appendix_methods_full.tex", "tab:app-methods", cap, cols, body,
-                           colsep=2)
+                           colsep=2, note=note)
 
 
 def appendix_contact():
     rows = sorted(SIMS, key=lambda r: r["key"])
-    body = [[key_tt(r["key"]),
+    body = [[subject(r["key"]),
              tex(" ".join(str(r.get("contact_model")).split())) if r.get("contact_model") else NA,
              tex(" ".join(str(r.get("solver")).split())) if r.get("solver") else NA]
             for r in rows]
-    cols = [("engine", 56, "l"), ("contact model, as the source describes it", 208, "l"),
-            ("solver, as the source describes it", 208, "l")]
+    cols = [("engine", 68, "l"), ("contact model, as the source describes it", 202, "l"),
+            ("solver, as the source describes it", 202, "l")]
     cap = (r"The contact-model and solver descriptions behind the controlled vocabulary of "
-           r"Table~\ref{tab:simulators}, verbatim from the parsed source. These cells run to "
-           r"several hundred characters each, which is why the body table prints a vocabulary "
-           r"instead: a 480-character cell in a body float is a paragraph printed sideways. "
-           + emptiness(body, [1, 2], "description columns")
-           + r" Nothing here is cut.")
+           r"Table~\ref{tab:simulators}, verbatim from the parsed source and nothing here cut. "
+           + emptiness(body, [1, 2], "description columns"))
+    note = (r"These cells run to several hundred characters each, which is why the body table "
+            r"prints a vocabulary instead: a 480-character cell in a body float is a paragraph "
+            r"printed sideways.")
     return write_longtable("appendix_contact_models.tex", "tab:app-contact", cap, cols, body,
-                           colsep=2)
+                           colsep=2, note=note, extra_labels=["tab:rewards_full"])
 
 
 def appendix_hands():
@@ -777,28 +854,30 @@ def appendix_hands():
     body = []
     for r in rows:
         body.append([
-            key_tt(r["key"]),
-            tex(clip(r.get("maker") or "", 90)) if r.get("maker") else NA,
-            tex(clip(r.get("actuation") or "", 150)) if r.get("actuation") else NA,
-            tex(clip(r.get("force_kind") or "", 110)) if r.get("force_kind") else NA,
-            tex(clip(r.get("tactile") or "", 130)) if r.get("tactile") else NA,
-            tex(clip(r.get("claim_date") or "", 60)) if r.get("claim_date") else NA,
-            tex(clip(r.get("spec_caveat") or "", 110)) if r.get("spec_caveat") else NA,
+            subject(r["key"]),
+            tex(clip(r.get("actuation") or "", 175)) if r.get("actuation") else NA,
+            tex(clip(r.get("force_kind") or "", 130)) if r.get("force_kind") else NA,
+            tex(clip(r.get("tactile") or "", 155)) if r.get("tactile") else NA,
+            tex(clip(r.get("claim_date") or "", 70)) if r.get("claim_date") else NA,
+            tex(clip(r.get("spec_caveat") or "", 125)) if r.get("spec_caveat") else NA,
         ])
-    cols = [("hand key", 50, "l"), ("maker, in full", 70, "l"),
-            ("actuation, as the source describes it", 96, "l"),
-            ("what the force figure is", 72, "l"), ("tactile, as the source describes it", 80, "l"),
-            ("date of the claim", 52, "l"), ("caveat on the row", 66, "l")]
+    cols = [("hand", 74, "l"), ("actuation, as the source describes it", 110, "l"),
+            ("what the force figure is", 86, "l"),
+            ("tactile, as the source describes it", 98, "l"),
+            ("date of the claim", 48, "l"), ("caveat on the row", 74, "l")]
     cap = (r"The sentences behind the controlled vocabularies of "
            r"Tables~\ref{tab:hands-available} and~\ref{tab:hands-announced}, for all "
            + str(len(rows)) + r" hands. "
-           + emptiness(body, [1, 2, 3, 4, 5, 6], "description columns")
-           + r" \emph{caveat on the row} is the \texttt{spec\_caveat} field, which is where a "
-           r"figure with no reachable source is named as such; it is empty for a row that carries "
-           r"no caveat rather than for a row nobody checked. Cells are cut at a word boundary "
-           r"where they would otherwise run past the page; \texttt{corpus/rows/} holds every "
-           r"field at full length.")
-    return write_longtable("appendix_hands_full.tex", "tab:app-hands", cap, cols, body, colsep=2)
+           + emptiness(body, [1, 2, 3, 4, 5], "description columns"))
+    note = (r"The maker column is not repeated here; Tables~\ref{tab:hands-available} "
+            r"and~\ref{tab:hands-announced} carry it, and the width it used goes to the sentences "
+            r"this table exists to print. \emph{caveat on the row} is the \texttt{spec\_caveat} "
+            r"field, which is where a figure with no reachable source is named as such; it is "
+            r"empty for a row that carries no caveat rather than for a row nobody checked. Cells "
+            r"are cut at a word boundary where they would otherwise run past the page; "
+            r"\texttt{corpus/rows/} holds every field at full length.")
+    return write_longtable("appendix_hands_full.tex", "tab:app-hands", cap, cols, body, colsep=2,
+                           note=note, extra_labels=["tab:hands_full"])
 
 
 # --- Table VII: the proposed protocol ----------------------------------------------------------
@@ -931,23 +1010,23 @@ def table8():
     picked = cached("mentions_policy", EV.table9_rows)
     body = [[r"\emph{worked example}"] + EXAMPLE_SHORT]
     for _, k, _, kind in picked:
-        body.append([key_tt(k) + (r"$\ast$" if kind == "title" else "")] + [""] * len(AXES_SHORT))
+        body.append([subject(k) + (r"$\ast$" if kind == "title" else "")] + [""] * len(AXES_SHORT))
     cells = len(picked) * len(AXES_SHORT)
-    counts = "; ".join(f"{key_tt(k)}~{n}" for n, k, _, _ in picked)
-    cols = [("method", 66, "l")] + [(a, 55, "l") for a in AXES_SHORT]
-    cap = (r"The matrix, for someone else to fill. " + str(len(picked)) + r" rows and "
-           + str(cells) + r" cells, all " + str(cells) + r" of them empty. An empty cell here is "
-           r"not \na: it is a measurement nobody has made, which is the point of the table, and "
-           r"no cell in it has a source to be missing. The first row is a worked example and "
-           r"every number in it is fabricated. Rows are the " + str(len(picked)) + r" most-"
-           r"mentioned dexterous-hand policy methods in the corpus, by the rule of Section~VII, "
-           r"scored on whole-word matches over \texttt{papers/md}: " + counts + r". A mention "
-           r"count is a count of mentions, not of use. $\ast$ marks a work matched on its title "
-           r"rather than on a short name; a title is matched mostly inside reference lists and a "
-           r"short name in running text, so the two kinds of count are not comparable. Each "
-           r"column is an axis of Table~\ref{tab:protocol} and is filled in the units that table "
-           r"asks for.")
-    return write_table("table8_matrix.tex", "tab:matrix", cap, cols, body)
+    counts = "; ".join(f"{tex(SUBJECT.get(k, k))}~{n}" for n, k, _, _ in picked)
+    cols = [("method", 86, "l")] + [(a, 54, "l") for a in AXES_SHORT]
+    cap = (r"The matrix, for someone else to fill: the " + str(len(picked)) + r" most-mentioned "
+           r"dexterous-hand policy methods against the axes of Table~\ref{tab:protocol}. All "
+           + str(cells) + r" cells are empty. An empty cell here is not \na: it is a measurement "
+           r"nobody has made, which is the point of the table, and no cell in it has a source to "
+           r"be missing.")
+    note = (r"The first row is a worked example and every number in it is fabricated. Rows are "
+            r"ranked by the rule of Section~VII, on whole-word matches over \texttt{papers/md}: "
+            + counts + r". A mention count is a count of mentions, not of use. $\ast$ marks a "
+            r"work matched on its title rather than on a short name; a title is matched mostly "
+            r"inside reference lists and a short name in running text, so the two kinds of count "
+            r"are not comparable. Each column is filled in the units Table~\ref{tab:protocol} "
+            r"asks for.")
+    return write_table("table8_matrix.tex", "tab:matrix", cap, cols, body, note=note)
 
 
 # --- Table IX: the predecessor surveys ---------------------------------------------------------
@@ -997,47 +1076,98 @@ def emph_or_tex(s, n=None):
 
 
 def table9():
+    """The survey table, now the only one.
+
+    This printed twice: here cut at 70 characters a cell, and again in the appendix at full
+    length over all six columns, a page of the same prose in six columns that no sentence in the
+    paper referred to. One table carries the argument, so the cut is lifted here and the appendix
+    duplicate is gone.
+    """
     got, unread, unobtained = survey_rows()
     body = []
     for k, row, cells in got:
-        body.append([key_tt(k), num(row.get("year"))]
-                    + [emph_or_tex(cells[c], 70) for c in SURVEY_BODY_COLS])
-    cols = [("survey", 64, "l"), ("yr", 18, "r"), ("scope", 102, "l"),
-            ("bimanual covered", 98, "l"), ("hardware covered", 94, "l"),
-            ("evaluation covered", 98, "l")]
+        body.append([subject(k), num(row.get("year"))]
+                    + [emph_or_tex(cells[c]) for c in SURVEY_BODY_COLS])
+    cols = [("survey", 78, "l"), ("yr", 17, "r"), ("scope", 98, "l"),
+            ("bimanual covered", 92, "l"), ("hardware covered", 88, "l"),
+            ("evaluation covered", 95, "l")]
     idx = [2, 3, 4, 5]
     empty_cells = sum(1 for row in body for i in idx if row[i].strip() == NA)
     cap = (str(len(body)) + r" existing surveys, one per corpus row of class \texttt{survey}, "
-           r"newest first. " + str(unobtained) + r" could not be obtained and "
-           + str(unread) + r" was fetched too late to be read into a note; those rows say so in "
-           r"every column rather than leaving blanks, because a blank row would read as a survey "
-           r"that covers nothing. Of the remaining cells, " + str(empty_cells) + r" print \na, "
-           r"which here means the quotation that supported the cell has gone from "
-           r"\texttt{papers/notes/} and the claim is no longer checkable rather than that no "
-           r"source stated it. Every filled cell is read from \texttt{papers/notes/<key>.md} and "
-           r"is checked against a quotation from that note by "
-           r"\texttt{tools/make\_survey\_table.py}. Cells are cut at a word boundary; the "
-           r"\emph{taxonomy} and \emph{gaps} columns, and every cell at full length, are in "
-           r"Table~\ref{tab:app-surveys}. The columns record what each work covers, not how well, "
-           r"and a blank in \emph{bimanual} or \emph{hardware} is a scope decision by its authors "
-           r"rather than a failure.")
-    return write_table("table9_surveys.tex", "tab:surveys", cap, cols, body)
+           r"newest first, and what each covers. " + str(empty_cells) + r" of the "
+           + str(len(body) * len(idx)) + r" coverage cells print \na, which here means the "
+           r"quotation that supported the cell has gone from \texttt{papers/notes/} and the claim "
+           r"is no longer checkable rather than that no source stated it.")
+    note = (str(unobtained) + r" surveys could not be obtained and " + str(unread) + r" was "
+            r"fetched too late to be read into a note; those rows say so in every column rather "
+            r"than leaving blanks, because a blank row would read as a survey that covers "
+            r"nothing. Every filled cell is read from \texttt{papers/notes/<key>.md} and is "
+            r"checked against a quotation from that note by "
+            r"\texttt{tools/make\_survey\_table.py}; nothing here is cut. The two columns this "
+            r"table does not print, the taxonomy each survey uses and the gaps each names, are "
+            r"in those same notes. The columns record what each work covers, not how well, and a "
+            r"blank in \emph{bimanual} or \emph{hardware} is a scope decision by its authors "
+            r"rather than a failure.")
+    return write_table("table9_surveys.tex", "tab:surveys", cap, cols, body, note=note)
 
 
 def appendix_surveys():
-    got, unread, unobtained = survey_rows()
-    body = []
-    for k, row, cells in got:
-        body.append([key_tt(k), num(row.get("year"))]
-                    + [emph_or_tex(cells[c]) for c in SV.COLS])
-    cols = ([("survey", 60, "l"), ("yr", 17, "r")]
-            + [(h, 66, "l") for h in ("scope", "taxonomy used", "bimanual covered",
-                                      "hardware covered", "evaluation covered", "gaps it names")])
-    cap = (r"Every column of Table~\ref{tab:surveys}, at full length, including the two the body "
-           r"version drops. " + str(unobtained) + r" rows could not be obtained and " + str(unread)
-           + r" was fetched too late to read; they say so in every column. Nothing here is cut.")
-    return write_longtable("appendix_surveys_full.tex", "tab:app-surveys", cap, cols, body,
-                           colsep=2)
+    """The appendix duplicate of Table~\\ref{tab:surveys}, withdrawn.
+
+    It was a full page of the same prose over six columns, no sentence in the paper pointed at
+    it, and the body table it repeated now prints its cells at full length. The file stays
+    because a section inputs it by name; it emits nothing.
+    """
+    p = OUT / "appendix_surveys_full.tex"
+    p.write_text(
+        "% generated by tools/make_tex_tables.py -- do not edit\n"
+        "% Withdrawn. This was the full-length duplicate of Table~\\ref{tab:surveys}: the same\n"
+        "% fourteen surveys over six columns of prose, a page of it, and nothing in the paper\n"
+        "% referred to it. Table~\\ref{tab:surveys} now prints its four coverage columns uncut,\n"
+        "% and papers/notes/<key>.md holds the full text of every column including the two that\n"
+        "% table does not print. The file is kept because sections/appendix_d_surveys.tex inputs\n"
+        "% it by name; it emits nothing.\n")
+    return dict(file=p.name, cols=0, width="--", rows=0, pt=0)
+
+
+# --- the stubs that stand where a placeholder table used to ------------------------------------
+# Two sections input a file by a name this generator never wrote, and each fell back to a
+# hand-written placeholder that set a one-row table reading "Pending generation": two numbered
+# tables and about a page and a half of nothing. The generator writes those names now, as files
+# that emit nothing, and the labels the placeholders carried are attached to the real tables by
+# `extra_labels` so that a cross reference written against them still resolves.
+#
+# `methods_full.tex` is the third. It was not a placeholder but an alias that input
+# appendix_methods_full.tex, and appendix_a_method.tex inputs that file directly a few lines
+# later as well, so the 112-row method table was set twice, end to end: that, and not the row
+# count, is most of what made it eight pages. The alias emits nothing now and the direct input
+# is the one that sets it.
+STUBS = {
+    "hands_full.tex": ("tab:hands_full", "appendix_hands_full.tex",
+                       "the full hand table with its sources",
+                       'set a one-row table reading "Pending generation"'),
+    "rewards_full.tex": ("tab:rewards_full", "appendix_contact_models.tex",
+                         "the per-paper reward extraction, which has never been generated",
+                         'set a one-row table reading "Pending generation"'),
+    "methods_full.tex": (None, "appendix_methods_full.tex",
+                         "the full method table",
+                         "input appendix_methods_full.tex, which the same section inputs again "
+                         "by name, so the table was set twice"),
+}
+
+
+def write_stubs():
+    out = []
+    for name, (label, real, what, was) in STUBS.items():
+        note = (f"\\label{{{label}}} is attached to {real} instead, so a reference to it still "
+                f"resolves." if label else f"{real} is set by the direct input further down.")
+        (OUT / name).write_text(
+            "% generated by tools/make_tex_tables.py -- do not edit\n"
+            f"% Stands where the hand-written stand-in for {what} used to be. That file\n"
+            f"% {was}. This file emits nothing.\n"
+            f"% {note}\n")
+        out.append(dict(file=name, cols=0, width="--", rows=0, pt=0))
+    return out
 
 
 # --- the probe document, and what the compiler says about it ------------------------------------
@@ -1046,6 +1176,10 @@ PROBE = r"""%% Generated by tools/make_tex_tables.py. Inputs every generated tab
 %% Build:  cd tex && TEXINPUTS=.:./sty:: pdflatex -interaction=nonstopmode tables_probe.tex
 \documentclass[journal,twoside]{IEEEtran}
 \input{preamble}
+%% A row label carries \cite. The probe has no bibliography, so \cite is set to a three-digit
+%% number here: that is the widest label the survey's 221 entries can produce, which makes the
+%% probe's width measurement conservative rather than optimistic.
+\renewcommand{\cite}[1]{[199]}
 \begin{document}
 \title{Table probe}
 \author{}
@@ -1105,7 +1239,8 @@ def main():
             table9()]
     appendix = [appendix_methods(), appendix_hands(), appendix_contact(), appendix_protocol(),
                 appendix_surveys()]
-    write_probe([t["file"] for t in body], [t["file"] for t in appendix])
+    appendix += write_stubs()
+    write_probe([t["file"] for t in body], [t["file"] for t in appendix if t["rows"]])
 
     counts, errors, pages, rc = compile_probe()
     print(f"probe: {pages} pages, {len(errors)} errors")

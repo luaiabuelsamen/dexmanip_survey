@@ -12,3 +12,5 @@ tex/*.fdb_latexmk
 tex/probe*.tex
 tex/probe*.pdf
 tex/tables_probe.*
+__pycache__/
+*.pyc

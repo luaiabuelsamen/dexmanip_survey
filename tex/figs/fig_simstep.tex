@@ -37,42 +37,22 @@
 \node[det,anchor=north] at (12.3,-0.85) {MuJoCo: PGS, CG or Newton\\ PhysX: TGS, fixed iterations\\ Dojo: interior point\\ ComFree-Sim: closed form};
 \node[det,anchor=north] at (15.8,-0.85) {semi-implicit Euler\\ symplectic Euler (Brax)\\ RK4 (MuJoCo)};
 
-% ---- the three stages that make overlap, into the panel --------------------
-\draw[src] (8.8,-2.30) -- (8.8,-2.95);
-\draw[src] (12.3,-2.30) -- (12.3,-2.95);
-\draw[src] (15.8,-2.30) -- (15.8,-2.95);
+% ---- the three stages that make overlap ------------------------------------
+\draw[src] (8.8,-2.30) -- (8.8,-2.80);
+\draw[src] (12.3,-2.30) -- (12.3,-2.80);
+\draw[src] (15.8,-2.30) -- (15.8,-2.80);
 
-% ---- where penetration comes from -----------------------------------------
-\node[pnl,anchor=north west,text width=17.2cm] (notes) at (0.4,-3.15) {%
-  \scriptsize
-  \textbf{\textcolor{accent}{Where penetration comes from: three sources on different knobs.
-  Which one dominates in a hand has not been measured.}}\par\vspace{2pt}
-  \textbf{Velocity-level enforcement.} Where non-penetration is enforced on velocities, any
-  residual approach velocity is integrated into overlap of order $v \cdot \Delta t$. Illustration
-  under an assumption, not a measurement: a fingertip closing at 0.5 m/s, a speed no source in this
-  survey reports, at Isaac Gym's 1/120 s Shadow Hand step gives about 4 mm before the next step's
-  constraint acts. Engines that enforce the gap at the next configuration carry no such term:
-  Dojo's hard-contact NCP holds its feet above the floor at $\Delta t = 0.1$, $0.01$ and $0.001$ s
-  alike.\par\vspace{1.5pt}
-  \textbf{The prescribed compliance.} A regularised contact rests at a violation equal to the
-  normal load times the compliance that was chosen for it. It is zero at zero load, and MuJoCo's
-  closed form is independent of the object's mass. The depth is a setting, and no engine paper in
-  \tablename~\ref{tab:simulators} other than ComFree-Sim states the setting it
-  ships.\par\vspace{1.5pt}
-  \textbf{Solver truncation.} A truncated solve degrades with the conditioning of the problem and
-  with redundancy in the contact set, not with stiffness, which is prescribed. A grasp guarantees
-  both, being many persistent contacts on a light object.};
+% ---- three sources of overlap, named only; the argument is in the text -----
+\node[stage,text width=3.45cm,anchor=north] at (8.8,-2.85)
+  {\textbf{prescribed compliance}\\[1pt]{\scriptsize depth = load $\times$ compliance,\\ a setting, not an error}};
+\node[stage,text width=3.45cm,anchor=north] at (12.3,-2.85)
+  {\textbf{solver truncation}\\[1pt]{\scriptsize degrades with conditioning\\ and contact redundancy}};
+\node[stage,text width=3.45cm,anchor=north] at (15.8,-2.85)
+  {\textbf{velocity-level enforcement}\\[1pt]{\scriptsize residual approach speed\\ integrates to $v\,\Delta t$}};
 
-\node[pnl,anchor=north west,text width=17.2cm] (geo) at (0.4,-6.33) {%
-  \scriptsize
-  Not a source of overlap, but a reason a number is ambiguous: an outer convex hull or
-  decomposition contains the visual mesh, so it blocks contacts and hides overlap measured against
-  that mesh, while an inscribed primitive admits overlap the solver never sees. PhysX~5 uses SDF
-  collision on non-convex bodies and skips the decomposition. A penetration number must name the
-  geometry it used.\par\vspace{2pt}
-  \textbf{The depth is computable from the poses and the meshes. IsaacGymEnvs' IndustReal task
-  already gates its policy update on it at 1 mm.}};
-
-\draw[lnk] ([xshift=-4pt,yshift=4pt]notes.north west) rectangle ([xshift=4pt,yshift=-4pt]geo.south east);
-\draw[drop] ([xshift=-4pt,yshift=2pt]geo.north west) -- ([xshift=4pt,yshift=2pt]geo.north east);
+\node[note,anchor=north west,text width=6.6cm] at (0.3,-2.95)
+  {\scriptsize\textcolor{accent}{\textbf{Where penetration comes from.}} Three knobs, on three
+   different stages. Which dominates in a grasp is not measured anywhere in this corpus, so they
+   are drawn unordered. The depth is computable from the poses and the meshes, and IsaacGymEnvs
+   already gates a policy update on it at 1\,mm.};
 \end{tikzpicture}

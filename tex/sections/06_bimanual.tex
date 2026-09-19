@@ -123,9 +123,6 @@ ArtiGrasp \cite{artigrasp_2023} trains one PPO policy per hand, and Dynamic Hand
 \cite{dynamic_handover_2023} and DyDexHandover \cite{dydexhandover_2025} use MAPPO with one agent
 per arm-hand system.
 
-% Two arms, two hands, and no contact between them but the object's flight.
-\providecommand{\plateHandoverAllegro}{}\plateHandoverAllegro
-
 One of the 28 assigns explicit leader and follower roles, and the same one is the only policy
 expressed in a relative frame. AsymDex \cite{asymdex_2024} is that paper, and the only corpus paper
 that puts either mechanism inside a policy. It gives the dominant hand full finger and wrist
@@ -175,7 +172,8 @@ neither with a penetration metric. These five feed the tracking work here: DexMa
 \cite{dexmachina_2025} and ArtiGrasp \cite{artigrasp_2023} from ARCTIC, BiDexHD \cite{bidexhd_2024}
 from TACO, ManipTrans \cite{maniptrans_2025} from OakInk-V2 and DexMan \cite{dexman_2025} from both.
 
-\plateArcticDataset
+% From source video to fitted meshes and a contact field.
+\providecommand{\plateArcticDataset}{}\plateArcticDataset
 
 \subsection{Methods on the same axes}
 \label{subsec:bimanual_axes}
@@ -205,8 +203,6 @@ fixed object ``to eliminate object penetrations'' and measuring nothing during r
 \cite{artigrasp_2023} declines the metric outright, because its baselines ``include a physics
 simulation which exhibits no interpenetration.''
 
-\plateGraspPenetration
-
 Comparability. BimanGrasp \cite{bimangrasp_2024} reports 54.03 percent success in Isaac Gym at
 friction 3. BiDexGrasp \cite{bidexgrasp_2026} re-runs the same grasps in MuJoCo at friction 0.6 and
 gets 26.80 percent, at 1.52 cm penetration depth. Neither number transfers, and
@@ -214,7 +210,8 @@ Section~\ref{sec:train:track}'s re-implementation result is the same lesson on t
 
 \subsection{Handover and in-hand transfer}
 \label{subsec:handover}
-\plateHandoverAllegro
+% Two arms, two hands, and no contact between them but the object's flight.
+\providecommand{\plateHandoverAllegro}{}\plateHandoverAllegro
 
 Handover is the one bimanual task where the hands are unambiguously asymmetric, because one gives
 and one receives. All three corpus handover papers use a single shared reward across giver and
