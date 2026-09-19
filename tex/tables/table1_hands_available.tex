@@ -6,7 +6,7 @@
 \footnotesize
 \setlength{\tabcolsep}{3pt}
 \setlength{\emergencystretch}{1.5em}
-\begin{tabular}{>{\raggedright\arraybackslash\hspace{0pt}}p{82pt}>{\raggedright\arraybackslash\hspace{0pt}}p{52pt}>{\raggedleft\arraybackslash}p{18pt}>{\raggedleft\arraybackslash}p{18pt}>{\raggedright\arraybackslash\hspace{0pt}}p{42pt}>{\raggedleft\arraybackslash}p{22pt}>{\raggedleft\arraybackslash}p{20pt}>{\raggedright\arraybackslash\hspace{0pt}}p{40pt}>{\raggedright\arraybackslash\hspace{0pt}}p{34pt}>{\raggedleft\arraybackslash}p{28pt}>{\centering\arraybackslash}p{20pt}>{\raggedright\arraybackslash\hspace{0pt}}p{34pt}>{\raggedleft\arraybackslash}p{18pt}}
+\begin{tabular}{>{\raggedright\arraybackslash\hspace{0pt}}p{88pt}>{\raggedright\arraybackslash\hspace{0pt}}p{62pt}>{\raggedleft\arraybackslash}p{16pt}>{\raggedleft\arraybackslash}p{16pt}>{\raggedright\arraybackslash\hspace{0pt}}p{42pt}>{\raggedleft\arraybackslash}p{20pt}>{\raggedleft\arraybackslash}p{18pt}>{\raggedright\arraybackslash\hspace{0pt}}p{40pt}>{\raggedright\arraybackslash\hspace{0pt}}p{34pt}>{\raggedleft\arraybackslash}p{26pt}>{\centering\arraybackslash}p{18pt}>{\raggedright\arraybackslash\hspace{0pt}}p{36pt}>{\raggedleft\arraybackslash}p{14pt}}
 \toprule
 \rowcolor{wash} \hdr{hand} & \hdr{maker} & \hdr{DoF} & \hdr{act.\ DoF} & \hdr{actuation} & \hdr{mass g} & \hdr{force N} & \hdr{force kind} & \hdr{tactile} & \hdr{price USD} & \hdr{open HW} & \hdr{status} & \hdr{uses} \\
 \midrule
@@ -19,12 +19,12 @@ TESOLLO DG-5F~\cite{tesollo_dg5f_2024} & Tesollo Inc. & 20 & 20 & direct drive &
 Unitree Dex5-1~\cite{unitree_dex5_2025} & Unitree Robotics & 20 & 16 & tendon & 1\,100 & 10 & fingertip normal & array & \na & no & sold & 0 \\
 Wuji Hand~\cite{wuji_hand_2025} & Wuji Tech. & 20 & 20 & direct drive & \na & \na & \na & fingertip & \na & no & sold & 2 \\
 ORCA~\cite{orca_hand_2025} & ETH Zurich & 17 & 17 & tendon & 1\,200 & \na & \na & fingertip & \na & yes & open-source & 0 \\
-Allegro Hand V4~\cite{allegro_hand_v4_2016} & Wonik Robotics Co. Ltd.; earlier\ldots & 16 & 16 & \na & \na & \na & \na & none & \na & no & sold & 35 \\
+Allegro Hand V4~\cite{allegro_hand_v4_2016} & Wonik Robotics Co. Ltd.; earlier versions\ldots & 16 & 16 & \na & \na & \na & \na & none & \na & no & sold & 35 \\
 LEAP Hand~\cite{leap_hand_2023} & CMU & 16 & 16 & direct drive & 595 & 19.5 & pull-out & none & 2\,000 & yes & open-source & 11 \\
 RUKA~\cite{ruka_2025} & NYU & 15 & 11 & tendon & \na & 2.74 & pinch & none & 1\,300 & yes & open-source & 0 \\
-Inspire Robots RH56DFX~\cite{inspire_rh56dfx_2023} & Beijing Inspire Robots Tech. Co.,\ldots & 12 & 6 & \na & 540 & 10 & vendor, no protocol & none & \na & no & sold & 19 \\
+Inspire Robots RH56DFX~\cite{inspire_rh56dfx_2023} & Beijing Inspire Robots Tech. Co., Ltd. & 12 & 6 & \na & 540 & 10 & vendor, no protocol & none & \na & no & sold & 19 \\
 ROBOTERA XHAND1~\cite{robotera_xhand1_2024} & ROBOTERA & 12 & 12 & geared & 1\,100 & \na & \na & unstated & 14\,000 & no & sold & 8 \\
-DEX-EE~\cite{shadow_dex_ee_2024} & Shadow Robot Co., in\ldots & 12 & \na & \na & 4\,100 & \na & \na & unstated & \na & no & sold & 1 \\
+DEX-EE~\cite{shadow_dex_ee_2024} & Shadow Robot Co., in collaboration with\ldots & 12 & \na & \na & 4\,100 & \na & \na & unstated & \na & no & sold & 1 \\
 BrainCo Revo 2~\cite{brainco_revo2_2025} & BrainCo Inc. & 11 & 6 & \na & 383 & 15 & pinch & unstated & \na & no & sold & 1 \\
 AgiBot OmniHand 2025~\cite{agibot_omnihand_2025} & \na & \na & \na & \na & \na & \na & \na & \na & \na & \na & unstated & 1 \\
 DexHand~\cite{dexhand_open_source_2023} & IoT Design Shop & \na & \na & tendon & \na & \na & \na & none & 300 & yes & open-source & 0 \\
@@ -33,5 +33,5 @@ PSYONIC Ability Hand~\cite{psyonic_ability_hand_2021} & PSYONIC & \na & 6 & link
 \bottomrule
 \end{tabular}
 \par\vspace{2pt}
-\parbox{506pt}{\scriptsize\raggedright A row whose joint count no source states sorts last rather than being ranked by a number nobody stated. The hand, maker, open-hardware, status and usage columns are left out of the emptiness count because they are never blank, and counting them would dilute the finding. \emph{actuation}, \emph{force kind} and \emph{tactile} are controlled vocabularies; the source sentence each was read from is in Table~\ref{tab:app-hands}. \emph{force N} is not a ranking: read \emph{force kind} first, because pull-out resistance, pinch force, a fingertip normal force under an indenter and an unlabelled vendor number are different measurements. \emph{uses} counts the method rows whose own experiments run on that hand. Every figure is the maker's or the authors' own claim.\par}
+\parbox{508pt}{\scriptsize\raggedright A row whose joint count no source states sorts last rather than being ranked by a number nobody stated. The hand, maker, open-hardware, status and usage columns are left out of the emptiness count because they are never blank, and counting them would dilute the finding. \emph{actuation}, \emph{force kind} and \emph{tactile} are controlled vocabularies; the source sentence each was read from is in \texttt{corpus/rows/}. \emph{force N} is not a ranking: read \emph{force kind} first, because pull-out resistance, pinch force, a fingertip normal force under an indenter and an unlabelled vendor number are different measurements. \emph{uses} counts the method rows whose own experiments run on that hand. Every figure is the maker's or the authors' own claim.\par}
 \end{table*}

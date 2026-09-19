@@ -45,3 +45,15 @@
 \newcommand{\credit}[1]{\par\vspace{1pt}{\scriptsize\textcolor{black!55}{Reproduced from #1.}}}
 % A reproduced figure states its source and, until permission is recorded, says so quietly.
 \newcommand{\pending}[1]{\par\vspace{1pt}{\scriptsize\textcolor{black!50}{\textit{Reproduced from} #1\textit{; permission not yet sought, see the register.}}}}
+% A cleared figure carries the credit its licence requires: creator and title, a link to the
+% source, the licence named and linked, and any change made to the plate (a crop or a greyscale
+% conversion is a change CC BY asks us to declare). Usage:
+%   \licensed[cropped to the right half]{Fig.~4 of S. Atar et al., ``...'', arXiv:2509.23075}%
+%            {CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
+% The optional first argument is the statement of changes; omit it when the plate is unaltered.
+\makeatletter
+\newcommand{\licensed}[4][]{%
+  \par\vspace{1pt}{\scriptsize\textcolor{black!55}{%
+    \textit{Reproduced from} #2\textit{, licensed under} \href{#4}{#3}%
+    \def\lic@changes{#1}\ifx\lic@changes\@empty.\else; #1.\fi}}}
+\makeatother

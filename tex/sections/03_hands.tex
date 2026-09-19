@@ -91,15 +91,9 @@ Ability Hand, RUKA, Faive and the Allegro driver ship one. LEAP is the warning: 
 URDF is released and the released API repository contains none \cite{leap_hand_2023}.
 
 % ---------------------------------------------------------------------------
-% Table 2, the hands that can be bought or built. Generated from the rows of
-% class "hand" into tex/tables/; the file carries its own float, caption and
-% \label{tab:hands-available}. The guard lets this section compile before the
-% generator has run.
+% Table 2, the hands that can be bought or built, is set in Appendix B rather than here. It is
+% consulted rather than read, so it is reference material; see the head of Appendix B.
 % ---------------------------------------------------------------------------
-\IfFileExists{tables/table2_hands_available.tex}{\input{tables/table2_hands_available}}{%
-  \IfFileExists{tables/table1_hands_available.tex}{\input{tables/table1_hands_available}}{%
-    \begin{table*}[!t]\centering\framebox[0.7\textwidth]{\rule{0pt}{1.6cm}%%
-    \textit{tables/table2\_hands\_available.tex pending}}\end{table*}}}
 
 \subsection{The hands the research literature actually runs on}
 \label{sec:hands:used}
@@ -197,12 +191,8 @@ the spec ``will continue to iterate'' on a Beta1 product \cite{sharpa_wave_2026,
 the best-specified vendor page in the corpus leaves its fingertip-force columns unlabelled.
 
 % ---------------------------------------------------------------------------
-% Table 3, the announced and unreleased hands, carrying \label{tab:hands-announced}.
+% Table 3, the announced and unreleased hands, is set in Appendix B rather than here.
 % ---------------------------------------------------------------------------
-\IfFileExists{tables/table3_hands_announced.tex}{\input{tables/table3_hands_announced}}{%
-  \IfFileExists{tables/table2_hands_announced.tex}{\input{tables/table2_hands_announced}}{%
-    \begin{table*}[!t]\centering\framebox[0.7\textwidth]{\rule{0pt}{1.6cm}%%
-    \textit{tables/table3\_hands\_announced.tex pending}}\end{table*}}}
 
 \subsection{Tactile sensing as part of the hand}
 \label{sec:hands:tactile}

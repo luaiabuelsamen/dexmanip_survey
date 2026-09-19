@@ -35,6 +35,29 @@ reward table in its own paper lists weights of 0.1 and 0.01 for exactly those te
 position-only success criterion could not have caught that, and its headline 95.4 percent is cited
 as a baseline. Section 5.8 classifies all 38, and seven further accusations an earlier draft made
 were withdrawn under adversarial review and recorded beside the charge.
+\figurename~\ref{fig:codegap} draws the narrowing.
+
+% ---------------------------------------------------------------------------
+% The first finding as a picture: the funnel from 112 method rows to the ten
+% whose code contradicts the paper, with the 28 charges the survey withdrew
+% drawn at the same weight as the 10 it kept. Written by
+% tools/make_finding_figures.py from corpus/rows; the guard keeps the document
+% compiling until it is there.
+% ---------------------------------------------------------------------------
+\begin{figure}[!t]
+  \centering
+  \IfFileExists{figs/fig_codegap.tex}{\resizebox{\columnwidth}{!}{\input{figs/fig_codegap}}}{%
+    \framebox[0.95\columnwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_codegap.tex pending}}}
+  \caption{Papers disagree with their own released code, and most of the disagreements are this
+  survey's fault rather than theirs. Of the 112 method rows, 62 released code that could be read
+  against the paper and 38 of those record a disagreement. The lower bar reopens those 38 at their
+  own scale: 10 are contradictions, where the shipped code states a different objective from the
+  published one, and 28 are withdrawn, over half of them limits of this survey's own parse rather
+  than findings about the work. Seven further accusations an earlier draft made were withdrawn under
+  adversarial review, each recorded in the accused row's \texttt{mismatch\_review} field.
+  Section~\ref{sec:train:code} classifies all 38 and names them.}
+  \label{fig:codegap}
+\end{figure}
 
 The second is that the quantity most specific to a hand is the one nobody records. Eleven of the
 96 method rows whose notes settle the question address interpenetration at all, seven of the
@@ -51,10 +74,10 @@ published designs. Thirty-five method rows run on the Allegro, whose weight, joi
 and price have no reachable source, because its product page returns HTTP 404 and everything
 Table~\ref{tab:hands-available} confirms about it comes from its ROS driver.
 
-Fourteen corpus entries are themselves surveys or engine-comparison studies. Appendix D sets them on
-one set of columns in Table~\ref{tab:surveys} and says what each covers. Four of the fourteen could
+Fourteen corpus entries are themselves surveys or engine-comparison studies. Appendix D says what
+each covers, on one set of columns tabulated in the repository. Four of the fourteen could
 not be obtained, or were fetched too late to read, and are entered as such. Two of the three things
-this survey adds are visible in that table as columns nobody else fills. The first is
+this survey adds are columns nobody else fills. The first is
 Table~\ref{tab:simulators}, which takes the engines \cite{nine_physics_engines_review_2024} scored
 on documentation and usability and adds contact model, solver, iteration count, default timestep and
 penetration exposure, conditioned on what a hand does to a solver. Erez et al.
@@ -100,8 +123,10 @@ Section 4 covers simulators and contact models. Section 5 covers how policies ar
 6 covers bimanual work as its own problem. Section 7 proposes an evaluation frame rather than a
 leaderboard, and is the longest section. Section 8 states the gaps as claims with their evidence.
 Section 9 says what to do about them, addressed to someone publishing, running experiments or
-buying a hand. Appendix A is the method, Appendix B and Appendix C are the full hand and reward
-extractions, and Appendix D is the comparison with the existing surveys.
+buying a hand. Appendix A is the method, and says where the tabulation this survey is built on
+lives, which is the repository rather than these pages. Appendix B carries the three tables
+Sections 3 and 4 read cells out of, Appendix C is the reward extraction, and Appendix D is the
+comparison with the existing surveys.
 
 % ---------------------------------------------------------------------------
 % Figure 1, the field on one page. Full width: five columns of nodes with the

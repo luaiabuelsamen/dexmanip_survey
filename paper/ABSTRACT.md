@@ -8,7 +8,7 @@ simulators, 15 datasets, 14 benchmarks, 14 surveys, 8 tactile sensors and 7 eval
 
 Three findings are measured rather than asserted. Papers disagree with their own released code.
 Sixty-two method rows released code that could be read against the paper, 38 of those record a
-discrepancy, and ten are contradictions where the shipped code states a different objective from
+discrepancy, and nine are contradictions where the shipped code states a different objective from
 the published one. `physhoi_2023` is the sharpest case. Its `compute_humanoid_reward` sets the
 object rotation errors to zero while the reward table in the paper weights them at 0.1 and 0.01,
 and its position-only success criterion could not have detected that. Nobody measures the quantity

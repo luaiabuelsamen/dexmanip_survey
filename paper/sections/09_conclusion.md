@@ -1,11 +1,13 @@
 # 9. Conclusion
 
 The binding constraint on this field is not ideas. It is verification. Sixty-two method papers
-released code that could be read against the paper, 38 of those record a discrepancy, and ten are
+released code that could be read against the paper, 38 of those record a discrepancy, and nine are
 contradictions where the shipped code states a different objective from the published one. The
-first count was sixteen, and an adversarial re-reading withdrew seven accusations, each withdrawal
-recorded in the row beside the charge. Ten is a floor, because forty-six method rows released
-nothing to check. A reward table in a paper is a claim about a document, not about a run.
+first count was sixteen. An adversarial re-reading withdrew seven accusations, and an eighth was
+withdrawn later still, when writing to `omnih2o_2024`'s authors sent someone back to its evidence
+and the reward-weight discrepancy it had rested on turned out to be a typo signature in the
+paper's own table, not a different trained objective. Each withdrawal is recorded in the row
+beside the charge. Nine is a floor, because forty-six method rows released nothing to check. A reward table in a paper is a claim about a document, not about a run.
 `physhoi_2023` is the case to remember, because the term its table weights at 0.1 is set to zero
 in the code, and its own success criterion could not have detected that.
 

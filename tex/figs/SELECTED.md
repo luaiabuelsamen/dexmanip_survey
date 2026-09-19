@@ -10,6 +10,9 @@ upscaled from the 200 dpi catalogue preview: `tools/extract_figures.py` locates 
 rectangle, and the rectangle was rendered again at a dpi close to the embedded raster's own
 resolution, then cropped. The crop column below gives the box in fractions of the trimmed
 catalogue preview, so any crop can be reproduced. "none" means the whole catalogued region.
+Four plates whose panels were re-cut and re-stacked are rebuilt by
+`tools/relayout_plates.py`, which holds their panel boxes as the same fractions and writes the
+file; run it to reproduce them.
 
 Colour. Two plates were converted to greyscale because the colour carried no information
 (`hand_ilda_linkage`, a near-monochrome metal hand on white; `teleop_bidex_exoskeleton`, a black
@@ -37,12 +40,18 @@ Permission. None has been sought. Every plate emits `\pending`, not `\credit`; s
   the labelled motor, spacer and bracket in panel (a) are the finger, so "12 actuated DoF" and
   "the finger is 30 mm thick" are the same design decision.
 
-### `hand_scale_to_human.png` — 3037x826, colour, `figure*`
+### `hand_scale_to_human.png` — 1676x1685, colour, `figure`
 - **Source** `leap_hand_2023`, Fig. 3, p. 2.
 - **Original caption** "Relative size of popular robot hands to scale. Left to right, adult human
   hand, Allegro Hand [20], LEAP-C Hand, LEAP Hand, Inmoov [18], D'Manus [21]. ... The hands are
   accurate to scale."
-- **Crop** none; 450 dpi (native ~277 dpi).
+- **Crop** re-laid out, 450 dpi. The source is one row of six hands, 3.68:1, which across the
+  full text width renders 49 mm tall and wastes a double-column slot on a strip. The row is cut on
+  the white gutters between the hands, at 0.2005, 0.3341, 0.4727, 0.6059 and 0.7532 of the width,
+  and set as two rows of three: human-with-ruler, Allegro, LEAP-C over LEAP, InMoov, D'Manus. Each
+  hand keeps the label under it and none is resampled, so at one column every hand is the same
+  30 mm wide it was across two, and the plate gives a column slot back
+  (`tools/relayout_plates.py`).
 - **Shows what the text cannot** How much larger than a human hand the hands the field actually
   trains on are — a ruler in frame settles a point that a DoF table in this survey cannot make.
 
@@ -89,11 +98,15 @@ Permission. None has been sought. Every plate emits `\pending`, not `\credit`; s
 
 ## Sec. IV — Simulators and contact
 
-### `sim_isaacgym_inhand_envs.png` — 3293x620, colour, `figure*`
+### `sim_isaacgym_inhand_envs.png` — 2239x1267, colour, `figure*`
 - **Source** `isaacgym_2021`, Fig. 13, p. 17.
 - **Original caption** "The three in-hand manipulation environments implemented in Isaac Gym:
   Shadow Hand, Trifinger, and Allegro."
-- **Crop** none; 600 dpi (native ~2118 dpi, so the render is well inside the source).
+- **Crop** re-laid out, 600 dpi. The source is one row of three screenshots, 5.31:1, which across
+  the full text width renders 34 mm tall: the parallel copies receding to the horizon, which are
+  the whole point, were not visible. Cut on the gutters at 0.3334 and 0.6670 of the width and set
+  two-up with the third centred below, 1.77:1, so each screenshot is 90 mm wide instead of 60 and
+  51 mm tall instead of 34 (`tools/relayout_plates.py`).
 - **Shows what the text cannot** What "1024 parallel environments" looks like from inside the
   renderer: the copies stretching to the horizon behind the foreground scene are the batch, and
   they share one physics step.
@@ -152,7 +165,7 @@ Permission. None has been sought. Every plate emits `\pending`, not `\credit`; s
   measures the operator's joints directly, so the correspondence problem moves from perception
   into mechanism design.
 
-### `teleop_retarget_embodiments.png` — 2022x1899, colour, `figure`
+### `teleop_retarget_embodiments.png` — 2070x1900, colour, `figure`
 - **Source** `anyteleop_2023`, Fig. 10, p. 15.
 - **Original caption** "Visualization of Hand Pose Retargeting. The figure presents the results
   of hand pose retargeting for seven gestures and four different dexterous robot hands. The four
@@ -160,7 +173,9 @@ Permission. None has been sought. Every plate emits `\pending`, not `\credit`; s
   DLR Hand; (iv) Allegro Hand."
 - **Crop** composited: the first four gesture rows (top 46.8%) stacked directly above the column
   label strip (bottom 6.2%), so the four hands stay named while the plate fits a column. 400 dpi
-  (native ~1516 dpi).
+  (native ~1516 dpi). Rebuilt at the full width of the region: the earlier crop had trimmed about
+  2.5 percent off the right edge and clipped the final letter of the "Allegro" column label
+  (`tools/relayout_plates.py`).
 - **Shows what the text cannot** How far apart four hands end up from one human pose: the same
   tracked keypoints produce four visibly different postures, which is the embodiment gap that a
   shared demonstration corpus has to cross.
@@ -175,14 +190,20 @@ Permission. None has been sought. Every plate emits `\pending`, not `\credit`; s
   penetrating, non-contacting, hyperextended — each magnified at the fingertip, where a
   joint-angle error metric would report all four as small.
 
-### `data_arctic_bimanual.png` — 4126x1240, colour, `figure*`
+### `data_arctic_bimanual.png` — 3157x1244, colour, `figure*`
 - **Source** `arctic_2022`, Fig. 1, p. 1.
 - **Original caption** "ARCTIC is a dataset of hands dexterously manipulating articulated
   objects. The dataset contains videos from both eight 3rd-person allocentric views (a) and one
   1st-person egocentric view (b), together with accurate ground-truth 3D hand and object meshes,
   captured with a high-quality motion capture system."
-- **Crop** none; 600 dpi (native ~620 dpi).
-- **Shows what the text cannot** The whole chain of a hand-object dataset in one row — captured
+- **Crop** left 76.4%, 600 dpi. The whole figure is 3.33:1 and renders 54 mm tall across the text
+  width. Panels (a)-(d) already sit two-up, so the leftmost 76.4 percent is the capture-to-contact
+  chain this plate is placed for, at 2.54:1 and 71 mm tall, with every one of those four panels and
+  its label intact. Column (e), object articulation, is dropped: it is full height, so keeping it
+  is what makes the plate a strip, and the caption does not discuss it. Precedent is
+  `hand_ilda_linkage`, whose motion-test panels are dropped the same way
+  (`tools/relayout_plates.py`).
+- **Shows what the text cannot** The chain of a hand-object dataset in one plate — captured
   video, fitted hand and object meshes, and the dense contact field between them — making plain
   that the contact label is inferred from a mesh fit and never measured at the surface.
 

@@ -3,9 +3,12 @@
 %
 % One command per figure. A section author places a plate by writing, e.g.,
 %   \plateLeapOverview
-% at the point in the section where the float should be anchored. Single-column
+% at the point in the section where the float should be anchored, once: a plate
+% called twice prints twice, on two pages, under two numbers. Single-column
 % plates use `figure`; anything whose labels stop being legible below about
-% 8.8 cm uses `figure*` and floats to the top of a page.
+% 8.8 cm uses `figure*` and floats to the top of a page. `[tb]` was tried on the
+% single-column plates and moved nothing: where a plate lands pages after its
+% anchor, a full-width table is holding the page tops in between, not the spec.
 %
 % Every plate carries \pending, not \credit: no permission has been sought for any
 % of these. When a permission is granted, swap that plate's \pending for \credit
@@ -37,18 +40,24 @@
   \end{figure}}
 
 \newcommand{\plateIldaLinkage}{%
-  \begin{figure}[tb]
+  \begin{figure}[t]
     \centering
     \includegraphics[width=\columnwidth]{figs/selected/hand_ilda_linkage.png}
     \caption{A fully actuated linkage hand with the transmission left exposed:
       every joint is driven through its own metal four-bar and lead screw, with a
-      coin for scale. Greyscale; the source photograph is near-monochrome.}
+      coin for scale. Greyscale; the source photograph is
+      near-monochrome~\cite{ilda_hand_2021}. The journal's CC BY licence
+      excludes anything marked there as third-party material; none is flagged
+      on this figure, but the author should confirm.}
     \label{fig:hand-ilda}
-    \pending{\cite{ilda_hand_2021}}
+    \licensed[panels (a) and (b) only, converted to greyscale]{Fig.~5 of
+      U. Kim et al., ``Integrated linkage-driven dexterous anthropomorphic
+      robotic hand,'' \emph{Nature Communications} 12:7177 (2021),
+      DOI~10.1038/s41467-021-27261-0}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
   \end{figure}}
 
 \newcommand{\plateCoupledLinkage}{%
-  \begin{figure}[tb]
+  \begin{figure}[t]
     \centering
     \includegraphics[width=\columnwidth]{figs/selected/hand_coupled_linkage.png}
     \caption{Where the actuator count is cut: an anti-parallelogram linkage ties
@@ -64,9 +73,13 @@
     \includegraphics[width=\columnwidth]{figs/selected/hand_inspire_tactile_pad.png}
     \caption{Compliance added after the fact: a printed pad over a foam layer,
       fitted to a commercial hand to spread contact that the rigid shell
-      concentrates. The right panel shows the whole hand once padded.}
+      concentrates. The right panel shows the whole hand once
+      padded~\cite{articulated_tools_inhand_2025}.}
     \label{fig:hand-inspire-pad}
-    \pending{\cite{articulated_tools_inhand_2025}}
+    \licensed[cropped to the right half of the page region]{Fig.~4 of S. Atar,
+      D. Huang, F. Richter and M. Yip, ``In-Hand Manipulation of Articulated
+      Tools with Dexterous Robot Hands with Sim-to-Real Transfer,''
+      arXiv:2509.23075}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
   \end{figure}}
 
 \newcommand{\plateDigitFingertips}{%
@@ -88,9 +101,14 @@
     \includegraphics[width=\textwidth]{figs/selected/sim_isaacgym_inhand_envs.png}
     \caption{Three in-hand environments as the GPU simulator actually presents
       them. The copies receding into the background are the other parallel
-      environments sharing the step; the foreground scene is one of thousands.}
+      environments sharing the step; the foreground scene is one of
+      thousands~\cite{isaacgym_2021}. The plate shows NVIDIA product imagery;
+      CC BY 4.0 conveys no trademark rights.}
     \label{fig:sim-isaacgym-envs}
-    \pending{\cite{isaacgym_2021}}
+    \licensed[re-rendered, not otherwise changed]{Fig.~13 of
+      V. Makoviychuk et al., ``Isaac Gym: High Performance GPU-Based Physics
+      Simulation For Robot Learning,''
+      arXiv:2108.10470}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
   \end{figure*}}
 
 \newcommand{\plateTendonModel}{%
@@ -123,9 +141,13 @@
     \caption{Interpenetration rendered as a field. A compliant contact model
       turns the depth by which object and sensor overlap into the tactile image
       and the distributed force the policy reads; the overlap is the signal, not
-      an artefact to be removed.}
+      an artefact to be removed~\cite{isaaclab_2025}. The plate shows NVIDIA
+      product imagery; CC BY 4.0 conveys no trademark rights.}
     \label{fig:sim-tactile-penetration}
-    \pending{\cite{isaaclab_2025}}
+    \licensed[cropped to the four labelled panels]{Fig.~10 of M. Mittal et al.
+      (NVIDIA), ``Isaac Lab: A GPU-Accelerated Simulation Framework for
+      Multi-Modal Robot Learning,''
+      arXiv:2511.04831}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
   \end{figure}}
 
 % ================================== Sec. V, teleoperation and human-data sources
@@ -137,9 +159,11 @@
     \caption{A camera-based teleoperation cell, dimensioned. Four depth cameras
       around a marked table, a seven-axis arm and a four-fingered hand with
       tactile fingertips: the working volume in which every demonstration from
-      this rig was recorded.}
+      this rig was recorded~\cite{dexpilot_2020}.}
     \label{fig:teleop-studio}
-    \pending{\cite{dexpilot_2020}}
+    \licensed[re-rendered and resampled]{Fig.~3 of A. Handa et al., ``DexPilot:
+      Vision Based Teleoperation of Dexterous Robotic Hand-Arm System,''
+      arXiv:1910.03135}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
   \end{figure}}
 
 \newcommand{\plateBidexExoskeleton}{%
@@ -159,9 +183,14 @@
     \includegraphics[width=\columnwidth]{figs/selected/teleop_retarget_embodiments.png}
     \caption{One human hand pose, four robot hands. The same tracked keypoints
       retarget to visibly different postures on each mechanism, which is the size
-      of the embodiment gap a shared demonstration corpus has to cross.}
+      of the embodiment gap a shared demonstration corpus has to
+      cross~\cite{anyteleop_2023}.}
     \label{fig:teleop-retarget-embodiments}
-    \pending{\cite{anyteleop_2023}}
+    \licensed[re-laid out from a row of panels into a stacked column: the four
+      gesture rows composited above the hand-label strip]{Fig.~10 of Y. Qin et
+      al., ``AnyTeleop: A General Vision-Based Dexterous Robot Arm-Hand
+      Teleoperation System,''
+      arXiv:2307.04577}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
   \end{figure}}
 
 \newcommand{\plateRetargetArtifacts}{%
@@ -208,9 +237,12 @@
     \caption{The failure modes of synthesised two-hand grasps, with the contact
       region enlarged: fingers inside the object, fingers inside the other hand.
       At the scale of the whole grasp all four look plausible, which is why a
-      success rate quoted without a penetration measure says little.}
+      success rate quoted without a penetration measure says
+      little~\cite{bimangrasp_2024}.}
     \label{fig:bimanual-penetration}
-    \pending{\cite{bimangrasp_2024}}
+    \licensed[cropped to Fig.~9 alone]{Fig.~9 of Y. Shao and C. Xiao, ``Bimanual
+      Grasp Synthesis for Dexterous Robot Hands,''
+      arXiv:2411.15903}{CC BY 4.0}{https://creativecommons.org/licenses/by/4.0/}
   \end{figure*}}
 
 % ======================================================= Sec. VII, evaluation

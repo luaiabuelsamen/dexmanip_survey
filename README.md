@@ -17,11 +17,13 @@ the objective that was trained. Thirty-eight disagreements were recorded in tota
 classification of every one is in the `mismatch_class` field of `corpus/rows/`, including the seven
 accusations this survey withdrew after review.
 
-Interpenetration is measured by almost nobody. Eleven of the ninety-six method rows whose notes
-settle it handle it at all, four inside a closed-loop policy, and none reports a penetration number
-for its own trained policy's rollouts. The tooling is not the obstacle: NVIDIA's own benchmark
-repository computes per-environment maximum interpenetration depth and gates a policy update on a
-one-millimetre threshold.
+Closed-loop policies do not report interpenetration. Eleven of the ninety-six method rows whose
+notes settle it handle it at all, four inside a closed-loop policy, and none reports a penetration
+number for its own trained policy's rollouts. The scope of that claim matters. Grasp synthesis and
+hand-object reconstruction have reported penetration depth and intersection volume comparatively
+for years, so the gap is specific to learned closed-loop control, not to the field. The tooling is
+not the obstacle either: NVIDIA's own benchmark repository computes per-environment maximum
+interpenetration depth and gates a policy update on a one-millimetre threshold.
 
 Hardware and software have come apart. Thirty-three hands are tabulated, the simulators name five
 between them, and of the hands that can actually be bought or built from published designs, seven

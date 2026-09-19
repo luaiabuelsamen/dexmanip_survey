@@ -27,9 +27,9 @@ The labels do not partition the corpus. Of the 112 method rows, 53 carry the tag
 \texttt{diffusion}, 10 \texttt{data-collection}, 8 \texttt{flow}, 6 \texttt{RL+demo}, 6
 \texttt{trajopt}, 5 \texttt{MPC}, 4 \texttt{grasp-synthesis} and 2 \texttt{world-model}. The tags
 sum to far more than 112 because most methods published since 2024 sit on two branches at once.
-\figurename~\ref{fig:taxonomy} draws the tree and the cross-links. Table~\ref{tab:methods-top}
-is the row-by-row version of the same thing, and is the table to scan when looking for work
-comparable to your own.
+\figurename~\ref{fig:taxonomy} draws the tree and the cross-links. The repository carries the
+row-by-row version of the same thing, one row per method, and that is what to scan when looking for
+work comparable to your own.
 
 What the deployed policy looks like once training is done matters more than the name a paper gives
 itself, and on that axis the field has converged hard. Section~V-G shows why.
@@ -86,9 +86,9 @@ that randomisation was not used here.
 \subsubsection{Reward engineering}
 \label{sec:train:rl:reward}
 
-Table~\ref{tab:rewards} puts the 21 in-hand reorientation methods against nine recurring term
-families and marks each cell by where the term was found: in the paper, in the code, in both, or in
-the code with every shipped configuration setting its weight to zero.
+The repository puts the 21 in-hand reorientation methods against nine recurring term families and
+marks each cell by where the term was found: in the paper, in the code, in both, or in the code
+with every shipped configuration setting its weight to zero.
 
 \IfFileExists{tables/table5_rewards.tex}{\input{tables/table5_rewards}}{%
   \begin{table}[!t]\centering
@@ -197,8 +197,8 @@ are.
 \subsubsection{Teleoperation and retargeting}
 \label{sec:train:human:teleop}
 
-Table~\ref{tab:teleop} lists the 30 corpus rows that describe a system for getting human motion
-onto a robot hand, with the retargeting objective compressed to one clause each.
+Thirty corpus rows describe a system for getting human motion onto a robot hand; the repository
+lists them with the retargeting objective compressed to one clause each.
 
 \IfFileExists{tables/table6_teleop.tex}{\input{tables/table6_teleop}}{%
   \begin{table}[!t]\centering
@@ -449,7 +449,8 @@ dataset rather than a gradient.
 \label{sec:train:code}
 
 Thirty-eight of the 112 method rows record a discrepancy between a paper and the code it released,
-and all 38 released code, so they sit inside the 62 rows that released anything. They are not one
+and all 38 released code, so they sit inside the 62 rows that released anything
+(\figurename~\ref{fig:codegap}). They are not one
 kind of thing. Ten are contradictions, where paper and code state different values or different
 terms. Thirteen are limits of this survey's own parse, where the body or config that would settle
 the question was never recovered and the row says so. Eight released code without the described
@@ -463,7 +464,7 @@ percent, bounded on both sides: a floor, because the census covers method rows o
 \cite{robopianist_2023}, whose row is a benchmark, sums five reward terms against the three its
 Table~2 documents; a ceiling, because seven accusations an earlier draft of this section made were
 withdrawn under adversarial review, each with its reason recorded in the accused row's
-\texttt{mismatch\_review} field. Among the 21 reorientation methods of Table~\ref{tab:rewards},
+\texttt{mismatch\_review} field. Among the 21 reorientation methods scored term by term,
 seven released a repository: four disagree with their paper, one \cite{dreureka_2024} ships no
 cube-rotation environment at all, one \cite{hora_2022} is a later generation its own README flags,
 and one \cite{eureka_2023} was a default-value question the same README settles.
@@ -520,7 +521,7 @@ function before the reward table, and treat a printed weight as a hypothesis abo
 \subsection{The master table}
 \label{sec:train:master}
 
-Table~\ref{tab:methods-top}'s emptiest columns are the ones a reader most needs: only 31 rows
+The emptiest columns of the method tabulation are the ones a reader most needs: only 31 rows
 state an environment count, only 70 state how many real trials are behind the headline number, and
 only 39 state how many unseen objects were tested. The trial and unseen-object figures are the
 audited ones, after Section~VII-A recovered 15 trial counts and 7 unseen-object counts that the

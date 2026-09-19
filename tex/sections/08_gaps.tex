@@ -12,7 +12,7 @@ This is a result rather than a gap, and a result about publishing practice in ro
 dexterous corpus is its sample, not its subject.
 
 Sixty-two method rows released code that could be parsed against the paper, and 38 carry
-a recorded discrepancy. The classification is the finding: ten contradictions, where the paper
+a recorded discrepancy, drawn in \figurename~\ref{fig:codegap}. The classification is the finding: ten contradictions, where the paper
 states one value and the shipped code demonstrably states another; thirteen limits of this
 survey's own parse, which captured signatures or a truncated body rather than the component; eight
 cases where the code was never released; four version skew; three inconsistencies inside a paper
@@ -48,7 +48,8 @@ artefacts instead of reading two documents.
 \subsection{Nobody records interpenetration for their own policy's rollouts}
 
 Eleven method rows handle interpenetration at all, of the ninety-six whose notes settle the
-question, and only four of them are closed-loop policies. Every one of the eleven sits on the
+question, and only four of them are closed-loop policies
+(\figurename~\ref{fig:penetration}). Every one of the eleven sits on the
 reference side of the reference-versus-rollout split, scoring a pose or a trajectory before
 execution rather than the behaviour that followed. The engines are not the obstacle: IsaacGymEnvs
 ships a task that computes a per-environment maximum interpenetration depth in Warp and gates its
@@ -119,7 +120,7 @@ architectures, the same hand and the same seeds, with separate giver and receive
 \subsection{Human data does not port across hands, and the map is usually unstated}
 
 Fifty-three method rows use human data and name 45 distinct hand strings between them. Twenty appear
-in Table~\ref{tab:teleop} with a stated retargeting objective. The other 33 do not say how the human
+among the 30 teleoperation systems with a stated retargeting objective. The other 33 do not say how the human
 motion reached the hand, and the stated objectives do not converge, from a fingertip keypoint-vector
 energy in \cite{anyteleop_2023} to a per-joint regression from exoskeleton encoders in
 \cite{dexumi_2025} to no retargeting at all in \cite{egozero_2025}. More correspondence is not

@@ -6,19 +6,17 @@
 \section{Per-paper reward term extraction}
 \label{app:rewards}
 
-Table~\ref{tab:rewards} marks nine recurring term families across the in-hand reorientation methods. This appendix is the extraction underneath it, over every method row that records a reward at all. \texttt{terms stated} counts the terms the paper itself names. \texttt{where the reward was read} gives the section of the paper or the file in the released code that the note quotes. A row with a \texttt{paper/code class} is one where the two disagree, and the second part of this appendix prints the disagreement in full. Cells and entries reproduce the text stored in the row, with the source's own punctuation and wording.
+Section~V marks nine recurring term families across the in-hand reorientation methods, from a matrix tabulated in the repository. This appendix is the extraction underneath that matrix, over every method row that records a reward at all. \texttt{terms stated} counts the terms the paper itself names. \texttt{where the reward was read} gives the section of the paper or the file in the released code that the note quotes. A row with a \texttt{paper/code class} is one where the two disagree, and the second part of this appendix prints the disagreement in full. Cells and entries reproduce the text stored in the row, with the source's own punctuation and wording.
 
 \subsection{The extraction}
 
-%% tables/rewards_full.tex is generated into tex/tables/ by the table generator in tools/.
-%% Do not write the table out here; regenerate it there.
-\IfFileExists{tables/rewards_full.tex}{\input{tables/rewards_full.tex}}{%
-  \begin{table}[!t]
-  \caption{The per-paper reward term extraction, over every method row that records a reward at all. Pending: generated into \texttt{tex/tables/rewards\_full.tex} by the table generator in \texttt{tools/}.}
-  \label{tab:rewards_full}
-  \end{table}}
-
-\noindent\emph{77 rows. 253 of 770 cells (32 percent) are values no source stated. A blank \texttt{terms stated} with a filled \texttt{term names} column is a paper that names its terms without numbering them. \texttt{in Table 5} marks the rows that are also in the body matrix, which covers in-hand reorientation only.}
+The extraction itself is a table of 77 rows and ten columns, and it is in the repository rather
+than here, with the rest of the tabulation Appendix~\ref{app:method} describes: as structured rows
+in \texttt{corpus/rows/} and as a markdown table in \texttt{paper/tables/}. Three things are worth
+knowing before reading it. 253 of its 770 cells are values no source stated. A blank
+\texttt{terms stated} with a filled \texttt{term names} column is a paper that names its terms
+without numbering them. And its \texttt{in Table 5} column marks the rows that are also in the
+reward-term matrix, which covers in-hand reorientation only.
 
 \subsection{Paper against released code, in full}
 \begingroup\sloppy

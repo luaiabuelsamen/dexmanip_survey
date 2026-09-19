@@ -32,7 +32,7 @@
  "code_released": true,
  "paper_code_mismatch": "stumble weight -0.00125 (paper) vs -1250 (code); max-feet-height sign/magnitude differ (+1000 paper vs -2500 code, a penalty not a bonus); paper's exp(-c*||.||) form vs code's exp(-err^2/sigma); curriculum level-down threshold 40 (paper) vs 50 (code)",
  "note_gaps": "hand model DoF, the simulator name, and any hand contact/penetration handling are absent from both paper and code sources [penetration label withdrawn: the note does not state that the work leaves interpenetration unaddressed; extraction had asserted it]",
- "mismatch_class": "contradiction",
+ "mismatch_class": "internal-inconsistency",
  "mismatch_confidence": "medium",
- "mismatch_review": "R3 adversarial review: plausible alternative reading; held at medium confidence pending a direct code read"
+ "mismatch_review": "Withdrawn as a contradiction before author contact. Four sibling weights match the paper to the digit under a systematic x1.25 curriculum factor and only the stumble weight differs, by a factor of about a million, which is a typo signature in the paper's own table rather than evidence of a different trained objective. The hands in this work are driven open-loop from VR pose, outside the policy and outside the reward, so it is a weak fit for a dexterous-manipulation reward census in the first place."
 }

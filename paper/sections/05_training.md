@@ -364,19 +364,20 @@ a dataset rather than a gradient.
 
 Thirty-eight of the 112 method rows record a discrepancy between a paper and the code it released,
 and all 38 released code, so they sit inside the 62 rows that released anything. They are not one
-kind of thing. Ten are contradictions, where paper and code state different values or different
+kind of thing. Nine are contradictions, where paper and code state different values or different
 terms. Thirteen are limits of this survey's own parse, where the body or config that would settle
 the question was never recovered and the row says so. Eight released code without the described
-component in it, four are version skew against a later repository, and three are a paper
+component in it, four are version skew against a later repository, and four are a paper
 disagreeing with itself. The fourth version skew is `groot_n16_2025`, which ships a main branch one
 generation later than the checkpoint its page describes.
 
-Ten is the number to quote, eight at high confidence and two, `penspin_2024` and `omnih2o_2024`,
-held at medium pending a direct read of the code. Ten of 62 is 16 percent, bounded on both sides:
+Nine is the number to quote, eight at high confidence and one, `penspin_2024`, held at medium
+pending a direct read of the code. Nine of 62 is 15 percent, bounded on both sides:
 a floor, because the census covers method rows only and `robopianist_2023`, whose row is a
 benchmark, sums five reward terms against the three its Table 2 documents; a ceiling, because
-seven accusations an earlier draft of this section made were withdrawn under adversarial review,
-each with its reason recorded in the accused row's `mismatch_review` field. Among the 21
+eight accusations an earlier draft of this section made were withdrawn, seven of them under
+adversarial review and an eighth, `omnih2o_2024`, once writing to its authors sent someone back to
+the evidence, each with its reason recorded in the accused row's `mismatch_review` field. Among the 21
 reorientation methods of Table 5, seven released a repository: four disagree with their paper, one
 (`dreureka_2024`) ships no cube-rotation environment at all, one (`hora_2022`) is a later
 generation its own README flags, and one (`eureka_2023`) was a default-value question the same
@@ -399,9 +400,12 @@ by zero with the comment "currently disabled", a term the paper never claims, an
 weights are present at their stated values. `pianomime_2024`'s Table 3 states two weighted terms
 while its environment sums roughly five unweighted ones, two of them inherited stubs returning
 zero and a third, forearm collision, the paper never lists. `penspin_2024` ships `forceScale: 0.0`
-against the disturbance force in its appendix, and its 96-dimensional observation carries no
-tactile channel, which is also what its proprioception-only student should carry, hence the
-medium confidence.
+against the disturbance force its appendix describes, which is the charge that survives. A second
+half of the original charge, that the same 96-dimensional observation disables the paper's tactile
+channel, is withdrawn: those dimensions are proprioception-only, consistent with the student
+policy the released config runs rather than the tactile-and-point-cloud oracle, and the paper never
+claims the student has tactile input. The disturbance-force charge alone is why the row still
+reads medium rather than high.
 
 Weights drift. `dextreme_2022` states an action-delta penalty of −0.25 in Table 2 and ships −0.2
 and −0.01 in its two DR yamls, neither matching. `visual_dexterity_2022`'s Eq. 8 penultimate-joint

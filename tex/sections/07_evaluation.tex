@@ -25,7 +25,10 @@ the quantity, drawn against all 112 of them; the text gives the denominator that
 share, which for the real-robot experiment is the 111 rows the note settled, for the trial count
 the 89 rows with a real robot, for released code the 108 rows the note settled, and for contact or
 penetration handling the 96 rows whose contact handling the note settled. Every bar is a lower
-bound, for the reason set out below.}
+bound, for the reason set out below. The two marked bars are the two a reader needs in order to
+compare any two methods: without a count of unseen objects a success rate has no generalisation
+denominator, and without contact handling it says nothing about whether the hand passed through the
+object. They are the two the field reports least.}
 \label{fig:reporting}
 \end{figure}
 
@@ -80,6 +83,24 @@ this section quoted. It describes nothing, because Hora \cite{hora_2022}'s 240 a
 Visual Dexterity \cite{visual_dexterity_2022}'s 20 are experiments of comparable size recorded on
 different bases.
 Seven further counts could not be assigned a basis at all.
+\figurename~\ref{fig:trials} is the per-cell distribution.
+
+% ---------------------------------------------------------------------------
+% The per-cell real-trial counts. The grand totals are a different quantity and
+% are not pooled into it. Written by tools/make_finding_figures.py.
+% ---------------------------------------------------------------------------
+\begin{figure}[!t]
+  \centering
+  \IfFileExists{figs/fig_trials.tex}{\resizebox{\columnwidth}{!}{\input{figs/fig_trials}}}{%
+    \framebox[0.95\columnwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_trials.tex pending}}}
+  \caption{Where a denominator is stated it is small. The 39 method rows whose stated real-trial
+  count is per cell, meaning per task, per condition or per object, binned by fives and labelled on
+  each bin's upper edge, with the median of 15 marked. The modal evaluation is ten trials in a cell,
+  in 16 of the 39. The 24 rows that state a grand total over every cell are a different quantity,
+  and pooling the two is the error this section withdrew: they are counted beneath the axis rather
+  than drawn in the histogram.}
+  \label{fig:trials}
+\end{figure}
 
 The per-cell count is the one a Wilson interval attaches to. For $s$ successes in $n$ trials, with
 $\hat{p} = s/n$ and $z = z_{1-\alpha/2} = 1.96$ at the 95 percent level, the bounds of that
@@ -170,6 +191,25 @@ so the reward that produced the published numbers tracked the object in position
 \subsection{Physical plausibility as a first-class metric}
 \label{subsec:plausibility}
 
+% ---------------------------------------------------------------------------
+% The second finding as a picture: the funnel that ends at zero. Written by
+% tools/make_finding_figures.py from corpus/rows.
+% ---------------------------------------------------------------------------
+\begin{figure}[!t]
+  \centering
+  \IfFileExists{figs/fig_penetration.tex}{%
+    \resizebox{\columnwidth}{!}{\input{figs/fig_penetration}}}{%
+    \framebox[0.95\columnwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_penetration.tex pending}}}
+  \caption{The quantity most specific to a hand is the one nobody records. Each bar is drawn
+  against all 112 method rows, the light track behind it. Of the 96 rows whose note settles the
+  question, 11 address interpenetration in any form, and four of those are closed-loop policies:
+  the other seven are grasp synthesisers, trajectory optimisers or a contact model, which score a
+  configuration rather than a controller. Not one of the 11 reports a penetration number for the
+  rollouts of its own trained policy, which is the last row and the point of the figure. Every one
+  of them sits on the reference side of the reference-versus-rollout split.}
+  \label{fig:penetration}
+\end{figure}
+
 Eleven method rows handle interpenetration in any form: three penalise it, three measure it, five
 constrain it. The denominator is 96, not 112, because the \texttt{penetration} field is null for 16
 rows, and a null there means the note did not settle the question, not that the paper ignored
@@ -180,7 +220,7 @@ Section~\ref{sec:intro} takes from \cite{zhao_dexhand_survey_2026}. A reference 
 trajectory scored before execution, and a rollout is what the trained policy actually did. What this
 section supplies on that axis is a measurement method and a count, and it does not supply a
 threshold. The count is the eleven of 96 above, with four closed-loop policies inside it and none
-reporting a number for its own rollouts. The method is the plausibility row of
+reporting a number for its own rollouts, which is \figurename~\ref{fig:penetration}. The method is the plausibility row of
 Table~\ref{tab:protocol}: maximum and mean penetration depth over the evaluation rollouts, on a
 dense surface sample, computed by code that never entered the reward or the termination rule. The
 threshold is borrowed, and Section~\ref{subsec:what_would_be_true} says from where and why it does
@@ -428,12 +468,12 @@ Every cell is empty. This survey re-ran nothing, and no cell can be filled at th
 Table~\ref{tab:protocol} asks for. DeXtreme \cite{dextreme_2022} comes closest and is the reason the
 claim is stated that narrowly: it reports a criterion, a trial count and an interval. Object
 orientation within 0.4 rad of target, $27.8 \pm 19.0$ average consecutive successes with the $\pm$ a
-90 percent confidence interval. On 10 trials. Table~\ref{tab:methods-top} is not a counter-example
+90 percent confidence interval. On 10 trials. The method tabulation is not a counter-example
 either, though it looks like one: it carries \texttt{trials}, \texttt{unseen obj},
 \texttt{penetration} and \texttt{code} columns for all 112 method rows, including all 12 of these.
-Table~\ref{tab:methods-top} records what each method reported. Table~\ref{tab:matrix} asks for
+It records what each method reported. Table~\ref{tab:matrix} asks instead for
 what Table~\ref{tab:protocol} defines. A value with an interval, a stated denominator and a
-criterion written before the run. And none of Table~\ref{tab:methods-top}'s values meets that. The
+criterion written before the run. And no reported value meets that. The
 first row of Table~\ref{tab:matrix} is a worked example so that the format of a cell is
 unambiguous. Every number in it is fabricated and labelled as such.
 

@@ -84,21 +84,35 @@ reaches the penetration, code-release and failure-mode fields, none of which has
 way. Read every coverage statistic in this survey as a floor rather than as a rate, and read the
 bars in \figurename~\ref{fig:reporting} the same way.
 
-\subsection{The full method table}
-Table~\ref{tab:app-methods} is the long form of the method table the body prints in truncated
-form. It carries one row for each of the 112 method rows, at full width, so that the cells the
-body table has to cut, among them the hand and its degrees of freedom, the simulator, the real
-trial count and the code release, can be read for every method at once. It is generated from the
-same structured rows as every other table here, which is why a cell can be empty but cannot hold
-a value no note confirmed.
+\subsection{Where the tabulation lives}
+\label{app:method:tabulation}
+Most of this survey's tabulation is not printed in this paper. The 112 method rows, the 21
+reward-term objectives scored against their released code, the 30 teleoperation
+systems, the 33 hand specifications with the source sentence behind each one, the 15 contact-model
+and solver descriptions verbatim, and what each of the 14 predecessor surveys covers: all of it is
+reference material, consulted a row at a time and never read through. Printed, it ran to more pages
+than the argument it supports. It is in the repository instead.
 
-%% tables/methods_full.tex is generated into tex/tables/ by the table generator in tools/.
-%% Do not write the table out here; regenerate it there.
-\IfFileExists{tables/methods_full.tex}{\input{tables/methods_full.tex}}{%
-  \begin{table}[!t]
-  \caption{The full method table, one row per method row, at full width. Pending: generated into \texttt{tex/tables/methods\_full.tex} by the table generator in \texttt{tools/}.}
-  \label{tab:app-methods}
-  \end{table}}
+Read it there in one of three forms. \texttt{corpus/rows/} holds one JSON record per work, with
+every field at full length and no cell cut; this is the form to query, and it is the form every
+number in this paper is computed from at build time. \texttt{paper/tables/} holds the same content
+as markdown tables, one file per table, for reading rather than querying. \texttt{papers/notes/}
+holds the structured note each row was read from, with the quotation that supports each field, so
+that a cell can be traced to a sentence in a parsed source. \texttt{tools/} holds the generators:
+every table in this paper and in the repository is written by a script there from
+\texttt{corpus/rows/}, so a reader who disagrees with a classification can change it and rebuild
+rather than argue with a PDF.
+
+The repository is public, and the archived release this paper is submitted against will carry a
+DOI, which is the copy to cite for any number quoted here. A survey that argues for checkable
+artefacts should point at its artefact rather than reprint it, and a table a reader cannot
+recompute is worth less than the record it was compressed from.
+
+Three tables are exceptions and are printed, because the prose reads individual cells out of them
+and does not stand up without them: the two hand tables and the engine table, in
+Appendix~\ref{app:tables}. Two more are the survey's own proposal rather than a reading of a
+source, and are in the body where they are argued for: the evaluation protocol and the empty
+results matrix.
 
 \subsection{Reproduced figures}
 Some figures in this edition are not this survey's own artwork. They are photographs of hardware

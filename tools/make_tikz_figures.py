@@ -61,29 +61,11 @@ def fig_hands():
     (OUT / "fig_hands.tex").write_text(body)
     return len(rows)
 
-def fig_reporting():
-    ax = [("success criterion stated", lambda r: bool(r.get("success_criterion"))),
-          ("real-robot experiment", lambda r: r.get("real_robot") is True),
-          ("real trial count stated", lambda r: r.get("real_trials") is not None),
-          ("code released", lambda r: r.get("code_released") is True),
-          ("unseen-object count stated", lambda r: r.get("objects_test_unseen") is not None),
-          ("contact or penetration handled", lambda r: r.get("penetration") in ("penalised","measured","constrained"))]
-    width, rowsep = 6.2, 0.44
-    out = [PRE]
-    y = 0.0
-    for label, pred in ax:
-        n = sum(1 for r in M if pred(r)); frac = n / N
-        w = width * frac
-        style = "baracc" if frac < 0.4 else "bar"
-        out.append(rf"\node[lbl,anchor=east] at (0,{-y:.2f}) {{{esc(label)}}};")
-        out.append(rf"\fill[barlight] (0.12,{-y-0.1:.2f}) rectangle ({0.12+width:.2f},{-y+0.1:.2f});")
-        out.append(rf"\fill[{style}] (0.12,{-y-0.1:.2f}) rectangle ({0.12+w:.2f},{-y+0.1:.2f});")
-        out.append(rf"\node[num,anchor=west] at ({0.12+width+0.12:.2f},{-y:.2f}) {{{n} ({round(100*frac)}\%)}};")
-        y += rowsep
-    out.append(rf"\draw[lnk] (0.12,{-y+0.16:.2f}) -- ({0.12+width:.2f},{-y+0.16:.2f});")
-    out.append(r"\end{tikzpicture}")
-    (OUT / "fig_reporting.tex").write_text("\n".join(out))
-    return len(ax)
+# fig_reporting() used to live here. It is written by tools/make_finding_figures.py now, with the
+# bars ordered and the two quantities a reader needs in order to compare two methods marked, so that
+# one generator owns every figure that carries a headline finding. Two generators writing one file
+# is how a figure comes back from the dead.
+
 
 def fig_field():
     """Figure 1: the routes through the field, as a five-column flow. Two-column float."""
@@ -145,6 +127,5 @@ def fig_field():
 
 if __name__ == "__main__":
     print("hands rows:", fig_hands())
-    print("reporting axes:", fig_reporting())
     print("field nodes:", fig_field())
     print("method rows:", N)

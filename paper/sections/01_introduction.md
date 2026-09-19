@@ -25,7 +25,7 @@ with reinforcement learning and 36 run in Isaac Gym, against 6 on its successor 
 
 Three things this survey measured are worth stating before the reader commits to 27,000 words. The
 first is that papers disagree with their own released code. Sixty-two of the 112 method rows
-released code that could be read against the paper, 38 of those record a discrepancy, and ten are
+released code that could be read against the paper, 38 of those record a discrepancy, and nine are
 contradictions where the shipped code states a different objective from the published one. The
 sharpest case is `physhoi_2023`. Its `compute_humanoid_reward` hardcodes the object rotation and
 rotation-velocity errors to zero, with the real computation commented out beside them, while the
