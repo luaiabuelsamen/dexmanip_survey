@@ -18,6 +18,7 @@ set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MIRROR="$REPO/.overleaf-mirror"
+BUILD="$REPO/.overleaf-build"   # make_arxiv.py writes arxiv_build.json beside --out
 CONF="${OVERLEAF_PROJECTS_CONFIG:-$HOME/.config/overleaf-mcp/projects.json}"
 PROJECT="${1:-}"; shift || true
 
@@ -65,12 +66,17 @@ case "$PROJECT" in
     git_ol checkout --quiet main
     git_ol reset --hard --quiet origin/main
     echo "building verified package ..."
-    python3 "$REPO/tools/make_arxiv.py" --out "$MIRROR.pkg" "$@" >/dev/null
+    trap 'rm -rf "$BUILD"' EXIT
+    if ! python3 "$REPO/tools/make_arxiv.py" --out "$BUILD/pkg" "$@"; then
+      echo
+      echo "package build failed; Overleaf not touched. Fix the problems above" >&2
+      echo "(a stale .bbl usually just needs tools/build_tex.sh) and rerun." >&2
+      exit 1
+    fi
     # Replace tracked content, preserving .git; drop arXiv-only metadata.
     git -C "$MIRROR" rm -rq --ignore-unmatch .
-    rsync -a --exclude='CHECKLIST.md' --exclude='MANIFEST.txt' \
-             --exclude='SUBMISSION.md' "$MIRROR.pkg/" "$MIRROR/"
-    rm -rf "$MIRROR.pkg"
+    rsync -ac --exclude='CHECKLIST.md' --exclude='MANIFEST.txt' \
+             --exclude='SUBMISSION.md' "$BUILD/pkg/" "$MIRROR/"
     git -C "$MIRROR" add -A
     if git -C "$MIRROR" diff --cached --quiet; then
       echo "Overleaf already matches tex/; nothing to push."
@@ -89,7 +95,10 @@ case "$PROJECT" in
     git_ol reset --hard --quiet origin/main
     # Overleaf/<path> -> tex/<path>. No --delete: a file absent from the
     # package (figs/extracted, probe files) must survive the copy.
-    rsync -a --exclude='.git' --exclude='/IEEEtran.cls' --exclude='/IEEEtran.bst' \
+    # -c compares checksums, not mtimes: rewriting an identical file with a fresh
+    # timestamp would make the staleness checks in make_arxiv.py and build_tex.sh
+    # report a rebuild that is not needed.
+    rsync -ac --exclude='.git' --exclude='/IEEEtran.cls' --exclude='/IEEEtran.bst' \
              --exclude='main.bbl' --exclude='CHECKLIST.md' --exclude='MANIFEST.txt' \
              --exclude='SUBMISSION.md' "$MIRROR/" "$REPO/tex/"
     echo "Overleaf edits copied into tex/. Review before committing:"
