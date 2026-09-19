@@ -15,7 +15,11 @@ papers alone.
 Nine of the sixty-two method papers that released parseable code contradict their own paper about
 the objective that was trained. Thirty-eight disagreements were recorded in total, and the
 classification of every one is in the `mismatch_class` field of `corpus/rows/`, including the eight
-accusations this survey has withdrawn after review.
+accusations this survey has withdrawn after review. None of the nine sets of authors was written to
+before the survey was posted, so each of the nine is stated as a comparison between two public
+documents, a repository at a fetched commit against the paper's own table, which any reader can
+settle without asking anyone. Section 5.6 says that beside the finding, and `outreach/` holds the
+letters that were drafted and not sent.
 
 Closed-loop policies do not report interpenetration. Eleven of the ninety-six method rows whose
 notes settle it handle it at all, four inside a closed-loop policy, and none reports a penetration
@@ -39,6 +43,7 @@ designs, eight appear in no method paper in this corpus.
 | `papers/notes/` | one structured note per work, written only from the parsed sources, plus the rules that govern them |
 | `code/md/` | one markdown per repository: README, file tree, task and reward configs, reward and observation bodies. Clones are deleted after parsing. |
 | `reviews/` | the adversarial reviews, the verification round, the claim ledger and the consistency list |
+| `outreach/` | the letters to the authors of the works named for a paper-against-code disagreement: drafted, not sent before posting, kept so a reader can see what each would have been asked |
 | `tools/` | fetchers, parsers, and the generators for every table and figure |
 
 ## Rebuilding

@@ -116,8 +116,8 @@ survey's own parsing, 8 components never released, 4 version skews and 4 inconsi
 to a paper. Only the contradictions are a finding about the work rather than about this survey, so
 9 of 62 code-releasing rows, which is 15 percent, is the figure this section and Table 8 use.
 `physhoi_2023` is the clearest of the 9. It lists a non-zero object-orientation weight for GRAB in
-Table 4, and the reward function it released hard-sets that orientation error to zero, so the
-reward that produced the published numbers tracked the object in position only.
+Table 4, and the reward function in the repository at the commit this survey fetched sets that
+orientation error to zero, so in that file the object is tracked in position only.
 
 ## 7.2 Physical plausibility
 

@@ -46,3 +46,10 @@ Table 9. The empty results matrix.
 Table 10. Existing surveys and what each covers.
   survey, year, scope, taxonomy used, bimanual covered, hardware covered, evaluation covered,
   gaps it names. Positions this survey against its predecessors.
+
+Table 11. Paper and released repository, the nine rows that state different values.
+  method, repository and the commit the corpus fetched, the file inside it and where in that file
+  the value sits, what the paper prints, what that file contains. Generated from each row's
+  `mismatch_artifact` field. It carries the paper-against-code finding in the only form that can
+  be published without a reply from the works it names: a comparison between two public
+  documents, attributing nothing to intent, settleable by a reader with a browser.

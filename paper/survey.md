@@ -18,9 +18,10 @@ method is in Appendix A.*
 A hand is dexterous when it can change an object's pose without putting the object down. This
 survey divides that problem the way its sections do: the hands, the simulators they are trained
 in, how policies are trained, two hands on one object, and how it is evaluated. It rests on 218
-sources read into a structured row, and on their released code. Papers disagree with their own
-released code: most method rows whose code could be read against the paper record a discrepancy,
-and nine are contradictions, where the code states a different objective from the paper. Nobody
+sources read into a structured row, and on their released code. Papers and their own released
+repositories state different things: most method rows whose code could be read against the paper
+record a disagreement, and nine are contradictions, each printed as a repository, a commit, a file
+and the two values. Nobody
 measures interpenetration on a rollout: few of the rows that settle the question address it at
 all, and not one reports it for its own trained policy's rollouts, though IsaacGymEnvs already
 computes that depth and gates a policy update on it. Hardware has come apart from published work:
@@ -1992,8 +1993,8 @@ survey's own parsing, 8 components never released, 4 version skews and 4 inconsi
 to a paper. Only the contradictions are a finding about the work rather than about this survey, so
 9 of 62 code-releasing rows, which is 15 percent, is the figure this section and Table 8 use.
 `physhoi_2023` is the clearest of the 9. It lists a non-zero object-orientation weight for GRAB in
-Table 4, and the reward function it released hard-sets that orientation error to zero, so the
-reward that produced the published numbers tracked the object in position only.
+Table 4, and the reward function in the repository at the commit this survey fetched sets that
+orientation error to zero, so in that file the object is tracked in position only.
 
 ## 7.2 Physical plausibility
 
