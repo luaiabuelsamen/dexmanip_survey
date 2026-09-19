@@ -106,6 +106,12 @@ FACTS = {
  "hands_unused": HU["unused"],
  "hands_unused_obtainable": HU["unused_obtainable"],
  "hands_unused_unobtainable": HU["unused_unobtainable"],
+ # Hand rows only: the DIGIT sensor also carries open_hardware and is not one of the 33.
+ "open_hw_hands": cnt(lambda r: r.get("class") == "hand"
+                      and r.get("open_hardware") is True, ROWS),
+ "open_hw_available": cnt(lambda r: r.get("class") == "hand"
+                          and r.get("open_hardware") is True
+                          and r.get("release_status") in ("sold", "open-source"), ROWS),
  "bimanual_learned": len(BIMANUAL_28),
 }
 FACTS.update({k: len(v) for k, v in BI_ARCH.items()})
@@ -178,6 +184,10 @@ CLAIMS = [
   rf"{NUM}\s+hands\s+that\s+can\s+be\s+bought\s+(?:today\s+)?or\s+built\s+from\s+published"),
  ("hands_unused_obtainable", P(rf"the {NUM} hands (?:of|named just above|named in) the paragraph")),
  ("hands_unused_unobtainable", P(rf"{NUM} of those are neither sold nor open")),
+ # Open hardware. The seven rows and the six of them that are purchasable or released are
+ # read out of the corpus in two sentences and were unchecked.
+ ("open_hw_available", rf"{NUM}\s+rows\s+in\s+Table\s*\d?\s+are\s+open\s+hardware"),
+ ("open_hw_hands", P(rf"of the {NUM} state a dollar cost")),
  # The Isaac family split. isaacgym_rows was the quantity that was one too high, unmatched by any
  # pattern, while three sentences and a figure node printed it.
  ("isaacgym_rows", P(rf"{NUM} run in Isaac Gym")),
@@ -423,6 +433,34 @@ def caption_problems():
     return out
 
 
+# --- the two hand-matching pattern sets, against each other --------------------------------------
+# The hand partition is decided by tools/hand_usage.py and the `uses` column by tools/make_tables.py,
+# each with its own regular expression per hand. They disagreed once, on `dexhand` matching the
+# substring `bi-dexhands`, and the survey printed 18 unused where the table printed 19. The sets
+# stay separate because the figure and the partition ask slightly different questions of some rows,
+# so what is checked here is the only thing that has to hold: that they place every hand on the same
+# side of used and unused. A pattern edited in one file and not the other breaks this check rather
+# than a printed number.
+def pattern_problems():
+    out = []
+    try:
+        import importlib.util as _i
+        sp = _i.spec_from_file_location("make_tables", str(R / "tools/make_tables.py"))
+        mt = _i.module_from_spec(sp); sp.loader.exec_module(mt)
+    except Exception as e:                                    # a generator that will not import is
+        return [f"tools/make_tables.py could not be imported to compare pattern sets: {e}"]
+    hands = [r for r in ROWS if r.get("class") == "hand"]
+    fields = [str(r.get("hand") or "").lower() for r in M]
+    def used(pat): return bool(pat) and any(re.search(pat, f) for f in fields)
+    for h in hands:
+        a, b = used(_hu.PAT.get(h["key"])), used(mt.USES.get(h["key"]))
+        if a != b:
+            out.append(f"`{h['key']}` is {'used' if a else 'unused'} by tools/hand_usage.py and "
+                       f"{'used' if b else 'unused'} by tools/make_tables.py, so the partition the "
+                       f"prose states and the `uses` column the table prints disagree")
+    return out
+
+
 def strip_tex(t):
     """Reduce LaTeX source to running prose so the same patterns match both editions."""
     t = re.sub(r"(?m)^\s*%.*$", " ", t)                    # comments
@@ -467,6 +505,14 @@ def main():
         print(f"  TEXT   {t}")
     if not tp: print(f"  {len(FORBIDDEN)} withdrawn phrases absent, "
                      f"{sum(len(v) for v in REQUIRED_IN.values())} required phrases present")
+    print("\n=== the two hand-matching pattern sets against each other ===")
+    pp = pattern_problems()
+    for q in pp:
+        bad += 1
+        print(f"  PATTERN  {q}")
+    if not pp:
+        print(f"  {len([r for r in ROWS if r.get('class') == 'hand'])} hands placed the same side "
+              f"of used and unused by both generators")
     print("\n=== each printed table's emptiness against the section that argues from it ===")
     cp = caption_problems()
     for c in cp:
