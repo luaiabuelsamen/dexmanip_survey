@@ -57,3 +57,11 @@
     \textit{Reproduced from} #2\textit{, licensed under} \href{#4}{#3}%
     \def\lic@changes{#1}\ifx\lic@changes\@empty.\else; #1.\fi}}}
 \makeatother
+
+% --- long URLs in the reference list ----------------------------------------
+% A company announcement's URL is one unbreakable run wider than the column, and it set an
+% overfull line in the bibliography. Let \url break between any two characters rather than only at
+% punctuation, so a reference is never wider than the column it sits in.
+\makeatletter
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\makeatother

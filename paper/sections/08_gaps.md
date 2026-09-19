@@ -52,16 +52,20 @@ unsettled. What would close it: publish
 the reward table generated from the released config at a named commit, so a reviewer diffs two
 artefacts instead of reading two documents.
 
-## 8.2 Nobody records interpenetration for their own policy's rollouts
+## 8.2 No closed-loop policy records interpenetration for its own rollouts
 
 Eleven method rows handle interpenetration at all, of the ninety-six whose notes settle the
 question, and only four of them are closed-loop policies. Every one of the eleven sits on the
 reference side of the reference-versus-rollout split, scoring a pose or a trajectory before
-execution rather than the behaviour that followed. The engines are not the obstacle:
+execution rather than the behaviour that followed. The gap is therefore specific to learned
+closed-loop control rather than general. Grasp synthesis and hand-object reconstruction report
+penetration depth and intersection volume comparatively, and `oakink_2022`, `bimangrasp_2024`,
+`bidexgrasp_2026` and `toporetarget_2026` do so within this corpus. What none of them scores is the
+behaviour a trained policy produced. The engines are not the obstacle:
 IsaacGymEnvs ships a task that computes a per-environment maximum interpenetration depth in Warp
 and gates its policy update on a 1 mm threshold, and `tactile_genesis_2026` offers two
 penetration-depth backends on Genesis geometry as sensors. The depth is computable by anyone from
-poses and meshes; nobody reports it for a dexterous rollout. What would close it: maximum and mean
+poses and meshes, and we found no paper that reports it for a dexterous rollout. What would close it: maximum and mean
 penetration depth over the evaluation rollouts, on a dense surface sample, from a measure the
 policy never optimised.
 

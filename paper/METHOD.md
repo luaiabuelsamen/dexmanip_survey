@@ -12,6 +12,12 @@ arXiv identifier was checked by fetching the abstract page and matching the titl
 that could not be checked that way are marked. The six lists were merged with deduplication on arXiv
 identifier and normalised title, giving 221 entries.
 
+Seven further bibliography entries are not part of that corpus and are not counted anywhere in this
+survey. They are the prior audits and case studies section 1 positions this survey against, they
+carry the topic `related` in `corpus/bib_related.json`, and none of them carries a structured row.
+No source for them was parsed either, so each is quoted only from its abstract and its stated
+method.
+
 ## Acquisition
 PDFs were downloaded from arXiv or, for work without a preprint, from the publisher or vendor
 page recorded in the bibliography. Vendor pages for hands without any paper were fetched as HTML

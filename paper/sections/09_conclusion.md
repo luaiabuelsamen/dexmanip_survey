@@ -11,10 +11,13 @@ beside the charge. Nine is a floor, because forty-six method rows released nothi
 `physhoi_2023` is the case to remember, because the term its table weights at 0.1 is set to zero
 in the code, and its own success criterion could not have detected that.
 
-The second finding is that the quantity most specific to dexterous manipulation is the one nobody
-records. Contact is what separates a hand from a gripper. Eleven of the 96 method rows whose notes
-settle the question address interpenetration at all, only four inside a closed-loop policy, and
-not one reports a penetration number for its own policy's rollouts. The obstacle is not the
+The second finding is that the quantity most specific to dexterous manipulation is the one
+closed-loop policies do not record. Contact is what separates a hand from a gripper. Eleven of the
+96 method rows whose notes settle the question address interpenetration at all, only four inside a
+closed-loop policy, and we found not one that reports a penetration number for its own policy's
+rollouts. Grasp synthesis and hand-object reconstruction have reported penetration comparatively
+for years, so what is missing is not the measure but the measurement of a trained policy's own
+behaviour. The obstacle is not the
 engines. IsaacGymEnvs ships a task that computes a per-environment maximum interpenetration depth
 against meshes and gates the policy update on a 1 mm threshold, and `tactile_genesis_2026` offers
 penetration depth on Genesis geometry as a sensor. The tooling sits in the field's own benchmark

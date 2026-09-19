@@ -26,4 +26,7 @@ log "--- bibtex errors: $(grep -cE "^I couldn't|^Sorry|error message" /tmp/bib.l
 log "--- undefined citations: $(grep -c 'Citation.*undefined' /tmp/tex3.log)"
 grep -o 'Citation .[^ ]* undefined' /tmp/tex3.log | head -10
 log "--- undefined references: $(grep -c 'Reference.*undefined' /tmp/tex3.log)"
-log "--- overfull hboxes > 20pt: $(grep -cE 'Overfull \\\\hbox \([2-9][0-9]\.|Overfull \\\\hbox \([0-9]{3,}' /tmp/tex3.log)"
+# The log writes one backslash before hbox, so the pattern needs one too: with two it matched
+# nothing and reported a clean build however wide the boxes were.
+log "--- overfull hboxes > 20pt: $(grep -acE 'Overfull \\hbox \([2-9][0-9]\.|Overfull \\hbox \([0-9]{3,}' /tmp/tex3.log)"
+grep -aoE 'Overfull \\hbox \([0-9.]+pt too wide\).*(lines?|line) [0-9-]+' /tmp/tex3.log | sort -u | head -6

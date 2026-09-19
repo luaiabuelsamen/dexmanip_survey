@@ -255,7 +255,9 @@ def fig_reporting():
     """
     axes = sorted(F["axes"], key=lambda t: -t[1])
     lowest = {label for label, _ in axes[-2:]}
-    width, rowsep = 6.2, 0.44
+    # narrow enough that \resizebox to one column scales the figure up rather than down:
+    # this chart's text is the smallest in the paper and must not be shrunk further
+    width, rowsep = 5.2, 0.44
     out = [PRE]
     y = 0.0
     ys = {}
@@ -276,7 +278,7 @@ def fig_reporting():
         ys[label] = -y
         y += rowsep
     # a square bracket down the right-hand side of the two lowest bars
-    xb = 0.12 + width + 1.42
+    xb = 0.12 + width + 1.30
     y0, y1 = (ys[l] for l in [a[0] for a in axes[-2:]])
     out.append(rf"\draw[line width=0.4pt,draw=accent] ({xb:.2f},{y0 + 0.16:.2f}) -- "
                rf"({xb + 0.10:.2f},{y0 + 0.16:.2f}) -- ({xb + 0.10:.2f},{y1 - 0.16:.2f}) -- "

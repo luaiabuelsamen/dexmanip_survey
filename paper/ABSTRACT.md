@@ -11,10 +11,13 @@ Sixty-two method rows released code that could be read against the paper, 38 of 
 discrepancy, and nine are contradictions where the shipped code states a different objective from
 the published one. `physhoi_2023` is the sharpest case. Its `compute_humanoid_reward` sets the
 object rotation errors to zero while the reward table in the paper weights them at 0.1 and 0.01,
-and its position-only success criterion could not have detected that. Nobody measures the quantity
-most specific to a hand. Eleven of the 96 method rows whose notes settle the question address
-interpenetration at all, and none reports it for its own policy's rollouts. IsaacGymEnvs already
-computes that depth and gates a policy update on it. Hardware and published work have come apart.
+and its position-only success criterion could not have detected that. Closed-loop policies do not
+measure the quantity most specific to a hand. Eleven of the 96 method rows whose notes settle the
+question address interpenetration at all, four of them inside a closed-loop policy, and we found none
+that reports it for its own policy's rollouts. Grasp synthesis and hand-object reconstruction have
+reported penetration depth and intersection volume comparatively for years, so the gap is specific to
+learned closed-loop control rather than to the field. IsaacGymEnvs already computes that depth and
+gates a policy update on it. Hardware and published work have come apart.
 18 of the 33 hand rows appear in no method row, and 7 of those can be bought or built
 today.
 

@@ -218,14 +218,14 @@ constrain it. The denominator is 96, not 112, because the \texttt{penetration} f
 rows, and a null there means the note did not settle the question, not that the paper ignored
 penetration. Eleven of 96 is 11 percent.
 
-That eleven is not a claim that penetration goes unmeasured in general, and it would be wrong read
-that way. Outside closed-loop control the quantity is a standard comparative column, and has been for
-years in grasp synthesis and in hand-object reconstruction: OakInk \cite{oakink_2022} tabulates
-penetration depth, solid intersection volume and simulation displacement across methods, and inside
-this corpus BiDexGrasp \cite{bidexgrasp_2026} prints a penetration depth beside a prior method's,
-BimanGrasp \cite{bimangrasp_2024} fails any grasp that exceeds 1.5 mm of total penetration, and
+That eleven is not a claim that penetration goes unmeasured in general, and reading it that way
+would be wrong. Outside closed-loop control the quantity is a standard comparative column, and has
+been one for years in grasp synthesis and in hand-object reconstruction. Four rows of this corpus show
+the practice. BiDexGrasp \cite{bidexgrasp_2026} prints a penetration depth beside a prior method's,
+BimanGrasp \cite{bimangrasp_2024} fails any grasp that exceeds 1.5 mm of total penetration,
 TopoRetarget \cite{toporetarget_2026} reports a maximum penetration and a share of frames past 2 mm
-against a baseline retargeter. The finding is narrower than the field and concerns learned
+against a baseline retargeter, and OakInk \cite{oakink_2022} scores a dataset split on penetration
+depth, solid intersection volume and simulation displacement. The finding is narrower than the field and concerns learned
 closed-loop control: all eleven score a pose or a reference trajectory, four of them are closed-loop
 policies, and we found none that reports the measurement for rollouts of its own trained policy.
 

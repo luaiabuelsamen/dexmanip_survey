@@ -73,9 +73,10 @@ question, and only four of them are closed-loop policies
 reference side of the reference-versus-rollout split, scoring a pose or a trajectory before
 execution rather than the behaviour that followed. The gap is therefore specific to learned
 closed-loop control rather than general. Grasp synthesis and hand-object reconstruction report
-penetration depth and intersection volume comparatively, and
-\cite{oakink_2022,bimangrasp_2024,bidexgrasp_2026} and \cite{toporetarget_2026} do so within this
-corpus; what none of them scores is the behaviour a trained policy produced. The engines are not the obstacle: IsaacGymEnvs
+penetration depth and intersection volume comparatively, and OakInk \cite{oakink_2022}, BimanGrasp
+\cite{bimangrasp_2024}, BiDexGrasp \cite{bidexgrasp_2026} and TopoRetarget \cite{toporetarget_2026}
+do so within this corpus. What none of them scores is the behaviour a trained policy produced.
+The engines are not the obstacle: IsaacGymEnvs
 ships a task that computes a per-environment maximum interpenetration depth in Warp and gates its
 policy update on a 1 mm threshold, and Tactile Genesis \cite{tactile_genesis_2026} offers two
 penetration-depth backends on Genesis geometry as sensors. The depth is computable by anyone from

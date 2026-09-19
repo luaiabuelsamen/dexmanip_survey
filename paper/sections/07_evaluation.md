@@ -137,11 +137,22 @@ constrain it. The denominator is 96, not 112, because the `penetration` field is
 and a null there means the note did not settle the question, not that the paper ignored
 penetration. Eleven of 96 is 11 percent.
 
+That eleven is not a claim that penetration goes unmeasured in general, and reading it that way
+would be wrong. Outside closed-loop control the quantity is a standard comparative column, and has
+been one for years in grasp synthesis and in hand-object reconstruction. Four rows of this corpus
+show the practice. `bidexgrasp_2026` prints a penetration depth beside a prior method's,
+`bimangrasp_2024` fails any grasp that exceeds 1.5 mm of total penetration, `toporetarget_2026`
+reports a maximum penetration and a share of frames past 2 mm against a baseline retargeter, and
+`oakink_2022` scores a dataset split on penetration depth, solid intersection volume and simulation
+displacement. The finding is narrower than the field and concerns learned closed-loop control: all
+eleven score a pose or a reference trajectory, four of them are closed-loop policies, and we found
+none that reports the measurement for rollouts of its own trained policy.
+
 Where in the pipeline those eleven act is the reference-versus-rollout split that section 1 takes
 from `zhao_dexhand_survey_2026`. A reference is a pose or a trajectory scored before execution,
 and a rollout is what the trained policy actually did. What this section supplies on that axis is
 a measurement method and a count, and it does not supply a threshold. The count is the eleven of
-96 above, with four closed-loop policies inside it and none reporting a number for its own
+96 above, with four closed-loop policies inside it and none we found reporting a number for its own
 rollouts. The method is the plausibility row of Table 8: maximum and mean penetration depth over
 the evaluation rollouts, on a dense surface sample, computed by code that never entered the reward
 or the termination rule. The threshold is borrowed, and section 7.7 says from where and why it

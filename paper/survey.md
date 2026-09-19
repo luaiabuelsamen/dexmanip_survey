@@ -26,10 +26,13 @@ Sixty-two method rows released code that could be read against the paper, 38 of 
 discrepancy, and nine are contradictions where the shipped code states a different objective from
 the published one. `physhoi_2023` is the sharpest case. Its `compute_humanoid_reward` sets the
 object rotation errors to zero while the reward table in the paper weights them at 0.1 and 0.01,
-and its position-only success criterion could not have detected that. Nobody measures the quantity
-most specific to a hand. Eleven of the 96 method rows whose notes settle the question address
-interpenetration at all, and none reports it for its own policy's rollouts. IsaacGymEnvs already
-computes that depth and gates a policy update on it. Hardware and published work have come apart.
+and its position-only success criterion could not have detected that. Closed-loop policies do not
+measure the quantity most specific to a hand. Eleven of the 96 method rows whose notes settle the
+question address interpenetration at all, four of them inside a closed-loop policy, and we found none
+that reports it for its own policy's rollouts. Grasp synthesis and hand-object reconstruction have
+reported penetration depth and intersection volume comparatively for years, so the gap is specific to
+learned closed-loop control rather than to the field. IsaacGymEnvs already computes that depth and
+gates a policy update on it. Hardware and published work have come apart.
 18 of the 33 hand rows appear in no method row, and 7 of those can be bought or built
 today.
 
@@ -75,11 +78,19 @@ position-only success criterion could not have caught that, and its headline 95.
 as a baseline. Section 5.8 classifies all 38, and seven further accusations an earlier draft made
 were withdrawn under adversarial review and recorded beside the charge.
 
-The second is that the quantity most specific to a hand is the one nobody records. Eleven of the
-96 method rows whose notes settle the question address interpenetration at all, seven of the
-eleven do it outside a closed-loop policy in a grasp synthesiser, a trajectory optimiser or a
-contact model, and none reports a penetration number for its own trained policy's rollouts. The
-obstacle is not the engines. NVIDIA's own IsaacGymEnvs repository already computes a
+The second is that the quantity most specific to a hand is the one closed-loop policies do not
+record. Eleven of the 96 method rows whose notes settle the question address interpenetration at
+all, seven of the eleven do it outside a closed-loop policy in a grasp synthesiser, a trajectory
+optimiser or a contact model, and we found none that reports a penetration number for its own
+trained policy's rollouts. The claim is about learned closed-loop control and not about the field.
+Grasp synthesis and hand-object reconstruction have reported penetration depth and intersection
+volume as comparative columns for years, and four rows of this corpus do it: `oakink_2022` scores a
+dataset split on penetration depth, solid intersection volume and simulation displacement,
+`bidexgrasp_2026` prints penetration depth beside a prior method's, `bimangrasp_2024` fails any
+grasp whose total penetration exceeds 1.5 mm, and `toporetarget_2026` reports a maximum penetration
+and a share of frames past 2 mm against a baseline retargeter. Every one of those numbers scores a
+pose or a reference trajectory rather than the behaviour a trained policy produced, and it is the
+rollout that is missing. The obstacle is not the engines. NVIDIA's own IsaacGymEnvs repository already computes a
 per-environment maximum interpenetration depth in Warp and gates the policy update on a 1 mm
 threshold. Section 7.3 has the file and the lines.
 
@@ -89,10 +100,44 @@ published designs. Thirty-five method rows run on the Allegro, whose weight, joi
 and price have no reachable source, because its product page returns HTTP 404 and everything Table
 2 confirms about it comes from its ROS driver.
 
+None of those three findings is a first, and the audit behind the first of them is not a new idea.
+`collberg_repeatability_2016` examined 601 papers in computer systems research for whether the code
+behind them could be obtained and built at all. `biocon_2026` aligns 48 bioinformatics projects with
+their publications at sentence-to-function granularity under expert annotation, and `scicoqa_2026`
+collects 92 real paper-code discrepancies, mined from issue trackers and reproducibility reports,
+into a benchmark for detecting such discrepancies automatically. In reinforcement learning the
+phenomenon itself is a known result. `engstrom_implementation_matters_2020` shows that code-level
+optimisations present only in the implementation account for most of PPO's reported gain over TRPO,
+and `metaworld_plus_2025` finds undocumented changes accumulated across one benchmark's own
+versions, which make comparisons between those versions unfair. Both establish it on a single
+codebase. The closest relative to the audit here is `knox_reward_misdesign_2023`, which reviews
+nineteen reinforcement-learning publications on autonomous driving, characterises the reward
+functions of ten of them exhaustively in a standard form, applies eight sanity checks and reports
+near-universal flaws in reward design. Its ground truth for what each reward was is the authors,
+obtained through correspondence with them rather than by reading a released repository, and what it
+establishes is that published reward descriptions are incomplete: one of the ten described its
+reward, discount factor, termination conditions and timestep thoroughly. Reading the code instead
+needs no correspondence and supports a different charge, which is that where code exists it
+sometimes contradicts the description. `raff_reproducibility_2019` took the opposite ground truth on
+purpose, reimplementing 255 papers from their text alone and never opening the authors' code, which
+is what makes the choice of arbiter a position rather than an accident.
+
+So the claim here is narrow. We are aware of no prior work in robotics, and none in dexterous
+manipulation, that reads a field's released reward implementations against the rewards its own
+papers describe. Those seven works are cited from outside this corpus and enter none of its counts.
+The exposure of the claim belongs beside the count above: the evidence is a repository at a fetched
+commit, each hash recorded in `corpus/code_manifest.json`, and a repository at a commit is evidence
+about that repository rather than about the run that produced a paper's numbers, because the commit
+may postdate, precede or diverge from it. `hora_2022` states the problem in its own README, which
+directs a reader to tag v0.0.1 and not to the commit parsed here to reproduce the published
+numbers. Every accusation this survey has withdrawn, eight of them so far, is recorded in the
+accused row for the same reason: the withdrawals are the evidence that the charges left standing
+were checked rather than counted.
+
 Fourteen corpus entries are themselves surveys or engine-comparison studies. Appendix D sets them
 on one set of columns in Table 10 and says what each covers. Four of the fourteen could not be
 obtained, or were fetched too late to read, and are entered as such. Two of the three things this
-survey adds are visible in that table as columns nobody else fills. The first is Table 4, which
+survey adds are visible in that table as columns none of the fourteen fills. The first is Table 4, which
 takes the engines `nine_physics_engines_review_2024` scored on documentation and usability and
 adds contact model, solver, iteration count, default timestep and penetration exposure,
 conditioned on what a hand does to a solver. `physics_engine_comparison_2015` and
@@ -1890,11 +1935,22 @@ constrain it. The denominator is 96, not 112, because the `penetration` field is
 and a null there means the note did not settle the question, not that the paper ignored
 penetration. Eleven of 96 is 11 percent.
 
+That eleven is not a claim that penetration goes unmeasured in general, and reading it that way
+would be wrong. Outside closed-loop control the quantity is a standard comparative column, and has
+been one for years in grasp synthesis and in hand-object reconstruction. Four rows of this corpus
+show the practice. `bidexgrasp_2026` prints a penetration depth beside a prior method's,
+`bimangrasp_2024` fails any grasp that exceeds 1.5 mm of total penetration, `toporetarget_2026`
+reports a maximum penetration and a share of frames past 2 mm against a baseline retargeter, and
+`oakink_2022` scores a dataset split on penetration depth, solid intersection volume and simulation
+displacement. The finding is narrower than the field and concerns learned closed-loop control: all
+eleven score a pose or a reference trajectory, four of them are closed-loop policies, and we found
+none that reports the measurement for rollouts of its own trained policy.
+
 Where in the pipeline those eleven act is the reference-versus-rollout split that section 1 takes
 from `zhao_dexhand_survey_2026`. A reference is a pose or a trajectory scored before execution,
 and a rollout is what the trained policy actually did. What this section supplies on that axis is
 a measurement method and a count, and it does not supply a threshold. The count is the eleven of
-96 above, with four closed-loop policies inside it and none reporting a number for its own
+96 above, with four closed-loop policies inside it and none we found reporting a number for its own
 rollouts. The method is the plausibility row of Table 8: maximum and mean penetration depth over
 the evaluation rollouts, on a dense surface sample, computed by code that never entered the reward
 or the termination rule. The threshold is borrowed, and section 7.7 says from where and why it
@@ -2235,16 +2291,20 @@ unsettled. What would close it: publish
 the reward table generated from the released config at a named commit, so a reviewer diffs two
 artefacts instead of reading two documents.
 
-## 8.2 Nobody records interpenetration for their own policy's rollouts
+## 8.2 No closed-loop policy records interpenetration for its own rollouts
 
 Eleven method rows handle interpenetration at all, of the ninety-six whose notes settle the
 question, and only four of them are closed-loop policies. Every one of the eleven sits on the
 reference side of the reference-versus-rollout split, scoring a pose or a trajectory before
-execution rather than the behaviour that followed. The engines are not the obstacle:
+execution rather than the behaviour that followed. The gap is therefore specific to learned
+closed-loop control rather than general. Grasp synthesis and hand-object reconstruction report
+penetration depth and intersection volume comparatively, and `oakink_2022`, `bimangrasp_2024`,
+`bidexgrasp_2026` and `toporetarget_2026` do so within this corpus. What none of them scores is the
+behaviour a trained policy produced. The engines are not the obstacle:
 IsaacGymEnvs ships a task that computes a per-environment maximum interpenetration depth in Warp
 and gates its policy update on a 1 mm threshold, and `tactile_genesis_2026` offers two
 penetration-depth backends on Genesis geometry as sensors. The depth is computable by anyone from
-poses and meshes; nobody reports it for a dexterous rollout. What would close it: maximum and mean
+poses and meshes, and we found no paper that reports it for a dexterous rollout. What would close it: maximum and mean
 penetration depth over the evaluation rollouts, on a dense surface sample, from a measure the
 policy never optimised.
 
@@ -2319,10 +2379,13 @@ beside the charge. Nine is a floor, because forty-six method rows released nothi
 `physhoi_2023` is the case to remember, because the term its table weights at 0.1 is set to zero
 in the code, and its own success criterion could not have detected that.
 
-The second finding is that the quantity most specific to dexterous manipulation is the one nobody
-records. Contact is what separates a hand from a gripper. Eleven of the 96 method rows whose notes
-settle the question address interpenetration at all, only four inside a closed-loop policy, and
-not one reports a penetration number for its own policy's rollouts. The obstacle is not the
+The second finding is that the quantity most specific to dexterous manipulation is the one
+closed-loop policies do not record. Contact is what separates a hand from a gripper. Eleven of the
+96 method rows whose notes settle the question address interpenetration at all, only four inside a
+closed-loop policy, and we found not one that reports a penetration number for its own policy's
+rollouts. Grasp synthesis and hand-object reconstruction have reported penetration comparatively
+for years, so what is missing is not the measure but the measurement of a trained policy's own
+behaviour. The obstacle is not the
 engines. IsaacGymEnvs ships a task that computes a per-environment maximum interpenetration depth
 against meshes and gates the policy update on a 1 mm threshold, and `tactile_genesis_2026` offers
 penetration depth on Genesis geometry as a sensor. The tooling sits in the field's own benchmark
@@ -2374,6 +2437,12 @@ seeded with the canonical works in each area and extended by search up to 2026-0
 arXiv identifier was checked by fetching the abstract page and matching the title, and entries
 that could not be checked that way are marked. The six lists were merged with deduplication on arXiv
 identifier and normalised title, giving 221 entries.
+
+Seven further bibliography entries are not part of that corpus and are not counted anywhere in this
+survey. They are the prior audits and case studies section 1 positions this survey against, they
+carry the topic `related` in `corpus/bib_related.json`, and none of them carries a structured row.
+No source for them was parsed either, so each is quoted only from its abstract and its stated
+method.
 
 ## Acquisition
 PDFs were downloaded from arXiv or, for work without a preprint, from the publisher or vendor

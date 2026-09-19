@@ -101,9 +101,15 @@ def main():
     missing = re.findall(r"\*\[missing (table|figure|appendix) ([A-Za-z0-9_]+)\]\*", out)
     if missing: print("MISSING:", missing)
     keys = set(re.findall(r"`([a-z][a-z0-9_]{4,})`", out))
-    import os
-    unknown = [k for k in keys if not os.path.exists(R / f"papers/notes/{k}.md") and "_" in k and re.search(r"_\d{4}$", k)]
-    print(f"cited keys: {len(keys)}; citations with no note: {unknown}")
+    import os, json as _json
+    # Entries with topic "related" are prior work cited from outside the corpus. No source for them
+    # was parsed, so they have no note by construction and are not a missing-note report.
+    related = {e["key"] for e in _json.loads((R / "corpus/bib.json").read_text())
+               if e.get("topic") == "related"}
+    unknown = [k for k in keys if not os.path.exists(R / f"papers/notes/{k}.md") and "_" in k
+               and re.search(r"_\d{4}$", k) and k not in related]
+    print(f"cited keys: {len(keys)}; citations with no note: {unknown}; "
+          f"related-work citations, which have none by design: {len(keys & related)}")
 
 if __name__ == "__main__":
     main()

@@ -34,11 +34,19 @@ position-only success criterion could not have caught that, and its headline 95.
 as a baseline. Section 5.8 classifies all 38, and seven further accusations an earlier draft made
 were withdrawn under adversarial review and recorded beside the charge.
 
-The second is that the quantity most specific to a hand is the one nobody records. Eleven of the
-96 method rows whose notes settle the question address interpenetration at all, seven of the
-eleven do it outside a closed-loop policy in a grasp synthesiser, a trajectory optimiser or a
-contact model, and none reports a penetration number for its own trained policy's rollouts. The
-obstacle is not the engines. NVIDIA's own IsaacGymEnvs repository already computes a
+The second is that the quantity most specific to a hand is the one closed-loop policies do not
+record. Eleven of the 96 method rows whose notes settle the question address interpenetration at
+all, seven of the eleven do it outside a closed-loop policy in a grasp synthesiser, a trajectory
+optimiser or a contact model, and we found none that reports a penetration number for its own
+trained policy's rollouts. The claim is about learned closed-loop control and not about the field.
+Grasp synthesis and hand-object reconstruction have reported penetration depth and intersection
+volume as comparative columns for years, and four rows of this corpus do it: `oakink_2022` scores a
+dataset split on penetration depth, solid intersection volume and simulation displacement,
+`bidexgrasp_2026` prints penetration depth beside a prior method's, `bimangrasp_2024` fails any
+grasp whose total penetration exceeds 1.5 mm, and `toporetarget_2026` reports a maximum penetration
+and a share of frames past 2 mm against a baseline retargeter. Every one of those numbers scores a
+pose or a reference trajectory rather than the behaviour a trained policy produced, and it is the
+rollout that is missing. The obstacle is not the engines. NVIDIA's own IsaacGymEnvs repository already computes a
 per-environment maximum interpenetration depth in Warp and gates the policy update on a 1 mm
 threshold. Section 7.3 has the file and the lines.
 
@@ -48,10 +56,44 @@ published designs. Thirty-five method rows run on the Allegro, whose weight, joi
 and price have no reachable source, because its product page returns HTTP 404 and everything Table
 2 confirms about it comes from its ROS driver.
 
+None of those three findings is a first, and the audit behind the first of them is not a new idea.
+`collberg_repeatability_2016` examined 601 papers in computer systems research for whether the code
+behind them could be obtained and built at all. `biocon_2026` aligns 48 bioinformatics projects with
+their publications at sentence-to-function granularity under expert annotation, and `scicoqa_2026`
+collects 92 real paper-code discrepancies, mined from issue trackers and reproducibility reports,
+into a benchmark for detecting such discrepancies automatically. In reinforcement learning the
+phenomenon itself is a known result. `engstrom_implementation_matters_2020` shows that code-level
+optimisations present only in the implementation account for most of PPO's reported gain over TRPO,
+and `metaworld_plus_2025` finds undocumented changes accumulated across one benchmark's own
+versions, which make comparisons between those versions unfair. Both establish it on a single
+codebase. The closest relative to the audit here is `knox_reward_misdesign_2023`, which reviews
+nineteen reinforcement-learning publications on autonomous driving, characterises the reward
+functions of ten of them exhaustively in a standard form, applies eight sanity checks and reports
+near-universal flaws in reward design. Its ground truth for what each reward was is the authors,
+obtained through correspondence with them rather than by reading a released repository, and what it
+establishes is that published reward descriptions are incomplete: one of the ten described its
+reward, discount factor, termination conditions and timestep thoroughly. Reading the code instead
+needs no correspondence and supports a different charge, which is that where code exists it
+sometimes contradicts the description. `raff_reproducibility_2019` took the opposite ground truth on
+purpose, reimplementing 255 papers from their text alone and never opening the authors' code, which
+is what makes the choice of arbiter a position rather than an accident.
+
+So the claim here is narrow. We are aware of no prior work in robotics, and none in dexterous
+manipulation, that reads a field's released reward implementations against the rewards its own
+papers describe. Those seven works are cited from outside this corpus and enter none of its counts.
+The exposure of the claim belongs beside the count above: the evidence is a repository at a fetched
+commit, each hash recorded in `corpus/code_manifest.json`, and a repository at a commit is evidence
+about that repository rather than about the run that produced a paper's numbers, because the commit
+may postdate, precede or diverge from it. `hora_2022` states the problem in its own README, which
+directs a reader to tag v0.0.1 and not to the commit parsed here to reproduce the published
+numbers. Every accusation this survey has withdrawn, eight of them so far, is recorded in the
+accused row for the same reason: the withdrawals are the evidence that the charges left standing
+were checked rather than counted.
+
 Fourteen corpus entries are themselves surveys or engine-comparison studies. Appendix D sets them
 on one set of columns in Table 10 and says what each covers. Four of the fourteen could not be
 obtained, or were fetched too late to read, and are entered as such. Two of the three things this
-survey adds are visible in that table as columns nobody else fills. The first is Table 4, which
+survey adds are visible in that table as columns none of the fourteen fills. The first is Table 4, which
 takes the engines `nine_physics_engines_review_2024` scored on documentation and usability and
 adds contact model, solver, iteration count, default timestep and penetration exposure,
 conditioned on what a hand does to a solver. `physics_engine_comparison_2015` and
