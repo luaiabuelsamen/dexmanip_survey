@@ -55,24 +55,24 @@ section.title { page-break-after: always; break-after: page; }
 .abstract { background: var(--fill); border: 0.5pt solid var(--line); padding: 9pt 11pt;
             margin: 0 0 14pt; font-size: 9.4pt; }
 .abstract h2 { margin-top: 0; font-size: 10.5pt; }
-</style></head><body><section class='title'><h1>Learning Dexterous Manipulation</h1><h2>Rewards, contact, and hardware, checked against the field's own artifacts</h2><div class="frontmatter"><p><em>Compiled 2026-09-19. Every claim traces to a note in <code>papers/notes/</code>, every note to a parsed source in
+</style></head><body><section class='title'><h1>Learning Dexterous Manipulation</h1><h2>Hands, simulators, training, and evaluation</h2><div class="frontmatter"><p><em>Compiled 2026-09-19. Every claim traces to a note in <code>papers/notes/</code>, every note to a parsed source in
 <code>papers/md/</code> or <code>code/md/</code>, and every source to a hash or commit in <code>corpus/manifest.json</code>. The
 method is in Appendix A.</em></p></div><div class="abstract"><h2>Abstract</h2>
-<p>Learning-based dexterous manipulation is reported in papers and shipped in repositories, and
-this survey reads the two against each other. It assembles 218 structured records covering
-hands, tactile sensing, contact simulation, policy training, bimanual control, and evaluation,
-and checks each method's stated training objective against the code its authors released. Three
-findings recur. First, nine of the 62 methods with inspectable code state a training objective
-in the paper that differs from the one in the repository; each comparison names a public file
-and revision, and their authors were written to before posting and asked to correct it. Second,
-no closed-loop policy in the corpus reports interpenetration for the rollouts of its own
-trained policy, although simulators already in the corpus compute the quantity. Third,
-experiments concentrate on four established hands, while eight hands that can be bought or
-built from published designs appear in no method paper here. The survey reruns nothing and
-ranks nothing. It reports what the present literature can support, and proposes an evaluation
-protocol that would make the missing quantities routine to report. Because an absent value may
-reflect this survey's extraction as well as its source, every coverage count should be read as
-a lower bound.</p>
+<p>A dexterous hand can change an object's pose without setting it down. This survey covers how
+learning-based systems acquire that ability: hand design and tactile sensing, contact
+simulation, policy training, bimanual control, and evaluation. Its evidence base is 218
+structured records, every claim traced to a parsed source or a repository at a named revision,
+so it reports what the literature states and what its artefacts show. Three findings recur.
+First, experiments concentrate on four established hands, while eight hands that can be bought
+or built from published designs appear in no method paper here. Second, no closed-loop policy
+in the corpus reports interpenetration for the rollouts of its own trained policy, although
+simulators already in the corpus compute the quantity. Third, nine of the 62 methods with
+inspectable code state a training objective in the paper that differs from the one in the
+repository; each comparison names a public file and revision, and their authors were written to
+before posting and asked to correct it. The survey reruns and ranks nothing, reporting what the
+present literature can support and proposing an evaluation protocol for the missing quantities.
+Because an absent value may reflect this survey's extraction as well as its source, every
+coverage count is a lower bound.</p>
 <hr />
 </div></section><nav class="toc"><h2>Contents</h2><ul>
 <li class="l1"><a href="#1-introduction">1. Introduction</a></li>
@@ -143,10 +143,11 @@ modulation". Both definitions place the work in the fingers rather than in the a
 <p>What follows is a survey in the ordinary sense, covering hands, simulators, training, bimanual
 control and evaluation, and it is built so that a second question can be asked of it. Fourteen
 entries in this corpus are themselves surveys of this field, and the technical supplement sets
-them on one set of columns. None of them, and no prior work in robotics we are aware of, reads
-a field's released code against the rewards its own papers describe. This one does. The three
-findings that survive are all places where the published record and the artefact behind it
-disagree, and every one of them names a file, a commit or a table a reader can open.</p>
+them on one set of columns. What this one adds to them is a habit rather than a subject: every
+claim is carried back to something a reader can open, a parsed source, a vendor's own
+specification, or a released file at a named revision. That habit is also what turned up the
+third finding, since no prior work in robotics we are aware of reads a field's released code
+against the rewards its own papers describe.</p>
 <p>The analytic theory answered the static question and stalled on the dynamic one. Form closure has
 a first-order test on the grasp matrix and known contact counts, four in the plane and seven in
 three dimensions for any polyhedron, per <code>bicchi_grasping_chapter_2001</code> Sec. 1.3.1. Force closure

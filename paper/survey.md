@@ -1,6 +1,6 @@
 # Learning Dexterous Manipulation
 
-## Rewards, contact, and hardware, checked against the field's own artifacts
+## Hands, simulators, training, and evaluation
 
 Luai Abuelsamen, `luai_abuelsamen@berkeley.edu`. Corrections go to that address, which is the
 route section 5.6 names; the corpus is available from the author and is not yet deposited.
@@ -18,21 +18,21 @@ method is in Appendix A.*
 
 ## Abstract
 
-Learning-based dexterous manipulation is reported in papers and shipped in repositories, and
-this survey reads the two against each other. It assembles 218 structured records covering
-hands, tactile sensing, contact simulation, policy training, bimanual control, and evaluation,
-and checks each method's stated training objective against the code its authors released. Three
-findings recur. First, nine of the 62 methods with inspectable code state a training objective
-in the paper that differs from the one in the repository; each comparison names a public file
-and revision, and their authors were written to before posting and asked to correct it. Second,
-no closed-loop policy in the corpus reports interpenetration for the rollouts of its own
-trained policy, although simulators already in the corpus compute the quantity. Third,
-experiments concentrate on four established hands, while eight hands that can be bought or
-built from published designs appear in no method paper here. The survey reruns nothing and
-ranks nothing. It reports what the present literature can support, and proposes an evaluation
-protocol that would make the missing quantities routine to report. Because an absent value may
-reflect this survey's extraction as well as its source, every coverage count should be read as
-a lower bound.
+A dexterous hand can change an object's pose without setting it down. This survey covers how
+learning-based systems acquire that ability: hand design and tactile sensing, contact
+simulation, policy training, bimanual control, and evaluation. Its evidence base is 218
+structured records, every claim traced to a parsed source or a repository at a named revision,
+so it reports what the literature states and what its artefacts show. Three findings recur.
+First, experiments concentrate on four established hands, while eight hands that can be bought
+or built from published designs appear in no method paper here. Second, no closed-loop policy
+in the corpus reports interpenetration for the rollouts of its own trained policy, although
+simulators already in the corpus compute the quantity. Third, nine of the 62 methods with
+inspectable code state a training objective in the paper that differs from the one in the
+repository; each comparison names a public file and revision, and their authors were written to
+before posting and asked to correct it. The survey reruns and ranks nothing, reporting what the
+present literature can support and proposing an evaluation protocol for the missing quantities.
+Because an absent value may reflect this survey's extraction as well as its source, every
+coverage count is a lower bound.
 
 ---
 
@@ -53,10 +53,11 @@ modulation". Both definitions place the work in the fingers rather than in the a
 What follows is a survey in the ordinary sense, covering hands, simulators, training, bimanual
 control and evaluation, and it is built so that a second question can be asked of it. Fourteen
 entries in this corpus are themselves surveys of this field, and the technical supplement sets
-them on one set of columns. None of them, and no prior work in robotics we are aware of, reads
-a field's released code against the rewards its own papers describe. This one does. The three
-findings that survive are all places where the published record and the artefact behind it
-disagree, and every one of them names a file, a commit or a table a reader can open.
+them on one set of columns. What this one adds to them is a habit rather than a subject: every
+claim is carried back to something a reader can open, a parsed source, a vendor's own
+specification, or a released file at a named revision. That habit is also what turned up the
+third finding, since no prior work in robotics we are aware of reads a field's released code
+against the rewards its own papers describe.
 
 The analytic theory answered the static question and stalled on the dynamic one. Form closure has
 a first-order test on the grasp matrix and known contact counts, four in the plane and seven in
