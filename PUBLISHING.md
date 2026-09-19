@@ -33,12 +33,24 @@ date, and it costs nothing if a journal later wants changes. Choose the licence 
 CC BY 4.0 lets other people reuse your figures the way you want to reuse theirs, and it is the
 consistent choice given what this survey argues about openness.
 
-Practical notes for the submission: arXiv wants the LaTeX source, not the PDF, so upload the
-contents of `tex/` with `sty/IEEEtran.cls`, `sty/IEEEtran.bst`, `refs.bib`, the `sections/`,
-`tables/` and `figs/` trees, and the `.bbl` file, since arXiv does not run bibtex. Check the size:
-`tex/` without `figs/extracted/` is about 5 MB, well under arXiv's 50 MB limit. Do not upload
-`figs/extracted/`; it is the whole rendered figure catalogue and the paper uses three files
-from `figs/selected/`.
+The package is built and tested by `python tools/make_arxiv.py`, which assembles `dist/arxiv/`
+from the documents `main.tex` actually reads, then proves it by compiling a copy outside the
+repository with two `pdflatex` passes and no bibtex, which is close to what arXiv does. It writes
+`dist/arxiv/SUBMISSION.md` with every field the form asks for and `dist/arxiv/CHECKLIST.md` with
+what to verify in the five minutes before clicking submit. Rebuild it immediately before
+uploading; the numbers in both files are recomputed from the sources each time.
+
+Do not hand-assemble the upload. Two things about it are not obvious. arXiv does not run bibtex,
+so `main.bbl` has to be in the package: without it the bibliography does not error, it silently
+disappears and every citation prints as a question mark. Measured, by deleting the file from the
+assembled package and compiling it: no reference list at all, four pages shorter, and 666
+undefined citations, with a clean exit status. And arXiv sets no `TEXINPUTS`, while TeX's default
+search path does not descend into subdirectories, so a vendored `sty/IEEEtran.cls` is never found
+and the build dies at `\documentclass` with no PDF at all; the class has to sit at the top level
+of the upload. `make_arxiv.py` puts it in both places and checks both failures.
+
+`figs/extracted/` is never uploaded. It is 367 MB, the whole rendered figure catalogue, and the
+paper reproduces only what `figs/selected/` holds. The assembled package is about 1.4 MB.
 
 **5. Put the corpus somewhere citable.** The survey's whole argument is that claims should be
 checkable against artefacts. Deposit the repository, get a DOI from Zenodo, and cite it in the
@@ -68,13 +80,13 @@ reaching people in the meantime.
 
 ## What would make it land
 
-The finding people will repeat is the one sentence about ten papers whose code does not implement
+The finding people will repeat is the one sentence about nine papers whose code does not implement
 their published reward, and the one about nobody reporting penetration for their own rollouts.
 Those need to be in the abstract, in the first figure, and in whatever you post alongside the
 preprint. Everything else in the paper is the evidence that earns them.
 
 Do not oversell. The survey's own coverage statistics measure what its extraction captured, it
-withdrew seven accusations under review, and it re-ran no method. Saying all three plainly is what
+has withdrawn eight accusations under review, and it re-ran no method. Saying all three plainly is what
 makes the rest credible.
 
 ## A note on what belongs in the paper and what belongs in the repository

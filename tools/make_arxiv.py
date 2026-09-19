@@ -130,6 +130,7 @@ class Package:
         self.fixes: list[str] = []           # what this script changed to make it portable
         self.cite_keys: set[str] = set()
         self.packages: set[str] = set()
+        self.bbl_items = 0
 
     # -- dependency walk ---------------------------------------------------------------
 
@@ -337,7 +338,9 @@ class Package:
                 self.problems.append(
                     "refs.bib is newer than main.bbl; the .bbl is stale, rerun tools/build_tex.sh"
                 )
-            self.notes.append(f"main.bbl carries {len(items)} \\bibitem entries for {len(self.cite_keys)} cited keys")
+            self.bbl_items = len(items)
+            self.notes.append(f"main.bbl carries {len(items)} \\bibitem entries for "
+                              f"{len(self.cite_keys)} cited keys")
 
         total = sum((out / f).stat().st_size for f in files)
         if total > ARXIV_LIMIT_BYTES:
@@ -409,15 +412,30 @@ def _compile(tree: Path, texinputs: str | None) -> dict:
         "class_read": "sty/IEEEtran.cls" if "(sty/IEEEtran.cls" in log
                       else ("./IEEEtran.cls" if "(./IEEEtran.cls" in log else "system or none"),
         "bibliography_entries": 0,
+        "bibliography_heading_found": False,
+        "bibliography_contiguous": False,
         "text": "",
     }
     if pdf.is_file():
         txt = subprocess.run(["pdftotext", str(pdf), "-"], capture_output=True, text=True).stdout
         out["text"] = txt
-        # A populated bibliography: the numbered entries the .bbl produced, counted in the
-        # rendered text rather than in the source, because that is what a reader sees.
-        tail = txt[txt.rfind("REFERENCES"):] if "REFERENCES" in txt else txt
-        out["bibliography_entries"] = len(set(re.findall(r"\[(\d{1,3})\]\s", tail)))
+        # A populated bibliography, measured where a reader sees it: the numbered entries printed
+        # after the reference-list heading, not every bracketed number in the document. IEEEtran
+        # sets that heading in letterspaced small caps, so pdftotext extracts it as "R EFERENCES"
+        # and a plain "REFERENCES" test never matches; the first version of this check silently
+        # fell back to the whole document and counted every inline citation instead. It happened
+        # to return the right number, which is how a bug like that survives. The count is checked
+        # against the .bbl's own \bibitem count in lint(), and against 1..N being contiguous here.
+        heads = list(re.finditer(r"(?mi)^\s*R\s*EFERENCES\s*$", txt))
+        if not heads:
+            out["bibliography_heading_found"] = False
+        else:
+            out["bibliography_heading_found"] = True
+            tail = txt[heads[-1].end():]
+            nums = [int(m.group(1)) for m in re.finditer(r"(?m)^\[(\d{1,4})\]", tail)]
+            out["bibliography_entries"] = len(set(nums))
+            out["bibliography_contiguous"] = bool(nums) and sorted(set(nums)) == list(
+                range(1, max(nums) + 1))
     return out
 
 
@@ -746,12 +764,14 @@ def main() -> int:
                  and (TEX / rel).stat().st_mtime > committed.stat().st_mtime]
         if newer:
             pkg.notes.append(
-                f"tex/main.pdf is stale: {len(newer)} packaged sources are newer than it "
+                f"tex/main.pdf is stale: {len(newer)} packaged source"
+                f"{'' if len(newer) == 1 else 's'} newer than it "
                 f"({', '.join(sorted(newer)[:4])}{'...' if len(newer) > 4 else ''}). The page "
                 f"count checked below is a fresh build of these sources, not that PDF's. "
                 f"Rerun tools/build_tex.sh before quoting a page count anywhere."
             )
 
+    bbl_items = pkg.bbl_items
     result = None
     if not args.no_verify:
         result = verify(out, snapshot, scratch)
@@ -824,7 +844,10 @@ def main() -> int:
 
     if result:
         ok = (result["pdf"] and result["pages"] == result["reference_pages"]
-              and result["undefined_citations"] == 0 and result["bibliography_entries"] > 0
+              and result["undefined_citations"] == 0
+              and result["bibliography_heading_found"]
+              and result["bibliography_contiguous"]
+              and result["bibliography_entries"] == bbl_items
               and result["text_matches_reference"] and not result["errors"])
         print(f"\nscratch compile in {result['dir']}")
         print(f"  two pdflatex passes, no bibtex, no TEXINPUTS, outside the repository")
@@ -833,7 +856,9 @@ def main() -> int:
               f"(fresh reference build of the same sources: {result['reference_pages']}; "
               f"committed tex/main.pdf: {result['committed_pdf_pages']})")
         print(f"  text identical to ref   {result['text_matches_reference']}")
-        print(f"  bibliography entries    {result['bibliography_entries']}")
+        print(f"  bibliography entries    {result['bibliography_entries']} rendered after the "
+              f"reference heading, numbered 1..N contiguously: "
+              f"{result['bibliography_contiguous']}; main.bbl has {bbl_items} \\bibitem")
         print(f"  undefined citations     {result['undefined_citations']}")
         print(f"  undefined references    {result['undefined_references']}")
         print(f"  IEEEtran.cls read from  {result['class_read']}")

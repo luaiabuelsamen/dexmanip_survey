@@ -12,10 +12,10 @@ with the generated tables and figures inlined, so it should be regenerated rathe
 Three results came out of opening the repositories and the vendor pages rather than reading the
 papers alone.
 
-Ten of the sixty-two method papers that released parseable code contradict their own paper about
+Nine of the sixty-two method papers that released parseable code contradict their own paper about
 the objective that was trained. Thirty-eight disagreements were recorded in total, and the
-classification of every one is in the `mismatch_class` field of `corpus/rows/`, including the seven
-accusations this survey withdrew after review.
+classification of every one is in the `mismatch_class` field of `corpus/rows/`, including the eight
+accusations this survey has withdrawn after review.
 
 Closed-loop policies do not report interpenetration. Eleven of the ninety-six method rows whose
 notes settle it handle it at all, four inside a closed-loop policy, and none reports a penetration
@@ -25,9 +25,9 @@ for years, so the gap is specific to learned closed-loop control, not to the fie
 not the obstacle either: NVIDIA's own benchmark repository computes per-environment maximum
 interpenetration depth and gates a policy update on a one-millimetre threshold.
 
-Hardware and software have come apart. Thirty-three hands are tabulated, the simulators name five
-between them, and of the hands that can actually be bought or built from published designs, eight
-appear in no method paper in this corpus.
+Hardware and software have come apart. Thirty-three hands are tabulated, four of them appear in any
+simulator's own hand models, and of the hands that can actually be bought or built from published
+designs, eight appear in no method paper in this corpus.
 
 ## Layout
 

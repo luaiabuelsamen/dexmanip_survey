@@ -202,7 +202,13 @@ def appendix_c(rows):
               "`code-absent` means the described component is not in the released repository. "
               "`version-skew` means the repository is a later generation than the paper. "
               "`internal-inconsistency` means the paper disagrees with itself and no code is "
-              "implicated.", ""]
+              "implicated. Every `contradiction` entry carries an `Artefact` line: the "
+              "repository, the commit `corpus/code_manifest.json` records, the file inside it "
+              "and where in that file the value sits, so the entry can be checked without "
+              "asking anyone. None of those authors was written to before this survey was "
+              "posted; section 5.6 says so beside the finding, the letters that were drafted "
+              "and not sent are in `outreach/`, and the route by which a disputed entry is "
+              "corrected is stated there too.", ""]
     order = ["contradiction", "internal-inconsistency", "version-skew", "code-absent",
              "parse-limitation"]
     for cls in order + [c for c in sorted(classes) if c not in order]:
@@ -214,6 +220,12 @@ def appendix_c(rows):
         for r in group:
             conf = r.get("mismatch_confidence") or "confidence not recorded"
             parts.append(f"- `{r['key']}` ({conf}). {cell(r.get('paper_code_mismatch'))}")
+            a = r.get("mismatch_artifact")
+            if a:
+                parts.append(
+                    "  Artefact: `%s` at `%s`, `%s` (`%s`)."
+                    % (a["repo"].replace("https://github.com/", ""), a["commit"][:10],
+                       a["file"], a["locator"]))
             if r.get("mismatch_review"):
                 parts.append(f"  Review: {cell(r['mismatch_review'])}")
         parts.append("")

@@ -132,6 +132,8 @@ CLAIMS = [
  ("contradictions", rf"{NUM}\s+of\s+(?:the\s+)?\d+\s+(?:method\s+)?(?:papers|rows)\s+that\s+released\s+(?:parseable\s+)?code\s+contradict"),
  ("disagreements", rf"{NUM}\s+(?:recorded\s+)?(?:paper[ \-]?(?:versus|and|vs)?[ \-]?code\s+)?disagreements?\b(?!\s+that\s+are)"),
  ("disagreements", P(rf"{NUM} of the 112 method rows record a discrepancy")),
+ ("disagreements", P(rf"{NUM} of the 112 method rows record a disagreement")),
+ ("disagreements", P(rf"{NUM} of those record a disagreement")),
  ("disagreements", P(rf"and {NUM} carry a recorded discrepancy")),
  ("disagreements", P(rf"{NUM} of the 112 rows record a disagreement")),
  ("disagreements", P(rf"{NUM} of those record a discrepancy")),
@@ -169,6 +171,23 @@ CLAIMS = [
  ("hands_unused", rf"{NUM}\s+(?:of\s+the\s+\d+\s+)?hands?(?:\s+rows?)?\s+(?:in\s+Tables?\s+2\s+and\s+3\s+)?appear\s+in\s+no\s+method\s+row"),
  ("hands_unused_obtainable", rf"{NUM}\s+documented\s+hands\s+that\s+can\s+be\s+bought"),
  ("hands_unused_obtainable", rf"leaves\s+{NUM}\s+hands\s+that\s+can\s+be\s+bought"),
+ # The four sentences that carry the hand partition. They were unregistered while the partition
+ # was wrong in all four of them, which is how a substring bug survived into print.
+ ("hands_unused_obtainable", P(rf"{NUM} of those can be bought today or built from published")),
+ ("hands_unused_obtainable",
+  rf"{NUM}\s+hands\s+that\s+can\s+be\s+bought\s+(?:today\s+)?or\s+built\s+from\s+published"),
+ ("hands_unused_obtainable", P(rf"the {NUM} hands (?:of|named just above|named in) the paragraph")),
+ ("hands_unused_unobtainable", P(rf"{NUM} of those are neither sold nor open")),
+ # The Isaac family split. isaacgym_rows was the quantity that was one too high, unmatched by any
+ # pattern, while three sentences and a figure node printed it.
+ ("isaacgym_rows", P(rf"{NUM} run in Isaac Gym")),
+ ("isaacgym_rows", P(rf"{NUM} of the 112 method papers in this corpus run on it")),
+ ("isaaclab_rows", P(rf"against {NUM} on its successors Isaac Lab")),
+ ("method_rows", P(rf"all {NUM} method rows")),
+ ("method_rows", P(rf"the {NUM} method rows in the corpus")),
+ ("method_rows", P(rf"the {NUM} method papers in this corpus")),
+ ("method_rows", P(rf"the {NUM} method papers actually differ")),
+ ("method_rows", P(rf"Of {NUM} method rows,")),
  ("hands", P(rf"of the {NUM} hands in Tables 2 and 3")),
  ("hand_named", P(rf"Of 112 method rows, {NUM} name a hand")),
  ("hand_named", P(rf"The {NUM} method rows that name their own hand")),
@@ -241,9 +260,6 @@ REQUIRED_IN = {
  "paper/sections/01_introduction.md": [
    (r"reference-versus-rollout", "where the frame is named"),
  ],
- "paper/sections/05_training.md": [
-   (r"reference-versus-rollout", "section 5.4 is the frame's clearest instance"),
- ],
  "paper/sections/07_evaluation.md": [
    (r"reference-versus-rollout", "sections 7.3 and 7.7 are where the frame does its work"),
    (r"does not supply a threshold",
@@ -251,6 +267,35 @@ REQUIRED_IN = {
  ],
  "paper/sections/08_conclusion.md": [
    (r"reference-versus-rollout", "the second of the seven claims is the gap the frame names"),
+   (r"none\s+of\s+their\s+authors\s+was\s+written\s+to",
+    "claim 1 carries the disclosure it rests on"),
+ ],
+ # The paper-against-code finding is published without a reply from anyone it names. The paragraph
+ # that says so, what a fetched commit can and cannot show, and how a disputed case is corrected is
+ # what makes that publishable, so it is pinned in both editions rather than left to survive an
+ # edit. Its four parts are checked separately: an edit may reword any of them, but not drop one.
+ "paper/sections/05_training.md": [
+   (r"reference-versus-rollout", "section 5.4 is the frame's clearest instance"),
+   (r"were\s+not\s+contacted\s+before\s+this\s+survey\s+was\s+posted",
+    "the nine were not written to"),
+   (r"in\s+`outreach/`\s+in\s+the\s+repository,\s+unsent",
+    "the letters are in the repository, and named"),
+   (r"not\s+the\s+code\s+that\s+produced\s+a\s+paper's\s+numbers",
+    "a fetched commit may postdate, precede or diverge from the code behind the numbers"),
+   (r"says\s+exactly\s+that\s+about\s+itself",
+    "one corpus paper's own README makes the same point"),
+   (r"correctable\s+in\s+public", "the route by which a disputed case is corrected"),
+ ],
+ "tex/sections/05_training.tex": [
+   (r"were\s+not\s+contacted\s+before\s+this\s+survey\s+was\s+posted",
+    "the nine were not written to"),
+   (r"in\s+the\s+repository,\s+unsent",
+    "the letters are in the repository, and named"),
+   (r"not\s+the\s+code\s+that\s+produced\s+a\s+paper's\s+numbers",
+    "a fetched commit may postdate, precede or diverge from the code behind the numbers"),
+   (r"says\s+exactly\s+that\s+about\s+itself",
+    "one corpus paper's own README makes the same point"),
+   (r"correctable\s+in\s+public", "the route by which a disputed case is corrected"),
  ],
 }
 
@@ -274,6 +319,39 @@ def to_int(tok):
     if str(tok).isdigit(): return int(tok)
     return WORD.get(str(tok).lower())
 
+def artefact_problems():
+    """Every contradiction row must name the public artefact its claim is a claim about.
+
+    The finding is published without having written to any of the accused authors, so what stands
+    in for a reply is that a reader can check the claim: a repository, the commit the corpus
+    fetched, the file inside it, and the two values. A row classed `contradiction` without that
+    locator, or with a commit the code manifest did not fetch, or naming a file that is not in the
+    parsed copy of that repository, is a claim nobody can settle, and it breaks this check rather
+    than reaching the page.
+    """
+    out = []
+    man = json.loads((R / "corpus/code_manifest.json").read_text())
+    for r in sorted([x for x in M if x.get("mismatch_class") == "contradiction"],
+                    key=lambda x: x["key"]):
+        k = r["key"]
+        a = r.get("mismatch_artifact")
+        if not a:
+            out.append(f"`{k}` is a contradiction with no mismatch_artifact")
+            continue
+        for f in ("repo", "commit", "file", "locator", "paper", "code"):
+            if not a.get(f):
+                out.append(f"`{k}` mismatch_artifact has no {f}")
+        m = man.get(k) or {}
+        if a.get("repo") != m.get("url"):
+            out.append(f"`{k}` names repo {a.get('repo')}, the manifest fetched {m.get('url')}")
+        if a.get("commit") != m.get("commit"):
+            out.append(f"`{k}` names commit {a.get('commit')}, the manifest fetched {m.get('commit')}")
+        md = R / "code/md" / f"{k}.md"
+        if a.get("file") and md.exists() and a["file"].split("/")[-1] not in md.read_text():
+            out.append(f"`{k}` names {a['file']}, which is not in code/md/{k}.md")
+    return out
+
+
 def shape_problems():
     """Check the definitions the prose states in words against the corpus rows they name."""
     out = []
@@ -293,6 +371,57 @@ def shape_problems():
     for k in sorted(BIMANUAL_28 - set(assigned)):
         out.append(f"section 6.2 assigns no architecture to `{k}`, which is one of the {len(BIMANUAL_28)}")
     return out
+
+# --- the emptiness each printed table claims, against the section that reads cells out of it ------
+# Nine tables left the paper and three moved to an appendix, and the prose that read cells out of
+# them kept quoting the repository tabulation's wider column set: Section III quoted 61 and 39 per
+# cent against captions saying 58 and 42, and Section IV-B quoted 165 cells and 45 per cent against
+# a printed table of 105 cells and 38. Both editions carry their own tables, with their own column
+# sets and so their own percentages, so each edition is pinned to its own generated file. The check
+# is deliberately one-directional: the share a table's own caption states has to appear in the prose
+# that argues from it. It says nothing about the other numbers in that paragraph, which may
+# legitimately describe the repository tabulation, as long as they are labelled as such.
+CAPTION_OWNERS = [
+ ("latex", "tex/tables/table1_hands_available.tex", "tex/sections/03_hands.tex",
+  "Table IV, the hands that can be obtained"),
+ ("latex", "tex/tables/table2_hands_announced.tex", "tex/sections/03_hands.tex",
+  "Table V, the hands announced"),
+ ("latex", "tex/tables/table3_simulators.tex", "tex/sections/04_simulators.tex",
+  "Table VI, the simulators"),
+ ("markdown", "paper/tables/table2_hands_available.md", "paper/sections/03_hands.md",
+  "Table 2, the hands that can be obtained"),
+ ("markdown", "paper/tables/table3_hands_announced.md", "paper/sections/03_hands.md",
+  "Table 3, the hands announced"),
+ ("markdown", "paper/tables/table4_simulators.md", "paper/sections/04_simulators.md",
+  "Table 4, the simulators"),
+]
+
+def caption_problems():
+    """Every printed table's own empty-cell share, checked against the section that argues from it.
+
+    A caption states "N of M cells". The share that follows from N and M is what the section has to
+    quote, because a reader compares the sentence with the caption on the facing page. Both the
+    truncated and the rounded percentage are accepted, since the two generators differ.
+    """
+    out = []
+    for edition, tbl, prose, what in CAPTION_OWNERS:
+        tp, pp = R / tbl, R / prose
+        if not tp.exists() or not pp.exists():
+            out.append(f"{what}: {tbl if not tp.exists() else prose} is missing")
+            continue
+        m = re.search(r"(\d+)\s+of\s+(?:the\s+)?(\d+)", tp.read_text())
+        if not m:
+            out.append(f"{what}: its caption no longer states an N of M cell count ({tbl})")
+            continue
+        n, d = int(m.group(1)), int(m.group(2))
+        want = {int(100 * n / d), round(100 * n / d)}
+        body = re.sub(r"\s+", " ", pp.read_text())
+        if not any(re.search(rf"\b{p}\s*(?:percent|%)", body) for p in want):
+            out.append(f"{what}: its caption says {n} of {d} cells, which is "
+                       f"{'/'.join(str(p) for p in sorted(want))} percent, and no sentence of "
+                       f"{prose} states that share")
+    return out
+
 
 def strip_tex(t):
     """Reduce LaTeX source to running prose so the same patterns match both editions."""
@@ -316,6 +445,14 @@ def main():
     print("=== facts recomputed from corpus/rows ===")
     for k, v in FACTS.items(): print(f"  {v:>5}  {k}")
     bad = 0
+    print("\n=== the artefact behind every contradiction ===")
+    ap = artefact_problems()
+    for p in ap:
+        bad += 1
+        print(f"  ARTEFACT  {p}")
+    if not ap:
+        print(f"  {FACTS['contradictions']} contradiction rows, each with a repository, the "
+              f"commit the manifest fetched, a file in the parsed copy, and both values")
     print("\n=== definitions the prose states in words ===")
     for p in shape_problems():
         bad += 1
@@ -330,6 +467,12 @@ def main():
         print(f"  TEXT   {t}")
     if not tp: print(f"  {len(FORBIDDEN)} withdrawn phrases absent, "
                      f"{sum(len(v) for v in REQUIRED_IN.values())} required phrases present")
+    print("\n=== each printed table's emptiness against the section that argues from it ===")
+    cp = caption_problems()
+    for c in cp:
+        bad += 1
+        print(f"  CAPTION  {c}")
+    if not cp: print(f"  {len(CAPTION_OWNERS)} table captions agree with their own section")
     print("\n=== claims in the prose ===")
     matched_any = set()
     for edition, body in (("markdown", text), ("latex", strip_tex(tex_text))):

@@ -24,7 +24,7 @@
  "reward_terms": 4,
  "reward_term_names": ["body motion reward", "object motion reward", "ig reward", "cg reward"],
  "code_released": true,
- "paper_code_mismatch": "The released code hardcodes the body position-velocity error and the object rotation/rotation-velocity errors to zero in compute_humanoid_reward, so despite Table 4 listing nonzero λ^or=0.1/λ^orv=0.01 weights for GRAB, the trained reward never actually tracks object orientation (position-only in practice).",
+ "paper_code_mismatch": "The released compute_humanoid_reward sets the body position-velocity error and the object rotation and rotation-velocity errors to zeros_like, unconditionally, with the computation that would produce them commented out on the same lines, while Table 4 lists nonzero λ^or=0.1/λ^orv=0.01 weights for GRAB: in that file the object's orientation error is the constant zero and those weights cannot change the reward.",
  "note_gaps": "The reset/termination function compute_humanoid_reset is only a signature in code/md (body not extracted), so the stated 0.5 m termination threshold cannot be cross-checked against code; nearly all inline reward equations in Sec. 3.6 render blank in the parse, so the exp(-error*weight) functional form is confirmed from code, not the paper's own equations.",
  "mismatch_class": "contradiction",
  "mismatch_confidence": "high",

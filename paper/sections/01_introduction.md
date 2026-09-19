@@ -28,15 +28,19 @@ Isaac Sim. Figure 1's routes converge on that same recipe: almost every path thr
 ends at a policy trained in a GPU simulator and then distilled down to a vision-only student.
 
 Three things this survey measured are worth stating before the reader commits to 27,000 words.
-Papers disagree with their own released code. Sixty-two of the 112 method rows released code that
-could be read against the paper, 38 of those record a discrepancy, and nine are contradictions
-where the shipped code states a different objective from the published one. The sharpest case is
-`physhoi_2023`. Its `compute_humanoid_reward` hardcodes the object rotation and rotation-velocity
-errors to zero, with the real computation commented out beside them, while the reward table in its
-own paper lists weights of 0.1 and 0.01 for exactly those terms on GRAB. Its position-only success
-criterion could not have caught that, and its headline 95.4 percent is cited as a baseline.
-Section 5.6 classifies all 38, and seven further accusations an earlier draft made were withdrawn
-under adversarial review and recorded beside the charge.
+Papers and their own released code state different things. Sixty-two of the 112 method rows
+released code that could be read against the paper, 38 of those record a disagreement, and nine
+are contradictions, where a value the paper prints and the value in a named file at a named commit
+are not the same. The sharpest is `physhoi_2023`: at commit `6095c605e2` of `wyhuai/PhysHOI`,
+`compute_humanoid_reward` sets the object rotation and rotation-velocity errors to zero, with the
+computation that would produce them commented out on the same lines, while the reward table in the
+paper lists weights of 0.1 and 0.01 for exactly those terms on GRAB. The success criterion behind
+its 95.4 percent is itself position-only, and that number is cited as a baseline. Section 5.6
+classifies all 38, gives each of the nine as a repository, a commit, a file and two values in
+Table 11, and states there, beside the finding, that none of the nine sets of authors was written
+to before this was posted, what a fetched commit can and cannot show, and how a disputed case is
+corrected. Seven further accusations an earlier draft made were withdrawn under adversarial
+review, an eighth while those letters were being drafted, and each is recorded beside the charge.
 
 The quantity most specific to a hand is the one closed-loop policies do not record. Eleven of the
 96 method rows whose notes settle the question address interpenetration at all, seven of the

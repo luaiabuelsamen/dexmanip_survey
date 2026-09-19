@@ -102,9 +102,12 @@ def fig5():
     # partition of the 28: asymdex_2024 is the one row drawn in two of them, panels 3
     # and 4, and the two rows whose notes never say which architecture they use,
     # bunny_visionpro_2024 and deximit_2026, appear in none.
-    W,H=940,326
+    # Two subtitle lines rather than one: at 11.5 px a single line carrying both sentences runs
+    # past the 940 px frame, and the caveat that the panels are not a partition has to be read.
+    W,H=940,342
     b=[f'<text class="t" x="24" y="30">Figure 5. Four ways to control two dexterous hands</text>',
-       f'<text class="s" x="24" y="50">Counts are the 28 corpus rows that put a learned closed-loop controller on two dexterous hands. asymdex_2024 is the one row in two panels; the two rows whose notes never say are in none.</text>']
+       f'<text class="s" x="24" y="50">Counts are the 28 corpus rows that put a learned closed-loop controller on two dexterous hands.</text>',
+       f'<text class="s" x="24" y="66">The panels are not a partition: asymdex_2024 is drawn in two of them, and the two rows whose notes never say which they use are in none.</text>']
     panels=[("one policy, both hands","observation of both hands and object|one network, joint action vector",
              "21 of 28","twisting_lids_2024  dexmachina_2025|maniptrans_2025  dexman_2025|gr_dexter_2025  groot_n1_2025|and 15 more"),
             ("a network per hand","each hand its own network|centralised critic, or own obs. only",
@@ -113,7 +116,7 @@ def fig5():
              "1 of 28","asymdex_2024|dexterous_handover_2025 is not|counted: its giver is a scripted|arm and its row reads bimanual no"),
             ("relative frame","action expressed between the hands|or in the held object's frame",
              "1 of 28","asymdex_2024, the same paper|dexmimicgen_2024 preserves it|offline when generating data,|not in the policy's observation")]
-    x,y,bw,bh=28,72,182,188
+    x,y,bw,bh=28,88,182,188
     for i,(t_,body,cnt,keys) in enumerate(panels):
         px=x+i*(bw+14)
         edge=' stroke-width="2.2" stroke="var(--a)"' if i==0 else ''

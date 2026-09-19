@@ -6,9 +6,12 @@ that would close it. Nothing is argued in this list: the denominator, the eviden
 prescription sit in the section named, at the end of it, so that a finding and its consequence are
 read together and stated once.
 
-1. Nine of the 62 method rows that released parseable code contradict it, in the sense that the paper
-   states one value or one term and the shipped code demonstrably states another, and eight further
-   accusations have been withdrawn since the first draft of that census (section 5.6, Appendix C).
+1. Nine of the 62 method rows that released parseable code state, in a named file at a named commit,
+   something other than the value their paper prints, and eight further charges have been withdrawn
+   since the first draft of that census. Table 11 gives each of the nine as a repository, a commit, a
+   file and two values, and none of their authors was written to before this was posted: section 5.6
+   says that beside the finding, with the drafted and unsent letters in `outreach/` and the route by
+   which a disputed case is corrected (section 5.6, Appendix C).
 
 2. No closed-loop policy in the corpus reports interpenetration for the rollouts of its own trained
    policy, and all eleven rows that handle penetration at all sit on the reference side of the
@@ -39,8 +42,8 @@ repository.
 
 Three of those claims carry a case worth remembering. A reward table in a paper is a claim about a
 document, not about a run, and `physhoi_2023` is the instance to keep in mind: the term its table
-weights at 0.1 is set to zero in the code, and its own success criterion could not have detected
-that. Contact is what separates a hand from a gripper, and the obstacle to measuring it is not the
+weights at 0.1 is set to zero in the file at the commit this survey fetched, and the success
+criterion the paper reports is itself position-only. Contact is what separates a hand from a gripper, and the obstacle to measuring it is not the
 engines. IsaacGymEnvs ships a task that computes a per-environment maximum interpenetration depth
 against meshes and gates the policy update on a 1 mm threshold, and `tactile_genesis_2026` offers
 penetration depth on Genesis geometry as a sensor. The tooling sits in the field's own benchmark

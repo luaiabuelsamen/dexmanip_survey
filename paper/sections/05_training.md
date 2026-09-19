@@ -57,7 +57,9 @@ mechanism with a 256-sample queue and 40 percent of environments dedicated to bo
 Both publish the discovered ranges. Below that standard, two shipped configurations disagree with
 their own papers about what was randomised: `hora_2022` states a joint-noise range of U(0, 0.005)
 against a shipped `jointNoiseScale` of 0.02, in a commit its own README says is not the one that
-reproduces the paper, and `penspin_2024` zeroes the disturbance force its appendix describes.
+reproduces the paper, and `penspin_2024`'s appendix states a disturbance force of 0.2 times the
+object's mass at probability 0.25 while the only shipped config that names one sets `forceScale`
+to zero.
 `dexpbt_2023`'s `randomize: False` is not a third case: it is the IsaacGymEnvs default and agrees
 with the paper's statement that randomisation was not used here.
 

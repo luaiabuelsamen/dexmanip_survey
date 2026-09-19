@@ -1239,9 +1239,9 @@ def table8():
     # "All 84 cells are empty" printed directly above the filled worked example reads as false to a
     # reader who looks at the table before the text, so the caption says which 84 and what the
     # first row is.
-    cap = (r"The matrix, for someone else to fill: " + str(len(picked)) + r" methods against the "
-           r"axes of Table~\ref{tab:protocol}. All " + str(cells) + r" method cells are empty; the "
-           r"first row is a worked example whose every number is fabricated.")
+    cap = (r"The matrix, for someone else to fill: " + str(len(picked)) + r" methods against "
+           r"Table~\ref{tab:protocol}. All " + str(cells) + r" method cells empty; row one "
+           r"fabricated.")
     # The section already states the ranking rule, the whole-word correction, the $\ast$ mark and
     # the fabricated first row, in its own prose. The one thing it cannot state without the
     # generator is the counts themselves, so they are written as a sentence the section inputs

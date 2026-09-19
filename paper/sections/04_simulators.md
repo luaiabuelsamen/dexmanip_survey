@@ -174,8 +174,8 @@ tolerance of "severe hand-object penetrations" as evidence of robustness (App. B
 on retargeted references rather than on a rollout, which section 7 takes up.
 
 The rest of Table 4 is largely empty, and the emptiness is a result. Sixty-nine of its 165 cells
-are values no parsed source stated, which is 69 of the 150 cells outside the engine-key column, or
-46 percent, and the table's own footer counts the same 69. No engine paper states a default
+are values no parsed source stated, 41 percent, which is the share its own footer counts; over the
+150 cells outside the engine-key column the share is 46 percent. No engine paper states a default
 physics timestep. Three report one for a named experiment, and the timestep column reports those
 experiment settings. Isaac Gym's cell is its Shadow Hand step, from the only per-task timestep
 table any engine paper here publishes, which runs 1/120 s for Shadow Hand and Allegro, 1/200 s for
