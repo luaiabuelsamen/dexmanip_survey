@@ -1291,7 +1291,7 @@ def table9():
             r"\path{papers/notes/<key>.md}, and it is printed only while the quotation behind that "
             r"sentence is still in the note, so a glyph cannot outlive its evidence. The sentences "
             r"themselves are Appendix~\ref{app:surveys} and "
-            r"\path{paper/tables/table10_surveys.md}. " + WORD[unobtained] + r" of the fourteen "
+            r"\path{paper/tables/table10_surveys.md}. " + WORD[unobtained].capitalize() + r" of the fourteen "
             r"sources could not be obtained and " + WORD[unread] + r" is on disk and has never "
             r"been read, which is why their cells are empty; they are grouped as such rather than "
             r"scored, because this survey knows nothing of them beyond a title and a DOI. The "
