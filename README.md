@@ -84,3 +84,4 @@ drops their dark-mode rules because a printed page has one theme, puts every tab
 five columns and the two widest figures on real landscape pages, and prints through headless
 Chromium. Page numbers are stamped afterwards with PyMuPDF, because Chromium's own footer carries
 a URL and a date.
+# dexmanip_survey
