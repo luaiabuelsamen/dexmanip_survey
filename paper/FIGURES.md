@@ -4,12 +4,14 @@ All figures are hand-written SVG in paper/figures/, so they render in any markdo
 carry no dependency. Each has a light and dark variant of its palette via CSS custom properties,
 and every number in a figure traces to corpus/rows or corpus/stats.json.
 
-## Figure 1. The field on one page
+## Figure 1. The field on one page, and the map of the survey
 A left-to-right flow with five columns: data sources, embodiment, simulator, training paradigm,
-evaluation. Nodes are sized by how many corpus papers sit in them. Edges show the routes that
-actually exist in the corpus, e.g. human video -> retargeting -> RL tracking -> real hand. The
-point of the figure is that the routes converge: almost everything ends in a policy trained in a
-GPU simulator and distilled to vision.
+evaluation. Every column head names the section that covers it, so the figure is the table of
+contents drawn and the reader can navigate from it; it is the first thing in Section 1 for that
+reason. Nodes are sized by how many corpus papers sit in them and carry their count as a label.
+Edges show the routes that actually exist in the corpus, drawn only where a paper takes them and
+never thinner than prints. The point of the figure is that the routes converge: almost everything
+ends in a policy trained in a GPU simulator and distilled to vision.
 
 ## Figure 2. Which hands the literature actually runs on
 A horizontal bar chart of hands by number of corpus papers whose own experiments use them, split

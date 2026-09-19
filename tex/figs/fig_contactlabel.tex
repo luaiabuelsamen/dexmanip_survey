@@ -1,0 +1,59 @@
+% Figure: where a bimanual capture dataset's contact annotation comes from, and what bounds it.
+% Drawn for the LaTeX edition in the restrained palette: greyscale plus the one accent, thin
+% rules, square corners. It replaces a reproduced dataset teaser (video strip, fitted meshes,
+% contact field), which showed the outputs of the chain but not the step the section argues about:
+% that no contact in it was ever measured at a surface, and that a vertex which has gone through
+% the surface is labelled as contact rather than as error.
+%
+% Facts and citations are Sec. VI's: ARCTIC deliberately labels over-shooting vertices as in
+% contact (arctic_2022); OakInk-V2 is the only corpus dataset publishing a penetration number for
+% its own annotations, a mean depth of 0.25 cm over 627 sequences (oakink2_2024).
+\begin{tikzpicture}[
+  font=\footnotesize,
+  stage/.style={draw=black!45,line width=0.3pt,inner sep=3.5pt,align=center,
+                font=\scriptsize,text width=21mm,minimum height=9mm},
+  lnk/.style={draw=black!45,line width=0.35pt,-latex},
+  det/.style={font=\scriptsize\color{black!60},anchor=north,align=center,text width=24mm},
+  surf/.style={draw=black!60,line width=0.5pt},
+  fing/.style={draw=accent,line width=0.6pt,fill=white},
+  over/.style={draw=none,fill=accent,fill opacity=0.20},
+  call/.style={draw=black!45,line width=0.28pt,dash pattern=on 1.2pt off 1.2pt},
+  note/.style={font=\scriptsize,anchor=north west,align=left},
+]
+
+% ------------------------------------------------------------------ the chain
+\node[stage] (s1) at (1.20,0) {multi-view video\\and mocap};
+\node[stage] (s2) at (4.05,0) {hand and object\\meshes fitted to it};
+\node[stage] (s3) at (6.90,0) {contact read off\\the fitted meshes};
+\draw[lnk] (s1.east) -- (s2.west);
+\draw[lnk] (s2.east) -- (s3.west);
+\node[det,anchor=north] at (1.20,-0.62) {measured};
+\node[det,anchor=north] at (4.05,-0.62) {estimated, with a\\residual the dataset\\reports};
+\node[det,anchor=north] at (6.90,-0.62) {\textcolor{accent}{inferred from the
+                                          estimate, never measured}};
+
+% ------------------------------------------------ what "contact" means here
+\begin{scope}[shift={(0.55,-3.05)}]
+  % the object surface and a finger that has gone through it
+  \fill[black!8] (0,0) rectangle (2.30,-0.52);
+  \draw[surf] (0,0) -- (2.30,0);
+  \draw[fing] (0.92,-0.24) -- (1.52,-0.24) -- (1.52,0.76) -- (0.92,0.76) -- cycle;
+  \fill[over] (0.92,0) rectangle (1.52,-0.24);
+  \draw[accent,line width=0.6pt] (0.92,0) -- (0.92,-0.24) -- (1.52,-0.24) -- (1.52,0);
+  \draw[surf] (0,0) -- (0.92,0);
+  \draw[surf] (1.52,0) -- (2.30,0);
+  \node[font=\scriptsize\color{black!70},anchor=west] at (0.06,-0.36) {object};
+  \node[font=\scriptsize\color{accent},anchor=west] at (1.62,0.30) {finger};
+  \draw[call] (1.52,-0.24) -- (2.05,-0.62);
+  \node[font=\scriptsize\color{black!65},anchor=west] at (2.05,-0.76)
+       {vertex past the surface};
+  \node[font=\scriptsize\color{black!65},anchor=west] at (2.05,-1.14)
+       {label written: \textcolor{accent}{\textbf{in contact}}};
+\end{scope}
+
+\draw[draw=black!25,line width=0.28pt] (0,-4.80) -- (8.20,-4.80);
+\node[note,text width=81mm] at (0,-4.96)
+  {The annotation is as good as the fit and no better, and a penetration is recorded as a
+   contact rather than as an error. Of the five bimanual capture sets in Sec.~VI, one publishes a
+   penetration number for its own annotations.};
+\end{tikzpicture}

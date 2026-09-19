@@ -25,7 +25,7 @@ are outside the 28 by class, `bidexhands_2022`, `bench2dex_2026` and `robopianis
 benchmarks and `rp1m_2024` and `humanoidgen_2025` datasets; they are quoted here as evidence and
 never counted. Every paper below runs two multi-fingered hands unless said otherwise.
 
-## 6.1 Why two hands is not twice one hand
+## 6.1 Coupling, roles and collision
 
 When both hands hold the same object, the object closes a kinematic loop between them. Neither
 hand can move without changing what the other must do. `bidexgrasp_2026` reports that the coupled
@@ -98,7 +98,12 @@ appends the inter-hand pose to its observation, and `dexmimicgen_2024` applies o
 transform to both arms' source segments when generating data, which is the mechanism offline
 rather than in a policy.
 
-## 6.3 Benchmarks and datasets for two hands
+**What would close it.** One architecture carries three quarters of the field, and the choice behind
+it has been compared twice, with opposite outcomes, and ablated once. What would close it is a single
+handover task run on three architectures with the same hand and the same seeds, reporting giver and
+receiver returns separately rather than one shared number.
+
+## 6.3 Benchmarks, datasets and the shared axes
 
 Two purpose-built bimanual dexterous suites exist in the corpus, four years apart.
 
@@ -130,9 +135,7 @@ markerless minutes from 56 subjects, neither with a penetration metric. These fi
 tracking work here: `dexmachina_2025` and `artigrasp_2023` from ARCTIC, `bidexhd_2024` from TACO,
 `maniptrans_2025` from OakInk-V2 and `dexman_2025` from both.
 
-## 6.4 Methods on the same axes
-
-Table 7 carries the bimanual papers on the same columns as every other method here, and three of
+**Methods on the same axes.** Table 7 carries the bimanual papers on the same columns as every other method here, and three of
 those columns are worth reading together.
 
 Real trials. `asymdex_2024` reports 20 per task, `hato_visuotactile_2024` 10 per condition,
@@ -154,10 +157,10 @@ physics simulation which exhibits no interpenetration."
 
 Comparability. `bimangrasp_2024` reports 54.03 percent success in Isaac Gym at friction 3.
 `bidexgrasp_2026` re-runs the same grasps in MuJoCo at friction 0.6 and gets 26.80 percent, at
-1.52 cm penetration depth. Neither number transfers, and section 5.4's re-implementation result is
+1.52 cm penetration depth. Neither number transfers, and section 5.3's re-implementation result is
 the same lesson on the training side.
 
-## 6.5 Handover and in-hand transfer
+## 6.4 Handover, and what transfers from one hand
 
 Handover is the one bimanual task where the hands are unambiguously asymmetric, because one gives
 and one receives. All three corpus handover papers use a single shared reward across giver and
@@ -185,9 +188,7 @@ with fingertip touch sensing and no physics model. `humanoid_sim2real_recipe_202
 reward with a discrete variable switching which hand's fingertips are scored, and still calls
 handover its hardest task at 52.5 percent real success.
 
-## 6.6 What transfers from single-hand work
-
-The training recipe transfers intact. PPO with thousands of parallel environments, an asymmetric
+**What transfers from single-hand work.** The training recipe transfers intact. PPO with thousands of parallel environments, an asymmetric
 critic on privileged state, domain randomisation and distillation into a vision policy is the same
 in `twisting_lids_2024` and `humanoid_sim2real_recipe_2025` as in section 5.2. Reward forms
 transfer literally, and the contact-goal reward r_contact = Σ 1/(1+α d) appears in both.

@@ -1,5 +1,7 @@
 # 1. Introduction
 
+{{figure:fig1_field}}
+
 A hand is dexterous when it can change an object's pose without putting the object down. That
 property, and not the finger count, is what separates a hand from a gripper.
 `bicchi_grasping_chapter_2001` draws the same line in Sec. 1.1, between restraining an object and
@@ -32,7 +34,7 @@ where the shipped code states a different objective from the published one. The 
 errors to zero, with the real computation commented out beside them, while the reward table in its
 own paper lists weights of 0.1 and 0.01 for exactly those terms on GRAB. Its position-only success
 criterion could not have caught that, and its headline 95.4 percent is cited as a baseline.
-Section 5.8 classifies all 38, and seven further accusations an earlier draft made were withdrawn
+Section 5.6 classifies all 38, and seven further accusations an earlier draft made were withdrawn
 under adversarial review and recorded beside the charge.
 
 The quantity most specific to a hand is the one closed-loop policies do not record. Eleven of the
@@ -113,7 +115,7 @@ named before this survey measured it, and the idea that contact quality belongs 
 axis is Zhao's. What Sec. IV-C does not give is a measurement method or a count, and this survey
 supplies those two. It does not supply a threshold. The 2 mm figure the field uses is taken from
 `toporetarget_2026` with no independent justification, the captured human grasps in `grab_2020`
-sit above it at 3.25 mm, and Section 7.7 states plainly that 2 mm is a simulator convention rather
+sit above it at 3.25 mm, and Section 7.4 states plainly that 2 mm is a simulator convention rather
 than a physical bound.
 
 The scope is single-hand and bimanual multi-fingered manipulation. Parallel-jaw manipulation
@@ -138,10 +140,11 @@ paper into a silent one.
 Figure 1 puts the field on one page. What follows works outward from the task: the six families
 and what makes each hard, then the hands and their makers, then the simulators and the contact
 models underneath them, then training, then two hands on one object as a problem of its own.
-Section 7 is the longest, and it proposes an evaluation frame rather than a leaderboard. Section 8
-states the gaps as claims with their evidence, and Section 9 says what to do about them, addressed
+Section 7 is the longest, and it proposes an evaluation frame rather than a leaderboard. Each of
+those sections closes on the gap it owns, with the evidence and the experiment that would settle it;
+Section 8 is the list of those claims in one place, one sentence each, and Section 9 says what to do
+about them, addressed
 to someone publishing, running experiments or buying a hand. Appendix A is the method and says
 where the tabulation this survey is built on lives; Appendices B and C are the full hand and
 reward extractions; Appendix D sets this survey beside the fourteen that precede it.
 
-{{figure:fig1_field}}

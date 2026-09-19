@@ -52,7 +52,7 @@ its own physics. `ferrari_canny_1992` carries no task label because it is a gras
 rather than a task. Table 1's six rows are the families with enough papers to compare, and not a
 partition of the corpus.
 
-## 2.2 What makes dexterous control hard
+## 2.2 Sources of difficulty
 
 Contact is non-smooth, and that is a property of the problem rather than of any solver.
 `bicchi_grasping_chapter_2001` states in Sec. 1.2 that contact constraints are unilateral, and
@@ -84,9 +84,7 @@ orientations between episodes", and its Sec. 5.3 measures the cost, with perform
 progressively from palm up and palm down, through base up and base down, to thumb up and thumb
 down.
 
-## 2.3 Single hand versus two
-
-Three counts describe two hands and they measure different things. Fifty-three of the 112 method
+**The second hand, and three counts.** Three counts describe two hands and they measure different things. Fifty-three of the 112 method
 rows record two hands on the robot, which is all the corpus's two-hand flag claims. Forty-three
 carry the task label for bimanual coordination, the narrower claim that coordinating the hands is
 the task. Section 6 narrows again, to the 28 rows whose notes place a learned closed-loop
@@ -94,7 +92,7 @@ controller on two multi-fingered hands, and its opening paragraph names every ex
 the 53 down to the 28. That 28 is the denominator for every architecture count in this survey.
 Every bimanual claim here names which of the three it uses.
 
-Four things genuinely change when the second hand arrives. Contact stays non-smooth, occlusion
+**What the second hand adds.** Four things genuinely change when the second hand arrives. Contact stays non-smooth, occlusion
 stays, and gravity stays the same problem.
 
 Role asymmetry is one. `asymdex_2024` assigns a dominant hand with full finger and wrist control

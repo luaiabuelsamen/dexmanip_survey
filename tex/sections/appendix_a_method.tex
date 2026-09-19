@@ -9,7 +9,7 @@ The survey is written from a corpus that lives on disk. No claim about a paper i
 memory. Each claim traces to a note, each note to a parsed markdown file, and each markdown file
 to a PDF or repository with a recorded hash or commit.
 
-\subsection{Selection}
+\textbf{Selection.}
 Six topic-specific bibliographies were assembled in parallel (simulators and physics, hands and
 vendors, reinforcement learning, imitation and human data, bimanual, benchmarks and evaluation),
 seeded with the canonical works in each area and extended by search up to 2026-09-17. Every
@@ -23,7 +23,7 @@ survey against, they sit in a bibliography of their own as prior work from outsi
 none of them carries a structured row. No source for them was parsed either, so each is quoted
 only from its abstract and its stated method.
 
-\subsection{Acquisition}
+\textbf{Acquisition.}
 PDFs were downloaded from arXiv or, for work without a preprint, from the publisher or vendor
 page recorded in the bibliography. Vendor pages for hands without any paper were fetched as HTML
 and converted to markdown, so that a specification quoted in this survey is quoted from a stored
@@ -31,7 +31,7 @@ copy of the page and dated. Repositories were shallow-cloned and parsed, then de
 remains is one markdown per repository holding the README, a pruned file tree, the task and
 reward configuration files, and the bodies of reward and observation functions.
 
-\subsection{Parsing}
+\textbf{Parsing.}
 PDFs were converted with pymupdf4llm, falling back to raw text extraction when the layout parse
 returned too little. The corpus manifest records, per entry, the source URL, page count, sha256
 of the PDF and the converter used. Two consequences matter for reading this survey. Equations
@@ -40,7 +40,7 @@ figure it is recorded as unreadable rather than guessed. Tables are flattened, s
 from a table is quoted with the table it came from and, where the flattening is ambiguous, the
 ambiguity is stated.
 
-\subsection{Notes}
+\textbf{Notes.}
 Each entry was read into a structured note under a fixed template: embodiment, learning method,
 objective, contact handling, evaluation, reproducibility, stated limitations, and quotable
 claims. Notes were written only from the parsed files. Where the source is silent the note says
@@ -49,7 +49,7 @@ papers the reward or loss was quoted from the paper and, separately, from the re
 that disagreements between the two are visible rather than smoothed over. Those disagreements
 turned out to be common enough to become a finding in their own right.
 
-\subsection{Sources that could not be obtained}
+\textbf{Sources that could not be obtained.}
 Six works are cited by metadata only and no claim in this survey rests on their contents. Five
 are behind publisher paywalls with no author-hosted copy found on 2026-09-18: Okamura et al.
 2000, Bicchi 2000 (IEEE T-RO), Piazza et al. 2019, Roa and Suarez 2015, and Butterfass et al.
@@ -67,7 +67,7 @@ and DLR-Hand II entries. The third is \cite{bicchi_grasping_chapter_2001}, which
 note and quoted throughout but is a book chapter rather than a work with an embodiment, a method
 or a result to record in a row.
 
-\subsection{What this method cannot do}
+\textbf{What this method cannot do.}
 Mention counts over the corpus are counts of mentions, not of use: a related-work sentence
 counts the same as an experiment. Vendor specifications are manufacturer claims and are labelled
 as such throughout, and where a page has since gone offline the note says so. The corpus is
@@ -90,12 +90,12 @@ penetration, code-release and failure-mode fields, none of which has been audite
 every coverage statistic in this survey as a floor rather than as a rate, and read the bars in
 \figurename~\ref{fig:reporting} the same way.
 
-\subsection{Where the tabulation lives}
-\label{app:method:tabulation}
+\textbf{Where the tabulation lives.}\label{app:method:tabulation}
 Most of this survey's tabulation is not printed in this paper. The 112 method rows, the 21
 reward-term objectives scored against their released code inside a 77-row extraction whose ten
 columns hold 253 cells no source stated, the 30 teleoperation systems, the 33 hand specifications with the source sentence behind each one, the 15 contact-model
-and solver descriptions verbatim, and what each of the 14 predecessor surveys covers: all of it is
+and solver descriptions verbatim, and the sentence behind every cell of the predecessor-survey
+comparison: all of it is
 reference material, consulted a row at a time and never read through. Printed, it ran to more pages
 than the argument it supports. It is in the repository instead.
 
@@ -118,20 +118,26 @@ Three tables are exceptions and are printed, because the prose reads individual 
 and does not stand up without them: the two hand tables and the engine table, in
 Appendix~\ref{app:tables}. Two more are the survey's own proposal rather than a reading of a
 source, and are in the body where they are argued for: the evaluation protocol and the empty
-results matrix.
+results matrix. The sixth is Table~\ref{tab:surveys}, the comparison to the fourteen predecessor
+surveys, which is this survey's positioning and is therefore set where a reader meets it rather
+than in the repository; it prints one of three levels a cell, and Appendix~\ref{app:surveys} keeps the
+sentence each level was read from.
 
-\subsection{Reproduced figures}
-Some figures in this edition are not this survey's own artwork. They are photographs of hardware
-and screenshots of results reproduced from the papers and vendor pages they discuss, rendered from
-the stored PDFs in the corpus, and each one states its source in its own caption, keyed to the
-corpus entry it came from and to the page it was taken from. Eighteen are reproduced, and they
-stand in two positions. Seven are cleared: each source carries CC BY 4.0, read directly from the
-licence page on the date the register records, and those seven captions print the attribution the
-licence asks for, naming the creator, the work, the licence with a link and the change made to the
-plate. The other eleven are permission pending: two need a request through a publisher's own
-process and nine need an email to the authors, arXiv's non-exclusive licence to distribute
-granting a third party nothing. No caption prints that status, because a permission still to be
-sought is a working note and not a finding. The register that records, per figure, the
+\textbf{Reproduced figures.}
+Three figures in this edition are not this survey's own artwork. They are photographs and renders
+reproduced from the papers they discuss, rendered from the stored PDFs in the corpus, and each one
+states its source in its own caption, keyed to the corpus entry it came from and to the page it
+was taken from. An earlier draft reproduced eighteen. A plate is kept only where it carries
+something a drawing cannot: that these hands are that much larger than a human one, and that a
+contact defect invisible at the scale of a grasp is unmistakable at the scale of the contact.
+The rest were redrawn in the paper's own style or dropped, and what each one was standing in for
+is said in the comment at the head of the figure that replaced it.
+One of the three is cleared: its source carries CC BY 4.0, read directly from the licence page on
+the date the register records, and its caption prints the attribution the licence asks for, naming
+the creator, the work, the licence with a link and the change made to the plate. The other two are
+permission pending, both needing an email to the authors, arXiv's non-exclusive licence to
+distribute granting a third party nothing. No caption prints that status, because a permission
+still to be sought is a working note and not a finding. The register that records, per figure, the
 licence found, the URL it was read from and the action still open, is \path{tex/PERMISSIONS.md}.
 The build does not enforce that register.
 

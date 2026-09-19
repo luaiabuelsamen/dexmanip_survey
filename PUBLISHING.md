@@ -15,12 +15,14 @@ This step is not optional politeness. Naming a research group as having shipped 
 different from the one they published is a serious claim, and the cheapest way to find out you are
 wrong is to ask before you publish rather than after.
 
-**2. Settle the figure permissions.** `tex/PERMISSIONS.md` is the register. The routes are: a
-Creative Commons licence on the source permits reuse with attribution and needs no request; a
-publisher's version goes through that publisher's permissions process, which is usually automated
-and usually free for academic reuse; anything else is an email to the authors. Redrawing a figure
-yourself removes the question entirely and is the right answer for any figure that is a diagram
-rather than a photograph.
+**2. Settle the figure permissions.** `tex/PERMISSIONS.md` is the register, and it is now two
+emails rather than eleven requests. Redrawing a figure yourself removes the question entirely, and
+it was the right answer for most of what the paper used to reproduce: of eighteen plates, fifteen
+were cut, the ones carrying an argument redrawn in the paper's own style and the rest dropped
+because the prose already made the point. What is left is two emails to authors, for
+`hand_scale_to_human` (Shaw, Agarwal, Pathak) and `teleop_retarget_artifacts` (Wu et al.), and one
+figure already cleared under CC BY 4.0. If either email is refused or goes unanswered, the
+fallback is the one taken fifteen times already.
 
 **3. Decide the novelty claim.** `reviews/NOVELTY.md` records what prior work exists and what the
 introduction can honestly say. Claim what the evidence supports and not a word more, because the
@@ -36,7 +38,9 @@ consistent choice given what this survey argues about openness.
 Practical notes for the submission: arXiv wants the LaTeX source, not the PDF, so upload the
 contents of `tex/` with `sty/IEEEtran.cls`, `sty/IEEEtran.bst`, `refs.bib`, the `sections/`,
 `tables/` and `figs/` trees, and the `.bbl` file, since arXiv does not run bibtex. Check the size:
-the figures put the source near 20 MB and arXiv's limit is 50 MB.
+`tex/` without `figs/extracted/` is about 5 MB, well under arXiv's 50 MB limit. Do not upload
+`figs/extracted/`; it is the whole rendered figure catalogue and the paper uses three files
+from `figs/selected/`.
 
 **5. Put the corpus somewhere citable.** The survey's whole argument is that claims should be
 checkable against artefacts. Deposit the repository, get a DOI from Zenodo, and cite it in the

@@ -1,0 +1,57 @@
+% Figure: the object the policy touches is not the object it sees. Drawn for the LaTeX edition in
+% the restrained palette: greyscale plus the one accent, thin rules, square corners.
+% It replaces a reproduced screenshot triple (mesh / no V-HACD / V-HACD), which showed three
+% renders of a toy but not the thing that matters, which is where the fingertip can go. Here the
+% same fingertip is drawn against all three geometries: it enters the concavity, it is held out of
+% it by material that exists only in the collision model, and it enters it again once the shape is
+% decomposed. Sec. IV states the cost and cites it; this figure states no number.
+\begin{tikzpicture}[
+  font=\footnotesize,
+  vis/.style={draw=black!60,line width=0.5pt,fill=white},
+  col/.style={draw=black!60,line width=0.5pt,fill=black!8},
+  ghostmat/.style={draw=none,fill=accent,fill opacity=0.16},
+  cut/.style={draw=black!45,line width=0.3pt,dash pattern=on 1.4pt off 1.2pt},
+  tip/.style={draw=accent,line width=0.7pt,fill=white},
+  tipghost/.style={draw=accent,line width=0.4pt,dash pattern=on 1.2pt off 1.2pt,fill=none},
+  hd/.style={font=\footnotesize\bfseries,anchor=north},
+  sub/.style={font=\scriptsize\color{black!60},anchor=north,align=center,text width=26mm},
+  gap/.style={draw=accent,line width=0.5pt,<->},
+  glab/.style={font=\scriptsize\color{accent},anchor=west},
+]
+
+% ------------------------------------------------ 1. the mesh the renderer draws
+\begin{scope}[shift={(0.30,0)}]
+  \draw[vis] (0,0) -- (2.0,0) -- (2.0,1.5) -- (1.4,1.5) -- (1.4,0.75)
+             -- (0.6,0.75) -- (0.6,1.5) -- (0,1.5) -- cycle;
+  \draw[tip] (1.0,1.04) circle (0.28);
+  \node[hd] at (1.0,-0.16) {visual mesh};
+  \node[sub] at (1.0,-0.50) {the concavity is there, and the fingertip sits in it};
+\end{scope}
+
+% ------------------------------------------------- 2. the single convex hull
+\begin{scope}[shift={(3.05,0)}]
+  \draw[col] (0,0) rectangle (2.0,1.5);
+  \fill[ghostmat] (0.6,0.75) rectangle (1.4,1.5);
+  \draw[cut] (0.6,1.5) -- (0.6,0.75) -- (1.4,0.75) -- (1.4,1.5);
+  \draw[tip] (1.0,1.79) circle (0.28);
+  \draw[tipghost] (1.0,1.04) circle (0.28);
+  \draw[gap] (1.62,1.51) -- (1.62,1.78);
+  \node[glab] at (1.70,1.65) {held out};
+  \node[hd] at (1.0,-0.16) {its convex hull};
+  \node[sub] at (1.0,-0.50) {the notch is filled with material only the solver has};
+\end{scope}
+
+% ------------------------------------------------- 3. the convex decomposition
+\begin{scope}[shift={(5.80,0)}]
+  \draw[col] (0,0) rectangle (0.6,1.5);
+  \draw[col] (0,0) rectangle (2.0,0.75);
+  \draw[col] (1.4,0) rectangle (2.0,1.5);
+  \draw[cut] (0.6,0) -- (0.6,0.75);
+  \draw[cut] (1.4,0) -- (1.4,0.75);
+  \draw[tip] (1.0,1.04) circle (0.28);
+  \node[hd] at (1.0,-0.16) {convex decomposition};
+  \node[sub] at (1.0,-0.50) {three convex parts, and the contact is back};
+\end{scope}
+
+\draw[draw=black!25,line width=0.28pt] (0.30,2.28) -- (7.80,2.28);
+\end{tikzpicture}

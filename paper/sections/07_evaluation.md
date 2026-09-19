@@ -1,6 +1,6 @@
-# 7. Evaluation: how we would compare these methods
+# 7. Evaluation, and a protocol for comparison
 
-## 7.1 What the field reports, and why the numbers do not compare
+## 7.1 Reporting practice
 
 Of the 112 method rows in the corpus, 89 report a real-robot experiment, 22 do not and one row is
 unsettled, which is 80 percent of the 111 the note settled. Among those 89, 70 state how many real
@@ -19,7 +19,7 @@ or a scoring rubric instead of a threshold, or a count spread over four tables, 
 extraction can reduce to one integer, so it produces a null, and a null is then indistinguishable
 from a paper that said nothing. The bias runs one way: every miss converts a reporting paper into
 a silent one, and the survey's argument is that the field reports badly, so the artefact flatters
-the argument. Section 5.8 makes the same disclosure about the paper/code count, subtracting the 13
+the argument. Section 5.6 makes the same disclosure about the paper/code count, subtracting the 13
 disagreements that are limitations of this survey's own parsing before declaring which number to
 quote, and the coverage statistics above need it more.
 
@@ -84,9 +84,7 @@ description by eye, two defer to a benchmark's own definition, and exactly one, 
 states a verbatim numeric threshold. A rubric is a milder failure than silence and a worse one
 than a threshold, because it is reproducible inside a lab and not across two.
 
-## 7.2 The axes that matter
-
-Seven quantities dissociate in the published data, so they have to be reported separately.
+**The axes that matter.** Seven quantities dissociate in the published data, so they have to be reported separately.
 
 **Task success.** Binary success discards the difference between near-misses and inaction.
 `beyond_binary_success_2026` puts it plainly: "a policy that completes 90% of the task is clearly
@@ -103,7 +101,7 @@ anchor is not the ranking under shift.
 **Generalisation to unseen objects.** Only 39 rows state a count and the median is 11 objects.
 
 **Physical plausibility of the contact.** Eleven of the 96 rows whose contact handling the note
-settled address it, 11 percent, with 16 rows unknown. Section 7.3 takes them apart.
+settled address it, 11 percent, with 16 rows unknown. Section 7.2 takes them apart.
 
 **Sample and wall-clock cost.** Thirty-one of 112 rows state a parallel environment count and 18 a
 simulated episode count. `robopianist_2023` is the exception, at 5 million samples per song and
@@ -117,7 +115,7 @@ statistical inferences about real-world outcomes from simulation results alone".
 **Reproducibility.** 62 rows released code that could be parsed against the paper, and 38 of the
 112 rows record a disagreement of some kind between the paper and that code. All 38 released code,
 so the raw rate among code-releasing rows is 61 percent. That raw rate is not the finding, because
-the 38 are not one thing. Section 8.1 classifies them: 9 contradictions, 13 limitations of this
+the 38 are not one thing. Section 5.6 classifies them: 9 contradictions, 13 limitations of this
 survey's own parsing, 8 components never released, 4 version skews and 4 inconsistencies internal
 to a paper. Only the contradictions are a finding about the work rather than about this survey, so
 9 of 62 code-releasing rows, which is 15 percent, is the figure this section and Table 8 use.
@@ -125,7 +123,7 @@ to a paper. Only the contradictions are a finding about the work rather than abo
 Table 4, and the reward function it released hard-sets that orientation error to zero, so the
 reward that produced the published numbers tracked the object in position only.
 
-## 7.3 Physical plausibility as a first-class metric
+## 7.2 Physical plausibility
 
 Eleven method rows handle interpenetration in any form: three penalise it, three measure it, five
 constrain it, 11 percent of the settled rows. The denominator is 96, not 112, because the
@@ -150,7 +148,7 @@ a measurement method and a count, and it does not supply a threshold. The count 
 96 above, with four closed-loop policies inside it and none we found reporting a number for its
 own rollouts. The method is the plausibility row of Table 8: maximum and mean penetration depth
 over the evaluation rollouts, on a dense surface sample, computed by code that never entered the
-reward or the termination rule. The threshold is borrowed, and section 7.7 says from where and why
+reward or the termination rule. The threshold is borrowed, and section 7.4 says from where and why
 it does not bind. Six of the eleven are grasp synthesisers or trajectory optimisers, namely
 `bidexgrasp_2026`, `bimangrasp_2024`, `deximit_2026`, `pang_global_planning_2022`,
 `toporetarget_2026` and `unidexgrasp_2023`, and `castro_sap_contact_2021` is a contact model
@@ -200,7 +198,12 @@ has not replaced that tradition with anything it measures on its own rollouts. P
 quantity between meshes, so it needs a simulator or a mesh reconstruction, and the protocol below
 treats it as a simulation-only axis.
 
-## 7.4 Statistics
+**What would close it.** The gap is specific to learned closed-loop control rather than general, and
+it is a choice rather than a capability. What would close it is a maximum and a mean penetration
+depth over the evaluation rollouts, on a dense surface sample, computed by a measure the policy never
+optimised.
+
+## 7.3 Statistical practice, and a proposed protocol
 
 `kress_gazit_policy_eval_2024` is the field's reference protocol and it prescribes process, not
 numbers. Write the success criteria before the run and have someone other than their author score
@@ -238,9 +241,7 @@ trials against a nominal 500, with per-task decisions landing in 12 to 36 paired
 RoboArena's data a 30-point gap on continuous progress scores reaches significance in 18 trials,
 while a 20-point gap on binary success needs about 80.
 
-## 7.5 A proposed protocol
-
-Every count below is printed by `tools/make_eval_tables.py` in its derivation mode, and each axis
+**A proposed protocol.** Every count below is printed by `tools/make_eval_tables.py` in its derivation mode, and each axis
 is derived for the statistic that axis actually reports: a single rate takes a Wilson half-width,
 a matched comparison takes McNemar, a ratio takes the standard error of the log ratio, a
 correlation takes the Fisher-z interval.
@@ -314,7 +315,7 @@ leaving a reader to assume the larger one.
 
 {{table:table8_protocol}}
 
-## 7.6 Table 9, an empty results matrix
+## 7.4 The results matrix, and what filling it would cost
 
 The rows are the 12 most-mentioned dexterous-hand policy methods in the corpus, and the rule is
 the one the table's generator implements, stated here in the same words. A candidate is a method
@@ -354,10 +355,8 @@ format of a cell is unambiguous. Every number in it is fabricated and labelled a
 
 {{table:table9_matrix}}
 
-## 7.7 What would have to be true
-
-The bill comes first. Per policy and per task the protocol asks for 57 matched trials on the
-anchor set, which is the paired count from §7.5, and 100 on the unseen-object set, at 20 objects
+**What would have to be true.** The bill comes first. Per policy and per task the protocol asks for 57 matched trials on the
+anchor set, which is the paired count from §7.3, and 100 on the unseen-object set, at 20 objects
 and 5 trials each, with robustness and plausibility absorbed by simulation. A two-policy
 comparison on three tasks is then 342 real rollouts on the matched set and 600 on the
 unseen-object set, 942 in all, and at one minute per rollout including the reset that is about 16
@@ -403,3 +402,10 @@ count, a measurement method and a protocol slot for them, and a threshold is not
 borrowed from one paper and reported as borrowed, and it will stay a convention until somebody
 measures penetration on rollouts across hands and engines and finds a value that separates
 behaviour a physicist would accept from behaviour they would not.
+
+**The methodology literature has no dexterous hand in it.** Seven corpus rows are evaluation
+protocols, a small denominator, and not one of them uses a dexterous hand: `suresim_2025` runs a
+parallel-jaw gripper and the other six state no hand. Everything proposed above is therefore
+assembled from work on grippers and on whole-arm tasks. What would close that, and close it cheaply,
+is to run the Table 8 protocol once, on one in-hand reorientation task with one 16-DoF hand, and
+release the rollouts as the first row of Table 9.

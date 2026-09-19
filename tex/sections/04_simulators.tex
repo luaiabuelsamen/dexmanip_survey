@@ -2,19 +2,15 @@
 \section{Simulators and the physics underneath}
 \label{sec:simulators}
 
-\subsection{What a dexterous simulation must get right}
+\subsection{Requirements of a dexterous simulation}
 \label{sec:sim:requirements}
 
-% --- reproduced plates ------------------------------------------------------
-% tex/figs/plates.tex defines one command per selected photograph. Load it here
-% if nothing has loaded it already, so this section carries its own plates
-% whether or not the preamble inputs the file. The \providecommand before each
-% call makes a missing plate an empty command rather than an error. Every plate
-% has permission still to be sought: read tex/PERMISSIONS.md before this goes anywhere.
+% No reproduced plate in this section. What four of them were standing in for --
+% a convex decomposition, an interpenetration field, a tendon routing and a
+% screenshot of parallel environments -- is drawn instead, in the paper's own
+% style, as figs/fig_collision.tex and figs/fig_tactiledepth.tex, or is left to
+% the prose where the prose already carried it.
 % ---------------------------------------------------------------------------
-\makeatletter
-\@ifundefined{plateIsaacGymEnvs}{\IfFileExists{figs/plates.tex}{\input{figs/plates}}{}}{}
-\makeatother
 
 The clearest demonstration that hands are the hard case came from a benchmark that was not about
 hands. Erez et al. built a 35-DOF arm modelled on the Shadow Hand, closed it around a capsule with
@@ -48,8 +44,15 @@ its tasks override the bound on contact points and the bound on geometry pairs b
 A hand's bound would have to be set the same way, for the worst case, but no hand configuration is
 printed.
 
-% The geometry the solver uses against the geometry the renderer draws.
-\providecommand{\plateConvexDecomposition}{}\plateConvexDecomposition
+\begin{figure}[!t]
+  \centering
+  \IfFileExists{figs/fig_collision.tex}{\resizebox{\columnwidth}{!}{\input{figs/fig_collision}}}{%
+    \framebox[0.95\columnwidth]{\rule{0pt}{2.6cm}\textit{figs/fig\_collision.tex pending}}}
+  \caption{The geometry the solver uses against the geometry the renderer draws. A single convex
+  hull fills the concavity with material that exists only in the collision model, and holds the
+  fingertip out of a contact the visual mesh allows.}
+  \label{fig:collision}
+\end{figure}
 
 \figurename~\ref{fig:simstep} sets out the stages of one simulation step. Three of them make
 overlap, and they do not answer to the same knob. In an engine that enforces non-penetration at
@@ -60,9 +63,10 @@ tested at. Constraint assembly fixes the compliance a loaded contact then rests 
 solver leaves a residual that grows with conditioning. Which of the three dominates in a grasp is
 not measured anywhere in this corpus, and the three are not ordered here. A fourth thing is not on
 the figure, because it is not a stage of the step and not a source of overlap: a mismatch between
-the geometry the solver uses and the geometry the renderer draws, which runs in both directions.
+the geometry the solver uses and the geometry the renderer draws, which runs in both directions and
+is drawn in \figurename~\ref{fig:collision}.
 
-\subsection{Contact models and solvers, engine by engine}
+\subsection{Contact models and solvers}
 \label{sec:sim:engines}
 
 \begin{figure*}[!t]
@@ -221,13 +225,10 @@ question a reader choosing an engine actually has.
 % The engine table is set in Appendix B rather than here: this section reads cells out of it, but
 % a reader consults it rather than reading it through.
 
-\subsection{The GPU-parallel turn}
+\subsection{GPU-parallel engines and their throughput}
 \label{sec:sim:gpu}
 
-% What a GPU-parallel in-hand environment looks like from inside.
-\providecommand{\plateIsaacGymEnvs}{}\plateIsaacGymEnvs
-
-Isaac Gym set the pattern. Physics, observations, rewards and actions stay on the GPU, and PhysX
+\textbf{The GPU-parallel turn.} Isaac Gym set the pattern. Physics, observations, rewards and actions stay on the GPU, and PhysX
 resolves contacts with the Temporal Gauss-Seidel sweep described above. Its per-task timesteps are
 published, which is rare: the Shadow Hand runs a 1/120 s physics step under a 1/60 s control step,
 or 1/20 s in the OpenAI variant. The result that reorganised the field is that reproducing
@@ -262,9 +263,7 @@ contact-geometry difference between Isaac Gym and Isaac Lab under one vendor nam
 \cite{orbit_2023,isaaclab_2025}. Naming a simulator no longer names its physics. Papers should
 report the backend and the solver beside the framework.
 
-\subsection{Throughput, and why the reported numbers do not compare}
-\label{sec:sim:throughput}
-
+\textbf{Reported throughput, and why the numbers do not compare.}\label{sec:sim:throughput}
 Four headline figures measure four different quantities. Isaac Gym reports parallel environment
 steps per second with physics, observations and rewards on device: 150,000 for the Shadow Hand at
 16,384 environments on one A100. Isaac Lab reports frames per second in training, which includes
@@ -308,7 +307,7 @@ figure is interpretable only with the environment count, the GPU, the timesteps,
 iteration budget, and a statement of whether rendering and the learning update sit inside the
 measurement. Almost nobody reports all five.
 
-\subsection{Tactile simulation and what it is calibrated against}
+\subsection{Tactile simulation and the sim-to-real gap}
 \label{sec:sim:tactile}
 
 The three tactile simulators in this corpus calibrate against three different things, and none of
@@ -328,14 +327,21 @@ its residual is bounded below by the calibration target. The authors also state 
 quasi-static contact only, with slip left as future work \cite[Sec.~V]{taxim_2021}. Slip is what a
 hand needs.
 
-% Penetration depth as the tactile signal rather than as an error.
-\providecommand{\plateTactileInterpenetration}{}\plateTactileInterpenetration
+\begin{figure}[!t]
+  \centering
+  \IfFileExists{figs/fig_tactiledepth.tex}{\resizebox{\columnwidth}{!}{\input{figs/fig_tactiledepth}}}{%
+    \framebox[0.95\columnwidth]{\rule{0pt}{4.4cm}\textit{figs/fig\_tactiledepth.tex pending}}}
+  \caption{A compliant tactile sensor reads the overlap depth. The tactile image, the distributed
+  force and the binary contact flag are all functions of the one quantity every other engine in
+  this section works to drive to zero.}
+  \label{fig:tactiledepth}
+\end{figure}
 
 Tactile Genesis inverts the survey's thread. It implements two penetration-depth backends on the
 collision geometry, an analytic SDF query and a BVH raycast, then binarises the result with
 Schmitt hysteresis at $5\times10^{-4}$ m on and $2\times10^{-4}$ m off. Here the penetration depth
 is the sensor signal, so the quantity every other engine treats as an error sets this sensor's
-operating point. Against a real GelSight it reports relative marker RMSE of 0.329 in dilation and
+operating point, which is \figurename~\ref{fig:tactiledepth}. Against a real GelSight it reports relative marker RMSE of 0.329 in dilation and
 0.174 in shear, against HydroShear's 0.403 and 0.217, with each simulator tuned to match the real
 image first \cite[Fig.~2]{tactile_genesis_2026}. Its own sim-to-real check is a matched success
 count rather than a fidelity measurement. The real XHand1 SDK reports a per-taxel raw pressure
@@ -344,12 +350,7 @@ characteristics, so the raw field cannot be registered to the simulated probe la
 aggregate is comparable (App.~C). The undocumented calibration is the barrier, not a missing
 signal.
 
-\subsection{The sim-to-real gap for hands}
-\label{sec:sim:sim2real}
-
-% The tendon routing a sim-to-real gap on a Shadow Hand is made of.
-\providecommand{\plateTendonModel}{}\plateTendonModel
-
+\textbf{The sim-to-real gap for hands.}\label{sec:sim:sim2real}
 Most of what is written about this gap is attribution without measurement. PenSpin asserts that
 the pure physics gap ``cannot be bridged by extensive domain randomization alone'' while reporting
 no experiment that isolates it \cite{penspin_2024}. MuJoCo Playground attributes its LEAP hand

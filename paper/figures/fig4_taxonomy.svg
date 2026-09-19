@@ -7,7 +7,8 @@
  .k{font-size:10.5px;fill:var(--mut);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
  .box{fill:var(--fill);stroke:var(--line);stroke-width:1}
  .ghost{fill:none;stroke:var(--line);stroke-width:1;stroke-dasharray:3 3}
- .ed{stroke:var(--mut);fill:none;opacity:.55}.tree{stroke:var(--line);fill:none;stroke-width:1.2}
+ .ed{stroke:var(--mut);fill:none}
+ .rule{stroke:var(--line);fill:none;stroke-width:1}.tree{stroke:var(--line);fill:none;stroke-width:1.2}
  .xl{fill:none;stroke:var(--mut);stroke-width:1.1;stroke-dasharray:5 4;opacity:.75}
  .xt{fill:none;stroke:var(--mut);stroke-width:1.1;stroke-dasharray:6 3 2 3;opacity:.85}
  .xw{font-size:9.5px;fill:var(--mut);font-style:italic}

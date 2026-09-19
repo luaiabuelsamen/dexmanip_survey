@@ -1,10 +1,15 @@
-"""Re-render four reproduced plates from their source PDFs and re-lay out their panels.
+"""Re-render the three surviving reproduced plates from their source PDFs and cut them down.
 
-A figure that is one long row of panels renders as a letterbox strip: across the 181 mm text
-width `sim_isaacgym_inhand_envs` was 34 mm tall and nothing in it could be read. This script
-rebuilds those plates from the source PDF rather than from the 200 dpi catalogue preview, cuts
-the panels apart on the white gutters between them, and stacks them so the plate's aspect ratio
-is one a page can carry. Panel labels stay with the panel they name.
+Every plate in this survey is single column and, where the argument allows it, a single panel.
+A borrowed multi-panel plate set at one column lands its panels at about 15 mm across with
+labels under 8 pt, which is not a figure but the memory of one. So each plate here is either
+re-laid out so that no panel shrinks (`hand_scale_to_human`, six hands cut off one long row and
+stacked two deep) or cut down to the panels that carry the argument (`teleop_retarget_artifacts`,
+one of sixteen cells; `bimanual_grasp_penetration`, two of four). What is dropped is dropped
+because a diagram in the paper's own style now makes the point, or because the prose already did.
+
+`pre` crops the trimmed source region before the panel boxes are read, for a region the figure
+finder swept a neighbouring figure or a body-text column into.
 
 Each entry records the source key, the figure number, the render dpi, and the panel boxes as
 fractions of the trimmed figure region, so every crop here is reproducible; the same fractions
@@ -30,30 +35,28 @@ OUT = R / "tex/figs/selected"
 # stacked, so no panel is resampled relative to any other.
 PLATES = {
     # Six hands photographed to scale in one row: 3.68:1. Cut on the gutters between the hands
-    # and set two rows of three, each hand keeping the label under it.
+    # and set two rows of three, each hand keeping the label under it. Nothing is dropped: the
+    # spread of sizes against the ruler is the whole content, so every hand stays.
     "hand_scale_to_human": dict(
         key="leap_hand_2023", fig=3, dpi=450,
         rows=[[(0.0000, 0.2005), (0.2005, 0.3341), (0.3341, 0.4727)],
               [(0.4727, 0.6059), (0.6059, 0.7532), (0.7532, 1.0000)]]),
-    # Three simulator screenshots in one row: 5.31:1. Two on top, the third centred below.
-    "sim_isaacgym_inhand_envs": dict(
-        key="isaacgym_2021", fig=13, dpi=600,
-        rows=[[(0.0000, 0.3334), (0.3334, 0.6670)],
-              [(0.6670, 1.0000)]]),
-    # Five panels in one row: 3.33:1. Panels (a)-(d) are the capture-to-contact chain the plate
-    # is placed for and already sit two-up; the (e) object-articulation column, which the caption
-    # does not discuss, is dropped so the remaining four can be read.
-    "data_arctic_bimanual": dict(
-        key="arctic_2022", fig=1, dpi=600,
-        rows=[[(0.0000, 0.7643)]]),
-    # Not a re-layout: the first four gesture rows over the column-label strip, as before, but
-    # rendered to the full width of the region. The previous crop cut the final letter of the
-    # "Allegro" column label.
-    "teleop_retarget_embodiments": dict(
-        key="anyteleop_2023", fig=10, dpi=400,
-        rows=[[(0.0, 1.0, 0.0, 0.468)],
-              [(0.0, 1.0, 0.938, 1.0)]],
-        gutter=0.0, vgap=0.0),
+    # Four failure panels over four zoomed insets, of which (A) hand-object penetration and
+    # (C) inter-hand penetration are the two the section argues. (B) self-penetration and
+    # (D) no-contact are dropped: at one column four panels put each inset at 20 mm, and the two
+    # kept are the two the prose names. `pre` removes Fig. 6, which the finder swept into the
+    # same region.
+    "bimanual_grasp_penetration": dict(
+        key="bimangrasp_2024", fig=9, dpi=450, pre=(0.500, 1.000, 0.000, 1.000),
+        rows=[[(0.0039, 0.2360), (0.4855, 0.7215)]]),
+    # A 4x4 grid of retargeting verdicts, 16 cells: at one column each cell is 22 mm and its
+    # verdict label 3 pt. One cell is kept -- the hand-object case where DexPilot drives the
+    # fingertip through the spectacle temple -- because one magnified contact set makes the
+    # argument and sixteen illegible ones do not. The source's own label strip is cropped away
+    # with it; the caption carries the verdict in the document font.
+    "teleop_retarget_artifacts": dict(
+        key="toporetarget_2026", fig=3, dpi=400,
+        rows=[[(0.4970, 0.7190, 0.2800, 0.4550)]]),
 }
 
 
@@ -73,6 +76,11 @@ def region(key, fig, dpi):
 
 def build(name, spec):
     im = region(spec["key"], spec["fig"], spec["dpi"])
+    if spec.get("pre"):
+        x0, x1, y0, y1 = spec["pre"]
+        W0, H0 = im.size
+        im = im.crop((int(round(x0 * W0)), int(round(y0 * H0)),
+                      int(round(x1 * W0)), int(round(y1 * H0))))
     W, H = im.size
     gutter = int(round(spec.get("gutter", 0.012) * W))
     vgap = int(round(spec.get("vgap", 0.030) * H))

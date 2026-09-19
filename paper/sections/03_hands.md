@@ -1,6 +1,6 @@
 # 3. Hands and who makes them
 
-## 3.1 The design axes
+## 3.1 Design axes
 
 No degree-of-freedom, force, weight or price figure in Table 2 or Table 3 was measured by anyone
 outside the maker. Six rows are the exception, from peer-reviewed papers with stated protocols:
@@ -68,7 +68,7 @@ the URDF is released and the released API repository contains none `leap_hand_20
 
 {{table:table2_hands_available}}
 
-## 3.2 The hands the research literature actually runs on
+## 3.2 Hands in use, and what they cost
 
 {{figure:fig2_hands}}
 
@@ -95,9 +95,7 @@ XHand and Sharpa take 29 of the 103 rows between them, four rows use two of the 
 earlier than 2024. Eight take none at all: ORCA, RUKA, Ruka-v2, BiDexHand, DexHand, the Proception
 ProHand, the Tesollo DG-5F and the Unitree Dex5.
 
-## 3.3 Open hardware and the collapse in cost
-
-Six rows in Table 2 are open hardware, and LEAP Hand V2 in Table 3 is a seventh. Five of the seven
+**Open hardware and the collapse in cost.** Six rows in Table 2 are open hardware, and LEAP Hand V2 in Table 3 is a seventh. Five of the seven
 state a dollar cost: $2,000 for LEAP, $3,000 for LEAP Hand V2, $1,500 for Ruka-v2, $1,300 for RUKA
 and $300 for DexHand. ORCA states a material cost below 2,000 CHF that the price column leaves
 unconverted, and BiDexHand states none `orca_hand_2025` `bidexhand_2025`. The Faive Hand states
@@ -119,33 +117,7 @@ sources never mention touch `bidexhand_2025`. ORCA is the exception, with binary
 whose threshold was measured as low as 0.05 N on a fresh fingertip, against the sensor's rated
 0.29 N, and 6.38 N on a degraded one `orca_hand_2025`.
 
-## 3.4 Announced and unreleased hands
-
-Behind Table 3's rows sit three kinds of evidence, and conflating them is how a DoF figure with no
-source ends up in a survey. Vendor prose carrying numbers is the strongest, as on 1X's page of 9
-July 2026 `onex_neo_hand_2026`. Video is second and carries none. Press or bibliography assertion
-is third, as with Tesla's V3 hand, known here only through a paraphrase of patents because the
-USPTO PDF parsed empty `tesla_optimus_hand_2025`. Table 3 blanks the cells resting on the third
-class and footnotes who did the arithmetic.
-
-A survey can go one step past recording that a claim is unverified, which is to say which claims
-are implausible on their face. Daxo's 120 actuators in 750 g is about 6 g per actuator including
-structure, tendons, routing and skin `daxo_muscle_v0_2025`. Clone's 27 degrees of freedom under 2
-pounds excludes a 500 W pump the source does not confirm is excluded `clone_robotics_hand_2024`.
-Figure 03's "Degrees of freedom, hands | 20" sits on the same tracker page as "Number of fingers |
-10", so it is almost certainly the pair `figure_03_hand_2025`. Tesla's repeated 22 is one
-article's arithmetic of four DoF on each of five fingers plus two at the wrist, and Gen 2's own
-figure was 11 `tesla_optimus_hand_2025`.
-
-Scepticism belongs to the evidence class, not to which table a row lands in. Sharpa's 22 of 22,
-Wuji's 20 of 20 and Tesollo's 20 of 20 are vendor claims about unmeasured hardware and they sit in
-Table 2, where Sharpa's page footnotes "Specifications may vary between products" and Wuji's says
-the spec "will continue to iterate" on a Beta1 product `sharpa_wave_2026` `wuji_hand_2025`. Even
-the best-specified vendor page in the corpus leaves its fingertip-force columns unlabelled.
-
-{{table:table3_hands_announced}}
-
-## 3.5 Tactile sensing as part of the hand
+## 3.3 Tactile sensing
 
 DIGIT set the cost floor. It is 20 by 27 by 18 mm, weighs about 20 g, streams 640x480 at 60 fps,
 and its paper states a "total estimated manufacturing cost is approximately 15 USD per sensor ...
@@ -185,9 +157,33 @@ authors dropping it from their reinforcement learning "due to the additional com
 in accurately modeling them" `orca_hand_2025`. Taxel counts have risen by three orders of
 magnitude while the policies consuming them have stayed at binary contact.
 
-## 3.6 What is sold against what is published on
+## 3.4 The catalogue against the literature
 
-The bottom rows of Figure 2 carry the finding. None of the nine company-announced hands in Table 3
+**Three classes of evidence.** Behind Table 3's rows sit three kinds of evidence, and conflating them is how a DoF figure with no
+source ends up in a survey. Vendor prose carrying numbers is the strongest, as on 1X's page of 9
+July 2026 `onex_neo_hand_2026`. Video is second and carries none. Press or bibliography assertion
+is third, as with Tesla's V3 hand, known here only through a paraphrase of patents because the
+USPTO PDF parsed empty `tesla_optimus_hand_2025`. Table 3 blanks the cells resting on the third
+class and footnotes who did the arithmetic.
+
+A survey can go one step past recording that a claim is unverified, which is to say which claims
+are implausible on their face. Daxo's 120 actuators in 750 g is about 6 g per actuator including
+structure, tendons, routing and skin `daxo_muscle_v0_2025`. Clone's 27 degrees of freedom under 2
+pounds excludes a 500 W pump the source does not confirm is excluded `clone_robotics_hand_2024`.
+Figure 03's "Degrees of freedom, hands | 20" sits on the same tracker page as "Number of fingers |
+10", so it is almost certainly the pair `figure_03_hand_2025`. Tesla's repeated 22 is one
+article's arithmetic of four DoF on each of five fingers plus two at the wrist, and Gen 2's own
+figure was 11 `tesla_optimus_hand_2025`.
+
+Scepticism belongs to the evidence class, not to which table a row lands in. Sharpa's 22 of 22,
+Wuji's 20 of 20 and Tesollo's 20 of 20 are vendor claims about unmeasured hardware and they sit in
+Table 2, where Sharpa's page footnotes "Specifications may vary between products" and Wuji's says
+the spec "will continue to iterate" on a Beta1 product `sharpa_wave_2026` `wuji_hand_2025`. Even
+the best-specified vendor page in the corpus leaves its fingertip-force columns unlabelled.
+
+{{table:table3_hands_announced}}
+
+**What is sold against what is published on.** The bottom rows of Figure 2 carry the finding. None of the nine company-announced hands in Table 3
 appears in a single method row whose own experiments use it. Tesla, Figure, 1X, Sanctuary, Boston
 Dynamics, Xiaomi, Clone, Daxo and PaXini account for zero of the 112 method papers' experiments.
 The nearest thing to a counterexample is `helix_2025`, a Figure blog post claiming a 35-DoF
@@ -217,3 +213,14 @@ BiDexHand and DexHand. Cheapness is established only for RUKA, Ruka-v2 and DexHa
 price on disk is Ruka-v2's secondhand "~$25K" `ruka_v2_2026`. A reader choosing a hand on this
 corpus's evidence has two well-precedented options, an Allegro or an Inspire, and a third in LEAP
 if twelve papers is enough. Everything else is a press release or a hand nobody has published on.
+
+**What would close the gap.** Nineteen of the 33 hands in Tables 2 and 3 appear in no method row, and
+11 of those are neither sold nor open, so they appear in none for that reason and 33 is not the
+denominator for a software-lag claim; the eight hands named just above are. What decides used from
+unused is one regular expression per hand run against the method rows' own hand field, in
+`tools/hand_usage.py`, so the partition is recomputed rather than argued about. The lag runs through
+the tooling too: only three of the fifteen simulator rows name a real hand at all, and the ones they
+name are the field's defaults, while `bench2dex_2026` compares 12 hands and `dexverse_2026` six
+without stating a DoF count for any. What would close it is a conformance suite for hand models: one
+URDF or MJCF per hand, fixed joint-limit, mass and collision checks, and a published pass or fail per
+engine.

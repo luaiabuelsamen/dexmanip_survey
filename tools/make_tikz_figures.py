@@ -211,13 +211,20 @@ def fig_hands():
 
 
 def fig_field():
-    """The routes through the field, as a five-column flow. Two-column float.
+    """Figure 1, the map of the paper: five columns from data source to evaluation.
+
+    The figure is the table of contents drawn. Every column head carries the section that
+    covers it, so a reader who meets the figure on the way in can use it to navigate, and the
+    counts label the boxes rather than being what the figure is for.
 
     A node is a predicate over the method rows, and its count is that predicate applied; an edge
-    between two adjacent nodes is the number of rows satisfying both. Edges used to be drawn
-    between every pair of adjacent nodes with a width taken from the two boxes' heights, which
-    made the picture a hairball and made its caption false: it claimed the corpus's own routes.
-    A route no row takes is now not drawn at all, and a route's width is the rows that take it.
+    between two adjacent nodes is the number of rows satisfying both. A route no row takes is not
+    drawn, a route's stroke is its share of the heaviest route, and no stroke is thinner than
+    0.4 pt or lighter than 40 per cent black, which is the weight that survives print: at the
+    0.13 pt and 14 per cent grey this figure used to be drawn at, the routes were invisible on
+    paper and the caption's claim about them could not be checked by looking. Outgoing and
+    incoming routes are spread along the edge of the box they leave and enter, ordered by the
+    height of the box at the other end, so that a single route can be followed across a gap.
     """
     def norm(s):
         s = (s or "").lower()
@@ -240,80 +247,118 @@ def fig_field():
     HANDLED = ("penalised", "measured", "constrained")
     sims = [k for k, _ in Counter(norm(r.get("sim")) for r in M).most_common(6)]
     pars = [k for k, _ in Counter(p for r in M for p in (r.get("paradigm") or [])).most_common(6)]
+    # Each column head names the section that covers it, by label rather than by a typed
+    # number, so renumbering the paper moves the figure with it.
     cols = [
-        ("data source", [("human data named", human, 0),
-                         ("no demonstrations", nodem, 0),
-                         ("not stated", lambda r: not human(r) and not nodem(r), 1)]),
-        ("embodiment", [("one hand", lambda r: r.get("bimanual") is False, 0),
-                        ("two hands", lambda r: r.get("bimanual") is True, 0),
-                        ("not stated", lambda r: r.get("bimanual") is None, 1)]),
-        ("simulator", [(k, (lambda k: lambda r: norm(r.get("sim")) == k)(k),
-                        1 if k == "not stated" else 0) for k in sims]),
-        ("training", [(k, (lambda k: lambda r: k in (r.get("paradigm") or []))(k), 0)
-                      for k in pars]),
-        ("evaluation", [("real robot", lambda r: r.get("real_robot") is True, 0),
-                        ("simulation only", lambda r: r.get("real_robot") is not True, 0),
-                        ("penetration addressed",
-                         lambda r: r.get("penetration") in HANDLED, 2),
-                        ("penetration silent",
-                         lambda r: r.get("penetration") == "not addressed", 2)]),
+        ("data source", [r"sec:train:human"],
+         [("human data named", human, 0),
+          ("no demonstrations", nodem, 0),
+          ("not stated", lambda r: not human(r) and not nodem(r), 1)]),
+        ("embodiment", [r"sec:hands", r"sec:bimanual"],
+         [("one hand", lambda r: r.get("bimanual") is False, 0),
+          ("two hands", lambda r: r.get("bimanual") is True, 0),
+          ("not stated", lambda r: r.get("bimanual") is None, 1)]),
+        ("simulator", [r"sec:simulators"],
+         [(k, (lambda k: lambda r: norm(r.get("sim")) == k)(k),
+           1 if k == "not stated" else 0) for k in sims]),
+        ("training paradigm", [r"sec:training"],
+         [(k, (lambda k: lambda r: k in (r.get("paradigm") or []))(k), 0) for k in pars]),
+        ("evaluation", [r"sec:evaluation"],
+         [("real robot", lambda r: r.get("real_robot") is True, 0),
+          ("simulation only", lambda r: r.get("real_robot") is not True, 0),
+          ("penetration addressed", lambda r: r.get("penetration") in HANDLED, 2),
+          ("penetration silent", lambda r: r.get("penetration") == "not addressed", 2)]),
     ]
     count = {(ci, name): sum(1 for r in M if pred(r))
-             for ci, (_, items) in enumerate(cols) for name, pred, _ in items}
+             for ci, (_, _, items) in enumerate(cols) for name, pred, _ in items}
 
-    # --- layout, computed before anything is drawn so the edges can go underneath the boxes ---
-    # the gap is where the routes are read, so it is wide enough to see a width in
-    cw, gap = 2.92, 0.88
+    # --- layout, computed before anything is drawn so the routes can go underneath the boxes ---
+    # 18.0 cm by about 9.0 cm, the page-one slot of a two-column paper. The gap is where the
+    # routes are read, so it takes two fifths of the width.
+    cw, gap = 2.64, 1.20
+    h0, kh, vgap, headh = 0.50, 2.45, 0.16, 0.86
     mx = max(count.values()) or 1
-    pos, geo = {}, {}
-    for ci, (cname, items) in enumerate(cols):
+    stack = {ci: sum(max(h0, h0 + kh * count[(ci, n)] / mx) for n, _, _ in items)
+             + vgap * (len(items) - 1) for ci, (_, _, items) in enumerate(cols)}
+    tall = max(stack.values())
+    geo, mid = {}, {}
+    for ci, (cname, secs, items) in enumerate(cols):
         x = ci * (cw + gap)
-        y = 0.0
+        y = -(tall - stack[ci]) / 2          # every column centred on the same midline
         for name, _, kind in items:
             v = count[(ci, name)]
-            h = max(0.34, 0.26 + 0.62 * v / mx)
-            pos[(ci, name)] = (x, -y - h / 2, h)
-            geo[(ci, name)] = (x, -y, h, kind, v)
-            y += h + 0.13
+            h = max(h0, h0 + kh * v / mx)
+            geo[(ci, name)] = (x, y, h, kind, v)
+            mid[(ci, name)] = y - h / 2
+            y -= h + vgap
 
     out = [PRE.replace("font=\\footnotesize", "font=\\scriptsize")]
     # --- the routes the corpus actually contains ---------------------------------------------
     edges = []
     for ci in range(len(cols) - 1):
-        for a, pa, _ in cols[ci][1]:
-            for b, pb, _ in cols[ci + 1][1]:
+        for a, pa, _ in cols[ci][2]:
+            for b, pb, _ in cols[ci + 1][2]:
                 n = sum(1 for r in M if pa(r) and pb(r))
                 if n:
                     edges.append((ci, a, b, n))
     mxe = max(n for *_, n in edges) or 1
+    # Where each route leaves and enters a box. Spread over the middle four fifths of the box's
+    # side, in the order of the boxes at the other end, so routes fan out instead of crossing at
+    # one point and the picture can be read one route at a time.
+    def anchors(key, others, ci_other):
+        x, ytop, h, _, _ = geo[key]
+        order = sorted(others, key=lambda o: -mid[(ci_other, o)])
+        span = 0.80 * h
+        return {o: ytop - (h - span) / 2 - span * (i + 0.5) / len(order)
+                for i, o in enumerate(order)}
+    outa, ina = {}, {}
+    for ci in range(len(cols) - 1):
+        for a, _, _ in cols[ci][2]:
+            tgts = [b for c, aa, b, _ in edges if c == ci and aa == a]
+            if tgts: outa[(ci, a)] = anchors((ci, a), tgts, ci + 1)
+        for b, _, _ in cols[ci + 1][2]:
+            srcs = [a for c, a, bb, _ in edges if c == ci and bb == b]
+            if srcs: ina[(ci + 1, b)] = anchors((ci + 1, b), srcs, ci)
     for ci, a, b, n in sorted(edges, key=lambda e: e[3]):
-        x, yy, _ = pos[(ci, a)]
-        x2, y2, _ = pos[(ci + 1, b)]
-        w = 0.10 + 1.30 * n / mxe
-        shade = 14 + int(34 * n / mxe)
-        out.append(rf"\draw[draw=black!{shade},line width={w:.2f}pt] ({x + cw:.2f},{yy:.2f}) "
-                   rf".. controls ({x + cw + 0.45:.2f},{yy:.2f}) and ({x2 - 0.45:.2f},{y2:.2f}) "
+        x = geo[(ci, a)][0] + cw
+        y1 = outa[(ci, a)][b]
+        x2 = geo[(ci + 1, b)][0]
+        y2 = ina[(ci + 1, b)][a]
+        w = 0.40 + 1.70 * n / mxe                   # never below the 0.4 pt that prints
+        shade = 40 + int(45 * n / mxe)              # never lighter than 40 per cent black
+        out.append(rf"\draw[draw=black!{shade},line width={w:.2f}pt] ({x:.2f},{y1:.2f}) "
+                   rf".. controls ({x + 0.55:.2f},{y1:.2f}) and ({x2 - 0.55:.2f},{y2:.2f}) "
                    rf".. ({x2:.2f},{y2:.2f});")
-    # --- the nodes, on top of them ------------------------------------------------------------
-    for ci, (cname, items) in enumerate(cols):
+    # --- the column heads, each naming its section, and the nodes on top of the routes --------
+    for ci, (cname, secs, items) in enumerate(cols):
         x = ci * (cw + gap)
-        out.append(rf"\node[font=\scriptsize\bfseries] at ({x + cw / 2:.2f},0.42) {{{esc(cname)}}};")
+        sec = "Sec.~" + ",~".join(rf"\ref{{{s}}}" for s in secs)
+        out.append(rf"\node[font=\footnotesize\bfseries,anchor=south] at "
+                   rf"({x + cw / 2:.2f},{headh - 0.38:.2f}) {{{esc(cname)}}};")
+        out.append(rf"\node[font=\scriptsize\color{{black!60}},anchor=south] at "
+                   rf"({x + cw / 2:.2f},{headh - 0.76:.2f}) {{{sec}}};")
+        out.append(rf"\draw[draw=black!45,line width=0.4pt] ({x:.2f},{headh - 0.86:.2f}) -- "
+                   rf"({x + cw:.2f},{headh - 0.86:.2f});")
         for name, _, _ in items:
             xx, ytop, h, kind, v = geo[(ci, name)]
             sty = {0: "box", 1: "ghost", 2: "box"}[kind]
             extra = ",fill=accent!8,draw=accent!60" if kind == 2 else ",fill=white"
             out.append(rf"\draw[{sty}{extra}] ({xx:.2f},{ytop:.2f}) rectangle "
                        rf"({xx + cw:.2f},{ytop - h:.2f});")
-            out.append(rf"\node[lbl,anchor=west] at ({xx + 0.08:.2f},{ytop - h / 2:.2f}) "
-                       rf"{{{esc(name)}}};")
-            out.append(rf"\node[num,anchor=east] at ({xx + cw - 0.08:.2f},{ytop - h / 2:.2f}) "
+            # A label wraps on a word boundary rather than running under the count at the
+            # right edge. It is wrapped here, not by a TeX text width, because TeX hyphenates
+            # and "no demonstra-tions" inside a box two centimetres wide reads as a defect.
+            lab = r"\\".join(esc(l) for l in wrap(name, 15))
+            out.append(rf"\node[lbl,anchor=west,align=left] at "
+                       rf"({xx + 0.10:.2f},{ytop - h / 2:.2f}) {{{lab}}};")
+            out.append(rf"\node[num,anchor=east] at ({xx + cw - 0.10:.2f},{ytop - h / 2:.2f}) "
                        rf"{{{v}}};")
     out.append(r"\end{tikzpicture}")
     (OUT / "fig_field.tex").write_text("\n".join(out) + "\n")
-    return len(pos), len(edges)
+    return len(geo), len(edges), (tall + headh) * 10, (5 * cw + 4 * gap) * 10
 
 
 if __name__ == "__main__":
     print("hands: %d tabulated, %d used, %d with no method row; %d of %d rows name one of five" % fig_hands())
-    print("field: %d nodes, %d routes the corpus contains" % fig_field())
+    print("field: %d nodes, %d routes the corpus contains, %.0f x %.0f mm" % fig_field())
     print("method rows:", N)

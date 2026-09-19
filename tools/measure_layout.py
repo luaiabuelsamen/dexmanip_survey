@@ -48,12 +48,22 @@ ROMAN = {
     "XXVIII": 28, "XXIX": 29, "XXX": 30,
 }
 
+# A caption is a float label, not a cross-reference. "Fig. 3: A low-cost hand"
+# is a caption; "Fig. 3 puts the field on one page" is prose and "Fig. 5 of Kim
+# et al., CC BY 4.0" is a credit line. The label is therefore required to be
+# closed by punctuation or a line break, which is how every style typesets it.
 FIG_CAP = re.compile(
-    r"^\s*(?:Fig(?:ure|\.)?|FIG(?:URE|\.)?)\s*\.?\s*(\d{1,2})\s*(?:[a-z])?\s*[.:|)]?\s",
+    r"^\s*(?:Fig(?:ure|\.)?|FIG(?:URE|\.)?)\s*\.?\s*(\d{1,2})\s*(?:[a-z])?\s*(?:[.:|)\u2013\u2014]|\n)",
     re.IGNORECASE,
 )
+FIG_CAP_LOOSE = re.compile(
+    r"^\s*(?:Fig(?:ure|\.)?|FIG(?:URE|\.)?)\s*\.?\s*(\d{1,2})\s+(?!of\b)([A-Z])",
+)
 TAB_CAP = re.compile(
-    r"^\s*(?:Table|TABLE|Tab\.)\s*\.?\s*([IVXLC]{1,6}|\d{1,2})\s*[.:|)]?\s",
+    r"^\s*(?:Table|TABLE|Tab\.)\s*\.?\s*([IVXLC]{1,6}|\d{1,2})\s*(?:[.:|)\u2013\u2014]|\n)",
+)
+TAB_CAP_LOOSE = re.compile(
+    r"^\s*(?:Table|TABLE|Tab\.)\s*\.?\s*([IVXLC]{1,6}|\d{1,2})\s+(?!of\b)([A-Z])",
 )
 WORD = re.compile(r"[A-Za-z][A-Za-z'\-]*")
 
@@ -211,51 +221,89 @@ def column_geometry(doc, sample_pages):
     return ncols, x0, x1, colw
 
 
-def table_regions(page, rules, caps):
-    """Locate table bodies. Rules first; caption anchoring as a fallback."""
+def table_regions(page, rules, caps, graphics=()):
+    """Locate table bodies.
+
+    A table is found from its horizontal rules where it has them, from its
+    vertical rules where it has only those, and from the block of text under its
+    caption where it has no rules at all. Rule groups that sit inside a figure
+    are vetoed, because axes and boxes in a diagram draw rules too.
+    """
     W = page.rect.width
-    horiz = [r for r in rules if r.width > 0.10 * W and r.height < 2.5]
+    horiz = [pymupdf.Rect(r.x0, r.y0 - 0.4, r.x1, r.y1 + 0.4)
+             for r in rules if r.width > 0.10 * W and r.height < 2.5]
     regions = []
     used = [False] * len(horiz)
-    for i, a in enumerate(horiz):
+    for i, a_ in enumerate(horiz):
         if used[i]:
             continue
-        cur = pymupdf.Rect(a)
+        cur = pymupdf.Rect(a_)
         used[i] = True
         changed = True
         while changed:
             changed = False
-            for j, b in enumerate(horiz):
+            for j, b_ in enumerate(horiz):
                 if used[j]:
                     continue
-                xo = min(cur.x1, b.x1) - max(cur.x0, b.x0)
-                if xo > 0.4 * min(cur.width, b.width):
-                    gap = max(cur.y0 - b.y1, b.y0 - cur.y1)
+                xo = min(cur.x1, b_.x1) - max(cur.x0, b_.x0)
+                if xo > 0.4 * min(cur.width, b_.width):
+                    gap = max(cur.y0 - b_.y1, b_.y0 - cur.y1)
                     if gap < 320:
-                        cur |= b
+                        cur |= b_
                         used[j] = True
                         changed = True
         if cur.height > 4:                   # a lone rule is a header line
             regions.append(cur)
-    # a table body must contain text
-    keep = []
+
     tb = text_blocks(page)
+    keep = []
     for r in regions:
+        if any(overlap_frac(r, g) > 0.5 for g in graphics):
+            continue                          # rules belonging to a diagram
         n = sum(1 for br, t in tb if overlap_frac(br, r) > 0.5)
-        if n >= 2:
+        if n >= 3:
             keep.append(r)
-    # captions with no rules nearby: take the block run under the caption
+    keep = merge_rects(keep, pad=2.0)
+
+    # captions whose table was not found from horizontal rules
+    vert = [pymupdf.Rect(r.x0 - 0.4, r.y0, r.x1 + 0.4, r.y1)
+            for r in rules if r.height > 20 and r.width < 2.5]
+    vgroups = [v for v in merge_rects(vert, pad=12.0) if v.height > 20]
     for crect, _ in caps:
         if any(abs(crect.y0 - r.y0) < 420 and overlap_frac(crect, r) > 0.2 for r in keep):
             continue
-        near = [br for br, t in tb
-                if br is not crect
-                and min(abs(br.y0 - crect.y1), abs(crect.y0 - br.y1)) < 260
-                and min(br.x1, crect.x1) - max(br.x0, crect.x0) > 0.3 * crect.width]
-        if near:
-            r = pymupdf.Rect(crect)
-            for b in near:
-                r |= b
+        near_v = [v for v in vgroups
+                  if min(abs(v.y0 - crect.y1), abs(crect.y0 - v.y1), 0.0
+                         if v.intersects(crect) else 1e9) < 320]
+        if near_v:
+            r = pymupdf.Rect(near_v[0])
+            for v in near_v[1:]:
+                r |= v
+            for br, t in tb:
+                yo = min(br.y1, r.y1) - max(br.y0, r.y0)
+                xo = min(br.x1, r.x1) - max(br.x0, r.x0)
+                if yo > 0.45 * br.height and xo > 0.45 * br.width:
+                    r |= br
+            keep.append(r)
+            continue
+        # no rules at all: grow out from the caption over the text blocks that
+        # touch it. This also recovers a table rotated onto a landscape page,
+        # where "under the caption" is not where the body is.
+        page_a = page.rect.width * page.rect.height
+        r = pymupdf.Rect(crect)
+        grew = True
+        while grew:
+            grew = False
+            for br, t in tb:
+                if overlap_frac(br, r) > 0.9:
+                    continue
+                g = pymupdf.Rect(r.x0 - 16, r.y0 - 16, r.x1 + 16, r.y1 + 16)
+                if g.intersects(br):
+                    cand = pymupdf.Rect(r) | br
+                    if area(cand) < 0.88 * page_a:
+                        r = cand
+                        grew = True
+        if area(r) > 2.5 * area(crect):
             keep.append(r)
     return keep
 
@@ -313,11 +361,29 @@ def measure(path, verbose=False):
         rules, other, colour_fills, grey_fills = drawing_items(page)
         imgs = image_rects(page)
 
+        graphics_pre = merge_rects(
+            [pymupdf.Rect(r) & prect for r in list(imgs) + list(other)], pad=14.0)
+        graphics_pre = [r for r in graphics_pre if area(r) > 0.004 * pa]
+
+        def graphic_adjacent(r):
+            for g in graphics_pre:
+                xo = min(r.x1, g.x1) - max(r.x0, g.x0)
+                if xo <= 0.25 * min(r.width, max(g.width, 1)):
+                    continue
+                if min(abs(r.y0 - g.y1), abs(g.y0 - r.y1)) < 34:
+                    return True
+            return False
+
         fcaps, tcaps = [], []
         for r, t in blocks:
-            head = t.strip()[:80].replace("\n", " ")
+            head = t.strip()[:90]
+            if len(t.strip()) <= 12:
+                continue
             m = FIG_CAP.match(head)
-            if m and len(t.strip()) > 12:
+            if not m:
+                m2 = FIG_CAP_LOOSE.match(head)
+                m = m2 if (m2 and graphic_adjacent(r)) else None
+            if m:
                 fcaps.append((r, t))
                 num = int(m.group(1))
                 fig_caps.setdefault(num, []).append((pno + 1, caption_words(t)))
@@ -325,7 +391,10 @@ def measure(path, verbose=False):
                     first_fig_page = pno + 1
                 continue
             m = TAB_CAP.match(head)
-            if m and len(t.strip()) > 12:
+            if not m:
+                m2 = TAB_CAP_LOOSE.match(head)
+                m = m2 if m2 and len(rules) >= 2 else None
+            if m:
                 tcaps.append((r, t))
                 key = m.group(1)
                 num = ROMAN.get(key.upper(), None) if not key.isdigit() else int(key)
@@ -333,7 +402,7 @@ def measure(path, verbose=False):
                     num = key
                 tab_caps.setdefault(num, []).append((pno + 1, caption_words(t)))
 
-        tregs = table_regions(page, rules, tcaps)
+        tregs = table_regions(page, rules, tcaps, graphics_pre)
         n_table_regions += len(tregs)
         for t in tregs:
             nr = sum(1 for r in rules if overlap_frac(r, t) > 0.5 and r.width > 0.1 * prect.width)

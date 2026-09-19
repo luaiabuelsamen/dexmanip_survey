@@ -1,20 +1,16 @@
 %% Section 7, Evaluation. Converted from paper/sections/07_evaluation.md.
-\section{Evaluation: how we would compare these methods}
+\section{Evaluation, and a protocol for comparison}
 \label{sec:evaluation}
 
-% --- reproduced plates ------------------------------------------------------
-% tex/figs/plates.tex defines one command per selected photograph. Load it here
-% if nothing has loaded it already, so this section carries its own plates
-% whether or not the preamble inputs the file. The \providecommand before each
-% call makes a missing plate an empty command rather than an error. Every plate
-% has permission still to be sought: read tex/PERMISSIONS.md before this goes anywhere.
+% No reproduced plate in this section: the photograph of the caged motion-capture
+% rig that used to stand here illustrated a cost the paragraph below states in
+% rollouts and hours, which is the form the reader can use.
 % ---------------------------------------------------------------------------
 \makeatletter
-\@ifundefined{plateCageSimAndReal}{\IfFileExists{figs/plates.tex}{\input{figs/plates}}{}}{}
 \@ifundefined{fnLoaded}{\IfFileExists{figs/finding_numbers.tex}{\input{figs/finding_numbers}}{}}{}
 \makeatother
 
-\subsection{What the field reports, and why the numbers do not compare}
+\subsection{Reporting practice}
 \label{subsec:reporting}
 
 \begin{figure}[!t]
@@ -142,9 +138,7 @@ by eye, two defer to a benchmark's own definition, and exactly one, \cite{pistar
 verbatim numeric threshold. A rubric is a milder failure than silence and a worse one than a
 threshold, because it is reproducible inside a lab and not across two.
 
-\subsection{The axes that matter}
-\label{subsec:axes}
-
+\textbf{The axes that matter.}\label{subsec:axes}
 Seven quantities dissociate in the published data, so they have to be reported separately.
 
 \textbf{Task success.} Binary success discards the difference between near-misses and inaction.
@@ -180,7 +174,7 @@ simulation results alone''.
 \textbf{Reproducibility.} 62 rows released code that could be parsed against the paper, and 38 of
 the 112 rows record a disagreement of some kind between the paper and that code. All 38 released
 code, so the raw rate among code-releasing rows is 61 percent. That raw rate is not the finding,
-because the 38 are not one thing. Section~VIII-A classifies them: 9 contradictions, 13 limitations
+because the 38 are not one thing. Section~\ref{sec:train:code} classifies them: 9 contradictions, 13 limitations
 of this survey's own parsing, 8 components never released, 4 version skews and 4 inconsistencies
 internal to a paper. Only the contradictions are a finding about the work rather than about this
 survey, so 9 of 62 code-releasing rows, which is 15 percent, is the figure this section and
@@ -189,7 +183,7 @@ non-zero object-orientation weight for GRAB in its Table 4, and the reward funct
 hard-sets that orientation error to zero, so the reward that produced the published numbers
 tracked the object in position only.
 
-\subsection{Physical plausibility as a first-class metric}
+\subsection{Physical plausibility}
 \label{subsec:plausibility}
 
 % ---------------------------------------------------------------------------
@@ -290,7 +284,12 @@ with anything it measures on its own rollouts. Penetration is a quantity between
 needs a simulator or a mesh reconstruction, and the protocol below treats it as a simulation-only
 axis.
 
-\subsection{Statistics}
+\textbf{What would close it.} The gap is specific to learned closed-loop control rather than general,
+and it is a choice rather than a capability. What would close it is a maximum and a mean penetration
+depth over the evaluation rollouts, on a dense surface sample, computed by a measure the policy never
+optimised.
+
+\subsection{Statistical practice, and a proposed protocol}
 \label{subsec:statistics}
 
 Kress-Gazit et al. \cite{kress_gazit_policy_eval_2024} give the field's reference protocol, and it
@@ -332,9 +331,7 @@ decisions landing in 12 to 36 paired trials. On RoboArena's data a 30-point gap 
 progress scores reaches significance in 18 trials, while a 20-point gap on binary success needs
 about 80.
 
-\subsection{A proposed protocol}
-\label{subsec:protocol}
-
+\textbf{A proposed protocol.}\label{subsec:protocol}
 Every count below is printed by \path{tools/make_eval_tables.py} in its derivation mode, and each
 axis is derived for the statistic that axis actually reports: a single rate takes a Wilson
 half-width, a matched comparison takes McNemar, a ratio takes the standard error of the log ratio,
@@ -449,7 +446,7 @@ count supports rather than leaving a reader to assume the larger one.
   \framebox[0.95\columnwidth]{\rule{0pt}{1.4cm}}
   \end{table}}
 
-\subsection{\texorpdfstring{Table~\ref{tab:matrix}}{The matrix}, an empty results matrix}
+\subsection{The results matrix, and what filling it would cost}
 \label{subsec:matrix}
 
 The rows are the 12 most-mentioned dexterous-hand policy methods in the corpus, and the rule is
@@ -468,8 +465,11 @@ on 34 mentions that belonged to a different work. As a whole word it has 3 and i
 table. And the interface rule is now applied to every row that carries the tag rather than only to
 rows that carry nothing else, which drops \cite{anyteleop_2023} at 34 mentions, \cite{dime_2022}
 at 28 and \cite{holo_dex_2022} at 23, along with \cite{dexpilot_2020}, which the earlier prose
-already excluded by hand. The mention counts are printed under the table so a reader can audit
-them.
+already excluded by hand.
+%% The counts themselves, generated with the table by tools/make_tex_tables.py. They used to be set
+%% under the float in six-point type; they are one sentence of the paragraph that states the rule
+%% they follow from.
+\input{tables/table8_matrix_counts}
 
 The ranking is not one quantity even so. A method's name is taken from the first line of its note,
 which yields an acronym for some works and a full title for others, and a title is matched mostly
@@ -497,12 +497,7 @@ format of a cell is unambiguous. Every number in it is fabricated and labelled a
   \framebox[0.95\columnwidth]{\rule{0pt}{1.4cm}}
   \end{table}}
 
-\subsection{What would have to be true}
-\label{subsec:what_would_be_true}
-
-% The apparatus a headline in-hand reorientation number rests on.
-\providecommand{\plateCageSimAndReal}{}\plateCageSimAndReal
-
+\textbf{What would have to be true.}\label{subsec:what_would_be_true}
 The bill comes first. Per policy and per task the protocol asks for 57 matched trials on the
 anchor set, which is the paired count from \S\ref{subsec:protocol}, and 100 on the unseen-object
 set, at 20 objects and 5 trials each, with robustness and plausibility absorbed by simulation. A
@@ -552,3 +547,10 @@ slot for them, and a threshold is not among them. It is borrowed from one paper 
 borrowed, and it will stay a convention until somebody measures penetration on rollouts across
 hands and engines and finds a value that separates behaviour a physicist would accept from
 behaviour they would not.
+
+\textbf{The methodology literature has no dexterous hand in it.} Seven corpus rows are evaluation
+protocols, a small denominator, and not one of them uses a dexterous hand: Badithela et al.
+\cite{suresim_2025} run a parallel-jaw gripper and the other six state no hand. Everything proposed
+above is therefore assembled from work on grippers and on whole-arm tasks. What would close that, and
+close it cheaply, is to run the Table~\ref{tab:protocol} protocol once, on one in-hand reorientation
+task with one 16-DoF hand, and release the rollouts as the first row of Table~\ref{tab:matrix}.

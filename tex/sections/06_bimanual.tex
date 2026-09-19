@@ -43,7 +43,7 @@ class, Bi-DexHands and Bench2Dex \cite{bidexhands_2022,bench2dex_2026} and RoboP
 \cite{humanoidgen_2025} datasets; they are quoted here as evidence and never counted. Every paper
 below runs two multi-fingered hands unless said otherwise.
 
-\subsection{Why two hands is not twice one hand}
+\subsection{Coupling, roles and collision}
 \label{subsec:two_not_twice}
 
 When both hands hold the same object, the object closes a kinematic loop between them. Neither
@@ -135,7 +135,12 @@ the hardware. Two other rows use a relative quantity without giving either hand 
 \cite{dexmimicgen_2024} applies one shared SE(3) transform to both arms' source segments when
 generating data, which is the mechanism offline rather than in a policy.
 
-\subsection{Benchmarks and datasets for two hands}
+\textbf{What would close it.} One architecture carries three quarters of the field, and the choice
+behind it has been compared twice, with opposite outcomes, and ablated once. What would close it is
+one handover task run on three architectures with the same hand and the same seeds, reporting
+separate giver and receiver returns rather than a single shared one.
+
+\subsection{Benchmarks, datasets and the shared axes}
 \label{subsec:bimanual_benchmarks}
 
 Two purpose-built bimanual dexterous suites exist in the corpus, four years apart.
@@ -159,7 +164,7 @@ tactile models are not calibrated against matching physical hardware.
 Ten corpus rows are bimanual datasets, and five are two-hand interaction capture. ARCTIC
 \cite{arctic_2022} gives 339 mocap sequences of 11 one-DoF articulated objects held in both hands,
 and deliberately labels over-shooting vertices as in contact, so its ground truth records
-interpenetration as contact. TACO \cite{taco_2024} gives 2.5K bimanual tool-use sequences fitted
+interpenetration as contact; \figurename~\ref{fig:contactlabel} is the chain that produces it. TACO \cite{taco_2024} gives 2.5K bimanual tool-use sequences fitted
 markerlessly under an attraction loss and a penetration loss the paper says trade against each
 other. OakInk-V2 \cite{oakink2_2024} is the only corpus dataset publishing a penetration number
 for its own annotations, a mean depth of 0.25 cm over its 627 long-horizon sequences. HOT3D
@@ -170,12 +175,17 @@ neither with a penetration metric. These five feed the tracking work here: DexMa
 \cite{bidexhd_2024} from TACO, ManipTrans \cite{maniptrans_2025} from OakInk-V2 and DexMan
 \cite{dexman_2025} from both.
 
-% From source video to fitted meshes and a contact field.
-\providecommand{\plateArcticDataset}{}\plateArcticDataset
+\begin{figure}[!t]
+  \centering
+  \IfFileExists{figs/fig_contactlabel.tex}{\resizebox{\columnwidth}{!}{\input{figs/fig_contactlabel}}}{%
+    \framebox[0.95\columnwidth]{\rule{0pt}{5.0cm}\textit{figs/fig\_contactlabel.tex pending}}}
+  \caption{Where a capture set's contact annotation comes from. Nothing in the chain is measured
+  at a surface, and a vertex that has gone through the surface is written down as a contact rather
+  than as an error.}
+  \label{fig:contactlabel}
+\end{figure}
 
-\subsection{Methods on the same axes}
-\label{subsec:bimanual_axes}
-
+\textbf{Methods on the same axes.}\label{subsec:bimanual_axes}
 The method tabulation carries the bimanual papers on the same columns as every other method here,
 and three of those columns are worth reading together.
 
@@ -188,10 +198,11 @@ real robot at all:
 \cite{pianomime_2024}. The two piano rows outside the denominator, RoboPianist
 \cite{robopianist_2023} and RP1M \cite{rp1m_2024}, are simulation-only as well.
 
-% The four commonest failures of two-hand grasp synthesis, at the scale of the contact.
+% Two of the four commonest failures of two-hand grasp synthesis, at the scale of the contact.
 \providecommand{\plateGraspPenetration}{}\plateGraspPenetration
 
-Penetration. Most bimanual rows read ``not addressed.'' BimanGrasp \cite{bimangrasp_2024} gates on
+Penetration, and \figurename~\ref{fig:bimanual-penetration} is why it has to be reported beside a
+success rate rather than instead of one. Most bimanual rows read ``not addressed.'' BimanGrasp \cite{bimangrasp_2024} gates on
 it, failing any grasp whose total penetration across hand-object, self and inter-hand exceeds 1.5
 mm, and reports that ``penetration remains the primary cause of grasp failure.'' BiDexGrasp
 \cite{bidexgrasp_2026} reports it as a number, 0.15 to 0.20 cm maximum depth for its own grasps.
@@ -206,11 +217,8 @@ friction 3. BiDexGrasp \cite{bidexgrasp_2026} re-runs the same grasps in MuJoCo 
 and gets 26.80 percent, at 1.52 cm penetration depth. Neither number transfers, and
 Section~\ref{sec:train:track}'s re-implementation result is the same lesson on the training side.
 
-\subsection{Handover and in-hand transfer}
+\subsection{Handover, and what transfers from one hand}
 \label{subsec:handover}
-% Two arms, two hands, and no contact between them but the object's flight.
-\providecommand{\plateHandoverAllegro}{}\plateHandoverAllegro
-
 Handover is the one bimanual task where the hands are unambiguously asymmetric, because one gives
 and one receives. All three corpus handover papers use a single shared reward across giver and
 receiver. None defines separate objectives for the two roles.
@@ -239,9 +247,7 @@ teleoperation with fingertip touch sensing and no physics model. Lin et al.
 hand's fingertips are scored, and still calls handover its hardest task at 52.5 percent real
 success.
 
-\subsection{What transfers from single-hand work}
-\label{subsec:bimanual_transfer}
-
+\textbf{What transfers from single-hand work.}\label{subsec:bimanual_transfer}
 The training recipe transfers intact. PPO with thousands of parallel environments, an asymmetric
 critic on privileged state, domain randomisation and distillation into a vision policy is the same
 in \cite{twisting_lids_2024} and \cite{humanoid_sim2real_recipe_2025} as in

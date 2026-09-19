@@ -2,22 +2,19 @@
 \section{Hands and who makes them}
 \label{sec:hands}
 
-\subsection{The design axes}
+\subsection{Design axes}
 \label{sec:hands:axes}
 
-% --- reproduced plates ------------------------------------------------------
-% tex/figs/plates.tex defines one command per selected photograph. Load it here
-% if nothing has loaded it already, so this section carries its own plates
-% whether or not the preamble inputs the file. The \providecommand before each
-% call makes a missing plate an empty command rather than an error. Every plate
-% has permission still to be sought: read tex/PERMISSIONS.md before this goes anywhere.
+% --- the one reproduced plate in this section -------------------------------
+% tex/figs/plates.tex defines one command per reproduced photograph; three
+% survive in the whole paper and one of them is here. Load the file if nothing
+% has loaded it already, so this section carries its plate whether or not the
+% preamble inputs it. The \providecommand before the call makes a missing plate
+% an empty command rather than an error. Read tex/PERMISSIONS.md before posting.
 % ---------------------------------------------------------------------------
 \makeatletter
-\@ifundefined{plateLeapOverview}{\IfFileExists{figs/plates.tex}{\input{figs/plates}}{}}{}
+\@ifundefined{plateHandScale}{\IfFileExists{figs/plates.tex}{\input{figs/plates}}{}}{}
 \makeatother
-
-% A hand photograph at the head of the hardware section.
-\providecommand{\plateLeapOverview}{}\plateLeapOverview
 
 No degree-of-freedom, force, weight or price figure in Table~\ref{tab:hands-available} or
 Table~\ref{tab:hands-announced}, both set in Appendix~\ref{app:tables}, was measured by anyone
@@ -40,10 +37,18 @@ micro-servos and two wrist servos, so 18 servos is the only count quotable for i
 with no rigid joints, which has far fewer kinematic degrees of freedom than actuators
 \cite{daxo_muscle_v0_2025}.
 
-% A transmission left exposed, beside the actuation-ratio argument.
-\providecommand{\plateIldaLinkage}{}\plateIldaLinkage
+\begin{figure}[!t]
+  \centering
+  \IfFileExists{figs/fig_transmission.tex}{\resizebox{\columnwidth}{!}{\input{figs/fig_transmission}}}{%
+    \framebox[0.95\columnwidth]{\rule{0pt}{5.2cm}\textit{figs/fig\_transmission.tex pending}}}
+  \caption{Three answers to where the motor goes, and what each one costs. A coupling bar saves an
+  actuator by tying two joints, so the fingertip reaches a curve through the reachable region
+  rather than the region itself.}
+  \label{fig:transmission}
+\end{figure}
 
-The actuation ratio is the real decision. The Pisa/IIT SoftHand drives 19 joints from one motor
+The actuation ratio is the real decision, and \figurename~\ref{fig:transmission} sets the three
+answers side by side. The Pisa/IIT SoftHand drives 19 joints from one motor
 and its authors state the cost plainly: ``No in-hand dexterous manipulation is required for this
 prototype'' \cite{pisa_iit_softhand_2014}. Tendon drive moves the motors off the fingers and the
 mass follows them. Shadow's hand plus forearm weighs 4.3 kg, against 1.1 kg for the ILDA hand
@@ -55,9 +60,6 @@ blamed on ``poor joint angle measurement from the EKFs, especially when there is
 \cite{faive_hand_2023}. Ruka-v2 adds detachable AS5600 encoders to measure that problem rather
 than close the loop on it, and those encoders put its open-loop linear joint-to-motor map at 8.26
 degrees of error over seven joints \cite{ruka_v2_2026}.
-
-% The linkage that cuts the actuator count, beside the coupling argument.
-\providecommand{\plateCoupledLinkage}{}\plateCoupledLinkage
 
 Direct drive trades torque density for transparency. LEAP's Dynamixel joints resist 19.5 N in a
 pull-out test against the Allegro Hand's 8.5 N, at 595 g for the LEAP hand \cite{leap_hand_2023},
@@ -109,7 +111,7 @@ contains none \cite{leap_hand_2023}.
 % consulted rather than read, so it is reference material; see the head of Appendix B.
 % ---------------------------------------------------------------------------
 
-\subsection{The hands the research literature actually runs on}
+\subsection{Hands in use, and what they cost}
 \label{sec:hands:used}
 
 % ---------------------------------------------------------------------------
@@ -150,9 +152,7 @@ Inspire, XHand and Sharpa take 29 of the 103 rows between them, four rows use tw
 and none is earlier than 2024. Eight take none at all: ORCA, RUKA, Ruka-v2, BiDexHand, DexHand,
 the Proception ProHand, the Tesollo DG-5F and the Unitree Dex5.
 
-\subsection{Open hardware and the collapse in cost}
-\label{sec:hands:open}
-
+\textbf{Open hardware and the collapse in cost.}\label{sec:hands:open}
 Six rows in Table~\ref{tab:hands-available} are open hardware, and LEAP Hand V2 in
 Table~\ref{tab:hands-announced} is a seventh. Five of the seven state a dollar cost: \$2,000 for
 LEAP, \$3,000 for LEAP Hand V2, \$1,500 for Ruka-v2, \$1,300 for RUKA and \$300 for DexHand. ORCA
@@ -176,42 +176,8 @@ BiDexHand's sources never mention touch \cite{bidexhand_2025}. ORCA is the excep
 FSR fingertips whose threshold was measured as low as 0.05 N on a fresh fingertip, against the
 sensor's rated 0.29 N, and 6.38 N on a degraded one \cite{orca_hand_2025}.
 
-\subsection{Announced and unreleased hands}
-\label{sec:hands:announced}
-
-Behind Table~\ref{tab:hands-announced}'s rows sit three kinds of evidence, and conflating them is
-how a DoF figure with no source ends up in a survey. Vendor prose carrying numbers is the
-strongest, as on 1X's page of 9 July 2026 \cite{onex_neo_hand_2026}. Video is second and carries
-none. Press or bibliography assertion is third, as with Tesla's V3 hand, known here only through a
-paraphrase of patents because the USPTO PDF parsed empty \cite{tesla_optimus_hand_2025}.
-Table~\ref{tab:hands-announced} blanks the cells resting on the third class and footnotes who did
-the arithmetic.
-
-A survey can go one step past recording that a claim is unverified, which is to say which claims
-are implausible on their face. Daxo's 120 actuators in 750 g is about 6 g per actuator including
-structure, tendons, routing and skin \cite{daxo_muscle_v0_2025}. Clone's 27 degrees of freedom
-under 2 pounds excludes a 500 W pump the source does not confirm is excluded
-\cite{clone_robotics_hand_2024}. Figure 03's ``Degrees of freedom, hands \textbar{} 20'' sits on
-the same tracker page as ``Number of fingers \textbar{} 10'', so it is almost certainly the pair
-\cite{figure_03_hand_2025}. Tesla's repeated 22 is one article's arithmetic of four DoF on each of
-five fingers plus two at the wrist, and Gen 2's own figure was 11 \cite{tesla_optimus_hand_2025}.
-
-Scepticism belongs to the evidence class, not to which table a row lands in. Sharpa's 22 of 22,
-Wuji's 20 of 20 and Tesollo's 20 of 20 are vendor claims about unmeasured hardware and they sit in
-Table~\ref{tab:hands-available}, where Sharpa's page footnotes ``Specifications may vary between
-products'' and Wuji's says the spec ``will continue to iterate'' on a Beta1 product
-\cite{sharpa_wave_2026,wuji_hand_2025}. Even the best-specified vendor page in the corpus leaves
-its fingertip-force columns unlabelled.
-
-% ---------------------------------------------------------------------------
-% Table 3, the announced and unreleased hands, is set in Appendix B rather than here.
-% ---------------------------------------------------------------------------
-
-\subsection{Tactile sensing as part of the hand}
+\subsection{Tactile sensing}
 \label{sec:hands:tactile}
-
-% Vision-based tactile sensors used as the fingertips themselves.
-\providecommand{\plateDigitFingertips}{}\plateDigitFingertips
 
 DIGIT set the cost floor. It is 20 by 27 by 18 mm, weighs about 20 g, streams 640x480 at 60 fps,
 and its paper states a ``total estimated manufacturing cost is approximately 15 USD per sensor ...
@@ -223,9 +189,6 @@ Digit 360 is the same lineage at a different operating point, claiming about 8.3
 spatial features to 7 um, normal and shear force resolution of 1.01 mN and 1.27 mN, and on-device
 processing that cuts event-to-action latency from 6 ms to 1.2 ms \cite{digit360_2024}. It is also
 not for sale, and no corpus paper's parsed text names it.
-
-% A pad fitted to a commercial hand: the other way to change what a fingertip does.
-\providecommand{\plateInspireTactilePad}{}\plateInspireTactilePad
 
 XELA's uSkin is the non-camera alternative and the one that bolts onto hands the field already
 uses. Its curved fingertip kit for the Allegro V4 and LEAP carries 30 three-axis sensing points, a
@@ -255,9 +218,38 @@ learning ``due to the additional complexity involved in accurately modeling them
 \cite{orca_hand_2025}. Taxel counts have risen by three orders of magnitude while the policies
 consuming them have stayed at binary contact.
 
-\subsection{What is sold against what is published on}
-\label{sec:hands:gap}
+\subsection{The catalogue against the literature}
+\label{sec:hands:announced}
 
+\textbf{Three classes of evidence.} Behind Table~\ref{tab:hands-announced}'s rows sit three kinds of evidence, and conflating them is
+how a DoF figure with no source ends up in a survey. Vendor prose carrying numbers is the
+strongest, as on 1X's page of 9 July 2026 \cite{onex_neo_hand_2026}. Video is second and carries
+none. Press or bibliography assertion is third, as with Tesla's V3 hand, known here only through a
+paraphrase of patents because the USPTO PDF parsed empty \cite{tesla_optimus_hand_2025}.
+Table~\ref{tab:hands-announced} blanks the cells resting on the third class and footnotes who did
+the arithmetic.
+
+A survey can go one step past recording that a claim is unverified, which is to say which claims
+are implausible on their face. Daxo's 120 actuators in 750 g is about 6 g per actuator including
+structure, tendons, routing and skin \cite{daxo_muscle_v0_2025}. Clone's 27 degrees of freedom
+under 2 pounds excludes a 500 W pump the source does not confirm is excluded
+\cite{clone_robotics_hand_2024}. Figure 03's ``Degrees of freedom, hands \textbar{} 20'' sits on
+the same tracker page as ``Number of fingers \textbar{} 10'', so it is almost certainly the pair
+\cite{figure_03_hand_2025}. Tesla's repeated 22 is one article's arithmetic of four DoF on each of
+five fingers plus two at the wrist, and Gen 2's own figure was 11 \cite{tesla_optimus_hand_2025}.
+
+Scepticism belongs to the evidence class, not to which table a row lands in. Sharpa's 22 of 22,
+Wuji's 20 of 20 and Tesollo's 20 of 20 are vendor claims about unmeasured hardware and they sit in
+Table~\ref{tab:hands-available}, where Sharpa's page footnotes ``Specifications may vary between
+products'' and Wuji's says the spec ``will continue to iterate'' on a Beta1 product
+\cite{sharpa_wave_2026,wuji_hand_2025}. Even the best-specified vendor page in the corpus leaves
+its fingertip-force columns unlabelled.
+
+% ---------------------------------------------------------------------------
+% Table 3, the announced and unreleased hands, is set in Appendix B rather than here.
+% ---------------------------------------------------------------------------
+
+\textbf{What is sold against what is published on.}\label{sec:hands:gap}
 The band at zero in \figurename~\ref{fig:hands} carries the finding. None of the nine
 company-announced hands in Table~\ref{tab:hands-announced} appears in a single method row whose
 own experiments use it. Tesla, Figure, 1X, Sanctuary, Boston Dynamics, Xiaomi, Clone, Daxo and
@@ -294,3 +286,15 @@ disk is Ruka-v2's secondhand ``\textasciitilde{}\$25K'' \cite{ruka_v2_2026}. A r
 hand on this corpus's evidence has two well-precedented options, an Allegro or an Inspire, and a
 third in LEAP if twelve papers is enough. Everything else is a press release or a hand nobody has
 published on.
+
+\textbf{What would close the gap.} Nineteen of the 33 hands in
+Table~\ref{tab:hands-available} and Table~\ref{tab:hands-announced} appear in no method row, and 11
+of those are neither sold nor open and appear in none for that reason, so 33 is not the denominator
+for a software-lag claim: the eight hands of the paragraph above are. The rule that decides used
+from unused is one regular expression per hand against the method rows' own hand field, in
+\path{tools/hand_usage.py}, so the partition can be recomputed rather than argued about. The lag
+runs through the tooling as well as the papers. Only three of the fifteen simulator rows name a real
+hand at all, and the ones they do name are the field's defaults, while Bench2Dex
+\cite{bench2dex_2026} compares 12 hands and DexVerse \cite{dexverse_2026} six without stating a DoF
+count for any. What would close it is a conformance suite for hand models: one URDF or MJCF per
+hand, with fixed joint-limit, mass and collision checks and a published pass or fail per engine.

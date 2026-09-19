@@ -1,0 +1,76 @@
+% Figure: the one place in this corpus where interpenetration is the reading and not the error.
+% Drawn for the LaTeX edition in the restrained palette: greyscale plus the one accent, thin
+% rules, square corners. It replaces a reproduced four-panel screenshot (depth image,
+% interpenetration field, tactile RGB, force field), which showed what the four outputs look like
+% but not that all four are functions of one overlap depth.
+%
+% The numbers are Sec. IV's and carry their citation there: Tactile Genesis binarises the depth
+% with Schmitt hysteresis at 5e-4 m on and 2e-4 m off (tactile_genesis_2026). Nothing else here
+% is a measurement; the cross-section is schematic and says so in the section, not in the figure.
+\begin{tikzpicture}[
+  font=\footnotesize,
+  gel/.style={draw=black!55,line width=0.4pt,fill=wash},
+  rigid/.style={draw=black!65,line width=0.5pt,fill=black!14},
+  rest/.style={draw=black!45,line width=0.35pt,dash pattern=on 1.6pt off 1.4pt},
+  over/.style={draw=none,fill=accent,fill opacity=0.22},
+  dim/.style={draw=accent,line width=0.5pt,<->},
+  outbox/.style={draw=black!45,line width=0.3pt,inner sep=3pt,align=center,
+              font=\scriptsize,text width=24mm},
+  arr/.style={draw=accent,line width=0.5pt,-latex},
+  hd/.style={font=\scriptsize\bfseries,anchor=west},
+  note/.style={font=\scriptsize\color{black!60},anchor=west,align=left},
+  ax/.style={draw=black!55,line width=0.4pt},
+  tk/.style={font=\scriptsize\color{black!60},anchor=north},
+]
+
+% ------------------------------------------------------------ the cross-section
+\begin{scope}[shift={(0,0)}]
+  % the gel, and where its surface would be unloaded
+  \fill[wash] (0,0) rectangle (3.30,0.80);
+  \draw[gel] (0,0) rectangle (3.30,0.80);
+  \draw[rest] (0,0.80) -- (3.30,0.80);
+  % the indenter, pressed in
+  \draw[rigid] (1.05,0.36) -- (2.25,0.36) -- (2.25,1.36) -- (1.05,1.36) -- cycle;
+  \fill[over] (1.05,0.36) rectangle (2.25,0.80);
+  \draw[accent,line width=0.5pt] (1.05,0.80) -- (1.05,0.36) -- (2.25,0.36) -- (2.25,0.80);
+  \draw[gel] (0,0.80) -- (1.05,0.80);  \draw[gel] (2.25,0.80) -- (3.30,0.80);
+  \node[font=\scriptsize\color{black!70}] at (1.65,1.00) {object};
+  \node[font=\scriptsize\color{black!70},anchor=west] at (0.10,0.34) {sensor gel};
+  % the depth
+  \draw[dim] (2.52,0.36) -- (2.52,0.80);
+  \node[font=\scriptsize\color{accent},anchor=west] at (2.60,0.58) {$d$};
+  \node[note,anchor=north west,text width=76mm] at (0,-0.28)
+    {$d$ is the depth by which the two solids overlap: the quantity every other engine in
+     Sec.~IV works to remove};
+\end{scope}
+
+% ------------------------------------------------------------- what is read off
+\node[outbox] (o1) at (5.35,1.14) {tactile image};
+\node[outbox] (o2) at (5.35,0.30) {distributed force};
+\draw[arr] (2.95,0.74) .. controls (3.70,0.98) and (3.85,1.14) .. (4.24,1.14);
+\draw[arr] (2.95,0.50) .. controls (3.70,0.36) and (3.85,0.30) .. (4.24,0.30);
+
+% ------------------------------------------------------- the operating point
+\begin{scope}[shift={(0,-2.55)}]
+  \draw[ax] (0,0) -- (5.20,0);
+  \foreach \x/\l in {0/0, 1.30/0.2, 3.25/0.5, 5.20/0.8} {
+    \draw[ax] (\x,0) -- (\x,-0.10);
+    \node[tk] at (\x,-0.12) {\l};}
+  \node[tk,anchor=west] at (5.36,-0.06) {mm};
+  \fill[black!12] (0,0.06) rectangle (1.30,0.34);
+  \fill[black!22] (1.30,0.06) rectangle (3.25,0.34);
+  \fill[accent] (3.25,0.06) rectangle (5.20,0.34);
+  \node[font=\scriptsize\color{black!65}] at (0.65,0.20) {off};
+  \node[font=\scriptsize\color{black!65}] at (2.28,0.20) {holds};
+  \node[font=\scriptsize\color{white}] at (4.22,0.20) {on};
+  \node[note,anchor=south west] at (0,0.54) {the same $d$, thresholded, is the contact flag:\\%
+                                       on above 0.5\,mm, off below 0.2\,mm};
+\end{scope}
+
+% ------------------------------------------------------------------ the point
+\draw[draw=black!25,line width=0.28pt] (0,-3.42) -- (7.90,-3.42);
+\node[anchor=north west,align=left,font=\scriptsize,text width=78mm] at (0,-3.58)
+  {\textcolor{accent}{\textbf{The inversion.}} Everywhere else in this survey the overlap is the
+   error. For a compliant tactile sensor it is the signal, so the quantity a policy elsewhere is
+   penalised for producing is the one this sensor is calibrated to read.};
+\end{tikzpicture}

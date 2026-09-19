@@ -1,0 +1,118 @@
+% Figure: where the motor sits, and what each answer costs. Drawn for the LaTeX edition in the
+% restrained palette: greyscale plus the one accent, thin rules, square corners, document font.
+% It replaces four reproduced photographs (a direct-drive hand, an exposed linkage transmission,
+% a coupled four-bar phalanx and a screenshot of tendons routed over wrapping cylinders) with the
+% mechanism they were standing in for, which none of them actually drew: what the drive does to
+% the fingertip's reachable set, and what it costs to know where the joint is.
+%
+% Every quantity the rows allude to is stated with its citation in Sec. III: LEAP's 19.5 N
+% pull-out against the Allegro's 8.5 N at 595 g (leap_hand_2023); ILDA's 15 motors in the palm,
+% 1.1 kg and 34 N fingertip (ilda_hand_2021); Shadow's 4.3 kg with the forearm
+% (shadow_dexterous_hand_2005); BiDexHand's four-bar driving each DIP off its PIP
+% (bidexhand_2025); the Faive Hand's EKF joint angles failing under contact (faive_hand_2023) and
+% Ruka-v2's 8.26 degrees over seven joints (ruka_v2_2026). The figure prints no number itself.
+%
+% The right-hand column is the load-bearing part. Under an independent drive the fingertip
+% reaches a region of the plane; under a coupling the joints are tied, so it reaches a curve
+% through that region and nothing off it. That is what an actuator saved actually costs, and it
+% is the one thing a photograph of a linkage cannot show.
+%
+% Geometry: three rows on a 1.90 cm pitch, drawing at x 0-2.6, text at 3.0-6.3, reachable set at
+% 6.5-8.2. Drawn at 8.2 cm so that at one column the \scriptsize labels stay near 7 pt.
+\begin{tikzpicture}[
+  font=\footnotesize,
+  palm/.style={draw=black!45,fill=wash,line width=0.3pt},
+  link/.style={draw=black!55,fill=white,line width=0.35pt},
+  linkacc/.style={draw=accent,fill=white,line width=0.6pt},
+  bar/.style={draw=accent,line width=0.6pt},
+  pin/.style={draw=accent,fill=white,line width=0.4pt},
+  tend/.style={draw=accent,line width=0.6pt},
+  wrap/.style={draw=black!55,fill=white,line width=0.35pt},
+  hd/.style={font=\scriptsize\bfseries,anchor=north west},
+  txt/.style={font=\scriptsize,anchor=north west,align=left,text width=32mm},
+  capt/.style={font=\scriptsize\color{black!60},anchor=north,align=center,text width=30mm},
+  glab/.style={font=\scriptsize\color{black!60},anchor=north,align=center,text width=21mm},
+]
+
+% ------------------------------------------------------------- row 1, direct --
+\begin{scope}[shift={(0,5.05)}]
+  \node[palm,minimum width=5.5mm,minimum height=9mm,inner sep=0pt] at (0.275,0) {};
+  \draw[linkacc] (0.62,-0.16) rectangle (1.55,0.16);
+  \draw[linkacc] (1.62,-0.16) rectangle (2.35,0.16);
+  \fill[accent] (0.585,0) circle (0.15);
+  \fill[accent] (1.585,0) circle (0.15);
+  \fill[white] (0.585,0) circle (0.045);
+  \fill[white] (1.585,0) circle (0.045);
+  \node[capt] at (1.20,-0.50) {the motor \emph{is} the joint};
+\end{scope}
+
+% ------------------------------------------------------------ row 2, linkage --
+\begin{scope}[shift={(0,3.15)}]
+  \node[palm,minimum width=5.5mm,minimum height=9mm,inner sep=0pt] at (0.275,0) {};
+  \fill[accent] (0.275,0.19) circle (0.095);
+  \fill[accent] (0.275,-0.19) circle (0.095);
+  \draw[link] (0.62,-0.16) rectangle (1.55,0.16);
+  \draw[link] (1.62,-0.16) rectangle (2.35,0.16);
+  \draw[bar] (0.52,0.32) -- (1.80,0.32);
+  \draw[pin] (0.52,0.32) circle (0.05);
+  \draw[pin] (1.80,0.32) circle (0.05);
+  \draw[black!55,line width=0.35pt] (1.80,0.32) -- (1.80,0.16);
+  \node[capt] at (1.20,-0.50) {one bar ties the two joints};
+\end{scope}
+
+% ------------------------------------------------------------- row 3, tendon --
+\begin{scope}[shift={(0,1.25)}]
+  \draw[palm] (-0.70,-0.22) rectangle (-0.16,0.22);
+  \fill[accent] (-0.43,0) circle (0.10);
+  \node[palm,minimum width=5.5mm,minimum height=9mm,inner sep=0pt] at (0.275,0) {};
+  \draw[link] (0.62,-0.16) rectangle (1.55,0.16);
+  \draw[link] (1.62,-0.16) rectangle (2.35,0.16);
+  \draw[wrap] (0.585,0.16) circle (0.09);
+  \draw[wrap] (1.585,0.16) circle (0.09);
+  \draw[tend] (-0.43,0.11) -- (0.28,0.225) -- (0.675,0.25)
+              .. controls (1.05,0.255) and (1.24,0.255) .. (1.495,0.25)
+              -- (1.675,0.25) -- (2.26,0.235);
+  \node[capt] at (1.20,-0.50) {routed over wrapping surfaces};
+\end{scope}
+
+% ---------------------------------------------------------------- the text ----
+\node[hd]  at (3.00,5.48) {direct drive};
+\node[txt] at (3.00,5.18) {Motors in the fingers, one per joint. The finger is as large as its
+                           motors are.};
+
+\node[hd]  at (3.00,3.58) {linkage};
+\node[txt] at (3.00,3.28) {Motors in the palm, through four-bars. A coupling bar buys an actuator
+                           back.};
+
+\node[hd]  at (3.00,1.68) {tendon};
+\node[txt] at (3.00,1.38) {Motors leave the hand and the mass goes with them. The cost is knowing
+                           the joint angle.};
+
+% ------------------------------------------------- the reachable-set column ----
+\node[font=\scriptsize\bfseries\color{black!70},anchor=south] at (7.35,6.06)
+  {fingertip reaches};
+
+% a region: the two joints are driven independently
+\foreach \y in {5.05,1.25} {
+  \begin{scope}[shift={(6.80,\y)}]
+    \fill[black!10] (-34:0.24) arc (-34:34:0.24) -- (34:0.64) arc (34:-34:0.64) -- cycle;
+    \draw[black!45,line width=0.3pt] (-34:0.24) arc (-34:34:0.24);
+    \draw[black!45,line width=0.3pt] (-34:0.64) arc (-34:34:0.64);
+    \draw[black!45,line width=0.3pt] (-34:0.24) -- (-34:0.64);
+    \draw[black!45,line width=0.3pt] (34:0.24) -- (34:0.64);
+  \end{scope}}
+\node[glab] at (7.35,4.60) {a region};
+\node[glab] at (7.35,0.80) {a region, once\\the angle is known};
+
+% a curve: the coupling ties one joint to the other
+\begin{scope}[shift={(6.80,3.15)}]
+  \fill[black!4] (-34:0.24) arc (-34:34:0.24) -- (34:0.64) arc (34:-34:0.64) -- cycle;
+  \draw[black!28,line width=0.25pt,dash pattern=on 1pt off 1.2pt] (-34:0.24) arc (-34:34:0.24);
+  \draw[black!28,line width=0.25pt,dash pattern=on 1pt off 1.2pt] (-34:0.64) arc (-34:34:0.64);
+  \draw[accent,line width=0.8pt] (-31:0.31) .. controls (-8:0.42) and (9:0.54) .. (31:0.60);
+\end{scope}
+\node[glab] at (7.35,2.70) {a curve through it};
+
+\draw[draw=black!25,line width=0.28pt] (0,5.95) -- (8.30,5.95);
+\draw[draw=black!25,line width=0.28pt] (0,-0.06) -- (8.30,-0.06);
+\end{tikzpicture}

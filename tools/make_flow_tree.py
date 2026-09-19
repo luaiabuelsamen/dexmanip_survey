@@ -16,7 +16,8 @@ STYLE = """<style>
  .k{font-size:10.5px;fill:var(--mut);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
  .box{fill:var(--fill);stroke:var(--line);stroke-width:1}
  .ghost{fill:none;stroke:var(--line);stroke-width:1;stroke-dasharray:3 3}
- .ed{stroke:var(--mut);fill:none;opacity:.55}.tree{stroke:var(--line);fill:none;stroke-width:1.2}
+ .ed{stroke:var(--mut);fill:none}
+ .rule{stroke:var(--line);fill:none;stroke-width:1}.tree{stroke:var(--line);fill:none;stroke-width:1.2}
  .xl{fill:none;stroke:var(--mut);stroke-width:1.1;stroke-dasharray:5 4;opacity:.75}
  .xt{fill:none;stroke:var(--mut);stroke-width:1.1;stroke-dasharray:6 3 2 3;opacity:.85}
  .xw{font-size:9.5px;fill:var(--mut);font-style:italic}
@@ -27,66 +28,149 @@ def svg(w,h,body,title):
 def esc(s): return str(s).replace("&","&amp;").replace("<","&lt;").replace(">","&gt;")
 
 def norm_sim(s):
+    """Normalise a sim field to the buckets Figure 1 draws.
+
+    This is the rule tools/make_tikz_figures.py uses, word for word, because the two editions
+    draw one figure and a bucket that differs between them prints two counts for one quantity.
+    The order matters: a field that names an engine and then says the version is not stated is
+    that engine, not a reporting gap.
+    """
     s=(s or "").lower()
-    if not s or "not stated" in s: return "not stated"
-    if "isaac lab" in s or "isaaclab" in s or "isaac sim" in s or "isaacsim" in s or "orbit" in s: return "Isaac Lab / Sim"
+    if any(k in s for k in ("isaac lab","isaaclab","isaac sim","isaacsim","orbit")): return "Isaac Lab or Sim"
     if "isaac" in s: return "Isaac Gym"
     if "mjx" in s or "mujoco" in s: return "MuJoCo"
     if "sapien" in s or "maniskill" in s: return "SAPIEN"
-    if "bullet" in s: return "PyBullet"
-    if "raisim" in s: return "RaiSim"
-    if "drake" in s: return "Drake"
-    if "genesis" in s: return "Genesis"
-    if s in ("none","no simulator","n/a"): return "no simulator"
+    if not s or "not stated" in s: return "not stated"
+    if s in ("none","no simulator"): return "no simulator"
     return "other"
 
+def wrap(text, width):
+    """Greedy wrap on word boundaries: SVG text does not wrap itself."""
+    lines, cur = [], ""
+    for w in text.split():
+        if cur and len(cur) + 1 + len(w) > width:
+            lines.append(cur); cur = w
+        else:
+            cur = f"{cur} {w}".strip()
+    if cur: lines.append(cur)
+    return lines
+
 def fig1():
-    human=sum(1 for r in M if r.get("human_data") and str(r["human_data"]).lower() not in ("none","no","null"))
-    nodem=sum(1 for r in M if str(r.get("human_data") or "").lower() in ("none","no"))
-    hns=N-human-nodem
-    one=sum(1 for r in M if r.get("bimanual") is False); two=sum(1 for r in M if r.get("bimanual") is True)
-    sims=Counter(norm_sim(r.get("sim")) for r in M)
-    par=Counter(p for r in M for p in (r.get("paradigm") or []))
-    real=sum(1 for r in M if r.get("real_robot") is True); simonly=N-real
-    pen=Counter(str(r.get("penetration")) for r in M)
-    penany=sum(pen[k] for k in ("penalised","measured","constrained"))
-    cols=[("data source",[("human data named",human,False),("no demonstrations",nodem,False),("not stated",hns,True)]),
-          ("embodiment",[("one hand",one,False),("two hands",two,False),("not stated",N-one-two,True)]),
-          ("simulator",[(k,v,k=="not stated") for k,v in sims.most_common(7)]),
-          ("training paradigm",[(k,v,False) for k,v in par.most_common(7)]),
-          ("evaluation",[("real robot",real,False),("simulation only",simonly,False),
-                         ("penetration addressed",penany,False),("penetration not addressed",pen.get("not addressed",0),False)])]
-    W,H=1010,585; x0,cw,gap=24,178,22
-    b=[f'<text class="t" x="24" y="28">Figure 1. The field on one page</text>',
-       f'<text class="s" x="24" y="48">Every node is a count over the {N} method papers in the corpus. Dashed nodes are reporting gaps, not choices.</text>',
-       f'<text class="s" x="24" y="64">Paradigm counts exceed {N} because a method may use several. Recomputed from corpus/rows at draw time.</text>']
-    top=92; maxv=max(v for _,items in cols for _,v,_ in items) or 1
-    pos={}
-    for ci,(cname,items) in enumerate(cols):
-        cx=x0+ci*(cw+gap)
-        b.append(f'<text class="h" x="{cx+cw/2}" y="{top-12}" text-anchor="middle">{cname}</text>')
-        y=top
-        for name,v,ghost in items:
-            h=max(24,int(16+56*v/maxv))
-            cls="ghost" if ghost else "box"
-            fill=' fill="var(--warn)" fill-opacity="0.18" stroke="var(--warn)"' if "silent" in name else ""
-            b.append(f'<rect class="{cls}" x="{cx}" y="{y}" width="{cw}" height="{h}" rx="3"{fill}/>')
-            b.append(f'<text class="l" x="{cx+8}" y="{y+15}">{esc(name)}</text>')
-            b.append(f'<text class="n" x="{cx+cw-8}" y="{y+15}" text-anchor="end">{v}</text>')
-            pos[(ci,name)]=(cx,y+h/2,cw,h); y+=h+9
-        cols[ci]=(cname,items)
-    for ci in range(4):
-        for (c,n),(x,yy,w,h) in list(pos.items()):
-            if c!=ci: continue
-            for (c2,n2),(x2,y2,w2,h2) in list(pos.items()):
-                if c2!=ci+1: continue
-                sw=max(.4,min(3.2,(h*h2)/900))
-                b.append(f'<path class="ed" d="M{x+w},{yy} C{x+w+16},{yy} {x2-16},{y2} {x2},{y2}" stroke-width="{sw:.1f}"/>')
-    cap=top+330
-    b.append(f'<text class="s" x="24" y="{cap}">The routes converge. The heaviest single path is no demonstrations, one hand, Isaac Gym,</text>')
-    b.append(f'<text class="s" x="24" y="{cap+16}">reinforcement learning, real robot. Whatever enters on the left, almost everything leaves through a</text>')
-    b.append(f'<text class="s" x="24" y="{cap+32}">GPU simulator and arrives at a real robot without contact quality ever being measured.</text>')
-    return svg(W,H,"".join(b),"The field on one page")
+    """Figure 1, the map of the survey: five columns from data source to evaluation.
+
+    The column heads carry the section that covers them, so the figure is the table of contents
+    drawn and a reader can navigate from it. A node is a predicate over the method rows and its
+    count is that predicate applied; an edge is the rows that satisfy both of the nodes it joins,
+    so a route no paper takes is not drawn at all. Edges used to run between every adjacent pair
+    at a width taken from the two boxes, which drew routes the corpus does not contain. The
+    columns, the nodes and the edge rule are the same here as in tools/make_tikz_figures.py, so
+    the two editions draw one figure.
+    """
+    def human(r):
+        v = str(r.get("human_data") or "").lower()
+        return bool(r.get("human_data")) and v not in ("none", "no")
+    def nodem(r): return str(r.get("human_data") or "").lower() in ("none", "no")
+    HANDLED = ("penalised", "measured", "constrained")
+    sims = [k for k, _ in Counter(norm_sim(r.get("sim")) for r in M).most_common(6)]
+    pars = [k for k, _ in Counter(p for r in M for p in (r.get("paradigm") or [])).most_common(6)]
+    cols = [
+        ("data source", "Sec. 5.3",
+         [("human data named", human, 0), ("no demonstrations", nodem, 0),
+          ("not stated", lambda r: not human(r) and not nodem(r), 1)]),
+        ("embodiment", "Sec. 3, 6",
+         [("one hand", lambda r: r.get("bimanual") is False, 0),
+          ("two hands", lambda r: r.get("bimanual") is True, 0),
+          ("not stated", lambda r: r.get("bimanual") is None, 1)]),
+        ("simulator", "Sec. 4",
+         [(k, (lambda k: lambda r: norm_sim(r.get("sim")) == k)(k),
+           1 if k == "not stated" else 0) for k in sims]),
+        ("training paradigm", "Sec. 5",
+         [(k, (lambda k: lambda r: k in (r.get("paradigm") or []))(k), 0) for k in pars]),
+        ("evaluation", "Sec. 7",
+         [("real robot", lambda r: r.get("real_robot") is True, 0),
+          ("simulation only", lambda r: r.get("real_robot") is not True, 0),
+          ("penetration addressed", lambda r: r.get("penetration") in HANDLED, 2),
+          ("penetration silent", lambda r: r.get("penetration") == "not addressed", 2)]),
+    ]
+    count = {(ci, name): sum(1 for r in M if pred(r))
+             for ci, (_, _, items) in enumerate(cols) for name, pred, _ in items}
+    # --- geometry ------------------------------------------------------------------------
+    # The five columns are 950 by about 475, the 2:1 the LaTeX edition sets at 180 by 91 mm.
+    # The whole drawing stays under the 1000-unit viewBox that tools/make_pdf.py treats as
+    # wide, because a figure this shape reads on the portrait page beside the text that
+    # introduces it and does not need a landscape page of its own.
+    x0, cw, gap, top = 20, 146, 55, 148
+    h0, kh, vgap = 28.0, 144.0, 9.0
+    mx = max(count.values()) or 1
+    stack = {ci: sum(max(h0, h0 + kh * count[(ci, n)] / mx) for n, _, _ in items)
+             + vgap * (len(items) - 1) for ci, (_, _, items) in enumerate(cols)}
+    tall = max(stack.values())
+    geo, mid = {}, {}
+    for ci, (cname, sec, items) in enumerate(cols):
+        x = x0 + ci * (cw + gap)
+        y = top + (tall - stack[ci]) / 2          # every column on one midline
+        for name, _, kind in items:
+            v = count[(ci, name)]
+            h = max(h0, h0 + kh * v / mx)
+            geo[(ci, name)] = (x, y, h, kind, v); mid[(ci, name)] = y + h / 2
+            y += h + vgap
+    W, H = x0 * 2 + 5 * cw + 4 * gap, int(top + tall + 96)
+    b = ['<text class="t" x="24" y="30">Figure 1. The field on one page, and the map of this survey</text>',
+         f'<text class="s" x="24" y="52">Every node is a count over the {N} method papers in the corpus, and every column head names the'
+         ' section that covers it.</text>',
+         '<text class="s" x="24" y="70">Dashed nodes are reporting gaps, not choices. A paradigm count may include a paper twice, because'
+         ' a method may use several.</text>',
+         '<text class="s" x="24" y="88">Recomputed from corpus/rows at draw time.</text>']
+    # --- the routes the corpus contains, under the nodes -------------------------------------
+    edges = []
+    for ci in range(len(cols) - 1):
+        for a, pa, _ in cols[ci][2]:
+            for bb, pb, _ in cols[ci + 1][2]:
+                n = sum(1 for r in M if pa(r) and pb(r))
+                if n: edges.append((ci, a, bb, n))
+    mxe = max(n for *_, n in edges) or 1
+    def anchors(key, others, ci_other):
+        x, ytop, h, _, _ = geo[key]
+        order = sorted(others, key=lambda o: mid[(ci_other, o)])
+        span = 0.80 * h
+        return {o: ytop + (h - span) / 2 + span * (i + 0.5) / len(order)
+                for i, o in enumerate(order)}
+    outa, ina = {}, {}
+    for ci in range(len(cols) - 1):
+        for a, _, _ in cols[ci][2]:
+            t = [bb for c, aa, bb, _ in edges if c == ci and aa == a]
+            if t: outa[(ci, a)] = anchors((ci, a), t, ci + 1)
+        for bb, _, _ in cols[ci + 1][2]:
+            s = [a for c, a, b2, _ in edges if c == ci and b2 == bb]
+            if s: ina[(ci + 1, bb)] = anchors((ci + 1, bb), s, ci)
+    for ci, a, bb, n in sorted(edges, key=lambda e: e[3]):
+        x = geo[(ci, a)][0] + cw; y1 = outa[(ci, a)][bb]
+        x2 = geo[(ci + 1, bb)][0]; y2 = ina[(ci + 1, bb)][a]
+        sw = 1.2 + 4.4 * n / mxe          # the thinnest route still prints
+        op = 0.45 + 0.5 * n / mxe
+        b.append(f'<path class="ed" d="M{x},{y1:.0f} C{x + 34},{y1:.0f} {x2 - 34},{y2:.0f} '
+                 f'{x2},{y2:.0f}" stroke-width="{sw:.1f}" opacity="{op:.2f}"/>')
+    # --- the column heads and the nodes ------------------------------------------------------
+    for ci, (cname, sec, items) in enumerate(cols):
+        x = x0 + ci * (cw + gap)
+        b.append(f'<text class="h" x="{x + cw / 2:.0f}" y="{top - 44}" text-anchor="middle">{esc(cname)}</text>')
+        b.append(f'<text class="n" x="{x + cw / 2:.0f}" y="{top - 26}" text-anchor="middle">{sec}</text>')
+        b.append(f'<path class="rule" d="M{x},{top - 16} L{x + cw},{top - 16}"/>')
+        for name, _, _ in items:
+            xx, ytop, h, kind, v = geo[(ci, name)]
+            cls = "ghost" if kind == 1 else "box"
+            fill = ' fill="var(--fill2)" stroke="var(--b)"' if kind == 2 else ''
+            b.append(f'<rect class="{cls}" x="{xx}" y="{ytop:.0f}" width="{cw}" height="{h:.0f}" rx="3"{fill}/>')
+            lines = wrap(name, 15)
+            y = ytop + h / 2 - 6 * (len(lines) - 1) + 4
+            for ln in lines:
+                b.append(f'<text class="l" x="{xx + 9}" y="{y:.0f}">{esc(ln)}</text>'); y += 14
+            b.append(f'<text class="n" x="{xx + cw - 9}" y="{ytop + h / 2 + 4:.0f}" text-anchor="end">{v}</text>')
+    cap = top + tall + 26
+    b.append(f'<text class="s" x="24" y="{cap:.0f}">The routes converge. The heaviest single path is no demonstrations, one hand, Isaac Gym, reinforcement learning, real robot.</text>')
+    b.append(f'<text class="s" x="24" y="{cap + 18:.0f}">Whatever enters on the left, almost everything leaves through a GPU simulator and arrives at a real robot without contact</text>')
+    b.append(f'<text class="s" x="24" y="{cap + 36:.0f}">quality ever being measured.</text>')
+    return svg(W, H, "".join(b), "The field on one page, and the map of this survey")
 
 def fig4():
     """Figure 4. Every leaf predicate must test the property its label names.

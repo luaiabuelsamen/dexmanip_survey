@@ -1,6 +1,6 @@
 # 4. Simulators and the physics underneath
 
-## 4.1 What a dexterous simulation must get right
+## 4.1 Requirements of a dexterous simulation
 
 The clearest demonstration that hands are the hard case came from a benchmark that was not about
 hands. Erez et al. built a 35-DOF arm modelled on the Shadow Hand, closed it around a capsule with
@@ -44,7 +44,7 @@ corpus, and the three are not ordered here. A fourth item on the figure is not a
 at all. It is a mismatch between the geometry the solver uses and the geometry the renderer draws,
 and it runs in both directions.
 
-## 4.2 Contact models and solvers, engine by engine
+## 4.2 Contact models and solvers
 
 {{figure:fig3_sim_step}}
 
@@ -187,9 +187,9 @@ has, and thirteen of fifteen rows do not answer it.
 
 {{table:table4_simulators}}
 
-## 4.3 The GPU-parallel turn
+## 4.3 GPU-parallel engines and their throughput
 
-Isaac Gym set the pattern. Physics, observations, rewards and actions stay on the GPU, and PhysX
+**The GPU-parallel turn.** Isaac Gym set the pattern. Physics, observations, rewards and actions stay on the GPU, and PhysX
 resolves contacts with the Temporal Gauss-Seidel sweep described above. Its per-task timesteps are
 published, which is rare: the Shadow Hand runs a 1/120 s physics step under a 1/60 s control step,
 or 1/20 s in the OpenAI variant. The result that reorganised the field is that reproducing
@@ -223,9 +223,7 @@ non-convex rigid bodies get SDF collision, which is a contact-geometry differenc
 Gym and Isaac Lab under one vendor name (`orbit_2023`, `isaaclab_2025`). Naming a simulator no
 longer names its physics. Papers should report the backend and the solver beside the framework.
 
-## 4.4 Throughput, and why the reported numbers do not compare
-
-Four headline figures measure four different quantities. Isaac Gym reports parallel environment
+**Reported throughput, and why the numbers do not compare.** Four headline figures measure four different quantities. Isaac Gym reports parallel environment
 steps per second with physics, observations and rewards on device: 150,000 for the Shadow Hand at
 16,384 environments on one A100. Isaac Lab reports frames per second in training, which includes
 the learning update: over 900,000 for the DextrAH teacher task at 16,384 environments on eight RTX
@@ -268,7 +266,7 @@ figure is interpretable only with the environment count, the GPU, the timesteps,
 iteration budget, and a statement of whether rendering and the learning update sit inside the
 measurement. Almost nobody reports all five.
 
-## 4.5 Tactile simulation and what it is calibrated against
+## 4.4 Tactile simulation and the sim-to-real gap
 
 The three tactile simulators in this corpus calibrate against three different things, and none of
 them is a manipulation outcome. TACTO is a rendering layer over a host engine, by default
@@ -298,9 +296,7 @@ aggregate contact pressure, but documents no taxel positions or response charact
 raw field cannot be registered to the simulated probe layout and only the aggregate is comparable
 (App. C). The undocumented calibration is the barrier, not a missing signal.
 
-## 4.6 The sim-to-real gap for hands
-
-Most of what is written about this gap is attribution without measurement. PenSpin asserts that
+**The sim-to-real gap for hands.** Most of what is written about this gap is attribution without measurement. PenSpin asserts that
 the pure physics gap "cannot be bridged by extensive domain randomization alone" while reporting
 no experiment that isolates it (`penspin_2024`). MuJoCo Playground attributes its LEAP hand
 failures to physical flex in low-cost hardware and names more accurate collision geometries as the

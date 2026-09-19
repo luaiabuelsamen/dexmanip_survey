@@ -14,7 +14,7 @@ An earlier version of this file derived the A/B count from n_per_arm, the indepe
 formula, while printing the word "Paired" above it.
 
 Table 9 is the empty results matrix. Its rows are selected from the corpus, so the selection is
-auditable. The rule, stated here and restated in section 7.6 in the same words:
+auditable. The rule, stated here and restated in section 7.4 in the same words:
 
   1. method rows only, with a non-null `hand`;
   2. the hand string must not contain "parallel" or "gripper", so the matrix is about
@@ -324,7 +324,7 @@ def main():
            + f"\n\n*{len(picked)} rows, {cells} cells, all {cells} empty; the first row is a "
              "worked example and every number in it is fabricated. Rows are the "
              f"{len(picked)} most-mentioned dexterous-hand policy methods in the corpus, by the "
-             "rule in §7.6, scored on whole-word matches over `papers/md`: "
+             "rule in §7.4, scored on whole-word matches over `papers/md`: "
            + counts
            + ". Mention counts are counts of mentions, not of use. &#10035; marks a work matched "
              "on its title rather than a short name; a title is matched mostly inside reference "

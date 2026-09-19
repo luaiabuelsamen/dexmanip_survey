@@ -19,6 +19,11 @@ Row identity, year and class come from `corpus/rows/*.json`. The bibliography su
 nothing here, because a `why` field in `corpus/bib.json` is this survey's opinion of a work rather than
 a reading of it.
 
+The LaTeX edition sets the same comparison as a matrix instead of as prose, with one of three
+coverage levels per cell. `LEVELS` below holds those levels and `level()` prints one only while the
+prose cell it coarsens still has its quotation, so the glyph in the matrix and the sentence in the
+appendix cannot disagree.
+
 Usage: python3 tools/make_survey_table.py
 Writes: paper/tables/table10_surveys.md
 """
@@ -201,6 +206,154 @@ COLS = ["scope", "taxonomy", "bimanual", "hardware", "evaluation", "gaps"]
 HEADERS = ["survey", "yr", "scope", "taxonomy used", "bimanual covered", "hardware covered",
            "evaluation covered", "gaps it names"]
 
+# --- the three-level coverage encoding ------------------------------------------------------------
+# The LaTeX edition sets this comparison as a matrix near the front of the paper, where a reader
+# meets it, and a matrix cannot hold the prose cells above: fourteen rows of clauses is the page of
+# text that used to sit in an appendix. So each prose cell is coarsened to one of three levels, and
+# the level is printed as a tick, a circle or a cross. What the three mean, and the rule that
+# decides between them:
+#
+#   full  the work gives the topic a structure of its own: a section, a table of its own, or a
+#         measurement it defines.
+#   part  the topic is there without such a structure: a subsection with no analysis, a handful of
+#         mentions, a metric named but never defined, or a scope that contains the topic as one
+#         item among many.
+#   none  the topic is absent, or the work puts it outside its scope.
+#
+# A level is a coarsening of the prose cell in SPEC above it and of nothing else, so it carries that
+# cell's anchor rather than an anchor of its own: `level()` returns None, and the table prints an
+# empty cell, exactly when the quotation behind the prose cell has gone from the note. Appendix D
+# and `paper/tables/table10_surveys.md` keep the prose, which is what a reader checks a glyph
+# against. `level_problems()` refuses a level for a cell that has no prose cell, and a prose cell
+# with no level, so the two cannot come apart.
+FULL, PART, NONE = "full", "part", "none"
+LEVELS = {
+    "zhao_dexhand_survey_2026": {
+        # Hardware anatomy, a task-by-paradigm taxonomy and a 29-hand table; III-F is one
+        # subsection on bimanual with no coordination analysis, and IV-C names penetration as a
+        # criterion without a threshold, a method or a count.
+        "scope": FULL, "taxonomy": FULL, "bimanual": PART, "hardware": FULL,
+        "evaluation": PART, "gaps": FULL,
+    },
+    "bai_unified_manip_survey_2025": {
+        # All of manipulation: dexterous work is one of ten task subsections and Sec. 1.2 defers
+        # it; bimanual means two arms; hands are named but not tabulated; Sec. 2.4 names success
+        # rate in six lines without saying how success is judged.
+        "scope": PART, "taxonomy": FULL, "bimanual": PART, "hardware": PART,
+        "evaluation": PART, "gaps": FULL,
+    },
+    "an_dexil_survey_2025": {
+        # Imitation learning for multi-fingered hands, so the scope is the subject; the taxonomy
+        # covers IL only and RL gets none; II.E is one bimanual subsection; hands are named in
+        # prose; VI.B calls for protocols and proposes none.
+        "scope": FULL, "taxonomy": PART, "bimanual": PART, "hardware": PART,
+        "evaluation": PART, "gaps": FULL,
+    },
+    "welte_iil_survey_2025": {
+        # Interactive imitation learning, inside which seven dexterous works were found; a full
+        # taxonomy of its own feedback types and a 15-hand table; three bimanual mentions in 687
+        # lines and no section; no metric definitions and no benchmark table at all.
+        "scope": PART, "taxonomy": FULL, "bimanual": PART, "hardware": FULL,
+        "evaluation": NONE, "gaps": FULL,
+    },
+    "firoozi_foundation_models_2023": {
+        # Foundation models in decision-making: zero occurrences of bimanual, a parallel-gripper
+        # world throughout, and benchmarking present only as a reproducibility problem.
+        "scope": NONE, "taxonomy": PART, "bimanual": NONE, "hardware": NONE,
+        "evaluation": PART, "gaps": FULL,
+    },
+    "zhao_sim2real_survey_2020": {
+        # A full taxonomy of sim-to-real transfer, which is its subject rather than dexterous
+        # manipulation; zero occurrences of bimanual; two cited hand works and no hand table; no
+        # metric, trial count or success rate anywhere.
+        "scope": NONE, "taxonomy": FULL, "bimanual": NONE, "hardware": PART,
+        "evaluation": NONE, "gaps": FULL,
+    },
+    "isaac_sim_2026": {
+        # One simulator's ecosystem, reviewed rather than measured: a capability matrix over
+        # simulators rather than over methods, one cited task called bimanual with no number, no
+        # hand named anywhere, and no experiment of its own.
+        "scope": NONE, "taxonomy": PART, "bimanual": PART, "hardware": NONE,
+        "evaluation": NONE, "gaps": FULL,
+    },
+    "nine_physics_engines_review_2024": {
+        # Nine engines on a 13-axis feature and usability matrix, which is a taxonomy of its
+        # subject; multi-agent readiness is the nearest thing to bimanual; ant and humanoid bodies
+        # rather than hands; it scores documentation and runs no benchmark of its own.
+        "scope": NONE, "taxonomy": FULL, "bimanual": NONE, "hardware": NONE,
+        "evaluation": PART, "gaps": FULL,
+    },
+    "contact_models_comparison_2023": {
+        # Contact model by solver, with the property each violates; no bimanual anything; one
+        # Allegro hand as one of three benchmark systems; and an evaluation it defines, the NCP
+        # criterion against a 1e-5 s reference.
+        "scope": NONE, "taxonomy": FULL, "bimanual": NONE, "hardware": PART,
+        "evaluation": FULL, "gaps": FULL,
+    },
+    "physics_engine_comparison_2015": {
+        # Five engines on one shared model, with no taxonomy at all: four test systems, one
+        # comparison each. One 35-DoF rig modelled on the Shadow Hand, and a defined measurement:
+        # the largest timestep that holds a grasp.
+        "scope": NONE, "taxonomy": NONE, "bimanual": NONE, "hardware": PART,
+        "evaluation": FULL, "gaps": FULL,
+    },
+}
+
+# --- how the rows group -------------------------------------------------------------------------
+# The rows are a taxonomy of three kinds, and the kind is read off the corpus rather than asserted
+# here. A survey that entered the corpus through `corpus/bib_sim.json` is a simulator or
+# contact-model study; one with no readable source is its own group, because the anchor rule is
+# what puts it there; everything else is a survey of the field.
+SIM_BIB = "corpus/bib_sim.json"
+GROUPS = [
+    ("field", "Surveys of the field"),
+    ("engine", "Simulator and contact-model studies"),
+    ("unread", "Sources not obtained, or on disk and never read"),
+]
+
+
+def sim_bib_keys():
+    """The keys this corpus first collected as simulator literature."""
+    d = json.loads((R / SIM_BIB).read_text())
+    return set(d) if isinstance(d, dict) else {e.get("key") for e in d}
+
+
+def group_of(key, readable):
+    if not readable:
+        return "unread"
+    return "engine" if key in sim_bib_keys() else "field"
+
+
+def level(key, col, note):
+    """The coverage level for one cell, or None where the prose cell it coarsens is unsupported."""
+    spec = SPEC.get(key, {})
+    if col not in spec:
+        return None
+    _, anchor = spec[col]
+    if anchor not in note:
+        return None
+    return LEVELS[key][col]
+
+
+def level_problems():
+    """A level with no prose cell, a prose cell with no level, or a level outside the vocabulary."""
+    out = []
+    for key, spec in SPEC.items():
+        lv = LEVELS.get(key, {})
+        if spec and not lv:
+            out.append(f"{key}: has prose cells and no coverage levels")
+        if lv and not spec:
+            out.append(f"{key}: has coverage levels and no prose cells")
+        for col in spec:
+            if col not in lv:
+                out.append(f"{key}.{col}: prose cell with no coverage level")
+        for col, val in lv.items():
+            if col not in spec:
+                out.append(f"{key}.{col}: coverage level with no prose cell to coarsen")
+            if val not in (FULL, PART, NONE):
+                out.append(f"{key}.{col}: {val!r} is not one of full, part, none")
+    return out
+
 
 def load_rows():
     rows = {}
@@ -280,6 +433,8 @@ def main():
     (R / "paper/tables/table10_surveys.md").write_text("\n".join(out) + "\n")
 
     print(f"table10_surveys.md: {len(rows)} rows, {n_unob} unobtained, {len(unread)} unread")
+    for p in level_problems():
+        print("LEVEL", p)
     if missing_spec:
         print("survey rows with no spec (add one or the row prints as unobtained):", missing_spec)
     if stale_spec:
