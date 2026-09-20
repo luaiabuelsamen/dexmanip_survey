@@ -14,12 +14,11 @@ modulation". Both definitions place the work in the fingers rather than in the a
 
 What follows is a survey in the ordinary sense, covering hands, simulators, training, bimanual
 control and evaluation, and it is built so that a second question can be asked of it. Fourteen
-entries in this corpus are themselves surveys of this field, and the technical supplement sets
-them on one set of columns. What this one adds to them is a habit rather than a subject: every
-claim is carried back to something a reader can open, a parsed source, a vendor's own
-specification, or a released file at a named revision. That habit is also what turned up the
-third finding, since no prior work in robotics we are aware of reads a field's released code
-against the rewards its own papers describe.
+entries in this corpus are themselves surveys of this field. What this one adds to them is a
+habit rather than a subject: every claim is carried back to something a reader can open, a
+parsed source, a vendor's own specification, or a released file at a named revision. That habit
+is also what turned up the third finding, since no prior work in robotics we are aware of reads
+a field's released code against the rewards its own papers describe.
 
 The analytic theory answered the static question and stalled on the dynamic one. Form closure has
 a first-order test on the grasp matrix and known contact counts, four in the plane and seven in
