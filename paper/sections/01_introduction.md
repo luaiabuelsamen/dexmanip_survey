@@ -114,16 +114,17 @@ from the count and two narrowed within it, is recorded in the row it concerns fo
 reason: those revisions are the evidence that the nine left standing were checked rather than
 counted.
 
-Fourteen corpus entries are themselves surveys or engine-comparison studies. The technical supplement sets them
-on one set of columns in Table 10 and says what each covers. Four of the fourteen could not be
-obtained, or were fetched too late to read, and are entered as such. Two of the three things this
-survey adds are visible in that table as columns none of the fourteen fills. One is Table 4, which
-takes the engines `nine_physics_engines_review_2024` scored on documentation and usability and
-adds contact model, solver, iteration count, default timestep and penetration exposure,
-conditioned on what a hand does to a solver. `physics_engine_comparison_2015` and
+Fourteen corpus entries are themselves surveys or engine-comparison studies. Appendix D sets
+them on one set of columns in Table 10 and says what each covers. Four of the fourteen could
+not be obtained, or were fetched too late to read, and are entered as such. Two of the three
+things this survey adds are visible in that table as columns none of the fourteen fills. One is
+Table 4, which takes the engines `nine_physics_engines_review_2024` scored on documentation and
+usability and adds contact model, solver, iteration count, default timestep and penetration
+exposure, conditioned on what a hand does to a solver. `physics_engine_comparison_2015` and
 `contact_models_comparison_2023` do measure engines, on five engines and on four contact
-formulations, and neither surveys the field those engines are used in. The other is two hands on
-one object as its own problem, which none of the four field surveys gives more than a subsection.
+formulations, and neither surveys the field those engines are used in. The other is two hands
+on one object as its own problem, which none of the four field surveys gives more than a
+subsection.
 
 The third addition is the penetration measurement, on an axis a predecessor had already named.
 `zhao_dexhand_survey_2026` states in its Sec. IV-C that the field assesses "at least two layers of
@@ -159,10 +160,11 @@ paper into a silent one.
 Figure 1 puts the field on one page. What follows works outward from the task: the six families
 and what makes each hard, then the hands and their makers, then the simulators and the contact
 models underneath them, then training, then two hands on one object as a problem of its own.
-Section 7 is the longest, and it proposes an evaluation frame rather than a leaderboard. Each of
-those sections closes on the gap it owns, with the evidence and the experiment that would settle it;
-Section 8 is the list of those claims in one place, one sentence each, and says what to do about
-them, addressed to someone publishing, running experiments or buying a hand. Appendix A is the
-method and says where the tabulation this survey is built on lives; Appendices B and C are the full
-hand and reward extractions. The technical supplement sets this survey beside the fourteen that
-precede it and gives the derivation behind every count in the proposed protocol.
+Section 7 is the longest, and it proposes an evaluation frame rather than a leaderboard. Each
+of those sections closes on the gap it owns, with the evidence and the experiment that would
+settle it; Section 8 is the list of those claims in one place, one sentence each, and says what
+to do about them, addressed to someone publishing, running experiments or buying a hand.
+Appendix A is the method and says where the tabulation this survey is built on lives;
+Appendices B and C are the full hand and reward extractions. Appendix D sets this survey beside
+the fourteen that precede it, and Appendix E gives the derivation behind every count in the
+proposed protocol.

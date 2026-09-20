@@ -139,9 +139,9 @@ def _bib_counts():
     keys = {e["key"] for e in bib}
     related = {e["key"] for e in bib if e.get("topic") == "related"}
     corpus = keys - related
-    # Follow the files the reader-facing article actually inputs. Scanning every .tex file also
-    # counts citations in supplement-only appendices and makes the claimed reference-list length
-    # disagree with main.bbl after those appendices are separated from the article.
+    # Follow the files the article actually inputs, rather than every .tex in the tree. The tree
+    # still holds probe documents and table variants nothing inputs, and counting their citations
+    # would make the claimed reference-list length disagree with main.bbl.
     cited, seen, pending = set(), set(), [R / "tex/main.tex"]
     while pending:
         f = pending.pop()

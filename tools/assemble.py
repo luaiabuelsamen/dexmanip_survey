@@ -87,10 +87,12 @@ def main():
         stripped += n
         parts.append(txt.rstrip() + "\n")
     parts.append("\n---\n\n## Appendix A. Method\n\n" + (R / "paper/METHOD.md").read_text().split("\n", 2)[2])
-    # The reader-facing article keeps only the hardware and engine reference tables. The detailed
-    # discrepancy catalogue, predecessor audit, and protocol derivations are a supplement in both
-    # editions so the Markdown build cannot silently grow a different paper from the LaTeX build.
-    for letter in ("B",):
+    # Every appendix is in the article, in both editions. They were a separate supplement until
+    # the arXiv package was checked and found to carry neither it nor appendices C to E, which
+    # left the body promising records a reader of the posted paper could not reach. The letters
+    # here and the \input list in tex/main.tex have to stay the same set, or the Markdown build
+    # silently grows a different paper from the LaTeX build.
+    for letter in ("B", "C", "D", "E"):
         p = R / f"paper/APPENDIX_{letter}.md"
         if p.exists():
             txt, n = expand(p.read_text()); stripped += n
@@ -99,17 +101,6 @@ def main():
         parts.append("\n---\n\n" + txt)
     out = "\n".join(parts)
     (R / "paper/survey.md").write_text(out)
-    supplement = ["# Learning Dexterous Manipulation: Technical Supplement\n"]
-    supplement.append("Detailed evidence for the paper--code comparisons, predecessor-survey "
-                      "coding, and evaluation-protocol calculations.\n")
-    for letter in ("C", "D", "E"):
-        p = R / f"paper/APPENDIX_{letter}.md"
-        if p.exists():
-            txt, n = expand(p.read_text()); stripped += n
-        else:
-            txt = f"*[missing appendix {letter}]*\n"
-        supplement.append("\n---\n\n" + txt.rstrip() + "\n")
-    (R / "paper/supplement.md").write_text("\n".join(supplement))
     words = len(out.split())
     print(f"survey.md: {words} words, {out.count(chr(10))} lines")
     print(f"front matter: {entries} entries, {nrows} rows ({breakdown})")

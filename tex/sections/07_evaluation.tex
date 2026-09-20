@@ -334,23 +334,24 @@ axis is derived for the statistic that axis actually reports: a single rate take
 half-width, a matched comparison takes McNemar, a ratio takes the standard error of the log ratio,
 a correlation takes the Fisher-z interval.
 
-The reproducibility materials give the full derivation; its conclusions are as follows, and every
-count in Table~\ref{tab:protocol} is one of these. A single reported rate takes 100 real rollouts
-per cell, because 93 is where the worst-case Wilson half-width of \eqref{eq:wilson} falls to 10
-points and 10 points is the coarsest width at which a rate is worth printing. A comparison is a
-different question and a harder one. The design is paired, so the count follows McNemar and depends
-on the discordance rate rather than on the two rates alone, and separating 50 from 70 percent at
-80 percent power takes 57 matched pairs per arm at the assumed discordance of 0.3, which is 114
-rollouts against the 186 two independent arms would need. Simulated cells take 200 episodes for a
-6.9-point half-width. Perturbation axes are screened at 40 per axis, which ranks the axes and
-cannot establish that any one of them hurt, and certified at 101 per arm. Unseen objects resample
-the object rather than the trial, at 20 objects and 5 trials each, and a 10-point claim about an
-object distribution needs about 93 objects. The transfer axis takes the 100 real trials paired to
-100 simulated, and about 457 pairs to separate two correlations 0.1 apart. One hundred is a cap and
-not a bill, because a sequential test on a graded score reached its decision in 12 to 36 paired
-trials in \cite{beyond_binary_success_2026}, and a cell that stops early reports a confidence
-sequence rather than a Wilson interval, never both. The appendix also keeps the counts an earlier
-draft of this section quoted and this one withdrew, since the test they were computed for was the
+Appendix~\ref{app:protocol} gives the full derivation; its conclusions are as follows, and
+every count in Table~\ref{tab:protocol} is one of these. A single reported rate takes 100 real
+rollouts per cell, because 93 is where the worst-case Wilson half-width of \eqref{eq:wilson}
+falls to 10 points and 10 points is the coarsest width at which a rate is worth printing. A
+comparison is a different question and a harder one. The design is paired, so the count follows
+McNemar and depends on the discordance rate rather than on the two rates alone, and separating
+50 from 70 percent at 80 percent power takes 57 matched pairs per arm at the assumed
+discordance of 0.3, which is 114 rollouts against the 186 two independent arms would need.
+Simulated cells take 200 episodes for a 6.9-point half-width. Perturbation axes are screened at
+40 per axis, which ranks the axes and cannot establish that any one of them hurt, and certified
+at 101 per arm. Unseen objects resample the object rather than the trial, at 20 objects and 5
+trials each, and a 10-point claim about an object distribution needs about 93 objects. The
+transfer axis takes the 100 real trials paired to 100 simulated, and about 457 pairs to
+separate two correlations 0.1 apart. One hundred is a cap and not a bill, because a sequential
+test on a graded score reached its decision in 12 to 36 paired trials in
+\cite{beyond_binary_success_2026}, and a cell that stops early reports a confidence sequence
+rather than a Wilson interval, never both. The appendix also keeps the counts an earlier draft
+of this section quoted and this one withdrew, since the test they were computed for was the
 wrong one.
 
 \IfFileExists{tables/table8_protocol.tex}{\input{tables/table8_protocol}}{%

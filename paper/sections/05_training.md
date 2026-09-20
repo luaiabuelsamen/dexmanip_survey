@@ -459,9 +459,9 @@ it is only worth marking where the paper claims the term. Weights differ as well
 printed at one value in a table and set to another in a config, an equation's term that is not
 in the released reward file, a term in the file that the table does not list. And in 13 rows
 the repository does not settle the question at all, which is this survey's limit and not a
-finding against the paper. The technical supplement prints all 38 row by row in their five
-classes, each with the file, the value on both sides, and the review note where a comparison
-was narrowed or withdrawn.
+finding against the paper. Appendix C prints all 38 row by row in their five classes, each with
+the file, the value on both sides, and the review note where a comparison was narrowed or
+withdrawn.
 
 A reward table is a claim about a training run and the code is a claim about a repository. Here
 the two state different things in nine cases, in the other 29 the released artefacts do not settle
