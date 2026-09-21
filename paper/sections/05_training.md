@@ -425,11 +425,17 @@ September 2026, before this survey was posted. Each letter quotes the claim, its
 the sentences the survey would print, and asks whether the reading is right, whether there is a
 reason the released configuration differs, and whether the authors want the wording changed;
 each gave until 10 October 2026 to reply, and said that silence would be recorded as silence
-and not as agreement. The letters are in `outreach/` in the corpus that accompanies this
+and not as agreement. What a reply can add is what the artefacts cannot give: which shipped
+configuration belongs to which stage of a pipeline, whether the fetched commit is the one behind
+the reported numbers, and whether an untagged branch holds the code that was run. The letters
+are in `outreach/` in the corpus that accompanies this
 survey, so a reader can see exactly what every author was asked, and `outreach/RECIPIENTS.md`
 records the address each went to and where that address came from. A tenth letter was drafted
-and not sent, because drafting it broke its own claim; it is kept with the nine. Replies, and
-their effect on the rows, are recorded in `mismatch_review` in `corpus/rows/`. What this
+and not sent, because drafting it broke its own claim; it is kept with the nine. This version
+was written between those two dates: no reply had been received at the time of writing, no row
+here has been changed by one, and a window that closes in silence will be recorded in the next
+version as silence and not as assent. Any reply, and its effect on the row it concerns, is
+recorded in `mismatch_review` in `corpus/rows/`. What this
 section says is still written to the narrow form: a repository, a commit, a file, and two
 values. It attributes nothing to intent, and a reader with a browser can confirm or refute any
 line of Table 11 at the repository and commit that line names, without anyone's agreement and

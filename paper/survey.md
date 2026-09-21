@@ -9,7 +9,7 @@ A survey of 221 bibliography entries, 218 of which carry a structured row read f
 "Method row" throughout means one of the 112, and every headline count here has one of those eight
 classes as its denominator.
 
-*Compiled 2026-09-19. Every claim traces to a note in `papers/notes/`, every note to a parsed source in
+*Compiled 2026-09-20. Every claim traces to a note in `papers/notes/`, every note to a parsed source in
 `papers/md/` or `code/md/`, and every source to a hash or commit in `corpus/manifest.json`. The
 method is in Appendix A.*
 
@@ -198,9 +198,9 @@ paper into a silent one.
 Figure 1 puts the field on one page. What follows works outward from the task: the six families
 and what makes each hard, then the hands and their makers, then the simulators and the contact
 models underneath them, then training, then two hands on one object as a problem of its own.
-Section 7 is the longest, and it proposes an evaluation frame rather than a leaderboard. Each
-of those sections closes on the gap it owns, with the evidence and the experiment that would
-settle it; Section 8 is the list of those claims in one place, one sentence each, and says what
+Section 5 is the longest of the eight, and Section 7 proposes an evaluation frame rather than a
+leaderboard. Each of those sections closes on the gap it owns, with the evidence and the
+experiment that would settle it; Section 8 is the list of those claims in one place, one sentence each, and says what
 to do about them, addressed to someone publishing, running experiments or buying a hand.
 Appendix A is the method and says where the tabulation this survey is built on lives;
 Appendices B and C are the full hand and reward extractions. Appendix D sets this survey beside
@@ -1625,11 +1625,17 @@ September 2026, before this survey was posted. Each letter quotes the claim, its
 the sentences the survey would print, and asks whether the reading is right, whether there is a
 reason the released configuration differs, and whether the authors want the wording changed;
 each gave until 10 October 2026 to reply, and said that silence would be recorded as silence
-and not as agreement. The letters are in `outreach/` in the corpus that accompanies this
+and not as agreement. What a reply can add is what the artefacts cannot give: which shipped
+configuration belongs to which stage of a pipeline, whether the fetched commit is the one behind
+the reported numbers, and whether an untagged branch holds the code that was run. The letters
+are in `outreach/` in the corpus that accompanies this
 survey, so a reader can see exactly what every author was asked, and `outreach/RECIPIENTS.md`
 records the address each went to and where that address came from. A tenth letter was drafted
-and not sent, because drafting it broke its own claim; it is kept with the nine. Replies, and
-their effect on the rows, are recorded in `mismatch_review` in `corpus/rows/`. What this
+and not sent, because drafting it broke its own claim; it is kept with the nine. This version
+was written between those two dates: no reply had been received at the time of writing, no row
+here has been changed by one, and a window that closes in silence will be recorded in the next
+version as silence and not as assent. Any reply, and its effect on the row it concerns, is
+recorded in `mismatch_review` in `corpus/rows/`. What this
 section says is still written to the narrow form: a repository, a commit, a file, and two
 values. It attributes nothing to intent, and a reader with a browser can confirm or refute any
 line of Table 11 at the repository and commit that line names, without anyone's agreement and
@@ -1948,10 +1954,14 @@ the argument. Section 5.6 makes the same disclosure about the paper/code count, 
 disagreements that are limitations of this survey's own parsing before declaring which number to
 quote, and the coverage statistics above need it more.
 
-The nulls behind those six shares were therefore audited by hand against the notes they came from,
-and every number above is post-audit. Appendix A gives what that audit recovered and what it could
-not: the counts moved by tens of rows, 19 trial counts and 4 criteria remain genuinely unsettled,
-and every bar in Figure 6 is still a lower bound.
+The nulls behind four of those six shares were therefore audited by hand: the trial counts, the
+success criteria and the unseen-object counts against the notes they came from, and the
+penetration field against the parsed sources themselves. Those four numbers above are post-audit.
+Appendix A gives what the audits recovered and what they could not: the counts moved by tens of
+rows, 19 trial counts and 4 criteria remain genuinely unsettled, and every bar in Figure 6 is
+still a lower bound. The other two shares are not post-audit. The code-release field has never
+been audited this way, so its share is a floor of unmeasured depth, and the real-robot field's one
+unsettled row is left out of its denominator rather than counted as silence.
 
 The remaining gap is the one that matters. Nineteen of the 89 papers with a real robot never say
 how many times they ran it. A percentage with no denominator cannot be given an interval, so it
@@ -2408,9 +2418,10 @@ Those disagreements turned out to be common enough to become a finding in their 
 reading into notes was done with language-model assistance, from the parsed files only. The
 template's conventions are the safeguard against what that can get wrong: a quotation rather
 than a paraphrase, "not stated" rather than an inference, and a named source beside every
-value, so a note can be checked against the file it came from. Two fields carrying a headline
-claim were re-read against the sources afterwards, the trial counts and the penetration field,
-and both audits are below; the coverage statistics are reported as floors for the same reason.
+value, so a note can be checked against the file it came from. Four fields carrying a headline
+claim were re-read against their sources afterwards, the trial counts, the success criteria, the
+unseen-object counts and the penetration field, and all four audits are below; the coverage
+statistics are reported as floors for the same reason.
 
 ## Sources that could not be obtained
 Six works are cited by metadata only and no claim in this survey rests on their contents. Five
@@ -2679,7 +2690,7 @@ Table 5 marks nine recurring term families across the in-hand reorientation meth
 
 ### C.2 Paper against released code, in full
 
-Each entry below is the disagreement text stored in the row, unedited. The class is what Sec. 5.8 and Sec. 8.1 count. `contradiction` means the paper states one value and the shipped code demonstrably states another. `parse-limitation` means this survey's own parse could not settle it and the accusation is withdrawn. `code-absent` means the described component is not in the released repository. `version-skew` means the repository is a later generation than the paper. `internal-inconsistency` means the paper disagrees with itself and no code is implicated. Every `contradiction` entry carries an `Artefact` line: the repository, the commit `corpus/code_manifest.json` records, the file inside it and where in that file the value sits, so the entry can be checked without asking anyone. None of those authors was written to before this survey was posted; section 5.6 says so beside the finding, the letters that were drafted and not sent are in `outreach/` in the corpus, which is available from the author at the address in the byline, and the route by which a disputed entry is corrected is stated there too.
+Each entry below is the disagreement text stored in the row, unedited. The class is what Sec. 5.8 and Sec. 8.1 count. `contradiction` means the paper states one value and the shipped code demonstrably states another. `parse-limitation` means this survey's own parse could not settle it and the accusation is withdrawn. `code-absent` means the described component is not in the released repository. `version-skew` means the repository is a later generation than the paper. `internal-inconsistency` means the paper disagrees with itself and no code is implicated. Every `contradiction` entry carries an `Artefact` line: the repository, the commit `corpus/code_manifest.json` records, the file inside it and where in that file the value sits, so the entry can be checked without asking anyone. All of those authors were written to on 19 September 2026, before this survey was posted; section 5.6 says so beside the finding, gives the date the reply window closes, and states the route by which a disputed entry is corrected. The letters are in `outreach/` in the corpus, which is available from the author at the address in the byline.
 
 **contradiction, 9 rows.**
 
@@ -2700,7 +2711,7 @@ Each entry below is the disagreement text stored in the row, unedited. The class
   Artefact: `PKU-EPIC/UniDexGrasp` at `36c9bfcf7c`, `dexgrasp_policy/dexgrasp/tasks/shadow_hand_grasp.py` (`compute_hand_reward, goal_cond branch`).
 - `penspin_2024` (medium). The appendix states a randomised disturbance force, and the released configs/task/AllegroHandHora.yaml ships forceScale: 0.0, so no shipped configuration applies it.
   Artefact: `HaozhiQi/penspin` at `5035c52dc9`, `configs/task/AllegroHandHora.yaml` (`forceScale`).
-  Review: Narrowed at the point of drafting the letter to its authors, which was never sent. The original comparison also said the released code disables the paper's tactile channel, and that half is withdrawn: the config read has numObservations 96 and enable_tactile False, which is consistent with the proprioception-only student rather than the oracle, and the paper never claims the student has tactile input. The disturbance-force half is unaffected.
+  Review: Narrowed while the letter to its authors was being drafted, before that letter went out on 19 September 2026. The original comparison also said the released code disables the paper's tactile channel, and that half is withdrawn: the config read has numObservations 96 and enable_tactile False, which is consistent with the proprioception-only student rather than the oracle, and the paper never claims the student has tactile input. The disturbance-force half is unaffected.
 - `pianomime_2024` (high). Paper's Table 3 states 2 weighted reward terms (Key Press 2/3, Mimic 1/3), but the released code sums roughly 5 unweighted terms (key press doubled, sustain, energy and fingering hardcoded to return 0, forearm-collision) plus a separately-added mimic wrapper term.
   Artefact: `sNiper-Qian/pianomime` at `c4abefac8d`, `single_task/piano_with_shadow_hands_res.py` (`_set_rewards`).
 

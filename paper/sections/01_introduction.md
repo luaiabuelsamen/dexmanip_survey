@@ -160,9 +160,9 @@ paper into a silent one.
 Figure 1 puts the field on one page. What follows works outward from the task: the six families
 and what makes each hard, then the hands and their makers, then the simulators and the contact
 models underneath them, then training, then two hands on one object as a problem of its own.
-Section 7 is the longest, and it proposes an evaluation frame rather than a leaderboard. Each
-of those sections closes on the gap it owns, with the evidence and the experiment that would
-settle it; Section 8 is the list of those claims in one place, one sentence each, and says what
+Section 5 is the longest of the eight, and Section 7 proposes an evaluation frame rather than a
+leaderboard. Each of those sections closes on the gap it owns, with the evidence and the
+experiment that would settle it; Section 8 is the list of those claims in one place, one sentence each, and says what
 to do about them, addressed to someone publishing, running experiments or buying a hand.
 Appendix A is the method and says where the tabulation this survey is built on lives;
 Appendices B and C are the full hand and reward extractions. Appendix D sets this survey beside

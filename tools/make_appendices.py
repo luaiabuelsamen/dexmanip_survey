@@ -205,11 +205,11 @@ def appendix_c(rows):
               "implicated. Every `contradiction` entry carries an `Artefact` line: the "
               "repository, the commit `corpus/code_manifest.json` records, the file inside it "
               "and where in that file the value sits, so the entry can be checked without "
-              "asking anyone. None of those authors was written to before this survey was "
-              "posted; section 5.6 says so beside the finding, the letters that were drafted "
-              "and not sent are in `outreach/` in the corpus, which is available from the "
-              "author at the address in the byline, and the route by which a disputed entry "
-              "is corrected is stated there too.", ""]
+              "asking anyone. All of those authors were written to on 19 September 2026, "
+              "before this survey was posted; section 5.6 says so beside the finding, gives "
+              "the date the reply window closes, and states the route by which a disputed "
+              "entry is corrected. The letters are in `outreach/` in the corpus, which is "
+              "available from the author at the address in the byline.", ""]
     order = ["contradiction", "internal-inconsistency", "version-skew", "code-absent",
              "parse-limitation"]
     for cls in order + [c for c in sorted(classes) if c not in order]:

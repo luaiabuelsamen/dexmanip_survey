@@ -96,15 +96,33 @@ def facts():
     f["pen_closed_loop"] = len(CLOSED_LOOP)
     f["pen_rollout"] = len(ROLLOUT_REPORTED)
     # --- reporting coverage: each axis with the denominator that belongs to it ---
+    # (label, stated, denominator, rows the note did not settle). Four of the six denominators are
+    # not 112, and the figure used to draw all six against 112 while Section VII-A quoted these:
+    # the bars then printed 79, 62, 55 and 10 per cent where the prose beside them said 80, 79, 57
+    # and 11. A row with no real robot cannot state a real trial count, so that share is against
+    # the 89 that have one; `real_robot`, `code_released` and `penetration` carry nulls that mean
+    # the note did not settle the question rather than "no", so those shares are against the rows
+    # it did settle, with the unsettled rows drawn as a tail beyond the track. The markdown
+    # edition's Figure 6 has always been drawn this way; tools/check_numbers.py now pins both.
+    real = sum(1 for r in M if r.get("real_robot") is True)
+    real_settled = sum(1 for r in M if r.get("real_robot") is not None)
+    code_settled = sum(1 for r in M if r.get("code_released") is not None)
     f["axes"] = [
-        ("success criterion stated", sum(1 for r in M if r.get("success_criterion"))),
-        ("real-robot experiment", sum(1 for r in M if r.get("real_robot") is True)),
-        ("real trial count stated", sum(1 for r in M if r.get("real_trials") is not None)),
-        ("code released", f["code_released"]),
+        ("success criterion stated", sum(1 for r in M if r.get("success_criterion")), N, 0),
+        ("real-robot experiment", real, real_settled, N - real_settled),
+        ("real trial count stated", sum(1 for r in M if r.get("real_trials") is not None),
+         real, 0),
+        ("code released", f["code_released"], code_settled, N - code_settled),
         ("unseen-object count stated",
-         sum(1 for r in M if r.get("objects_test_unseen") is not None)),
-        ("contact or penetration handled", f["pen_handled"]),
+         sum(1 for r in M if r.get("objects_test_unseen") is not None), N, 0),
+        ("contact or penetration handled", f["pen_handled"], f["pen_settled"],
+         N - f["pen_settled"]),
     ]
+    trials_off_real = sum(1 for r in M if r.get("real_trials") is not None
+                          and r.get("real_robot") is not True)
+    if trials_off_real:
+        sys.exit(f"{trials_off_real} rows state a real trial count with no real robot, so 89 is "
+                 "not the denominator Section VII-A gives for that share")
     # --- real trials, per cell and never pooled with the grand totals ---
     per_cell = sorted(r["real_trials"] for r in M
                       if r.get("real_trials_kind") in ("per-task", "per-condition")
@@ -291,33 +309,48 @@ def fig_reporting():
     Those two, the unseen-object count and contact handling, are the pair a reader needs in order to
     compare any two methods: without them a success rate has no generalisation denominator and no
     statement about whether the hand went through the object.
+
+    Each bar is drawn against the denominator that belongs to its statistic, which is what Section
+    VII-A quotes and what this figure used to contradict: the bar is the count against 112, so the
+    six counts stay comparable to each other, and the pale track behind it is that statistic's own
+    denominator, so the share a reader reads off the track is the share the text states. Where the
+    note left rows unsettled they are drawn as a lighter tail beyond the track and named in the
+    label, because a row the note could not settle is not a row that reported nothing.
     """
-    axes = sorted(F["axes"], key=lambda t: -t[1])
-    lowest = {label for label, _ in axes[-2:]}
+    axes = sorted(F["axes"], key=lambda t: -t[1] / t[2])
+    lowest = {t[0] for t in axes[-2:]}
     # narrow enough that \resizebox to one column scales the figure up rather than down:
     # this chart's text is the smallest in the paper and must not be shrunk further
     width, rowsep = 5.2, 0.44
+    # The count, its own denominator and the share. The unsettled rows are drawn as a tail rather
+    # than named here: spelling them out in every label widened the picture by a third, and this
+    # chart is \resizebox'd to one column, so a wider picture is a smaller font on the page.
+    labels = {t[0]: rf"{t[1]} of {t[2]} ({round(100 * t[1] / t[2])}\%)" for t in axes}
     out = [PRE]
     y = 0.0
     ys = {}
-    for label, n in axes:
-        frac = n / N
-        w = width * frac
+    for label, n, denom, unk in axes:
+        w = width * n / N
+        track = width * denom / N
         acc = label in lowest
         style = "baracc" if acc else "bar"
         lsty = r"lbl,text=accent" if acc else "lbl"
         nsty = r"font=\scriptsize\color{accent}" if acc else "num"
         out.append(rf"\node[{lsty},anchor=east] at (0,{-y:.2f}) {{{esc(label)}}};")
-        out.append(rf"\fill[barlight] (0.12,{-y - 0.1:.2f}) rectangle ({0.12 + width:.2f},"
+        out.append(rf"\fill[barlight] (0.12,{-y - 0.1:.2f}) rectangle ({0.12 + track:.2f},"
                    rf"{-y + 0.1:.2f});")
+        if unk:
+            out.append(rf"\fill[black!8] ({0.12 + track:.2f},{-y - 0.1:.2f}) rectangle "
+                       rf"({0.12 + track + width * unk / N:.2f},{-y + 0.1:.2f});")
         out.append(rf"\fill[{style}] (0.12,{-y - 0.1:.2f}) rectangle ({0.12 + w:.2f},"
                    rf"{-y + 0.1:.2f});")
         out.append(rf"\node[{nsty},anchor=west] at ({0.12 + width + 0.12:.2f},{-y:.2f}) "
-                   rf"{{{n} ({round(100 * frac)}\%)}};")
+                   rf"{{{labels[label]}}};")
         ys[label] = -y
         y += rowsep
-    # a square bracket down the right-hand side of the two lowest bars
-    xb = 0.12 + width + 1.30
+    # a square bracket down the right-hand side of the two lowest bars, clear of the widest label:
+    # the labels now carry their own denominator and run about twice as long as "11 (10%)" did
+    xb = 0.12 + width + 0.24 + 0.115 * max(len(v) for v in labels.values())
     y0, y1 = (ys[l] for l in [a[0] for a in axes[-2:]])
     out.append(rf"\draw[line width=0.4pt,draw=accent] ({xb:.2f},{y0 + 0.16:.2f}) -- "
                rf"({xb + 0.10:.2f},{y0 + 0.16:.2f}) -- ({xb + 0.10:.2f},{y1 - 0.16:.2f}) -- "

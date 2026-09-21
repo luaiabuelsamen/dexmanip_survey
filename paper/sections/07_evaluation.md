@@ -28,10 +28,14 @@ the argument. Section 5.6 makes the same disclosure about the paper/code count, 
 disagreements that are limitations of this survey's own parsing before declaring which number to
 quote, and the coverage statistics above need it more.
 
-The nulls behind those six shares were therefore audited by hand against the notes they came from,
-and every number above is post-audit. Appendix A gives what that audit recovered and what it could
-not: the counts moved by tens of rows, 19 trial counts and 4 criteria remain genuinely unsettled,
-and every bar in Figure 6 is still a lower bound.
+The nulls behind four of those six shares were therefore audited by hand: the trial counts, the
+success criteria and the unseen-object counts against the notes they came from, and the
+penetration field against the parsed sources themselves. Those four numbers above are post-audit.
+Appendix A gives what the audits recovered and what they could not: the counts moved by tens of
+rows, 19 trial counts and 4 criteria remain genuinely unsettled, and every bar in Figure 6 is
+still a lower bound. The other two shares are not post-audit. The code-release field has never
+been audited this way, so its share is a floor of unmeasured depth, and the real-robot field's one
+unsettled row is left out of its denominator rather than counted as silence.
 
 The remaining gap is the one that matters. Nineteen of the 89 papers with a real robot never say
 how many times they ran it. A percentage with no denominator cannot be given an interval, so it

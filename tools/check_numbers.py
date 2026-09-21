@@ -367,6 +367,17 @@ REQUIRED_IN = {
    (r"says\s+exactly\s+that\s+about\s+itself",
     "one corpus paper's own README makes the same point"),
    (r"correctable\s+in\s+public", "the route by which a disputed case is corrected"),
+   # Where contact stood on the day this was posted. The letters went out on 19 September and the
+   # window closes on 10 October, so the paper is written inside the window: a reader in November
+   # has to be able to tell that v1 carries no outcome, and a sentence about replies written in a
+   # tense that lets them be assumed is the failure this pins against.
+   (r"10\s+October\s+2026", "the date the reply window closes is on the page"),
+   (r"no\s+reply\s+had\s+been\s+received\s+at\s+the\s+time\s+of\s+writing",
+    "the paper states where contact stood when it was written, not where it might stand later"),
+   (r"silence\s+would\s+be\s+recorded\s+as\s+silence|silence\s+would\s+be\s+recorded"
+    r"|recorded\s+as\s+silence", "silence is recorded as silence, not as assent"),
+   (r"[Ww]hat\s+a\s+reply\s+can\s+add",
+    "why the letters were written at all, given that the comparison needs no reply"),
  ],
  "tex/sections/05_training.tex": [
    (r"were\s+written\s+to\s+on\s+19\s+September\s+2026",
@@ -378,6 +389,12 @@ REQUIRED_IN = {
    (r"says\s+exactly\s+that\s+about\s+itself",
     "one corpus paper's own README makes the same point"),
    (r"correctable\s+in\s+public", "the route by which a disputed case is corrected"),
+   (r"10\s+October\s+2026", "the date the reply window closes is on the page"),
+   (r"no\s+reply\s+had\s+been\s+received\s+at\s+the\s+time\s+of\s+writing",
+    "the paper states where contact stood when it was written, not where it might stand later"),
+   (r"recorded\s+as\s+silence", "silence is recorded as silence, not as assent"),
+   (r"[Ww]hat\s+a\s+reply\s+can\s+add",
+    "why the letters were written at all, given that the comparison needs no reply"),
  ],
 }
 
@@ -428,10 +445,6 @@ NOT_IN = {
    (r"issue tracker of the deposited",
     "there is no deposited corpus and no tracker to open an issue on"),
  ],
- "tex/sections/appendix_a_method.tex": [
-   (r"The repository is public",
-    "it is not deposited yet, which is why the paper prints no link to it"),
- ],
  "tex/figs/fig_codegap.tex": [
    (r"states a different objective",
     "too strong for DeXtreme, where the difference is one weight of -0.25 against -0.2"),
@@ -444,10 +457,6 @@ NOT_IN = {
  ],
  # The topic sentence of section VII-B was moved and also left behind, verbatim, 24 pages apart.
  # Section VII-B is where it belongs; page 1 introduces the same claim in different words.
- "tex/sections/01_introduction.tex": [
-   (r"quantity most specific to a hand",
-    "this is section VII-B's topic sentence and page 1 had a verbatim copy of it"),
- ],
  "paper/sections/01_introduction.md": [
    (r"quantity most specific to a hand",
     "this is section 7.2's topic sentence and section 1 had a verbatim copy of it"),
@@ -461,6 +470,51 @@ NOT_IN = {
     "the narrowing predates the letters; no reply caused it")],
  "corpus/rows/omnih2o_2024.json": [(r"before author contact",
     "the withdrawal predates the letters; no reply caused it")],
+ # The repository front page is the first thing a reader of the corpus meets, and it said the
+ # opposite of the paper for a day: nobody written to, letters drafted and not sent. Both are
+ # false since 19 September 2026. sent_letter_problems() pins the same fact inside the paper.
+ "README.md": [
+   (r"None of the nine sets of authors was written to",
+    "all nine were written to on 19 September 2026, before the survey was posted"),
+   (r"drafted,? (?:and )?not sent", "the letters were sent; outreach/ holds them as they went out"),
+ ],
+ "tools/make_appendices.py": [
+   (r"None of those authors was written to",
+    "the markdown edition's Appendix C said the opposite of the LaTeX edition's"),
+ ],
+ "paper/APPENDIX_C.md": [
+   (r"None of those authors was written to",
+    "regenerate: tools/make_appendices.py no longer writes that sentence"),
+ ],
+ # The roadmap described the paper as it was before Appendices C, D and E were printed into it.
+ "tex/sections/01_introduction.tex": [
+   (r"quantity most specific to a hand",
+    "this is section VII-B's topic sentence and page 1 had a verbatim copy of it"),
+   (r"are supplied with the reproducibility\s+materials rather than repeated in the article",
+    "the discrepancy catalogue and the protocol derivations are printed, as Appendices C and E"),
+ ],
+ "tex/sections/07_evaluation.tex": [
+   (r"nulls behind those six shares were therefore audited",
+    "four of the six were audited by hand; Appendix A says the code-release field was not"),
+   (r"every number above is post-audit",
+    "the code-release share is not post-audit, and Appendix A says so"),
+ ],
+ "paper/sections/07_evaluation.md": [
+   (r"nulls behind those six shares were therefore audited",
+    "four of the six were audited by hand; Appendix A says the code-release field was not"),
+   (r"every number above is post-audit",
+    "the code-release share is not post-audit, and Appendix A says so"),
+ ],
+ "tex/sections/appendix_a_method.tex": [
+   (r"The repository is public",
+    "it is not deposited yet, which is why the paper prints no link to it"),
+   (r"Two fields carrying a headline",
+    "four fields were re-read against their sources: trials, criteria, unseen objects, penetration"),
+ ],
+ "paper/METHOD.md": [
+   (r"Two fields carrying a headline",
+    "four fields were re-read against their sources: trials, criteria, unseen objects, penetration"),
+ ],
 }
 
 MUST_IN = {
@@ -481,6 +535,17 @@ MUST_IN = {
  ],
  "tex/tables/table8_matrix.tex": [
    (r"ast\$ matched on its full title", "the mark has a key on the page it is printed on"),
+ ],
+ # The roadmap has to describe the paper that exists: five appendices, three of them added after
+ # the roadmap was written and never introduced to the reader.
+ "tex/sections/01_introduction.tex": [
+   (r"\\ref\{app:rewards\}", "the roadmap introduces Appendix C, the discrepancy catalogue"),
+   (r"\\ref\{app:surveys\}", "the roadmap introduces Appendix D, the survey comparison's prose"),
+   (r"\\ref\{app:protocol\}", "the roadmap introduces Appendix E, the protocol derivations"),
+ ],
+ "README.md": [
+   (r"written to on 19 September 2026", "the front page states the date the letters went out"),
+   (r"10\s*\n?October 2026", "the front page states the date the reply window closes"),
  ],
 }
 
@@ -660,6 +725,154 @@ def artefact_problems():
     return out
 
 
+# --- the letters, against the record of what was sent ---------------------------------------------
+# outreach/RECIPIENTS.md is that record: one line per letter, the address it went to, and where the
+# address came from. Nine went out on 19 September 2026; a tenth, OmniH2O, was withdrawn while it
+# was being drafted and never went. So "which was never sent" is true of that tenth note and false
+# of any of the nine, and it stood in Appendix C's PenSpin entry in both editions and in the corpus
+# row behind them: a false sentence about a named group's paper, inside the paper that says all
+# nine were written to. The recipients file is read rather than a list kept here, so a letter added
+# or withdrawn moves this check with it instead of leaving it describing a former world.
+NEVER_SENT = re.compile(r"never\s+sent|was\s+not\s+sent|drafted\s+and\s+not\s+sent"
+                        r"|drafted,\s+not\s+sent", re.I)
+
+
+def sent_letters():
+    """key -> the address its letter went to, from the file that records where each one went."""
+    out = {}
+    f = R / "outreach/RECIPIENTS.md"
+    if f.exists():
+        for line in f.read_text().splitlines():
+            m = re.match(r"\|\s*`([a-z0-9_]+)`\s*\|\s*([^|]+?)\s*\|", line)
+            if m:
+                out[m.group(1)] = m.group(2)
+    return out
+
+
+def _appendix_c_entries():
+    """Both editions' Appendix C, one chunk per row, keyed by the row the chunk is about."""
+    out = []
+    tex = R / "tex/sections/appendix_c_rewards.tex"
+    if tex.exists():
+        for chunk in re.split(r"\\item\s", tex.read_text())[1:]:
+            m = re.search(r"\\cite\{([a-z0-9_]+)\}", chunk)
+            if m:
+                out.append(("tex/sections/appendix_c_rewards.tex", m.group(1), chunk))
+    md = R / "paper/APPENDIX_C.md"
+    if md.exists():
+        for chunk in re.split(r"(?m)^- ", md.read_text())[1:]:
+            m = re.match(r"`([a-z0-9_]+)`", chunk)
+            if m:
+                out.append(("paper/APPENDIX_C.md", m.group(1), chunk))
+    return out
+
+
+def sent_letter_problems():
+    out = []
+    sent = sent_letters()
+    nine = {r["key"] for r in M if r.get("mismatch_class") == "contradiction"}
+    if not sent:
+        return ["outreach/RECIPIENTS.md records no letter at all, so nothing here can check the "
+                "paper's statement that the authors of the nine were written to"]
+    for k, addr in sorted(sent.items()):
+        if "@" not in addr:
+            out.append(f"outreach/RECIPIENTS.md gives `{k}` no address, so its letter cannot be "
+                       f"said to have gone anywhere")
+    for k in sorted(set(sent) - nine):
+        out.append(f"a letter is recorded as sent to `{k}`, which is not one of the {len(nine)} "
+                   f"works the survey names")
+    for k in sorted(nine - set(sent)):
+        out.append(f"`{k}` is named as a contradiction and outreach/RECIPIENTS.md records no "
+                   f"letter to its authors, so the disclosure is wrong for one of the {len(nine)}")
+    for k in sorted(sent):
+        m = NEVER_SENT.search(str((BY_KEY.get(k) or {}).get("mismatch_review") or ""))
+        if m:
+            out.append(f"corpus/rows/{k}.json says {m.group(0)!r} of a letter that went to "
+                       f"{sent[k]} on 19 September 2026")
+    for rel, key, chunk in _appendix_c_entries():
+        m = NEVER_SENT.search(chunk) if key in sent else None
+        if m:
+            out.append(f"{rel} says {m.group(0)!r} in the entry for `{key}`, whose letter was sent")
+    return out
+
+
+# --- the reporting figure, against the denominators the corpus gives ------------------------------
+# Six shares, and four of the six are not shares of 112: a row with no real robot cannot state a
+# real trial count, and the real-robot, code-release and penetration fields carry nulls that mean
+# the note did not settle the question rather than "no". The LaTeX figure drew all six against 112
+# while the prose on the same page quoted the other four, so the bars printed 79, 62, 55 and 10 per
+# cent where the sentences said 80, 79, 57 and 11, and the caption claimed the arithmetic the
+# figure had not done. Both editions' figures and both editions' Section VII are checked here
+# against one recomputation.
+def reporting_axes():
+    """(label, stated, denominator) for the six bars, recomputed from corpus/rows."""
+    real = cnt(lambda r: r.get("real_robot") is True)
+    return [
+        ("success criterion stated", FACTS["states_criterion"], len(M)),
+        ("real-robot experiment", real, cnt(lambda r: r.get("real_robot") is not None)),
+        ("real trial count stated", FACTS["states_trials"], real),
+        ("code released", FACTS["code_released"], cnt(lambda r: r.get("code_released") is not None)),
+        ("unseen-object count stated", FACTS["states_unseen"], len(M)),
+        ("contact or penetration handled", FACTS["pen_handled"], FACTS["pen_settled"]),
+    ]
+
+
+def reporting_figure_problems():
+    out = []
+    figs = [("tex/figs/fig_reporting.tex", "tex/sections/07_evaluation.tex"),
+            ("paper/figures/fig6_reporting.svg", "paper/sections/07_evaluation.md")]
+    for fig, prose in figs:
+        ff, pf = R / fig, R / prose
+        if not ff.exists() or not pf.exists():
+            out.append(f"{fig if not ff.exists() else prose} is missing")
+            continue
+        fbody, pbody = ff.read_text(), re.sub(r"\s+", " ", pf.read_text())
+        for label, n, d in reporting_axes():
+            pct = round(100 * n / d)
+            if f"{n} of {d} ({pct}" not in fbody:
+                out.append(f"{fig} does not draw `{label}` as {n} of {d} ({pct} percent), which is "
+                           f"what the corpus gives and what the section states")
+            if not re.search(rf"\b{pct}\s+percent", pbody):
+                out.append(f"{prose} states no {pct} percent for `{label}`, which the figure draws")
+            if d != len(M) and not re.search(rf"\b{d}\b", pbody):
+                out.append(f"{prose} never names {d}, the denominator `{label}` is drawn against")
+    return out
+
+
+# --- what the paper says about its own shape ------------------------------------------------------
+# "Section VII is the longest" outlived the arrangement it described: Section V runs seven pages to
+# Section VII's four. A superlative about the document is checkable against the document.
+def longest_section_problems():
+    out = []
+    editions = [
+        ("latex", sorted((R / "tex/sections").glob("0*.tex")),
+         R / "tex/sections/01_introduction.tex", r"Section~\\ref\{sec:([a-z]+)\} is the longest"),
+        ("markdown", sorted((R / "paper/sections").glob("0*.md")),
+         R / "paper/sections/01_introduction.md", r"Section (\d) is the longest"),
+    ]
+    for edition, files, intro, pat in editions:
+        if not files or not intro.exists():
+            continue
+        words = {f: len(f.read_text().split()) for f in files}
+        longest = max(words, key=words.get)
+        m = re.search(pat, intro.read_text())
+        if not m:
+            continue
+        token = m.group(1)
+        if edition == "latex":
+            named = [f for f in files if re.search(r"\\label\{sec:%s\}" % token, f.read_text())]
+        else:
+            named = [f for f in files if f.name.startswith("0%s_" % token)]
+        if not named:
+            out.append(f"the {edition} introduction calls a section the longest that this checker "
+                       f"cannot find: {token!r}")
+        elif named[0] != longest:
+            out.append(f"the {edition} introduction calls {named[0].name} the longest section, "
+                       f"and it is {words[named[0]]} words against {longest.name}'s "
+                       f"{words[longest]}")
+    return out
+
+
 def shape_problems():
     """Check the definitions the prose states in words against the corpus rows they name."""
     out = []
@@ -817,6 +1030,16 @@ def main():
         bad += 1
         print(f"  CAPTION  {c}")
     if not cp: print(f"  {len(CAPTION_OWNERS)} table captions agree with their own section")
+    print("\n=== the letters, the figure's denominators, and the paper's own shape ===")
+    rp = sent_letter_problems() + reporting_figure_problems() + longest_section_problems()
+    for p in rp:
+        bad += 1
+        print(f"  RECORD  {p}")
+    if not rp:
+        print(f"  {len(sent_letters())} letters recorded as sent and no entry calling one of them "
+              f"unsent, six reporting shares drawn against the denominator the corpus gives in "
+              f"both editions, and the section each introduction calls longest is the longest")
+
     print("\n=== the posting blockers, pinned ===")
     bl = (file_pin_problems() + abstract_problems() + confidence_problems()
           + cited_table_problems() + reference_list_problems())

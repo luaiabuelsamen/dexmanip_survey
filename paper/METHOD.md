@@ -45,9 +45,10 @@ Those disagreements turned out to be common enough to become a finding in their 
 reading into notes was done with language-model assistance, from the parsed files only. The
 template's conventions are the safeguard against what that can get wrong: a quotation rather
 than a paraphrase, "not stated" rather than an inference, and a named source beside every
-value, so a note can be checked against the file it came from. Two fields carrying a headline
-claim were re-read against the sources afterwards, the trial counts and the penetration field,
-and both audits are below; the coverage statistics are reported as floors for the same reason.
+value, so a note can be checked against the file it came from. Four fields carrying a headline
+claim were re-read against their sources afterwards, the trial counts, the success criteria, the
+unseen-object counts and the penetration field, and all four audits are below; the coverage
+statistics are reported as floors for the same reason.
 
 ## Sources that could not be obtained
 Six works are cited by metadata only and no claim in this survey rests on their contents. Five

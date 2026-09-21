@@ -17,9 +17,10 @@
 \centering
 \IfFileExists{figs/fig_reporting.tex}{\resizebox{\columnwidth}{!}{\input{figs/fig_reporting}}}{%
   \framebox[0.95\columnwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_reporting.tex pending}}}
-\caption{What gets reported, and what does not: six shares of the 112 corpus method rows, each bar
-drawn against the denominator the text gives, with the two rarest reporting practices marked in
-colour.}
+\caption{What gets reported, and what does not. Each bar is a count of the 112 corpus method
+rows; the pale track behind it is the denominator that statistic is quoted against, printed beside
+the count, because four of the six are not 112. A faint tail past a track is the rows whose notes
+left that question unsettled. The two rarest reporting practices are marked in colour.}
 \label{fig:reporting}
 \end{figure}
 
@@ -47,10 +48,15 @@ the artefact flatters the argument. Section~\ref{sec:train:code} makes the same 
 the paper/code count, subtracting the 13 disagreements that are limitations of this survey's own
 parsing before declaring which number to quote, and the coverage statistics above need it more.
 
-The nulls behind those six shares were therefore audited by hand against the notes they came from,
-and every number above is post-audit. Appendix~\ref{app:method} gives what that audit recovered and
-what it could not: the counts moved by tens of rows, 19 trial counts and 4 criteria remain
-genuinely unsettled, and every bar in \figurename~\ref{fig:reporting} is still a lower bound.
+The nulls behind four of those six shares were therefore audited by hand: the trial counts, the
+success criteria and the unseen-object counts against the notes they came from, and the penetration
+field against the parsed sources themselves. Those four numbers above are post-audit.
+Appendix~\ref{app:method} gives what the audits recovered and what they could not: the counts moved
+by tens of rows, 19 trial counts and 4 criteria remain genuinely unsettled, and every bar in
+\figurename~\ref{fig:reporting} is still a lower bound. The other two shares are not post-audit.
+The code-release field has never been audited this way, so its share is a floor of unmeasured
+depth, and the real-robot field's one unsettled row is left out of its denominator rather than
+counted as silence.
 
 The remaining gap is the one that matters. Nineteen of the 89 papers with a real robot never say
 how many times they ran it. A percentage with no denominator cannot be given an interval, so it
