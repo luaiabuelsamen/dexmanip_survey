@@ -10,7 +10,7 @@ vendors, reinforcement learning, imitation and human data, bimanual, benchmarks 
 seeded with the canonical works in each area and extended by search up to 2026-09-17. Every
 arXiv identifier was checked by fetching the abstract page and matching the title, and entries
 that could not be checked that way are marked. The six lists were merged with deduplication on arXiv
-identifier and normalised title, giving 221 entries.
+identifier and normalized title, giving 221 entries.
 
 Seven further bibliography entries are not part of that corpus and are not counted anywhere in this
 survey. They are the prior audits and case studies section 1 positions this survey against, they
@@ -79,7 +79,7 @@ a reader counting the corpus should get 221.
 
 ## What this method cannot do
 Mention counts over the corpus are counts of mentions, not of use: a related-work sentence
-counts the same as an experiment. Vendor specifications are manufacturer claims and are labelled
+counts the same as an experiment. Vendor specifications are manufacturer claims and are labeled
 as such throughout, and where a page has since gone offline the note says so. The corpus is
 large but not exhaustive, and selection by search favours work that is indexed, in English, and
 posted as a preprint. It also favours recent work. Of the 221 bibliography entries, 138 are dated
@@ -116,7 +116,7 @@ as unsettled rather than as silence, so recovering one would not move the findin
 of the 85, 29 percent, were drawn with `random.Random(20260919).sample` over the sorted
 population, so the draw is fixed and can be redrawn. Each sampled row was read again in
 `papers/md/`, in its OCR recovery where one exists, and in `code/md/` where a repository was
-parsed, but not in `papers/notes/`, because the note is the artefact under suspicion: a field
+parsed, but not in `papers/notes/`, because the note is the artifact under suspicion: a field
 is wrong exactly when the source says something the note did not carry. A regular expression
 over the whole source collected every occurrence of penetration, interpenetration,
 intersection, intersection volume, solid intersection, simulation displacement, contact

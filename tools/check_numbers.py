@@ -611,9 +611,15 @@ def abstract_problems():
         if not re.search(r"[Nn]o\s+closed-loop\s+policy\s+in\s+the\s+corpus", body):
             out.append(f"the {name} abstract no longer scopes the penetration claim to the corpus "
                        "in the conclusion's words")
-        if not re.search(r"their\s+authors\s+were\s+written\s+to\s+before\s+posting", body):
-            out.append(f"the {name} abstract states the finding without the clause that the "
-                       "authors were written to before posting")
+        # The disclosure is pinned to the claim, not to the abstract: if the abstract states the
+        # paper-versus-code finding it must also say the authors were written to, and if it does
+        # not state the finding there is nothing for the clause to qualify.
+        states_codegap = re.search(r"differs?\s+from\s+the\s+one\s+in\s+the\s+repositor|"
+                                   r"training\s+objective\s+in\s+the\s+paper\s+that", body)
+        if states_codegap and not re.search(
+                r"their\s+authors\s+were\s+written\s+to\s+before\s+posting", body):
+            out.append(f"the {name} abstract states the paper-versus-code finding without the "
+                       "clause that the authors were written to before posting")
     return out
 
 

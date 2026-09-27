@@ -9,9 +9,9 @@ tracker, which is imitation with a simulator in the loop, and nothing supervises
 planner, which is handed a cost and a model instead.
 
 The labels do not partition the corpus. Of the 112 method rows, 53 are tagged reinforcement
-learning, 27 behaviour cloning, 23 distillation, 18 generalist or vision-language-action, 14
+learning, 27 behavior cloning, 23 distillation, 18 generalist or vision-language-action, 14
 teleoperation systems, 14 diffusion, 10 data collection, 8 flow matching, 6 reinforcement learning
-from demonstrations, 6 trajectory optimisation, 5 model-predictive control, 4 grasp synthesis and
+from demonstrations, 6 trajectory optimization, 5 model-predictive control, 4 grasp synthesis and
 2 world models. The tags sum to far more than 112 because most methods published since 2024 sit on
 two branches at once. Figure 4 draws the tree and the cross-links. Table 7 is the row-by-row
 version of the same thing, and is the table to scan when looking for work comparable to your own.
@@ -35,7 +35,7 @@ that cannot be compared with any other row here.
 **The standard recipe.** Fifty-nine of the 112 method rows learn from a reward. Forty-eight name PPO as the algorithm, and
 the next most frequent, DAPG, appears four times. Forty-three run their own experiments in a
 GPU-parallel simulator from the Isaac family or Genesis, and 36 do both. Only 31 rows state an
-environment count, with a median of 8192 and a maximum of 64000. Twenty-three rows distil a
+environment count, with a median of 8192 and a maximum of 64000. Twenty-three rows distill a
 privileged teacher into a deployable student, and 16 combine all three of PPO, a GPU simulator and
 distillation. That 16-row intersection is the recipe as it is actually practised.
 
@@ -47,7 +47,7 @@ orientation, joint angles, joint velocities and object velocities the policy nev
 footnote recording that current object orientation was left out of the policy inputs by accident,
 and `dextreme_2022` uses the same asymmetric critic with a 2048-unit LSTM against the actor's
 1024. `hora_2022` instead compresses nine privileged object properties into an eight-dimensional
-vector regressed from 30 steps of proprioception, and `visual_dexterity_2022` distils twice, from
+vector regressed from 30 steps of proprioception, and `visual_dexterity_2022` distills twice, from
 a state teacher to a synthetic point cloud and then to a rendered one, for a fivefold speedup.
 
 Domain randomisation is the part of the recipe with the least discipline.
@@ -70,10 +70,10 @@ every shipped configuration setting its weight to zero.
 {{table:table5_rewards}}
 
 The families are not equally popular. Nineteen of 21 methods have a goal or rotation tracking
-term, which is the task. Thirteen penalise effort as torque, work or joint velocity, 13 pay a
-sparse success bonus, 11 penalise object velocity and 10 penalise a drop. Eight penalise deviation
+term, which is the task. Thirteen penalize effort as torque, work or joint velocity, 13 pay a
+sparse success bonus, 11 penalize object velocity and 10 penalize a drop. Eight penalize deviation
 of the hand from a canonical grasp pose, a family the plan for this table did not anticipate and
-which had to be added. Six penalise action rate or magnitude, five reward closing the distance
+which had to be added. Six penalize action rate or magnitude, five reward closing the distance
 from fingertips to the object, and four carry a contact or force mark at all.
 
 Three cells an earlier draft marked *code* print *code (0)* instead, because in each the term is
@@ -86,13 +86,13 @@ config key and the zero beside each of the three marks.
 Only three of the four contact marks are the finding. `anyrotate_2024` scores good and bad
 fingertip contacts, `poise_2026` rewards a friction-cone wrench margin, and
 `force_grasp_sim2real_2026` tracks a commanded grasp force. The fourth, `visual_dexterity_2022`,
-penalises the *object* touching the table, a task-shaping term against using the table as a third
+penalizes the *object* touching the table, a task-shaping term against using the table as a third
 finger rather than a hand-object term, and its table-contact flag defaults to off, with no shipped
 config setting it true. Three of 21 in-hand reorientation methods, then, put a hand-object contact
-or force quantity in the reward, and none puts interpenetration in it. `teledexter_2026` penalises
+or force quantity in the reward, and none puts interpenetration in it. `teledexter_2026` penalizes
 interpenetration with a differentiable signed-distance term, but during offline reference
 construction, not in the policy's reward. Across all 112 method rows, 85 do not address
-penetration at all, 5 constrain it, 3 measure it, 3 penalise it and 16 say nothing either way. The
+penetration at all, 5 constrain it, 3 measure it, 3 penalize it and 16 say nothing either way. The
 physical quality of the contact is not something this literature optimises.
 
 Term counts range from one to ten. `demostart_2024` gives a single binary terminal reward of 1 and
@@ -128,10 +128,10 @@ run, and 0.32 trillion environment steps for its largest population.
 `eureka_2023` has GPT-4 write the reward function directly, constrained to return a total and a
 dictionary of named components, and feeds per-component statistics back between iterations. Its
 appendix gives an example whose reward correlates at −0.26 with the human-written one and still
-scores 1.45 on the human-normalised metric, the strongest argument in the corpus that hand-tuned
+scores 1.45 on the human-normalized metric, the strongest argument in the corpus that hand-tuned
 weights are not a ceiling. `dreureka_2024` moves the safety requirement into the prompt instead of
 a penalty term, asking in words for a cube rotating at about 0.25 radians per second with fingers
-penalised for leaving their initial pose. Neither can be checked against a file. Eureka's
+penalized for leaving their initial pose. Neither can be checked against a file. Eureka's
 generated rewards are written at run time to a gitignored directory and never committed, so the
 reward behind any reported number cannot be recovered from the repository, though its README
 documents the paper's budget of five iterations and sixteen samples as the default and marks the
@@ -168,9 +168,9 @@ kinematics allow it, as `holo_dex_2022` does for index, middle and ring while so
 inverse kinematics and discarding the pinky the Allegro does not have. The third learns the map
 offline: `geometric_retargeting_2025` trains a per-finger network in three to five minutes against
 motion-direction, coverage, flatness, pinch and collision criteria, then runs at 1 kHz against the
-60 to 100 Hz of online optimisation, raising configuration-space coverage from 38 to 90 percent
+60 to 100 Hz of online optimization, raising configuration-space coverage from 38 to 90 percent
 and one-time grasp success from 55 to 87.5 percent. The fourth removes retargeting from the loop:
-`dexumi_2025` builds an exoskeleton whose fingertip workspace is optimised to match the target
+`dexumi_2025` builds an exoskeleton whose fingertip workspace is optimized to match the target
 hand, then regresses encoder values straight to motor values.
 
 The table's empty cells are the point. Only 12 of the 30 rows carry a latency cell at all, three
@@ -203,7 +203,7 @@ one of the four that needs no continuous head at all.
 Data generation is a separate lever and is underrated. `dexmimicgen_2024` turns 60 human source
 demonstrations into 21,000 simulated ones across 9 tasks and 3 embodiments, and a real Fourier GR1
 with two Inspire hands reaches 90 percent from 40 generated demonstrations against 0 percent from
-the 4 source ones. `dex1b_2025` iterates optimisation, a CVAE proposal model and a simulator
+the 4 source ones. `dex1b_2025` iterates optimization, a CVAE proposal model and a simulator
 filter into roughly a billion synthetic grasps, and its CVAE baseline beats the prior best by 22
 points.
 
@@ -271,7 +271,7 @@ quantity, reporting maximum depth and the fraction of frames past 2 mm, and cons
 retargeting with a 1 mm soft tolerance and a 30 mm hard bound. It reaches 87.5 percent on its own
 pen-spinning set against 46.9 for the best baseline. It does not re-measure penetration after the
 tracking policy runs, so the property it constrains is a property of the reference and not of the
-behaviour.
+behavior.
 
 That is the pattern across all eight, and it is the reference-versus-rollout split in its sharpest
 form. Penetration is handled at the reference, if at all, and never at the rollout. `objdex_2024`
@@ -341,14 +341,14 @@ result.
 `pang_global_planning_2022` is the most substantial of the three. It proves that the randomised
 smoothing implicit in reinforcement learning and an analytic log-barrier relaxation compute the
 same local linear model of contact, then uses the analytic version inside a trajectory optimiser
-and an RRT. Allegro in-hand rotation takes 19.59 seconds to optimise and its plate-pickup task
+and an RRT. Allegro in-hand rotation takes 19.59 seconds to optimize and its plate-pickup task
 117.16 seconds of planning on a 16-core CPU, against the GPU-days of section 5.2, and it is the
 only method here that imposes non-penetration as a hard constraint. Its own limitation is the
 honest part: its 3D systems transfer to hardware far worse than its 2D ones, because the
 quasi-dynamic assumption breaks and planned grasps miss contacts under a second-order solver.
 
 **Hybrids, and where the field has converged.** The recurring shape is reinforcement learning in simulation distilled into a policy that looks
-like an imitation policy, and it appears in four variants. The first distils a privileged teacher
+like an imitation policy, and it appears in four variants. The first distills a privileged teacher
 into a vision student inside one paper, which is `hora_2022`, `visual_dexterity_2022`,
 `rotateit_2023`, `robot_synesthesia_2023` and `viserdex_2026`. The second uses reinforcement
 learning as a demonstration factory: `dextrack_2025` mines demonstrations with per-trajectory RL
@@ -425,7 +425,7 @@ September 2026, before this survey was posted. Each letter quotes the claim, its
 the sentences the survey would print, and asks whether the reading is right, whether there is a
 reason the released configuration differs, and whether the authors want the wording changed;
 each gave until 10 October 2026 to reply, and said that silence would be recorded as silence
-and not as agreement. What a reply can add is what the artefacts cannot give: which shipped
+and not as agreement. What a reply can add is what the artifacts cannot give: which shipped
 configuration belongs to which stage of a pipeline, whether the fetched commit is the one behind
 the reported numbers, and whether an untagged branch holds the code that was run. The letters
 are in `outreach/` in the corpus that accompanies this
@@ -442,7 +442,7 @@ line of Table 11 at the repository and commit that line names, without anyone's 
 without this survey's own corpus. Two limits come with that, and neither is a hedge. A
 repository at a fetched commit is not the code that produced a paper's numbers: it may postdate
 that code, precede it, or have diverged from it on a branch nobody tagged, and a snapshot
-cannot say which, so each line compares a published document with one public artefact and
+cannot say which, so each line compares a published document with one public artifact and
 claims nothing beyond the two. One work in this corpus says exactly that about itself.
 `hora_2022`'s README sends a reader to tag `v0.0.1` rather than to the default branch to
 reproduce the paper's numbers, which is why its row is classed version skew and is not one of
@@ -470,7 +470,7 @@ the file, the value on both sides, and the review note where a comparison was na
 withdrawn.
 
 A reward table is a claim about a training run and the code is a claim about a repository. Here
-the two state different things in nine cases, in the other 29 the released artefacts do not settle
+the two state different things in nine cases, in the other 29 the released artifacts do not settle
 the question, and in exactly one, `hora_2022`, the repository says so itself. Read the reward
 function before the reward table, and treat a printed weight as a hypothesis about the code.
 
@@ -506,7 +506,7 @@ down to write the letter and looked at the evidence again. Two more were narrowe
 it.** Each retraction and narrowing is recorded in the row it concerns, beside the comparison
 it revises: a survey that names people should carry its corrections beside its findings, in
 public and not just in the corpus. What would close the finding itself is a reward table
-generated from the released config at a named commit, so a reviewer diffs two artefacts instead
+generated from the released config at a named commit, so a reviewer diffs two artifacts instead
 of reading two documents.
 
 
@@ -540,11 +540,11 @@ reference including fingers" and "object trajectory only" is superseded.
 
 STILL TO DO. 1. THE CROSS-LINKS ARE MISSING AND THEY ARE THE POINT. The footer says the branches
 are not exclusive, then a strict tree is drawn. Draw the overlaps as dashed curves behind the
-nodes, in the muted accent colour, each labelled with one word: reward-branch distillation leaf ->
-demonstration-branch architecture tags   "distil" reward-branch PPO leaf           -> synthetic
+nodes, in the muted accent color, each labeled with one word: reward-branch distillation leaf ->
+demonstration-branch architecture tags   "distill" reward-branch PPO leaf           -> synthetic
 demonstration generation       "generate" egocentric video leaf            -> human-reference
 branch                   "retarget" human-reference branch           -> demonstration-branch
-architecture tags   "distil" no-learned-policy branch         -> reward-branch PPO leaf "smooth"
+architecture tags   "distill" no-learned-policy branch         -> reward-branch PPO leaf "smooth"
 teleoperated-on-robot leaf       ->  seeded by demonstrations                 "seed" The fifth
 carries `pang_global_planning_2022`'s proof that randomised smoothing, which is what a policy
 gradient does implicitly, and analytic log-barrier smoothing compute the same local model of

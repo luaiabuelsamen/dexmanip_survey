@@ -20,20 +20,20 @@ parsed source, a vendor's own specification, or a released file at a named revis
 is also what turned up the third finding, since no prior work in robotics we are aware of reads
 a field's released code against the rewards its own papers describe.
 
-The analytic theory answered the static question and stalled on the dynamic one. Form closure has
-a first-order test on the grasp matrix and known contact counts, four in the plane and seven in
-three dimensions for any polyhedron, per `bicchi_grasping_chapter_2001` Sec. 1.3.1. Force closure
-adds the wrench balance and the hand Jacobian. Neither delivers what a controller needs. The same
-chapter states in Sec. 1.5 that "force closure does not guarantee stability", and its Sec. 1.8
-names the reason the theory could not be pushed further, which is that "the nonsmooth nature of
-grasp dynamics, because of the unilateral constraints on displacements and forces, has made a
+Analytic grasp theory settled the static question. Form closure has a first-order test on the
+grasp matrix and known contact counts, four in the plane and seven in three dimensions for any
+polyhedron, per `bicchi_grasping_chapter_2001` Sec. 1.3.1. Force closure adds the wrench
+balance and the hand Jacobian. Neither delivers what a controller needs. The same chapter
+states in Sec. 1.5 that "force closure does not guarantee stability", and its Sec. 1.8 names
+the reason the theory could not be pushed further, which is that "the nonsmooth nature of grasp
+dynamics, because of the unilateral constraints on displacements and forces, has made a
 thorough analysis very difficult". That verdict is one architect's, on one chapter, and this
-survey did not survey the tradition it judges. Learned control did not solve those modelling
-problems. It went around them by sampling a simulator instead of solving a model, and by scoring a
-rollout instead of certifying a configuration. Of the 112 method papers in this corpus, 53 train
-with reinforcement learning and 35 run in Isaac Gym, against 7 on its successors Isaac Lab and
-Isaac Sim. Figure 1's routes converge on that same recipe: almost every path through the field
-ends at a policy trained in a GPU simulator and then distilled down to a vision-only student.
+survey did not survey the tradition it judges. Learned control did not solve those modeling
+problems. It substituted sampling a simulator for solving a model, and scoring a rollout for
+certifying a configuration. Of the 112 method papers in this corpus, 53 train with
+reinforcement learning and 35 run in Isaac Gym, against 7 on its successors Isaac Lab and Isaac
+Sim. Figure 1's routes converge on that same recipe: almost every path through the field ends
+at a policy trained in a GPU simulator and then distilled down to a vision-only student.
 
 Three things this survey measured are worth stating before the reader commits to 27,000 words.
 A method row is one method paper read into this survey's structured record, and it is the unit
@@ -65,7 +65,7 @@ split on penetration depth, solid intersection volume and simulation displacemen
 `bidexgrasp_2026` prints penetration depth beside a prior method's, `bimangrasp_2024` fails any
 grasp whose total penetration exceeds 1.5 mm, and `toporetarget_2026` reports a maximum
 penetration and a share of frames past 2 mm against a baseline retargeter. Every one of those
-numbers scores a pose or a reference trajectory rather than the behaviour a trained policy
+numbers scores a pose or a reference trajectory rather than the behavior a trained policy
 produced, and it is the rollout that is missing. The obstacle is not the engines. NVIDIA's own
 IsaacGymEnvs repository already computes a per-environment maximum interpenetration depth in Warp
 and gates the policy update on a 1 mm threshold. Section 4.2 has the file and the lines.
@@ -148,7 +148,7 @@ and 7 evaluation protocols. "Method row" throughout means one of the 112, and ev
 in this survey has one of those eight classes as its denominator.
 
 Two limits apply to every number here. This is a corpus of the learned era, which is a selection
-effect and not a judgement: 138 of the 221 entries are dated 2024 or later, 16 predate 2018, and
+effect and not a judgment: 138 of the 221 entries are dated 2024 or later, 16 predate 2018, and
 two of the 112 method rows predate 2018, so any statement about a trend over time is a statement
 about 2022 onward. The analytic tradition is represented by one readable chapter rather than
 surveyed, and the planning line that took up the dynamic question directly, finger gaiting and

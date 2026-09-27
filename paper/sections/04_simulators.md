@@ -3,7 +3,7 @@
 ## 4.1 Requirements of a dexterous simulation
 
 The clearest demonstration that hands are the hard case came from a benchmark that was not about
-hands. Erez et al. built a 35-DOF arm modelled on the Shadow Hand, closed it around a capsule with
+hands. Erez et al. built a 35-DOF arm modeled on the Shadow Hand, closed it around a capsule with
 fixed spring-dampers, and asked four of the five engines for the largest timestep at which the
 object was still in the hand. MuJoCo held the grasp at 16 ms, PhysX at 2 ms, ODE at 0.25 ms and
 Bullet at 0.03 ms, a spread of a factor of 500 (`physics_engine_comparison_2015`, Sec. IV-D).
@@ -169,7 +169,7 @@ across unrelated stock IsaacGymEnvs tasks at 5.0, 10.0, 100.0 and 1000.0, at fiv
 same parsed file, which is the signature of a stock template rather than of a per-variant
 choice. The parameter caps the rate at which the solver pushes overlapping bodies apart, so it
 sets how long an overlap persists and how violently it is undone, not how deep the overlap
-gets. So the one knob here that bears on interpenetration behaviour carries stock values and
+gets. So the one knob here that bears on interpenetration behavior carries stock values and
 takes two of them across variants of one method. That pattern is what the corpus shows; why the
 values were chosen is not in the record, and matching numbers cannot establish it. DexTrack's
 paper defines a maximum hand-object penetration depth, applies it only to its input kinematic
@@ -187,7 +187,7 @@ table any engine paper here publishes, which runs 1/120 s for Shadow Hand and Al
 ANYmal and TriFinger and 1/60 s for Franka (`isaacgym_2021`, Table 4). MuJoCo's 0.01 s is the
 27-DoF humanoid test's step and ComFree-Sim's 0.002 s is its benchmark step, against a stated
 stability limit near 0.02 s. Four engines state a solver iteration count and seven ship any
-dexterous hand at all. The licence column answers a question a reader choosing an engine actually
+dexterous hand at all. The license column answers a question a reader choosing an engine actually
 has, and thirteen of fifteen rows do not answer it.
 
 {{table:table4_simulators}}
@@ -278,7 +278,7 @@ them is a manipulation outcome. TACTO is a rendering layer over a host engine, b
 PyBullet's rigid contact model. It reads post-solve link poses and the engine's reported normal
 force and maps that force to gel-mesh deformation at the rendering level, so it contributes no
 contact physics of its own. Its only sim-to-real number is a tactile pose-estimation task, at 1.66
-± 0.16 mm with colour-jitter augmentation against 0.76 ± 0.07 mm for a model trained on 128 real
+± 0.16 mm with color-jitter augmentation against 0.76 ± 0.07 mm for a model trained on 128 real
 datapoints (`tacto_2020`, Table II).
 
 Taxim is example-based rather than simulated, with an optical model calibrated from 50 real

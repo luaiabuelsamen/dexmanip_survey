@@ -18,7 +18,7 @@ learned policy, `castro_sap_contact_2021`, `dexteleop0_2026` and `pang_global_pl
 less four rows where no learned policy holds both hands: `omnih2o_2024`, whose fingers are mapped
 open-loop from the Vision Pro and sit outside its 19-DoF policy; `okami_2024`, whose headline
 pipeline is open-loop retargeting with a learned policy only in a side experiment;
-`dexdeform_2023`, a skill model refined by trajectory optimisation rather than a closed-loop
+`dexdeform_2023`, a skill model refined by trajectory optimization rather than a closed-loop
 controller; and `omnigrasp_2024`, a simulated human body with no bimanual task.
 `dexterous_handover_2025` never enters, because its row records one hand. Benchmarks and datasets
 are outside the 28 by class, `bidexhands_2022`, `bench2dex_2026` and `robopianist_2023` being
@@ -111,7 +111,7 @@ Two purpose-built bimanual dexterous suites exist in the corpus, four years apar
 
 `bidexhands_2022` is 20 tasks on two Shadow Hands in Isaac Gym, ordered by the infant age at which
 humans acquire the skill, at 2048 environments and a reported 30,000-plus FPS. Its measurement
-discipline is weaker than its coverage. It reports reward and normalised score, never a success
+discipline is weaker than its coverage. It reports reward and normalized score, never a success
 rate. Its only success flag in code tests the object-to-goal distance against 3 cm, which ignores
 orientation and exists only in the four catching tasks. Any success rate later work attributes to
 Bi-DexHands comes from that flag or its own definition.
@@ -210,5 +210,5 @@ before an AUC. Both say whether the task worked and nothing about which hand los
 One failure mode has no single-hand counterpart. Two hands can penetrate each other, and the
 corpus almost never looks. Three papers carry an inter-hand penetration term, and all three are
 static grasp synthesis: `bimangrasp_2024`, `bidexgrasp_2026` and `deximit_2026`. Not one learned
-bimanual controller in the corpus measures or penalises hand-hand penetration during a rollout.
+bimanual controller in the corpus measures or penalizes hand-hand penetration during a rollout.
 `pianomime_2024` ships a flag that turns inter-hand collision off in the physics.

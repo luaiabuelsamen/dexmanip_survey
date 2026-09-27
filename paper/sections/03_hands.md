@@ -99,7 +99,7 @@ ProHand, the Tesollo DG-5F and the Unitree Dex5.
 state a dollar cost: $2,000 for LEAP, $3,000 for LEAP Hand V2, $1,500 for Ruka-v2, $1,300 for RUKA
 and $300 for DexHand. ORCA states a material cost below 2,000 CHF that the price column leaves
 unconverted, and BiDexHand states none `orca_hand_2025` `bidexhand_2025`. The Faive Hand states
-neither a cost nor a licence that could be read, so it is not counted as open hardware here
+neither a cost nor a license that could be read, so it is not counted as open hardware here
 `faive_hand_2023`. Two of the stated bases need saying. DexHand's $300 is "additional total cost
 of components", excluding the printing and the wrist servos `dexhand_open_source_2023`, and ORCA's
 own figure sits against Ruka-v2's table listing ORCA at about $3.5K `ruka_v2_2026`.
@@ -158,7 +158,7 @@ authors dropping it from their reinforcement learning "due to the additional com
 in accurately modeling them" `orca_hand_2025`. Taxel counts have risen by three orders of
 magnitude while the policies consuming them have stayed at binary contact.
 
-## 3.4 The catalogue against the literature
+## 3.4 The catalog against the literature
 
 **Three classes of evidence.** Behind Table 3's rows sit three kinds of evidence, and conflating them is how a DoF figure with no
 source ends up in a survey. Vendor prose carrying numbers is the strongest, as on 1X's page of 9
@@ -176,7 +176,7 @@ Figure 03's "Degrees of freedom, hands | 20" sits on the same tracker page as "N
 article's arithmetic of four DoF on each of five fingers plus two at the wrist, and Gen 2's own
 figure was 11 `tesla_optimus_hand_2025`.
 
-Scepticism belongs to the evidence class, not to which table a row lands in. Sharpa's 22 of 22,
+Skepticism belongs to the evidence class, not to which table a row lands in. Sharpa's 22 of 22,
 Wuji's 20 of 20 and Tesollo's 20 of 20 are vendor claims about unmeasured hardware and they sit in
 Table 2, where Sharpa's page footnotes "Specifications may vary between products" and Wuji's says
 the spec "will continue to iterate" on a Beta1 product `sharpa_wave_2026` `wuji_hand_2025`. Even

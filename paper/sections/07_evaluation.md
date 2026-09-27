@@ -23,7 +23,7 @@ floor.** A structured row holds a scalar. A paper that reports ten trials on eac
 or a scoring rubric instead of a threshold, or a count spread over four tables, has nothing the
 extraction can reduce to one integer, so it produces a null, and a null is then indistinguishable
 from a paper that said nothing. The bias runs one way: every miss converts a reporting paper into
-a silent one, and the survey's argument is that the field reports badly, so the artefact flatters
+a silent one, and the survey's argument is that the field reports badly, so the artifact flatters
 the argument. Section 5.6 makes the same disclosure about the paper/code count, subtracting the 13
 disagreements that are limitations of this survey's own parsing before declaring which number to
 quote, and the coverage statistics above need it more.
@@ -65,7 +65,7 @@ stated count is 20 in 2024, 22.5 in 2025 and 20 in 2026. Before 2024 the per-yea
 one to seven observations and should not be read as a trend.
 
 The denominators also sit on different hardware. The 103 method rows that name their own hand give
-78 distinct hand strings between them, and this survey applies no normalisation to those strings,
+78 distinct hand strings between them, and this survey applies no normalization to those strings,
 so 78 is a count of strings and not of hand designs. Matching on the string, Allegro appears in
 35, Shadow in 21, Inspire in 19 and LEAP in 12. A success rate on a 16-degree-of-freedom Allegro
 and a success rate on a 6-actuator Inspire hand are not measurements of the same thing.
@@ -79,7 +79,7 @@ which on GRAB gives 46.70 and 65.48 percent for the same rollouts. Of the 14 row
 no criterion, ten have no success predicate at all. They report radians rotated or time-to-fall
 and never define a success, which is a fact about the paper rather than a gap in this survey. And
 four are unsettled by the note. Of the 19 criteria the audit recovered, all but one are a rubric, a
-staged partial credit, a judgement by eye or a deferral to a benchmark's own definition rather than
+staged partial credit, a judgment by eye or a deferral to a benchmark's own definition rather than
 a threshold, and exactly one, `pistar06_2025`, states a verbatim numeric one; Appendix A counts the
 four kinds. A rubric is a milder failure than silence and a worse one
 than a threshold, because it is reproducible inside a lab and not across two.
@@ -127,7 +127,7 @@ orientation error to zero, so in that file the object is tracked in position onl
 
 The quantity most specific to a hand is the one closed-loop policies do not record; this section
 is the funnel that narrows to zero. Eleven method rows handle interpenetration in any form: three
-penalise it, three measure it, five
+penalize it, three measure it, five
 constrain it, 11 percent of the settled rows. The denominator is 96, not 112, because the
 contact-handling field is null for 16 rows, and a null there means the note did not settle the
 question, not that the paper ignored penetration.
@@ -150,14 +150,14 @@ and this survey's extraction under-counted every other field it was audited agai
 to forty-five percent. The 85 method rows whose contact-handling field records that the work
 does not address penetration were therefore sampled: 25 of the 85, drawn at random with a fixed
 seed, each read again in its own parsed source and its released repository rather than in the
-note the field was written from, since the note is the artefact under suspicion. Not one of the
+note the field was written from, since the note is the artifact under suspicion. Not one of the
 25 reports a measurement of penetration depth, intersection volume or physical plausibility on
 its own rollouts. Zero recoveries in 25 bounds the rows that could be hiding one at 8 of the 85
 at 95 percent confidence, so the eleven is a floor and nineteen a ceiling; had this field
 under-counted at even the mildest rate the other audits found, a sample of 25 would have missed
 every recoverable row with probability 0.001. The nearest miss is worth naming, because it is
 the one a reader might count differently: `graspxl_2024` puts hand-object interpenetration to
-35 human raters as one of four dimensions of a single realism score, which is a judgement of
+35 human raters as one of four dimensions of a single realism score, which is a judgment of
 its own rollouts rather than a measurement of one, and counting it would give one recovery in
 25 and a bound of 13 rows. Three near misses recurred across the sample and none of them is a
 measurement of a rollout: self-collision avoidance in a retargeter, a binary self-collision
@@ -225,7 +225,7 @@ treats it as a simulation-only axis.
 **What would close it.** The gap is specific to learned closed-loop control rather than general, and
 it is a choice rather than a capability. What would close it is a maximum and a mean penetration
 depth over the evaluation rollouts, on a dense surface sample, computed by a measure the policy never
-optimised.
+optimized.
 
 ## 7.3 Statistical practice, and a proposed protocol
 
@@ -314,7 +314,7 @@ most of a week of calendar time.
 
 That bill is large but not unprecedented. `autoeval_2025` records that evaluating OpenVLA against
 its baselines took more than 2500 rollouts and more than 100 hours of human labour across three
-institutions, and `lbm_careful_examination_2025` analysed about 1800 real rollouts across nine
+institutions, and `lbm_careful_examination_2025` analyzed about 1800 real rollouts across nine
 hardware stations. What is unprecedented is paying it for a single dexterous-hand paper, where the
 modal per-cell count is 10 trials and the median per-cell count 15, and where the median stated
 count has been 20 or 22.5 in each of the last three years.
@@ -344,7 +344,7 @@ physical bound. So the three things this survey adds to the reference-versus-rol
 count, a measurement method and a protocol slot for them, and a threshold is not among them. It is
 borrowed from one paper and reported as borrowed, and it will stay a convention until somebody
 measures penetration on rollouts across hands and engines and finds a value that separates
-behaviour a physicist would accept from behaviour they would not.
+behavior a physicist would accept from behavior they would not.
 
 **The methodology literature has no dexterous hand in it.** Seven corpus rows are evaluation
 protocols, a small denominator, and not one of them uses a dexterous hand: `suresim_2025` runs a
