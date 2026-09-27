@@ -42,170 +42,92 @@ gives the counts behind every claim above.
 
 A hand is dexterous when it can change an object's pose without putting the object down. That
 property, and not the finger count, is what separates a hand from a gripper.
-`bicchi_grasping_chapter_2001` draws the same line in Sec. 1.1, between restraining an object and
-"manipulating objects with fingers, in contrast to manipulation with the robot arm". Restraint is
-a static question about whether the contacts prevent motion. In-hand manipulation is a dynamic
-question about whether contacts can be broken and remade while the object stays held.
-`an_dexil_survey_2025` puts the same idea in its abstract as the ability "to skillfully control,
-reorient, and manipulate objects through precise, coordinated finger movements and adaptive force
-modulation". Both definitions place the work in the fingers rather than in the arm.
+`bicchi_grasping_chapter_2001` draws the same line in Sec. 1.1 between restraining an object and
+manipulating it with the fingers: restraint is a static question about whether the contacts prevent
+motion, while in-hand manipulation is a dynamic one about whether contacts can be broken and remade
+while the object stays held. `an_dexil_survey_2025` puts the same idea as the ability to reorient
+and manipulate objects through coordinated finger movement. A parallel-jaw gripper can hold almost
+anything and reorient almost nothing, and everything difficult about dexterity follows from that
+second question.
 
-What follows is a survey in the ordinary sense, covering hands, simulators, training, bimanual
-control and evaluation, and it is built so that a second question can be asked of it. Fourteen
-entries in this corpus are themselves surveys of this field. What this one adds to them is a
-habit rather than a subject: every claim is carried back to something a reader can open, a
-parsed source, a vendor's own specification, or a released file at a named revision. That habit
-is also what turned up the third finding, since no prior work in robotics we are aware of reads
-a field's released code against the rewards its own papers describe.
+Analytic grasp theory settled the first question and never reached the second. Form closure has a
+first-order test on the grasp matrix and known contact counts, four in the plane and seven in three
+dimensions for any polyhedron (`bicchi_grasping_chapter_2001` Sec. 1.3.1); force closure adds the
+wrench balance and the hand Jacobian. Neither tells a controller what to do next, and the same
+chapter says why: force closure does not guarantee stability (Sec. 1.5), and "the nonsmooth nature
+of grasp dynamics, because of the unilateral constraints on displacements and forces, has made a
+thorough analysis very difficult" (Sec. 1.8). That tradition produced conditions to verify rather
+than policies to run.
 
-Analytic grasp theory settled the static question. Form closure has a first-order test on the
-grasp matrix and known contact counts, four in the plane and seven in three dimensions for any
-polyhedron, per `bicchi_grasping_chapter_2001` Sec. 1.3.1. Force closure adds the wrench
-balance and the hand Jacobian. Neither delivers what a controller needs. The same chapter
-states in Sec. 1.5 that "force closure does not guarantee stability", and its Sec. 1.8 names
-the reason the theory could not be pushed further, which is that "the nonsmooth nature of grasp
-dynamics, because of the unilateral constraints on displacements and forces, has made a
-thorough analysis very difficult". That verdict is one architect's, on one chapter, and this
-survey did not survey the tradition it judges. Learned control did not solve those modeling
-problems. It substituted sampling a simulator for solving a model, and scoring a rollout for
-certifying a configuration. Of the 112 method papers in this corpus, 53 train with
-reinforcement learning and 35 run in Isaac Gym, against 7 on its successors Isaac Lab and Isaac
-Sim. Figure 1's routes converge on that same recipe: almost every path through the field ends
-at a policy trained in a GPU simulator and then distilled down to a vision-only student.
+Learned control did not solve those modeling problems. It substituted sampling a simulator for
+solving a model, and scoring a rollout for certifying a configuration. That trade is why the
+field moved, and it is also why this survey is organized as it is. Once a method stops proving
+properties and starts measuring outcomes, two things that used to come for free become the
+author's responsibility: the simulator has to be faithful where fidelity matters, and the
+measurement has to mean something. Much of what follows asks how well this literature
+discharges those two obligations. One distinction runs through both and is worth naming early:
+a quantity measured on a reference trajectory is not the same quantity measured on a trained
+policy's own rollouts, and this survey keeps that reference-versus-rollout split throughout.
 
-Three things this survey measured are worth stating before the reader commits to 27,000 words.
-A method row is one method paper read into this survey's structured record, and it is the unit
-every count below is taken over. Papers and their own released code state different things.
-Sixty-two of the 112 method rows released code that could be read against the paper, 38 of
-those record a disagreement, and nine are contradictions, where a value the paper prints and
-the value in a named file at a named commit are not the same. The sharpest is `physhoi_2023`:
-at commit `6095c605e2` of `wyhuai/PhysHOI`, `compute_humanoid_reward` sets the object rotation
-and rotation-velocity errors to zero, with the computation that would produce them commented
-out on the same lines, while the reward table in the paper lists weights of 0.1 and 0.01 for
-exactly those terms on GRAB. The success criterion behind its 95.4 percent is itself
-position-only, and that number is cited as a baseline. Section 5.6 classifies all 38, gives
-each of the nine as a repository, a commit, a file and two values in Table 11, and states
-there, beside the finding, that all nine sets of authors were written to before this was
-posted, what a fetched commit can and cannot show, and how a disputed case is corrected. Six
-further rows an earlier draft placed in that class were withdrawn from it under adversarial
-re-reading and a seventh while those letters were being drafted, two more were narrowed, and
-each revision is recorded in the row it concerns.
+One recipe now carries most of the field. Train a policy with reinforcement learning on privileged
+state, the object pose, velocities and physical parameters the robot cannot sense, in a GPU
+simulator running thousands of environments in parallel; distill that teacher into a student that
+sees only what a camera and joint encoders provide; transfer the student. Fifty-three of the 112
+method papers in this corpus train with reinforcement learning, 35 of them in Isaac Gym, and 23
+distill. In-hand cube reorientation is the recipe's benchmark, inherited from
+`openai_dexterity_2018` and still the task a new method is expected to show.
 
-How far a hand passes into the object it is holding is not a number the policies in this
-corpus report. Eleven of the
-96 method rows whose notes settle the question address interpenetration at all, seven of the
-eleven do it outside a closed-loop policy in a grasp synthesiser, a trajectory optimiser or a
-contact model, and we found none that reports a penetration number for its own trained policy's
-rollouts. The claim is about learned closed-loop control and not about the field. Grasp synthesis
-and hand-object reconstruction have reported penetration depth and intersection volume as
-comparative columns for years, and four rows of this corpus do it: `oakink_2022` scores a dataset
-split on penetration depth, solid intersection volume and simulation displacement,
-`bidexgrasp_2026` prints penetration depth beside a prior method's, `bimangrasp_2024` fails any
-grasp whose total penetration exceeds 1.5 mm, and `toporetarget_2026` reports a maximum
-penetration and a share of frames past 2 mm against a baseline retargeter. Every one of those
-numbers scores a pose or a reference trajectory rather than the behavior a trained policy
-produced, and it is the rollout that is missing. The obstacle is not the engines. NVIDIA's own
-IsaacGymEnvs repository already computes a per-environment maximum interpenetration depth in Warp
-and gates the policy update on a 1 mm threshold. Section 4.2 has the file and the lines.
+A second branch is growing underneath it and inverts the dependency. Instead of a simulator and a
+reward it takes human demonstrations through a teleoperation rig and fits a policy directly: 18
+vision-language-action models, 14 diffusion policies, and 14 papers whose contribution is the
+collection apparatus itself. It is the newer literature, most of it from the last two years, and it
+trades the reward-design problem for a data-collection problem. Whether it displaces the simulator
+pipeline or ends up feeding it is the question this corpus cannot settle, but the growth is the most
+visible trend in it.
 
-Hardware and published work have come apart. 19 of the 33 hand rows in Tables 2 and 3 appear in no
-method row, and 8 of those can be bought today or built from published designs. Thirty-five method
-rows run on the Allegro, whose weight, joint torque, payload and price have no reachable source,
-because its product page returns HTTP 404 and everything Table 2 confirms about it comes from its
-ROS driver.
+Both branches run on remarkably little hardware. Of the 33 hands with a documented specification
+here, four carry almost every experiment: the Allegro at 35 method papers, a Shadow or Adroit model
+at 21, the Inspire RH56 family at 19, and LEAP at 12. Eight further hands can be bought today or
+built from published designs and appear in the experiments of none. That is not a manufacturing lag,
+since the hardware exists and is purchasable, and section 3 takes it up: a field whose results rest
+on four platforms is more fragile than its publication volume suggests.
 
-None of those three findings is a first, and the audit behind the first of them is not a new idea.
-`collberg_repeatability_2016` examined 601 papers in computer systems research for whether the
-code behind them could be obtained and built at all. `biocon_2026` aligns 48 bioinformatics
-projects with their publications at sentence-to-function granularity under expert annotation, and
-`scicoqa_2026` collects 92 real paper-code discrepancies, mined from issue trackers and
-reproducibility reports, into a benchmark for detecting such discrepancies automatically. In
-reinforcement learning the phenomenon itself is a known result.
-`engstrom_implementation_matters_2020` shows that code-level optimisations present only in the
-implementation account for most of PPO's reported gain over TRPO, and `metaworld_plus_2025` finds
-undocumented changes accumulated across one benchmark's own versions, which make comparisons
-between those versions unfair. Both establish it on a single codebase.
+What this literature cannot currently do is compare its own results. Ninety-eight of the 112 methods
+state a success criterion, but not the same criterion; 70 state a trial count, so 42 do not; and the
+criteria run from never dropping the object to reaching a pose within a tolerance each paper picks
+for itself. Two success rates from two papers on nominally the same task are usually not measuring
+the same event, and none of the surveys preceding this one supplies a protocol that would make them
+comparable. Section 7 proposes one, derived rather than asserted, with the trial counts a stated
+confidence interval actually requires.
 
-The closest relative to the audit here is `knox_reward_misdesign_2023`, which reviews nineteen
-reinforcement-learning publications on autonomous driving, characterises the reward functions
-of ten of them exhaustively in a standard form, applies eight sanity checks and reports
-near-universal flaws in reward design. Its ground truth for what each reward was is the
-authors, obtained through correspondence with them rather than by reading a released
-repository, and what it establishes is that published reward descriptions are incomplete: one
-of the ten described its reward, discount factor, termination conditions and timestep
-thoroughly. Reading the code instead needs no correspondence and supports a different claim,
-which is that where code exists it sometimes contradicts the description.
-`raff_reproducibility_2019` took the opposite ground truth on purpose, reimplementing 255
-papers from their text alone and never opening the authors' code, which is what makes the
-choice of arbiter a position rather than an accident.
+This survey is built from a corpus rather than from memory. Two hundred and twenty-one bibliography
+entries, 218 of them read into a structured record under a fixed template, every value quoted from a
+parsed source with that source named, and every count printed here recomputed from those records at
+build time rather than typed in. Where a source is silent the record says so, which is why the
+coverage statistics in this paper are floors and not rates. The same discipline extended to released
+code: where a method published a repository, its reward was read from the repository as well as from
+the paper. Reading an implementation against its own description is established practice outside
+robotics, in repeatability and reproducibility studies `collberg_repeatability_2016`
+`raff_reproducibility_2019`, in audits of how implementation detail moves reinforcement-learning
+results `engstrom_implementation_matters_2020`, in reward-design review
+`knox_reward_misdesign_2023`, in benchmark re-releases `metaworld_plus_2025`, and most directly in
+recent work on paper-code alignment `scicoqa_2026` `biocon_2026`. We are aware of none that does it
+for a robotics field's released reward functions, and section 5.6 reports what this one found.
 
-So the claim here is narrow. We are aware of no prior work in robotics, and none in dexterous
-manipulation, that reads a field's released reward implementations against the rewards its own
-papers describe. Those seven works are cited from outside this corpus and enter none of its
-counts. The exposure of the claim belongs beside the count above: the evidence is a repository
-at a fetched commit, every hash recorded in the code manifest, and a repository at a commit is
-evidence about that repository rather than about the run that produced a paper's numbers,
-because the commit may postdate, precede or diverge from it. `hora_2022` states the problem in
-its own README, which directs a reader to tag v0.0.1 and not to the commit parsed here to
-reproduce the published numbers. Every comparison this survey has revised, seven rows withdrawn
-from the count and two narrowed within it, is recorded in the row it concerns for the same
-reason: those revisions are the evidence that the nine left standing were checked rather than
-counted.
+The scope is single-hand and bimanual multi-fingered manipulation under learned control.
+Parallel-jaw work enters as a comparison and not as a subject. Two limits apply to every number
+here. This is a corpus of the learned era, which is a selection effect rather than a judgment on the
+analytic tradition; and a value this survey failed to extract is indistinguishable in the counts
+from a value its source never stated.
 
-Fourteen corpus entries are themselves surveys or engine-comparison studies. Appendix D sets
-them on one set of columns in Table 10 and says what each covers. Four of the fourteen could
-not be obtained, or were fetched too late to read, and are entered as such. Two of the three
-things this survey adds are visible in that table as columns none of the fourteen fills. One is
-Table 4, which takes the engines `nine_physics_engines_review_2024` scored on documentation and
-usability and adds contact model, solver, iteration count, default timestep and penetration
-exposure, conditioned on what a hand does to a solver. `physics_engine_comparison_2015` and
-`contact_models_comparison_2023` do measure engines, on five engines and on four contact
-formulations, and neither surveys the field those engines are used in. The other is two hands
-on one object as its own problem, which none of the four field surveys gives more than a
-subsection.
-
-The third addition is the penetration measurement, on an axis a predecessor had already named.
-`zhao_dexhand_survey_2026` states in its Sec. IV-C that the field assesses "at least two layers of
-performance: the quality of grasps or poses prior to execution, and the performance of policies or
-generators during downstream execution", and names "physical plausibility, including penetration"
-as the most common criterion for the first layer. That is the reference-versus-rollout split,
-named before this survey measured it, and the idea that contact quality belongs on the evaluation
-axis is Zhao's. What Sec. IV-C does not give is a measurement method or a count, and this survey
-supplies those two. It does not supply a threshold. The 2 mm figure the field uses is taken from
-`toporetarget_2026` with no independent justification, the captured human grasps in `grab_2020`
-sit above it at 3.25 mm, and Section 7.4 states plainly that 2 mm is a simulator convention rather
-than a physical bound.
-
-The scope is single-hand and bimanual multi-fingered manipulation. Parallel-jaw manipulation
-enters only as a comparison, which matters because 12 of the 112 method rows name a parallel-jaw
-gripper among their own embodiments. Locomotion is excluded. Prosthetics are excluded except where
-a hand crosses over into robot use, as the Psyonic Ability Hand does. The corpus holds 221
-bibliography entries, of which 218 carry a structured row read from a note. Those 218 rows are 112
-method papers, 33 hands, 15 simulators, 15 datasets, 14 benchmarks, 14 surveys, 8 tactile sensors
-and 7 evaluation protocols. "Method row" throughout means one of the 112, and every headline count
-in this survey has one of those eight classes as its denominator.
-
-Two limits apply to every number here. This is a corpus of the learned era, which is a selection
-effect and not a judgment: 138 of the 221 entries are dated 2024 or later, 16 predate 2018, and
-two of the 112 method rows predate 2018, so any statement about a trend over time is a statement
-about 2022 onward. The analytic tradition is represented by one readable chapter rather than
-surveyed, and the planning line that took up the dynamic question directly, finger gaiting and
-rolling-contact manipulation and regrasp planning, is not in the corpus at all. Every coverage
-statistic is also a floor rather than a rate, because a value this survey failed to extract is
-indistinguishable from a value the paper never reported, and every such miss converts a reporting
-paper into a silent one.
-
-Figure 1 puts the field on one page. What follows works outward from the task: the six families
-and what makes each hard, then the hands and their makers, then the simulators and the contact
-models underneath them, then training, then two hands on one object as a problem of its own.
-Section 5 is the longest of the eight, and Section 7 proposes an evaluation frame rather than a
-leaderboard. Each of those sections closes on the gap it owns, with the evidence and the
-experiment that would settle it; Section 8 is the list of those claims in one place, one sentence each, and says what
-to do about them, addressed to someone publishing, running experiments or buying a hand.
-Appendix A is the method and says where the tabulation this survey is built on lives;
-Appendices B and C are the full hand and reward extractions. Appendix D sets this survey beside
-the fourteen that precede it, and Appendix E gives the derivation behind every count in the
-proposed protocol.
+Figure 1 puts the field on one page. What follows works outward from the task: the task
+families and what each demands (section 2), the hands and their sensing (section 3), the
+simulators and what they expose (section 4), how policies are trained (section 5), what changes
+with two hands (section 6), and how any of it is evaluated (section 7). Section 8 states what
+the corpus supports and what it does not. Appendix A gives the method and the corpus, Appendix
+B the hardware and engine tables, Appendix C every paper-against-code comparison in full,
+Appendix D the coding of the fourteen surveys that precede this one, and Appendix E the
+derivation behind every count in the protocol.
 
 # 2. A taxonomy of the problem
 
