@@ -169,8 +169,8 @@ references, and then reports tolerance of "severe hand-object penetrations" as a
 `toporetarget_2026` is the strongest case in the corpus and still stops one step short on the
 same line. It constrains penetration during retargeting with a 1 mm soft tolerance and a 30 mm
 hard bound, and reports a maximum penetration of 1.07 mm and 0.00 percent of frames above 2 mm
-against 22.22 mm and 96 percent for its baseline retargeter — measured on retargeted
-references, not on a rollout.
+against 22.22 mm and 96 percent for its baseline retargeter, measured on retargeted references
+rather than on a rollout.
 
 Definitions are not shared either. `grab_2020` estimates contact by proximity, because "contact
 cannot be directly observed", and reports that "'Use' grasps have 3.25 ± 0.68 mm average

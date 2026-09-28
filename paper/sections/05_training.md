@@ -548,27 +548,13 @@ family is grasp and functional/tool, is out, and `dexman_2025`, `humanplus_2024`
 embodiment", which is what their notes support; the earlier plan to move them under "whole
 reference including fingers" and "object trajectory only" is superseded.
 
-STILL TO DO. 1. THE CROSS-LINKS ARE MISSING AND THEY ARE THE POINT. The footer says the branches
-are not exclusive, then a strict tree is drawn. Draw the overlaps as dashed curves behind the
-nodes, in the muted accent color, each labeled with one word: reward-branch distillation leaf ->
-demonstration-branch architecture tags   "distill" reward-branch PPO leaf           -> synthetic
-demonstration generation       "generate" egocentric video leaf            -> human-reference
-branch                   "retarget" human-reference branch           -> demonstration-branch
-architecture tags   "distill" no-learned-policy branch         -> reward-branch PPO leaf "smooth"
-teleoperated-on-robot leaf       ->  seeded by demonstrations                 "seed" The fifth
-carries `pang_global_planning_2022`'s proof that randomised smoothing, which is what a policy
-gradient does implicitly, and analytic log-barrier smoothing compute the same local model of
-contact. It is the only edge that is a theorem rather than a pipeline; draw it differently, for
-instance with a double dash. 2. THE ARCHITECTURE AXIS IS ABSENT. Under the human-demonstration
-branch, what supervises the policy and what shape the policy has are independent choices. Add four
-small tags, not full nodes: action chunking `aloha_act_2023`; diffusion `diffusion_policy_2023`,
-`dp3_2024`; flow matching `pi0_2024`, `groot_n1_2025`, `h_rdt_2025`, `unidex_2026`,
-`egoscale_2026`; autoregressive action tokens `openvla_2024`, `metis_2025`. Tag counts are 1, 14
-and 8 for the first three from the `diffusion` and `flow` labels. 3. SCARCITY MUST BE LEGIBLE.
-Population-based training over hyperparameters holds one paper, `dexpbt_2023`, which the figure
-does not show; add it as an annotation off the PPO leaf with the count 1. Size or shade every leaf
-by its count so a reader sees without reading a number that the demonstration branch is wide, the
-non-learning branch is three single papers, and automated reward design is two.
+SUPERSEDED. An earlier version of this note listed the cross-links, the architecture axis and
+three small annotations as outstanding. All three are drawn now by tools/make_flow_tree.py: six
+dashed overlap curves in a right-hand gutter, the architecture tags under the demonstration
+branch, and the double-dashed smoothing edge for pang_global_planning_2022's result that
+randomised smoothing and analytic log-barrier smoothing compute the same local model of contact.
+The list is replaced rather than kept, because a note that says work is missing when it is done
+sends the next reader looking for nothing.
 
 Palette, dark-mode handling and font stack follow the other figures in paper/figures/. All counts
 are recomputed from corpus/rows/*.json at generation time and never hardcoded, so the figure
