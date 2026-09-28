@@ -1449,15 +1449,16 @@ Its own limitation is the honest part: its 3D systems transfer to hardware far w
 2D ones, because the quasi-dynamic assumption breaks and planned grasps miss contacts under a
 second-order solver.
 
-**Hybrids, and where the field has converged.** The recurring shape is reinforcement learning in simulation distilled into a policy that looks
-like an imitation policy, and it appears in four variants. The first distills a privileged teacher
-into a vision student inside one paper, which is `hora_2022`, `visual_dexterity_2022`,
-`rotateit_2023`, `robot_synesthesia_2023` and `viserdex_2026`. The second uses reinforcement
-learning as a demonstration factory: `dextrack_2025` mines demonstrations with per-trajectory RL
-and trains a generalist on them, `maniptrans_2025` does the same to build a 3.3K-episode dataset,
-and `dexteritygen_2025` trains a diffusion controller on ten billion simulated grasp-to-grasp
-transitions and projects a human teleoperator's coarse command onto it, taking four reorientation
-tasks from 0 out of 20 under raw teleoperation to 12, 13, 10 and 9 out of 20. The third generates
+**Hybrids, and where the field has converged.** The recurring shape is reinforcement learning
+in simulation distilled into a policy that looks like an imitation policy, and it appears in
+four variants. The first distills a privileged teacher into a vision student inside one paper,
+which is `hora_2022`, `visual_dexterity_2022`, `rotateit_2023`, `robot_synesthesia_2023` and
+`viserdex_2026`. The second uses reinforcement learning as a demonstration factory.
+`dextrack_2025` mines demonstrations with per-trajectory RL and trains a generalist on them,
+and `maniptrans_2025` does the same to build a 3.3K-episode dataset. `dexteritygen_2025` goes
+further, training a diffusion controller on ten billion simulated grasp-to-grasp transitions
+and projecting a human teleoperator's coarse command onto it, taking four reorientation tasks
+from 0 out of 20 under raw teleoperation to 12, 13, 10 and 9 out of 20. The third generates
 data without reinforcement learning at all, which is `dexmimicgen_2024`, `dex1b_2025` and
 `deximit_2026`; `dex1b_2025`'s row is classed as a dataset, so figure 4's leaf, which counts
 method rows, holds the other two. The fourth wraps an RL policy in a residual, which is
@@ -1483,17 +1484,16 @@ Eight is the number to quote, seven at high confidence and one, `penspin_2024`, 
 Eight of 62 is 13 percent, and it is a floor rather than a rate: the census covers method rows
 only, so `robopianist_2023`, whose row is a benchmark, does not enter it although it sums five
 reward terms against the three its Table 2 documents. It is also a screened count rather than a
-first pass. Sixteen rows were drawn at first and eight have since left the class: six under
-adversarial re-reading, one, `omnih2o_2024`, once writing to its authors sent someone back to
-the evidence, and one because its corresponding author replied and showed the survey had
-misread the code, the term it called a departure from the paper's formula being the paper's
-formula, with the line defining it absent from this survey's own parse; two more were narrowed
-and stayed, and each revision is recorded in the row it concerns beside the comparison it
-revises. That screening is evidence that the eight were checked, not a bound on how many a
-fuller reading would find. Among the 21 reorientation methods of Table 5, seven released a
-repository and four of those state something different from their paper, the other three being
-a missing environment, a later generation and a default-value question their own READMEs
-settle.
+first pass. Sixteen rows were drawn at first and eight have since left the class. Six went
+under adversarial re-reading. One, `omnih2o_2024`, went when writing to its authors sent
+someone back to the evidence. The eighth went because its corresponding author replied: the
+term this survey called a departure from the paper's formula was the paper's formula, and the
+line defining it had never been in the parse. Two more rows were narrowed and stayed. Each
+revision is recorded in the row it concerns, beside the comparison it revises. That screening
+is evidence that the eight were checked, not a bound on how many a fuller reading would find.
+Among the 21 reorientation methods of Table 5, seven released a repository and four of those
+state something different from their paper, the other three being a missing environment, a
+later generation and a default-value question their own READMEs settle.
 
 Table 11 is the whole of the finding, in the form the finding is made: a public repository, the
 commit `tools/fetch_code.py` cloned, the file inside it, and the two values. The repository and
@@ -1562,18 +1562,19 @@ numbers: it may postdate that code, precede it, or have diverged from it on a br
 tagged, and a snapshot cannot say which, so each line compares a published document with one
 public artifact and claims nothing beyond the two. One work in this corpus says exactly that
 about itself. `hora_2022`'s README sends a reader to tag `v0.0.1` rather than to the default
-branch to reproduce the paper's numbers, which is why its row is classed version skew and is not one of the eight: told which commit to read, this survey read it, and nobody else was in a
-position to tell us, because nobody else was asked. The other limit is the remedy. Every one of the eight is correctable in public, and an author who shows that the file says something other
-than what Table 11 prints, or that the fetched commit is not the one behind their numbers,
-changes the row: `mismatch_class` and `mismatch_review` in `corpus/rows/`, the counts that
-follow from them, and the sentence in the next version, with the correction printed beside the
-original comparison as the withdrawals already are. The route is the address in the author
-block of this paper. It is the only route this survey can offer today, because the corpus is
-not deposited yet: it is available from the author on request, and will be deposited with a
-persistent identifier. A correction asked for that way is a commit and a replacement version
-rather than a negotiation. Eight of the sixteen rows an earlier draft drew have already gone
-that way on this survey's own evidence and two more were narrowed; a further correction would
-cost it nothing.
+branch to reproduce the paper's numbers, which is why its row is classed version skew and is
+not one of the eight: told which commit to read, this survey read it, and nobody else was in a
+position to tell us, because nobody else was asked. The other limit is the remedy. Every one of
+the eight is correctable in public. An author who shows that the file says something other than
+what Table 11 prints, or that the fetched commit is not the one behind their numbers, changes
+the row: `mismatch_class` and `mismatch_review` in `corpus/rows/`, the counts that follow from
+them, and the sentence in the next version, with the correction printed beside the original
+comparison as the withdrawals already are. The route is the address in the author block of this
+paper. It is the only route this survey can offer today, because the corpus is not deposited
+yet: it is available from the author on request, and will be deposited with a persistent
+identifier. A correction asked for that way is a commit and a replacement version rather than a
+negotiation. Eight of the sixteen rows an earlier draft drew have already gone that way on this
+survey's own evidence and two more were narrowed; a further correction would cost it nothing.
 
 Zeroed terms recur, and they are not the same thing as a term that is missing. A term present
 and zeroed survives a reader's check of the file, which is why Table 5 marks it separately, and
@@ -1591,24 +1592,24 @@ function before the reward table, and treat a printed weight as a hypothesis abo
 
 **The withdrawals, and what would close it.** This is a result about publishing practice in
 robot learning more than about dexterous manipulation: the dexterous corpus is its sample, not
-its subject. Eight is also a floor, since 46 method rows released nothing to check and four more
-are unsettled. The first count was sixteen. An adversarial re-reading withdrew six outright,
-`maniptrans_2025`, `eureka_2023`, `open_television_2024`, `dexmachina_2025`, `artigrasp_2023`
-and `graspxl_2024`: two refuted by the repository's own README, two resting on reward code that
-was never in the parse, one reading as a difference where the code carries the structure the
-paper prints, one against a paper with no reward function. `dexpbt_2023` was narrowed rather
-than dropped, its domain-randomisation half withdrawn and its zeroed reward term left standing,
-so that row is still a contradiction and the narrowing takes nothing off the count. That left
-ten, and ten held until the letters to the authors were drafted. Writing to `omnih2o_2024`
-meant reading the comparison again before the letter went out, and reading it again is what
-broke it: four of its five reward-weight comparisons match the paper's own table to the digit
-once a systematic x1.25 curriculum factor is applied, and only the stumble weight differs, by a
-factor of about a million, which reads as a typo signature in a table rather than a policy
-trained on a different objective. Its hands are driven open-loop from a VR pose as well,
-outside the policy and outside the reward, which made the work a poor fit for a reward census
-in a dexterous-manipulation survey whatever the weight said. The comparison is withdrawn and
-the row moves to an internal inconsistency, which is where the count above sits it.
-`penspin_2024` was narrowed the same way and before the same deadline: half of it, that the
+its subject. Eight is also a floor, since 46 method rows released nothing to check and four
+more are unsettled. The first count was sixteen. An adversarial re-reading withdrew six
+outright, `maniptrans_2025`, `eureka_2023`, `open_television_2024`, `dexmachina_2025`,
+`artigrasp_2023` and `graspxl_2024`: two refuted by the repository's own README, two resting on
+reward code that was never in the parse, one reading as a difference where the code carries the
+structure the paper prints, one against a paper with no reward function. `dexpbt_2023` was
+narrowed rather than dropped, its domain-randomisation half withdrawn and its zeroed reward
+term left standing, so that row is still a contradiction and the narrowing takes nothing off
+the count. That left ten, and ten held until the letters to the authors were drafted. Writing
+to `omnih2o_2024` meant reading the comparison again before the letter went out, and reading it
+again is what broke it. Four of its five reward-weight comparisons match the paper's own table
+to the digit, once a systematic x1.25 curriculum factor is applied. Only the stumble weight
+differs, and it differs by a factor of about a million, which reads as a typo in a table rather
+than as a policy trained on a different objective. Its hands are driven open-loop from a VR
+pose as well, outside the policy and outside the reward, which made the work a poor fit for a
+reward census in a dexterous-manipulation survey whatever the weight said. The comparison is
+withdrawn and the row moves to an internal inconsistency, which is where the count above sits
+it. `penspin_2024` was narrowed the same way and before the same deadline: half of it, that the
 released code turns off the paper's tactile channel, is withdrawn, because the config that was
 read carries 96 observation dimensions and `enable_tactile: False`, which is what the paper's
 proprioception-only student should carry and not a claim the paper makes about that stage. What

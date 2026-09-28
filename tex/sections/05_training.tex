@@ -428,21 +428,22 @@ constraint. Its own limitation is the honest part: its 3D systems transfer to ha
 than its 2D ones, because the quasi-dynamic assumption breaks and planned grasps miss contacts
 under a second-order solver.
 
-\textbf{Hybrids, and where the field has converged.}\label{sec:train:hybrids}
-The recurring shape is reinforcement learning in simulation distilled into a policy that looks
-like an imitation policy, and it appears in four variants. The first distills a privileged teacher
-into a vision student inside one paper, which is \cite{hora_2022}, \cite{visual_dexterity_2022},
+\textbf{Hybrids, and where the field has converged.}\label{sec:train:hybrids} The recurring
+shape is reinforcement learning in simulation distilled into a policy that looks like an
+imitation policy, and it appears in four variants. The first distills a privileged teacher into
+a vision student inside one paper, which is \cite{hora_2022}, \cite{visual_dexterity_2022},
 \cite{rotateit_2023}, \cite{robot_synesthesia_2023} and \cite{viserdex_2026}. The second uses
-reinforcement learning as a demonstration factory: DexTrack \cite{dextrack_2025} mines
-demonstrations with per-trajectory RL and trains a generalist on them, ManipTrans
-\cite{maniptrans_2025} does the same to build a 3.3K-episode dataset, and DexterityGen
-\cite{dexteritygen_2025} trains a diffusion controller on ten billion simulated grasp-to-grasp
-transitions and projects a human teleoperator's coarse command onto it, taking four reorientation
-tasks from 0 out of 20 under raw teleoperation to 12, 13, 10 and 9 out of 20. The third generates
-data without reinforcement learning at all, which is \cite{dexmimicgen_2024}, \cite{dex1b_2025}
-and \cite{deximit_2026}; Dex1B's row is classed as a dataset, so \figurename~\ref{fig:taxonomy}'s
-leaf, which counts method rows, holds the other two. The fourth wraps an RL policy in a residual,
-which is \cite{resdex_2024} at 88.8 percent over 3,200 objects in 12 GPU-hours.
+reinforcement learning as a demonstration factory. DexTrack \cite{dextrack_2025} mines
+demonstrations with per-trajectory RL and trains a generalist on them, and ManipTrans
+\cite{maniptrans_2025} does the same to build a 3.3K-episode dataset. DexterityGen
+\cite{dexteritygen_2025} goes further, training a diffusion controller on ten billion simulated
+grasp-to-grasp transitions and projecting a human teleoperator's coarse command onto it, taking
+four reorientation tasks from 0 out of 20 under raw teleoperation to 12, 13, 10 and 9 out of
+20. The third generates data without reinforcement learning at all, which is
+\cite{dexmimicgen_2024}, \cite{dex1b_2025} and \cite{deximit_2026}; Dex1B's row is classed as a
+dataset, so \figurename~\ref{fig:taxonomy}'s leaf, which counts method rows, holds the other
+two. The fourth wraps an RL policy in a residual, which is \cite{resdex_2024} at 88.8 percent
+over 3,200 objects in 12 GPU-hours.
 
 In the variants that dominate 2025 and 2026 work, the reward is no longer the objective of the
 deployed policy. It is the objective of the process that produced the deployed policy's training
@@ -487,17 +488,16 @@ held at medium. Eight of 62 is 13 percent, and it is a floor rather than a rate:
 covers method rows only, so RoboPianist \cite{robopianist_2023}, whose row is a benchmark, does
 not enter it although it sums five reward terms against the three its Table~2 documents. It is
 also a screened count rather than a first pass. Sixteen rows were drawn at first and eight have
-since left the class: six under adversarial re-reading, one, OmniH2O \cite{omnih2o_2024}, once
-writing to its authors sent someone back to the evidence, and one, DexPoint
-\cite{dexpoint_2022}, because its corresponding author replied and showed the survey had
-misread the code, the term it called a departure from the paper's formula being the paper's
-formula, with the line defining it absent from this survey's own parse. Two more were narrowed
-and stayed, and each revision is recorded in the row it concerns beside the comparison it
-revises. That screening is evidence that the eight were checked, not a bound on how many a
-fuller reading would find. Among the 21 reorientation methods scored term by term, seven
-released a repository and four of those state something different from their paper, the other
-three being a missing environment, a later generation and a default-value question their own
-READMEs settle.
+since left the class. Six went under adversarial re-reading. One, OmniH2O \cite{omnih2o_2024},
+went when writing to its authors sent someone back to the evidence. The eighth, DexPoint
+\cite{dexpoint_2022}, went because its corresponding author replied: the term this survey
+called a departure from the paper's formula was the paper's formula, and the line defining it
+had never been in the parse. Two more were narrowed and stayed, and each revision is recorded
+in the row it concerns beside the comparison it revises. That screening is evidence that the
+eight were checked, not a bound on how many a fuller reading would find. Among the 21
+reorientation methods scored term by term, seven released a repository and four of those state
+something different from their paper, the other three being a missing environment, a later
+generation and a default-value question their own READMEs settle.
 
 PhysHOI \cite{physhoi_2023} is the clearest example. Its paper assigns nonzero weights to object
 rotation and rotation velocity on the GRAB dataset. In the public implementation, both errors are
