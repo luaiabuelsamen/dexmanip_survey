@@ -9,10 +9,33 @@
 \label{sec:gaps}
 \label{sec:conclusion}
 
-Progress in dexterous manipulation now depends as much on verification as on new methods. The
-evidence in this survey supports seven conclusions.
+This corpus describes a field that has converged. Most of it trains with reinforcement learning
+on privileged state in a GPU simulator and distills the result into a vision-only student; a
+second branch, growing faster, learns from teleoperated demonstration instead; and almost all of
+it runs on four hands. What the field cannot currently do is compare its own results, and most
+of the seven conclusions below follow from that.
 
 \begin{enumerate}
+\item Eight hands that can be bought today or built from published designs take zero method rows
+between them, while the corpus's experiments concentrate on four designs
+(Section~\ref{sec:hands:gap}, \figurename~\ref{fig:hands}).
+
+\item Human data does not port across hands, and the map is usually unstated: 33 of the 53 method
+rows that use human data never say how the human motion reached the robot hand
+(Section~\ref{sec:train:human}).
+\item Twenty-one of the 28 rows that put a learned closed-loop controller on two multi-fingered
+hands run one policy over a concatenated two-hand observation, a choice compared twice with opposite
+outcomes and ablated once (Section~\ref{subsec:coordination}, \figurename~\ref{fig:bimanual}).
+
+\item The generalist and vision-language-action policies that do evaluate on a multi-fingered hand
+run it at a median of 6 actuated degrees of freedom, against 16 across the reinforcement-learning
+rows that state a count, and the rows reaching the larger band on paper never say whether the hand
+was in the evaluation (Section~\ref{sec:train:vla}).
+
+\item The evaluation-methodology literature this survey builds its protocol on contains no
+dexterous hand at all: of its seven corpus rows, one runs a parallel-jaw gripper and the other six
+state no hand (Section~\ref{subsec:what_would_be_true}, Table~\ref{tab:protocol}).
+
 \item Eight of the 62 method rows that released parseable code state, in a named file at a named
 commit, something other than the value their paper prints, and eight further rows have been withdrawn from that count since its first draft, one of them because an author replied, with two more narrowed.
 Table~\ref{tab:codegap} gives each of the eight as a repository, a
@@ -25,26 +48,6 @@ trained policy, and every one of the eleven rows that handles penetration at all
 reference side of the reference-versus-rollout split
 (Section~\ref{subsec:plausibility}).
 
-\item The evaluation-methodology literature this survey builds its protocol on contains no
-dexterous hand at all: of its seven corpus rows, one runs a parallel-jaw gripper and the other six
-state no hand (Section~\ref{subsec:what_would_be_true}, Table~\ref{tab:protocol}).
-
-\item The generalist and vision-language-action policies that do evaluate on a multi-fingered hand
-run it at a median of 6 actuated degrees of freedom, against 16 across the reinforcement-learning
-rows that state a count, and the rows reaching the larger band on paper never say whether the hand
-was in the evaluation (Section~\ref{sec:train:vla}).
-
-\item Eight hands that can be bought today or built from published designs take zero method rows
-between them, while the corpus's experiments concentrate on four designs
-(Section~\ref{sec:hands:gap}, \figurename~\ref{fig:hands}).
-
-\item Twenty-one of the 28 rows that put a learned closed-loop controller on two multi-fingered
-hands run one policy over a concatenated two-hand observation, a choice compared twice with opposite
-outcomes and ablated once (Section~\ref{subsec:coordination}, \figurename~\ref{fig:bimanual}).
-
-\item Human data does not port across hands, and the map is usually unstated: 33 of the 53 method
-rows that use human data never say how the human motion reached the robot hand
-(Section~\ref{sec:train:human}).
 \end{enumerate}
 
 Six concern gaps in the literature. The first concerns publishing practice; the corrections made

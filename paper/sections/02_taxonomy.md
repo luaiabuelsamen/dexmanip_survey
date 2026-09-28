@@ -122,6 +122,37 @@ observations". `asymdex_2024` attacks the dimensionality from the other side, ha
 observation and action dimension through its role split and a frame relative to the facilitating
 hand's object.
 
+## 2.3 Terms used throughout
+
+Six terms recur in every section that follows, and each is used here in one sense only.
+
+**Method row.** One method paper read into this survey's structured record. It is the unit every
+count is taken over: 112 of the corpus's 218 rows are method rows, the rest being hands,
+simulators, datasets, benchmarks, surveys, tactile sensors and evaluation protocols.
+
+**Privileged state.** Information a simulator can supply and a robot cannot: object pose and
+velocity, contact forces, mass, friction. A policy trained on it cannot be deployed as it stands,
+which is what makes the next term necessary.
+
+**Teacher-student distillation.** Training one policy on privileged state, then fitting a second
+that sees only deployable observations, usually camera images and joint encoders, to reproduce the
+first. Section 5 finds 23 of the 112 methods do this, and it is the second half of the recipe
+section 1 describes.
+
+**Reference and rollout.** A reference is a pose or a trajectory scored before anything executes: a
+retargeted human motion, a synthesized grasp, a planned path. A rollout is what a trained policy
+actually did. The distinction matters because a quantity can be measured carefully at the reference
+and never at the rollout, which section 7 finds is the case for interpenetration.
+
+**Interpenetration.** The distance by which two bodies that should be touching instead overlap, a
+consequence of solving contact constraints approximately rather than exactly. Section 4 covers what
+each engine exposes; the depth is a property of the compliance someone chose, not of the engine.
+
+**Success criterion and per-cell trial count.** The criterion is the predicate a paper uses to call
+an episode a success: a pose within a tolerance, an object never dropped, a task completed. The
+per-cell count is how many trials one reported rate is computed from. Section 7 finds 98 of the 112
+state a criterion and no two of them state the same one, and that 70 state a count.
+
 ## Table 1. Task families against the properties that define success
 
 | task family | what is held | what moves | what gravity does | what counts as failure | shortest honest success criterion |

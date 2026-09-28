@@ -9,7 +9,7 @@ A survey of 221 bibliography entries, 218 of which carry a structured row read f
 "Method row" throughout means one of the 112, and every headline count here has one of those eight
 classes as its denominator.
 
-*Compiled 2026-09-27. Every claim traces to a note in `papers/notes/`, every note to a parsed source in
+*Compiled 2026-09-28. Every claim traces to a note in `papers/notes/`, every note to a parsed source in
 `papers/md/` or `code/md/`, and every source to a hash or commit in `corpus/manifest.json`. The
 method is in Appendix A.*
 
@@ -120,8 +120,7 @@ here. This is a corpus of the learned era, which is a selection effect rather th
 analytic tradition; and a value this survey failed to extract is indistinguishable in the counts
 from a value its source never stated.
 
-Figure 1 puts the field on one page. What follows works outward from the task: the task
-families and what each demands (section 2), the hands and their sensing (section 3), the
+Figure 1 puts the field on one page. What follows works outward from the task: the task families, what makes them hard, and the terms used throughout (section 2), the hands and their sensing (section 3), the
 simulators and what they expose (section 4), how policies are trained (section 5), what changes
 with two hands (section 6), and how any of it is evaluated (section 7). Section 8 states what
 the corpus supports and what it does not. Appendix A gives the method and the corpus, Appendix
@@ -252,6 +251,37 @@ is able to use all observations for training the policy, while MARL can only use
 observations". `asymdex_2024` attacks the dimensionality from the other side, halving the
 observation and action dimension through its role split and a frame relative to the facilitating
 hand's object.
+
+## 2.3 Terms used throughout
+
+Six terms recur in every section that follows, and each is used here in one sense only.
+
+**Method row.** One method paper read into this survey's structured record. It is the unit every
+count is taken over: 112 of the corpus's 218 rows are method rows, the rest being hands,
+simulators, datasets, benchmarks, surveys, tactile sensors and evaluation protocols.
+
+**Privileged state.** Information a simulator can supply and a robot cannot: object pose and
+velocity, contact forces, mass, friction. A policy trained on it cannot be deployed as it stands,
+which is what makes the next term necessary.
+
+**Teacher-student distillation.** Training one policy on privileged state, then fitting a second
+that sees only deployable observations, usually camera images and joint encoders, to reproduce the
+first. Section 5 finds 23 of the 112 methods do this, and it is the second half of the recipe
+section 1 describes.
+
+**Reference and rollout.** A reference is a pose or a trajectory scored before anything executes: a
+retargeted human motion, a synthesized grasp, a planned path. A rollout is what a trained policy
+actually did. The distinction matters because a quantity can be measured carefully at the reference
+and never at the rollout, which section 7 finds is the case for interpenetration.
+
+**Interpenetration.** The distance by which two bodies that should be touching instead overlap, a
+consequence of solving contact constraints approximately rather than exactly. Section 4 covers what
+each engine exposes; the depth is a property of the compliance someone chose, not of the engine.
+
+**Success criterion and per-cell trial count.** The criterion is the predicate a paper uses to call
+an episode a success: a pose within a tolerance, an object never dropped, a task completed. The
+per-cell count is how many trials one reported rate is computed from. Section 7 finds 98 of the 112
+state a criterion and no two of them state the same one, and that 70 state a count.
 
 ## Table 1. Task families against the properties that define success
 
@@ -2104,58 +2134,63 @@ release the rollouts and per-trial outcomes for independent analysis.
 
 # 8. Conclusion: the seven claims, and what to do next
 
-The binding constraint on this field is not ideas. It is verification. Seven claims survive the
-corpus. Each is one sentence here, with the section that carries its evidence and the experiment
-that would close it. Nothing is argued in this list: the denominator, the evidence and the
-prescription sit in the section named, at the end of it, so that a finding and its consequence are
-read together and stated once.
+This corpus describes a field that has converged. Most of it trains with reinforcement learning
+on privileged state in a GPU simulator and distills the result into a vision-only student; a
+second branch, growing faster, learns from teleoperated demonstration instead; and almost all
+of it runs on four hands. What the field cannot currently do is compare its own results, and
+most of the seven claims below follow from that. Each is one sentence, with the section that
+carries its evidence and the experiment that would close it. Nothing is argued here: the
+denominator, the evidence and the prescription sit in the section named, so that a finding and
+its consequence are read together and stated once.
 
-1. Eight of the 62 method rows that released parseable code state, in a named file at a named
-commit, something other than the value their paper prints, and eight further rows have been
-withdrawn from that count since its first draft, one of them because an author replied, with
-two more narrowed. Table 11 gives each of the eight as a repository, a commit, a file and two
-values, and all of their authors were written to before this was posted: section 5.6 says that
-beside the finding, with the letters in `outreach/` and the route by which a disputed case is
-corrected (section 5.6 and Appendix C).
+1. Eight hands that can be bought today or built from published designs take zero method rows
+   between them, while the corpus's own experiments concentrate on four designs (section 3.4,
+   Figure 2).
 
-2. No closed-loop policy in the corpus reports interpenetration for the rollouts of its own trained
-   policy, and all eleven rows that handle penetration at all sit on the reference side of the
-   reference-versus-rollout split (section 7.2, and the contact-handling bar of Figure 6).
+2. Human data does not port across hands and the map is usually unstated: 33 of the 53 method
+   rows that use human data never say how the human motion reached the robot hand (section
+   5.3, Table 6).
 
-3. The evaluation-methodology literature the protocol of section 7.3 is assembled from contains no
-   dexterous hand at all: of its seven corpus rows, one runs a parallel-jaw gripper and the other six
-   state no hand (section 7.4, Table 8).
+3. Twenty-one of the 28 rows that put a learned closed-loop controller on two multi-fingered
+   hands run one policy over a concatenated two-hand observation, a choice that has been
+   compared twice with opposite outcomes and ablated once (section 6.2, Figure 5).
 
-4. The generalist and vision-language-action policies that do evaluate on a multi-fingered hand run
-   it at a median of 6 actuated degrees of freedom, against 16 across the reinforcement-learning rows
-   that state a count, and the two rows that reach the larger band on paper never say whether the
-   hand was in the evaluation (section 5.4).
+4. The generalist and vision-language-action policies that do evaluate on a multi-fingered
+   hand run it at a median of 6 actuated degrees of freedom, against 16 across the
+   reinforcement-learning rows that state a count, and the two rows that reach the larger
+   band on paper never say whether the hand was in the evaluation (section 5.4).
 
-5. Eight hands that can be bought today or built from published designs take zero method rows between
-   them, while the corpus's own experiments concentrate on four designs (section 3.4, Figure 2).
+5. The evaluation-methodology literature the protocol of section 7.3 is assembled from
+   contains no dexterous hand at all: of its seven corpus rows, one runs a parallel-jaw
+   gripper and the other six state no hand (section 7.4, Table 8).
 
-6. Twenty-one of the 28 rows that put a learned closed-loop controller on two multi-fingered hands run
-   one policy over a concatenated two-hand observation, a choice that has been compared twice with
-   opposite outcomes and ablated once (section 6.2, Figure 5).
+6. Eight of the 62 method rows that released parseable code state, in a named file at a named
+   commit, something other than the value their paper prints, and eight further rows have
+   been withdrawn from that count since its first draft, one of them because an author
+   replied, with two more narrowed. Table 11 gives each of the eight as a repository, a
+   commit, a file and two values, and all of their authors were written to before this was
+   posted: section 5.6 says that beside the finding, with the letters in `outreach/` and the
+   route by which a disputed case is corrected (section 5.6 and Appendix C).
 
-7. Human data does not port across hands and the map is usually unstated: 33 of the 53 method rows
-   that use human data never say how the human motion reached the robot hand (section 5.3, Table 6).
+7. No closed-loop policy in the corpus reports interpenetration for the rollouts of its own
+   trained policy, and all eleven rows that handle penetration at all sit on the reference
+   side of the reference-versus-rollout split (section 7.2, and the contact-handling bar of
+   Figure 6).
 
-Six of the seven are gaps in the literature. The first is a result about publishing practice, and
-this survey's own corrections to it are printed beside it in section 5.6 rather than kept in the
-repository.
+Six of the seven are gaps in the literature. The sixth is a result about publishing practice,
+and this survey's own corrections to it are printed beside it in section 5.6 rather than kept
+in the repository.
 
-Three of those claims carry a case worth remembering. A reward table in a paper is a claim about a
-document, not about a run, and `physhoi_2023` is the instance to keep in mind: the term its table
-weights at 0.1 is set to zero in the file at the commit this survey fetched, and the success
-criterion the paper reports is itself position-only. Contact is what separates a hand from a gripper, and the obstacle to measuring it is not the
-engines. IsaacGymEnvs ships a task that computes a per-environment maximum interpenetration depth
-against meshes and gates the policy update on a 1 mm threshold, and `tactile_genesis_2026` offers
-penetration depth on Genesis geometry as a sensor. The tooling sits in the field's own benchmark
-repository and the number is still not reported. `dextrack_2025` has the formula and points it at
-its inputs. And hardware and software have come apart on a narrower claim than the hand count first
-suggests, because 11 of the 19 hands that take no method row are neither sold nor open and take
-none for that reason, which is why the fifth claim is eight hands and not nineteen.
+Three of those claims carry a case worth remembering. Hardware and software have come apart on
+a narrower claim than the hand count first suggests: 11 of the 19 hands that take no method row
+are neither sold nor open and take none for that reason, which is why the first claim is eight
+hands and not nineteen. A reward table in a paper is a claim about a document rather than about
+a run, and `physhoi_2023` is the instance to keep in mind, since the term its table weights at
+0.1 is set to zero in the file at the commit this survey fetched and the success criterion the
+paper reports is itself position-only. And the obstacle to measuring contact is not the
+engines: IsaacGymEnvs ships a task that computes a per-environment maximum interpenetration
+depth and gates the policy update on a one-millimetre threshold, so the tooling sits in the
+field's own benchmark repository while the number goes unreported.
 
 What this survey cannot establish is which method is better than which. It re-runs nothing, and
 Section 7 argues that the published numbers do not compare. Six works are cited by metadata only,

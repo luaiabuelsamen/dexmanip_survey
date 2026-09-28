@@ -82,8 +82,7 @@ here. This is a corpus of the learned era, which is a selection effect rather th
 analytic tradition; and a value this survey failed to extract is indistinguishable in the counts
 from a value its source never stated.
 
-Figure 1 puts the field on one page. What follows works outward from the task: the task
-families and what each demands (section 2), the hands and their sensing (section 3), the
+Figure 1 puts the field on one page. What follows works outward from the task: the task families, what makes them hard, and the terms used throughout (section 2), the hands and their sensing (section 3), the
 simulators and what they expose (section 4), how policies are trained (section 5), what changes
 with two hands (section 6), and how any of it is evaluated (section 7). Section 8 states what
 the corpus supports and what it does not. Appendix A gives the method and the corpus, Appendix
