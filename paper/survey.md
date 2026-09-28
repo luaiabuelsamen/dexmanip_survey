@@ -252,33 +252,6 @@ observations". `asymdex_2024` attacks the dimensionality from the other side, ha
 observation and action dimension through its role split and a frame relative to the facilitating
 hand's object.
 
-## 2.4 What has changed since 2022
-
-The corpus roughly tripled between 2022 and 2024, and its composition changed while it grew. Three
-shifts are visible in the rows, and none of them is small.
-
-**The demonstration branch overtook the simulator branch in 2024.** Sorting each method by whether
-it trains in simulation, through reinforcement learning or distillation, or from human
-demonstration, through behavior cloning, a vision-language-action model, a diffusion or flow
-policy, or a collection rig, the simulator branch led 13 rows to 4 in 2023 and trailed 15 to 18 in
-2024. It has trailed since: demonstration-trained work is 22 of the 34 rows from 2025 and 8 of the
-13 so far from 2026. The recipe section 1 describes is this field's mature pipeline rather than its
-growth area, and a reader who knows only that recipe is reading the field as it was in 2023.
-
-**In-hand reorientation is being abandoned as the canonical task.** It was 8 of the 10 method rows
-in 2022 and 3 of the 34 in 2025. The absolute count falls while the corpus triples, which is not a
-shift in emphasis but a change in what the field treats as worth publishing. Bimanual coordination
-moved the other way over the same span, from 1 row to 16, and functional and tool use from 2 to 15.
-The cube-rotation benchmark that section 5 shows the reward literature organized itself around is
-the task the newer literature has left.
-
-**The migration off Isaac Gym began in 2025 and not before.** No row earlier than 2025 uses Isaac
-Lab or Isaac Sim at all. Three do in 2025 and four in the partial 2026, against nine and two
-respectively on Isaac Gym, so on small numbers the successors already carry more of the most recent
-year than the original does. A survey assembled twelve months earlier would have recorded a field
-that had not moved, which is worth stating plainly: the concentration this survey reports on one
-simulator is a fact about a corpus with a cutoff, not a permanent property of the field.
-
 ## 2.3 Terms used throughout
 
 Six terms recur in every section that follows, and each is used here in one sense only.
@@ -324,6 +297,33 @@ state a criterion and no two of them state the same one, and that 70 state a cou
 Two cells say the field has no agreed criterion, and both are in families where a second body is
 involved. A criterion naming a distance, a duration and a trial count can be re-run by someone
 else. A rubric cannot, and Section 7 takes up what follows from that.
+
+## 2.4 What has changed since 2022
+
+The corpus roughly tripled between 2022 and 2024, and its composition changed while it grew. Three
+shifts are visible in the rows, and none of them is small.
+
+**The demonstration branch overtook the simulator branch in 2024.** Sorting each method by whether
+it trains in simulation, through reinforcement learning or distillation, or from human
+demonstration, through behavior cloning, a vision-language-action model, a diffusion or flow
+policy, or a collection rig, the simulator branch led 13 rows to 4 in 2023 and trailed 15 to 18 in
+2024. It has trailed since: demonstration-trained work is 22 of the 34 rows from 2025 and 8 of the
+13 so far from 2026. The recipe section 1 describes is this field's mature pipeline rather than its
+growth area, and a reader who knows only that recipe is reading the field as it was in 2023.
+
+**In-hand reorientation is being abandoned as the canonical task.** It was 8 of the 10 method rows
+in 2022 and 3 of the 34 in 2025. The absolute count falls while the corpus triples, which is not a
+shift in emphasis but a change in what the field treats as worth publishing. Bimanual coordination
+moved the other way over the same span, from 1 row to 16, and functional and tool use from 2 to 15.
+The cube-rotation benchmark that section 5 shows the reward literature organized itself around is
+the task the newer literature has left.
+
+**The migration off Isaac Gym began in 2025 and not before.** No row earlier than 2025 uses Isaac
+Lab or Isaac Sim at all. Three do in 2025 and four in the partial 2026, against nine and two
+respectively on Isaac Gym, so on small numbers the successors already carry more of the most recent
+year than the original does. A survey assembled twelve months earlier would have recorded a field
+that had not moved, which is worth stating plainly: the concentration this survey reports on one
+simulator is a fact about a corpus with a cutoff, not a permanent property of the field.
 
 # 3. Hands and who makes them
 
@@ -1844,19 +1844,21 @@ bimanual controller in the corpus measures or penalizes hand-hand penetration du
 
 ## 7.1 Reporting practice
 
-Of the 112 method rows in the corpus, 89 report a real-robot experiment, 22 do not and one row is
-unsettled, which is 80 percent of the 111 the note settled. Among those 89, 70 state how many real
-trials produced the headline number, 79 percent of them. The 89 is the denominator that belongs to
-this statistic: the 22 rows with no real robot cannot state a real trial count, and counting them
-as silent turns a definitional impossibility into a reporting failure. Thirty-nine rows state a
-count of unseen test objects, 35 percent. Ninety-eight state how a rollout is scored, 88 percent.
-Sixty-two released code and 46 did not, with four rows unsettled, 57 percent of the 108 the note
-settled. Figure 6 draws these six shares, each against the denominator that belongs to it. Every
-bar is a lower bound, for the reason the next section gives. The two items flagged red there,
-unseen-object count and contact or penetration handling, are the pair a reader actually needs to
-compare two methods: no unseen-object count means no generalisation denominator for a success
-rate, and no contact handling means no way to tell whether the hand passed through the object. They
-are also the two the field states least often.
+Most of this literature does test on hardware, which is the check that matters and the one a
+simulator cannot substitute for. Of the 112 method rows in the corpus, 89 report a real-robot
+experiment, 22 do not and one row is unsettled, which is 80 percent of the 111 the note
+settled. Among those 89, 70 state how many real trials produced the headline number, 79 percent
+of them. The 89 is the denominator that belongs to this statistic: the 22 rows with no real
+robot cannot state a real trial count, and counting them as silent turns a definitional
+impossibility into a reporting failure. Thirty-nine rows state a count of unseen test objects,
+35 percent. Ninety-eight state how a rollout is scored, 88 percent. Sixty-two released code and
+46 did not, with four rows unsettled, 57 percent of the 108 the note settled. Figure 6 draws
+these six shares, each against the denominator that belongs to it. Every bar is a lower bound,
+for the reason the next section gives. The two items flagged red there, unseen-object count and
+contact or penetration handling, are the pair a reader actually needs to compare two methods:
+no unseen-object count means no generalisation denominator for a success rate, and no contact
+handling means no way to tell whether the hand passed through the object. They are also the two
+the field states least often.
 
 ![fig6_reporting](figures/fig6_reporting.svg)
 
@@ -1935,11 +1937,12 @@ better than a policy that is frozen the whole time, yet their success rates woul
 0%". In `kress_gazit_policy_eval_2024` policy C scores 17 percent overall on the pancake task
 while picking up the spatula and flipping the pancake in 23 of 23 attempts.
 
-**Robustness to perturbation.** `colosseum_2024` measures a 30 to 50 percent success drop under
-single perturbation factors and at least 75 percent under all 14 together. In `bench2dex_2026`
-GR00T N1.5 leads the matched condition at 48.5 percent and falls to 19.8 percent under combined
-shift, while π0.5 goes from 27.3 to 19.7 and retains the most at 72.1 percent. The ranking at the
-anchor is not the ranking under shift.
+**Robustness to perturbation.** How much a reported rate moves when the setting changes has
+been measured, though not on a hand. `colosseum_2024` measures a 30 to 50 percent success drop
+under single perturbation factors and at least 75 percent under all 14 together. In
+`bench2dex_2026` GR00T N1.5 leads the matched condition at 48.5 percent and falls to 19.8
+percent under combined shift, while π0.5 goes from 27.3 to 19.7 and retains the most at 72.1
+percent. The ranking at the anchor is not the ranking under shift.
 
 **Generalisation to unseen objects.** Only 39 rows state a count and the median is 11 objects.
 
@@ -1955,16 +1958,18 @@ Open-π0 on put-eggplant-in-sink at 6 of 50 in SIMPLER and 47 of 50 on the real 
 `suresim_2025` states the limit directly: "the simulation-to-real gap precludes rigorous
 statistical inferences about real-world outcomes from simulation results alone".
 
-**Reproducibility.** 62 rows released code that could be parsed against the paper, and 38 of the
-112 rows record a disagreement of some kind between the paper and that code. All 38 released code,
-so the raw rate among code-releasing rows is 61 percent. That raw rate is not the finding, because
+**Reproducibility.** Releasing code is not the same as releasing something that settles a
+question. 62 rows released code that could be parsed against the paper, and 38 of the 112 rows
+record a disagreement of some kind between the paper and that code. All 38 released code, so
+the raw rate among code-releasing rows is 61 percent. That raw rate is not the finding, because
 the 38 are not one thing. Section 5.6 classifies them: 8 contradictions, 14 limitations of this
-survey's own parsing, 8 components never released, 4 version skews and 4 inconsistencies internal
-to a paper. Only the contradictions are a finding about the work rather than about this survey, so
-9 of 62 code-releasing rows, which is 15 percent, is the figure this section and Table 8 use.
-`physhoi_2023` is the clearest of the 9. It lists a non-zero object-orientation weight for GRAB in
-Table 4, and the reward function in the repository at the commit this survey fetched sets that
-orientation error to zero, so in that file the object is tracked in position only.
+survey's own parsing, 8 components never released, 4 version skews and 4 inconsistencies
+internal to a paper. Only the contradictions are a finding about the work rather than about
+this survey, so 9 of 62 code-releasing rows, which is 15 percent, is the figure this section
+and Table 8 use. `physhoi_2023` is the clearest of the 9. It lists a non-zero
+object-orientation weight for GRAB in Table 4, and the reward function in the repository at the
+commit this survey fetched sets that orientation error to zero, so in that file the object is
+tracked in position only.
 
 ## 7.2 Physical plausibility
 
@@ -2024,23 +2029,26 @@ optimized.
 
 ## 7.3 Statistical practice, and a proposed protocol
 
-`kress_gazit_policy_eval_2024` is the field's reference protocol and it prescribes process, not
-numbers. Write the success criteria before the run and have someone other than their author score
-the runs. Match initial conditions with image overlays. Interleave the policies blind within one
-session. Report counts rather than percentages, alongside the initial conditions and the failure
-modes. Use a posterior over the Bernoulli parameter instead of a point estimate. It prescribes no
+A protocol already exists for evaluating learned robot policies, and what it does not supply is
+the part a reader needs. `kress_gazit_policy_eval_2024` prescribes process, not numbers. Write
+the success criteria before the run and have someone other than their author score the runs.
+Match initial conditions with image overlays. Interleave the policies blind within one session.
+Report counts rather than percentages, alongside the initial conditions and the failure modes.
+Use a posterior over the Bernoulli parameter instead of a point estimate. It prescribes no
 minimum trial count anywhere and no frequentist confidence-interval width anywhere. Its own
-example report uses 10 initial conditions with two runs each, 20 evaluations per policy, and its
-worked case shows what 20 buys. Pancake success of 15 of 18 against 11 of 17, nominally 83 against
-65 percent, leaves a 0.11 posterior probability that the worse policy is actually better. At 150
-of 180 against 110 of 170 the same rates separate.
+example report uses 10 initial conditions with two runs each, 20 evaluations per policy, and
+its worked case shows what 20 buys. Pancake success of 15 of 18 against 11 of 17, nominally 83
+against 65 percent, leaves a 0.11 posterior probability that the worse policy is actually
+better. At 150 of 180 against 110 of 170 the same rates separate.
 
-`lbm_careful_examination_2025` supplies the missing numbers by fiat rather than derivation: 50
-rollouts per task per policy per condition on hardware, 200 in simulation, blind, with randomised
-policy order inside per-initial-condition bundles. It replaces confidence intervals with
-Beta-posterior violins and corrects its pairwise tests under Bonferroni, "unless otherwise noted".
-Its own warning is the strongest sentence in this literature: "there is significant risk that many
-robotics papers are measuring statistical noise due to insufficient statistical power".
+One study does put numbers on it, without saying where they come from.
+`lbm_careful_examination_2025` supplies them by fiat rather than derivation: 50 rollouts per
+task per policy per condition on hardware, 200 in simulation, blind, with randomised policy
+order inside per-initial-condition bundles. It replaces confidence intervals with
+Beta-posterior violins and corrects its pairwise tests under Bonferroni, "unless otherwise
+noted". Its own warning is the strongest sentence in this literature: "there is significant
+risk that many robotics papers are measuring statistical noise due to insufficient statistical
+power".
 
 The rest fall short of their own advice. `roboarena_2025` runs 612 double-blind pairwise
 comparisons across seven institutions and 4284 rollouts, and reports no confidence intervals and

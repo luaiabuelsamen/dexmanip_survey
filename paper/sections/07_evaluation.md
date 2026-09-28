@@ -2,19 +2,21 @@
 
 ## 7.1 Reporting practice
 
-Of the 112 method rows in the corpus, 89 report a real-robot experiment, 22 do not and one row is
-unsettled, which is 80 percent of the 111 the note settled. Among those 89, 70 state how many real
-trials produced the headline number, 79 percent of them. The 89 is the denominator that belongs to
-this statistic: the 22 rows with no real robot cannot state a real trial count, and counting them
-as silent turns a definitional impossibility into a reporting failure. Thirty-nine rows state a
-count of unseen test objects, 35 percent. Ninety-eight state how a rollout is scored, 88 percent.
-Sixty-two released code and 46 did not, with four rows unsettled, 57 percent of the 108 the note
-settled. Figure 6 draws these six shares, each against the denominator that belongs to it. Every
-bar is a lower bound, for the reason the next section gives. The two items flagged red there,
-unseen-object count and contact or penetration handling, are the pair a reader actually needs to
-compare two methods: no unseen-object count means no generalisation denominator for a success
-rate, and no contact handling means no way to tell whether the hand passed through the object. They
-are also the two the field states least often.
+Most of this literature does test on hardware, which is the check that matters and the one a
+simulator cannot substitute for. Of the 112 method rows in the corpus, 89 report a real-robot
+experiment, 22 do not and one row is unsettled, which is 80 percent of the 111 the note
+settled. Among those 89, 70 state how many real trials produced the headline number, 79 percent
+of them. The 89 is the denominator that belongs to this statistic: the 22 rows with no real
+robot cannot state a real trial count, and counting them as silent turns a definitional
+impossibility into a reporting failure. Thirty-nine rows state a count of unseen test objects,
+35 percent. Ninety-eight state how a rollout is scored, 88 percent. Sixty-two released code and
+46 did not, with four rows unsettled, 57 percent of the 108 the note settled. Figure 6 draws
+these six shares, each against the denominator that belongs to it. Every bar is a lower bound,
+for the reason the next section gives. The two items flagged red there, unseen-object count and
+contact or penetration handling, are the pair a reader actually needs to compare two methods:
+no unseen-object count means no generalisation denominator for a success rate, and no contact
+handling means no way to tell whether the hand passed through the object. They are also the two
+the field states least often.
 
 {{figure:fig6_reporting}}
 
@@ -93,11 +95,12 @@ better than a policy that is frozen the whole time, yet their success rates woul
 0%". In `kress_gazit_policy_eval_2024` policy C scores 17 percent overall on the pancake task
 while picking up the spatula and flipping the pancake in 23 of 23 attempts.
 
-**Robustness to perturbation.** `colosseum_2024` measures a 30 to 50 percent success drop under
-single perturbation factors and at least 75 percent under all 14 together. In `bench2dex_2026`
-GR00T N1.5 leads the matched condition at 48.5 percent and falls to 19.8 percent under combined
-shift, while π0.5 goes from 27.3 to 19.7 and retains the most at 72.1 percent. The ranking at the
-anchor is not the ranking under shift.
+**Robustness to perturbation.** How much a reported rate moves when the setting changes has
+been measured, though not on a hand. `colosseum_2024` measures a 30 to 50 percent success drop
+under single perturbation factors and at least 75 percent under all 14 together. In
+`bench2dex_2026` GR00T N1.5 leads the matched condition at 48.5 percent and falls to 19.8
+percent under combined shift, while π0.5 goes from 27.3 to 19.7 and retains the most at 72.1
+percent. The ranking at the anchor is not the ranking under shift.
 
 **Generalisation to unseen objects.** Only 39 rows state a count and the median is 11 objects.
 
@@ -113,16 +116,18 @@ Open-π0 on put-eggplant-in-sink at 6 of 50 in SIMPLER and 47 of 50 on the real 
 `suresim_2025` states the limit directly: "the simulation-to-real gap precludes rigorous
 statistical inferences about real-world outcomes from simulation results alone".
 
-**Reproducibility.** 62 rows released code that could be parsed against the paper, and 38 of the
-112 rows record a disagreement of some kind between the paper and that code. All 38 released code,
-so the raw rate among code-releasing rows is 61 percent. That raw rate is not the finding, because
+**Reproducibility.** Releasing code is not the same as releasing something that settles a
+question. 62 rows released code that could be parsed against the paper, and 38 of the 112 rows
+record a disagreement of some kind between the paper and that code. All 38 released code, so
+the raw rate among code-releasing rows is 61 percent. That raw rate is not the finding, because
 the 38 are not one thing. Section 5.6 classifies them: 8 contradictions, 14 limitations of this
-survey's own parsing, 8 components never released, 4 version skews and 4 inconsistencies internal
-to a paper. Only the contradictions are a finding about the work rather than about this survey, so
-9 of 62 code-releasing rows, which is 15 percent, is the figure this section and Table 8 use.
-`physhoi_2023` is the clearest of the 9. It lists a non-zero object-orientation weight for GRAB in
-Table 4, and the reward function in the repository at the commit this survey fetched sets that
-orientation error to zero, so in that file the object is tracked in position only.
+survey's own parsing, 8 components never released, 4 version skews and 4 inconsistencies
+internal to a paper. Only the contradictions are a finding about the work rather than about
+this survey, so 9 of 62 code-releasing rows, which is 15 percent, is the figure this section
+and Table 8 use. `physhoi_2023` is the clearest of the 9. It lists a non-zero
+object-orientation weight for GRAB in Table 4, and the reward function in the repository at the
+commit this survey fetched sets that orientation error to zero, so in that file the object is
+tracked in position only.
 
 ## 7.2 Physical plausibility
 
@@ -182,23 +187,26 @@ optimized.
 
 ## 7.3 Statistical practice, and a proposed protocol
 
-`kress_gazit_policy_eval_2024` is the field's reference protocol and it prescribes process, not
-numbers. Write the success criteria before the run and have someone other than their author score
-the runs. Match initial conditions with image overlays. Interleave the policies blind within one
-session. Report counts rather than percentages, alongside the initial conditions and the failure
-modes. Use a posterior over the Bernoulli parameter instead of a point estimate. It prescribes no
+A protocol already exists for evaluating learned robot policies, and what it does not supply is
+the part a reader needs. `kress_gazit_policy_eval_2024` prescribes process, not numbers. Write
+the success criteria before the run and have someone other than their author score the runs.
+Match initial conditions with image overlays. Interleave the policies blind within one session.
+Report counts rather than percentages, alongside the initial conditions and the failure modes.
+Use a posterior over the Bernoulli parameter instead of a point estimate. It prescribes no
 minimum trial count anywhere and no frequentist confidence-interval width anywhere. Its own
-example report uses 10 initial conditions with two runs each, 20 evaluations per policy, and its
-worked case shows what 20 buys. Pancake success of 15 of 18 against 11 of 17, nominally 83 against
-65 percent, leaves a 0.11 posterior probability that the worse policy is actually better. At 150
-of 180 against 110 of 170 the same rates separate.
+example report uses 10 initial conditions with two runs each, 20 evaluations per policy, and
+its worked case shows what 20 buys. Pancake success of 15 of 18 against 11 of 17, nominally 83
+against 65 percent, leaves a 0.11 posterior probability that the worse policy is actually
+better. At 150 of 180 against 110 of 170 the same rates separate.
 
-`lbm_careful_examination_2025` supplies the missing numbers by fiat rather than derivation: 50
-rollouts per task per policy per condition on hardware, 200 in simulation, blind, with randomised
-policy order inside per-initial-condition bundles. It replaces confidence intervals with
-Beta-posterior violins and corrects its pairwise tests under Bonferroni, "unless otherwise noted".
-Its own warning is the strongest sentence in this literature: "there is significant risk that many
-robotics papers are measuring statistical noise due to insufficient statistical power".
+One study does put numbers on it, without saying where they come from.
+`lbm_careful_examination_2025` supplies them by fiat rather than derivation: 50 rollouts per
+task per policy per condition on hardware, 200 in simulation, blind, with randomised policy
+order inside per-initial-condition bundles. It replaces confidence intervals with
+Beta-posterior violins and corrects its pairwise tests under Bonferroni, "unless otherwise
+noted". Its own warning is the strongest sentence in this literature: "there is significant
+risk that many robotics papers are measuring statistical noise due to insufficient statistical
+power".
 
 The rest fall short of their own advice. `roboarena_2025` runs 612 double-blind pairwise
 comparisons across seven institutions and 4284 rollouts, and reports no confidence intervals and
