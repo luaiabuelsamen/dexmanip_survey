@@ -167,3 +167,30 @@ state a criterion and no two of them state the same one, and that 70 state a cou
 Two cells say the field has no agreed criterion, and both are in families where a second body is
 involved. A criterion naming a distance, a duration and a trial count can be re-run by someone
 else. A rubric cannot, and Section 7 takes up what follows from that.
+
+## 2.4 What has changed since 2022
+
+The corpus roughly tripled between 2022 and 2024, and its composition changed while it grew. Three
+shifts are visible in the rows, and none of them is small.
+
+**The demonstration branch overtook the simulator branch in 2024.** Sorting each method by whether
+it trains in simulation, through reinforcement learning or distillation, or from human
+demonstration, through behavior cloning, a vision-language-action model, a diffusion or flow
+policy, or a collection rig, the simulator branch led 13 rows to 4 in 2023 and trailed 15 to 18 in
+2024. It has trailed since: demonstration-trained work is 22 of the 34 rows from 2025 and 8 of the
+13 so far from 2026. The recipe section 1 describes is this field's mature pipeline rather than its
+growth area, and a reader who knows only that recipe is reading the field as it was in 2023.
+
+**In-hand reorientation is being abandoned as the canonical task.** It was 8 of the 10 method rows
+in 2022 and 3 of the 34 in 2025. The absolute count falls while the corpus triples, which is not a
+shift in emphasis but a change in what the field treats as worth publishing. Bimanual coordination
+moved the other way over the same span, from 1 row to 16, and functional and tool use from 2 to 15.
+The cube-rotation benchmark that section 5 shows the reward literature organized itself around is
+the task the newer literature has left.
+
+**The migration off Isaac Gym began in 2025 and not before.** No row earlier than 2025 uses Isaac
+Lab or Isaac Sim at all. Three do in 2025 and four in the partial 2026, against nine and two
+respectively on Isaac Gym, so on small numbers the successors already carry more of the most recent
+year than the original does. A survey assembled twelve months earlier would have recorded a field
+that had not moved, which is worth stating plainly: the concentration this survey reports on one
+simulator is a fact about a corpus with a cutoff, not a permanent property of the field.

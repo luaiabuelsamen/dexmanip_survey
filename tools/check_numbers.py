@@ -66,6 +66,27 @@ BI_ARCH = {
  "arch_unstated": "bunny_visionpro_2024 deximit_2026".split(),
 }
 
+
+# --- section 2.4's trend counts ------------------------------------------------------------------
+# One method paper is one row and one year. The branch split is by paradigm: trained in a simulator
+# against fitted to human demonstration. A paper tagged both ways counts in both, which is why the
+# two branches do not sum to the year's total.
+SIM_BRANCH = {"RL", "RL+demo", "distillation"}
+DEMO_BRANCH = {"BC", "VLA", "diffusion", "flow", "teleop-system", "data-collection"}
+
+def _year(r):
+    y = r.get("year")
+    if y: return int(y)
+    m = re.search(r"(\d{4})$", r["key"])
+    return int(m.group(1)) if m else 0
+
+def _branch(year, which):
+    want = SIM_BRANCH if which == "sim" else DEMO_BRANCH
+    return sum(1 for r in M if _year(r) == year and set(r.get("paradigm") or []) & want)
+
+def _fam(year, fam):
+    return sum(1 for r in M if _year(r) == year and fam in str(r.get("task_family")))
+
 FACTS = {
  "method_rows": len(M),
  "code_released": cnt(lambda r: r.get("code_released") is True),
@@ -126,6 +147,17 @@ FACTS = {
  "xhand_rows": len(keys(_USES["robotera_xhand1_2024"])),
  "ability_rows": len(keys(_USES["psyonic_ability_hand_2021"])),
  "sharpa_rows": len(keys(_USES["sharpa_wave_2026"])),
+ # Section 2.4's three shifts. Each is a count over a year, so a corpus edit that adds a row to
+ # one of those years has to move the sentence that reports it.
+ "demo_2023": _branch(2023, "demo"),
+ "sim_2023": _branch(2023, "sim"),
+ "demo_2024": _branch(2024, "demo"),
+ "sim_2024": _branch(2024, "sim"),
+ "demo_2025": _branch(2025, "demo"),
+ "reorient_2022": _fam(2022, "reorient"),
+ "reorient_2025": _fam(2025, "reorient"),
+ "bimanual_2022": _fam(2022, "bimanual-coord"),
+ "bimanual_2024": _fam(2024, "bimanual-coord"),
 }
 
 # --- the reference list, against the corpus it is drawn from -------------------------------------
@@ -256,6 +288,14 @@ CLAIMS = [
  ("hand_named", P(rf"The {NUM} method rows that name their own hand")),
  ("hand_named", P(rf"of the {NUM} method rows that name a hand")),
  ("hand_named", P(rf"of the {NUM} hand-naming method rows")),
+ # --- section 2.4, the three shifts -------------------------------------------------------------
+ ("sim_2023", "demo_2023", P(rf"the simulator branch led {NUM} rows to {NUM} in 2023")),
+ ("sim_2024", "demo_2024", P(rf"trailed {NUM} to {NUM} in 2024")),
+ ("demo_2025", P(rf"demonstration-trained work is {NUM} of the 34 rows from 2025")),
+ ("reorient_2022", P(rf"It was {NUM} of the 10 method rows in 2022")),
+ ("reorient_2025", P(rf"and {NUM} of the 34 in 2025")),
+ ("bimanual_2022", P(rf"from {NUM} row to 16")),
+ ("bimanual_2024", P(rf"from 1 row to {NUM}")),
  ("allegro_rows", P(rf"the Allegro at {NUM} method rows")),
  ("shadow_rows", P(rf"a Shadow at {NUM} and \d+ more for its Adroit")),
  ("inspire_rows", P(rf"the Inspire RH56 family at {NUM}, and LEAP")),
