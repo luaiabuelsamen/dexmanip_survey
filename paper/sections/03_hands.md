@@ -98,14 +98,15 @@ XHand and Sharpa take 29 of the 103 rows between them, four rows use two of the 
 earlier than 2024. Eight take none at all: ORCA, RUKA, Ruka-v2, BiDexHand, DexHand, the Proception
 ProHand, the Tesollo DG-5F and the Unitree Dex5.
 
-**Open hardware and the collapse in cost.** Six rows in Table 2 are open hardware, and LEAP Hand V2 in Table 3 is a seventh. Five of the seven
-state a dollar cost: $2,000 for LEAP, $3,000 for LEAP Hand V2, $1,500 for Ruka-v2, $1,300 for RUKA
-and $300 for DexHand. ORCA states a material cost below 2,000 CHF that the price column leaves
-unconverted, and BiDexHand states none `orca_hand_2025` `bidexhand_2025`. The Faive Hand states
-neither a cost nor a license that could be read, so it is not counted as open hardware here
-`faive_hand_2023`. Two of the stated bases need saying. DexHand's $300 is "additional total cost
-of components", excluding the printing and the wrist servos `dexhand_open_source_2023`, and ORCA's
-own figure sits against Ruka-v2's table listing ORCA at about $3.5K `ruka_v2_2026`.
+**Open hardware and the collapse in cost.** Six rows in Table 2 are open hardware, and LEAP
+Hand V2 in Table 3 is a seventh. Five of the seven state a dollar cost: $2,000 for LEAP, $3,000
+for LEAP Hand V2, $1,500 for Ruka-v2, $1,300 for RUKA and $300 for DexHand. ORCA states a
+material cost below 2,000 CHF that the price column leaves unconverted, and BiDexHand states
+none `orca_hand_2025` `bidexhand_2025`. The Faive Hand states neither a cost nor a license that
+could be read, so it is not counted as open hardware here `faive_hand_2023`. Two of the stated
+bases need saying. DexHand's $300 is "additional total cost of components", excluding the
+printing and the wrist servos `dexhand_open_source_2023`, and ORCA's own figure sits against
+Ruka-v2's table listing ORCA at about $3.5K `ruka_v2_2026`.
 
 The expensive end of the collapse is secondhand throughout. The only six-figure numbers on disk
 are RUKA's comparison table at $100,000 for a Shadow Hand and Faive's "steep price tag of 110k
@@ -142,15 +143,16 @@ pre-trained on 462.7k tactile images and beat matched end-to-end models by 95.1 
 see 33 to 50 percent of the labels. Its own bead-maze policies never complete the maze on the real
 robot.
 
-The usage number is the one to keep, and it needs its inclusion rule stated: a sensor physically
-on the hand, read by the deployed policy. Eight of 112 method rows meet it: `anyrotate_2024`,
-`articulated_tools_inhand_2025`, `dexteleop0_2026`, `dexumi_2025`, `hato_visuotactile_2024`,
-`robot_synesthesia_2023`, `rotateit_2023` and `rotating_without_seeing_2023`. The rule excludes
-`penspin_2024`, whose 20 binary contacts are simulated on an Allegro that has no tactile hardware
-and whose released config sets `enable_tactile: False`, and it excludes `dexndm_2025` and
-`dexplore_2025` for the same reason. Sixty-three of the 112 method papers use the word tactile
-somewhere in their parsed text and 35 carry it in their structured note. Against the eight that meet
-the rule above, either number is the gap worth quoting.
+The usage number is the one to keep, and it needs its inclusion rule stated: a sensor
+physically on the hand, read by the deployed policy. Eight of 112 method rows meet it:
+`anyrotate_2024`, `articulated_tools_inhand_2025`, `dexteleop0_2026`, `dexumi_2025`,
+`hato_visuotactile_2024`, `robot_synesthesia_2023`, `rotateit_2023` and
+`rotating_without_seeing_2023`. The rule excludes `penspin_2024`, whose 20 binary contacts are
+simulated on an Allegro that has no tactile hardware and whose released config sets
+`enable_tactile: False`, and it excludes `dexndm_2025` and `dexplore_2025` for the same reason.
+Sixty-three of the 112 method papers use the word tactile somewhere in their parsed text and 35
+carry it in their structured note. Against the eight that meet the rule above, either number is
+the gap worth quoting.
 
 Almost none of the eight uses a high-resolution sensor. `rotating_without_seeing_2023` removes
 vision entirely and rotates objects from 16 binary touch sensors over the palm, links and
@@ -163,12 +165,13 @@ magnitude while the policies consuming them have stayed at binary contact.
 
 ## 3.4 The catalog against the literature
 
-**Three classes of evidence.** Behind Table 3's rows sit three kinds of evidence, and conflating them is how a DoF figure with no
-source ends up in a survey. Vendor prose carrying numbers is the strongest, as on 1X's page of 9
-July 2026 `onex_neo_hand_2026`. Video is second and carries none. Press or bibliography assertion
-is third, as with Tesla's V3 hand, known here only through a paraphrase of patents because the
-USPTO PDF parsed empty `tesla_optimus_hand_2025`. Table 3 blanks the cells resting on the third
-class and footnotes who did the arithmetic.
+**Three classes of evidence.** Behind Table 3's rows sit three kinds of evidence, and
+conflating them is how a DoF figure with no source ends up in a survey. Vendor prose carrying
+numbers is the strongest, as on 1X's page of 9 July 2026 `onex_neo_hand_2026`. Video is second
+and carries none. Press or bibliography assertion is third, as with Tesla's V3 hand, known here
+only through a paraphrase of patents because the USPTO PDF parsed empty
+`tesla_optimus_hand_2025`. Table 3 blanks the cells resting on the third class and footnotes
+who did the arithmetic.
 
 A survey can go one step past recording that a claim is unverified, which is to say which claims
 are implausible on their face. Daxo's 120 actuators in 750 g is about 6 g per actuator including
@@ -187,15 +190,16 @@ the best-specified vendor page in the corpus leaves its fingertip-force columns 
 
 {{table:table3_hands_announced}}
 
-**What is sold against what is published on.** The bottom rows of Figure 2 carry the finding. None of the nine company-announced hands in Table 3
-appears in a single method row whose own experiments use it. Tesla, Figure, 1X, Sanctuary, Boston
-Dynamics, Xiaomi, Clone, Daxo and PaXini account for zero of the 112 method papers' experiments.
-The nearest thing to a counterexample is `helix_2025`, a Figure blog post claiming a 35-DoF
-whole-upper-body action space at 200 Hz that includes individual finger control. It never names
-the hand, gives no per-hand DoF count, and reports no success rate or trial count for any task. It
-is the maker describing its own unreleased hand, which is the evidence class the finding is about.
-The four research prototypes in Table 3 are in a different position, since the Faive Hand and LEAP
-Hand v2 Advanced account for three method rows between them `graspxl_2024` `bidex_teleop_2024`.
+**What is sold against what is published on.** The bottom rows of Figure 2 carry the finding.
+None of the nine company-announced hands in Table 3 appears in a single method row whose own
+experiments use it. Tesla, Figure, 1X, Sanctuary, Boston Dynamics, Xiaomi, Clone, Daxo and
+PaXini account for zero of the 112 method papers' experiments. The nearest thing to a
+counterexample is `helix_2025`, a Figure blog post claiming a 35-DoF whole-upper-body action
+space at 200 Hz that includes individual finger control. It never names the hand, gives no
+per-hand DoF count, and reports no success rate or trial count for any task. It is the maker
+describing its own unreleased hand, which is the evidence class the finding is about. The four
+research prototypes in Table 3 are in a different position, since the Faive Hand and LEAP Hand
+v2 Advanced account for three method rows between them `graspxl_2024` `bidex_teleop_2024`.
 
 Table 3's emptiness is measurable and part of the same finding. Over the twelve specification
 columns, 61 percent of its cells are values no source stated, against 39 percent for the hands
@@ -223,14 +227,14 @@ Ability Hand, six for Sharpa, two each for Wuji and LEAP Hand v2, one each for f
 none at all for the other 19 hands of Tables 2 and 3. Those 19 sit in the tables on their
 specifications alone, and no method row in this corpus runs on any of them.
 
-**What would close the gap.** Nineteen of the 33 hands in Tables 2 and 3 appear in no method row, and
-11 of those are neither sold nor open, so they appear in none for that reason and 33 is not the
-denominator for a software-lag claim; the eight hands named just above are. What decides used from
-unused is one regular expression per hand run against the method rows' own hand field, in
-`tools/hand_usage.py`, so the partition is recomputed rather than argued about. The lag runs through
-the tooling too. Seven of the fifteen simulator rows ship a first-party hand model at all, six of
-those hands are real, Brax's being a synthetic claw, and every one of the six is an Allegro or a
-Shadow; only four of the 33 tabulated hands appear in any engine. `bench2dex_2026` meanwhile
-compares 12 hands and `dexverse_2026` six without stating a DoF count for any. What would close it is a conformance suite for hand models: one
-URDF or MJCF per hand, fixed joint-limit, mass and collision checks, and a published pass or fail per
-engine.
+**What would close the gap.** Nineteen of the 33 hands in Tables 2 and 3 appear in no method
+row, and 11 of those are neither sold nor open, so they appear in none for that reason and 33
+is not the denominator for a software-lag claim; the eight hands named just above are. What
+decides used from unused is one regular expression per hand run against the method rows' own
+hand field, in `tools/hand_usage.py`, so the partition is recomputed and not argued about. The
+lag runs through the tooling too. Seven of the fifteen simulator rows ship a first-party hand
+model at all, six of those hands are real, Brax's being a synthetic claw, and every one of the
+six is an Allegro or a Shadow; only four of the 33 tabulated hands appear in any engine.
+`bench2dex_2026` meanwhile compares 12 hands and `dexverse_2026` six without stating a DoF
+count for any. What would close it is a conformance suite for hand models: one URDF or MJCF per
+hand, fixed joint-limit, mass and collision checks, and a published pass or fail per engine.

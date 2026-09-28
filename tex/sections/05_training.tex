@@ -29,14 +29,14 @@ for work comparable to your own.
 What the deployed policy looks like once training is done matters more than the name a paper gives
 itself, and on that axis the field has converged hard. Section~\ref{sec:train:hybrids} shows why.
 
-\textbf{What the tabulation does not record.}\label{sec:train:master}
-The emptiest columns of the method tabulation are the ones a reader most needs: only 31 rows state
-an environment count, only 70 state how many real trials are behind the headline number, and only
-39 state how many unseen objects were tested. The trial and unseen-object figures are the audited
-ones, after Section~\ref{subsec:reporting} recovered 15 trial counts and 7 unseen-object counts that
-the notes carried and the extraction had dropped. A mostly empty row is not a weak method, but it is
-one that cannot be compared with any other row here. All 112 rows carry the columns this survey
-reads, and Appendix~\ref{app:method} says where they are and how to read them.
+\textbf{What the tabulation does not record.}\label{sec:train:master} The emptiest columns of
+the method tabulation are the ones a reader most needs: only 31 rows state an environment
+count, only 70 state how many real trials are behind the headline number, and only 39 state how
+many unseen objects were tested. The trial and unseen-object figures are the audited ones,
+after Section~\ref{subsec:reporting} recovered 15 trial counts and 7 unseen-object counts that
+the notes carried and the extraction had dropped. A mostly empty row is not a weak method, but
+it is one that cannot be compared with any other row here. All 112 rows carry the columns this
+survey reads, and Appendix~\ref{app:method} says where they are and how to read them.
 
 \begin{figure*}[!t]
   \centering
@@ -170,21 +170,21 @@ default and marks the shipped one-iteration block a fast-test preset. DrEureka's
 contains only the locomotion and globe-walking trees, so its LEAP-hand reward has no code at
 all.
 
-\textbf{Where reinforcement learning stalls.}\label{sec:train:rl:stalls}
-Reinforcement learning stalls on objectives that are not learnable as stated. AnyRotate
-\cite{anyrotate_2024} found the angular-velocity objective unlearnable in the multi-axis setting
-and replaced it with a moving keypoint target. RotateIt \cite{rotateit_2023} reports that its
-multi-axis policy ``does not converge when training with only reinforcement learning'' and adds an
-imitation loss against single-axis oracles. Eureka \cite{eureka_2023} cannot spin a pen from
-scratch and needs a pretrain-then-finetune split, with the from-scratch ablation failing to
-complete one cycle. Section~\ref{sec:train:track}'s contact-graph term exists because of the general shape of the
-problem: contact moves the object off the reference, so return goes down, so the policy learns not
-to touch the object.
+\textbf{Where reinforcement learning stalls.}\label{sec:train:rl:stalls} Reinforcement learning
+stalls on objectives that are not learnable as stated. AnyRotate \cite{anyrotate_2024} found
+the angular-velocity objective unlearnable in the multi-axis setting and replaced it with a
+moving keypoint target. RotateIt \cite{rotateit_2023} reports that its multi-axis policy ``does
+not converge when training with only reinforcement learning'' and adds an imitation loss
+against single-axis oracles. Eureka \cite{eureka_2023} cannot spin a pen from scratch and needs
+a pretrain-then-finetune split, with the from-scratch ablation failing to complete one cycle.
+Section~\ref{sec:train:track}'s contact-graph term exists because of the general shape of the
+problem: contact moves the object off the reference, so return goes down, so the policy learns
+not to touch the object.
 
 It stalls on geometry too. Hora \cite{hora_2022} fails on objects under 4 cm across because the
-fingers collide with each other. What it does not stall on is publication: the real-trial counts
-behind these headlines are small enough that Section~\ref{subsec:reporting} treats them as the reporting problem
-they are.
+fingers collide with each other. What it does not stall on is publication: the real-trial
+counts behind these headlines are small enough that Section~\ref{subsec:reporting} treats them
+as the reporting problem they are.
 
 \subsection{Learning from human data}
 \label{sec:train:human}
@@ -349,16 +349,16 @@ form. Penetration is handled at the reference, if at all, and never at the rollo
 \cite{objdex_2024} complete the set with the only real-robot numbers among them, from 100 percent
 on a microwave and a laptop down to 41.2 percent on a ketchup bottle over 20 trials each.
 
-\textbf{Cross-hand retargeting.} Human data does not port across hands, and
-the map is usually left unstated. Fifty-three method rows use human data and name 44 distinct hand
-strings between them, and twenty of those appear among the 30 teleoperation systems with a stated
-retargeting objective. The other 33 never say how the human motion reached the hand, and the stated
-objectives do not converge, from a fingertip keypoint-vector energy in \cite{anyteleop_2023} to a
-per-joint regression from exoskeleton encoders in \cite{dexumi_2025} to no retargeting at all in
-\cite{egozero_2025}. A shared benchmark could make these mappings comparable. TopoRetarget's
+\textbf{Cross-hand retargeting.} Human data does not port across hands, and the map is usually
+left unstated. Fifty-three method rows use human data and name 44 distinct hand strings between
+them, and twenty of those appear among the 30 teleoperation systems with a stated retargeting
+objective. The other 33 never say how the human motion reached the hand, and the stated
+objectives do not converge, from a fingertip keypoint-vector energy in \cite{anyteleop_2023} to
+a per-joint regression from exoskeleton encoders in \cite{dexumi_2025} to no retargeting at all
+in \cite{egozero_2025}. A shared benchmark could make these mappings comparable. TopoRetarget's
 format \cite{toporetarget_2026} is a useful starting point: it reports contact precision,
-contact alignment, maximum penetration and
-the share of frames past 2 mm, per hand and per dataset.
+contact alignment, maximum penetration and the share of frames past 2 mm, per hand and per
+dataset.
 
 \subsection{Generalist and vision-language-action policies}
 \label{sec:train:vla}
@@ -373,13 +373,13 @@ freedom rather than joints, for the reason Section~III opens with. Four are six,
 RH56DFX among them actuating six of its twelve joints, and one is twelve, \cite{dexora_2026}'s
 XHAND. Their median is 6. Two of the four rows that never settle the hand question do state a
 size, and both are large: 21 for \cite{gr_dexter_2025}'s ByteDexter V2 and 22 for
-\cite{egoscale_2026}'s Sharpa Wave. Of the 59 reward-learning rows, 48 state a count, 38 of those
-are 16 or above, and their median is 16: an Allegro and a LEAP actuate 16, and a Shadow actuates
-20 of its 24 joints. So no row that settles the question reaches the band the
-reinforcement-learning literature of Section~\ref{sec:train:rl} works in, and the two rows that reach it on paper
-are the two that never say whether the hand was in the evaluation. An earlier version of this
-claim counted eleven rows as evaluating on a hand, which mixed the settled eight with rows the
-notes leave open.
+\cite{egoscale_2026}'s Sharpa Wave. Of the 59 reward-learning rows, 48 state a count, 38 of
+those are 16 or above, and their median is 16: an Allegro and a LEAP actuate 16, and a Shadow
+actuates 20 of its 24 joints. So no row that settles the question reaches the band the
+reinforcement-learning literature of Section~\ref{sec:train:rl} works in, and the two rows that
+reach it on paper are the two that never say whether the hand was in the evaluation. An earlier
+version of this claim counted eleven rows as evaluating on a hand, which mixed the settled
+eight with rows the notes leave open.
 
 The six with no hand result are parallel-jaw throughout ($\pi_0$ \cite{pi0_2024}, whose released
 code encodes each ALOHA gripper as one scalar, $\pi_{0.5}$ \cite{pi05_2025}, $\pi^{*}_{0.6}$
@@ -396,7 +396,7 @@ generation with a different backbone, a different action horizon and embodiments
 not describe, and the $\pi_{0.5}$ repository \cite{pi05_2025} supports only the flow-matching
 head, not the hybrid recipe the paper describes.
 
-\textbf{Dexterous hands in generalist policies.} The gap is size rather than absence. The
+\textbf{Dexterous hands in generalist policies.} The gap is one of size, not absence. The
 generalist policies that do touch a hand run it at roughly a third of the actuation the
 reinforcement-learning literature assumes, and the rows that never settle the question are the
 smaller half of the same gap. The standard
@@ -418,15 +418,15 @@ step through MuJoCo itself, planning in 1 to 20 milliseconds. It reorients a cub
 Hand in real time from scratch, and reports no success criterion, no trial count and no
 real-robot result.
 
-The work of Pang et al. \cite{pang_global_planning_2022} is the most substantial of the three. It
-proves that the randomised smoothing implicit in reinforcement learning and an analytic
+The work of Pang et al. \cite{pang_global_planning_2022} is the most substantial of the three.
+It proves that the randomised smoothing implicit in reinforcement learning and an analytic
 log-barrier relaxation compute the same local linear model of contact, then uses the analytic
-version inside a trajectory optimiser and an RRT. Allegro in-hand rotation takes 19.59 seconds to
-optimize and its plate-pickup task 117.16 seconds of planning on a 16-core CPU, against the
-GPU-days of Section~\ref{sec:train:rl}, and it is the only method here that imposes non-penetration as a hard
-constraint. Its own limitation is the honest part: its 3D systems transfer to hardware far worse
-than its 2D ones, because the quasi-dynamic assumption breaks and planned grasps miss contacts
-under a second-order solver.
+version inside a trajectory optimiser and an RRT. Allegro in-hand rotation takes 19.59 seconds
+to optimize and its plate-pickup task 117.16 seconds of planning on a 16-core CPU, against the
+GPU-days of Section~\ref{sec:train:rl}, and it is the only method here that imposes
+non-penetration as a hard constraint. Its own limitation is the honest part: its 3D systems
+transfer to hardware far worse than its 2D ones, because the quasi-dynamic assumption breaks
+and planned grasps miss contacts under a second-order solver.
 
 \textbf{Hybrids, and where the field has converged.}\label{sec:train:hybrids} The recurring
 shape is reinforcement learning in simulation distilled into a policy that looks like an
@@ -446,9 +446,10 @@ two. The fourth wraps an RL policy in a residual, which is \cite{resdex_2024} at
 over 3,200 objects in 12 GPU-hours.
 
 In the variants that dominate 2025 and 2026 work, the reward is no longer the objective of the
-deployed policy. It is the objective of the process that produced the deployed policy's training
-data. Reward engineering has moved upstream into data curation, and every reward-shaping pathology
-in Section~\ref{sec:train:rl} now reaches the shipped policy through a dataset rather than a gradient.
+deployed policy. It is the objective of the process that produced the deployed policy's
+training data. Reward engineering has moved upstream into data curation, and every
+reward-shaping pathology in Section~\ref{sec:train:rl} now reaches the shipped policy through a
+dataset rather than a gradient.
 
 \subsection{Paper against released code}
 \label{sec:train:code}

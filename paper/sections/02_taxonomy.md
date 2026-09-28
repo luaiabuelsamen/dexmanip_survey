@@ -4,15 +4,15 @@
 
 Dexterous manipulation is not one task, and what separates its tasks is what makes some of them
 hard: what is held, what moves, which way gravity points, and what counts as failure. Six
-families cover most of the corpus. They are read off the rows rather than imposed on them, and
-the last paragraph here says what they miss. Grasping is the largest. Fifty-seven of the 112
-method rows carry the grasp label, the labels are not exclusive, and one paper can sit in
-several families. Success is a lift that survives a hold, and the thresholds differ by more
-than an order of magnitude. `dexgraspvla_2025` requires the object "held 10 cm above the table
-for 20 s", while `omnigrasp_2024` requires it "held at least 0.5 s in simulation". What makes
-grasping hard at scale is the continuum of starting configurations. `unidexgrasp_pp_2023`
-states it in Sec. 4.3, that "we are dealing with an infinite number of tasks considering the
-initial object pose can change continuously".
+families cover most of the corpus. They are read off the rows, and the last paragraph here says
+what they miss. Grasping is the largest. Fifty-seven of the 112 method rows carry the grasp
+label, the labels are not exclusive, and one paper can sit in several families. Success is a
+lift that survives a hold, and the thresholds differ by more than an order of magnitude.
+`dexgraspvla_2025` requires the object "held 10 cm above the table for 20 s", while
+`omnigrasp_2024` requires it "held at least 0.5 s in simulation". What makes grasping hard at
+scale is the continuum of starting configurations. `unidexgrasp_pp_2023` states it in Sec. 4.3,
+that "we are dealing with an infinite number of tasks considering the initial object pose can
+change continuously".
 
 Functional and tool use is second with 45 rows. It is the family where a stable grasp can still be
 the wrong answer. `dexterous_functional_grasping_2023` gives the case in Sec. 2.1, that "grabbing
@@ -41,18 +41,18 @@ Sec. 5.4 on "occasional challenges encountered during the grasping phase of the 
 every paper here learns both sides. In `dexterous_handover_2025` only the receiver is learned and
 the giver is a scripted arm.
 
-Those six families do not cover the corpus. Twenty-four of the 112 method rows carry a label from
-outside them and eight carry no label from the six at all. Twenty fall in a catch-all class,
-mostly generalist policies evaluated on a task suite rather than on a dexterous task family, among
-them `pi0_2024`, `pi05_2025`, `pistar06_2025`, `openvla_2024` and `gemini_robotics_15_2025`. Three
-adjacent families are named here rather than absorbed. Locomanipulation is `humanplus_2024`,
-`omnih2o_2024` and `groot_n16_2025`, where the base is not fixed and the gravity argument below
-changes character. Piano playing is `robopianist_2023`, `rp1m_2024` and `pianomime_2024`,
-discussed in Section 6, where success is a per-timestep F1 against a MIDI score rather than an
-object pose. Deformable manipulation is `dexdeform_2023`, whose object carries its own state and
-its own physics. `ferrari_canny_1992` carries no task label because it is a grasp-quality measure
-rather than a task. Table 1's six rows are the families with enough papers to compare, and not a
-partition of the corpus.
+Those six families do not cover the corpus. Twenty-four of the 112 method rows carry a label
+from outside them and eight carry no label from the six at all. Twenty fall in a catch-all
+class, mostly generalist policies evaluated on a task suite rather than on a dexterous task
+family, among them `pi0_2024`, `pi05_2025`, `pistar06_2025`, `openvla_2024` and
+`gemini_robotics_15_2025`. Three adjacent families are named here instead of being folded into
+the six. Locomanipulation is `humanplus_2024`, `omnih2o_2024` and `groot_n16_2025`, where the
+base is not fixed and the gravity argument below changes character. Piano playing is
+`robopianist_2023`, `rp1m_2024` and `pianomime_2024`, discussed in Section 6, where success is
+a per-timestep F1 against a MIDI score rather than an object pose. Deformable manipulation is
+`dexdeform_2023`, whose object carries its own state and its own physics. `ferrari_canny_1992`
+carries no task label because it is a grasp-quality measure rather than a task. Table 1's six
+rows are the families with enough papers to compare, and not a partition of the corpus.
 
 ## 2.2 Sources of difficulty
 
@@ -86,16 +86,17 @@ orientations between episodes", and its Sec. 5.3 measures the cost, with perform
 progressively from palm up and palm down, through base up and base down, to thumb up and thumb
 down.
 
-**The second hand, and three counts.** Three counts describe two hands and they measure different things. Fifty-three of the 112 method
-rows record two hands on the robot, which is all the corpus's two-hand flag claims. Forty-three
-carry the task label for bimanual coordination, the narrower claim that coordinating the hands is
-the task. Section 6 narrows again, to the 28 rows whose notes place a learned closed-loop
-controller on two multi-fingered hands, and its opening paragraph names every exclusion that takes
-the 53 down to the 28. That 28 is the denominator for every architecture count in this survey.
-Every bimanual claim here names which of the three it uses.
+**The second hand, and three counts.** Three counts describe two hands and they measure
+different things. Fifty-three of the 112 method rows record two hands on the robot, which is
+all the corpus's two-hand flag claims. Forty-three carry the task label for bimanual
+coordination, the narrower claim that coordinating the hands is the task. Section 6 narrows
+again, to the 28 rows whose notes place a learned closed-loop controller on two multi-fingered
+hands, and its opening paragraph names every exclusion that takes the 53 down to the 28. That
+28 is the denominator for every architecture count in this survey. Every bimanual claim here
+names which of the three it uses.
 
-**What the second hand adds.** Four things genuinely change when the second hand arrives. Contact stays non-smooth, occlusion
-stays, and gravity stays the same problem.
+**What the second hand adds.** Four things genuinely change when the second hand arrives.
+Contact stays non-smooth, occlusion stays, and gravity stays the same problem.
 
 Role asymmetry is one. `asymdex_2024` assigns a dominant hand with full finger and wrist control
 and a facilitating hand with 6-DoF base pose only, so that "the facilitating hand repositions and
@@ -141,19 +142,22 @@ that sees only deployable observations, usually camera images and joint encoders
 first. Section 5 finds 23 of the 112 methods do this, and it is the second half of the recipe
 section 1 describes.
 
-**Reference and rollout.** A reference is a pose or a trajectory scored before anything executes: a
-retargeted human motion, a synthesized grasp, a planned path. A rollout is what a trained policy
-actually did. The distinction matters because a quantity can be measured carefully at the reference
-and never at the rollout, which section 7 finds is the case for interpenetration.
+**Reference and rollout.** A reference is a pose or a trajectory scored before anything
+executes: a retargeted human motion, a synthesized grasp, a planned path. A rollout is what a
+trained policy actually did. The distinction matters because a quantity can be measured
+carefully at the reference and never at the rollout, which section 7 finds is the case for
+interpenetration.
 
-**Interpenetration.** The distance by which two bodies that should be touching instead overlap, a
-consequence of solving contact constraints approximately rather than exactly. Section 4 covers what
-each engine exposes; the depth is a property of the compliance someone chose, not of the engine.
+**Interpenetration.** The distance by which two bodies that should be touching instead overlap,
+a consequence of solving contact constraints approximately rather than exactly. Section 4
+covers what each engine exposes; the depth is a property of the compliance someone chose, not
+of the engine.
 
-**Success criterion and per-cell trial count.** The criterion is the predicate a paper uses to call
-an episode a success: a pose within a tolerance, an object never dropped, a task completed. The
-per-cell count is how many trials one reported rate is computed from. Section 7 finds 98 of the 112
-state a criterion and no two of them state the same one, and that 70 state a count.
+**Success criterion and per-cell trial count.** The criterion is the predicate a paper uses to
+call an episode a success: a pose within a tolerance, an object never dropped, a task
+completed. The per-cell count is how many trials one reported rate is computed from. Section 7
+finds 98 of the 112 state a criterion and no two of them state the same one, and that 70 state
+a count.
 
 ## Table 1. Task families against the properties that define success
 
@@ -175,24 +179,26 @@ else. A rubric cannot, and Section 7 takes up what follows from that.
 The corpus roughly tripled between 2022 and 2024, and its composition changed while it grew. Three
 shifts are visible in the rows, and none of them is small.
 
-**The demonstration branch overtook the simulator branch in 2024.** Sorting each method by whether
-it trains in simulation, through reinforcement learning or distillation, or from human
+**The demonstration branch overtook the simulator branch in 2024.** Sorting each method by
+whether it trains in simulation, through reinforcement learning or distillation, or from human
 demonstration, through behavior cloning, a vision-language-action model, a diffusion or flow
-policy, or a collection rig, the simulator branch led 13 rows to 4 in 2023 and trailed 15 to 18 in
-2024. It has trailed since: demonstration-trained work is 22 of the 34 rows from 2025 and 8 of the
-13 so far from 2026. The recipe section 1 describes is this field's mature pipeline rather than its
-growth area, and a reader who knows only that recipe is reading the field as it was in 2023.
+policy, or a collection rig, the simulator branch led 13 rows to 4 in 2023 and trailed 15 to 18
+in 2024. It has trailed since: demonstration-trained work is 22 of the 34 rows from 2025 and 8
+of the 13 so far from 2026. The recipe section 1 describes is this field's mature pipeline
+rather than its growth area, and a reader who knows only that recipe is reading the field as it
+was in 2023.
 
-**In-hand reorientation is being abandoned as the canonical task.** It was 8 of the 10 method rows
-in 2022 and 3 of the 34 in 2025. The absolute count falls while the corpus triples, which is not a
-shift in emphasis but a change in what the field treats as worth publishing. Bimanual coordination
-moved the other way over the same span, from 1 row to 16, and functional and tool use from 2 to 15.
-The cube-rotation benchmark that section 5 shows the reward literature organized itself around is
-the task the newer literature has left.
+**In-hand reorientation is being abandoned as the canonical task.** It was 8 of the 10 method
+rows in 2022 and 3 of the 34 in 2025. The absolute count falls while the corpus triples, which
+is not a shift in emphasis but a change in what the field treats as worth publishing. Bimanual
+coordination moved the other way over the same span, from 1 row to 16, and functional and tool
+use from 2 to 15. The cube-rotation benchmark that section 5 shows the reward literature
+organized itself around is the task the newer literature has left.
 
-**The migration off Isaac Gym began in 2025 and not before.** No row earlier than 2025 uses Isaac
-Lab or Isaac Sim at all. Three do in 2025 and four in the partial 2026, against nine and two
-respectively on Isaac Gym, so on small numbers the successors already carry more of the most recent
-year than the original does. A survey assembled twelve months earlier would have recorded a field
-that had not moved, which is worth stating plainly: the concentration this survey reports on one
-simulator is a fact about a corpus with a cutoff, not a permanent property of the field.
+**The migration off Isaac Gym began in 2025 and not before.** No row earlier than 2025 uses
+Isaac Lab or Isaac Sim at all. Three do in 2025 and four in the partial 2026, against nine and
+two respectively on Isaac Gym, so on small numbers the successors already carry more of the
+most recent year than the original does. A survey assembled twelve months earlier would have
+recorded a field that had not moved, which is worth stating plainly: the concentration this
+survey reports on one simulator is a fact about a corpus with a cutoff, not a permanent
+property of the field.

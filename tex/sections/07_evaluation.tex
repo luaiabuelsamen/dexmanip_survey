@@ -51,14 +51,14 @@ the paper/code count, subtracting the 13 disagreements that are limitations of t
 parsing before declaring which number to quote, and the coverage statistics above need it more.
 
 The nulls behind four of those six shares were therefore audited by hand: the trial counts, the
-success criteria and the unseen-object counts against the notes they came from, and the penetration
-field against the parsed sources themselves. Those four numbers above are post-audit.
-Appendix~\ref{app:method} gives what the audits recovered and what they could not: the counts moved
-by tens of rows, 19 trial counts and 4 criteria remain genuinely unsettled, and every bar in
-\figurename~\ref{fig:reporting} is still a lower bound. The other two shares are not post-audit.
-The code-release field has never been audited this way, so its share is a floor of unmeasured
-depth, and the real-robot field's one unsettled row is left out of its denominator rather than
-counted as silence.
+success criteria and the unseen-object counts against the notes they came from, and the
+penetration field against the parsed sources themselves. Those four numbers above are
+post-audit. Appendix~\ref{app:method} gives what the audits recovered and what they could not:
+the counts moved by tens of rows, 19 trial counts and 4 criteria remain genuinely unsettled,
+and every bar in \figurename~\ref{fig:reporting} is still a lower bound. The other two shares
+are not post-audit. The code-release field has never been audited this way, so its share is a
+floor of unmeasured depth, and the real-robot field's one unsettled row is left out of its
+denominator rather than counted as silence.
 
 The remaining gap is the one that matters. Nineteen of the 89 papers with a real robot never say
 how many times they ran it. A percentage with no denominator cannot be given an interval, so it
@@ -90,19 +90,17 @@ per-cell distribution.
   \label{fig:trials}
 \end{figure}
 
-The per-cell count is the one a Wilson interval attaches to. For $s$ successes in $n$ trials, with
-$\hat{p} = s/n$ and $z = z_{1-\alpha/2} = 1.96$ at the 95 percent level, the bounds of that
-interval are
-\begin{equation}
-\frac{2n\hat{p} + z^{2} \;\pm\; z\sqrt{4n\hat{p}\,(1-\hat{p}) + z^{2}}}{2\,(n + z^{2})},
-\label{eq:wilson}
-\end{equation}
-which, unlike the normal approximation, stays inside $[0,1]$ and does not collapse to zero width at
-$\hat{p} = 0$ or $\hat{p} = 1$. At 20 trials a reported 60 percent carries a 95 percent Wilson
-interval of 39 to 78 percent, and a reported 80 percent an interval of 58 to 92 percent.
-Overlapping intervals are not a test, so the point is made with one: 12 of 20 against 16 of 20 is
-$z = 1.38$, $p = 0.17$, and the difference is not established. Two methods separated by 20 points
-at 20 trials, the larger of the two modal cell sizes, are not separated at all.
+The per-cell count is the one a Wilson interval attaches to. For $s$ successes in $n$ trials,
+with $\hat{p} = s/n$ and $z = z_{1-\alpha/2} = 1.96$ at the 95 percent level, the bounds of
+that interval are \begin{equation} \frac{2n\hat{p} + z^{2} \;\pm\;
+z\sqrt{4n\hat{p}\,(1-\hat{p}) + z^{2}}}{2\,(n + z^{2})}, \label{eq:wilson} \end{equation}
+which, unlike the normal approximation, stays inside $[0,1]$ and does not collapse to zero
+width at $\hat{p} = 0$ or $\hat{p} = 1$. At 20 trials a reported 60 percent carries a 95
+percent Wilson interval of 39 to 78 percent, and a reported 80 percent an interval of 58 to 92
+percent. Overlapping intervals are not a test, so the point is made with one: 12 of 20 against
+16 of 20 is $z = 1.38$, $p = 0.17$, and the difference is not established. Two methods
+separated by 20 points at 20 trials, the larger of the two modal cell sizes, are not separated
+at all.
 
 Reporting has improved a little and the experiments have not. About two thirds of papers from
 2025 onward state a trial count, against three fifths before, but the counts themselves have
@@ -116,20 +114,20 @@ so 78 is a count of strings and not of hand designs. Matching on the string, All
 35, Shadow in 21, Inspire in 19 and LEAP in 12. A success rate on a 16-degree-of-freedom Allegro
 and a success rate on a 6-actuator Inspire hand are not measurements of the same thing.
 
-Nor are the criteria. DexVerse
-\cite{dexverse_2026} counts PickCube a success when the cube is ``lifted at least 0.20 m above its
-resetting height''. Bench2Dex \cite{bench2dex_2026} requires its terminal predicate to hold for a
-continuous dwell time of 0.5 s, to reject transient contacts. The Colosseum \cite{colosseum_2024}
-counts an episode successful ``if the model completes the task fully''. DexTrack
-\cite{dextrack_2025} reports every success rate as a pair under two threshold sets, which on GRAB
-gives 46.70 and 65.48 percent for the same rollouts. Of the 14 rows that still state no criterion,
-ten have no success predicate at all. They report radians rotated or time-to-fall and never define
-a success, which is a fact about the paper rather than a gap in this survey. And four are
-unsettled by the note. Of the 19 criteria the audit recovered, all but one are a rubric, a staged
-partial credit, a judgment by eye or a deferral to a benchmark's own definition rather than a
-threshold, and exactly one, \cite{pistar06_2025}, states a verbatim numeric one;
-Appendix~\ref{app:method} counts the four kinds. A rubric is a milder failure than silence and a worse one than a
-threshold, because it is reproducible inside a lab and not across two.
+Nor are the criteria. DexVerse \cite{dexverse_2026} counts PickCube a success when the cube is
+``lifted at least 0.20 m above its resetting height''. Bench2Dex \cite{bench2dex_2026} requires
+its terminal predicate to hold for a continuous dwell time of 0.5 s, to reject transient
+contacts. The Colosseum \cite{colosseum_2024} counts an episode successful ``if the model
+completes the task fully''. DexTrack \cite{dextrack_2025} reports every success rate as a pair
+under two threshold sets, which on GRAB gives 46.70 and 65.48 percent for the same rollouts. Of
+the 14 rows that still state no criterion, ten have no success predicate at all. They report
+radians rotated or time-to-fall and never define a success, which is a fact about the paper
+rather than a gap in this survey. And four are unsettled by the note. Of the 19 criteria the
+audit recovered, all but one are a rubric, a staged partial credit, a judgment by eye or a
+deferral to a benchmark's own definition rather than a threshold, and exactly one,
+\cite{pistar06_2025}, states a verbatim numeric one; Appendix~\ref{app:method} counts the four
+kinds. A rubric is a milder failure than silence and a worse one than a threshold, because it
+is reproducible inside a lab and not across two.
 
 \textbf{The axes that matter.}\label{subsec:axes}
 Seven quantities dissociate in the published data, so they have to be reported separately.
@@ -172,11 +170,11 @@ the raw rate among code-releasing rows is 61 percent. That raw rate is not the f
 the 38 are not one thing. Section~\ref{sec:train:code} classifies them: 8 contradictions, 14
 limitations of this survey's own parsing, 8 components never released, 4 version skews and 4
 inconsistencies internal to a paper. Only the contradictions are a finding about the work
-rather than about this survey, so 9 of 62 code-releasing rows, which is 15 percent, is the
-figure this section and Table~\ref{tab:protocol} use. PhysHOI \cite{physhoi_2023} is the
-clearest of the 9. It lists a non-zero object-orientation weight for GRAB in its Table 4, and
-the reward function in the repository at the commit this survey fetched sets that orientation
-error to zero, so in that file the object is tracked in position only.
+itself, so 9 of 62 code-releasing rows, which is 15 percent, is the figure this section and
+Table~\ref{tab:protocol} use. PhysHOI \cite{physhoi_2023} is the clearest of the 9. It lists a
+non-zero object-orientation weight for GRAB in its Table 4, and the reward function in the
+repository at the commit this survey fetched sets that orientation error to zero, so in that
+file the object is tracked in position only.
 
 \subsection{Physical plausibility}
 \label{subsec:plausibility}
@@ -196,12 +194,13 @@ reports the measurement for rollouts of its own trained policy. Appendix~\ref{ap
 the audit behind that null, which sampled 25 of the 85 rows recorded as not addressing
 penetration and recovered nothing.
 
-\textbf{The null result was audited.} Earlier audits showed that the extraction could miss reported
-values, so 25 of the 85 apparently silent methods were drawn with a fixed random seed and checked
-again against their papers and repositories. None reports penetration depth, intersection volume,
-or another quantitative plausibility measure on its own rollouts. With zero recoveries, a
-one-sided 95 percent finite-population bound allows at most 8 hidden cases among the 85. The
-reported count of eleven is therefore a lower bound and nineteen an upper bound.
+\textbf{The null result was audited.} Earlier audits showed that the extraction could miss
+reported values, so 25 of the 85 apparently silent methods were drawn with a fixed random seed
+and checked again against their papers and repositories. None reports penetration depth,
+intersection volume, or another quantitative plausibility measure on its own rollouts. With
+zero recoveries, a one-sided 95 percent finite-population bound allows at most 8 hidden cases
+among the 85. The reported count of eleven is therefore a lower bound and nineteen an upper
+bound.
 
 GraspXL \cite{graspxl_2024} is the closest borderline case: human raters considered
 interpenetration as one component of a broader realism score. We treat that as a judgment rather
@@ -248,10 +247,10 @@ without simulating it at all, in the wrench-space terms of \cite{ferrari_canny_1
 \cite{roa_suarez_grasp_quality_2015}; neither could be obtained for this survey, and no
 definition here rests on their contents.
 
-\textbf{Reporting penetration.} The gap is specific to learned closed-loop control rather than general,
-and it is a choice rather than a capability. Evaluations should report maximum and mean penetration
-depth over the evaluation rollouts, on a dense surface sample, computed by a measure the policy never
-optimized.
+\textbf{Reporting penetration.} The gap is specific to learned closed-loop control, and it is a
+choice. Nothing prevents the measurement. Evaluations should report maximum and mean
+penetration depth over the evaluation rollouts, on a dense surface sample, computed by a
+measure the policy never optimized.
 
 \subsection{Statistical practice, and a proposed protocol}
 \label{subsec:statistics}
@@ -365,18 +364,20 @@ is withdrawn, because the released code refutes it. And the comparison would hav
 sequential, because the savings in \cite{beyond_binary_success_2026} are the only reason 100 is a
 cap rather than a cost.
 
-The proposal has four limits. It has not been run, and its sample sizes come from power and interval
-calculations rather than dexterous-hand experiments. The worst-case calculation assumes a success
-rate of 0.5, while the paired design assumes a discordance rate of 0.3 that the literature does not
-report. Its perturbations come from parallel-jaw benchmarks \cite{colosseum_2024,simpler_2024},
-where contact is simpler. Finally, the 2 mm penetration threshold follows
-\cite{toporetarget_2026}; it is a simulator convention, not a physical limit. Captured human
-grasps in GRAB \cite{grab_2020} average 3.25 mm under the same kind of measurement. Establishing a
-meaningful threshold will require measurements across hands, engines, and accepted behaviors.
+The proposal has four limits. It has not been run, and its sample sizes come from power and
+interval calculations rather than dexterous-hand experiments. The worst-case calculation
+assumes a success rate of 0.5, while the paired design assumes a discordance rate of 0.3 that
+the literature does not report. Its perturbations come from parallel-jaw benchmarks
+\cite{colosseum_2024,simpler_2024}, where contact is simpler. Finally, the 2 mm penetration
+threshold follows \cite{toporetarget_2026}; it is a simulator convention, not a physical limit.
+Captured human grasps in GRAB \cite{grab_2020} average 3.25 mm under the same kind of
+measurement. Establishing a meaningful threshold will require measurements across hands,
+engines, and accepted behaviors.
 
-\textbf{The methodology literature has no dexterous hand in it.} Seven corpus rows are evaluation
-protocols, a small denominator, and not one of them uses a dexterous hand: Badithela et al.
-\cite{suresim_2025} run a parallel-jaw gripper and the other six state no hand. Everything proposed
-above is therefore assembled from work on grippers and on whole-arm tasks. A modest first test would
-run the protocol in Table~\ref{tab:protocol} once, on one in-hand reorientation
-task with one 16-DoF hand, and release the rollouts and per-trial outcomes for independent analysis.
+\textbf{The methodology literature has no dexterous hand in it.} Seven corpus rows are
+evaluation protocols, a small denominator, and not one of them uses a dexterous hand: Badithela
+et al. \cite{suresim_2025} run a parallel-jaw gripper and the other six state no hand.
+Everything proposed above is therefore assembled from work on grippers and on whole-arm tasks.
+A modest first test would run the protocol in Table~\ref{tab:protocol} once, on one in-hand
+reorientation task with one 16-DoF hand, and release the rollouts and per-trial outcomes for
+independent analysis.

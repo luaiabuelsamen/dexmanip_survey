@@ -62,14 +62,14 @@ printed.
 \figurename~\ref{fig:simstep} sets out the stages of one simulation step. Three of them make
 overlap, and they do not answer to the same knob. In an engine that enforces non-penetration at
 the velocity level, integration turns any residual approach velocity into overlap of order $v$
-times $\Delta t$; an engine that enforces the gap at the next configuration carries no such term,
-which is why Dojo's hard-contact NCP keeps its feet above the floor at every timestep it was
-tested at. Constraint assembly fixes the compliance a loaded contact then rests at. A truncated
-solver leaves a residual that grows with conditioning. Which of the three dominates in a grasp is
-not measured anywhere in this corpus, and the three are not ordered here. A fourth thing is not on
-the figure, because it is not a stage of the step and not a source of overlap: a mismatch between
-the geometry the solver uses and the geometry the renderer draws, which runs in both directions and
-is drawn in \figurename~\ref{fig:collision}.
+times $\Delta t$; an engine that enforces the gap at the next configuration carries no such
+term, which is why Dojo's hard-contact NCP keeps its feet above the floor at every timestep it
+was tested at. Constraint assembly fixes the compliance a loaded contact then rests at. A
+truncated solver leaves a residual that grows with conditioning. Which of the three dominates
+in a grasp is not measured anywhere in this corpus, and the three are not ordered here. A
+fourth thing is not on the figure, because it is not a stage of the step and not a source of
+overlap: a mismatch between the geometry the solver uses and the geometry the renderer draws,
+which runs in both directions and is drawn in \figurename~\ref{fig:collision}.
 
 \subsection{Contact models and solvers}
 \label{sec:sim:engines}
@@ -97,14 +97,14 @@ it. PhysX linearises the cone, which places its model in the LCP family, and it 
 LCP. Its Temporal Gauss-Seidel scheme folds substepping into the Gauss-Seidel sweep and exposes
 position and velocity iteration counts separately \cite[Sec.~3]{isaacgym_2021}.
 
-MuJoCo is inside that taxonomy rather than outside it. Le Lidec et al. classify it as CCP-MuJoCo, a
-convex relaxation solved by a Newton method on the primal QCQP, in the same family as CCP-Drake,
-the SAP-style scheme, by Table~III of \cite{contact_models_comparison_2023}. The relaxation makes
-two errors of opposite sign in one engine. A loaded contact carries a violation, and a sliding
-contact carries force at a positive gap. Drake's SAP inherits the same pair, and its gliding effect
-at distance $\varphi \approx \delta t \cdot \mu \cdot \lVert v_t \rVert$ ``unfortunately does not
-go away as $\delta t \to 0$'' \cite[Sec.~V-A]{castro_sap_contact_2021}. Le Lidec et al. call that
-compliance a ``numerical trick designed to circumvent the issues due to hyper-staticity or
+MuJoCo is inside that taxonomy. Le Lidec et al. classify it as CCP-MuJoCo, a convex relaxation
+solved by a Newton method on the primal QCQP, in the same family as CCP-Drake, the SAP-style
+scheme, by Table~III of \cite{contact_models_comparison_2023}. The relaxation makes two errors
+of opposite sign in one engine. A loaded contact carries a violation, and a sliding contact
+carries force at a positive gap. Drake's SAP inherits the same pair, and its gliding effect at
+distance $\varphi \approx \delta t \cdot \mu \cdot \lVert v_t \rVert$ ``unfortunately does not
+go away as $\delta t \to 0$'' \cite[Sec.~V-A]{castro_sap_contact_2021}. Le Lidec et al. call
+that compliance a ``numerical trick designed to circumvent the issues due to hyper-staticity or
 ill-conditioning at the cost of impairing the simulation''.
 
 The depth a loaded contact carries is a chosen number, not a property of the engine. In a
@@ -177,13 +177,14 @@ question a reader choosing an engine actually has.
 \subsection{GPU-parallel engines and their throughput}
 \label{sec:sim:gpu}
 
-\textbf{The GPU-parallel turn.} Isaac Gym set the pattern. Physics, observations, rewards and actions stay on the GPU, and PhysX
-resolves contacts with the Temporal Gauss-Seidel sweep described above. Its per-task timesteps are
-published, which is rare: the Shadow Hand runs a 1/120 s physics step under a 1/60 s control step,
-or 1/20 s in the OpenAI variant. The result that reorganised the field is that reproducing
-OpenAI's Shadow Hand cube reorientation took under an hour on one A100, against 30 hours on 6144
-CPU cores and 8 V100s \cite[Sec.~6.4.1]{isaacgym_2021}. Thirty-five of the 112 method papers in
-this corpus run on it.
+\textbf{The GPU-parallel turn.} Isaac Gym set the pattern. Physics, observations, rewards and
+actions stay on the GPU, and PhysX resolves contacts with the Temporal Gauss-Seidel sweep
+described above. Its per-task timesteps are published, which is rare: the Shadow Hand runs a
+1/120 s physics step under a 1/60 s control step, or 1/20 s in the OpenAI variant. The result
+that reorganised the field is that reproducing OpenAI's Shadow Hand cube reorientation took
+under an hour on one A100, against 30 hours on 6144 CPU cores and 8 V100s
+\cite[Sec.~6.4.1]{isaacgym_2021}. Thirty-five of the 112 method papers in this corpus run on
+it.
 
 Orbit and Isaac Lab moved the stack to PhysX 5, and the dexterous offering is thinner than the
 predecessor's: the first-party suite is lifting, grasping and reorienting with the KUKA Allegro

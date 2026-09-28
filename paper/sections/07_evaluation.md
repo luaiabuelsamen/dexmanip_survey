@@ -73,21 +73,22 @@ so 78 is a count of strings and not of hand designs. Matching on the string, All
 35, Shadow in 21, Inspire in 19 and LEAP in 12. A success rate on a 16-degree-of-freedom Allegro
 and a success rate on a 6-actuator Inspire hand are not measurements of the same thing.
 
-Nor are the criteria. `dexverse_2026` counts
-PickCube a success when the cube is "lifted at least 0.20 m above its resetting height".
-`bench2dex_2026` requires its terminal predicate to hold for a continuous dwell time of 0.5 s, to
-reject transient contacts. `colosseum_2024` counts an episode successful "if the model completes
-the task fully". `dextrack_2025` reports every success rate as a pair under two threshold sets,
-which on GRAB gives 46.70 and 65.48 percent for the same rollouts. Of the 14 rows that still state
-no criterion, ten have no success predicate at all. They report radians rotated or time-to-fall
-and never define a success, which is a fact about the paper rather than a gap in this survey. And
-four are unsettled by the note. Of the 19 criteria the audit recovered, all but one are a rubric, a
-staged partial credit, a judgment by eye or a deferral to a benchmark's own definition rather than
-a threshold, and exactly one, `pistar06_2025`, states a verbatim numeric one; Appendix A counts the
-four kinds. A rubric is a milder failure than silence and a worse one
-than a threshold, because it is reproducible inside a lab and not across two.
+Nor are the criteria. `dexverse_2026` counts PickCube a success when the cube is "lifted at
+least 0.20 m above its resetting height". `bench2dex_2026` requires its terminal predicate to
+hold for a continuous dwell time of 0.5 s, to reject transient contacts. `colosseum_2024`
+counts an episode successful "if the model completes the task fully". `dextrack_2025` reports
+every success rate as a pair under two threshold sets, which on GRAB gives 46.70 and 65.48
+percent for the same rollouts. Of the 14 rows that still state no criterion, ten have no
+success predicate at all. They report radians rotated or time-to-fall and never define a
+success, which is a fact about the paper rather than a gap in this survey. And four are
+unsettled by the note. Of the 19 criteria the audit recovered, all but one are a rubric, a
+staged partial credit, a judgment by eye or a deferral to a benchmark's own definition rather
+than a threshold, and exactly one, `pistar06_2025`, states a verbatim numeric one; Appendix A
+counts the four kinds. A rubric is a milder failure than silence and a worse one than a
+threshold, because it is reproducible inside a lab and not across two.
 
-**The axes that matter.** Seven quantities dissociate in the published data, so they have to be reported separately.
+**The axes that matter.** Seven quantities dissociate in the published data, so they have to be
+reported separately.
 
 **Task success.** Binary success discards the difference between near-misses and inaction.
 `beyond_binary_success_2026` puts it plainly: "a policy that completes 90% of the task is clearly
@@ -122,12 +123,11 @@ record a disagreement of some kind between the paper and that code. All 38 relea
 the raw rate among code-releasing rows is 61 percent. That raw rate is not the finding, because
 the 38 are not one thing. Section 5.6 classifies them: 8 contradictions, 14 limitations of this
 survey's own parsing, 8 components never released, 4 version skews and 4 inconsistencies
-internal to a paper. Only the contradictions are a finding about the work rather than about
-this survey, so 9 of 62 code-releasing rows, which is 15 percent, is the figure this section
-and Table 8 use. `physhoi_2023` is the clearest of the 9. It lists a non-zero
-object-orientation weight for GRAB in Table 4, and the reward function in the repository at the
-commit this survey fetched sets that orientation error to zero, so in that file the object is
-tracked in position only.
+internal to a paper. Only the contradictions are a finding about the work itself, so 9 of 62
+code-releasing rows, which is 15 percent, is the figure this section and Table 8 use.
+`physhoi_2023` is the clearest of the 9. It lists a non-zero object-orientation weight for GRAB
+in Table 4, and the reward function in the repository at the commit this survey fetched sets
+that orientation error to zero, so in that file the object is tracked in position only.
 
 ## 7.2 Physical plausibility
 
@@ -180,10 +180,10 @@ simulation displacement. The analytic tradition scored a grasp without simulatin
 the wrench-space terms of `ferrari_canny_1992` and `roa_suarez_grasp_quality_2015`; neither
 could be obtained for this survey, and no definition here rests on their contents.
 
-**What would close it.** The gap is specific to learned closed-loop control rather than general, and
-it is a choice rather than a capability. What would close it is a maximum and a mean penetration
-depth over the evaluation rollouts, on a dense surface sample, computed by a measure the policy never
-optimized.
+**What would close it.** The gap is specific to learned closed-loop control, and it is a
+choice. Nothing prevents the measurement. What would close it is a maximum and a mean
+penetration depth over the evaluation rollouts, on a dense surface sample, computed by a
+measure the policy never optimized.
 
 ## 7.3 Statistical practice, and a proposed protocol
 
@@ -226,10 +226,10 @@ trials against a nominal 500, with per-task decisions landing in 12 to 36 paired
 RoboArena's data a 30-point gap on continuous progress scores reaches significance in 18 trials,
 while a 20-point gap on binary success needs about 80.
 
-**A proposed protocol.** Every count below is printed by `tools/make_eval_tables.py` in its derivation mode, and each axis
-is derived for the statistic that axis actually reports: a single rate takes a Wilson half-width,
-a matched comparison takes McNemar, a ratio takes the standard error of the log ratio, a
-correlation takes the Fisher-z interval.
+**A proposed protocol.** Every count below is printed by `tools/make_eval_tables.py` in its
+derivation mode, and each axis is derived for the statistic that axis actually reports: a
+single rate takes a Wilson half-width, a matched comparison takes McNemar, a ratio takes the
+standard error of the log ratio, a correlation takes the Fisher-z interval.
 
 Appendix E gives the full derivation; what it concludes is the following, and every count in
 Table 8 is one of these. A single reported rate takes 100 real rollouts per cell, because 93 is
@@ -260,18 +260,18 @@ survey, no method supplied all the measurements needed for a complete protocol r
 trials. This limits retrospective comparison; it does not imply that the reported experiments
 failed their own stated objectives.
 
-**What would have to be true.** The bill comes first. Per policy and per task the protocol asks for 57 matched trials on the
-anchor set, which is the paired count from §7.3, and 100 on the unseen-object set, at 20 objects
-and 5 trials each, with robustness and plausibility absorbed by simulation. A two-policy
-comparison on three tasks is then 342 real rollouts on the matched set and 600 on the
-unseen-object set, 942 in all, and at one minute per rollout including the reset that is about 16
-hours of robot time, before failed resets, repairs and scoring. The same bill computed from the
-independent-arm count, which an earlier draft used, was 1200 rollouts and 20 hours. The pairing
-removes about a fifth of it rather than the four fifths the pair counts suggest, because a pair is
-two rollouts and only the anchor set is paired. `autoeval_2025` ran about 850 episodes in 24 hours
-on a WidowX with three human interventions, and had to pause 20 minutes every 6 hours once the
-motors overheated. A tendon-driven multi-finger hand is more fragile, so 16 hours of rollouts is
-most of a week of calendar time.
+**What would have to be true.** The bill comes first. Per policy and per task the protocol asks
+for 57 matched trials on the anchor set, which is the paired count from §7.3, and 100 on the
+unseen-object set, at 20 objects and 5 trials each, with robustness and plausibility absorbed
+by simulation. A two-policy comparison on three tasks is then 342 real rollouts on the matched
+set and 600 on the unseen-object set, 942 in all, and at one minute per rollout including the
+reset that is about 16 hours of robot time, before failed resets, repairs and scoring. The same
+bill computed from the independent-arm count, which an earlier draft used, was 1200 rollouts
+and 20 hours. The pairing removes about a fifth of it rather than the four fifths the pair
+counts suggest, because a pair is two rollouts and only the anchor set is paired.
+`autoeval_2025` ran about 850 episodes in 24 hours on a WidowX with three human interventions,
+and had to pause 20 minutes every 6 hours once the motors overheated. A tendon-driven
+multi-finger hand is more fragile, so 16 hours of rollouts is most of a week of calendar time.
 
 That bill is large but not unprecedented. `autoeval_2025` records that evaluating OpenVLA against
 its baselines took more than 2500 rollouts and more than 100 hours of human labour across three
@@ -291,25 +291,26 @@ of this section made the engine the barrier, and that claim is withdrawn, becaus
 code refutes it. And the comparison would have to be sequential, because the savings in
 `beyond_binary_success_2026` are the only reason 100 is a cap rather than a cost.
 
-Four limits apply to the proposal itself. This survey re-ran no method, so every count in Table 8
-is derived from an interval width, a power calculation or another paper's measurement. The counts are worst-case at p = 0.5, so a method near 90
-percent needs fewer trials for the same width and a method near 50 percent needs all 100, and the
-paired count additionally rests on an assumed discordance of 0.3, which no paper in this corpus
-reports. The perturbation axes are borrowed from `colosseum_2024` and `simpler_2024`, which run
-parallel-jaw grippers on rigid objects, where `simpler_2024` found physical parameters moved
-success rates by at most 15 percent. That is the sensitivity expected to grow with multi-finger
-contact, and no work in this corpus measures it. The 2 mm penetration threshold is taken from
-`toporetarget_2026` with no independent justification, and the captured human grasps in
-`grab_2020` sit above it at 3.25 mm, which makes 2 mm a simulator convention rather than a
-physical bound. So the three things this survey adds to the reference-versus-rollout axis are a
-count, a measurement method and a protocol slot for them, and a threshold is not among them. It is
-borrowed from one paper and reported as borrowed, and it will stay a convention until somebody
-measures penetration on rollouts across hands and engines and finds a value that separates
-behavior a physicist would accept from behavior they would not.
+Four limits apply to the proposal itself. This survey re-ran no method, so every count in Table
+8 is derived from an interval width, a power calculation or another paper's measurement. The
+counts are worst-case at p = 0.5, so a method near 90 percent needs fewer trials for the same
+width and a method near 50 percent needs all 100, and the paired count additionally rests on an
+assumed discordance of 0.3, which no paper in this corpus reports. The perturbation axes are
+borrowed from `colosseum_2024` and `simpler_2024`, which run parallel-jaw grippers on rigid
+objects, where `simpler_2024` found physical parameters moved success rates by at most 15
+percent. That is the sensitivity expected to grow with multi-finger contact, and no work in
+this corpus measures it. The 2 mm penetration threshold is taken from `toporetarget_2026` with
+no independent justification, and the captured human grasps in `grab_2020` sit above it at 3.25
+mm, which makes 2 mm a simulator convention rather than a physical bound. So the three things
+this survey adds to the reference-versus-rollout axis are a count, a measurement method and a
+protocol slot for them, and a threshold is not among them. It is borrowed from one paper and
+reported as borrowed, and it will stay a convention until somebody measures penetration on
+rollouts across hands and engines and finds a value that separates behavior a physicist would
+accept from behavior they would not.
 
 **The methodology literature has no dexterous hand in it.** Seven corpus rows are evaluation
-protocols, a small denominator, and not one of them uses a dexterous hand: `suresim_2025` runs a
-parallel-jaw gripper and the other six state no hand. Everything proposed above is therefore
-assembled from work on grippers and on whole-arm tasks. What would close that, and close it cheaply,
-is to run the Table 8 protocol once, on one in-hand reorientation task with one 16-DoF hand, and
-release the rollouts and per-trial outcomes for independent analysis.
+protocols, a small denominator, and not one of them uses a dexterous hand: `suresim_2025` runs
+a parallel-jaw gripper and the other six state no hand. Everything proposed above is therefore
+assembled from work on grippers and on whole-arm tasks. What would close that, and close it
+cheaply, is to run the Table 8 protocol once, on one in-hand reorientation task with one 16-DoF
+hand, and release the rollouts and per-trial outcomes for independent analysis.

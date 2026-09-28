@@ -60,14 +60,14 @@ PhysX linearises the cone, which places its model in the LCP family, and it does
 Its Temporal Gauss-Seidel scheme folds substepping into the Gauss-Seidel sweep and exposes
 position and velocity iteration counts separately (`isaacgym_2021`, Sec. 3).
 
-MuJoCo is inside that taxonomy rather than outside it. Le Lidec et al. classify it as CCP-MuJoCo, a
-convex relaxation solved by a Newton method on the primal QCQP, in the same family as CCP-Drake,
-the SAP-style scheme (`contact_models_comparison_2023`, Table III). The relaxation makes two errors
-of opposite sign in one engine. A loaded contact carries a violation, and a sliding contact carries
-force at a positive gap. Drake's SAP inherits the same pair, and its gliding effect at distance φ ≈
-δt·µ·‖v_t‖ "unfortunately does not go away as δt → 0" (`castro_sap_contact_2021`, Sec. V-A). Le
-Lidec et al. call that compliance a "numerical trick designed to circumvent the issues due to
-hyper-staticity or ill-conditioning at the cost of impairing the simulation".
+MuJoCo is inside that taxonomy. Le Lidec et al. classify it as CCP-MuJoCo, a convex relaxation
+solved by a Newton method on the primal QCQP, in the same family as CCP-Drake, the SAP-style
+scheme (`contact_models_comparison_2023`, Table III). The relaxation makes two errors of
+opposite sign in one engine. A loaded contact carries a violation, and a sliding contact
+carries force at a positive gap. Drake's SAP inherits the same pair, and its gliding effect at
+distance φ ≈ δt·µ·‖v_t‖ "unfortunately does not go away as δt → 0" (`castro_sap_contact_2021`,
+Sec. V-A). Le Lidec et al. call that compliance a "numerical trick designed to circumvent the
+issues due to hyper-staticity or ill-conditioning at the cost of impairing the simulation".
 
 The depth a loaded contact carries is a chosen number, not a property of the engine. In a
 regularised formulation the steady-state violation at a contact is the normal load times the
@@ -135,13 +135,13 @@ has, and thirteen of fifteen rows do not answer it.
 
 ## 4.3 GPU-parallel engines and their throughput
 
-**The GPU-parallel turn.** Isaac Gym set the pattern. Physics, observations, rewards and actions stay on the GPU, and PhysX
-resolves contacts with the Temporal Gauss-Seidel sweep described above. Its per-task timesteps are
-published, which is rare: the Shadow Hand runs a 1/120 s physics step under a 1/60 s control step,
-or 1/20 s in the OpenAI variant. The result that reorganised the field is that reproducing
-OpenAI's Shadow Hand cube reorientation took under an hour on one A100, against 30 hours on 6144
-CPU cores and 8 V100s (`isaacgym_2021`, Sec. 6.4.1). Thirty-five of the 112 method papers in this
-corpus run on it.
+**The GPU-parallel turn.** Isaac Gym set the pattern. Physics, observations, rewards and
+actions stay on the GPU, and PhysX resolves contacts with the Temporal Gauss-Seidel sweep
+described above. Its per-task timesteps are published, which is rare: the Shadow Hand runs a
+1/120 s physics step under a 1/60 s control step, or 1/20 s in the OpenAI variant. The result
+that reorganised the field is that reproducing OpenAI's Shadow Hand cube reorientation took
+under an hour on one A100, against 30 hours on 6144 CPU cores and 8 V100s (`isaacgym_2021`,
+Sec. 6.4.1). Thirty-five of the 112 method papers in this corpus run on it.
 
 Orbit and Isaac Lab moved the stack to PhysX 5, and the dexterous offering is thinner than the
 predecessor's: the first-party suite is lifting, grasping and reorienting with the KUKA Allegro
@@ -169,15 +169,16 @@ non-convex rigid bodies get SDF collision, which is a contact-geometry differenc
 Gym and Isaac Lab under one vendor name (`orbit_2023`, `isaaclab_2025`). Naming a simulator no
 longer names its physics. Papers should report the backend and the solver beside the framework.
 
-**Reported throughput, and why the numbers do not compare.** Four headline figures measure four different quantities. Isaac Gym reports parallel environment
-steps per second with physics, observations and rewards on device: 150,000 for the Shadow Hand at
-16,384 environments on one A100. Isaac Lab reports frames per second in training, which includes
-the learning update: over 900,000 for the DextrAH teacher task at 16,384 environments on eight RTX
-Pro 6000 GPUs, with no single-GPU dexterous number anywhere in the paper. ManiSkill3 reports "up
-to 30,000+ FPS" with RGBD and segmentation on one RTX 4090, measured over 1000 random actions with
-reward and termination removed from the timing, and does not state the environment count behind
-the figure (`maniskill3_2024`). Orbit reports a 125,000 FPS physics-only ceiling on an RTX 3090,
-also with no environment count (`orbit_2023`, Sec. VII).
+**Reported throughput, and why the numbers do not compare.** Four headline figures measure four
+different quantities. Isaac Gym reports parallel environment steps per second with physics,
+observations and rewards on device: 150,000 for the Shadow Hand at 16,384 environments on one
+A100. Isaac Lab reports frames per second in training, which includes the learning update: over
+900,000 for the DextrAH teacher task at 16,384 environments on eight RTX Pro 6000 GPUs, with no
+single-GPU dexterous number anywhere in the paper. ManiSkill3 reports "up to 30,000+ FPS" with
+RGBD and segmentation on one RTX 4090, measured over 1000 random actions with reward and
+termination removed from the timing, and does not state the environment count behind the figure
+(`maniskill3_2024`). Orbit reports a 125,000 FPS physics-only ceiling on an RTX 3090, also with
+no environment count (`orbit_2023`, Sec. VII).
 
 The one number reported cleanly enough to reuse is MuJoCo Playground's, in PPO steps per second on
 a single A100 over five seeds. LeapCubeReorient runs at 76,354 ± 143 and PandaRobotiqPushCube at
@@ -235,13 +236,13 @@ collision geometry, an analytic SDF query and a BVH raycast, and uses the depth 
 signal rather than as an error, so the quantity every other engine treats as a defect sets this
 one's operating point.
 
-**The sim-to-real gap for hands.** Most of what is written about this gap is attribution without measurement. PenSpin asserts that
-the pure physics gap "cannot be bridged by extensive domain randomization alone" while reporting
-no experiment that isolates it (`penspin_2024`). MuJoCo Playground attributes its LEAP hand
-failures to physical flex in low-cost hardware and names more accurate collision geometries as the
-fix, without measuring either. DeXtreme lists four candidate causes for its shortfall, including a
-malfunctioning Allegro thumb used in most trials, and disambiguates none by experiment
-(`dextreme_2022`).
+**The sim-to-real gap for hands.** Most of what is written about this gap is attribution
+without measurement. PenSpin asserts that the pure physics gap "cannot be bridged by extensive
+domain randomization alone" while reporting no experiment that isolates it (`penspin_2024`).
+MuJoCo Playground attributes its LEAP hand failures to physical flex in low-cost hardware and
+names more accurate collision geometries as the fix, without measuring either. DeXtreme lists
+four candidate causes for its shortfall, including a malfunctioning Allegro thumb used in most
+trials, and disambiguates none by experiment (`dextreme_2022`).
 
 What has been measured is narrower, and section 7 collects the transfer numbers. The one result
 that links a quantified model error to transfer is a humanoid recipe paper, which ranks its system
