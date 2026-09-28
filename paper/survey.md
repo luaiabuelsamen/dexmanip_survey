@@ -642,22 +642,12 @@ force at a positive gap. Drake's SAP inherits the same pair, and its gliding eff
 Lidec et al. call that compliance a "numerical trick designed to circumvent the issues due to
 hyper-staticity or ill-conditioning at the cost of impairing the simulation".
 
-The depth a loaded contact carries is a chosen number. In a regularised formulation the
-steady-state violation at a contact is the normal load times the compliance. It is zero at zero
-load and it grows with the load carried. MuJoCo drives that violation coordinate with a critically
-damped stabiliser parameterised by ε and κ, and for an object resting under gravity the
-steady-state depth has a closed form independent of the object's mass
-(`mujoco_convex_contact_2014`, Sec. V). The closed form did not survive the parse of that paper,
-so the cancellation is quoted and the algebra is not. Neither MuJoCo paper states why mass
-cancels, and the explanation this survey offers is its own inference rather than a cited one: the
-regulariser is scaled by the inverse effective inertia at the contact, so compliance falls as 1/m
-exactly as the gravity load rises as m. The nearest support in a parsed source is for a different
-solver of the same engine, MuJoCo's diagonal solver, a "mass-aware spring-damper" that uses the
-diagonal of the A matrix to keep contacts critically damped (`mujoco_2012`, Sec. II-E). This is
-not a penalty spring, and depth is not always non-zero. The impulse solves a regularised convex
-program over the whole contact set rather than a per-contact function of the gap, both MuJoCo
-papers reject spring-dampers by name, and the 2012 ball-drop figure is captioned "there is no
-penetration" (`mujoco_2012`, Fig. 2).
+The depth a loaded contact carries is a chosen number, not a property of the engine. In a
+regularised formulation the steady-state violation at a contact is the normal load times the
+compliance: zero at zero load, growing with what the contact carries. MuJoCo drives that
+violation with a critically damped stabiliser whose steady-state depth, for an object resting
+under gravity, has a closed form independent of the object's mass
+(`mujoco_convex_contact_2014`, Sec. V). Whoever sets the stiffness sets the depth.
 
 Published penetration figures do not compare with each other, and the reasons are instructive.
 Dojo solves a hard-contact complementarity problem and stays above the floor at every timestep
@@ -687,39 +677,20 @@ are blank. The word "penetration" appears nowhere in the Isaac Gym paper, and Is
 sensor reports force, duration and an average contact point with no contact-quality metric. The
 Isaac family carries 42 of the 112 method papers in this corpus.
 
-**The tooling exists and the number is still not recorded.** NVIDIA's own IsaacGymEnvs
-repository computes interpenetration depth in simulation. Its IndustReal tasks load plug and
-socket meshes into Warp, sample points on one, query them against the other, and reduce to a
-per-environment maximum interpenetration distance (`code/md/isaacgym_2021.md`, lines 8809 to
-8862). The policy update is gated on that number. Environments are split on whether their
-maximum stays under a threshold, the reward of those that survive is scaled down as the maximum
-approaches it, and the threshold itself is `interpen_thresh: 0.001`, commented as the largest
-allowed interpenetration between plug and socket (lines 3630 and 3753). That is a shipped Isaac
-Gym task measuring simulated interpenetration per environment at a millimetre threshold, during
-RL, and acting on it. Table 4 records Isaac Gym as not exposing penetration, and so does its
-row in the corpus, which the code parse in that same corpus contradicts. Tactile Genesis makes
-the point from the other side, shipping penetration depth as a sensor on an analytic SDF
-backend and a BVH backend (`tactile_genesis_2026`, App. A.1), while Table 4 leaves the Genesis
-cell blank. The depth is computable from the poses and the meshes in a few lines of Warp, and
-the field's own benchmark repository already does it. Interpenetration in a dexterous rollout
-is a setting these engine papers do not document and a measurement no method row in this corpus
-reports.
+**The tooling exists and the number is not recorded.** NVIDIA's own IsaacGymEnvs computes
+interpenetration depth in simulation: its IndustReal tasks sample points on one mesh, query
+them against the other, and reduce to a per-environment maximum, then gate the policy update on
+it, scaling reward down as the maximum approaches a one-millimetre threshold
+(`code/md/isaacgym_2021.md`). That is a shipped task measuring penetration per environment
+during training and acting on it, in the engine Table 4 records as not exposing the quantity.
+The depth is computable from the poses and the meshes in a few lines of Warp, and the field's
+own benchmark repository already does it.
 
-A policy will exploit what is not measured. DexTrack's configs carry PhysX's
-`max_depenetration_velocity` at 10.0 or 1000.0 depending on the task variant, with no
-explanation in the paper or in a config comment (`dextrack_2025`). The same parameter appears
-across unrelated stock IsaacGymEnvs tasks at 5.0, 10.0, 100.0 and 1000.0, at five places in the
-same parsed file, which is the signature of a stock template rather than of a per-variant
-choice. The parameter caps the rate at which the solver pushes overlapping bodies apart, so it
-sets how long an overlap persists and how violently it is undone, not how deep the overlap
-gets. So the one knob here that bears on interpenetration behavior carries stock values and
-takes two of them across variants of one method. That pattern is what the corpus shows; why the
-values were chosen is not in the record, and matching numbers cannot establish it. DexTrack's
-paper defines a maximum hand-object penetration depth, applies it only to its input kinematic
-references, and presents tolerance of "severe hand-object penetrations" as evidence of
-robustness (App. B). `toporetarget_2026` is the one corpus method that reports the number
-carefully, and it reports it on retargeted references rather than on a rollout, which section 7
-takes up.
+One knob in that stack bears on penetration and nothing in the corpus explains its setting.
+PhysX's `max_depenetration_velocity` caps how fast the solver pushes overlapping bodies apart,
+so it governs how long an overlap persists rather than how deep it gets, and it appears across
+unrelated stock IsaacGymEnvs tasks at five different values (`dextrack_2025`). What the corpus
+shows is the pattern of values; why any of them was chosen is not in the record.
 
 The rest of Table 4 is largely empty, and the emptiness is a result. Sixty-nine of its 165 cells
 are values no parsed source stated, 41 percent, which is the share its own footer counts; over the
@@ -853,17 +824,10 @@ its own reference more tightly than that reference tracks reality, so its residu
 below by the calibration target. The authors also state that they simulate quasi-static contact
 only, with slip left as future work (`taxim_2021`, Sec. V). Slip is what a hand needs.
 
-Tactile Genesis inverts the survey's thread. It implements two penetration-depth backends on the
-collision geometry, an analytic SDF query and a BVH raycast, then binarises the result with
-Schmitt hysteresis at 5×10^-4 m on and 2×10^-4 m off. Here the penetration depth is the sensor
-signal, so the quantity every other engine treats as an error sets this sensor's operating point.
-Against a real GelSight it reports relative marker RMSE of 0.329 in dilation and 0.174 in shear,
-against HydroShear's 0.403 and 0.217, with each simulator tuned to match the real image first
-(`tactile_genesis_2026`, Fig. 2). Its own sim-to-real check is a matched success count rather than
-a fidelity measurement. The real XHand1 SDK reports a per-taxel raw pressure field as well as an
-aggregate contact pressure, but documents no taxel positions or response characteristics, so the
-raw field cannot be registered to the simulated probe layout and only the aggregate is comparable
-(App. C). The undocumented calibration is the barrier, not a missing signal.
+Tactile Genesis inverts the thread. It implements two penetration-depth backends on the
+collision geometry, an analytic SDF query and a BVH raycast, and uses the depth as the sensor
+signal rather than as an error, so the quantity every other engine treats as a defect sets this
+one's operating point.
 
 **The sim-to-real gap for hands.** Most of what is written about this gap is attribution without measurement. PenSpin asserts that
 the pure physics gap "cannot be bridged by extensive domain randomization alone" while reporting
@@ -883,18 +847,11 @@ rendered images and 9.27 ± 4.02 mm on 992 real ones, and PDDM reports a camera 
 average error and 20 ms latency as the unmodelled source in its real numbers (`pddm_2019`, App.
 C).
 
-The contact side stays unmeasured, and the one paper that looks at it is usually read backwards.
-DeXtreme's real-to-sim replay interpenetrated because the replayed poses carried the pose
-estimator's error, not because the contact model failed. The paper says so: "there is still some
-sim-to-real gap in pose estimation. This is manifested when we played back the real states in sim
-(real-to-sim) with physics enabled, which sometimes resulted in interpenetrations. Therefore, we
-were not able to easily calibrate physics parameters of the cube" (`dextreme_2022`, Sec. 5). A
-replayed trajectory is a placement, so the overlap it shows bounds the state estimate rather than
-the physics. That is why it could not calibrate the cube, and it is why calibrating contact
-against hardware still has no worked example for a hand. The only direct measurement of simulator
-fidelity against hardware in this corpus is Dojo's, an average final-position gap of about 0.5 cm
-over 5 box-pushing trials. It is a parallel-jaw arm pushing a box, and there is no equivalent
-number for a hand.
+The one paper that looks at the contact side is usually read backwards. DeXtreme's real-to-sim
+replay interpenetrated because the replayed poses carried the pose estimator's error, not
+because the contact model failed, and the paper says so: it could not calibrate physics against
+the real system because the state it replayed was already wrong. The commonly cited reading,
+that the contact model was at fault, is not what the sentence says.
 
 # 5. Training a dexterous policy
 

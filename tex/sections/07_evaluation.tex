@@ -177,30 +177,14 @@ the object is tracked in position only.
 \subsection{Physical plausibility}
 \label{subsec:plausibility}
 
-% ---------------------------------------------------------------------------
-% The second finding as a picture: the funnel that ends at zero. Written by
-% tools/make_finding_figures.py from corpus/rows.
-% ---------------------------------------------------------------------------
-\begin{figure}[!t]
-  \centering
-  \IfFileExists{figs/fig_penetration.tex}{%
-    \resizebox{\columnwidth}{!}{\input{figs/fig_penetration}}}{%
-    \framebox[0.95\columnwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_penetration.tex pending}}}
-  \caption{Interpenetration handling among all \fnRows{} method rows, the settled \fnPenSettled{}
-  shown against the light track behind them, split by closed-loop policy versus reference-only
-  scoring.}
-  \label{fig:penetration}
-\end{figure}
-
 One quantity is specific to hands, and it is the one closed-loop policies do not record: how
 far the hand passes into the object it is holding. Eleven of the 96 method rows whose notes
-settle the question handle interpenetration at all, and \figurename~\ref{fig:penetration} is
-the funnel that narrows to zero: every one of them measures at a reference rather than at a
-rollout. That is a narrower claim than it sounds, and reading it more widely would be wrong.
-Outside closed-loop control the quantity is a standard comparative column and has been for
-years: BimanGrasp \cite{bimangrasp_2024} fails any grasp past 1.5 mm, TopoRetarget
-\cite{toporetarget_2026} reports a maximum depth and a share of frames past 2 mm against a
-baseline retargeter, and OakInk \cite{oakink_2022} scores a dataset split on depth,
+settle the question handle interpenetration at all, and every one of them measures at a
+reference rather than at a rollout. That is a narrower claim than it sounds, and reading it
+more widely would be wrong. Outside closed-loop control the quantity is a standard comparative
+column and has been for years: BimanGrasp \cite{bimangrasp_2024} fails any grasp past 1.5 mm,
+TopoRetarget \cite{toporetarget_2026} reports a maximum depth and a share of frames past 2 mm
+against a baseline retargeter, and OakInk \cite{oakink_2022} scores a dataset split on depth,
 intersection volume and simulation displacement. The gap is specific to learned closed-loop
 control: seven of the eleven score a pose, a trajectory or a contact model before anything
 executes, the four that are closed-loop policies score the references they were given, and none
@@ -227,7 +211,7 @@ Section~\ref{sec:intro} takes from \cite{zhao_dexhand_survey_2026}. A reference 
 trajectory scored before execution, and a rollout is what the trained policy actually did. What
 this section supplies on that axis is a measurement method and a count, and it does not supply a
 threshold. The count is the eleven of 96 above, with four closed-loop policies inside it and none
-we found reporting a number for its own rollouts, which is \figurename~\ref{fig:penetration}. The
+we found reporting a number for its own rollouts,. The
 method is the plausibility row of Table~\ref{tab:protocol}: maximum and mean penetration depth
 over the evaluation rollouts, on a dense surface sample, computed by code that never entered the
 reward or the termination rule. The threshold is borrowed, and
