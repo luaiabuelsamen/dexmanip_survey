@@ -126,45 +126,19 @@ orientation error to zero, so in that file the object is tracked in position onl
 
 ## 7.2 Physical plausibility
 
-The quantity most specific to a hand is the one closed-loop policies do not record; this section
-is the funnel that narrows to zero. Eleven method rows handle interpenetration in any form: three
-penalize it, three measure it, five
-constrain it, 11 percent of the settled rows. The denominator is 96, not 112, because the
-contact-handling field is null for 16 rows, and a null there means the note did not settle the
-question, not that the paper ignored penetration.
-
-That eleven is not a claim that penetration goes unmeasured in general, and reading it that way
-would be wrong. Outside closed-loop control the quantity is a standard comparative column, and has
-been one for years in grasp synthesis and in hand-object reconstruction. Four rows of this corpus
-show the practice. `bidexgrasp_2026` prints a penetration depth beside a prior method's,
-`bimangrasp_2024` fails any grasp that exceeds 1.5 mm of total penetration, `toporetarget_2026`
-reports a maximum penetration and a share of frames past 2 mm against a baseline retargeter, and
-`oakink_2022` scores a dataset split on penetration depth, solid intersection volume and
-simulation displacement. The finding is narrower than the field and concerns learned closed-loop
-control: all eleven measure at the reference rather than at the rollout, seven of them scoring a
-pose, a trajectory or a contact model before anything executes and the four that are closed-loop
-policies scoring the references they were given, and we found none that reports the measurement for
-rollouts of its own trained policy.
-
-**The field behind that null was audited.** A null is worth what the search behind it is worth,
-and this survey's extraction under-counted every other field it was audited against, by twenty
-to forty-five percent. The 85 method rows whose contact-handling field records that the work
-does not address penetration were therefore sampled: 25 of the 85, drawn at random with a fixed
-seed, each read again in its own parsed source and its released repository rather than in the
-note the field was written from, since the note is the artifact under suspicion. Not one of the
-25 reports a measurement of penetration depth, intersection volume or physical plausibility on
-its own rollouts. Zero recoveries in 25 bounds the rows that could be hiding one at 8 of the 85
-at 95 percent confidence, so the eleven is a floor and nineteen a ceiling; had this field
-under-counted at even the mildest rate the other audits found, a sample of 25 would have missed
-every recoverable row with probability 0.001. The nearest miss is worth naming, because it is
-the one a reader might count differently: `graspxl_2024` puts hand-object interpenetration to
-35 human raters as one of four dimensions of a single realism score, which is a judgment of
-its own rollouts rather than a measurement of one, and counting it would give one recovery in
-25 and a bound of 13 rows. Three near misses recurred across the sample and none of them is a
-measurement of a rollout: self-collision avoidance in a retargeter, a binary self-collision
-penalty in a released reward, and an engine's de-penetration velocity left at its default. The
-draw, the seed and the per-row results are in `reviews/penetration_audit.md`, and Appendix A
-states the method and the two fields that remain unaudited.
+One quantity is specific to hands, and it is the one closed-loop policies do not record: how
+far the hand passes into the object it is holding. Eleven of the 96 method rows whose notes
+settle the question handle interpenetration at all, and every one of them measures it at a
+reference rather than at a rollout. That is a narrower claim than it sounds, and reading it
+more widely would be wrong. Outside closed-loop control the quantity is a standard comparative
+column and has been for years: `bimangrasp_2024` fails any grasp past 1.5 mm,
+`toporetarget_2026` reports a maximum depth and a share of frames past 2 mm against a baseline
+retargeter, and `oakink_2022` scores a dataset split on depth, intersection volume and
+simulation displacement. The gap is specific to learned closed-loop control: seven of the
+eleven score a pose, a trajectory or a contact model before anything executes, the four that
+are closed-loop policies score the references they were given, and none reports the measurement
+for rollouts of its own trained policy. Appendix A gives the audit behind that null, which
+sampled 25 of the 85 rows recorded as not addressing penetration and recovered nothing.
 
 Where in the pipeline those eleven act is the reference-versus-rollout split that section 1 takes
 from `zhao_dexhand_survey_2026`. A reference is a pose or a trajectory scored before execution,
@@ -180,48 +154,26 @@ it does not bind. Six of the eleven are grasp synthesisers or trajectory optimis
 rather than a controller. That leaves four closed-loop policies in the whole corpus:
 `clutterdexgrasp_2025`, `dexmachina_2025`, `dextrack_2025` and `teledexter_2026`.
 
-The reason the number is four is a measurement trap. A quantity a policy optimises cannot also
-judge it, because the policy learns the measure rather than the property the measure stands for.
-`physhoi_2023` documents the failure in the clean direction. Its kinematic imitation reward was
-maximised by not touching the object at all, because contact perturbed the reference trajectory:
-"the policy may learn not to touch the object and falls into a local optimal". A contact-graph
-reward closed the hole, and that reward reads a force threshold rather than geometry, so it
-constrains contact presence and says nothing about penetration depth.
-
-`dextrack_2025` shows the trap in the other direction. It defines a maximum hand-object
-penetration depth over all frames in its Appendix B, and applies it only to the input kinematic
-references, as one component of a reference-quality score. No penetration number appears for any
-of its own rollouts, in simulation or on the LEAP hand. Tolerance of the failure is then reported
-as a result: "Despite severe hand-object penetrations in Figure 4c and Figure 4a, the hand still
-interacts effectively with the object, highlighting the resilience of our tracking controller".
-
-`toporetarget_2026` is the strongest case in the corpus and still stops one step short on the same
-reference-versus-rollout line. It constrains penetration during retargeting with a 1 mm soft
-tolerance and a 30 mm hard bound, and it reports two numbers on 25 ContactPose grasps: a maximum
-penetration of 1.07 mm and 0.00 percent of frames above 2 mm, against 22.22 mm and 96 percent of
-frames for its GeoRT baseline. Then a PPO controller tracks those references, and its four reward
-terms and its five termination criteria govern object pose, link position, joint error and action
-smoothness, never penetration. The constrained quantity is the reference, and the rollout is not
-re-measured.
+The reason only four are closed-loop is a measurement trap: a quantity a policy optimizes
+cannot also judge it, because the policy learns the measure rather than the property the
+measure stands for. `physhoi_2023` documents the failure in the clean direction, its kinematic
+imitation reward maximized by not touching the object at all because contact perturbed the
+reference trajectory. `dextrack_2025` shows the same trap from the other side: it defines a
+maximum hand-object penetration depth over all frames, applies it only to its input kinematic
+references, and then reports tolerance of "severe hand-object penetrations" as a result.
+`toporetarget_2026` is the strongest case in the corpus and still stops one step short on the
+same line. It constrains penetration during retargeting with a 1 mm soft tolerance and a 30 mm
+hard bound, and reports a maximum penetration of 1.07 mm and 0.00 percent of frames above 2 mm
+against 22.22 mm and 96 percent for its baseline retargeter — measured on retargeted
+references, not on a rollout.
 
 Definitions are not shared either. `grab_2020` estimates contact by proximity, because "contact
-cannot be directly observed", with a 4.5 mm tolerance, and reports that "'Use' grasps have 3.25 ±
-0.68 mm average penetration", without saying whether 3.25 mm is a maximum, a mean or a median.
-`oakink_2022` supplies the fullest published vocabulary: penetration depth, solid intersection
-volume and simulation displacement. Its Table 3 scores the GRAB GrabNet split at 2.53 cm
-penetration depth, against GRAB's own 3.25 mm. The two differ by a factor of about eight, and
-neither source states its distance function precisely enough to reconcile them, and the two are
-not scored over the same grasps either, since GRAB's figure is over its own captured "use" grasps
-and OakInk's is a model's output on the GrabNet split, so a difference of population and a
-difference of definition are confounded in the same ratio.
-
-The analytic tradition scored a grasp without simulating it, and `ferrari_canny_1992` and
-`roa_suarez_grasp_quality_2015` are its wrench-space reference points. Neither could be obtained.
-The first DOI fetch returned HTTP 202 and the second a Springer JavaScript interstitial, so both
-are cited by metadata only and no definition here rests on their contents. The learned literature
-has not replaced that tradition with anything it measures on its own rollouts. Penetration is a
-quantity between meshes, so it needs a simulator or a mesh reconstruction, and the protocol below
-treats it as a simulation-only axis.
+cannot be directly observed", and reports that "'Use' grasps have 3.25 ± 0.68 mm average
+penetration" without saying whether that is a maximum, a mean or a median. `oakink_2022`
+supplies the fullest published vocabulary: penetration depth, solid intersection volume and
+simulation displacement. The analytic tradition scored a grasp without simulating it at all, in
+the wrench-space terms of `ferrari_canny_1992` and `roa_suarez_grasp_quality_2015`; neither
+could be obtained for this survey, and no definition here rests on their contents.
 
 **What would close it.** The gap is specific to learned closed-loop control rather than general, and
 it is a choice rather than a capability. What would close it is a maximum and a mean penetration

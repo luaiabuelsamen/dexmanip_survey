@@ -124,18 +124,20 @@ mutating the middle third of each population and replacing the bottom with mutat
 the top, and reports 0.32 trillion environment steps for its largest run. The technique is
 routine outside robotics and nothing else in this corpus uses it.
 
-`eureka_2023` has GPT-4 write the reward function directly, constrained to return a total and a
-dictionary of named components, and feeds per-component statistics back between iterations. Its
-appendix gives an example whose reward correlates at −0.26 with the human-written one and still
-scores 1.45 on the human-normalized metric, the strongest argument in the corpus that hand-tuned
-weights are not a ceiling. `dreureka_2024` moves the safety requirement into the prompt instead of
-a penalty term, asking in words for a cube rotating at about 0.25 radians per second with fingers
+A language model can write the reward outright, which removes the hand-tuning and replaces it
+with a search whose objective nobody has read. `eureka_2023` has GPT-4 write the reward
+function directly, constrained to return a total and a dictionary of named components, and
+feeds per-component statistics back between iterations. Its appendix gives an example whose
+reward correlates at −0.26 with the human-written one and still scores 1.45 on the
+human-normalized metric, the strongest argument in the corpus that hand-tuned weights are not a
+ceiling. `dreureka_2024` moves the safety requirement into the prompt instead of a penalty
+term, asking in words for a cube rotating at about 0.25 radians per second with fingers
 penalized for leaving their initial pose. Neither can be checked against a file. Eureka's
 generated rewards are written at run time to a gitignored directory and never committed, so the
 reward behind any reported number cannot be recovered from the repository, though its README
-documents the paper's budget of five iterations and sixteen samples as the default and marks the
-shipped one-iteration block a fast-test preset. DrEureka's repository contains only the locomotion
-and globe-walking trees, so its LEAP-hand reward has no code at all.
+documents the paper's budget of five iterations and sixteen samples as the default and marks
+the shipped one-iteration block a fast-test preset. DrEureka's repository contains only the
+locomotion and globe-walking trees, so its LEAP-hand reward has no code at all.
 
 **Where reinforcement learning stalls.** Reinforcement learning stalls on objectives that are not learnable as stated. `anyrotate_2024`
 found the angular-velocity objective unlearnable in the multi-axis setting and replaced it with a
@@ -229,10 +231,11 @@ of 15, and substituting monocular depth for triangulated depth does the same, be
 metric depth models it tested carry more than 5 cm of error. It also quantifies what its hand-pose
 pipeline costs, at 1 to 2 cm of action-label error.
 
+More human correspondence is not reliably better, and one paper here tested it directly.
 `objdex_2024` supplies the counterexample. It retargets only the wrist and lets reinforcement
-learning discover finger motion, and its ablation that adds a fingertip-matching reward "does not
-yield benefits and even leads to lower performance". Richer human correspondence is not uniformly
-better, and this is the one result in the corpus that says so with an ablation.
+learning discover finger motion, and its ablation that adds a fingertip-matching reward "does
+not yield benefits and even leads to lower performance". Richer human correspondence is not
+uniformly better, and this is the one result in the corpus that says so with an ablation.
 
 **Tracking a human reference with physics.** Twelve method rows sit in the human-reference tracking family. Eight track a human hand on an
 object and are covered here; the other four sit at the edges, `human2sim2robot_2025` tracking only
@@ -242,28 +245,32 @@ robot and a policy trained to make the simulated body follow it: the reference s
 shaping reward engineering would otherwise have to invent, and the simulator the physical
 consistency pure imitation lacks.
 
-`physhoi_2023` is the origin of the reward form. It multiplies a body term, an object term, an
-interaction-graph term and a contact-graph term, and reaches 95.4 percent success on GRAB against
-27.0 percent for a DeepMimic baseline. The contact-graph term exists to stop the policy learning
-not to touch the object. `omnigrasp_2024` replaces the action space with a pretrained latent
-motion prior and reports 94.6 percent grasp success and 84.8 percent trajectory success on GRAB,
-while stating outright that it omits penetration metrics.
+The multiplicative reward that most human-reference methods now use has a single source.
+`physhoi_2023` is the origin of the form. It multiplies a body term, an object term, an
+interaction-graph term and a contact-graph term, and reaches 95.4 percent success on GRAB
+against 27.0 percent for a DeepMimic baseline. The contact-graph term exists to stop the policy
+learning not to touch the object. `omnigrasp_2024` replaces the action space with a pretrained
+latent motion prior and reports 94.6 percent grasp success and 84.8 percent trajectory success
+on GRAB, while stating outright that it omits penetration metrics.
 
-`dextrack_2025` adds an imitation loss to PPO and mines its own demonstrations through a homotopy
-search over easier neighbouring trajectories, reaching 46.70 and 65.48 percent on GRAB at loose
-and strict thresholds against 38.58 and 54.82 for the best baseline. It has a penetration-depth
-formula and applies it only to input references, never to its own rollouts, and presents tolerance
-of "severe hand-object penetrations" as robustness. `maniptrans_2025` freezes a generalist hand
-imitator and trains a per-task residual on top, reaching 58.1 percent single-hand and 39.5 percent
-bimanual success on OakInk-V2. Its stance on contact is to raise the friction coefficient above
-the real value rather than model skin deformation, and its real deployment is open-loop replay.
+The next step was to stop treating demonstrations as fixed and let the method generate its own.
+`dextrack_2025` adds an imitation loss to PPO and mines its own demonstrations through a
+homotopy search over easier neighbouring trajectories, reaching 46.70 and 65.48 percent on GRAB
+at loose and strict thresholds against 38.58 and 54.82 for the best baseline. It has a
+penetration-depth formula and applies it only to input references, never to its own rollouts,
+and presents tolerance of "severe hand-object penetrations" as robustness. `maniptrans_2025`
+freezes a generalist hand imitator and trains a per-task residual on top, reaching 58.1 percent
+single-hand and 39.5 percent bimanual success on OakInk-V2. Its stance on contact is to raise
+the friction coefficient above the real value rather than model skin deformation, and its real
+deployment is open-loop replay.
 
+Two papers in this corpus ran the same curriculum and disagreed about whether it helps.
 `dexmachina_2025` moves to Genesis with 12,000 environments and six hand URDFs, and drives the
-object with virtual controllers that decay to zero. Its re-implementation of `maniptrans_2025`'s
-curriculum does not beat no curriculum on its own setup, which is a direct disagreement between
-two papers worth quoting in both directions. `dexplore_2025` drops the explicit retargeting stage
-and treats the reference as soft guidance, with termination thresholds derived from the failure
-rate, reaching 87.7 percent on GRAB with an Inspire hand.
+object with virtual controllers that decay to zero. Its re-implementation of
+`maniptrans_2025`'s curriculum does not beat no curriculum on its own setup, which is a direct
+disagreement between two papers worth quoting in both directions. `dexplore_2025` drops the
+explicit retargeting stage and treats the reference as soft guidance, with termination
+thresholds derived from the failure rate, reaching 87.7 percent on GRAB with an Inspire hand.
 
 `toporetarget_2026` is the only corpus method that quantifies penetration as an evaluation
 quantity, reporting maximum depth and the fraction of frames past 2 mm, and constraining it during
@@ -330,21 +337,24 @@ actuated degrees of freedom and its vendor printed beside the number.
 Three corpus methods solve dexterous tasks without learning a policy, and they are the control
 group the rest of this section lacks.
 
-`pddm_2019` learns an ensemble of dynamics models and plans through it with an MPPI-style
-optimiser, replanning every step. It needs 1 to 2 hours of data in simulation and 2 to 4 hours on
-a real 24-DoF Shadow Hand. `mjpc_2022` removes the learned model too and samples ten rollouts per
-step through MuJoCo itself, planning in 1 to 20 milliseconds. It reorients a cube with a Shadow
-Hand in real time from scratch, and reports no success criterion, no trial count and no real-robot
-result.
+Not every method here learns a policy. A smaller line plans through a model instead, and it
+reaches dexterous tasks on a fraction of the data. `pddm_2019` learns an ensemble of dynamics
+models and plans through it with an MPPI-style optimiser, replanning every step. It needs 1 to
+2 hours of data in simulation and 2 to 4 hours on a real 24-DoF Shadow Hand. `mjpc_2022`
+removes the learned model too and samples ten rollouts per step through MuJoCo itself, planning
+in 1 to 20 milliseconds. It reorients a cube with a Shadow Hand in real time from scratch, and
+reports no success criterion, no trial count and no real-robot result.
 
-`pang_global_planning_2022` is the most substantial of the three. It proves that the randomised
-smoothing implicit in reinforcement learning and an analytic log-barrier relaxation compute the
-same local linear model of contact, then uses the analytic version inside a trajectory optimiser
-and an RRT. Allegro in-hand rotation takes 19.59 seconds to optimize and its plate-pickup task
-117.16 seconds of planning on a 16-core CPU, against the GPU-days of section 5.2, and it is the
-only method here that imposes non-penetration as a hard constraint. Its own limitation is the
-honest part: its 3D systems transfer to hardware far worse than its 2D ones, because the
-quasi-dynamic assumption breaks and planned grasps miss contacts under a second-order solver.
+One of the three does more than plan: it explains why the learned and analytic routes arrive at
+the same place. `pang_global_planning_2022` is the most substantial. It proves that the
+randomised smoothing implicit in reinforcement learning and an analytic log-barrier relaxation
+compute the same local linear model of contact, then uses the analytic version inside a
+trajectory optimiser and an RRT. Allegro in-hand rotation takes 19.59 seconds to optimize and
+its plate-pickup task 117.16 seconds of planning on a 16-core CPU, against the GPU-days of
+section 5.2, and it is the only method here that imposes non-penetration as a hard constraint.
+Its own limitation is the honest part: its 3D systems transfer to hardware far worse than its
+2D ones, because the quasi-dynamic assumption breaks and planned grasps miss contacts under a
+second-order solver.
 
 **Hybrids, and where the field has converged.** The recurring shape is reinforcement learning in simulation distilled into a policy that looks
 like an imitation policy, and it appears in four variants. The first distills a privileged teacher

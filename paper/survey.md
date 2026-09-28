@@ -659,55 +659,25 @@ program over the whole contact set rather than a per-contact function of the gap
 papers reject spring-dampers by name, and the 2012 ball-drop figure is captioned "there is no
 penetration" (`mujoco_2012`, Fig. 2).
 
-The first of two concrete measurements comes from the other end. Dojo solves a hard-contact
-nonlinear complementarity problem with an exact second-order friction cone, by an interior-point
-method converging within 15 iterations on the three robots of its convergence study. Table II of
-`dojo_2022` drops an Atlas humanoid and reports foot-floor penetration against the timestep. MuJoCo
-penetrates −28 mm at Δt = 0.01 s and −46 mm at Δt = 0.001 s, while Dojo stays above the floor at
-every step tested (`dojo_2022`, Sec. V-A). The MuJoCo column is not a trend. A ten-times-smaller
-step produces more overlap, which no timestep-independent stabiliser does. Either that
-configuration ties the compliance to Δt, or the quantity is an impact transient on a drop. Neither
-reading is a steady-state grasp depth.
-
-Drake's SAP quotes 2.5×10^-5 m at δt = 10^-2 s and 2.5×10^-7 m at δt = 10^-3 s, three and five
-orders of magnitude below Dojo's two MuJoCo cells at the same steps, on an engine that is also
-compliant (`castro_sap_contact_2021`, Sec. V-B). Those two figures are analytical bounds for a
-single point mass at rest on a plane under that paper's near-rigid stiffness rule, not measured
-depths, and they are not a Drake grasp-penetration number: a point-mass bound and a humanoid drop
-transient differ in load, effective inertia and regime, so the distance between them is not a
-measurement of anything. What the pair of engines does show is that in a compliant formulation the
-depth follows from a stiffness that someone chose.
-
-Table V of `dojo_2022` times 1000 steps of forward simulation with gradients, at a matched Δt =
-0.01 s, for engines that are not all computing gradients. MuJoCo is fastest on every system, 0.335
-± 0.001 s against Dojo's 1.159 ± 0.077 s on a Franka Panda, and the authors call the comparison
-difficult because Dojo is stable at five times the step size (Sec. VI-B). What the regularisation
-buys, on Le Lidec's reading quoted above, is conditioning on a hyperstatic problem, and the depth
-it costs is tuned separately. Whether that is also what holds Erez's grasp at 16 ms is a question
-his data do not answer. His planar chain is contact-free, so its numbers speak to the coordinate
-formulation and not to contact: MuJoCo runs at 243.2 kHz there against Bullet's 22.8 and PhysX's
-6.4, and Bullet's articulated Featherstone mode at 81.4 kHz beats every Cartesian-coordinate engine
-(`physics_engine_comparison_2015`, Sec. IV-B). Those are throughput in evaluations per second, not
-a largest-stable-timestep result, and the articulated Bullet mode was never run on the grasp test
-at all, being usable only in tests without contact, which that paper's own appendix states of its
-Featherstone implementation. Joint coordinates explain the contact-free speed advantage. The grasp
-timestep is a contact result, and the paper attributes it to nothing: it reports that the other
-engines go unstable and "effectively simulate a different physics model which can no longer hold
-the object" (Sec. IV-D), without an experiment that separates the coordinate formulation from the
-soft absorption of penetration.
-
-The GPU era moved the compliance knob rather than removing it. ComFree-Sim resolves contact in
-closed form in the dual cone of the friction cone, so penetration becomes an explicit tuning
-parameter and the paper reports it. On a drop test of convex primitives about 5 cm across at dt =
-0.002 s, MuJoCo Warp penetrates 1.7 ± 4.9 mm and ComFree-Sim runs from 3.9 ± 6.9 mm at k_user =
-0.1 down to 0.9 ± 1.5 mm at k_user = 0.5, though its prose describes the opposite direction from
-its own table (`comfree_sim_2026`, Sec. IV-A). Its impedance acts on the signed gap through the
-"identical" default hyperparameter API as MuJoCo's solver, so the knob it is credited with
-exposing is one MuJoCo users already set. Those are 5 cm primitives under their own weight, not a
-fingertip loaded by a grasp, and depth scales with the normal load. Nobody has published the
-fingertip number. The baseline it measures against is MuJoCo Warp, which Newton builds on and
-which MuJoCo Playground names as its intended replacement for JAX (`mujoco_playground_2025`, Sec.
-VI).
+Published penetration figures do not compare with each other, and the reasons are instructive.
+Dojo solves a hard-contact complementarity problem and stays above the floor at every timestep
+it was tested at, where MuJoCo penetrates tens of millimetres on the same Atlas drop
+(`dojo_2022`, Sec. V-A). But the MuJoCo column is not a trend: a ten-times-smaller step
+produces more overlap, which no timestep-independent stabiliser does, so either that
+configuration ties compliance to the timestep or the quantity is an impact transient rather
+than a steady-state depth. Drake's SAP reports figures orders of magnitude smaller again, and
+they are analytical bounds for a point mass at rest on a plane under a near-rigid stiffness
+rule, not measured depths (`castro_sap_contact_2021`, Sec. V-B). ComFree-Sim does report
+penetration directly, as an explicit tuning parameter, on 5 cm convex primitives dropped under
+their own weight (`comfree_sim_2026`, Sec. IV-A). A point-mass bound, a humanoid drop transient
+and a dropped primitive differ in load, inertia and regime, so the distances between them
+measure nothing. What the set does establish is the part that matters for a hand: in a
+compliant formulation the depth follows from a stiffness somebody chose, and the GPU era moved
+that knob rather than removing it. `physics_engine_comparison_2015` puts the consequence
+plainly, reporting that engines pushed past their stable step "effectively simulate a different
+physics model which can no longer hold the object" (Sec. IV-D). No paper in this corpus reports
+the depth for a fingertip loaded by a grasp, which is the one configuration a dexterous result
+depends on.
 
 That brings Table 4's most important column, and the claim it does not support. The column records
 whether a parsed source reported a penetration depth, not what an engine can compute. Two of the
@@ -1196,18 +1166,20 @@ mutating the middle third of each population and replacing the bottom with mutat
 the top, and reports 0.32 trillion environment steps for its largest run. The technique is
 routine outside robotics and nothing else in this corpus uses it.
 
-`eureka_2023` has GPT-4 write the reward function directly, constrained to return a total and a
-dictionary of named components, and feeds per-component statistics back between iterations. Its
-appendix gives an example whose reward correlates at −0.26 with the human-written one and still
-scores 1.45 on the human-normalized metric, the strongest argument in the corpus that hand-tuned
-weights are not a ceiling. `dreureka_2024` moves the safety requirement into the prompt instead of
-a penalty term, asking in words for a cube rotating at about 0.25 radians per second with fingers
+A language model can write the reward outright, which removes the hand-tuning and replaces it
+with a search whose objective nobody has read. `eureka_2023` has GPT-4 write the reward
+function directly, constrained to return a total and a dictionary of named components, and
+feeds per-component statistics back between iterations. Its appendix gives an example whose
+reward correlates at −0.26 with the human-written one and still scores 1.45 on the
+human-normalized metric, the strongest argument in the corpus that hand-tuned weights are not a
+ceiling. `dreureka_2024` moves the safety requirement into the prompt instead of a penalty
+term, asking in words for a cube rotating at about 0.25 radians per second with fingers
 penalized for leaving their initial pose. Neither can be checked against a file. Eureka's
 generated rewards are written at run time to a gitignored directory and never committed, so the
 reward behind any reported number cannot be recovered from the repository, though its README
-documents the paper's budget of five iterations and sixteen samples as the default and marks the
-shipped one-iteration block a fast-test preset. DrEureka's repository contains only the locomotion
-and globe-walking trees, so its LEAP-hand reward has no code at all.
+documents the paper's budget of five iterations and sixteen samples as the default and marks
+the shipped one-iteration block a fast-test preset. DrEureka's repository contains only the
+locomotion and globe-walking trees, so its LEAP-hand reward has no code at all.
 
 **Where reinforcement learning stalls.** Reinforcement learning stalls on objectives that are not learnable as stated. `anyrotate_2024`
 found the angular-velocity objective unlearnable in the multi-axis setting and replaced it with a
@@ -1337,10 +1309,11 @@ of 15, and substituting monocular depth for triangulated depth does the same, be
 metric depth models it tested carry more than 5 cm of error. It also quantifies what its hand-pose
 pipeline costs, at 1 to 2 cm of action-label error.
 
+More human correspondence is not reliably better, and one paper here tested it directly.
 `objdex_2024` supplies the counterexample. It retargets only the wrist and lets reinforcement
-learning discover finger motion, and its ablation that adds a fingertip-matching reward "does not
-yield benefits and even leads to lower performance". Richer human correspondence is not uniformly
-better, and this is the one result in the corpus that says so with an ablation.
+learning discover finger motion, and its ablation that adds a fingertip-matching reward "does
+not yield benefits and even leads to lower performance". Richer human correspondence is not
+uniformly better, and this is the one result in the corpus that says so with an ablation.
 
 **Tracking a human reference with physics.** Twelve method rows sit in the human-reference tracking family. Eight track a human hand on an
 object and are covered here; the other four sit at the edges, `human2sim2robot_2025` tracking only
@@ -1350,28 +1323,32 @@ robot and a policy trained to make the simulated body follow it: the reference s
 shaping reward engineering would otherwise have to invent, and the simulator the physical
 consistency pure imitation lacks.
 
-`physhoi_2023` is the origin of the reward form. It multiplies a body term, an object term, an
-interaction-graph term and a contact-graph term, and reaches 95.4 percent success on GRAB against
-27.0 percent for a DeepMimic baseline. The contact-graph term exists to stop the policy learning
-not to touch the object. `omnigrasp_2024` replaces the action space with a pretrained latent
-motion prior and reports 94.6 percent grasp success and 84.8 percent trajectory success on GRAB,
-while stating outright that it omits penetration metrics.
+The multiplicative reward that most human-reference methods now use has a single source.
+`physhoi_2023` is the origin of the form. It multiplies a body term, an object term, an
+interaction-graph term and a contact-graph term, and reaches 95.4 percent success on GRAB
+against 27.0 percent for a DeepMimic baseline. The contact-graph term exists to stop the policy
+learning not to touch the object. `omnigrasp_2024` replaces the action space with a pretrained
+latent motion prior and reports 94.6 percent grasp success and 84.8 percent trajectory success
+on GRAB, while stating outright that it omits penetration metrics.
 
-`dextrack_2025` adds an imitation loss to PPO and mines its own demonstrations through a homotopy
-search over easier neighbouring trajectories, reaching 46.70 and 65.48 percent on GRAB at loose
-and strict thresholds against 38.58 and 54.82 for the best baseline. It has a penetration-depth
-formula and applies it only to input references, never to its own rollouts, and presents tolerance
-of "severe hand-object penetrations" as robustness. `maniptrans_2025` freezes a generalist hand
-imitator and trains a per-task residual on top, reaching 58.1 percent single-hand and 39.5 percent
-bimanual success on OakInk-V2. Its stance on contact is to raise the friction coefficient above
-the real value rather than model skin deformation, and its real deployment is open-loop replay.
+The next step was to stop treating demonstrations as fixed and let the method generate its own.
+`dextrack_2025` adds an imitation loss to PPO and mines its own demonstrations through a
+homotopy search over easier neighbouring trajectories, reaching 46.70 and 65.48 percent on GRAB
+at loose and strict thresholds against 38.58 and 54.82 for the best baseline. It has a
+penetration-depth formula and applies it only to input references, never to its own rollouts,
+and presents tolerance of "severe hand-object penetrations" as robustness. `maniptrans_2025`
+freezes a generalist hand imitator and trains a per-task residual on top, reaching 58.1 percent
+single-hand and 39.5 percent bimanual success on OakInk-V2. Its stance on contact is to raise
+the friction coefficient above the real value rather than model skin deformation, and its real
+deployment is open-loop replay.
 
+Two papers in this corpus ran the same curriculum and disagreed about whether it helps.
 `dexmachina_2025` moves to Genesis with 12,000 environments and six hand URDFs, and drives the
-object with virtual controllers that decay to zero. Its re-implementation of `maniptrans_2025`'s
-curriculum does not beat no curriculum on its own setup, which is a direct disagreement between
-two papers worth quoting in both directions. `dexplore_2025` drops the explicit retargeting stage
-and treats the reference as soft guidance, with termination thresholds derived from the failure
-rate, reaching 87.7 percent on GRAB with an Inspire hand.
+object with virtual controllers that decay to zero. Its re-implementation of
+`maniptrans_2025`'s curriculum does not beat no curriculum on its own setup, which is a direct
+disagreement between two papers worth quoting in both directions. `dexplore_2025` drops the
+explicit retargeting stage and treats the reference as soft guidance, with termination
+thresholds derived from the failure rate, reaching 87.7 percent on GRAB with an Inspire hand.
 
 `toporetarget_2026` is the only corpus method that quantifies penetration as an evaluation
 quantity, reporting maximum depth and the fraction of frames past 2 mm, and constraining it during
@@ -1438,21 +1415,24 @@ actuated degrees of freedom and its vendor printed beside the number.
 Three corpus methods solve dexterous tasks without learning a policy, and they are the control
 group the rest of this section lacks.
 
-`pddm_2019` learns an ensemble of dynamics models and plans through it with an MPPI-style
-optimiser, replanning every step. It needs 1 to 2 hours of data in simulation and 2 to 4 hours on
-a real 24-DoF Shadow Hand. `mjpc_2022` removes the learned model too and samples ten rollouts per
-step through MuJoCo itself, planning in 1 to 20 milliseconds. It reorients a cube with a Shadow
-Hand in real time from scratch, and reports no success criterion, no trial count and no real-robot
-result.
+Not every method here learns a policy. A smaller line plans through a model instead, and it
+reaches dexterous tasks on a fraction of the data. `pddm_2019` learns an ensemble of dynamics
+models and plans through it with an MPPI-style optimiser, replanning every step. It needs 1 to
+2 hours of data in simulation and 2 to 4 hours on a real 24-DoF Shadow Hand. `mjpc_2022`
+removes the learned model too and samples ten rollouts per step through MuJoCo itself, planning
+in 1 to 20 milliseconds. It reorients a cube with a Shadow Hand in real time from scratch, and
+reports no success criterion, no trial count and no real-robot result.
 
-`pang_global_planning_2022` is the most substantial of the three. It proves that the randomised
-smoothing implicit in reinforcement learning and an analytic log-barrier relaxation compute the
-same local linear model of contact, then uses the analytic version inside a trajectory optimiser
-and an RRT. Allegro in-hand rotation takes 19.59 seconds to optimize and its plate-pickup task
-117.16 seconds of planning on a 16-core CPU, against the GPU-days of section 5.2, and it is the
-only method here that imposes non-penetration as a hard constraint. Its own limitation is the
-honest part: its 3D systems transfer to hardware far worse than its 2D ones, because the
-quasi-dynamic assumption breaks and planned grasps miss contacts under a second-order solver.
+One of the three does more than plan: it explains why the learned and analytic routes arrive at
+the same place. `pang_global_planning_2022` is the most substantial. It proves that the
+randomised smoothing implicit in reinforcement learning and an analytic log-barrier relaxation
+compute the same local linear model of contact, then uses the analytic version inside a
+trajectory optimiser and an RRT. Allegro in-hand rotation takes 19.59 seconds to optimize and
+its plate-pickup task 117.16 seconds of planning on a 16-core CPU, against the GPU-days of
+section 5.2, and it is the only method here that imposes non-penetration as a hard constraint.
+Its own limitation is the honest part: its 3D systems transfer to hardware far worse than its
+2D ones, because the quasi-dynamic assumption breaks and planned grasps miss contacts under a
+second-order solver.
 
 **Hybrids, and where the field has converged.** The recurring shape is reinforcement learning in simulation distilled into a policy that looks
 like an imitation policy, and it appears in four variants. The first distills a privileged teacher
@@ -1741,12 +1721,13 @@ receiver returns separately rather than one shared number.
 
 Two purpose-built bimanual dexterous suites exist in the corpus, four years apart.
 
-`bidexhands_2022` is 20 tasks on two Shadow Hands in Isaac Gym, ordered by the infant age at which
-humans acquire the skill, at 2048 environments and a reported 30,000-plus FPS. Its measurement
-discipline is weaker than its coverage. It reports reward and normalized score, never a success
-rate. Its only success flag in code tests the object-to-goal distance against 3 cm, which ignores
-orientation and exists only in the four catching tasks. Any success rate later work attributes to
-Bi-DexHands comes from that flag or its own definition.
+The two bimanual benchmarks in the corpus trade coverage against measurement, in opposite
+directions. `bidexhands_2022` is 20 tasks on two Shadow Hands in Isaac Gym, ordered by the
+infant age at which humans acquire the skill, at 2048 environments and a reported 30,000-plus
+FPS. Its measurement discipline is weaker than its coverage. It reports reward and normalized
+score, never a success rate. Its only success flag in code tests the object-to-goal distance
+against 3 cm, which ignores orientation and exists only in the four catching tasks. Any success
+rate later work attributes to Bi-DexHands comes from that flag or its own definition.
 
 `bench2dex_2026` is the more instrumented of the two. It runs 26 long-horizon tasks in Isaac Lab
 across 12 arm-and-hand embodiments, with roughly 1.3K teleoperated demonstrations in eight
@@ -1800,6 +1781,7 @@ Handover is the one bimanual task where the hands are unambiguously asymmetric, 
 and one receives. All three corpus handover papers use a single shared reward across giver and
 receiver. None defines separate objectives for the two roles.
 
+Whether the two hands optimize the same objective is usually left implicit.
 `dynamic_handover_2023` states one formula, r = r_dis + r_linvel + r_torque, and never says
 whether thrower and catcher receive different decompositions of it. `dydexhandover_2025` is
 explicit that they do not: "Both hands share aligned objectives, forming a fully cooperative
@@ -1973,45 +1955,19 @@ orientation error to zero, so in that file the object is tracked in position onl
 
 ## 7.2 Physical plausibility
 
-The quantity most specific to a hand is the one closed-loop policies do not record; this section
-is the funnel that narrows to zero. Eleven method rows handle interpenetration in any form: three
-penalize it, three measure it, five
-constrain it, 11 percent of the settled rows. The denominator is 96, not 112, because the
-contact-handling field is null for 16 rows, and a null there means the note did not settle the
-question, not that the paper ignored penetration.
-
-That eleven is not a claim that penetration goes unmeasured in general, and reading it that way
-would be wrong. Outside closed-loop control the quantity is a standard comparative column, and has
-been one for years in grasp synthesis and in hand-object reconstruction. Four rows of this corpus
-show the practice. `bidexgrasp_2026` prints a penetration depth beside a prior method's,
-`bimangrasp_2024` fails any grasp that exceeds 1.5 mm of total penetration, `toporetarget_2026`
-reports a maximum penetration and a share of frames past 2 mm against a baseline retargeter, and
-`oakink_2022` scores a dataset split on penetration depth, solid intersection volume and
-simulation displacement. The finding is narrower than the field and concerns learned closed-loop
-control: all eleven measure at the reference rather than at the rollout, seven of them scoring a
-pose, a trajectory or a contact model before anything executes and the four that are closed-loop
-policies scoring the references they were given, and we found none that reports the measurement for
-rollouts of its own trained policy.
-
-**The field behind that null was audited.** A null is worth what the search behind it is worth,
-and this survey's extraction under-counted every other field it was audited against, by twenty
-to forty-five percent. The 85 method rows whose contact-handling field records that the work
-does not address penetration were therefore sampled: 25 of the 85, drawn at random with a fixed
-seed, each read again in its own parsed source and its released repository rather than in the
-note the field was written from, since the note is the artifact under suspicion. Not one of the
-25 reports a measurement of penetration depth, intersection volume or physical plausibility on
-its own rollouts. Zero recoveries in 25 bounds the rows that could be hiding one at 8 of the 85
-at 95 percent confidence, so the eleven is a floor and nineteen a ceiling; had this field
-under-counted at even the mildest rate the other audits found, a sample of 25 would have missed
-every recoverable row with probability 0.001. The nearest miss is worth naming, because it is
-the one a reader might count differently: `graspxl_2024` puts hand-object interpenetration to
-35 human raters as one of four dimensions of a single realism score, which is a judgment of
-its own rollouts rather than a measurement of one, and counting it would give one recovery in
-25 and a bound of 13 rows. Three near misses recurred across the sample and none of them is a
-measurement of a rollout: self-collision avoidance in a retargeter, a binary self-collision
-penalty in a released reward, and an engine's de-penetration velocity left at its default. The
-draw, the seed and the per-row results are in `reviews/penetration_audit.md`, and Appendix A
-states the method and the two fields that remain unaudited.
+One quantity is specific to hands, and it is the one closed-loop policies do not record: how
+far the hand passes into the object it is holding. Eleven of the 96 method rows whose notes
+settle the question handle interpenetration at all, and every one of them measures it at a
+reference rather than at a rollout. That is a narrower claim than it sounds, and reading it
+more widely would be wrong. Outside closed-loop control the quantity is a standard comparative
+column and has been for years: `bimangrasp_2024` fails any grasp past 1.5 mm,
+`toporetarget_2026` reports a maximum depth and a share of frames past 2 mm against a baseline
+retargeter, and `oakink_2022` scores a dataset split on depth, intersection volume and
+simulation displacement. The gap is specific to learned closed-loop control: seven of the
+eleven score a pose, a trajectory or a contact model before anything executes, the four that
+are closed-loop policies score the references they were given, and none reports the measurement
+for rollouts of its own trained policy. Appendix A gives the audit behind that null, which
+sampled 25 of the 85 rows recorded as not addressing penetration and recovered nothing.
 
 Where in the pipeline those eleven act is the reference-versus-rollout split that section 1 takes
 from `zhao_dexhand_survey_2026`. A reference is a pose or a trajectory scored before execution,
@@ -2027,48 +1983,26 @@ it does not bind. Six of the eleven are grasp synthesisers or trajectory optimis
 rather than a controller. That leaves four closed-loop policies in the whole corpus:
 `clutterdexgrasp_2025`, `dexmachina_2025`, `dextrack_2025` and `teledexter_2026`.
 
-The reason the number is four is a measurement trap. A quantity a policy optimises cannot also
-judge it, because the policy learns the measure rather than the property the measure stands for.
-`physhoi_2023` documents the failure in the clean direction. Its kinematic imitation reward was
-maximised by not touching the object at all, because contact perturbed the reference trajectory:
-"the policy may learn not to touch the object and falls into a local optimal". A contact-graph
-reward closed the hole, and that reward reads a force threshold rather than geometry, so it
-constrains contact presence and says nothing about penetration depth.
-
-`dextrack_2025` shows the trap in the other direction. It defines a maximum hand-object
-penetration depth over all frames in its Appendix B, and applies it only to the input kinematic
-references, as one component of a reference-quality score. No penetration number appears for any
-of its own rollouts, in simulation or on the LEAP hand. Tolerance of the failure is then reported
-as a result: "Despite severe hand-object penetrations in Figure 4c and Figure 4a, the hand still
-interacts effectively with the object, highlighting the resilience of our tracking controller".
-
-`toporetarget_2026` is the strongest case in the corpus and still stops one step short on the same
-reference-versus-rollout line. It constrains penetration during retargeting with a 1 mm soft
-tolerance and a 30 mm hard bound, and it reports two numbers on 25 ContactPose grasps: a maximum
-penetration of 1.07 mm and 0.00 percent of frames above 2 mm, against 22.22 mm and 96 percent of
-frames for its GeoRT baseline. Then a PPO controller tracks those references, and its four reward
-terms and its five termination criteria govern object pose, link position, joint error and action
-smoothness, never penetration. The constrained quantity is the reference, and the rollout is not
-re-measured.
+The reason only four are closed-loop is a measurement trap: a quantity a policy optimizes
+cannot also judge it, because the policy learns the measure rather than the property the
+measure stands for. `physhoi_2023` documents the failure in the clean direction, its kinematic
+imitation reward maximized by not touching the object at all because contact perturbed the
+reference trajectory. `dextrack_2025` shows the same trap from the other side: it defines a
+maximum hand-object penetration depth over all frames, applies it only to its input kinematic
+references, and then reports tolerance of "severe hand-object penetrations" as a result.
+`toporetarget_2026` is the strongest case in the corpus and still stops one step short on the
+same line. It constrains penetration during retargeting with a 1 mm soft tolerance and a 30 mm
+hard bound, and reports a maximum penetration of 1.07 mm and 0.00 percent of frames above 2 mm
+against 22.22 mm and 96 percent for its baseline retargeter — measured on retargeted
+references, not on a rollout.
 
 Definitions are not shared either. `grab_2020` estimates contact by proximity, because "contact
-cannot be directly observed", with a 4.5 mm tolerance, and reports that "'Use' grasps have 3.25 ±
-0.68 mm average penetration", without saying whether 3.25 mm is a maximum, a mean or a median.
-`oakink_2022` supplies the fullest published vocabulary: penetration depth, solid intersection
-volume and simulation displacement. Its Table 3 scores the GRAB GrabNet split at 2.53 cm
-penetration depth, against GRAB's own 3.25 mm. The two differ by a factor of about eight, and
-neither source states its distance function precisely enough to reconcile them, and the two are
-not scored over the same grasps either, since GRAB's figure is over its own captured "use" grasps
-and OakInk's is a model's output on the GrabNet split, so a difference of population and a
-difference of definition are confounded in the same ratio.
-
-The analytic tradition scored a grasp without simulating it, and `ferrari_canny_1992` and
-`roa_suarez_grasp_quality_2015` are its wrench-space reference points. Neither could be obtained.
-The first DOI fetch returned HTTP 202 and the second a Springer JavaScript interstitial, so both
-are cited by metadata only and no definition here rests on their contents. The learned literature
-has not replaced that tradition with anything it measures on its own rollouts. Penetration is a
-quantity between meshes, so it needs a simulator or a mesh reconstruction, and the protocol below
-treats it as a simulation-only axis.
+cannot be directly observed", and reports that "'Use' grasps have 3.25 ± 0.68 mm average
+penetration" without saying whether that is a maximum, a mean or a median. `oakink_2022`
+supplies the fullest published vocabulary: penetration depth, solid intersection volume and
+simulation displacement. The analytic tradition scored a grasp without simulating it at all, in
+the wrench-space terms of `ferrari_canny_1992` and `roa_suarez_grasp_quality_2015`; neither
+could be obtained for this survey, and no definition here rests on their contents.
 
 **What would close it.** The gap is specific to learned closed-loop control rather than general, and
 it is a choice rather than a capability. What would close it is a maximum and a mean penetration
@@ -2401,6 +2335,26 @@ trials per task, `rdt1b_2024` at 139 across seven tasks, `umi_2024` at 260, `pis
 `gemini_robotics_2025` at twenty per task, and ten more, which is 44 percent of the audited nulls
 and moved the "never says" figure from 34 of 89 down to 19. Read every coverage statistic in this
 survey as a floor rather than as a rate, and read the bars in Figure 6 the same way.
+
+**The penetration null, sampled.** A null is worth what the search behind it is worth, and this
+survey's extraction under-counted every other field it was audited against, by twenty to
+forty-five percent. The 85 method rows whose contact-handling field records that the work does
+not address penetration were therefore sampled: 25 of the 85, drawn at random with a fixed
+seed, each read again in its own parsed source and its released repository rather than in the
+note the field was written from, since the note is the artifact under suspicion. Not one of the
+25 reports a measurement of penetration depth, intersection volume or physical plausibility on
+its own rollouts. Zero recoveries in 25 bounds the rows that could be hiding one at 8 of the 85
+at 95 percent confidence, so the eleven is a floor and nineteen a ceiling; had this field
+under-counted at even the mildest rate the other audits found, a sample of 25 would have missed
+every recoverable row with probability 0.001. The nearest miss is worth naming, because it is
+the one a reader might count differently: `graspxl_2024` puts hand-object interpenetration to
+35 human raters as one of four dimensions of a single realism score, which is a judgment of its
+own rollouts rather than a measurement of one, and counting it would give one recovery in 25
+and a bound of 13 rows. Three near misses recurred across the sample and none of them is a
+measurement of a rollout: self-collision avoidance in a retargeter, a binary self-collision
+penalty in a released reward, and an engine's de-penetration velocity left at its default. The
+draw, the seed and the per-row results are in `reviews/penetration_audit.md`, and the two
+fields that remain unaudited are named above.
 
 **The penetration field, audited the same way.** The same mechanism reaches the penetration,
 code-release and failure-mode fields. The penetration field has since been audited by hand,

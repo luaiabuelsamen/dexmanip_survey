@@ -109,12 +109,13 @@ receiver returns separately rather than one shared number.
 
 Two purpose-built bimanual dexterous suites exist in the corpus, four years apart.
 
-`bidexhands_2022` is 20 tasks on two Shadow Hands in Isaac Gym, ordered by the infant age at which
-humans acquire the skill, at 2048 environments and a reported 30,000-plus FPS. Its measurement
-discipline is weaker than its coverage. It reports reward and normalized score, never a success
-rate. Its only success flag in code tests the object-to-goal distance against 3 cm, which ignores
-orientation and exists only in the four catching tasks. Any success rate later work attributes to
-Bi-DexHands comes from that flag or its own definition.
+The two bimanual benchmarks in the corpus trade coverage against measurement, in opposite
+directions. `bidexhands_2022` is 20 tasks on two Shadow Hands in Isaac Gym, ordered by the
+infant age at which humans acquire the skill, at 2048 environments and a reported 30,000-plus
+FPS. Its measurement discipline is weaker than its coverage. It reports reward and normalized
+score, never a success rate. Its only success flag in code tests the object-to-goal distance
+against 3 cm, which ignores orientation and exists only in the four catching tasks. Any success
+rate later work attributes to Bi-DexHands comes from that flag or its own definition.
 
 `bench2dex_2026` is the more instrumented of the two. It runs 26 long-horizon tasks in Isaac Lab
 across 12 arm-and-hand embodiments, with roughly 1.3K teleoperated demonstrations in eight
@@ -168,6 +169,7 @@ Handover is the one bimanual task where the hands are unambiguously asymmetric, 
 and one receives. All three corpus handover papers use a single shared reward across giver and
 receiver. None defines separate objectives for the two roles.
 
+Whether the two hands optimize the same objective is usually left implicit.
 `dynamic_handover_2023` states one formula, r = r_dis + r_linvel + r_torque, and never says
 whether thrower and catcher receive different decompositions of it. `dydexhandover_2025` is
 explicit that they do not: "Both hands share aligned objectives, forming a fully cooperative

@@ -107,6 +107,26 @@ trials per task, `rdt1b_2024` at 139 across seven tasks, `umi_2024` at 260, `pis
 and moved the "never says" figure from 34 of 89 down to 19. Read every coverage statistic in this
 survey as a floor rather than as a rate, and read the bars in Figure 6 the same way.
 
+**The penetration null, sampled.** A null is worth what the search behind it is worth, and this
+survey's extraction under-counted every other field it was audited against, by twenty to
+forty-five percent. The 85 method rows whose contact-handling field records that the work does
+not address penetration were therefore sampled: 25 of the 85, drawn at random with a fixed
+seed, each read again in its own parsed source and its released repository rather than in the
+note the field was written from, since the note is the artifact under suspicion. Not one of the
+25 reports a measurement of penetration depth, intersection volume or physical plausibility on
+its own rollouts. Zero recoveries in 25 bounds the rows that could be hiding one at 8 of the 85
+at 95 percent confidence, so the eleven is a floor and nineteen a ceiling; had this field
+under-counted at even the mildest rate the other audits found, a sample of 25 would have missed
+every recoverable row with probability 0.001. The nearest miss is worth naming, because it is
+the one a reader might count differently: `graspxl_2024` puts hand-object interpenetration to
+35 human raters as one of four dimensions of a single realism score, which is a judgment of its
+own rollouts rather than a measurement of one, and counting it would give one recovery in 25
+and a bound of 13 rows. Three near misses recurred across the sample and none of them is a
+measurement of a rollout: self-collision avoidance in a retargeter, a binary self-collision
+penalty in a released reward, and an engine's de-penetration velocity left at its default. The
+draw, the seed and the per-row results are in `reviews/penetration_audit.md`, and the two
+fields that remain unaudited are named above.
+
 **The penetration field, audited the same way.** The same mechanism reaches the penetration,
 code-release and failure-mode fields. The penetration field has since been audited by hand,
 because this survey's second finding is a null over it and a null is worth what the search

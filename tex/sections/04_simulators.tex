@@ -124,55 +124,25 @@ program over the whole contact set rather than a per-contact function of the gap
 papers reject spring-dampers by name, and the 2012 ball-drop figure is captioned ``there is no
 penetration'' \cite[Fig.~2]{mujoco_2012}.
 
-The first of two concrete measurements comes from the other end. Dojo solves a hard-contact
-nonlinear complementarity problem with an exact second-order friction cone, by an interior-point
-method converging within 15 iterations on the three robots of its convergence study. Table~II of
-\cite{dojo_2022} drops an Atlas humanoid and reports foot-floor penetration against the timestep.
-MuJoCo penetrates $-28$ mm at $\Delta t = 0.01$ s and $-46$ mm at $\Delta t = 0.001$ s, while Dojo
-stays above the floor at every step tested \cite[Sec.~V-A]{dojo_2022}. The MuJoCo column is not a
-trend. A ten-times-smaller step produces more overlap, which no timestep-independent stabiliser
-does. Either that configuration ties the compliance to $\Delta t$, or the quantity is an impact
-transient on a drop. Neither reading is a steady-state grasp depth.
-
-Drake's SAP quotes $2.5\times10^{-5}$ m at $\delta t = 10^{-2}$ s and $2.5\times10^{-7}$ m at
-$\delta t = 10^{-3}$ s, three and five orders of magnitude below Dojo's two MuJoCo cells at the
-same steps, on an engine that is also compliant \cite[Sec.~V-B]{castro_sap_contact_2021}. Those
-two figures are analytical bounds for a single point mass at rest on a plane under that paper's
-near-rigid stiffness rule, not measured depths, and they are not a Drake grasp-penetration number:
-a point-mass bound and a humanoid drop transient differ in load, effective inertia and regime, so
-the distance between them is not a measurement of anything. What the pair of engines does show is
-that in a compliant formulation the depth follows from a stiffness that someone chose.
-
-Table~V of \cite{dojo_2022} times 1000 steps of forward simulation with gradients, at a matched
-$\Delta t = 0.01$ s, for engines that are not all computing gradients. MuJoCo is fastest on every
-system, $0.335 \pm 0.001$ s against Dojo's $1.159 \pm 0.077$ s on a Franka Panda, and the authors
-call the comparison difficult because Dojo is stable at five times the step size (Sec.~VI-B). What
-the regularisation buys, on Le Lidec's reading quoted above, is conditioning on a hyperstatic
-problem, and the depth it costs is tuned separately. Whether that is also what holds Erez's grasp
-at 16 ms is a question his data do not answer. His planar chain is contact-free, so its numbers
-speak to the coordinate formulation and not to contact: MuJoCo runs at 243.2 kHz there against
-Bullet's 22.8 and PhysX's 6.4, and Bullet's articulated Featherstone mode at 81.4 kHz beats every
-Cartesian-coordinate engine \cite[Sec.~IV-B]{physics_engine_comparison_2015}. Those are throughput
-in evaluations per second, not a largest-stable-timestep result, and the articulated Bullet mode
-was never run on the grasp test at all, being usable only in tests without contact, which that
-paper's own appendix states of its Featherstone implementation. Joint coordinates explain the
-contact-free speed advantage. The grasp timestep is a contact result, and the paper attributes it
-to nothing: it reports that the other engines go unstable and ``effectively simulate a different
-physics model which can no longer hold the object'' (Sec.~IV-D), without an experiment that
-separates the coordinate formulation from the soft absorption of penetration.
-
-The GPU era moved the compliance knob rather than removing it. ComFree-Sim resolves contact in
-closed form in the dual cone of the friction cone, so penetration becomes an explicit tuning
-parameter and the paper reports it. On a drop test of convex primitives about 5 cm across at dt =
-0.002 s, MuJoCo Warp penetrates $1.7 \pm 4.9$ mm and ComFree-Sim runs from $3.9 \pm 6.9$ mm at
-$k_{\mathrm{user}} = 0.1$ down to $0.9 \pm 1.5$ mm at $k_{\mathrm{user}} = 0.5$, though its prose
-describes the opposite direction from its own table \cite[Sec.~IV-A]{comfree_sim_2026}. Its
-impedance acts on the signed gap through the ``identical'' default hyperparameter API as MuJoCo's
-solver, so the knob it is credited with exposing is one MuJoCo users already set. Those are 5 cm
-primitives under their own weight, not a fingertip loaded by a grasp, and depth scales with the
-normal load. No paper in this corpus publishes the fingertip number. The baseline it measures against is MuJoCo
-Warp, which Newton builds on and which MuJoCo Playground names as its intended replacement for JAX
-\cite[Sec.~VI]{mujoco_playground_2025}.
+Published penetration figures do not compare with each other, and the reasons are instructive.
+Dojo solves a hard-contact complementarity problem and stays above the floor at every timestep
+it was tested at, where MuJoCo penetrates tens of millimetres on the same Atlas drop
+\cite[Sec.~V-A]{dojo_2022}. But the MuJoCo column is not a trend: a ten-times-smaller step
+produces more overlap, which no timestep-independent stabiliser does, so either that
+configuration ties compliance to the timestep or the quantity is an impact transient rather
+than a steady-state depth. Drake's SAP reports figures orders of magnitude smaller again, and
+they are analytical bounds for a point mass at rest on a plane under a near-rigid stiffness
+rule, not measured depths \cite[Sec.~V-B]{castro_sap_contact_2021}. ComFree-Sim does report
+penetration directly, as an explicit tuning parameter, on 5~cm convex primitives dropped under
+their own weight \cite[Sec.~IV-A]{comfree_sim_2026}. A point-mass bound, a humanoid drop
+transient and a dropped primitive differ in load, inertia and regime, so the distances between
+them measure nothing. What the set does establish is the part that matters for a hand: in a
+compliant formulation the depth follows from a stiffness somebody chose, and the GPU era moved
+that knob rather than removing it. \cite{physics_engine_comparison_2015} puts the consequence
+plainly, reporting that engines pushed past their stable step ``effectively simulate a
+different physics model which can no longer hold the object'' (Sec.~IV-D). No paper in this
+corpus reports the depth for a fingertip loaded by a grasp, which is the one configuration a
+dexterous result depends on.
 
 That brings Table~\ref{tab:simulators}'s most important column, and the claim it does not support.
 The column records whether a parsed source reported a penetration depth, not what an engine can
