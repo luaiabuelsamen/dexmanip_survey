@@ -2,9 +2,12 @@
 
 ## 3.1 Design axes
 
-No degree-of-freedom, force, weight or price figure in Table 2 or Table 3 was measured by anyone
-outside the maker. Six rows are the exception, from peer-reviewed papers with stated protocols:
-ILDA, Pisa/IIT, ORCA, RUKA, LEAP and BiDexHand. Table 2 dates every other claim.
+A policy is only as dexterous as the hand it runs on, and the hands available divide sharply: a
+few that a laboratory can buy, a few more it can build from published designs, and a growing
+number that exist only in an announcement. What can be said about them is less than it looks.
+No degree-of-freedom, force, weight or price figure in Table 2 or Table 3 was measured by
+anyone outside the maker. Six rows are the exception, from peer-reviewed papers with stated
+protocols: ILDA, Pisa/IIT, ORCA, RUKA, LEAP and BiDexHand. Table 2 dates every other claim.
 
 The degree-of-freedom count is the first number a vendor states and the least comparable one.
 Shadow's specification of 4 December 2024 reads "20 actuated DOF and a further 4 under-actuated

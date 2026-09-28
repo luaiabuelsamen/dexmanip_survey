@@ -375,8 +375,11 @@ REQUIRED_IN = {
  "paper/tables/table5_rewards.md": [
    (r"code \(0\)", "the fourth mark section 5.2.2 describes"),
  ],
- "paper/sections/01_introduction.md": [
-   (r"reference-versus-rollout", "where the frame is named"),
+ # The frame used to be named in section 1, in a sentence appended to a paragraph that had
+ # already finished its work. It is defined in section 2.3 with the rest of the vocabulary now,
+ # which is where a reader looks for a definition, so the pin moved with it.
+ "paper/sections/02_taxonomy.md": [
+   (r"reference-versus-rollout|Reference and rollout", "where the frame is defined"),
  ],
  "paper/sections/07_evaluation.md": [
    (r"reference-versus-rollout", "sections 7.3 and 7.7 are where the frame does its work"),

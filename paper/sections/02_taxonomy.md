@@ -2,15 +2,17 @@
 
 ## 2.1 Task families
 
-The six families below are read off the rows rather than imposed on them, and the last paragraph
-here says what they miss. Grasping is the largest. Fifty-seven of the 112 method rows carry the
-grasp label, the labels are not exclusive, and one paper can sit in several families. Success is a
-lift that survives a hold, and the thresholds differ by more than an order of magnitude.
-`dexgraspvla_2025` requires the object "held 10 cm above the table for 20 s", while
-`omnigrasp_2024` requires it "held at least 0.5 s in simulation". What makes grasping hard at
-scale is the continuum of starting configurations. `unidexgrasp_pp_2023` states it in Sec. 4.3,
-that "we are dealing with an infinite number of tasks considering the initial object pose can
-change continuously".
+Dexterous manipulation is not one task, and what separates its tasks is what makes some of them
+hard: what is held, what moves, which way gravity points, and what counts as failure. Six
+families cover most of the corpus. They are read off the rows rather than imposed on them, and
+the last paragraph here says what they miss. Grasping is the largest. Fifty-seven of the 112
+method rows carry the grasp label, the labels are not exclusive, and one paper can sit in
+several families. Success is a lift that survives a hold, and the thresholds differ by more
+than an order of magnitude. `dexgraspvla_2025` requires the object "held 10 cm above the table
+for 20 s", while `omnigrasp_2024` requires it "held at least 0.5 s in simulation". What makes
+grasping hard at scale is the continuum of starting configurations. `unidexgrasp_pp_2023`
+states it in Sec. 4.3, that "we are dealing with an infinite number of tasks considering the
+initial object pose can change continuously".
 
 Functional and tool use is second with 45 rows. It is the family where a stable grasp can still be
 the wrong answer. `dexterous_functional_grasping_2023` gives the case in Sec. 2.1, that "grabbing

@@ -1,15 +1,17 @@
 # 6. Bimanual dexterous manipulation
 
-A warning first. Fifty-three corpus method rows carry the two-hand flag, and that flag says only
-that the robot has two end effectors. Thirteen of the 53 put no dexterous hand on the robot at
-all. `aloha_act_2023`, `rdt1b_2024`, `egomimic_2024`, `h_rdt_2025` and `umi_2024` are parallel-jaw
-throughout; `pi0_2024`, `pi05_2025`, `pistar06_2025` and `diffusion_policy_2023` name no hand and
-run grippers on every embodiment; `gemini_robotics_2025` and `gemini_robotics_15_2025` report
-every bimanual number on grippers and show five-fingered hands only qualitatively; and
-`helix_2025` and `groot_n16_2025` name no end effector anywhere on the page. Three more run a
-gripper on one embodiment and a hand on another: `ace_teleop_2024`, `dp3_2024` and
-`open_television_2024`, whose Unitree H1 carries 6-DoF Inspire hands and whose Fourier GR-1
-carries a 1-DoF jaw.
+Two hands are not two instances of the same problem. They share one object, they can collide
+with each other, and the action space doubles, so neither the hardware result nor the policy
+carries over from one hand. Counting the work is the first difficulty. Fifty-three corpus
+method rows carry the two-hand flag, and that flag says only that the robot has two end
+effectors. Thirteen of the 53 put no dexterous hand on the robot at all. `aloha_act_2023`,
+`rdt1b_2024`, `egomimic_2024`, `h_rdt_2025` and `umi_2024` are parallel-jaw throughout;
+`pi0_2024`, `pi05_2025`, `pistar06_2025` and `diffusion_policy_2023` name no hand and run
+grippers on every embodiment; `gemini_robotics_2025` and `gemini_robotics_15_2025` report every
+bimanual number on grippers and show five-fingered hands only qualitatively; and `helix_2025`
+and `groot_n16_2025` name no end effector anywhere on the page. Three more run a gripper on one
+embodiment and a hand on another: `ace_teleop_2024`, `dp3_2024` and `open_television_2024`,
+whose Unitree H1 carries 6-DoF Inspire hands and whose Fourier GR-1 carries a 1-DoF jaw.
 
 **The denominator for this section is 28**: the method rows whose notes place a learned
 closed-loop controller on two multi-fingered hands. It is the 53 less those 16; less two static

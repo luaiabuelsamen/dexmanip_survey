@@ -4,39 +4,37 @@
 
 A hand is dexterous when it can change an object's pose without putting the object down. That
 property, and not the finger count, is what separates a hand from a gripper.
-`bicchi_grasping_chapter_2001` draws the same line in Sec. 1.1 between restraining an object and
-manipulating it with the fingers: restraint is a static question about whether the contacts prevent
-motion, while in-hand manipulation is a dynamic one about whether contacts can be broken and remade
-while the object stays held. `an_dexil_survey_2025` puts the same idea as the ability to reorient
-and manipulate objects through coordinated finger movement. A parallel-jaw gripper can hold almost
-anything and reorient almost nothing, and everything difficult about dexterity follows from that
-second question.
+`bicchi_grasping_chapter_2001` draws the same line in Sec. 1.1 between restraining an object
+and manipulating it with the fingers: restraint is a static question about whether the contacts
+prevent motion, while in-hand manipulation is a dynamic one about whether contacts can be
+broken and remade while the object stays held.  A
+parallel-jaw gripper can hold almost anything and reorient almost nothing. Holding is the easy
+half.
 
-Analytic grasp theory settled the first question and never reached the second. Form closure has a
-first-order test on the grasp matrix and known contact counts, four in the plane and seven in three
-dimensions for any polyhedron (`bicchi_grasping_chapter_2001` Sec. 1.3.1); force closure adds the
-wrench balance and the hand Jacobian. Neither tells a controller what to do next, and the same
-chapter says why: force closure does not guarantee stability (Sec. 1.5), and "the nonsmooth nature
-of grasp dynamics, because of the unilateral constraints on displacements and forces, has made a
-thorough analysis very difficult" (Sec. 1.8). That tradition produced conditions to verify rather
-than policies to run.
+The classical theory of grasping is about holding, and it is good at it. Given a set of contact
+points and an assumption about friction, it can decide whether an object is immobilized, and
+what force each finger has to apply to keep it that way. What it cannot do is say what the
+fingers should do next. Contact is what makes that hard: a finger is either touching or it is
+not, and it can push but not pull, so the equations of motion change form every time a contact
+is made or broken. The standard treatment says as much about its own results, that immobilizing
+an object "does not guarantee stability", and that "the nonsmooth nature of grasp dynamics,
+because of the unilateral constraints on displacements and forces, has made a thorough analysis
+very difficult" (`bicchi_grasping_chapter_2001`, Sec. 1.5 and 1.8). The tradition produced
+tests you can run on a candidate grasp, not a controller you can run on a robot.
 
-Learned control did not solve those modeling problems. It substituted sampling a simulator for
-solving a model, and scoring a rollout for certifying a configuration. That trade is why the
-field moved, and it is also why this survey is organized as it is. Once a method stops proving
-properties and starts measuring outcomes, two things that used to come for free become the
-author's responsibility: the simulator has to be faithful where fidelity matters, and the
-measurement has to mean something. Much of what follows asks how well this literature
-discharges those two obligations. One distinction runs through both and is worth naming early:
-a quantity measured on a reference trajectory is not the same quantity measured on a trained
-policy's own rollouts, and this survey keeps that reference-versus-rollout split throughout.
+Learning did not make contact any smoother. What it changed is what a practitioner has to
+produce: not a proof that a configuration holds, but a policy that scores well over many
+simulated attempts. Sampling a simulator replaced solving a model, and scoring a rollout
+replaced certifying a configuration. That trade is why the field moved, and it is also why this
+survey is organized as it is. Once a method stops proving properties and starts measuring
+outcomes, two things that used to come for free become the author's responsibility: the
+simulator has to be faithful where fidelity matters, and the measurement has to mean something.
+Much of what follows asks how well this literature discharges those two obligations.
 
 One recipe now carries most of the field. Train a policy with reinforcement learning on privileged
 state, the object pose, velocities and physical parameters the robot cannot sense, in a GPU
 simulator running thousands of environments in parallel; distill that teacher into a student that
-sees only what a camera and joint encoders provide; transfer the student. Fifty-three of the 112
-method papers in this corpus train with reinforcement learning, 35 of them in Isaac Gym, and 23
-distill. In-hand cube reorientation is the recipe's benchmark, inherited from
+sees only what a camera and joint encoders provide; transfer the student. Fifty-three of the 112 method papers here train this way, 35 of them in Isaac Gym, and 23 distill a student from the teacher. In-hand cube reorientation is the recipe's benchmark, inherited from
 `openai_dexterity_2018` and still the task a new method is expected to show.
 
 A second branch is growing underneath it and inverts the dependency. Instead of a simulator and a
@@ -54,9 +52,7 @@ built from published designs and appear in the experiments of none. That is not 
 since the hardware exists and is purchasable, and section 3 takes it up: a field whose results rest
 on four platforms is more fragile than its publication volume suggests.
 
-What this literature cannot currently do is compare its own results. Ninety-eight of the 112 methods
-state a success criterion, but not the same criterion; 70 state a trial count, so 42 do not; and the
-criteria run from never dropping the object to reaching a pose within a tolerance each paper picks
+What this literature cannot currently do is compare its own results. Ninety-eight of the 112 methods state a success criterion, but they are not the same criterion, and only 70 say how many trials a reported rate rests on. The criteria run from never dropping the object to reaching a pose within a tolerance each paper picks
 for itself. Two success rates from two papers on nominally the same task are usually not measuring
 the same event, and none of the surveys preceding this one supplies a protocol that would make them
 comparable. Section 7 proposes one, derived rather than asserted, with the trial counts a stated
