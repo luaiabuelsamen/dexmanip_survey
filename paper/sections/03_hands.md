@@ -119,11 +119,11 @@ whose threshold was measured as low as 0.05 N on a fresh fingertip, against the 
 
 ## 3.3 Tactile sensing
 
-DIGIT set the cost floor. It is 20 by 27 by 18 mm, weighs about 20 g, streams 640x480 at 60 fps,
-and its paper states a "total estimated manufacturing cost is approximately 15 USD per sensor ...
-when manufactured in a batch of 1000" `digit_2020`. Durability was as much the contribution as
-price: its gel degraded 0.3 percent over 15 abrasion passes, against 805 and 918 percent for the
-two gels compared with it.
+DIGIT set the cost floor. Its paper states a "total estimated manufacturing cost is
+approximately 15 USD per sensor ... when manufactured in a batch of 1000" `digit_2020`, which
+is where the price of touch sensing stopped being the obstacle. Durability was as much of the
+contribution: its gel degraded by 0.3 percent over fifteen abrasion passes, where the two gels
+compared against it degraded by more than 800.
 
 Digit 360 is the same lineage at a different operating point, claiming about 8.3 million taxels,
 spatial features to 7 um, normal and shear force resolution of 1.01 mN and 1.27 mN, and on-device

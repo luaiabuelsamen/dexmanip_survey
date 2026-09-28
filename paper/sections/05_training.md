@@ -8,13 +8,12 @@ demonstration supervises imitation, a human reference trajectory supervises a ph
 tracker, which is imitation with a simulator in the loop, and nothing supervises a model-based
 planner, which is handed a cost and a model instead.
 
-The labels do not partition the corpus. Of the 112 method rows, 53 are tagged reinforcement
-learning, 27 behavior cloning, 23 distillation, 18 generalist or vision-language-action, 14
-teleoperation systems, 14 diffusion, 10 data collection, 8 flow matching, 6 reinforcement learning
-from demonstrations, 6 trajectory optimization, 5 model-predictive control, 4 grasp synthesis and
-2 world models. The tags sum to far more than 112 because most methods published since 2024 sit on
-two branches at once. Figure 4 draws the tree and the cross-links. Table 7 is the row-by-row
-version of the same thing, and is the table to scan when looking for work comparable to your own.
+The labels do not partition the corpus. Reinforcement learning is the largest at 53 of the 112
+rows, behavior cloning next at 27, distillation at 23, and ten further tags cover the rest.
+They sum to far more than 112, because most methods published since 2024 sit on two branches at
+once: a reinforcement-learning teacher and a behavior-cloned student are one paper, not two.
+Figure 4 draws the tree and the cross-links. Table 7 is the row-by-row version of the same
+thing, and is the table to scan when looking for work comparable to your own.
 
 What the deployed policy looks like once training is done matters more than the name a paper gives
 itself, and on that axis the field has converged hard. Section 5.5 shows why.
@@ -39,8 +38,9 @@ environment count, with a median of 8192 and a maximum of 64000. Twenty-three ro
 privileged teacher into a deployable student, and 16 combine all three of PPO, a GPU simulator and
 distillation. That 16-row intersection is the recipe as it is actually practised.
 
-The hand is almost always an Allegro. It appears in 35 of the 112 method rows and in 17 of the 31
-reorientation rows, ahead of Shadow at 21 and 6 and LEAP at 12 and 4.
+The hand is almost always an Allegro. It appears in 35 of the 112 method rows, and its hold on
+in-hand reorientation is tighter still: more than half of those rows use it, against roughly a
+fifth for the Shadow and an eighth for LEAP.
 
 Privilege is handled two ways. `openai_dexterity_2018` gives the value network object and target
 orientation, joint angles, joint velocities and object velocities the policy never sees, with a
@@ -119,11 +119,10 @@ policy learn only to hold the object still, and `viserdex_2026`, whose performan
 curriculum runs over regularisation weight, action latency and time between successes, fails
 completely without the regularisation component.
 
-Population-based training appears once. `dexpbt_2023` runs populations of 8, 16 and 32 agents,
-splits them 30/40/30, mutates the middle and replaces the bottom with mutated copies of the top,
-each float hyperparameter multiplied or divided by a factor drawn from U(1.1, 1.5) with
-probability 0.2. It reports 30 hours on a single V100 for a five-billion-transition single-arm
-run, and 0.32 trillion environment steps for its largest population.
+Population-based training appears once. `dexpbt_2023` trains populations of up to 32 agents,
+mutating the middle third of each population and replacing the bottom with mutated copies of
+the top, and reports 0.32 trillion environment steps for its largest run. The technique is
+routine outside robotics and nothing else in this corpus uses it.
 
 `eureka_2023` has GPT-4 write the reward function directly, constrained to return a total and a
 dictionary of named components, and feeds per-component statistics back between iterations. Its

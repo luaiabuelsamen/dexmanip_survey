@@ -59,10 +59,11 @@ against 16 of 20 is z = 1.38, p = 0.17, and the difference is not established. T
 separated by 20 points at 20 trials, the larger of the two modal cell sizes, are not separated at
 all.
 
-The share of papers stating a count has risen, from 39 of the 65 rows before 2025, 60 percent, to
-31 of the 47 rows from 2025 and 2026, 66 percent. The counts themselves have not. The median
-stated count is 20 in 2024, 22.5 in 2025 and 20 in 2026. Before 2024 the per-year medians rest on
-one to seven observations and should not be read as a trend.
+Reporting has improved a little and the experiments have not. About two thirds of papers from
+2025 onward state a trial count, against three fifths before, but the counts themselves have
+not moved: the median has sat near twenty trials per cell every year since 2024, and earlier
+years rest on too few observations to read as a trend. A field can get better at disclosing a
+number without the number itself getting any better.
 
 The denominators also sit on different hardware. The 103 method rows that name their own hand give
 78 distinct hand strings between them, and this survey applies no normalization to those strings,
