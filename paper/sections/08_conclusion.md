@@ -6,13 +6,13 @@ that would close it. Nothing is argued in this list: the denominator, the eviden
 prescription sit in the section named, at the end of it, so that a finding and its consequence are
 read together and stated once.
 
-1. Nine of the 62 method rows that released parseable code state, in a named file at a named
-commit, something other than the value their paper prints, and seven further rows have been
-withdrawn from that count since its first draft, with two more narrowed. Table 11 gives each of
-the nine as a repository, a commit, a file and two values, and all of their authors were
-written to before this was posted: section 5.6 says that beside the finding, with the letters
-in `outreach/` and the route by which a disputed case is corrected (section 5.6 and Appendix
-C).
+1. Eight of the 62 method rows that released parseable code state, in a named file at a named
+commit, something other than the value their paper prints, and eight further rows have been
+withdrawn from that count since its first draft, one of them because an author replied, with
+two more narrowed. Table 11 gives each of the eight as a repository, a commit, a file and two
+values, and all of their authors were written to before this was posted: section 5.6 says that
+beside the finding, with the letters in `outreach/` and the route by which a disputed case is
+corrected (section 5.6 and Appendix C).
 
 2. No closed-loop policy in the corpus reports interpenetration for the rollouts of its own trained
    policy, and all eleven rows that handle penetration at all sit on the reference side of the

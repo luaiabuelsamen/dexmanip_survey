@@ -88,7 +88,7 @@ Appendix~\ref{app:method} describes.
 \item Being-H0.5 \cite{being_h05_2026} (high). Released code (commit e12ac44f) exposes only benchmark/inference/config scaffolding (policy.py, beingh\_\allowbreak{}policy.py, dataset-transform configs). no MoT/MoF model definition, no rectified-flow action-expert source, and no config for any dexterous-hand embodiment; the only post-train configs present (libero\_\allowbreak{}robocasa.yaml, libero\_\allowbreak{}all.yaml, robocasa\_\allowbreak{}human.yaml, so101\_\allowbreak{}example.yaml) are all gripper-only, so the dexterous-hand claims cannot be cross-checked against released code.
 \end{itemize}
 
-\textbf{parse-limitation, 13 rows.}
+\textbf{parse-limitation, 14 rows.}
 
 \begin{itemize}
 \item ArtiGrasp \cite{artigrasp_2023} (low). paper's two regulariser weights (w\_\allowbreak{}rh=0.5, w\_\allowbreak{}ro=0.2) correspond to five separate velocity penalties in code (-0.5,-0.2,-0.5,-0.5,-0.3); the fingertip weight 12.0 and lambda 5.0 in Table 6 do not appear in the yaml; reward weights differ between curriculum phase-1 and phase-2 configs though Table 6 reports only one set

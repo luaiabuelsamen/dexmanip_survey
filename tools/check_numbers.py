@@ -784,9 +784,16 @@ def sent_letter_problems():
         if "@" not in addr:
             out.append(f"outreach/RECIPIENTS.md gives `{k}` no address, so its letter cannot be "
                        f"said to have gone anywhere")
+    # A letter to a work the survey no longer names is not an error. It is the correction route
+    # working: the reply arrived, the claim did not survive it, and the row moved out of the
+    # contradiction class. What would be wrong is a letter to a work that was never in the class,
+    # so the row has to carry a review note saying a reply is why it left.
     for k in sorted(set(sent) - nine):
-        out.append(f"a letter is recorded as sent to `{k}`, which is not one of the {len(nine)} "
-                   f"works the survey names")
+        rev = str((BY_KEY.get(k) or {}).get("mismatch_review") or "")
+        if not re.search(r"repl(?:y|ied)|author", rev, re.I):
+            out.append(f"a letter is recorded as sent to `{k}`, which is not one of the "
+                       f"{len(nine)} works the survey names, and its row does not record a reply "
+                       f"as the reason it left the count")
     for k in sorted(nine - set(sent)):
         out.append(f"`{k}` is named as a contradiction and outreach/RECIPIENTS.md records no "
                    f"letter to its authors, so the disclosure is wrong for one of the {len(nine)}")

@@ -2,8 +2,13 @@
  "key": "dexpoint_2022",
  "year": 2022,
  "class": "method",
- "task_family": ["grasp", "other"],
- "paradigm": ["RL"],
+ "task_family": [
+  "grasp",
+  "other"
+ ],
+ "paradigm": [
+  "RL"
+ ],
  "algorithm": "PPO",
  "hand": "Allegro Hand",
  "hand_dof": 16,
@@ -17,18 +22,23 @@
  "sim_episodes": null,
  "success_criterion": "the XY position of the object is within 5cm from the target position and the height of the object is at least 15cm from table top",
  "headline_metric": "real-world grasping success rate",
- "headline_value": "Multi-Obj-Train bottle 0.87±0.03, can 0.83±0.13, mixed 0.73±0.12 (Table 3, real, 10 trials/object-policy pair)",
+ "headline_value": "Multi-Obj-Train bottle 0.87\u00b10.03, can 0.83\u00b10.13, mixed 0.73\u00b10.12 (Table 3, real, 10 trials/object-policy pair)",
  "objects_train": 10,
  "objects_test_unseen": 40,
  "human_data": "none",
  "penetration": "not addressed",
  "reward_terms": 4,
- "reward_term_names": ["reach", "contact", "lift", "action penalty"],
+ "reward_term_names": [
+  "reach",
+  "contact",
+  "lift",
+  "action penalty"
+ ],
  "code_released": true,
- "paper_code_mismatch": "The released code's reward adds several terms absent from the paper's four-term Eq. 5 (a lift-threshold bonus, a target-distance term, a rotation bonus, and an IK controller-tracking penalty) and reshapes the reach/lift terms into inverse-distance and clipped forms rather than the paper's plain distance/height-difference formulas.",
+ "paper_code_mismatch": "The released reward reshapes the paper's reach term into an inverse-distance form, 1.0/(0.06+finger_object_dist) in place of the plain distance of Eq. 5, and adds a 2 cm lift-threshold bonus, a target-distance term and an IK controller-tracking penalty that Eq. 5 does not list.",
  "note_gaps": "Parallel env count, exact per-modality observation dimensions (Fig. 3, not extracted), and per-cell real trial totals behind the multi-object success tables are not stated numerically; the door-opening environment/reward code was not present in the parsed repo tree, so Table 2's door rows and Table 4 are not reproducible from the parse.",
- "mismatch_class": "contradiction",
- "mismatch_confidence": "high",
+ "mismatch_class": "parse-limitation",
+ "mismatch_confidence": "low",
  "mismatch_artifact": {
   "repo": "https://github.com/yzqin/dexpoint-release",
   "commit": "17f1e238bb120d92baabe8207494d48476fea289",
@@ -36,5 +46,6 @@
   "locator": "AllegroRelocateRLEnv.get_reward",
   "paper": "a four-term reward, Eq. 5",
   "code": "`get_reward` sums nine, among them `1.0 / (0.06 + finger_object_dist)` and `controller_penalty`"
- }
+ },
+ "mismatch_review": "Reclassified from contradiction to parse-limitation after the corresponding author replied, 2026-09-20. Three parts of the original claim do not stand. The lift term is not a departure: object_lift is already h_current minus h_init, set against a resting height fixed at reset, so 10*clip(object_lift,0,0.2) is the paper's formula with the stated weight plus a saturation, and this survey's parse captured the reward body but not the line defining object_lift, so the claim rested on material the snapshot did not contain. The rotation bonus is inactive at the paper's settings, since rotation_reward_weight defaults to zero and the term is multiplied by it, so it contributed nothing to the reported numbers. The reach-term difference is real but is version skew rather than a contradiction: the inverse form is a later, lower-variance revision and the paper's reported variance is that of the plain-distance formula the paper states. The remaining extra terms have stated purposes, the 2 cm bonus blocking a height reward hack on meshes with no flat resting surface and the IK penalty correcting a SAPIEN-specific controller mismatch."
 }

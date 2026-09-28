@@ -1414,25 +1414,28 @@ in section 5.2 now reaches the shipped policy through a dataset rather than a gr
 
 Thirty-eight of the 112 method rows record a disagreement between a paper and the code it
 released, and all 38 released code, so they sit inside the 62 rows that released anything. They
-are not one kind of thing. Nine are contradictions, where paper and code state different values or
-different terms. Thirteen are limits of this survey's own parse, where the body or config that
-would settle the question was never recovered and the row says so. Eight released code without the
-described component in it, four are version skew against a later repository, and four are a paper
-disagreeing with itself. The fourth version skew is `groot_n16_2025`, which ships a main branch
-one generation later than the checkpoint its page describes.
+are not one kind of thing. Eight are contradictions, where paper and code state different
+values or different terms. Fourteen are limits of this survey's own parse, where the body or
+config that would settle the question was never recovered and the row says so. Eight released
+code without the described component in it, four are version skew against a later repository,
+and four are a paper disagreeing with itself. The fourth version skew is `groot_n16_2025`,
+which ships a main branch one generation later than the checkpoint its page describes.
 
-Nine is the number to quote, eight at high confidence and one, `penspin_2024`, held at medium.
-Nine of 62 is 15 percent, and it is a floor rather than a rate: the census covers method rows
+Eight is the number to quote, seven at high confidence and one, `penspin_2024`, held at medium.
+Eight of 62 is 13 percent, and it is a floor rather than a rate: the census covers method rows
 only, so `robopianist_2023`, whose row is a benchmark, does not enter it although it sums five
 reward terms against the three its Table 2 documents. It is also a screened count rather than a
-first pass. Sixteen rows were drawn at first and seven have since left the class, six under
-adversarial re-reading and one, `omnih2o_2024`, once writing to its authors sent someone back
-to the evidence; two more were narrowed and stayed, and each revision is recorded in the row it
-concerns beside the comparison it revises. That screening is evidence that the nine were
-checked, not a bound on how many a fuller reading would find. Among the 21 reorientation
-methods of Table 5, seven released a repository and four of those state something different
-from their paper, the other three being a missing environment, a later generation and a
-default-value question their own READMEs settle.
+first pass. Sixteen rows were drawn at first and eight have since left the class: six under
+adversarial re-reading, one, `omnih2o_2024`, once writing to its authors sent someone back to
+the evidence, and one because its corresponding author replied and showed the survey had
+misread the code, the term it called a departure from the paper's formula being the paper's
+formula, with the line defining it absent from this survey's own parse; two more were narrowed
+and stayed, and each revision is recorded in the row it concerns beside the comparison it
+revises. That screening is evidence that the eight were checked, not a bound on how many a
+fuller reading would find. Among the 21 reorientation methods of Table 5, seven released a
+repository and four of those state something different from their paper, the other three being
+a missing environment, a later generation and a default-value question their own READMEs
+settle.
 
 Table 11 is the whole of the finding, in the form the finding is made: a public repository, the
 commit `tools/fetch_code.py` cloned, the file inside it, and the two values. The repository and
@@ -1446,7 +1449,6 @@ states a cause, and none is a claim about what the work's authors did.
 | method | confidence | repository, fetched commit | file in it, and where | what the paper prints | what that file contains |
 |---|---|---|---|---|---|
 | `pddm_2019` | high | google-research/pddm <br>`06b88cdbaf` | `pddm/envs/cube/cube_env.py` <br>`_get_obs` | observation dimension 46 for in-hand reorientation, <br>Table 2 | the six fields `_get_obs` concatenates sum to 39 on <br>the code's own inline comments |
-| `dexpoint_2022` | high | yzqin/dexpoint-release <br>`17f1e238bb` | `dexpoint/env/rl_env/relocate_env.py` <br>`AllegroRelocateRLEnv.get_reward` | a four-term reward, Eq. 5 | `get_reward` sums nine, among them `1.0 / (0.06 + <br>finger_object_dist)` and `controller_penalty` |
 | `dextreme_2022` | high | isaac-sim/IsaacGymEnvs <br>`aeed298638` | `isaacgymenvs/cfg/task/AllegroHandDextremeADR.yaml` <br>`actionDeltaPenaltyScale` | action-delta penalty weight -0.25, Table 2 | `actionDeltaPenaltyScale: -0.2`, and -0.01 in the <br>ManualDR yaml beside it |
 | `visual_dexterity_2022` | high | Improbable-AI/dexenv <br>`ad9634e9d2` | `dexenv/conf/dclaw.yaml` <br>`alg.num_envs` | 32,000 teacher training environments, Table S1 | `num_envs: 8000`, and 16384 in the parent <br>`hand_default.yaml` |
 | `dexpbt_2023` | high | NVIDIA-Omniverse/IsaacGymEnvs <br>`aeed298638` | `isaacgymenvs/tasks/allegro_kuka/allegro_kuka_base.py` <br>`compute_kuka_reward` | four staged reward terms, Sec. III-C | eight summed components, `hand_delta_penalty` <br>multiplied by 0 with the comment `currently <br>disabled` |
@@ -1455,7 +1457,7 @@ states a cause, and none is a claim about what the work's authors did.
 | `penspin_2024` | medium | HaozhiQi/penspin <br>`5035c52dc9` | `configs/task/AllegroHandHora.yaml` <br>`forceScale` | a disturbance force of 0.2 times object mass at <br>probability 0.25, Table 8 | `forceScale: 0.0` and `randomForceProbScalar: 0.0`, <br>the only shipped config naming either |
 | `pianomime_2024` | high | sNiper-Qian/pianomime <br>`c4abefac8d` | `single_task/piano_with_shadow_hands_res.py` <br>`_set_rewards` | two weighted terms, 2/3 and 1/3, Table 3 | five summed terms; `_compute_energy_reward` ends <br>`return 0` and `_compute_fingering_reward` `return <br>0.0` |
 
-*9 rows. The repository and the commit are the ones `corpus/code_manifest.json` records, and the file is in the parsed copy at `code/md/<key>.md`. `what the paper prints` names the table or equation the value was read from. `confidence` is the row's own `mismatch_confidence` field, 8 high, 1 medium; `penspin_2024` is held below high pending a direct code read this survey has not made, and Appendix C prints the review note. No cell states a cause, and none is a claim about what the work's authors did: a reader with a browser settles every line of this table without asking anyone.*
+*8 rows. The repository and the commit are the ones `corpus/code_manifest.json` records, and the file is in the parsed copy at `code/md/<key>.md`. `what the paper prints` names the table or equation the value was read from. `confidence` is the row's own `mismatch_confidence` field, 7 high, 1 medium; `penspin_2024` is held below high pending a direct code read this survey has not made, and Appendix C prints the review note. No cell states a cause, and none is a claim about what the work's authors did: a reader with a browser settles every line of this table without asking anyone.*
 
 The case with the most at stake is `physhoi_2023`, and it is four items. The repository is
 `wyhuai/PhysHOI`, the commit is `6095c605e2`, the file is `physhoi/env/tasks/physhoi.py`, and
@@ -1484,45 +1486,42 @@ the sentences the survey would print, and asks whether the reading is right, whe
 reason the released configuration differs, and whether the authors want the wording changed;
 each gave until 10 October 2026 to reply, and said that silence would be recorded as silence
 and not as agreement. What a reply can add is what the artifacts cannot give: which shipped
-configuration belongs to which stage of a pipeline, whether the fetched commit is the one behind
-the reported numbers, and whether an untagged branch holds the code that was run. The letters
-are in `outreach/` in the corpus that accompanies this
-survey, so a reader can see exactly what every author was asked, and `outreach/RECIPIENTS.md`
-records the address each went to and where that address came from. A tenth letter was drafted
-and not sent, because drafting it broke its own claim; it is kept with the nine. This version
-was written between those two dates: no reply had been received at the time of writing, no row
-here has been changed by one, and a window that closes in silence will be recorded in the next
-version as silence and not as assent. Any reply, and its effect on the row it concerns, is
-recorded in `mismatch_review` in `corpus/rows/`. What this
-section says is still written to the narrow form: a repository, a commit, a file, and two
-values. It attributes nothing to intent, and a reader with a browser can confirm or refute any
-line of Table 11 at the repository and commit that line names, without anyone's agreement and
-without this survey's own corpus. Two limits come with that, and neither is a hedge. A
-repository at a fetched commit is not the code that produced a paper's numbers: it may postdate
-that code, precede it, or have diverged from it on a branch nobody tagged, and a snapshot
-cannot say which, so each line compares a published document with one public artifact and
-claims nothing beyond the two. One work in this corpus says exactly that about itself.
-`hora_2022`'s README sends a reader to tag `v0.0.1` rather than to the default branch to
-reproduce the paper's numbers, which is why its row is classed version skew and is not one of
-the nine: told which commit to read, this survey read it, and nobody else was in a position to
-tell us, because nobody else was asked. The other limit is the remedy. Every one of the nine is
-correctable in public, and an author who shows that the file says something other than what
-Table 11 prints, or that the fetched commit is not the one behind their numbers, changes the
-row: `mismatch_class` and `mismatch_review` in `corpus/rows/`, the counts that follow from
-them, and the sentence in the next version, with the correction printed beside the original
-comparison as the withdrawals already are. The route is the address in the author block of this
-paper. It is the only route this survey can offer today, because the corpus is not deposited
-yet: it is available from the author on request, and will be deposited with a persistent
-identifier. A correction asked for that way is a commit and a replacement version rather than a
-negotiation. Seven of the sixteen rows an earlier draft drew have already gone that way on this
-survey's own evidence and two more were narrowed; a further correction would cost it nothing.
+configuration belongs to which stage of a pipeline, whether the fetched commit is the one
+behind the reported numbers, and whether an untagged branch holds the code that was run. The
+letters are in `outreach/` in the corpus that accompanies this survey, so a reader can see
+exactly what every author was asked, and `outreach/RECIPIENTS.md` records the address each went
+to and where that address came from. A tenth letter was drafted and not sent, because drafting
+it broke its own claim; it is kept with the nine. This version was written between those two
+dates: no reply had been received at the time of writing, no row here has been changed by one,
+and a window that closes in silence will be recorded in the next version as silence and not as
+assent. Any reply, and its effect on the row it concerns, is recorded in `mismatch_review` in
+`corpus/rows/`. What this section says is still written to the narrow form: a repository, a
+commit, a file, and two values. It attributes nothing to intent, and a reader with a browser
+can confirm or refute any line of Table 11 at the repository and commit that line names,
+without anyone's agreement and without this survey's own corpus. Two limits come with that, and
+neither is a hedge. A repository at a fetched commit is not the code that produced a paper's
+numbers: it may postdate that code, precede it, or have diverged from it on a branch nobody
+tagged, and a snapshot cannot say which, so each line compares a published document with one
+public artifact and claims nothing beyond the two. One work in this corpus says exactly that
+about itself. `hora_2022`'s README sends a reader to tag `v0.0.1` rather than to the default
+branch to reproduce the paper's numbers, which is why its row is classed version skew and is not one of the eight: told which commit to read, this survey read it, and nobody else was in a
+position to tell us, because nobody else was asked. The other limit is the remedy. Every one of the eight is correctable in public, and an author who shows that the file says something other
+than what Table 11 prints, or that the fetched commit is not the one behind their numbers,
+changes the row: `mismatch_class` and `mismatch_review` in `corpus/rows/`, the counts that
+follow from them, and the sentence in the next version, with the correction printed beside the
+original comparison as the withdrawals already are. The route is the address in the author
+block of this paper. It is the only route this survey can offer today, because the corpus is
+not deposited yet: it is available from the author on request, and will be deposited with a
+persistent identifier. A correction asked for that way is a commit and a replacement version
+rather than a negotiation. Eight of the sixteen rows an earlier draft drew have already gone
+that way on this survey's own evidence and two more were narrowed; a further correction would
+cost it nothing.
 
 Zeroed terms recur, and they are not the same thing as a term that is missing. A term present
 and zeroed survives a reader's check of the file, which is why Table 5 marks it separately, and
 it is only worth marking where the paper claims the term. Weights differ as well: a penalty
 printed at one value in a table and set to another in a config, an equation's term that is not
-in the released reward file, a term in the file that the table does not list. And in 13 rows
-the repository does not settle the question at all, which is this survey's limit and not a
+in the released reward file, a term in the file that the table does not list. And in 14 rows the repository does not settle the question at all, which is this survey's limit and not a
 finding against the paper. Appendix C prints all 38 row by row in their five classes, each with
 the file, the value on both sides, and the review note where a comparison was narrowed or
 withdrawn.
@@ -1534,7 +1533,7 @@ function before the reward table, and treat a printed weight as a hypothesis abo
 
 **The withdrawals, and what would close it.** This is a result about publishing practice in
 robot learning more than about dexterous manipulation: the dexterous corpus is its sample, not
-its subject. Nine is also a floor, since 46 method rows released nothing to check and four more
+its subject. Eight is also a floor, since 46 method rows released nothing to check and four more
 are unsettled. The first count was sixteen. An adversarial re-reading withdrew six outright,
 `maniptrans_2025`, `eureka_2023`, `open_television_2024`, `dexmachina_2025`, `artigrasp_2023`
 and `graspxl_2024`: two refuted by the repository's own README, two resting on reward code that
@@ -1558,14 +1557,14 @@ proprioception-only student should carry and not a claim the paper makes about t
 is left is the line in Table 11, and it is held at medium because this survey could not
 establish from the parse whether a second task config exists elsewhere in that repository.
 
-**Seven of the sixteen rows first drawn have left the contradiction count: six under
-adversarial re-reading, and one at the point of writing to the authors, because someone sat
-down to write the letter and looked at the evidence again. Two more were narrowed and remain in
-it.** Each retraction and narrowing is recorded in the row it concerns, beside the comparison
-it revises: a survey that names people should carry its corrections beside its findings, in
-public and not just in the corpus. What would close the finding itself is a reward table
-generated from the released config at a named commit, so a reviewer diffs two artifacts instead
-of reading two documents.
+**Eight of the sixteen rows first drawn have left the contradiction count: six under
+adversarial re-reading, one at the point of writing to the authors, because someone sat down to
+write the letter and looked at the evidence again, and one because a reply came back and the
+claim did not survive it. Two more were narrowed and remain in it.** Each retraction and
+narrowing is recorded in the row it concerns, beside the comparison it revises: a survey that
+names people should carry its corrections beside its findings, in public and not just in the
+corpus. What would close the finding itself is a reward table generated from the released
+config at a named commit, so a reviewer diffs two artifacts instead of reading two documents.
 
 # 6. Bimanual dexterous manipulation
 
@@ -1902,7 +1901,7 @@ statistical inferences about real-world outcomes from simulation results alone".
 **Reproducibility.** 62 rows released code that could be parsed against the paper, and 38 of the
 112 rows record a disagreement of some kind between the paper and that code. All 38 released code,
 so the raw rate among code-releasing rows is 61 percent. That raw rate is not the finding, because
-the 38 are not one thing. Section 5.6 classifies them: 9 contradictions, 13 limitations of this
+the 38 are not one thing. Section 5.6 classifies them: 8 contradictions, 14 limitations of this
 survey's own parsing, 8 components never released, 4 version skews and 4 inconsistencies internal
 to a paper. Only the contradictions are a finding about the work rather than about this survey, so
 9 of 62 code-releasing rows, which is 15 percent, is the figure this section and Table 8 use.
@@ -2111,13 +2110,13 @@ that would close it. Nothing is argued in this list: the denominator, the eviden
 prescription sit in the section named, at the end of it, so that a finding and its consequence are
 read together and stated once.
 
-1. Nine of the 62 method rows that released parseable code state, in a named file at a named
-commit, something other than the value their paper prints, and seven further rows have been
-withdrawn from that count since its first draft, with two more narrowed. Table 11 gives each of
-the nine as a repository, a commit, a file and two values, and all of their authors were
-written to before this was posted: section 5.6 says that beside the finding, with the letters
-in `outreach/` and the route by which a disputed case is corrected (section 5.6 and Appendix
-C).
+1. Eight of the 62 method rows that released parseable code state, in a named file at a named
+commit, something other than the value their paper prints, and eight further rows have been
+withdrawn from that count since its first draft, one of them because an author replied, with
+two more narrowed. Table 11 gives each of the eight as a repository, a commit, a file and two
+values, and all of their authors were written to before this was posted: section 5.6 says that
+beside the finding, with the letters in `outreach/` and the route by which a disputed case is
+corrected (section 5.6 and Appendix C).
 
 2. No closed-loop policy in the corpus reports interpenetration for the rollouts of its own trained
    policy, and all eleven rows that handle penetration at all sit on the reference side of the
@@ -2444,7 +2443,7 @@ Table 5 marks nine recurring term families across the in-hand reorientation meth
 | `openai_dexterity_2018` | 2018 | RL | 3 |   | Method, reward (Sec 4.2 / App C.1) | yes | no |   |   |
 | `openai_rubiks_cube_2019` | 2019 | RL, distillation | 3 |   | Method, reward (Sec. 6.1) | yes | no |   |   |
 | `pddm_2019` | 2019 | MPC |   |   |   |   | yes | contradiction | high |
-| `dexpoint_2022` | 2022 | RL | 4 | reach, contact, lift, action penalty |   |   | yes | contradiction | high |
+| `dexpoint_2022` | 2022 | RL | 4 | reach, contact, lift, action penalty |   |   | yes | parse-limitation | low |
 | `dextreme_2022` | 2022 | RL | 6 |   | Reward block, paper Table 2 against allegro_hand_dextreme.py and the two DR yamls | yes | yes | contradiction | high |
 | `dexvip_2022` | 2022 | RL | 4 |   |   |   | no |   |   |
 | `hora_2022` | 2022 | RL, distillation | 5 |   | Block C, paper Sec 3.1/App. C against configs/task/AllegroHandHora.yaml | yes | yes | version-skew | high |
@@ -2525,12 +2524,10 @@ Table 5 marks nine recurring term families across the in-hand reorientation meth
 
 Each entry below is the disagreement text stored in the row, unedited. The class is what Sec. 5.8 and Sec. 8.1 count. `contradiction` means the paper states one value and the shipped code demonstrably states another. `parse-limitation` means this survey's own parse could not settle it and the accusation is withdrawn. `code-absent` means the described component is not in the released repository. `version-skew` means the repository is a later generation than the paper. `internal-inconsistency` means the paper disagrees with itself and no code is implicated. Every `contradiction` entry carries an `Artefact` line: the repository, the commit `corpus/code_manifest.json` records, the file inside it and where in that file the value sits, so the entry can be checked without asking anyone. All of those authors were written to on 19 September 2026, before this survey was posted; section 5.6 says so beside the finding, gives the date the reply window closes, and states the route by which a disputed entry is corrected. The letters are in `outreach/` in the corpus, which is available from the author at the address in the byline.
 
-**contradiction, 9 rows.**
+**contradiction, 8 rows.**
 
 - `pddm_2019` (high). Table 2 states obs-dim 46 for In-hand Reorientation while the released cube_env.py code sums to 39; the Baoding reward code includes an extra -10*wrist_too_high term absent from Table 2's printed formula.
   Artefact: `google-research/pddm` at `06b88cdbaf`, `pddm/envs/cube/cube_env.py` (`_get_obs`).
-- `dexpoint_2022` (high). The released code's reward adds several terms absent from the paper's four-term Eq. 5 (a lift-threshold bonus, a target-distance term, a rotation bonus, and an IK controller-tracking penalty) and reshapes the reach/lift terms into inverse-distance and clipped forms rather than the paper's plain distance/height-difference formulas.
-  Artefact: `yzqin/dexpoint-release` at `17f1e238bb`, `dexpoint/env/rl_env/relocate_env.py` (`AllegroRelocateRLEnv.get_reward`).
 - `dextreme_2022` (high). Action Delta Penalty weight is -0.25 in paper Table 2 but -0.2 in the ADR yaml and -0.01 in the ManualDR yaml; the Joint Velocity Penalty in code normalises velocity by (max_velocity-vel_tolerance) unlike the paper's stated formula; code has a timeout_rew term absent from the paper's reward table; Appendix Table 12 states critic learning rate 5e-4 and KL threshold 0.16, vs body text/code values of 5e-5 and 0.016.
   Artefact: `isaac-sim/IsaacGymEnvs` at `aeed298638`, `isaacgymenvs/cfg/task/AllegroHandDextremeADR.yaml` (`actionDeltaPenaltyScale`).
 - `visual_dexterity_2022` (high). Table S1 states 32000 teacher training environments, but the released config sets alg.num_envs to 8000 (parent config 16384); fallDistance differs across two shipped configs (0.24 vs 0.15, only the latter matching Table S1's threshold); the paper's Eq 8 penultimate-joint penalty (c7=-2) does not appear anywhere in the released reward code; the config carries a dead distRewardScale=-10.0 key never used in compute_reward; and the paper's table-friction lower bound (0.05) differs by a factor of 10 from the code's randomized lower bound (0.005).
@@ -2577,8 +2574,11 @@ Each entry below is the disagreement text stored in the row, unedited. The class
 - `pistar06_2025` (high). The general openpi framework (pi0/pi0.5/FAST, flow-matching action head, ALOHA/DROID/LIBERO adapters) is released at commit 215abfb2, but the RECAP-specific pieces described in the paper -- the advantage-conditioning input, the distributional value function, the RECAP training loop (Algorithm 1), and the espresso/laundry/box-assembly checkpoints and datasets -- are not present in the parsed repo.
 - `being_h05_2026` (high). Released code (commit e12ac44f) exposes only benchmark/inference/config scaffolding (policy.py, beingh_policy.py, dataset-transform configs). no MoT/MoF model definition, no rectified-flow action-expert source, and no config for any dexterous-hand embodiment; the only post-train configs present (libero_robocasa.yaml, libero_all.yaml, robocasa_human.yaml, so101_example.yaml) are all gripper-only, so the dexterous-hand claims cannot be cross-checked against released code.
 
-**parse-limitation, 13 rows.**
+**parse-limitation, 14 rows.**
 
+- `dexpoint_2022` (low). The released reward reshapes the paper's reach term into an inverse-distance form, 1.0/(0.06+finger_object_dist) in place of the plain distance of Eq. 5, and adds a 2 cm lift-threshold bonus, a target-distance term and an IK controller-tracking penalty that Eq. 5 does not list.
+  Artefact: `yzqin/dexpoint-release` at `17f1e238bb`, `dexpoint/env/rl_env/relocate_env.py` (`AllegroRelocateRLEnv.get_reward`).
+  Review: Reclassified from contradiction to parse-limitation after the corresponding author replied, 2026-09-20. Three parts of the original claim do not stand. The lift term is not a departure: object_lift is already h_current minus h_init, set against a resting height fixed at reset, so 10*clip(object_lift,0,0.2) is the paper's formula with the stated weight plus a saturation, and this survey's parse captured the reward body but not the line defining object_lift, so the claim rested on material the snapshot did not contain. The rotation bonus is inactive at the paper's settings, since rotation_reward_weight defaults to zero and the term is multiplied by it, so it contributed nothing to the reported numbers. The reach-term difference is real but is version skew rather than a contradiction: the inverse form is a later, lower-variance revision and the paper's reported variance is that of the plain-distance formula the paper states. The remaining extra terms have stated purposes, the 2 cm bonus blocking a height reward hack on meshes with no flat resting surface and the IK penalty correcting a SAPIEN-specific controller mismatch.
 - `artigrasp_2023` (low). paper's two regulariser weights (w_rh=0.5, w_ro=0.2) correspond to five separate velocity penalties in code (-0.5,-0.2,-0.5,-0.5,-0.3); the fingertip weight 12.0 and lambda 5.0 in Table 6 do not appear in the yaml; reward weights differ between curriculum phase-1 and phase-2 configs though Table 6 reports only one set
   Review: R3 adversarial review: the reward body is C++ and absent from the parse; the weight split is the paper's documented curriculum
 - `diffusion_policy_2023` (high). the paper's core loss equations (DDPM training loss, EBM/InfoNCE, score-matching) are unrecovered images in the parsed text, and code/md is a signature-only API map, so compute_loss's body could not be verified from code; only the exact shipped noise-scheduler config (DDPMScheduler, 100 train steps) is confirmed.

@@ -453,9 +453,9 @@ in Section~\ref{sec:train:rl} now reaches the shipped policy through a dataset r
 \label{sec:train:code}
 
 % ---------------------------------------------------------------------------
-% The first finding as a picture: the funnel from 112 method rows to the nine
+% The first finding as a picture: the funnel from 112 method rows to the eight
 % whose code contradicts the paper, with the 29 disagreements in the other four
-% classes drawn at the same weight as the nine. Those 29 are classified, not
+% classes drawn at the same weight as the eight. Those 29 are classified, not
 % retracted; the seven rows the survey withdrew are counted in section
 % 8.1 and in each row's mismatch_review field. Written by
 % tools/make_finding_figures.py from corpus/rows; the guard keeps the document
@@ -474,26 +474,30 @@ in Section~\ref{sec:train:rl} now reaches the shipped policy through a dataset r
 
 Thirty-eight of the 112 method rows record a disagreement between a paper and the code it
 released, and all 38 released code, so they sit inside the 62 rows that released anything
-(\figurename~\ref{fig:codegap}). They are not one kind of thing. Nine are contradictions, where
-paper and code state different values or different terms. Thirteen are limits of this survey's own
-parse, where the body or config that would settle the question was never recovered and the row
-says so. Eight released code without the described component in it, four are version skew against
-a later repository, and four are a paper disagreeing with itself. The fourth version skew is
-\cite{groot_n16_2025}, which ships a main branch one generation later than the checkpoint its page
-describes.
+(\figurename~\ref{fig:codegap}). They are not one kind of thing. Eight are contradictions,
+where paper and code state different values or different terms. Fourteen are limits of this
+survey's own parse, where the body or config that would settle the question was never recovered
+and the row says so. Eight released code without the described component in it, four are
+version skew against a later repository, and four are a paper disagreeing with itself. The
+fourth version skew is \cite{groot_n16_2025}, which ships a main branch one generation later
+than the checkpoint its page describes.
 
-Nine is the number to quote, eight at high confidence and one, PenSpin \cite{penspin_2024},
-held at medium. Nine of 62 is 15 percent, and it is a floor rather than a rate: the census
+Eight is the number to quote, seven at high confidence and one, PenSpin \cite{penspin_2024},
+held at medium. Eight of 62 is 13 percent, and it is a floor rather than a rate: the census
 covers method rows only, so RoboPianist \cite{robopianist_2023}, whose row is a benchmark, does
 not enter it although it sums five reward terms against the three its Table~2 documents. It is
-also a screened count rather than a first pass. Sixteen rows were drawn at first and seven have
-since left the class, six under adversarial re-reading and one, OmniH2O \cite{omnih2o_2024},
-once writing to its authors sent someone back to the evidence; two more were narrowed and
-stayed, and each revision is recorded in the row it concerns beside the comparison it revises.
-That screening is evidence that the nine were checked, not a bound on how many a fuller reading
-would find. Among the 21 reorientation methods scored term by term, seven released a repository
-and four of those state something different from their paper, the other three being a missing
-environment, a later generation and a default-value question their own READMEs settle.
+also a screened count rather than a first pass. Sixteen rows were drawn at first and eight have
+since left the class: six under adversarial re-reading, one, OmniH2O \cite{omnih2o_2024}, once
+writing to its authors sent someone back to the evidence, and one, DexPoint
+\cite{dexpoint_2022}, because its corresponding author replied and showed the survey had
+misread the code, the term it called a departure from the paper's formula being the paper's
+formula, with the line defining it absent from this survey's own parse. Two more were narrowed
+and stayed, and each revision is recorded in the row it concerns beside the comparison it
+revises. That screening is evidence that the eight were checked, not a bound on how many a
+fuller reading would find. Among the 21 reorientation methods scored term by term, seven
+released a repository and four of those state something different from their paper, the other
+three being a missing environment, a later generation and a default-value question their own
+READMEs settle.
 
 PhysHOI \cite{physhoi_2023} is the clearest example. Its paper assigns nonzero weights to object
 rotation and rotation velocity on the GRAB dataset. In the public implementation, both errors are
@@ -534,16 +538,16 @@ comparison is correctable in public through the address in the author block; sup
 evidence changes the record, the derived counts, and the next version of the text.
 
 The classification distinguishes a term that is absent, present with zero weight, or assigned a
-different weight. In 13 cases the parsed repository cannot settle the comparison, and those
+different weight. In 14 cases the parsed repository cannot settle the comparison, and those
 cases are recorded as limitations rather than conflicts. Appendix~\ref{app:rewards} prints all
 38 row by row in their five classes, each with the file, the value on both sides, the recorded
 confidence, and the review note where a comparison was narrowed or withdrawn.
 
 \textbf{Review and correction.} This is a result about publishing practice in robot learning
 rather than about dexterous manipulation in particular: the dexterous corpus is its sample, not
-its subject. Nine is a lower bound because 46 method papers released no code to inspect and
+its subject. Eight is a lower bound because 46 method papers released no code to inspect and
 four comparisons remain unsettled. It is also the result of a conservative review. The first
-draft identified sixteen conflicts; seven have since left the count and two more were narrowed
+draft identified sixteen conflicts; eight have since left the count and two more were narrowed
 and remain in it. Six failed under adversarial rereading, and a seventh was reclassified when
 its apparent weight mismatch proved consistent with a curriculum factor. PenSpin
 \cite{penspin_2024}, the sole medium-confidence case retained, concerns a disabled disturbance

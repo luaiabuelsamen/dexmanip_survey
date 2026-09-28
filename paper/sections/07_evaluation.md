@@ -116,7 +116,7 @@ statistical inferences about real-world outcomes from simulation results alone".
 **Reproducibility.** 62 rows released code that could be parsed against the paper, and 38 of the
 112 rows record a disagreement of some kind between the paper and that code. All 38 released code,
 so the raw rate among code-releasing rows is 61 percent. That raw rate is not the finding, because
-the 38 are not one thing. Section 5.6 classifies them: 9 contradictions, 13 limitations of this
+the 38 are not one thing. Section 5.6 classifies them: 8 contradictions, 14 limitations of this
 survey's own parsing, 8 components never released, 4 version skews and 4 inconsistencies internal
 to a paper. Only the contradictions are a finding about the work rather than about this survey, so
 9 of 62 code-releasing rows, which is 15 percent, is the figure this section and Table 8 use.

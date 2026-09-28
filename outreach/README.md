@@ -72,6 +72,22 @@ corpus.
 A correction is a commit and a replacement version, not a negotiation, and nothing about it is
 private: the repository is public and its history is the record of what changed and why.
 
+## What the replies changed
+
+One reply has arrived and it changed the paper. Yuzhe Qin, corresponding author on DexPoint,
+answered on 20 September 2026 and showed that three parts of the claim did not hold: the lift term
+this survey called a departure from the paper's formula *is* the paper's formula, because
+`object_lift` is already the height difference against a resting height fixed at reset; the rotation
+bonus is inactive at the paper's settings, its weight defaulting to zero; and the reach-term
+difference is a later, lower-variance revision rather than a disagreement about what produced the
+reported numbers. The row moved from contradiction to parse-limitation, the count fell from nine to
+eight, and the reason is recorded in `mismatch_review` beside the original comparison.
+
+The lift claim is the one worth dwelling on, because this survey should have caught it. The parse
+captured the reward function body but not the line defining `object_lift`, so the claim rested on
+material the snapshot did not contain, and it was filed at high confidence anyway. That is the
+failure mode the parse-limitation class exists for, and it took an author's reply to find it.
+
 ## What silence does not mean
 
 Everyone was asked, and every letter said so in terms: silence is recorded as silence. The
