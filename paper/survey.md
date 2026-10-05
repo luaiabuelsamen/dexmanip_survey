@@ -9,7 +9,7 @@ A survey of 221 bibliography entries, 218 of which carry a structured row read f
 "Method row" throughout means one of the 112, and every headline count here has one of those eight
 classes as its denominator.
 
-*Compiled 2026-09-28. Every claim traces to a note in `papers/notes/`, every note to a parsed source in
+*Compiled 2026-10-05. Every claim traces to a note in `papers/notes/`, every note to a parsed source in
 `papers/md/` or `code/md/`, and every source to a hash or commit in `corpus/manifest.json`. The
 method is in Appendix A.*
 
@@ -99,20 +99,20 @@ papers on nominally the same task are usually not measuring the same event, and 
 surveys preceding this one supplies a protocol that would make them comparable. Section 7
 derives one, with the trial counts a stated confidence interval actually requires.
 
-This survey is built from a corpus on disk. Two hundred and twenty-one bibliography entries,
-218 of them read into a structured record under a fixed template, every value quoted from a
-parsed source with that source named, and every count printed here recomputed from those
-records at build time. Where a source is silent the record says so, which is why the coverage
-statistics in this paper are floors and not rates. The same discipline extended to released
-code: where a method published a repository, its reward was read from the repository as well as
-from the paper. Reading an implementation against its own description is established practice
-outside robotics, in repeatability and reproducibility studies `collberg_repeatability_2016`
-`raff_reproducibility_2019`, in audits of how implementation detail moves
-reinforcement-learning results `engstrom_implementation_matters_2020`, in reward-design review
-`knox_reward_misdesign_2023`, in benchmark re-releases `metaworld_plus_2025`, and most directly
-in recent work on paper-code alignment `scicoqa_2026` `biocon_2026`. We are aware of none that
-does it for a robotics field's released reward functions, and section 5.6 reports what this one
-found.
+Every claim in this survey is traceable to a source. Two hundred and twenty-one bibliography
+entries were collected, 218 of them read into a structured record under a fixed template, with
+every value quoted from the source it came from and that source named. The counts printed here
+are recomputed from those records when the paper is built. Where a source is silent the record
+says so, which is why the coverage statistics in this paper are floors and not rates. The same
+discipline extended to released code: where a method published a repository, its reward was
+read from the repository as well as from the paper. Reading an implementation against its own
+description is established practice outside robotics, in repeatability and reproducibility
+studies `collberg_repeatability_2016` `raff_reproducibility_2019`, in audits of how
+implementation detail moves reinforcement-learning results
+`engstrom_implementation_matters_2020`, in reward-design review `knox_reward_misdesign_2023`,
+in benchmark re-releases `metaworld_plus_2025`, and most directly in recent work on paper-code
+alignment `scicoqa_2026` `biocon_2026`. We are aware of none that does it for a robotics
+field's released reward functions, and section 5.6 reports what this one found.
 
 The scope is single-hand and bimanual multi-fingered manipulation under learned control.
 Parallel-jaw work enters as a comparison and not as a subject. Two limits apply to every number
@@ -136,7 +136,7 @@ Appendix E the derivation behind every count in the protocol.
 Dexterous manipulation is not one task, and what separates its tasks is what makes some of them
 hard: what is held, what moves, which way gravity points, and what counts as failure. Six
 families cover most of the corpus. They are read off the rows, and the last paragraph here says
-what they miss. Grasping is the largest. Fifty-seven of the 112 method rows carry the grasp
+what they miss. Grasping is the largest. Fifty-seven of the 112 papers carry the grasp
 label, the labels are not exclusive, and one paper can sit in several families. Success is a
 lift that survives a hold, and the thresholds differ by more than an order of magnitude.
 `dexgraspvla_2025` requires the object "held 10 cm above the table for 20 s", while
@@ -145,34 +145,34 @@ scale is the continuum of starting configurations. `unidexgrasp_pp_2023` states 
 that "we are dealing with an infinite number of tasks considering the initial object pose can
 change continuously".
 
-Functional and tool use is second with 45 rows. It is the family where a stable grasp can still be
-the wrong answer. `dexterous_functional_grasping_2023` gives the case in Sec. 2.1, that "grabbing
-a hammer from the head or handle are both equally valid ways of using it", and only one of the two
-lets the tool be used. Success is defined against the tool's function, and the field has no shared
-way to state it.
+Functional and tool use is second with 45 papers. It is the family where a stable grasp can
+still be the wrong answer. `dexterous_functional_grasping_2023` gives the case in Sec. 2.1,
+that "grabbing a hammer from the head or handle are both equally valid ways of using it", and
+only one of the two lets the tool be used. Success is defined against the tool's function, and
+the field has no shared way to state it.
 
-In-hand reorientation has 31 rows and the most settled criteria, because the community inherited
+In-hand reorientation has 31 papers and the most settled criteria, because the community inherited
 one number. `openai_dexterity_2018` declared the goal achieved below 0.4 rad of orientation error,
 `dextreme_2022` keeps 0.4 rad at test time against a 0.1 rad training tolerance, and `eureka_2023`
 counts consecutive successes at 0.1 rad. A shared tolerance is not a shared protocol, because the
 stopping rule differs. `visual_dexterity_2022` measures error "when the controller predicts it has
 reached the goal and stops", which makes the policy a judge of its own trial.
 
-Tracking a human reference has 12 rows and inverts the problem. The target is a trajectory rather
-than an endpoint, so success is a per-frame error band. `maniptrans_2025` requires all four of 30
-degrees of rotation, 3 cm of translation, 8 cm of joint error and 6 cm of fingertip error. The
-difficulty is that the reference came from a human hand and was never dynamically feasible for the
-robot. `dexmachina_2025` warns in App. B.4 that scoring by timesteps inside the thresholds makes
-"the results highly sensitive to the threshold values".
+Tracking a human reference has 12 papers and inverts the problem. The target is a trajectory
+rather than an endpoint, so success is a per-frame error band. `maniptrans_2025` requires all
+four of 30 degrees of rotation, 3 cm of translation, 8 cm of joint error and 6 cm of fingertip
+error. The difficulty is that the reference came from a human hand and was never dynamically
+feasible for the robot. `dexmachina_2025` warns in App. B.4 that scoring by timesteps inside
+the thresholds makes "the results highly sensitive to the threshold values".
 
-Bimanual coordination has 43 rows and handover has 10. Handover is the smallest family and the one
-whose failure has a single moment, because the giver must release only after the receiver has the
-object. `dynamic_handover_2023` reports a hit rate above its success rate and blames the gap in
-Sec. 5.4 on "occasional challenges encountered during the grasping phase of the catcher". Not
-every paper here learns both sides. In `dexterous_handover_2025` only the receiver is learned and
-the giver is a scripted arm.
+Bimanual coordination has 43 papers and handover has 10. Handover is the smallest family and
+the one whose failure has a single moment, because the giver must release only after the
+receiver has the object. `dynamic_handover_2023` reports a hit rate above its success rate and
+blames the gap in Sec. 5.4 on "occasional challenges encountered during the grasping phase of
+the catcher". Not every paper here learns both sides. In `dexterous_handover_2025` only the
+receiver is learned and the giver is a scripted arm.
 
-Those six families do not cover the corpus. Twenty-four of the 112 method rows carry a label
+Those six families do not cover the corpus. Twenty-four of the 112 papers carry a label
 from outside them and eight carry no label from the six at all. Twenty fall in a catch-all
 class, mostly generalist policies evaluated on a task suite rather than on a dexterous task
 family, among them `pi0_2024`, `pi05_2025`, `pistar06_2025`, `openvla_2024` and
@@ -218,10 +218,10 @@ progressively from palm up and palm down, through base up and base down, to thum
 down.
 
 **The second hand, and three counts.** Three counts describe two hands and they measure
-different things. Fifty-three of the 112 method rows record two hands on the robot, which is
+different things. Fifty-three of the 112 papers record two hands on the robot, which is
 all the corpus's two-hand flag claims. Forty-three carry the task label for bimanual
 coordination, the narrower claim that coordinating the hands is the task. Section 6 narrows
-again, to the 28 rows whose notes place a learned closed-loop controller on two multi-fingered
+again, to the 28 papers whose notes place a learned closed-loop controller on two multi-fingered
 hands, and its opening paragraph names every exclusion that takes the 53 down to the 28. That
 28 is the denominator for every architecture count in this survey. Every bimanual claim here
 names which of the three it uses.
@@ -287,8 +287,7 @@ of the engine.
 **Success criterion and per-cell trial count.** The criterion is the predicate a paper uses to
 call an episode a success: a pose within a tolerance, an object never dropped, a task
 completed. The per-cell count is how many trials one reported rate is computed from. Section 7
-finds 98 of the 112 state a criterion and no two of them state the same one, and that 70 state
-a count.
+finds 98 of them state a criterion and no two state the same one, and that 70 state a count.
 
 ## Table 1. Task families against the properties that define success
 
@@ -313,8 +312,8 @@ shifts are visible in the rows, and none of them is small.
 **The demonstration branch overtook the simulator branch in 2024.** Sorting each method by
 whether it trains in simulation, through reinforcement learning or distillation, or from human
 demonstration, through behavior cloning, a vision-language-action model, a diffusion or flow
-policy, or a collection rig, the simulator branch led 13 rows to 4 in 2023 and trailed 15 to 18
-in 2024. It has trailed since: demonstration-trained work is 22 of the 34 rows from 2025 and 8
+policy, or a collection rig, the simulator branch led 13 papers to 4 in 2023 and trailed 15 to 18
+in 2024. It has trailed since: demonstration-trained work is 22 of the 34 papers from 2025 and 8
 of the 13 so far from 2026. The recipe section 1 describes is this field's mature pipeline
 rather than its growth area, and a reader who knows only that recipe is reading the field as it
 was in 2023.
@@ -452,10 +451,10 @@ Figures with no reachable source, and other caveats on individual rows:
 
 ![fig2_hands](figures/fig2_hands.svg)
 
-The two oldest designs in Table 2 carry 49 of the 103 method rows that name a hand at all, and
+The two oldest designs in Table 2 carry 49 of the 103 papers that name a hand at all, and
 seven rows use both. Neither design's date is confirmed by its own sources, so 2005 and 2016 are
 the bibliography's. Figure 2 counts, per hand, the method papers whose own experiments use it. Of
-112 method rows, 103 name a hand. The Allegro accounts for 35, Shadow for 21, the Inspire RH56
+112 papers, 103 name a hand. The Allegro accounts for 35, Shadow for 21, the Inspire RH56
 family for 19, a parallel-jaw gripper for 12 and LEAP for 12. Seventy-five of the 103 name an
 Allegro, a Shadow or Adroit model, LEAP or an Inspire.
 
@@ -469,11 +468,11 @@ reader can open.
 Concentration would matter less if the hand did not move the result, and it does. On the same
 simulated cube rotation, LEAP reaches 0.2288 rad/s against the Allegro's 0.0828 rad/s
 `leap_hand_2023`, and RUKA reports a 2.74 N pinch against the Allegro's 1.60 N under the same
-three-trial pinch test `ruka_2025`. A method compared only on Allegro hardware is compared at one
-point in a space where a single axis moves the headline number two or three times over. Inspire,
-XHand and Sharpa take 29 of the 103 rows between them, four rows use two of the three, and none is
-earlier than 2024. Eight take none at all: ORCA, RUKA, Ruka-v2, BiDexHand, DexHand, the Proception
-ProHand, the Tesollo DG-5F and the Unitree Dex5.
+three-trial pinch test `ruka_2025`. A method compared only on Allegro hardware is compared at
+one point in a space where a single axis moves the headline number two or three times over.
+Inspire, XHand and Sharpa take 29 of the 103 papers between them, four rows use two of the
+three, and none is earlier than 2024. Eight take none at all: ORCA, RUKA, Ruka-v2, BiDexHand,
+DexHand, the Proception ProHand, the Tesollo DG-5F and the Unitree Dex5.
 
 **Open hardware and the collapse in cost.** Six rows in Table 2 are open hardware, and LEAP
 Hand V2 in Table 3 is a seventh. Five of the seven state a dollar cost: $2,000 for LEAP, $3,000
@@ -489,7 +488,7 @@ The expensive end of the collapse is secondhand throughout. The only six-figure 
 are RUKA's comparison table at $100,000 for a Shadow Hand and Faive's "steep price tag of 110k
 GBP" `ruka_2025` `faive_hand_2023`. Shadow's own page says to discuss pricing and Table 2's price
 cell for it is empty. The collapse is real at the cheap end and secondhand at the expensive one,
-and it has barely moved the literature. Twelve of the 103 hand-naming method rows use an
+and it has barely moved the literature. Twelve of the 103 hand-naming papers use an
 open-hardware hand, and all twelve are LEAP.
 
 What the cheap hands give up is sensing. LEAP has none and names touch sensors as future work
@@ -521,7 +520,7 @@ see 33 to 50 percent of the labels. Its own bead-maze policies never complete th
 robot.
 
 The usage number is the one to keep, and it needs its inclusion rule stated: a sensor
-physically on the hand, read by the deployed policy. Eight of 112 method rows meet it:
+physically on the hand, read by the deployed policy. Eight papers meet it:
 `anyrotate_2024`, `articulated_tools_inhand_2025`, `dexteleop0_2026`, `dexumi_2025`,
 `hato_visuotactile_2024`, `robot_synesthesia_2023`, `rotateit_2023` and
 `rotating_without_seeing_2023`. The rule excludes `penspin_2024`, whose 20 binary contacts are
@@ -596,7 +595,7 @@ Figures with no reachable source, and other caveats on individual rows:
 
 
 **What is sold against what is published on.** The bottom rows of Figure 2 carry the finding.
-None of the nine company-announced hands in Table 3 appears in a single method row whose own
+None of the nine company-announced hands in Table 3 appears in a single paper whose own
 experiments use it. Tesla, Figure, 1X, Sanctuary, Boston Dynamics, Xiaomi, Clone, Daxo and
 PaXini account for zero of the 112 method papers' experiments. The nearest thing to a
 counterexample is `helix_2025`, a Figure blog post claiming a 35-DoF whole-upper-body action
@@ -604,7 +603,7 @@ space at 200 Hz that includes individual finger control. It never names the hand
 per-hand DoF count, and reports no success rate or trial count for any task. It is the maker
 describing its own unreleased hand, which is the evidence class the finding is about. The four
 research prototypes in Table 3 are in a different position, since the Faive Hand and LEAP Hand
-v2 Advanced account for three method rows between them `graspxl_2024` `bidex_teleop_2024`.
+v2 Advanced account for three papers between them `graspxl_2024` `bidex_teleop_2024`.
 
 Table 3's emptiness is measurable and part of the same finding. Over the twelve specification
 columns, 61 percent of its cells are values no source stated, against 39 percent for the hands
@@ -612,30 +611,30 @@ that can be bought. The hands with the highest advertised DoF counts have the le
 behind them.
 
 The one hand that crosses the gap crosses it because its maker published rather than announced.
-ByteDexter reaches a method row through a ByteDance technical report stating 21 DoF per hand, 16
+ByteDexter reaches a paper through a ByteDance technical report stating 21 DoF per hand, 16
 piezoresistive fingertip channels in the action vector and real-robot success rates
 `gr_dexter_2025`, not through a product page. That mechanism is available to every vendor in Table
 3 and none has used it.
 
 The gap runs the other way too, and the last column of Table 2 shows it. Eight hands that can
-be bought or built from published designs take zero method rows each: the Unitree Dex5 with 94
+be bought or built from published designs take zero papers each: the Unitree Dex5 with 94
 pressure sensors on its P variant `unitree_dex5_2025`, the fully actuated Tesollo DG-5F
 `tesollo_dg5f_2024`, the 22-DoF Proception ProHand `proception_prohand_2026`, ORCA, RUKA,
 Ruka-v2, BiDexHand and DexHand. Cheapness is established only for RUKA, Ruka-v2 and DexHand,
 because Table 2's price cell is empty for Unitree, Tesollo, the ProHand, ORCA and BiDexHand,
 and the only Dex5 price on disk is Ruka-v2's secondhand "~$25K" `ruka_v2_2026`. A reader
 choosing a hand on this corpus's evidence has four options with published precedent behind
-them: the Allegro at 35 method rows, a Shadow at 21 and 4 more for its Adroit model, the
+them: the Allegro at 35 papers, a Shadow at 21 and 4 more for its Adroit model, the
 Inspire RH56 family at 19, and LEAP at 12, of which only LEAP has both a published design and a
 stated price. Below those four the record thins fast: eight rows for the XHand, seven for the
 Ability Hand, six for Sharpa, two each for Wuji and LEAP Hand v2, one each for five more, and
 none at all for the other 19 hands of Tables 2 and 3. Those 19 sit in the tables on their
-specifications alone, and no method row in this corpus runs on any of them.
+specifications alone, and no paper in this corpus runs on any of them.
 
 **What would close the gap.** Nineteen of the 33 hands in Tables 2 and 3 appear in no method
 row, and 11 of those are neither sold nor open, so they appear in none for that reason and 33
 is not the denominator for a software-lag claim; the eight hands named just above are. What
-decides used from unused is one regular expression per hand run against the method rows' own
+decides used from unused is one regular expression per hand run against the papers' own
 hand field, in `tools/hand_usage.py`, so the partition is recomputed and not argued about. The
 lag runs through the tooling too. Seven of the fifteen simulator rows ship a first-party hand
 model at all, six of those hands are real, Brax's being a synthetic claw, and every one of the
@@ -808,7 +807,7 @@ described above. Its per-task timesteps are published, which is rare: the Shadow
 1/120 s physics step under a 1/60 s control step, or 1/20 s in the OpenAI variant. The result
 that reorganised the field is that reproducing OpenAI's Shadow Hand cube reorientation took
 under an hour on one A100, against 30 hours on 6144 CPU cores and 8 V100s (`isaacgym_2021`,
-Sec. 6.4.1). Thirty-five of the 112 method papers in this corpus run on it.
+Sec. 6.4.1). Thirty-five of the papers examined run on it.
 
 Orbit and Isaac Lab moved the stack to PhysX 5, and the dexterous offering is thinner than the
 predecessor's: the first-party suite is lifting, grasping and reorienting with the KUKA Allegro
@@ -932,13 +931,13 @@ that the contact model was at fault, is not what the sentence says.
 ## 5.1 Sources of supervision
 
 A dexterous policy is defined by what supervises it, and four sources are in use across the
-corpus's 112 method rows: a reward function supervises reinforcement learning, a human
+corpus's 112 papers: a reward function supervises reinforcement learning, a human
 demonstration supervises imitation, a human reference trajectory supervises a physics-based
 tracker, which is imitation with a simulator in the loop, and nothing supervises a model-based
 planner, which is handed a cost and a model instead.
 
 The labels do not partition the corpus. Reinforcement learning is the largest at 53 of the 112
-rows, behavior cloning next at 27, distillation at 23, and ten further tags cover the rest.
+papers, behavior cloning next at 27, distillation at 23, and ten further tags cover the rest.
 They sum to far more than 112, because most methods published since 2024 sit on two branches at
 once: a reinforcement-learning teacher and a behavior-cloned student are one paper, not two.
 Figure 4 draws the tree and the cross-links. Table 7 is the row-by-row version of the same
@@ -947,12 +946,12 @@ thing, and is the table to scan when looking for work comparable to your own.
 What the deployed policy looks like once training is done matters more than the name a paper gives
 itself, and on that axis the field has converged hard. Section 5.5 shows why.
 
-**What the tabulation does not record.** Table 7's emptiest columns are the ones a reader most needs:
-only 31 rows state an environment count, only 70 state how many real trials are behind the headline
-number, and only 39 state how many unseen objects were tested. The trial and unseen-object figures
-are the audited ones, after section 7.1 recovered 15 trial counts and 7 unseen-object counts that the
-notes carried and the extraction had dropped. A mostly empty row is not a weak method, but it is one
-that cannot be compared with any other row here.
+**What the tabulation does not record.** Table 7's emptiest columns are the ones a reader most
+needs: only 31 rows state an environment count, only 70 state how many real trials are behind
+the headline number, and only 39 state how many unseen objects were tested. The trial and
+unseen-object figures are the audited ones, after section 7.1 recovered 15 trial counts and 7
+unseen-object counts that the notes carried and the extraction had dropped. A mostly empty row
+is not a weak method, but it is one that cannot be compared with any other row here.
 
 ### Table 7. Methods
 
@@ -1078,16 +1077,17 @@ that cannot be compared with any other row here.
 
 ## 5.2 Reinforcement learning
 
-**The standard recipe.** Fifty-nine of the 112 method rows learn from a reward. Forty-eight name PPO as the algorithm, and
-the next most frequent, DAPG, appears four times. Forty-three run their own experiments in a
-GPU-parallel simulator from the Isaac family or Genesis, and 36 do both. Only 31 rows state an
-environment count, with a median of 8192 and a maximum of 64000. Twenty-three rows distill a
-privileged teacher into a deployable student, and 16 combine all three of PPO, a GPU simulator and
-distillation. That 16-row intersection is the recipe as it is actually practised.
+**The standard recipe.** Fifty-nine of the 112 papers learn from a reward. Forty-eight name PPO
+as the algorithm, and the next most frequent, DAPG, appears four times. Forty-three run their
+own experiments in a GPU-parallel simulator from the Isaac family or Genesis, and 36 do both.
+Only 31 rows state an environment count, with a median of 8192 and a maximum of 64000.
+Twenty-three rows distill a privileged teacher into a deployable student, and 16 combine all
+three of PPO, a GPU simulator and distillation. That 16-row intersection is the recipe as it is
+actually practised.
 
-The hand is almost always an Allegro. It appears in 35 of the 112 method rows, and its hold on
-in-hand reorientation is tighter still: more than half of those rows use it, against roughly a
-fifth for the Shadow and an eighth for LEAP.
+The hand is almost always an Allegro. It appears in 35 of them, and its hold on in-hand
+reorientation is tighter still: more than half of those rows use it, against roughly a fifth
+for the Shadow and an eighth for LEAP.
 
 Privilege is handled two ways. `openai_dexterity_2018` gives the value network object and target
 orientation, joint angles, joint velocities and object velocities the policy never sees, with a
@@ -1110,9 +1110,9 @@ to zero.
 `dexpbt_2023`'s `randomize: False` is not a third case: it is the IsaacGymEnvs default and agrees
 with the paper's statement that randomisation was not used here.
 
-**Reward engineering.** Table 5 puts the 21 in-hand reorientation methods against nine recurring term families and marks
-each cell by where the term was found: in the paper, in the code, in both, or in the code with
-every shipped configuration setting its weight to zero.
+**Reward engineering.** Table 5 puts the 21 in-hand reorientation methods against nine
+recurring term families and marks each cell by where the term was found: in the paper, in the
+code, in both, or in the code with every shipped configuration setting its weight to zero.
 
 ### Table 5. Reward terms across in-hand reorientation methods
 
@@ -1158,15 +1158,16 @@ config key and the zero beside each of the three marks.
 
 Only three of the four contact marks are the finding. `anyrotate_2024` scores good and bad
 fingertip contacts, `poise_2026` rewards a friction-cone wrench margin, and
-`force_grasp_sim2real_2026` tracks a commanded grasp force. The fourth, `visual_dexterity_2022`,
-penalizes the *object* touching the table, a task-shaping term against using the table as a third
-finger rather than a hand-object term, and its table-contact flag defaults to off, with no shipped
-config setting it true. Three of 21 in-hand reorientation methods, then, put a hand-object contact
-or force quantity in the reward, and none puts interpenetration in it. `teledexter_2026` penalizes
-interpenetration with a differentiable signed-distance term, but during offline reference
-construction, not in the policy's reward. Across all 112 method rows, 85 do not address
-penetration at all, 5 constrain it, 3 measure it, 3 penalize it and 16 say nothing either way. The
-physical quality of the contact is not something this literature optimises.
+`force_grasp_sim2real_2026` tracks a commanded grasp force. The fourth,
+`visual_dexterity_2022`, penalizes the *object* touching the table, a task-shaping term against
+using the table as a third finger rather than a hand-object term, and its table-contact flag
+defaults to off, with no shipped config setting it true. Three of 21 in-hand reorientation
+methods, then, put a hand-object contact or force quantity in the reward, and none puts
+interpenetration in it. `teledexter_2026` penalizes interpenetration with a differentiable
+signed-distance term, but during offline reference construction, not in the policy's reward.
+Across the corpus, 85 papers do not address penetration at all, 5 constrain it, 3 measure it, 3
+penalize it and 16 say nothing either way. The physical quality of the contact is not something
+this literature optimises.
 
 Term counts range from one to ten. `demostart_2024` gives a single binary terminal reward of 1 and
 lets a curriculum over demonstration states do the shaping. `anyrotate_2024` and `viserdex_2026`
@@ -1177,18 +1178,20 @@ used for every object.
 Weights are frequently unrecoverable. Three of the 21 rows give no numeric weight that survives
 PDF conversion, because the equation blocks are images, which is a limit of this survey and is
 recorded as such. `robot_synesthesia_2023` is a worse case. Its six coefficients are described
-only as "tuned hyper-parameters" and no number is printed anywhere in the paper, so the reward it reports cannot be reconstructed from the paper. `dexremoe_2025` names an angular-velocity penalty
-weight in prose with no entry in its hyperparameter table, and `dextrack_2025` names an affinity
-reward that is missing from its weight table.
+only as "tuned hyper-parameters" and no number is printed anywhere in the paper, so the reward
+it reports cannot be reconstructed from the paper. `dexremoe_2025` names an angular-velocity
+penalty weight in prose with no entry in its hyperparameter table, and `dextrack_2025` names an
+affinity reward that is missing from its weight table.
 
-**Curricula, populations and machine-written rewards.** Curricula in this literature relax physics or tighten tolerances. `dexpbt_2023` tightens a success
-tolerance from 0.075 to 0.01 by a factor of 0.9 every 3000 environment steps once three successes
-are logged, and `maniptrans_2025` starts at zero gravity and high friction and restores both while
-narrowing a fingertip threshold from 6 cm to 4 cm. `dexmachina_2025` attaches virtual
-spring-damper controllers to the object, lets them do the task at first, then decays their gains
-to zero. The two that ablate the curriculum report it is load-bearing: `rotateit_2023` sets its
-rotation-penalty weight to zero and ramps it to −0.1, because applying it from the start makes the
-policy learn only to hold the object still, and `viserdex_2026`, whose performance-based
+**Curricula, populations and machine-written rewards.** Curricula in this literature relax
+physics or tighten tolerances. `dexpbt_2023` tightens a success tolerance from 0.075 to 0.01 by
+a factor of 0.9 every 3000 environment steps once three successes are logged, and
+`maniptrans_2025` starts at zero gravity and high friction and restores both while narrowing a
+fingertip threshold from 6 cm to 4 cm. `dexmachina_2025` attaches virtual spring-damper
+controllers to the object, lets them do the task at first, then decays their gains to zero. The
+two that ablate the curriculum report it is load-bearing: `rotateit_2023` sets its
+rotation-penalty weight to zero and ramps it to −0.1, because applying it from the start makes
+the policy learn only to hold the object still, and `viserdex_2026`, whose performance-based
 curriculum runs over regularisation weight, action latency and time between successes, fails
 completely without the regularisation component.
 
@@ -1212,14 +1215,15 @@ documents the paper's budget of five iterations and sixteen samples as the defau
 the shipped one-iteration block a fast-test preset. DrEureka's repository contains only the
 locomotion and globe-walking trees, so its LEAP-hand reward has no code at all.
 
-**Where reinforcement learning stalls.** Reinforcement learning stalls on objectives that are not learnable as stated. `anyrotate_2024`
-found the angular-velocity objective unlearnable in the multi-axis setting and replaced it with a
-moving keypoint target. `rotateit_2023` reports that its multi-axis policy "does not converge when
-training with only reinforcement learning" and adds an imitation loss against single-axis oracles.
-`eureka_2023` cannot spin a pen from scratch and needs a pretrain-then-finetune split, with the
-from-scratch ablation failing to complete one cycle. Section 5.3's contact-graph term exists
-because of the general shape of the problem: contact moves the object off the reference, so return
-goes down, so the policy learns not to touch the object.
+**Where reinforcement learning stalls.** Reinforcement learning stalls on objectives that are
+not learnable as stated. `anyrotate_2024` found the angular-velocity objective unlearnable in
+the multi-axis setting and replaced it with a moving keypoint target. `rotateit_2023` reports
+that its multi-axis policy "does not converge when training with only reinforcement learning"
+and adds an imitation loss against single-axis oracles. `eureka_2023` cannot spin a pen from
+scratch and needs a pretrain-then-finetune split, with the from-scratch ablation failing to
+complete one cycle. Section 5.3's contact-graph term exists because of the general shape of the
+problem: contact moves the object off the reference, so return goes down, so the policy learns
+not to touch the object.
 
 It stalls on geometry too. `hora_2022` fails on objects under 4 cm across because the fingers
 collide with each other. What it does not stall on is publication: the real-trial counts behind
@@ -1227,8 +1231,9 @@ these headlines are small enough that section 7.1 treats them as the reporting p
 
 ## 5.3 Learning from human data
 
-**Teleoperation and retargeting.** Table 6 lists the 30 corpus rows that describe a system for getting human motion onto a robot
-hand, with the retargeting objective compressed to one clause each.
+**Teleoperation and retargeting.** Table 6 lists the 30 corpus rows that describe a system for
+getting human motion onto a robot hand, with the retargeting objective compressed to one clause
+each.
 
 ### Table 6. Teleoperation and human-data systems
 
@@ -1283,7 +1288,7 @@ and one-time grasp success from 55 to 87.5 percent. The fourth removes retargeti
 `dexumi_2025` builds an exoskeleton whose fingertip workspace is optimized to match the target
 hand, then regresses encoder values straight to motor values.
 
-The table's empty cells are the point. Only 12 of the 30 rows carry a latency cell at all, three
+The table's empty cells are the point. Only 12 of the 30 papers carry a latency cell at all, three
 of those give no number, and only 7 state a rig cost. Where costs are stated they are low and
 falling, from `holo_dex_2022`'s $399 headset through the $600 exoskeleton of `ace_teleop_2024` and
 the $600 haptic glove of `doglove_2025` to the $4,000 backpack of `dexcap_2024` and the $6,000 rig
@@ -1299,16 +1304,17 @@ and 19.72 seconds through a teleoperated humanoid, and a pour at 4.81 against 37
 attributes the gap to retargeting latency and to the workspace of a 7-DoF arm rather than to
 anything about the hand.
 
-**Imitation architectures.** Four architectures cover the corpus. Action chunking came from `aloha_act_2023`, which predicts a
-chunk of joint targets with a CVAE and combines overlapping chunks by exponentially weighted
-ensembling, reaching 80 to 90 percent on fine bimanual tasks from about 50 demonstrations each.
-Diffusion came from `diffusion_policy_2023`, which denoises an action sequence and reports a 46.9
-percent average success improvement over LSTM-GMM, IBC and BET across 15 tasks. `dp3_2024` swaps
-the image encoder for a small point-cloud encoder and reports 74.4 percent against 59.8 percent
-across 72 simulated tasks, and 85.0 against 35.0 percent on four real tasks from 40 demonstrations
-each. Flow matching is the 2024-onward default for large models and carries 8 of the 112 rows.
-Discrete action tokens are the fourth, used by `openvla_2024` and `metis_2025`, and are the only
-one of the four that needs no continuous head at all.
+**Imitation architectures.** Four architectures cover the corpus. Action chunking came from
+`aloha_act_2023`, which predicts a chunk of joint targets with a CVAE and combines overlapping
+chunks by exponentially weighted ensembling, reaching 80 to 90 percent on fine bimanual tasks
+from about 50 demonstrations each. Diffusion came from `diffusion_policy_2023`, which denoises
+an action sequence and reports a 46.9 percent average success improvement over LSTM-GMM, IBC
+and BET across 15 tasks. `dp3_2024` swaps the image encoder for a small point-cloud encoder and
+reports 74.4 percent against 59.8 percent across 72 simulated tasks, and 85.0 against 35.0
+percent on four real tasks from 40 demonstrations each. Flow matching is the 2024-onward
+default for large models and carries eight papers. Discrete action tokens are the fourth, used
+by `openvla_2024` and `metis_2025`, and are the only one of the four that needs no continuous
+head at all.
 
 Data generation is a separate lever and is underrated. `dexmimicgen_2024` turns 60 human source
 demonstrations into 21,000 simulated ones across 9 tasks and 3 embodiments, and a real Fourier GR1
@@ -1317,18 +1323,19 @@ the 4 source ones. `dex1b_2025` iterates optimization, a CVAE proposal model and
 filter into roughly a billion synthetic grasps, and its CVAE baseline beats the prior best by 22
 points.
 
-**Human video without a robot.** Seven rows train a dexterous-hand policy from video with no teleoperation at any stage.
-`dexmv_2021` retargets 700 self-recorded demonstrations by matching palm-to-fingertip task-space
-vectors and estimating actions by inverse dynamics, `videodex_2022` mines 965 trajectories from
-EpicKitchens to pretrain a neural dynamic policy, and `dexvip_2022` goes further into the reward,
-clustering 715 curated HowTo100M frames into one consensus grasp pose per object category and
-adding it as a reward term. `okami_2024`, `human2sim2robot_2025` and `hudor_2024` work from a
-single video each, and `wm_dex_human_videos_2025` pretrains a world model on 829 hours of EgoDex.
+**Human video without a robot.** Seven rows train a dexterous-hand policy from video with no
+teleoperation at any stage. `dexmv_2021` retargets 700 self-recorded demonstrations by matching
+palm-to-fingertip task-space vectors and estimating actions by inverse dynamics,
+`videodex_2022` mines 965 trajectories from EpicKitchens to pretrain a neural dynamic policy,
+and `dexvip_2022` goes further into the reward, clustering 715 curated HowTo100M frames into
+one consensus grasp pose per object category and adding it as a reward term. `okami_2024`,
+`human2sim2robot_2025` and `hudor_2024` work from a single video each, and
+`wm_dex_human_videos_2025` pretrains a world model on 829 hours of EgoDex.
 
-**The embodiment gap.** Three papers measure the gap directly rather than asserting it. `okami_2024` runs the same
-reference-plan and warping pipeline with and without human body and hand retargeting, and the
-version without it loses 75.0, 42.1, 82.0 and 74.0 points across four task and setting pairs. That
-is the largest clean embodiment-gap number in the corpus.
+**The embodiment gap.** Three papers measure the gap directly rather than asserting it.
+`okami_2024` runs the same reference-plan and warping pipeline with and without human body and
+hand retargeting, and the version without it loses 75.0, 42.1, 82.0 and 74.0 points across four
+task and setting pairs. That is the largest clean embodiment-gap number in the corpus.
 
 `humanoid_policy_human_policy_2025` ablates two mitigations separately on the same vertical-grasp
 task over 10 trials. The full method scores 4 out of 10. Removing the interpolation that slows
@@ -1346,13 +1353,13 @@ learning discover finger motion, and its ablation that adds a fingertip-matching
 not yield benefits and even leads to lower performance". Richer human correspondence is not
 uniformly better, and this is the one result in the corpus that says so with an ablation.
 
-**Tracking a human reference with physics.** Twelve method rows sit in the human-reference tracking family. Eight track a human hand on an
-object and are covered here; the other four sit at the edges, `human2sim2robot_2025` tracking only
-the object's trajectory, `dexman_2025` retargeting bimanual video onto a full humanoid, and
-`humanplus_2024` and `omnih2o_2024` tracking whole-body motion. A reference is retargeted onto the
-robot and a policy trained to make the simulated body follow it: the reference supplies the
-shaping reward engineering would otherwise have to invent, and the simulator the physical
-consistency pure imitation lacks.
+**Tracking a human reference with physics.** Twelve papers sit in the human-reference tracking
+family. Eight track a human hand on an object and are covered here; the other four sit at the
+edges, `human2sim2robot_2025` tracking only the object's trajectory, `dexman_2025` retargeting
+bimanual video onto a full humanoid, and `humanplus_2024` and `omnih2o_2024` tracking
+whole-body motion. A reference is retargeted onto the robot and a policy trained to make the
+simulated body follow it: the reference supplies the shaping reward engineering would otherwise
+have to invent, and the simulator the physical consistency pure imitation lacks.
 
 The multiplicative reward that most human-reference methods now use has a single source.
 `physhoi_2023` is the origin of the form. It multiplies a body term, an object term, an
@@ -1393,15 +1400,15 @@ form. Penetration is handled at the reference, if at all, and never at the rollo
 completes the set with the only real-robot numbers among them, from 100 percent on a microwave and
 a laptop down to 41.2 percent on a ketchup bottle over 20 trials each.
 
-**The retargeting map, and what would close it.** Human data does not port across hands, and the map
-is usually left unstated. Fifty-three method rows use human data and name 44 distinct hand strings
-between them; twenty of those appear in Table 6 with a stated retargeting objective. The other 33
-never say how the human motion reached the hand, and the objectives that are stated do not converge,
-running from a fingertip keypoint-vector energy in `anyteleop_2023` through a per-joint regression
-from exoskeleton encoders in `dexumi_2025` to no retargeting at all in `egozero_2025`. What would
-close it is a retargeting benchmark in TopoRetarget's form `toporetarget_2026`, reporting contact
-precision, contact alignment, maximum penetration and the share of frames past 2 mm, per hand and per
-dataset.
+**The retargeting map, and what would close it.** Human data does not port across hands, and
+the map is usually left unstated. Fifty-three papers use human data and name 44 distinct hand
+strings between them; twenty of those appear in Table 6 with a stated retargeting objective.
+The other 33 never say how the human motion reached the hand, and the objectives that are
+stated do not converge, running from a fingertip keypoint-vector energy in `anyteleop_2023`
+through a per-joint regression from exoskeleton encoders in `dexumi_2025` to no retargeting at
+all in `egozero_2025`. What would close it is a retargeting benchmark in TopoRetarget's form
+`toporetarget_2026`, reporting contact precision, contact alignment, maximum penetration and
+the share of frames past 2 mm, per hand and per dataset.
 
 ## 5.4 Generalist and vision-language-action policies
 
@@ -1435,11 +1442,12 @@ The released code also drifts. `groot_n1_2025`'s repository is a later N1.7 gene
 different backbone, a different action horizon and embodiments the paper does not describe, and
 `pi05_2025`'s supports only the flow-matching head, not the hybrid recipe the paper describes.
 
-**The size of the gap, and what would close it.** The gap is size rather than absence. A generalist
-policy that does touch a hand runs it at roughly a third of the actuation the reinforcement-learning
-literature assumes, and the rows that never settle the question are the smaller half of the same gap.
-What would close it is one dexterous-hand task inside the standard generalist suite, with the hand's
-actuated degrees of freedom and its vendor printed beside the number.
+**The size of the gap, and what would close it.** The gap is size rather than absence. A
+generalist policy that does touch a hand runs it at roughly a third of the actuation the
+reinforcement-learning literature assumes, and the rows that never settle the question are the
+smaller half of the same gap. What would close it is one dexterous-hand task inside the
+standard generalist suite, with the hand's actuated degrees of freedom and its vendor printed
+beside the number.
 
 ## 5.5 Model-based baselines and hybrids
 
@@ -1477,7 +1485,7 @@ and projecting a human teleoperator's coarse command onto it, taking four reorie
 from 0 out of 20 under raw teleoperation to 12, 13, 10 and 9 out of 20. The third generates
 data without reinforcement learning at all, which is `dexmimicgen_2024`, `dex1b_2025` and
 `deximit_2026`; `dex1b_2025`'s row is classed as a dataset, so figure 4's leaf, which counts
-method rows, holds the other two. The fourth wraps an RL policy in a residual, which is
+papers, holds the other two. The fourth wraps an RL policy in a residual, which is
 `resdex_2024` at 88.8 percent over 3,200 objects in 12 GPU-hours.
 
 In the variants that dominate 2025 and 2026 work, the reward is no longer the objective of the
@@ -1487,7 +1495,7 @@ in section 5.2 now reaches the shipped policy through a dataset rather than a gr
 
 ## 5.6 Paper against released code
 
-Thirty-eight of the 112 method rows record a disagreement between a paper and the code it
+Thirty-eight of the 112 papers record a disagreement between a paper and the code it
 released, and all 38 released code, so they sit inside the 62 rows that released anything. They
 are not one kind of thing. Eight are contradictions, where paper and code state different
 values or different terms. Fourteen are limits of this survey's own parse, where the body or
@@ -1596,7 +1604,8 @@ Zeroed terms recur, and they are not the same thing as a term that is missing. A
 and zeroed survives a reader's check of the file, which is why Table 5 marks it separately, and
 it is only worth marking where the paper claims the term. Weights differ as well: a penalty
 printed at one value in a table and set to another in a config, an equation's term that is not
-in the released reward file, a term in the file that the table does not list. And in 14 rows the repository does not settle the question at all, which is this survey's limit and not a
+in the released reward file, a term in the file that the table does not list. And in 14 rows
+the repository does not settle the question at all, which is this survey's limit and not a
 finding against the paper. Appendix C prints all 38 row by row in their five classes, each with
 the file, the value on both sides, and the review note where a comparison was narrowed or
 withdrawn.
@@ -1646,7 +1655,7 @@ config at a named commit, so a reviewer diffs two artifacts instead of reading t
 Two hands are not two instances of the same problem. They share one object, they can collide
 with each other, and the action space doubles, so neither the hardware result nor the policy
 carries over from one hand. Counting the work is the first difficulty. Fifty-three corpus
-method rows carry the two-hand flag, and that flag says only that the robot has two end
+papers carry the two-hand flag, and that flag says only that the robot has two end
 effectors. Thirteen of the 53 put no dexterous hand on the robot at all. `aloha_act_2023`,
 `rdt1b_2024`, `egomimic_2024`, `h_rdt_2025` and `umi_2024` are parallel-jaw throughout;
 `pi0_2024`, `pi05_2025`, `pistar06_2025` and `diffusion_policy_2023` name no hand and run
@@ -1865,7 +1874,7 @@ bimanual controller in the corpus measures or penalizes hand-hand penetration du
 ## 7.1 Reporting practice
 
 Most of this literature does test on hardware, which is the check that matters and the one a
-simulator cannot substitute for. Of the 112 method rows in the corpus, 89 report a real-robot
+simulator cannot substitute for. Of the 112 papers in the corpus, 89 report a real-robot
 experiment, 22 do not and one row is unsettled, which is 80 percent of the 111 the note
 settled. Among those 89, 70 state how many real trials produced the headline number, 79 percent
 of them. The 89 is the denominator that belongs to this statistic: the 22 rows with no real
@@ -1929,7 +1938,7 @@ not moved: the median has sat near twenty trials per cell every year since 2024,
 years rest on too few observations to read as a trend. A field can get better at disclosing a
 number without the number itself getting any better.
 
-The denominators also sit on different hardware. The 103 method rows that name their own hand give
+The denominators also sit on different hardware. The 103 papers that name their own hand give
 78 distinct hand strings between them, and this survey applies no normalization to those strings,
 so 78 is a count of strings and not of hand designs. Matching on the string, Allegro appears in
 35, Shadow in 21, Inspire in 19 and LEAP in 12. A success rate on a 16-degree-of-freedom Allegro
@@ -1940,7 +1949,7 @@ least 0.20 m above its resetting height". `bench2dex_2026` requires its terminal
 hold for a continuous dwell time of 0.5 s, to reject transient contacts. `colosseum_2024`
 counts an episode successful "if the model completes the task fully". `dextrack_2025` reports
 every success rate as a pair under two threshold sets, which on GRAB gives 46.70 and 65.48
-percent for the same rollouts. Of the 14 rows that still state no criterion, ten have no
+percent for the same rollouts. Of the 14 papers that still state no criterion, ten have no
 success predicate at all. They report radians rotated or time-to-fall and never define a
 success, which is a fact about the paper rather than a gap in this survey. And four are
 unsettled by the note. Of the 19 criteria the audit recovered, all but one are a rubric, a
@@ -1967,12 +1976,12 @@ percent. The ranking at the anchor is not the ranking under shift.
 
 **Generalisation to unseen objects.** Only 39 rows state a count and the median is 11 objects.
 
-**Physical plausibility of the contact.** Eleven of the 96 rows whose contact handling the note
+**Physical plausibility of the contact.** Eleven of the 96 papers whose contact handling the note
 settled address it, 11 percent, with 16 rows unknown. Section 7.2 takes them apart.
 
-**Sample and wall-clock cost.** Thirty-one of 112 rows state a parallel environment count and 18 a
-simulated episode count. `robopianist_2023` is the exception, at 5 million samples per song and
-roughly 5 hours per run on four Tesla K80 GPUs.
+**Sample and wall-clock cost.** Thirty-one of the 112 papers state a parallel environment count
+and 18 a simulated episode count. `robopianist_2023` is the exception, at 5 million samples per
+song and roughly 5 hours per run on four Tesla K80 GPUs.
 
 **Real-robot transfer.** Simulated rank order is not real rank order. `autoeval_2025` scores
 Open-π0 on put-eggplant-in-sink at 6 of 50 in SIMPLER and 47 of 50 on the real WidowX.
@@ -1980,7 +1989,7 @@ Open-π0 on put-eggplant-in-sink at 6 of 50 in SIMPLER and 47 of 50 on the real 
 statistical inferences about real-world outcomes from simulation results alone".
 
 **Reproducibility.** Releasing code is not the same as releasing something that settles a
-question. 62 rows released code that could be parsed against the paper, and 38 of the 112 rows
+question. 62 rows released code that could be parsed against the paper, and 38 of the 112 papers
 record a disagreement of some kind between the paper and that code. All 38 released code, so
 the raw rate among code-releasing rows is 61 percent. That raw rate is not the finding, because
 the 38 are not one thing. Section 5.6 classifies them: 8 contradictions, 14 limitations of this
@@ -1994,7 +2003,7 @@ that orientation error to zero, so in that file the object is tracked in positio
 ## 7.2 Physical plausibility
 
 One quantity is specific to hands, and it is the one closed-loop policies do not record: how
-far the hand passes into the object it is holding. Eleven of the 96 method rows whose notes
+far the hand passes into the object it is holding. Eleven of the 96 papers whose notes
 settle the question handle interpenetration at all, and every one of them measures it at a
 reference rather than at a rollout. That is a narrower claim than it sounds, and reading it
 more widely would be wrong. Outside closed-loop control the quantity is a standard comparative
@@ -2005,7 +2014,7 @@ simulation displacement. The gap is specific to learned closed-loop control: sev
 eleven score a pose, a trajectory or a contact model before anything executes, the four that
 are closed-loop policies score the references they were given, and none reports the measurement
 for rollouts of its own trained policy. Appendix A gives the audit behind that null, which
-sampled 25 of the 85 rows recorded as not addressing penetration and recovered nothing.
+sampled 25 of the 85 papers recorded as not addressing penetration and recovered nothing.
 
 Where in the pipeline those eleven act is the reference-versus-rollout split that section 1 takes
 from `zhao_dexhand_survey_2026`. A reference is a pose or a trajectory scored before execution,
@@ -2199,7 +2208,7 @@ carries its evidence and the experiment that would close it. Nothing is argued h
 denominator, the evidence and the prescription sit in the section named, so that a finding and
 its consequence are read together and stated once.
 
-1. Eight hands that can be bought today or built from published designs take zero method rows
+1. Eight hands that can be bought today or built from published designs take zero papers
    between them, while the corpus's own experiments concentrate on four designs (section 3.4,
    Figure 2).
 
@@ -2207,7 +2216,7 @@ its consequence are read together and stated once.
    rows that use human data never say how the human motion reached the robot hand (section
    5.3, Table 6).
 
-3. Twenty-one of the 28 rows that put a learned closed-loop controller on two multi-fingered
+3. Twenty-one of the 28 papers that put a learned closed-loop controller on two multi-fingered
    hands run one policy over a concatenated two-hand observation, a choice that has been
    compared twice with opposite outcomes and ablated once (section 6.2, Figure 5).
 
@@ -2220,7 +2229,7 @@ its consequence are read together and stated once.
    contains no dexterous hand at all: of its seven corpus rows, one runs a parallel-jaw
    gripper and the other six state no hand (section 7.4, Table 8).
 
-6. Eight of the 62 method rows that released parseable code state, in a named file at a named
+6. Eight of the 62 papers that released parseable code state, in a named file at a named
    commit, something other than the value their paper prints, and eight further rows have
    been withdrawn from that count since its first draft, one of them because an author
    replied, with two more narrowed. Table 11 gives each of the eight as a repository, a
@@ -2238,7 +2247,7 @@ and this survey's own corrections to it are printed beside it in section 5.6 rat
 in the repository.
 
 Three of those claims carry a case worth remembering. Hardware and software have come apart on
-a narrower claim than the hand count first suggests: 11 of the 19 hands that take no method row
+a narrower claim than the hand count first suggests: 11 of the 19 hands that take no paper
 are neither sold nor open and take none for that reason, which is why the first claim is eight
 hands and not nineteen. A reward table in a paper is a claim about a document rather than about
 a run, and `physhoi_2023` is the instance to keep in mind, since the term its table weights at
@@ -2267,7 +2276,7 @@ number looks like when it is reported carefully, and what the widely used retarg
 when it is not.
 
 If you are choosing hardware, the corpus names four hands and no more. The Allegro carries 35
-method rows, the Shadow 21, the Inspire 19 and LEAP 12, and every other hand in Tables 2 and 3
+papers, the Shadow 21, the Inspire 19 and LEAP 12, and every other hand in Tables 2 and 3
 carries eight rows or fewer. An announced hand has no URDF, no datasheet that can be checked, and
 no paper in this corpus that used it.
 

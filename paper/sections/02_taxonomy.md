@@ -5,7 +5,7 @@
 Dexterous manipulation is not one task, and what separates its tasks is what makes some of them
 hard: what is held, what moves, which way gravity points, and what counts as failure. Six
 families cover most of the corpus. They are read off the rows, and the last paragraph here says
-what they miss. Grasping is the largest. Fifty-seven of the 112 method rows carry the grasp
+what they miss. Grasping is the largest. Fifty-seven of the 112 papers carry the grasp
 label, the labels are not exclusive, and one paper can sit in several families. Success is a
 lift that survives a hold, and the thresholds differ by more than an order of magnitude.
 `dexgraspvla_2025` requires the object "held 10 cm above the table for 20 s", while
@@ -14,34 +14,34 @@ scale is the continuum of starting configurations. `unidexgrasp_pp_2023` states 
 that "we are dealing with an infinite number of tasks considering the initial object pose can
 change continuously".
 
-Functional and tool use is second with 45 rows. It is the family where a stable grasp can still be
-the wrong answer. `dexterous_functional_grasping_2023` gives the case in Sec. 2.1, that "grabbing
-a hammer from the head or handle are both equally valid ways of using it", and only one of the two
-lets the tool be used. Success is defined against the tool's function, and the field has no shared
-way to state it.
+Functional and tool use is second with 45 papers. It is the family where a stable grasp can
+still be the wrong answer. `dexterous_functional_grasping_2023` gives the case in Sec. 2.1,
+that "grabbing a hammer from the head or handle are both equally valid ways of using it", and
+only one of the two lets the tool be used. Success is defined against the tool's function, and
+the field has no shared way to state it.
 
-In-hand reorientation has 31 rows and the most settled criteria, because the community inherited
+In-hand reorientation has 31 papers and the most settled criteria, because the community inherited
 one number. `openai_dexterity_2018` declared the goal achieved below 0.4 rad of orientation error,
 `dextreme_2022` keeps 0.4 rad at test time against a 0.1 rad training tolerance, and `eureka_2023`
 counts consecutive successes at 0.1 rad. A shared tolerance is not a shared protocol, because the
 stopping rule differs. `visual_dexterity_2022` measures error "when the controller predicts it has
 reached the goal and stops", which makes the policy a judge of its own trial.
 
-Tracking a human reference has 12 rows and inverts the problem. The target is a trajectory rather
-than an endpoint, so success is a per-frame error band. `maniptrans_2025` requires all four of 30
-degrees of rotation, 3 cm of translation, 8 cm of joint error and 6 cm of fingertip error. The
-difficulty is that the reference came from a human hand and was never dynamically feasible for the
-robot. `dexmachina_2025` warns in App. B.4 that scoring by timesteps inside the thresholds makes
-"the results highly sensitive to the threshold values".
+Tracking a human reference has 12 papers and inverts the problem. The target is a trajectory
+rather than an endpoint, so success is a per-frame error band. `maniptrans_2025` requires all
+four of 30 degrees of rotation, 3 cm of translation, 8 cm of joint error and 6 cm of fingertip
+error. The difficulty is that the reference came from a human hand and was never dynamically
+feasible for the robot. `dexmachina_2025` warns in App. B.4 that scoring by timesteps inside
+the thresholds makes "the results highly sensitive to the threshold values".
 
-Bimanual coordination has 43 rows and handover has 10. Handover is the smallest family and the one
-whose failure has a single moment, because the giver must release only after the receiver has the
-object. `dynamic_handover_2023` reports a hit rate above its success rate and blames the gap in
-Sec. 5.4 on "occasional challenges encountered during the grasping phase of the catcher". Not
-every paper here learns both sides. In `dexterous_handover_2025` only the receiver is learned and
-the giver is a scripted arm.
+Bimanual coordination has 43 papers and handover has 10. Handover is the smallest family and
+the one whose failure has a single moment, because the giver must release only after the
+receiver has the object. `dynamic_handover_2023` reports a hit rate above its success rate and
+blames the gap in Sec. 5.4 on "occasional challenges encountered during the grasping phase of
+the catcher". Not every paper here learns both sides. In `dexterous_handover_2025` only the
+receiver is learned and the giver is a scripted arm.
 
-Those six families do not cover the corpus. Twenty-four of the 112 method rows carry a label
+Those six families do not cover the corpus. Twenty-four of the 112 papers carry a label
 from outside them and eight carry no label from the six at all. Twenty fall in a catch-all
 class, mostly generalist policies evaluated on a task suite rather than on a dexterous task
 family, among them `pi0_2024`, `pi05_2025`, `pistar06_2025`, `openvla_2024` and
@@ -87,10 +87,10 @@ progressively from palm up and palm down, through base up and base down, to thum
 down.
 
 **The second hand, and three counts.** Three counts describe two hands and they measure
-different things. Fifty-three of the 112 method rows record two hands on the robot, which is
+different things. Fifty-three of the 112 papers record two hands on the robot, which is
 all the corpus's two-hand flag claims. Forty-three carry the task label for bimanual
 coordination, the narrower claim that coordinating the hands is the task. Section 6 narrows
-again, to the 28 rows whose notes place a learned closed-loop controller on two multi-fingered
+again, to the 28 papers whose notes place a learned closed-loop controller on two multi-fingered
 hands, and its opening paragraph names every exclusion that takes the 53 down to the 28. That
 28 is the denominator for every architecture count in this survey. Every bimanual claim here
 names which of the three it uses.
@@ -156,8 +156,7 @@ of the engine.
 **Success criterion and per-cell trial count.** The criterion is the predicate a paper uses to
 call an episode a success: a pose within a tolerance, an object never dropped, a task
 completed. The per-cell count is how many trials one reported rate is computed from. Section 7
-finds 98 of the 112 state a criterion and no two of them state the same one, and that 70 state
-a count.
+finds 98 of them state a criterion and no two state the same one, and that 70 state a count.
 
 ## Table 1. Task families against the properties that define success
 
@@ -182,8 +181,8 @@ shifts are visible in the rows, and none of them is small.
 **The demonstration branch overtook the simulator branch in 2024.** Sorting each method by
 whether it trains in simulation, through reinforcement learning or distillation, or from human
 demonstration, through behavior cloning, a vision-language-action model, a diffusion or flow
-policy, or a collection rig, the simulator branch led 13 rows to 4 in 2023 and trailed 15 to 18
-in 2024. It has trailed since: demonstration-trained work is 22 of the 34 rows from 2025 and 8
+policy, or a collection rig, the simulator branch led 13 papers to 4 in 2023 and trailed 15 to 18
+in 2024. It has trailed since: demonstration-trained work is 22 of the 34 papers from 2025 and 8
 of the 13 so far from 2026. The recipe section 1 describes is this field's mature pipeline
 rather than its growth area, and a reader who knows only that recipe is reading the field as it
 was in 2023.

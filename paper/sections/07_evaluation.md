@@ -3,7 +3,7 @@
 ## 7.1 Reporting practice
 
 Most of this literature does test on hardware, which is the check that matters and the one a
-simulator cannot substitute for. Of the 112 method rows in the corpus, 89 report a real-robot
+simulator cannot substitute for. Of the 112 papers in the corpus, 89 report a real-robot
 experiment, 22 do not and one row is unsettled, which is 80 percent of the 111 the note
 settled. Among those 89, 70 state how many real trials produced the headline number, 79 percent
 of them. The 89 is the denominator that belongs to this statistic: the 22 rows with no real
@@ -67,7 +67,7 @@ not moved: the median has sat near twenty trials per cell every year since 2024,
 years rest on too few observations to read as a trend. A field can get better at disclosing a
 number without the number itself getting any better.
 
-The denominators also sit on different hardware. The 103 method rows that name their own hand give
+The denominators also sit on different hardware. The 103 papers that name their own hand give
 78 distinct hand strings between them, and this survey applies no normalization to those strings,
 so 78 is a count of strings and not of hand designs. Matching on the string, Allegro appears in
 35, Shadow in 21, Inspire in 19 and LEAP in 12. A success rate on a 16-degree-of-freedom Allegro
@@ -78,7 +78,7 @@ least 0.20 m above its resetting height". `bench2dex_2026` requires its terminal
 hold for a continuous dwell time of 0.5 s, to reject transient contacts. `colosseum_2024`
 counts an episode successful "if the model completes the task fully". `dextrack_2025` reports
 every success rate as a pair under two threshold sets, which on GRAB gives 46.70 and 65.48
-percent for the same rollouts. Of the 14 rows that still state no criterion, ten have no
+percent for the same rollouts. Of the 14 papers that still state no criterion, ten have no
 success predicate at all. They report radians rotated or time-to-fall and never define a
 success, which is a fact about the paper rather than a gap in this survey. And four are
 unsettled by the note. Of the 19 criteria the audit recovered, all but one are a rubric, a
@@ -105,12 +105,12 @@ percent. The ranking at the anchor is not the ranking under shift.
 
 **Generalisation to unseen objects.** Only 39 rows state a count and the median is 11 objects.
 
-**Physical plausibility of the contact.** Eleven of the 96 rows whose contact handling the note
+**Physical plausibility of the contact.** Eleven of the 96 papers whose contact handling the note
 settled address it, 11 percent, with 16 rows unknown. Section 7.2 takes them apart.
 
-**Sample and wall-clock cost.** Thirty-one of 112 rows state a parallel environment count and 18 a
-simulated episode count. `robopianist_2023` is the exception, at 5 million samples per song and
-roughly 5 hours per run on four Tesla K80 GPUs.
+**Sample and wall-clock cost.** Thirty-one of the 112 papers state a parallel environment count
+and 18 a simulated episode count. `robopianist_2023` is the exception, at 5 million samples per
+song and roughly 5 hours per run on four Tesla K80 GPUs.
 
 **Real-robot transfer.** Simulated rank order is not real rank order. `autoeval_2025` scores
 Open-π0 on put-eggplant-in-sink at 6 of 50 in SIMPLER and 47 of 50 on the real WidowX.
@@ -118,7 +118,7 @@ Open-π0 on put-eggplant-in-sink at 6 of 50 in SIMPLER and 47 of 50 on the real 
 statistical inferences about real-world outcomes from simulation results alone".
 
 **Reproducibility.** Releasing code is not the same as releasing something that settles a
-question. 62 rows released code that could be parsed against the paper, and 38 of the 112 rows
+question. 62 rows released code that could be parsed against the paper, and 38 of the 112 papers
 record a disagreement of some kind between the paper and that code. All 38 released code, so
 the raw rate among code-releasing rows is 61 percent. That raw rate is not the finding, because
 the 38 are not one thing. Section 5.6 classifies them: 8 contradictions, 14 limitations of this
@@ -132,7 +132,7 @@ that orientation error to zero, so in that file the object is tracked in positio
 ## 7.2 Physical plausibility
 
 One quantity is specific to hands, and it is the one closed-loop policies do not record: how
-far the hand passes into the object it is holding. Eleven of the 96 method rows whose notes
+far the hand passes into the object it is holding. Eleven of the 96 papers whose notes
 settle the question handle interpenetration at all, and every one of them measures it at a
 reference rather than at a rollout. That is a narrower claim than it sounds, and reading it
 more widely would be wrong. Outside closed-loop control the quantity is a standard comparative
@@ -143,7 +143,7 @@ simulation displacement. The gap is specific to learned closed-loop control: sev
 eleven score a pose, a trajectory or a contact model before anything executes, the four that
 are closed-loop policies score the references they were given, and none reports the measurement
 for rollouts of its own trained policy. Appendix A gives the audit behind that null, which
-sampled 25 of the 85 rows recorded as not addressing penetration and recovered nothing.
+sampled 25 of the 85 papers recorded as not addressing penetration and recovered nothing.
 
 Where in the pipeline those eleven act is the reference-versus-rollout split that section 1 takes
 from `zhao_dexhand_survey_2026`. A reference is a pose or a trajectory scored before execution,

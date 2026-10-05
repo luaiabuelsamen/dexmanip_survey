@@ -75,10 +75,10 @@ the URDF is released and the released API repository contains none `leap_hand_20
 
 {{figure:fig2_hands}}
 
-The two oldest designs in Table 2 carry 49 of the 103 method rows that name a hand at all, and
+The two oldest designs in Table 2 carry 49 of the 103 papers that name a hand at all, and
 seven rows use both. Neither design's date is confirmed by its own sources, so 2005 and 2016 are
 the bibliography's. Figure 2 counts, per hand, the method papers whose own experiments use it. Of
-112 method rows, 103 name a hand. The Allegro accounts for 35, Shadow for 21, the Inspire RH56
+112 papers, 103 name a hand. The Allegro accounts for 35, Shadow for 21, the Inspire RH56
 family for 19, a parallel-jaw gripper for 12 and LEAP for 12. Seventy-five of the 103 name an
 Allegro, a Shadow or Adroit model, LEAP or an Inspire.
 
@@ -92,11 +92,11 @@ reader can open.
 Concentration would matter less if the hand did not move the result, and it does. On the same
 simulated cube rotation, LEAP reaches 0.2288 rad/s against the Allegro's 0.0828 rad/s
 `leap_hand_2023`, and RUKA reports a 2.74 N pinch against the Allegro's 1.60 N under the same
-three-trial pinch test `ruka_2025`. A method compared only on Allegro hardware is compared at one
-point in a space where a single axis moves the headline number two or three times over. Inspire,
-XHand and Sharpa take 29 of the 103 rows between them, four rows use two of the three, and none is
-earlier than 2024. Eight take none at all: ORCA, RUKA, Ruka-v2, BiDexHand, DexHand, the Proception
-ProHand, the Tesollo DG-5F and the Unitree Dex5.
+three-trial pinch test `ruka_2025`. A method compared only on Allegro hardware is compared at
+one point in a space where a single axis moves the headline number two or three times over.
+Inspire, XHand and Sharpa take 29 of the 103 papers between them, four rows use two of the
+three, and none is earlier than 2024. Eight take none at all: ORCA, RUKA, Ruka-v2, BiDexHand,
+DexHand, the Proception ProHand, the Tesollo DG-5F and the Unitree Dex5.
 
 **Open hardware and the collapse in cost.** Six rows in Table 2 are open hardware, and LEAP
 Hand V2 in Table 3 is a seventh. Five of the seven state a dollar cost: $2,000 for LEAP, $3,000
@@ -112,7 +112,7 @@ The expensive end of the collapse is secondhand throughout. The only six-figure 
 are RUKA's comparison table at $100,000 for a Shadow Hand and Faive's "steep price tag of 110k
 GBP" `ruka_2025` `faive_hand_2023`. Shadow's own page says to discuss pricing and Table 2's price
 cell for it is empty. The collapse is real at the cheap end and secondhand at the expensive one,
-and it has barely moved the literature. Twelve of the 103 hand-naming method rows use an
+and it has barely moved the literature. Twelve of the 103 hand-naming papers use an
 open-hardware hand, and all twelve are LEAP.
 
 What the cheap hands give up is sensing. LEAP has none and names touch sensors as future work
@@ -144,7 +144,7 @@ see 33 to 50 percent of the labels. Its own bead-maze policies never complete th
 robot.
 
 The usage number is the one to keep, and it needs its inclusion rule stated: a sensor
-physically on the hand, read by the deployed policy. Eight of 112 method rows meet it:
+physically on the hand, read by the deployed policy. Eight papers meet it:
 `anyrotate_2024`, `articulated_tools_inhand_2025`, `dexteleop0_2026`, `dexumi_2025`,
 `hato_visuotactile_2024`, `robot_synesthesia_2023`, `rotateit_2023` and
 `rotating_without_seeing_2023`. The rule excludes `penspin_2024`, whose 20 binary contacts are
@@ -191,7 +191,7 @@ the best-specified vendor page in the corpus leaves its fingertip-force columns 
 {{table:table3_hands_announced}}
 
 **What is sold against what is published on.** The bottom rows of Figure 2 carry the finding.
-None of the nine company-announced hands in Table 3 appears in a single method row whose own
+None of the nine company-announced hands in Table 3 appears in a single paper whose own
 experiments use it. Tesla, Figure, 1X, Sanctuary, Boston Dynamics, Xiaomi, Clone, Daxo and
 PaXini account for zero of the 112 method papers' experiments. The nearest thing to a
 counterexample is `helix_2025`, a Figure blog post claiming a 35-DoF whole-upper-body action
@@ -199,7 +199,7 @@ space at 200 Hz that includes individual finger control. It never names the hand
 per-hand DoF count, and reports no success rate or trial count for any task. It is the maker
 describing its own unreleased hand, which is the evidence class the finding is about. The four
 research prototypes in Table 3 are in a different position, since the Faive Hand and LEAP Hand
-v2 Advanced account for three method rows between them `graspxl_2024` `bidex_teleop_2024`.
+v2 Advanced account for three papers between them `graspxl_2024` `bidex_teleop_2024`.
 
 Table 3's emptiness is measurable and part of the same finding. Over the twelve specification
 columns, 61 percent of its cells are values no source stated, against 39 percent for the hands
@@ -207,30 +207,30 @@ that can be bought. The hands with the highest advertised DoF counts have the le
 behind them.
 
 The one hand that crosses the gap crosses it because its maker published rather than announced.
-ByteDexter reaches a method row through a ByteDance technical report stating 21 DoF per hand, 16
+ByteDexter reaches a paper through a ByteDance technical report stating 21 DoF per hand, 16
 piezoresistive fingertip channels in the action vector and real-robot success rates
 `gr_dexter_2025`, not through a product page. That mechanism is available to every vendor in Table
 3 and none has used it.
 
 The gap runs the other way too, and the last column of Table 2 shows it. Eight hands that can
-be bought or built from published designs take zero method rows each: the Unitree Dex5 with 94
+be bought or built from published designs take zero papers each: the Unitree Dex5 with 94
 pressure sensors on its P variant `unitree_dex5_2025`, the fully actuated Tesollo DG-5F
 `tesollo_dg5f_2024`, the 22-DoF Proception ProHand `proception_prohand_2026`, ORCA, RUKA,
 Ruka-v2, BiDexHand and DexHand. Cheapness is established only for RUKA, Ruka-v2 and DexHand,
 because Table 2's price cell is empty for Unitree, Tesollo, the ProHand, ORCA and BiDexHand,
 and the only Dex5 price on disk is Ruka-v2's secondhand "~$25K" `ruka_v2_2026`. A reader
 choosing a hand on this corpus's evidence has four options with published precedent behind
-them: the Allegro at 35 method rows, a Shadow at 21 and 4 more for its Adroit model, the
+them: the Allegro at 35 papers, a Shadow at 21 and 4 more for its Adroit model, the
 Inspire RH56 family at 19, and LEAP at 12, of which only LEAP has both a published design and a
 stated price. Below those four the record thins fast: eight rows for the XHand, seven for the
 Ability Hand, six for Sharpa, two each for Wuji and LEAP Hand v2, one each for five more, and
 none at all for the other 19 hands of Tables 2 and 3. Those 19 sit in the tables on their
-specifications alone, and no method row in this corpus runs on any of them.
+specifications alone, and no paper in this corpus runs on any of them.
 
 **What would close the gap.** Nineteen of the 33 hands in Tables 2 and 3 appear in no method
 row, and 11 of those are neither sold nor open, so they appear in none for that reason and 33
 is not the denominator for a software-lag claim; the eight hands named just above are. What
-decides used from unused is one regular expression per hand run against the method rows' own
+decides used from unused is one regular expression per hand run against the papers' own
 hand field, in `tools/hand_usage.py`, so the partition is recomputed and not argued about. The
 lag runs through the tooling too. Seven of the fifteen simulator rows ship a first-party hand
 model at all, six of those hands are real, Brax's being a synthetic claw, and every one of the

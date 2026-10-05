@@ -13,13 +13,13 @@
 % ---------------------------------------------------------------------------
 
 A dexterous policy is defined by what supervises it, and four sources are in use across the
-corpus's 112 method rows: a reward function supervises reinforcement learning, a human
+corpus's 112 papers: a reward function supervises reinforcement learning, a human
 demonstration supervises imitation, a human reference trajectory supervises a physics-based
 tracker, which is imitation with a simulator in the loop, and nothing supervises a model-based
 planner, which is handed a cost and a model instead.
 
 The labels do not partition the corpus. Reinforcement learning is the largest at 53 of the 112
-rows, behavior cloning next at 27, distillation at 23, and ten further tags cover the rest.
+papers, behavior cloning next at 27, distillation at 23, and ten further tags cover the rest.
 They sum to far more than 112, because most methods published since 2024 sit on two branches at
 once: a reinforcement-learning teacher and a behavior-cloned student are one paper, not two.
 \figurename~\ref{fig:taxonomy} draws the tree and the cross-links. The repository carries the
@@ -52,16 +52,16 @@ survey reads, and Appendix~\ref{app:method} says where they are and how to read 
 \label{sec:train:rl}
 
 \textbf{The standard recipe.}\label{sec:train:rl:recipe}
-Fifty-nine of the 112 method rows learn from a reward. Forty-eight name PPO as the algorithm, and
+Fifty-nine of the 112 papers learn from a reward. Forty-eight name PPO as the algorithm, and
 the next most frequent, DAPG, appears four times. Forty-three run their own experiments in a
 GPU-parallel simulator from the Isaac family or Genesis, and 36 do both. Only 31 rows state an
 environment count, with a median of 8192 and a maximum of 64000. Twenty-three rows distill a
 privileged teacher into a deployable student, and 16 combine all three of PPO, a GPU simulator and
 distillation. That 16-row intersection is the recipe as it is actually practised.
 
-The hand is almost always an Allegro. It appears in 35 of the 112 method rows, and its hold on
-in-hand reorientation is tighter still: more than half of those rows use it, against roughly a
-fifth for the Shadow and an eighth for LEAP.
+The hand is almost always an Allegro. It appears in 35 of them, and its hold on in-hand
+reorientation is tighter still: more than half of those rows use it, against roughly a fifth
+for the Shadow and an eighth for LEAP.
 
 Privilege is handled two ways. OpenAI \cite{openai_dexterity_2018} gives the value network object
 and target orientation, joint angles, joint velocities and object velocities the policy never
@@ -117,7 +117,7 @@ flag defaults to off, with no shipped config setting it true. Three of 21 in-han
 methods, then, put a hand-object contact or force quantity in the reward, and none puts
 interpenetration in it. Li et al. \cite{teledexter_2026} penalize interpenetration with a
 differentiable signed-distance term, but during offline reference construction, not in the
-policy's reward. Across all 112 method rows, 85 do not address penetration at all, 5 constrain it,
+policy's reward. Across the corpus, 85 papers do not address penetration at all, 5 constrain it,
 3 measure it, 3 penalize it and 16 say nothing either way. The physical quality of the contact is
 not something this literature optimises.
 
@@ -213,17 +213,17 @@ raising configuration-space coverage from 38 to 90 percent and one-time grasp su
 exoskeleton whose fingertip workspace is optimized to match the target hand, then regresses
 encoder values straight to motor values.
 
-What that tabulation does not carry is the point. Only 12 of the 30 rows record a latency at all,
-three of those give no number, and only 7 state a rig cost. Where costs are stated they are low
-and falling, from \cite{holo_dex_2022}'s \$399 headset through the \$600 exoskeleton of
-\cite{ace_teleop_2024} and the \$600 haptic glove of \cite{doglove_2025} to the \$4,000 backpack
-of \cite{dexcap_2024} and the \$6,000 rig of \cite{bidex_teleop_2024}. Latency is not one
-quantity: DexPilot \cite{dexpilot_2020}'s ``about one second'' and Holo-Dex \cite{holo_dex_2022}'s
-``under 100 milliseconds'' are end to end, while Geometric Retargeting
+What that tabulation does not carry is the point. Only 12 of the 30 papers record a latency at
+all, three of those give no number, and only 7 state a rig cost. Where costs are stated they
+are low and falling, from \cite{holo_dex_2022}'s \$399 headset through the \$600 exoskeleton of
+\cite{ace_teleop_2024} and the \$600 haptic glove of \cite{doglove_2025} to the \$4,000
+backpack of \cite{dexcap_2024} and the \$6,000 rig of \cite{bidex_teleop_2024}. Latency is not
+one quantity: DexPilot \cite{dexpilot_2020}'s ``about one second'' and Holo-Dex
+\cite{holo_dex_2022}'s ``under 100 milliseconds'' are end to end, while Geometric Retargeting
 \cite{geometric_retargeting_2025}'s 1 kHz and AnyTeleop \cite{anyteleop_2023}'s 9 to 10 ms
 retargeting are single stages and several cells give a control rate. That tabulation's latency
-column mixes the two, so its spread is not a range. Only 13 rows report how many trajectories were
-collected, and only 7 report hours.
+column mixes the two, so its spread is not a range. Only 13 rows report how many trajectories
+were collected, and only 7 report hours.
 
 Where throughput is measured, human collection beats teleoperation by a wide margin. Qiu et al.
 \cite{humanoid_policy_human_policy_2025} time a grasp demonstration at 3.79 seconds for a bare
@@ -231,17 +231,17 @@ human and 19.72 seconds through a teleoperated humanoid, and a pour at 4.81 agai
 It attributes the gap to retargeting latency and to the workspace of a 7-DoF arm rather than to
 anything about the hand.
 
-\textbf{Imitation architectures.}\label{sec:train:human:arch}
-Four architectures cover the corpus. Action chunking came from \cite{aloha_act_2023}, which
-predicts a chunk of joint targets with a CVAE and combines overlapping chunks by exponentially
-weighted ensembling, reaching 80 to 90 percent on fine bimanual tasks from about 50 demonstrations
-each. Diffusion came from Diffusion Policy \cite{diffusion_policy_2023}, which denoises an action
-sequence and reports a 46.9 percent average success improvement over LSTM-GMM, IBC and BET across
-15 tasks. 3D Diffusion Policy \cite{dp3_2024} swaps the image encoder for a small point-cloud
-encoder and reports 74.4 percent against 59.8 percent across 72 simulated tasks, and 85.0 against
-35.0 percent on four real tasks from 40 demonstrations each. Flow matching is the 2024-onward
-default for large models and carries 8 of the 112 rows. Discrete action tokens are the fourth,
-used by \cite{openvla_2024} and \cite{metis_2025}, and are the only one of the four that needs no
+\textbf{Imitation architectures.}\label{sec:train:human:arch} Four architectures cover the
+corpus. Action chunking came from \cite{aloha_act_2023}, which predicts a chunk of joint
+targets with a CVAE and combines overlapping chunks by exponentially weighted ensembling,
+reaching 80 to 90 percent on fine bimanual tasks from about 50 demonstrations each. Diffusion
+came from Diffusion Policy \cite{diffusion_policy_2023}, which denoises an action sequence and
+reports a 46.9 percent average success improvement over LSTM-GMM, IBC and BET across 15 tasks.
+3D Diffusion Policy \cite{dp3_2024} swaps the image encoder for a small point-cloud encoder and
+reports 74.4 percent against 59.8 percent across 72 simulated tasks, and 85.0 against 35.0
+percent on four real tasks from 40 demonstrations each. Flow matching is the 2024-onward
+default for large models and carries eight papers. Discrete action tokens are the fourth, used
+by \cite{openvla_2024} and \cite{metis_2025}, and are the only one of the four that needs no
 continuous head at all.
 
 Data generation is a separate lever and is underrated. DexMimicGen \cite{dexmimicgen_2024} turns
@@ -285,7 +285,7 @@ human correspondence is not uniformly better, and this is the one result in the 
 so with an ablation.
 
 \textbf{Tracking a human reference with physics.}\label{sec:train:track}
-Twelve method rows sit in the human-reference tracking family. Eight track a human hand on an
+Twelve papers sit in the human-reference tracking family. Eight track a human hand on an
 object and are covered here; the other four sit at the edges, Lum et al.
 \cite{human2sim2robot_2025} tracking only the object's trajectory, DexMan \cite{dexman_2025}
 retargeting bimanual video onto a full humanoid, and HumanPlus \cite{humanplus_2024} and OmniH2O
@@ -350,7 +350,7 @@ form. Penetration is handled at the reference, if at all, and never at the rollo
 on a microwave and a laptop down to 41.2 percent on a ketchup bottle over 20 trials each.
 
 \textbf{Cross-hand retargeting.} Human data does not port across hands, and the map is usually
-left unstated. Fifty-three method rows use human data and name 44 distinct hand strings between
+left unstated. Fifty-three papers use human data and name 44 distinct hand strings between
 them, and twenty of those appear among the 30 teleoperation systems with a stated retargeting
 objective. The other 33 never say how the human motion reached the hand, and the stated
 objectives do not converge, from a fingertip keypoint-vector energy in \cite{anyteleop_2023} to
@@ -441,7 +441,7 @@ grasp-to-grasp transitions and projecting a human teleoperator's coarse command 
 four reorientation tasks from 0 out of 20 under raw teleoperation to 12, 13, 10 and 9 out of
 20. The third generates data without reinforcement learning at all, which is
 \cite{dexmimicgen_2024}, \cite{dex1b_2025} and \cite{deximit_2026}; Dex1B's row is classed as a
-dataset, so \figurename~\ref{fig:taxonomy}'s leaf, which counts method rows, holds the other
+dataset, so \figurename~\ref{fig:taxonomy}'s leaf, which counts papers, holds the other
 two. The fourth wraps an RL policy in a residual, which is \cite{resdex_2024} at 88.8 percent
 over 3,200 objects in 12 GPU-hours.
 
@@ -474,7 +474,7 @@ dataset rather than a gradient.
 
 \input{tables/table10_codegap}
 
-Thirty-eight of the 112 method rows record a disagreement between a paper and the code it
+Thirty-eight of the 112 papers record a disagreement between a paper and the code it
 released, and all 38 released code, so they sit inside the 62 rows that released anything
 (\figurename~\ref{fig:codegap}). They are not one kind of thing. Eight are contradictions,
 where paper and code state different values or different terms. Fourteen are limits of this

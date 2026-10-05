@@ -22,7 +22,8 @@
   \IfFileExists{figs/fig_field.tex}{\input{figs/fig_field}}{%
     \framebox[0.7\textwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_field.tex pending}}}
   \caption{The field on one page, and the map of this survey: nodes sized by corpus papers, edges
-  drawn only for routes the corpus contains, each column head naming the section that covers it.}
+  drawn for the routes that carry at least two fifths of the smaller endpoint, so the dominant
+  path reads as a path, each column head naming the section that covers it.}
   \label{fig:field}
 \end{figure*}
 
@@ -87,20 +88,21 @@ surveys preceding this one supplies a protocol that would make them comparable.
 Section~\ref{sec:evaluation} derives one, with the trial counts a stated confidence interval
 actually requires.
 
-This survey is built from a corpus on disk. Two hundred and twenty-one bibliography entries,
-218 of them read into a structured record under a fixed template, every value quoted from a
-parsed source with that source named, and every count printed here recomputed from those
-records at build time. Where a source is silent the record says so, which is why the coverage
-statistics in this paper are floors and not rates. The same discipline extended to released
-code: where a method published a repository, its reward was read from the repository as well as
-from the paper. Reading an implementation against its own description is established practice
-outside robotics, in repeatability and reproducibility studies
-\cite{collberg_repeatability_2016, raff_reproducibility_2019}, in audits of how implementation
-detail moves reinforcement-learning results \cite{engstrom_implementation_matters_2020}, in
-reward-design review \cite{knox_reward_misdesign_2023}, in benchmark re-releases
-\cite{metaworld_plus_2025}, and most directly in recent work on paper--code alignment
-\cite{scicoqa_2026, biocon_2026}. We are aware of none that does it for a robotics field's
-released reward functions, and Section~\ref{sec:train:code} reports what this one found.
+Every claim in this survey is traceable to a source. Two hundred and twenty-one bibliography
+entries were collected, 218 of them read into a structured record under a fixed template, with
+every value quoted from the source it came from and that source named. The counts printed here
+are recomputed from those records when the paper is built. Where a source is silent the record
+says so, which is why the coverage statistics in this paper are floors and not rates. The same
+discipline extended to released code: where a method published a repository, its reward was
+read from the repository as well as from the paper. Reading an implementation against its own
+description is established practice outside robotics, in repeatability and reproducibility
+studies \cite{collberg_repeatability_2016, raff_reproducibility_2019}, in audits of how
+implementation detail moves reinforcement-learning results
+\cite{engstrom_implementation_matters_2020}, in reward-design review
+\cite{knox_reward_misdesign_2023}, in benchmark re-releases \cite{metaworld_plus_2025}, and
+most directly in recent work on paper--code alignment \cite{scicoqa_2026, biocon_2026}. We are
+aware of none that does it for a robotics field's released reward functions, and
+Section~\ref{sec:train:code} reports what this one found.
 
 The scope is single-hand and bimanual multi-fingered manipulation under learned control.
 Parallel-jaw work enters as a comparison and not as a subject. Two limits apply to every number

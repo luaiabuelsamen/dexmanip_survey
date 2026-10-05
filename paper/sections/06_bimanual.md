@@ -3,7 +3,7 @@
 Two hands are not two instances of the same problem. They share one object, they can collide
 with each other, and the action space doubles, so neither the hardware result nor the policy
 carries over from one hand. Counting the work is the first difficulty. Fifty-three corpus
-method rows carry the two-hand flag, and that flag says only that the robot has two end
+papers carry the two-hand flag, and that flag says only that the robot has two end
 effectors. Thirteen of the 53 put no dexterous hand on the robot at all. `aloha_act_2023`,
 `rdt1b_2024`, `egomimic_2024`, `h_rdt_2025` and `umi_2024` are parallel-jaw throughout;
 `pi0_2024`, `pi05_2025`, `pistar06_2025` and `diffusion_policy_2023` name no hand and run

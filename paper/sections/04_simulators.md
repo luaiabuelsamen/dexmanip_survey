@@ -141,7 +141,7 @@ described above. Its per-task timesteps are published, which is rare: the Shadow
 1/120 s physics step under a 1/60 s control step, or 1/20 s in the OpenAI variant. The result
 that reorganised the field is that reproducing OpenAI's Shadow Hand cube reorientation took
 under an hour on one A100, against 30 hours on 6144 CPU cores and 8 V100s (`isaacgym_2021`,
-Sec. 6.4.1). Thirty-five of the 112 method papers in this corpus run on it.
+Sec. 6.4.1). Thirty-five of the papers examined run on it.
 
 Orbit and Isaac Lab moved the stack to PhysX 5, and the dexterous offering is thinner than the
 predecessor's: the first-party suite is lifting, grasping and reorienting with the KUKA Allegro

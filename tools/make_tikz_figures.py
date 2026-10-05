@@ -263,11 +263,12 @@ def fig_field():
            1 if k == "not stated" else 0) for k in sims]),
         ("training paradigm", [r"sec:training"],
          [(k, (lambda k: lambda r: k in (r.get("paradigm") or []))(k), 0) for k in pars]),
+        # Evaluation is two nodes, not four. The penetration pair used to sit here, which put a
+        # section-7 null into the figure a reader meets before section 1, at the same visual
+        # weight as "did this run on a robot". It belongs where it is argued.
         ("evaluation", [r"sec:evaluation"],
          [("real robot", lambda r: r.get("real_robot") is True, 0),
-          ("simulation only", lambda r: r.get("real_robot") is not True, 0),
-          ("penetration addressed", lambda r: r.get("penetration") in HANDLED, 2),
-          ("penetration silent", lambda r: r.get("penetration") == "not addressed", 2)]),
+          ("simulation only", lambda r: r.get("real_robot") is not True, 0)]),
     ]
     count = {(ci, name): sum(1 for r in M if pred(r))
              for ci, (_, _, items) in enumerate(cols) for name, pred, _ in items}
@@ -301,7 +302,15 @@ def fig_field():
                 n = sum(1 for r in M if pa(r) and pb(r))
                 if n:
                     edges.append((ci, a, b, n))
-    mxe = max(n for *_, n in edges) or 1
+    # A complete bipartite graph between adjacent columns is not information: nearly every pair
+    # of predicates co-occurs somewhere, so 97 near-identical lines told a reader nothing. Keep
+    # the routes that carry at least two fifths of the lighter endpoint, which cuts 46 routes to
+    # 27 and makes the dominant path through the field visible as a path.
+    def _share(a, b, n, ci):
+        lo = min(count[(ci, a)], count[(ci + 1, b)]) or 1
+        return n / lo
+    edges = [e for e in edges if _share(e[1], e[2], e[3], e[0]) >= 0.40]
+    mxe = max((n for *_, n in edges), default=1) or 1
     # Where each route leaves and enters a box. Spread over the middle four fifths of the box's
     # side, in the order of the boxes at the other end, so routes fan out instead of crossing at
     # one point and the picture can be read one route at a time.

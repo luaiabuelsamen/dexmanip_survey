@@ -9,7 +9,7 @@ carries its evidence and the experiment that would close it. Nothing is argued h
 denominator, the evidence and the prescription sit in the section named, so that a finding and
 its consequence are read together and stated once.
 
-1. Eight hands that can be bought today or built from published designs take zero method rows
+1. Eight hands that can be bought today or built from published designs take zero papers
    between them, while the corpus's own experiments concentrate on four designs (section 3.4,
    Figure 2).
 
@@ -17,7 +17,7 @@ its consequence are read together and stated once.
    rows that use human data never say how the human motion reached the robot hand (section
    5.3, Table 6).
 
-3. Twenty-one of the 28 rows that put a learned closed-loop controller on two multi-fingered
+3. Twenty-one of the 28 papers that put a learned closed-loop controller on two multi-fingered
    hands run one policy over a concatenated two-hand observation, a choice that has been
    compared twice with opposite outcomes and ablated once (section 6.2, Figure 5).
 
@@ -30,7 +30,7 @@ its consequence are read together and stated once.
    contains no dexterous hand at all: of its seven corpus rows, one runs a parallel-jaw
    gripper and the other six state no hand (section 7.4, Table 8).
 
-6. Eight of the 62 method rows that released parseable code state, in a named file at a named
+6. Eight of the 62 papers that released parseable code state, in a named file at a named
    commit, something other than the value their paper prints, and eight further rows have
    been withdrawn from that count since its first draft, one of them because an author
    replied, with two more narrowed. Table 11 gives each of the eight as a repository, a
@@ -48,7 +48,7 @@ and this survey's own corrections to it are printed beside it in section 5.6 rat
 in the repository.
 
 Three of those claims carry a case worth remembering. Hardware and software have come apart on
-a narrower claim than the hand count first suggests: 11 of the 19 hands that take no method row
+a narrower claim than the hand count first suggests: 11 of the 19 hands that take no paper
 are neither sold nor open and take none for that reason, which is why the first claim is eight
 hands and not nineteen. A reward table in a paper is a claim about a document rather than about
 a run, and `physhoi_2023` is the instance to keep in mind, since the term its table weights at
@@ -77,6 +77,6 @@ number looks like when it is reported carefully, and what the widely used retarg
 when it is not.
 
 If you are choosing hardware, the corpus names four hands and no more. The Allegro carries 35
-method rows, the Shadow 21, the Inspire 19 and LEAP 12, and every other hand in Tables 2 and 3
+papers, the Shadow 21, the Inspire 19 and LEAP 12, and every other hand in Tables 2 and 3
 carries eight rows or fewer. An announced hand has no URDF, no datasheet that can be checked, and
 no paper in this corpus that used it.

@@ -61,20 +61,20 @@ papers on nominally the same task are usually not measuring the same event, and 
 surveys preceding this one supplies a protocol that would make them comparable. Section 7
 derives one, with the trial counts a stated confidence interval actually requires.
 
-This survey is built from a corpus on disk. Two hundred and twenty-one bibliography entries,
-218 of them read into a structured record under a fixed template, every value quoted from a
-parsed source with that source named, and every count printed here recomputed from those
-records at build time. Where a source is silent the record says so, which is why the coverage
-statistics in this paper are floors and not rates. The same discipline extended to released
-code: where a method published a repository, its reward was read from the repository as well as
-from the paper. Reading an implementation against its own description is established practice
-outside robotics, in repeatability and reproducibility studies `collberg_repeatability_2016`
-`raff_reproducibility_2019`, in audits of how implementation detail moves
-reinforcement-learning results `engstrom_implementation_matters_2020`, in reward-design review
-`knox_reward_misdesign_2023`, in benchmark re-releases `metaworld_plus_2025`, and most directly
-in recent work on paper-code alignment `scicoqa_2026` `biocon_2026`. We are aware of none that
-does it for a robotics field's released reward functions, and section 5.6 reports what this one
-found.
+Every claim in this survey is traceable to a source. Two hundred and twenty-one bibliography
+entries were collected, 218 of them read into a structured record under a fixed template, with
+every value quoted from the source it came from and that source named. The counts printed here
+are recomputed from those records when the paper is built. Where a source is silent the record
+says so, which is why the coverage statistics in this paper are floors and not rates. The same
+discipline extended to released code: where a method published a repository, its reward was
+read from the repository as well as from the paper. Reading an implementation against its own
+description is established practice outside robotics, in repeatability and reproducibility
+studies `collberg_repeatability_2016` `raff_reproducibility_2019`, in audits of how
+implementation detail moves reinforcement-learning results
+`engstrom_implementation_matters_2020`, in reward-design review `knox_reward_misdesign_2023`,
+in benchmark re-releases `metaworld_plus_2025`, and most directly in recent work on paper-code
+alignment `scicoqa_2026` `biocon_2026`. We are aware of none that does it for a robotics
+field's released reward functions, and section 5.6 reports what this one found.
 
 The scope is single-hand and bimanual multi-fingered manipulation under learned control.
 Parallel-jaw work enters as a comparison and not as a subject. Two limits apply to every number
