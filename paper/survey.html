@@ -4821,40 +4821,47 @@ nine can be checked by opening the repository at the commit in that table.</p>
 <p><strong>Everyone was written to first.</strong> The authors of these nine works were written to on 19
 September 2026, before this survey was posted. Each letter quotes the claim, its evidence and
 the sentences the survey would print, and asks whether the reading is right, whether there is a
-reason the released configuration differs, and whether the authors want the wording changed;
-each gave until 10 October 2026 to reply, and said that silence would be recorded as silence
-and not as agreement. What a reply can add is what the artifacts cannot give: which shipped
-configuration belongs to which stage of a pipeline, whether the fetched commit is the one
-behind the reported numbers, and whether an untagged branch holds the code that was run. The
-letters are in <code>outreach/</code> in the corpus that accompanies this survey, so a reader can see
-exactly what every author was asked, and <code>outreach/RECIPIENTS.md</code> records the address each went
-to and where that address came from. A tenth letter was drafted and not sent, because drafting
-it broke its own claim; it is kept with the nine. This version was written between those two
-dates: no reply had been received at the time of writing, no row here has been changed by one,
+reason the released configuration differs, and whether the authors want the wording changed.
+Each gave until 10 October 2026 to reply, and said that silence would be recorded as silence
+and not as agreement.</p>
+<p>What a reply can add is what the artifacts cannot give: which shipped configuration belongs to
+which stage of a pipeline, whether the fetched commit is the one behind the reported numbers,
+and whether an untagged branch holds the code that was run. The letters are in <code>outreach/</code> in
+the corpus that accompanies this survey, so a reader can see exactly what every author was
+asked, and <code>outreach/RECIPIENTS.md</code> records the address each went to and where that address
+came from. A tenth letter was drafted and never sent, because drafting it broke its own claim;
+it is kept with the nine.</p>
+<p>One reply has arrived, and it changed the paper. Yuzhe Qin, corresponding author on
+<code>dexpoint_2022</code>, answered on 20 September and showed that three parts of the comparison did not
+hold, including one where this survey had read a term as a departure from the paper's formula
+when it was the paper's formula. That row left the contradiction class, which is why the census
+here is eight and not nine. The other eight letters are unanswered as this version is written,
 and a window that closes in silence will be recorded in the next version as silence and not as
 assent. Any reply, and its effect on the row it concerns, is recorded in <code>mismatch_review</code> in
-<code>corpus/rows/</code>. What this section says is still written to the narrow form: a repository, a
-commit, a file, and two values. It attributes nothing to intent, and a reader with a browser
-can confirm or refute any line of Table 11 at the repository and commit that line names,
-without anyone's agreement and without this survey's own corpus. Two limits come with that, and
-neither is a hedge. A repository at a fetched commit is not the code that produced a paper's
-numbers: it may postdate that code, precede it, or have diverged from it on a branch nobody
-tagged, and a snapshot cannot say which, so each line compares a published document with one
-public artifact and claims nothing beyond the two. One work in this corpus says exactly that
-about itself. <code>hora_2022</code>'s README sends a reader to tag <code>v0.0.1</code> rather than to the default
-branch to reproduce the paper's numbers, which is why its row is classed version skew and is
-not one of the eight: told which commit to read, this survey read it, and nobody else was in a
-position to tell us, because nobody else was asked. The other limit is the remedy. Every one of
-the eight is correctable in public. An author who shows that the file says something other than
-what Table 11 prints, or that the fetched commit is not the one behind their numbers, changes
-the row: <code>mismatch_class</code> and <code>mismatch_review</code> in <code>corpus/rows/</code>, the counts that follow from
-them, and the sentence in the next version, with the correction printed beside the original
-comparison as the withdrawals already are. The route is the address in the author block of this
-paper. It is the only route this survey can offer today, because the corpus is not deposited
-yet: it is available from the author on request, and will be deposited with a persistent
-identifier. A correction asked for that way is a commit and a replacement version rather than a
-negotiation. Eight of the sixteen rows an earlier draft drew have already gone that way on this
-survey's own evidence and two more were narrowed; a further correction would cost it nothing.</p>
+<code>corpus/rows/</code>.</p>
+<p>What this section claims is narrow: a repository, a commit, a file, and two values. It
+attributes nothing to intent, and a reader with a browser can confirm or refute any line of
+Table 11 at the repository and commit that line names, without anyone's agreement and without
+this survey's own corpus.</p>
+<p><strong>Two limits come with that, and neither is a hedge.</strong> A repository at a fetched commit is not
+the code that produced a paper's numbers. It may postdate that code, precede it, or have
+diverged from it on a branch nobody tagged, and a snapshot cannot say which, so each line
+compares a published document with one public artifact and claims nothing beyond the two. One
+work in this corpus says exactly that about itself: <code>hora_2022</code>'s README sends a reader to tag
+<code>v0.0.1</code> rather than to the default branch to reproduce the paper's numbers, which is why its
+row is classed version skew and is not one of the eight. Told which commit to read, this survey
+read it, and nobody else was in a position to tell us, because nobody else was asked.</p>
+<p><strong>The second limit is the remedy.</strong> Every one of the eight is correctable in public. An author
+who shows that the file says something other than what Table 11 prints, or that the fetched
+commit is not the one behind their numbers, changes the row: <code>mismatch_class</code> and
+<code>mismatch_review</code> in <code>corpus/rows/</code>, the counts that follow from them, and the sentence in the
+next version, with the correction printed beside the original comparison as the withdrawals
+already are. The route is the address in the author block. It is the only route this survey can
+offer today, because the corpus is not deposited yet: it is available from the author on
+request, and will be deposited with a persistent identifier. A correction asked for that way is
+a commit and a replacement version, not a negotiation. Eight of the sixteen rows an earlier
+draft drew have already gone that way on this survey's own evidence and two more were narrowed;
+a further correction would cost it nothing.</p>
 <p>Zeroed terms recur, and they are not the same thing as a term that is missing. A term present
 and zeroed survives a reader's check of the file, which is why Table 5 marks it separately, and
 it is only worth marking where the paper claims the term. Weights differ as well: a penalty
@@ -4870,29 +4877,30 @@ the question, and in exactly one, <code>hora_2022</code>, the repository says so
 function before the reward table, and treat a printed weight as a hypothesis about the code.</p>
 <p><strong>The withdrawals, and what would close it.</strong> This is a result about publishing practice in
 robot learning more than about dexterous manipulation: the dexterous corpus is its sample, not
-its subject. Eight is also a floor, since 46 method rows released nothing to check and four
-more are unsettled. The first count was sixteen. An adversarial re-reading withdrew six
-outright, <code>maniptrans_2025</code>, <code>eureka_2023</code>, <code>open_television_2024</code>, <code>dexmachina_2025</code>,
-<code>artigrasp_2023</code> and <code>graspxl_2024</code>: two refuted by the repository's own README, two resting on
-reward code that was never in the parse, one reading as a difference where the code carries the
-structure the paper prints, one against a paper with no reward function. <code>dexpbt_2023</code> was
-narrowed rather than dropped, its domain-randomisation half withdrawn and its zeroed reward
-term left standing, so that row is still a contradiction and the narrowing takes nothing off
-the count. That left ten, and ten held until the letters to the authors were drafted. Writing
-to <code>omnih2o_2024</code> meant reading the comparison again before the letter went out, and reading it
-again is what broke it. Four of its five reward-weight comparisons match the paper's own table
-to the digit, once a systematic x1.25 curriculum factor is applied. Only the stumble weight
-differs, and it differs by a factor of about a million, which reads as a typo in a table rather
-than as a policy trained on a different objective. Its hands are driven open-loop from a VR
-pose as well, outside the policy and outside the reward, which made the work a poor fit for a
-reward census in a dexterous-manipulation survey whatever the weight said. The comparison is
-withdrawn and the row moves to an internal inconsistency, which is where the count above sits
-it. <code>penspin_2024</code> was narrowed the same way and before the same deadline: half of it, that the
-released code turns off the paper's tactile channel, is withdrawn, because the config that was
-read carries 96 observation dimensions and <code>enable_tactile: False</code>, which is what the paper's
+its subject. Eight is also a floor, since 46 papers released nothing to check and four more are
+unsettled.</p>
+<p>The first count was sixteen. An adversarial re-reading withdrew six outright,
+<code>maniptrans_2025</code>, <code>eureka_2023</code>, <code>open_television_2024</code>, <code>dexmachina_2025</code>, <code>artigrasp_2023</code>
+and <code>graspxl_2024</code>: two refuted by the repository's own README, two resting on reward code that
+was never in the parse, one reading as a difference where the code carries the structure the
+paper prints, and one against a paper with no reward function. <code>dexpbt_2023</code> was narrowed
+rather than dropped, its domain-randomisation half withdrawn and its zeroed reward term left
+standing, so that row is still a contradiction and the narrowing takes nothing off the count.
+That left ten, and ten held until the letters were drafted.</p>
+<p>Writing to <code>omnih2o_2024</code> meant reading the comparison again before the letter went out, and
+reading it again is what broke it. Four of its five reward-weight comparisons match the paper's
+own table to the digit, once a systematic x1.25 curriculum factor is applied. Only the stumble
+weight differs, and it differs by a factor of about a million, which reads as a typo in a table
+rather than as a policy trained on a different objective. Its hands are driven open-loop from a
+VR pose as well, outside the policy and outside the reward, which made the work a poor fit for
+a reward census whatever the weight said. The comparison is withdrawn and the row moves to an
+internal inconsistency.</p>
+<p><code>penspin_2024</code> was narrowed the same way and before the same deadline. Half of it, that the
+released code turns off the paper's tactile channel, is withdrawn: the config that was read
+carries 96 observation dimensions and <code>enable_tactile: False</code>, which is what the paper's
 proprioception-only student should carry and not a claim the paper makes about that stage. What
-is left is the line in Table 11, and it is held at medium because this survey could not
-establish from the parse whether a second task config exists elsewhere in that repository.</p>
+is left is the line in Table 11, held at medium because this survey could not establish from
+the parse whether a second task config exists elsewhere in that repository.</p>
 <p><strong>Eight of the sixteen rows first drawn have left the contradiction count: six under
 adversarial re-reading, one at the point of writing to the authors, because someone sat down to
 write the letter and looked at the evidence again, and one because a reply came back and the
@@ -5108,16 +5116,17 @@ bimanual controller in the corpus measures or penalizes hand-hand penetration du
 <p>Most of this literature does test on hardware, which is the check that matters and the one a
 simulator cannot substitute for. Of the 112 papers in the corpus, 89 report a real-robot
 experiment, 22 do not and one row is unsettled, which is 80 percent of the 111 the note
-settled. Among those 89, 70 state how many real trials produced the headline number, 79 percent
-of them. The 89 is the denominator that belongs to this statistic: the 22 rows with no real
-robot cannot state a real trial count, and counting them as silent turns a definitional
-impossibility into a reporting failure. Thirty-nine rows state a count of unseen test objects,
-35 percent. Ninety-eight state how a rollout is scored, 88 percent. Sixty-two released code and
-46 did not, with four rows unsettled, 57 percent of the 108 the note settled. Figure 6 draws
-these six shares, each against the denominator that belongs to it. Every bar is a lower bound,
-for the reason the next section gives. The two items flagged red there, unseen-object count and
-contact or penetration handling, are the pair a reader actually needs to compare two methods:
-no unseen-object count means no generalisation denominator for a success rate, and no contact
+settled.</p>
+<p>Among those 89, 70 state how many real trials produced the headline number, 79 percent of them.
+The 89 is the denominator that belongs to this statistic: the 22 rows with no real robot cannot
+state a real trial count, and counting them as silent turns a definitional impossibility into a
+reporting failure. Thirty-nine rows state a count of unseen test objects, 35 percent.
+Ninety-eight state how a rollout is scored, 88 percent. Sixty-two released code and 46 did not,
+with four rows unsettled, 57 percent of the 108 the note settled. Figure 6 draws these six
+shares, each against the denominator that belongs to it. Every bar is a lower bound, for the
+reason the next section gives. The two items flagged red there, unseen-object count and contact
+or penetration handling, are the pair a reader actually needs to compare two methods: no
+unseen-object count means no generalisation denominator for a success rate, and no contact
 handling means no way to tell whether the hand passed through the object. They are also the two
 the field states least often.</p>
 <figure class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 334" role="img" aria-label="What the method literature reports"><style>
@@ -5317,8 +5326,8 @@ at which a rate is worth printing. A comparison is a different question and a ha
 design is paired, so the count follows McNemar and depends on the discordance rate rather than
 on the two rates alone, and separating 50 from 70 percent at 80 percent power takes 57 matched
 pairs per arm at the assumed discordance of 0.3, which is 114 rollouts against the 186 two
-independent arms would need. Simulated cells take 200 episodes for a 6.9-point half-width.
-Perturbation axes are screened at 40 per axis, which ranks the axes and cannot establish that
+independent arms would need. Simulated cells take 200 episodes for a 6.9-point half-width.</p>
+<p>Perturbation axes are screened at 40 per axis, which ranks the axes and cannot establish that
 any one of them hurt, and certified at 101 per arm. Unseen objects resample the object rather
 than the trial, at 20 objects and 5 trials each, and a 10-point claim about an object
 distribution needs about 93 objects. The transfer axis takes the 100 real trials paired to 100
@@ -5440,9 +5449,10 @@ width and a method near 50 percent needs all 100, and the paired count additiona
 assumed discordance of 0.3, which no paper in this corpus reports. The perturbation axes are
 borrowed from <code>colosseum_2024</code> and <code>simpler_2024</code>, which run parallel-jaw grippers on rigid
 objects, where <code>simpler_2024</code> found physical parameters moved success rates by at most 15
-percent. That is the sensitivity expected to grow with multi-finger contact, and no work in
-this corpus measures it. The 2 mm penetration threshold is taken from <code>toporetarget_2026</code> with
-no independent justification, and the captured human grasps in <code>grab_2020</code> sit above it at 3.25
+percent.</p>
+<p>That is the sensitivity expected to grow with multi-finger contact, and no work in this corpus
+measures it. The 2 mm penetration threshold is taken from <code>toporetarget_2026</code> with no
+independent justification, and the captured human grasps in <code>grab_2020</code> sit above it at 3.25
 mm, which makes 2 mm a simulator convention rather than a physical bound. So the three things
 this survey adds to the reference-versus-rollout axis are a count, a measurement method and a
 protocol slot for them, and a threshold is not among them. It is borrowed from one paper and

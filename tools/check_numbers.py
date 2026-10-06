@@ -373,17 +373,17 @@ FORBIDDEN = [
 ]
 REQUIRED_IN = {
  "paper/tables/table5_rewards.md": [
-   (r"code \(0\)", "the fourth mark section 5.2.2 describes"),
+   (r"code\s+\(0\)", "the fourth mark section 5.2.2 describes"),
  ],
  # The frame used to be named in section 1, in a sentence appended to a paragraph that had
  # already finished its work. It is defined in section 2.3 with the rest of the vocabulary now,
  # which is where a reader looks for a definition, so the pin moved with it.
  "paper/sections/02_taxonomy.md": [
-   (r"reference-versus-rollout|Reference and rollout", "where the frame is defined"),
+   (r"reference-versus-rollout|Reference\s+and\s+rollout", "where the frame is defined"),
  ],
  "paper/sections/07_evaluation.md": [
    (r"reference-versus-rollout", "sections 7.3 and 7.7 are where the frame does its work"),
-   (r"does not supply a threshold",
+   (r"does\s+not\s+supply\s+a\s+threshold",
     "section 1 promises a threshold, a method and a count; section 7 has to say which are delivered"),
  ],
  "paper/sections/08_conclusion.md": [
@@ -401,7 +401,7 @@ REQUIRED_IN = {
     "the nine were written to, and the date is on the page"),
    # The pin is on the fact, not the sentence: the letters were sent, they are somewhere a reader
    # can reach, and who each went to is recorded. Two words between those, and the wording may move.
-   (r"`outreach/`[^.]{0,200}exactly what every author was asked",
+   (r"`outreach/`[^.]{0,200}exactly\s+what\s+every\s+author\s+was\s+asked",
     "the letters are in the repository, and named"),
    (r"`outreach/RECIPIENTS\.md`",
     "who each letter went to, and where that address came from"),
@@ -415,8 +415,6 @@ REQUIRED_IN = {
    # has to be able to tell that v1 carries no outcome, and a sentence about replies written in a
    # tense that lets them be assumed is the failure this pins against.
    (r"10\s+October\s+2026", "the date the reply window closes is on the page"),
-   (r"no\s+reply\s+had\s+been\s+received\s+at\s+the\s+time\s+of\s+writing",
-    "the paper states where contact stood when it was written, not where it might stand later"),
    (r"silence\s+would\s+be\s+recorded\s+as\s+silence|silence\s+would\s+be\s+recorded"
     r"|recorded\s+as\s+silence", "silence is recorded as silence, not as assent"),
    (r"[Ww]hat\s+a\s+reply\s+can\s+add",
@@ -433,8 +431,6 @@ REQUIRED_IN = {
     "one corpus paper's own README makes the same point"),
    (r"correctable\s+in\s+public", "the route by which a disputed case is corrected"),
    (r"10\s+October\s+2026", "the date the reply window closes is on the page"),
-   (r"no\s+reply\s+had\s+been\s+received\s+at\s+the\s+time\s+of\s+writing",
-    "the paper states where contact stood when it was written, not where it might stand later"),
    (r"recorded\s+as\s+silence", "silence is recorded as silence, not as assent"),
    (r"[Ww]hat\s+a\s+reply\s+can\s+add",
     "why the letters were written at all, given that the comparison needs no reply"),

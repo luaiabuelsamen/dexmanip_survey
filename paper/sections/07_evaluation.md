@@ -5,16 +5,18 @@
 Most of this literature does test on hardware, which is the check that matters and the one a
 simulator cannot substitute for. Of the 112 papers in the corpus, 89 report a real-robot
 experiment, 22 do not and one row is unsettled, which is 80 percent of the 111 the note
-settled. Among those 89, 70 state how many real trials produced the headline number, 79 percent
-of them. The 89 is the denominator that belongs to this statistic: the 22 rows with no real
-robot cannot state a real trial count, and counting them as silent turns a definitional
-impossibility into a reporting failure. Thirty-nine rows state a count of unseen test objects,
-35 percent. Ninety-eight state how a rollout is scored, 88 percent. Sixty-two released code and
-46 did not, with four rows unsettled, 57 percent of the 108 the note settled. Figure 6 draws
-these six shares, each against the denominator that belongs to it. Every bar is a lower bound,
-for the reason the next section gives. The two items flagged red there, unseen-object count and
-contact or penetration handling, are the pair a reader actually needs to compare two methods:
-no unseen-object count means no generalisation denominator for a success rate, and no contact
+settled.
+
+Among those 89, 70 state how many real trials produced the headline number, 79 percent of them.
+The 89 is the denominator that belongs to this statistic: the 22 rows with no real robot cannot
+state a real trial count, and counting them as silent turns a definitional impossibility into a
+reporting failure. Thirty-nine rows state a count of unseen test objects, 35 percent.
+Ninety-eight state how a rollout is scored, 88 percent. Sixty-two released code and 46 did not,
+with four rows unsettled, 57 percent of the 108 the note settled. Figure 6 draws these six
+shares, each against the denominator that belongs to it. Every bar is a lower bound, for the
+reason the next section gives. The two items flagged red there, unseen-object count and contact
+or penetration handling, are the pair a reader actually needs to compare two methods: no
+unseen-object count means no generalisation denominator for a success rate, and no contact
 handling means no way to tell whether the hand passed through the object. They are also the two
 the field states least often.
 
@@ -239,6 +241,7 @@ design is paired, so the count follows McNemar and depends on the discordance ra
 on the two rates alone, and separating 50 from 70 percent at 80 percent power takes 57 matched
 pairs per arm at the assumed discordance of 0.3, which is 114 rollouts against the 186 two
 independent arms would need. Simulated cells take 200 episodes for a 6.9-point half-width.
+
 Perturbation axes are screened at 40 per axis, which ranks the axes and cannot establish that
 any one of them hurt, and certified at 101 per arm. Unseen objects resample the object rather
 than the trial, at 20 objects and 5 trials each, and a 10-point claim about an object
@@ -298,9 +301,11 @@ width and a method near 50 percent needs all 100, and the paired count additiona
 assumed discordance of 0.3, which no paper in this corpus reports. The perturbation axes are
 borrowed from `colosseum_2024` and `simpler_2024`, which run parallel-jaw grippers on rigid
 objects, where `simpler_2024` found physical parameters moved success rates by at most 15
-percent. That is the sensitivity expected to grow with multi-finger contact, and no work in
-this corpus measures it. The 2 mm penetration threshold is taken from `toporetarget_2026` with
-no independent justification, and the captured human grasps in `grab_2020` sit above it at 3.25
+percent.
+
+That is the sensitivity expected to grow with multi-finger contact, and no work in this corpus
+measures it. The 2 mm penetration threshold is taken from `toporetarget_2026` with no
+independent justification, and the captured human grasps in `grab_2020` sit above it at 3.25
 mm, which makes 2 mm a simulator convention rather than a physical bound. So the three things
 this survey adds to the reference-versus-rollout axis are a count, a measurement method and a
 protocol slot for them, and a threshold is not among them. It is borrowed from one paper and

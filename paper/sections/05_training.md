@@ -444,40 +444,52 @@ nine can be checked by opening the repository at the commit in that table.
 **Everyone was written to first.** The authors of these nine works were written to on 19
 September 2026, before this survey was posted. Each letter quotes the claim, its evidence and
 the sentences the survey would print, and asks whether the reading is right, whether there is a
-reason the released configuration differs, and whether the authors want the wording changed;
-each gave until 10 October 2026 to reply, and said that silence would be recorded as silence
-and not as agreement. What a reply can add is what the artifacts cannot give: which shipped
-configuration belongs to which stage of a pipeline, whether the fetched commit is the one
-behind the reported numbers, and whether an untagged branch holds the code that was run. The
-letters are in `outreach/` in the corpus that accompanies this survey, so a reader can see
-exactly what every author was asked, and `outreach/RECIPIENTS.md` records the address each went
-to and where that address came from. A tenth letter was drafted and not sent, because drafting
-it broke its own claim; it is kept with the nine. This version was written between those two
-dates: no reply had been received at the time of writing, no row here has been changed by one,
+reason the released configuration differs, and whether the authors want the wording changed.
+Each gave until 10 October 2026 to reply, and said that silence would be recorded as silence
+and not as agreement.
+
+What a reply can add is what the artifacts cannot give: which shipped configuration belongs to
+which stage of a pipeline, whether the fetched commit is the one behind the reported numbers,
+and whether an untagged branch holds the code that was run. The letters are in `outreach/` in
+the corpus that accompanies this survey, so a reader can see exactly what every author was
+asked, and `outreach/RECIPIENTS.md` records the address each went to and where that address
+came from. A tenth letter was drafted and never sent, because drafting it broke its own claim;
+it is kept with the nine.
+
+One reply has arrived, and it changed the paper. Yuzhe Qin, corresponding author on
+`dexpoint_2022`, answered on 20 September and showed that three parts of the comparison did not
+hold, including one where this survey had read a term as a departure from the paper's formula
+when it was the paper's formula. That row left the contradiction class, which is why the census
+here is eight and not nine. The other eight letters are unanswered as this version is written,
 and a window that closes in silence will be recorded in the next version as silence and not as
 assent. Any reply, and its effect on the row it concerns, is recorded in `mismatch_review` in
-`corpus/rows/`. What this section says is still written to the narrow form: a repository, a
-commit, a file, and two values. It attributes nothing to intent, and a reader with a browser
-can confirm or refute any line of Table 11 at the repository and commit that line names,
-without anyone's agreement and without this survey's own corpus. Two limits come with that, and
-neither is a hedge. A repository at a fetched commit is not the code that produced a paper's
-numbers: it may postdate that code, precede it, or have diverged from it on a branch nobody
-tagged, and a snapshot cannot say which, so each line compares a published document with one
-public artifact and claims nothing beyond the two. One work in this corpus says exactly that
-about itself. `hora_2022`'s README sends a reader to tag `v0.0.1` rather than to the default
-branch to reproduce the paper's numbers, which is why its row is classed version skew and is
-not one of the eight: told which commit to read, this survey read it, and nobody else was in a
-position to tell us, because nobody else was asked. The other limit is the remedy. Every one of
-the eight is correctable in public. An author who shows that the file says something other than
-what Table 11 prints, or that the fetched commit is not the one behind their numbers, changes
-the row: `mismatch_class` and `mismatch_review` in `corpus/rows/`, the counts that follow from
-them, and the sentence in the next version, with the correction printed beside the original
-comparison as the withdrawals already are. The route is the address in the author block of this
-paper. It is the only route this survey can offer today, because the corpus is not deposited
-yet: it is available from the author on request, and will be deposited with a persistent
-identifier. A correction asked for that way is a commit and a replacement version rather than a
-negotiation. Eight of the sixteen rows an earlier draft drew have already gone that way on this
-survey's own evidence and two more were narrowed; a further correction would cost it nothing.
+`corpus/rows/`.
+
+What this section claims is narrow: a repository, a commit, a file, and two values. It
+attributes nothing to intent, and a reader with a browser can confirm or refute any line of
+Table 11 at the repository and commit that line names, without anyone's agreement and without
+this survey's own corpus.
+
+**Two limits come with that, and neither is a hedge.** A repository at a fetched commit is not
+the code that produced a paper's numbers. It may postdate that code, precede it, or have
+diverged from it on a branch nobody tagged, and a snapshot cannot say which, so each line
+compares a published document with one public artifact and claims nothing beyond the two. One
+work in this corpus says exactly that about itself: `hora_2022`'s README sends a reader to tag
+`v0.0.1` rather than to the default branch to reproduce the paper's numbers, which is why its
+row is classed version skew and is not one of the eight. Told which commit to read, this survey
+read it, and nobody else was in a position to tell us, because nobody else was asked.
+
+**The second limit is the remedy.** Every one of the eight is correctable in public. An author
+who shows that the file says something other than what Table 11 prints, or that the fetched
+commit is not the one behind their numbers, changes the row: `mismatch_class` and
+`mismatch_review` in `corpus/rows/`, the counts that follow from them, and the sentence in the
+next version, with the correction printed beside the original comparison as the withdrawals
+already are. The route is the address in the author block. It is the only route this survey can
+offer today, because the corpus is not deposited yet: it is available from the author on
+request, and will be deposited with a persistent identifier. A correction asked for that way is
+a commit and a replacement version, not a negotiation. Eight of the sixteen rows an earlier
+draft drew have already gone that way on this survey's own evidence and two more were narrowed;
+a further correction would cost it nothing.
 
 Zeroed terms recur, and they are not the same thing as a term that is missing. A term present
 and zeroed survives a reader's check of the file, which is why Table 5 marks it separately, and
@@ -496,29 +508,33 @@ function before the reward table, and treat a printed weight as a hypothesis abo
 
 **The withdrawals, and what would close it.** This is a result about publishing practice in
 robot learning more than about dexterous manipulation: the dexterous corpus is its sample, not
-its subject. Eight is also a floor, since 46 method rows released nothing to check and four
-more are unsettled. The first count was sixteen. An adversarial re-reading withdrew six
-outright, `maniptrans_2025`, `eureka_2023`, `open_television_2024`, `dexmachina_2025`,
-`artigrasp_2023` and `graspxl_2024`: two refuted by the repository's own README, two resting on
-reward code that was never in the parse, one reading as a difference where the code carries the
-structure the paper prints, one against a paper with no reward function. `dexpbt_2023` was
-narrowed rather than dropped, its domain-randomisation half withdrawn and its zeroed reward
-term left standing, so that row is still a contradiction and the narrowing takes nothing off
-the count. That left ten, and ten held until the letters to the authors were drafted. Writing
-to `omnih2o_2024` meant reading the comparison again before the letter went out, and reading it
-again is what broke it. Four of its five reward-weight comparisons match the paper's own table
-to the digit, once a systematic x1.25 curriculum factor is applied. Only the stumble weight
-differs, and it differs by a factor of about a million, which reads as a typo in a table rather
-than as a policy trained on a different objective. Its hands are driven open-loop from a VR
-pose as well, outside the policy and outside the reward, which made the work a poor fit for a
-reward census in a dexterous-manipulation survey whatever the weight said. The comparison is
-withdrawn and the row moves to an internal inconsistency, which is where the count above sits
-it. `penspin_2024` was narrowed the same way and before the same deadline: half of it, that the
-released code turns off the paper's tactile channel, is withdrawn, because the config that was
-read carries 96 observation dimensions and `enable_tactile: False`, which is what the paper's
+its subject. Eight is also a floor, since 46 papers released nothing to check and four more are
+unsettled.
+
+The first count was sixteen. An adversarial re-reading withdrew six outright,
+`maniptrans_2025`, `eureka_2023`, `open_television_2024`, `dexmachina_2025`, `artigrasp_2023`
+and `graspxl_2024`: two refuted by the repository's own README, two resting on reward code that
+was never in the parse, one reading as a difference where the code carries the structure the
+paper prints, and one against a paper with no reward function. `dexpbt_2023` was narrowed
+rather than dropped, its domain-randomisation half withdrawn and its zeroed reward term left
+standing, so that row is still a contradiction and the narrowing takes nothing off the count.
+That left ten, and ten held until the letters were drafted.
+
+Writing to `omnih2o_2024` meant reading the comparison again before the letter went out, and
+reading it again is what broke it. Four of its five reward-weight comparisons match the paper's
+own table to the digit, once a systematic x1.25 curriculum factor is applied. Only the stumble
+weight differs, and it differs by a factor of about a million, which reads as a typo in a table
+rather than as a policy trained on a different objective. Its hands are driven open-loop from a
+VR pose as well, outside the policy and outside the reward, which made the work a poor fit for
+a reward census whatever the weight said. The comparison is withdrawn and the row moves to an
+internal inconsistency.
+
+`penspin_2024` was narrowed the same way and before the same deadline. Half of it, that the
+released code turns off the paper's tactile channel, is withdrawn: the config that was read
+carries 96 observation dimensions and `enable_tactile: False`, which is what the paper's
 proprioception-only student should carry and not a claim the paper makes about that stage. What
-is left is the line in Table 11, and it is held at medium because this survey could not
-establish from the parse whether a second task config exists elsewhere in that repository.
+is left is the line in Table 11, held at medium because this survey could not establish from
+the parse whether a second task config exists elsewhere in that repository.
 
 **Eight of the sixteen rows first drawn have left the contradiction count: six under
 adversarial re-reading, one at the point of writing to the authors, because someone sat down to
