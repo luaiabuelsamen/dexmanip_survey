@@ -82,10 +82,10 @@ affiliation, the D-Grasp row with every count it moved, the Selection disclosure
 four derived counts with pins, and the re-rendered markdown edition.
 
 The pre-push address check over `@{u}..HEAD` returned the author's own two
-addresses, the co-author trailer, and one third-party line: `wenzel.jakob@epfl.ch`,
-in `code/md/dgrasp_2022.md`. It was pushed deliberately. It is the pybind11 BSD
-copyright notice, reproduced verbatim where the D-Grasp repository vendors
-pybind11, and that licence requires the notice be retained on redistribution. The
+addresses, the co-author trailer, and one third-party address, in
+`code/md/dgrasp_2022.md` at the line beginning "Copyright (c) 2016". It was pushed
+deliberately. It is the pybind11 BSD copyright notice, reproduced verbatim where
+the D-Grasp repository vendors pybind11, and that licence requires the notice be retained on redistribution. The
 same line is already on `origin/main` in `code/md/raisim_2018.md`,
 `code/md/artigrasp_2023.md` and `code/md/graspxl_2024.md`, so nothing new was
 disclosed, and stripping one of four copies would have mangled a licence header
