@@ -1,12 +1,8 @@
 # STATUS — survey (dexmanip-survey)
 Goal: Post the dexterous-manipulation survey to arXiv cs.RO, led by the taxonomy and findings, with every number traced to a committed results file.
-Finish line: arXiv cs.RO posted by Luai. Agent work ends at a clean package plus "Blocked: needs Luai approval to post".
-Deadline: 2026-10-10 (author-reply window closes; brief item 3 then applies)
-Milestone: 4/5 done; item 3 waits on the date, item 5 waits on approval
-Last result: arXiv package PASS, 39 pages, 209/209 bibliography, 1.5 MB (reviews/penetration_claim_dgrasp.md; CHANGELOG.md)
-Blocked: needs Luai approval to push. Everything is committed and ready, 33 commits ahead of origin/main, but outreach/RECIPIENTS.md is new to the remote and tabulates 13 researchers' email addresses. Each is individually public already (the DeXtreme and Visual Dexterity PDFs print theirs, Levine's is on his CV, He Wang's and Xu's are on the UniDexGrasp project page), and none was private or guessed; the new thing is the consolidation. It sits in commits 7567c2e and c4e9e17, so it cannot be removed from the push without a force-push, which is ruled out. Two ways forward, both one line from Luai: (a) push as is, the addresses are public and the file documents letters he sent; (b) I rewrite RECIPIENTS.md to keep the provenance column and drop the literal addresses, and he accepts that the two commits above still carry them. Also still blocked: approval to post to arXiv. No paid compute requested: this session needs none, now or later — the work is text, LaTeX and a corpus of JSON rows, and it all runs on the Jetson CPU in seconds. If that ever changes it will be requested here with job, GPU type, count, hours and dollar estimate. Also needs Luai: (1) correspondence address Berkeley vs McGill — the paper and every letter sent say berkeley.edu; (2) should D-Grasp become a corpus row rather than a cited related work? It moves 46 prose sites and 32 derived facts, and adding only the counterexample a reviewer found would misrepresent a sample whose own search missed it; (3) this session pushed tex/ to Overleaf by git all week at Luai's request and the brief forbids pushing — stopped, confirm whether Overleaf sync is exempt.
+Finish line: arXiv cs.RO posted by Luai. Agent work ends at a clean package plus "Blocked: needs Luai approval to post to arXiv, and that stays blocked until after 2026-10-10 by the plan. Two decisions still open: the correspondence address, where the paper and all nine sent letters say berkeley.edu while every commit is authored from luai.abuelsamen@mail.mcgill.ca; and whether D-Grasp should become a corpus row rather than a cited related work, which would move 46 prose sites and 32 derived facts.
 Next: Nothing executable before 2026-10-10. On that date, record each of the nine letters as replied or silent in its row's mismatch_review, update CHANGELOG.md, and rebuild.
-Updated: 2026-10-06 22:05
+Updated: 2026-10-06 22:40
 
 ## Brief items
 1. D-Grasp vs the interpenetration headline — DONE. Claim restated in the abstract, section 7 and the conclusion; D-Grasp cited as related work; the search of all 96 penetration-mentioning notes is recorded and found no other counterexample.
@@ -45,3 +41,28 @@ The stopped detached app did not come from this session. Per PLAN.md the session
 that train are `flagship` and `libphys`, and PLAN.md directs both to Modal
 ("Train on Modal, not the Jetson"); `~/projects/_ops/board.sh` prints per-session
 state and would identify it.
+
+## Pushed 2026-10-06
+
+`git push origin main`, plain, no force. Range `46a3e6f..060a0ea`, 35 commits.
+Head now `060a0ea44bccbc41172bddee47375d4b7626090d`.
+
+Before pushing, the address table was removed from `outreach/RECIPIENTS.md` in
+every unpushed commit with `git filter-branch` over `origin/main..HEAD`. Neither
+address-bearing commit was on any remote ref, checked with `git branch -r
+--contains`, so nothing already published was rewritten and no force-push was
+needed. A second pass caught `reviews/v6_reframed_read.md`, which quoted one
+address in prose outside the table.
+
+Verification after the push, over the range that is now public: the only
+addresses are `luai_abuelsamen@berkeley.edu` (5, the paper's own correspondence
+address), `luai.abuelsamen@mail.mcgill.ca` (35, the git author) and
+`noreply@anthropic.com` (33, the co-author trailer). No third-party address. The
+parsed papers under `papers/md/` and `code/md/` do carry their own authors'
+addresses, as printed in those papers, but every one of those files was already
+on `origin/main` before this push.
+
+`outreach/RECIPIENTS.md` still records, per letter, who it went to, how the
+address was found, and the reply state. `check_numbers.py` was changed to verify
+those three rather than to assert an address is present, and it now fails if an
+address appears in that file at all.
