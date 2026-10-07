@@ -110,7 +110,10 @@ FACTS = {
  "states_unseen": cnt(lambda r: r.get("objects_test_unseen") is not None),
  "states_envs": cnt(lambda r: r.get("n_envs") is not None),
  "isaacgym_rows": cnt(lambda r: norm_sim(r.get("sim")) == "isaacgym"),
- "isaaclab_rows": cnt(lambda r: norm_sim(r.get("sim")) == "isaaclab"),
+ "isaacgym_2025": cnt(lambda r: norm_sim(r.get("sim")) == "isaacgym" and r.get("year") == 2025),
+ "isaacgym_2026": cnt(lambda r: norm_sim(r.get("sim")) == "isaacgym" and r.get("year") == 2026),
+ "isaaclab_2025": cnt(lambda r: norm_sim(r.get("sim")) == "isaaclab" and r.get("year") == 2025),
+ "isaaclab_2026": cnt(lambda r: norm_sim(r.get("sim")) == "isaaclab" and r.get("year") == 2026),
  "hand_named": cnt(lambda r: bool(r.get("hand"))),
  "allegro_rows": len(keys("allegro")),
  "shadow_rows": len(keys("shadow")),
@@ -277,7 +280,14 @@ CLAIMS = [
  # pattern, while three sentences and a figure node printed it.
  ("isaacgym_rows", P(rf"{NUM} run in Isaac Gym")),
  ("isaacgym_rows", P(rf"{NUM} of the papers examined run on it")),
- ("isaaclab_rows", P(rf"against {NUM} on its successors Isaac Lab")),
+ # The sentence that carries the Isaac migration was rewritten and took its numbers with it:
+ # the total is no longer printed anywhere, the two years are, and the pattern that pinned the
+ # total went quietly unmatched. Pin what the prose says now, each year against the Isaac Gym
+ # count it is quoted against.
+ ("isaaclab_2025", "isaaclab_2026",
+  P(rf"{NUM} do in 2025 and {NUM} in the partial 2026")),
+ ("isaacgym_2025", "isaacgym_2026",
+  P(rf"against {NUM} and {NUM} respectively on Isaac Gym")),
  ("method_rows", P(rf"all {NUM} (?:(?:method row|paper)s|papers)")),
  ("method_rows", P(rf"the {NUM} (?:(?:method row|paper)s|papers) in the corpus")),
  ("method_rows", P(rf"the {NUM} method papers in this corpus")),
