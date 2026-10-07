@@ -32,8 +32,10 @@ HEAD = """# Learning Dexterous Manipulation
 
 ## Hands, simulators, training, and evaluation
 
-Luai Abuelsamen, `luai_abuelsamen@berkeley.edu`. Corrections go to that address, which is the
-route section 5.6 names; the corpus is available from the author and is not yet deposited.
+Luai Abuelsamen, Independent Researcher. `luai_abuelsamen@berkeley.edu`, a personal address
+rather than an institutional one: this work was done independently, with no department, grant or
+employer behind it. Corrections go to that address, which is the route section 5.6 names; the
+corpus is available from the author and is not yet deposited.
 
 A survey of %d bibliography entries, %d of which carry a structured row read from a note: %s.
 "Method row" throughout means one of the %d, and every headline count here has one of those eight

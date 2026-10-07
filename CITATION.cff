@@ -5,11 +5,13 @@ type: article
 authors:
   - family-names: Abuelsamen
     given-names: Luai
+    affiliation: "Independent Researcher"
+    email: luai_abuelsamen@berkeley.edu
 version: 1.0.0
 date-released: 2026-09-19
 abstract: >-
   A survey of learning-based dexterous manipulation covering hands, simulators, policy training,
-  bimanual control, evaluation practice, and reproducibility across 218 structured records.
+  bimanual control, evaluation practice, and reproducibility across 219 structured records.
 keywords:
   - dexterous manipulation
   - robot learning
@@ -23,4 +25,5 @@ preferred-citation:
   authors:
     - family-names: Abuelsamen
       given-names: Luai
+      affiliation: "Independent Researcher"
   year: 2026
