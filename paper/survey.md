@@ -1404,7 +1404,7 @@ completes the set with the only real-robot numbers among them, from 100 percent 
 a laptop down to 41.2 percent on a ketchup bottle over 20 trials each.
 
 **The retargeting map, and what would close it.** Human data does not port across hands, and
-the map is usually left unstated. Fifty-three papers use human data and name 44 distinct hand
+the map is usually left unstated. Fifty-four papers use human data and name 45 distinct hand
 strings between them; twenty of those appear in Table 6 with a stated retargeting objective.
 The other 33 never say how the human motion reached the hand, and the objectives that are
 stated do not converge, running from a fingertip keypoint-vector energy in `anyteleop_2023`
@@ -1959,8 +1959,8 @@ years rest on too few observations to read as a trend. A field can get better at
 number without the number itself getting any better.
 
 The denominators also sit on different hardware. The 104 papers that name their own hand give
-78 distinct hand strings between them, and this survey applies no normalization to those strings,
-so 78 is a count of strings and not of hand designs. Matching on the string, Allegro appears in
+79 distinct hand strings between them, and this survey applies no normalization to those strings,
+so 79 is a count of strings and not of hand designs. Matching on the string, Allegro appears in
 35, Shadow in 21, Inspire in 19 and LEAP in 12. A success rate on a 16-degree-of-freedom Allegro
 and a success rate on a 6-actuator Inspire hand are not measurements of the same thing.
 
@@ -1994,7 +1994,8 @@ under single perturbation factors and at least 75 percent under all 14 together.
 percent under combined shift, while π0.5 goes from 27.3 to 19.7 and retains the most at 72.1
 percent. The ranking at the anchor is not the ranking under shift.
 
-**Generalisation to unseen objects.** Only 40 rows state a count and the median is 11 objects.
+**Generalisation to unseen objects.** Only 40 rows state a count, and half of those are ten
+objects or fewer.
 
 **Physical plausibility of the contact.** Twelve of the 97 papers whose contact handling the note
 settled address it, 12 percent, with 16 rows unknown. Section 7.2 takes them apart.

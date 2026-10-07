@@ -293,7 +293,7 @@ completes the set with the only real-robot numbers among them, from 100 percent 
 a laptop down to 41.2 percent on a ketchup bottle over 20 trials each.
 
 **The retargeting map, and what would close it.** Human data does not port across hands, and
-the map is usually left unstated. Fifty-three papers use human data and name 44 distinct hand
+the map is usually left unstated. Fifty-four papers use human data and name 45 distinct hand
 strings between them; twenty of those appear in Table 6 with a stated retargeting objective.
 The other 33 never say how the human motion reached the hand, and the objectives that are
 stated do not converge, running from a fingertip keypoint-vector energy in `anyteleop_2023`

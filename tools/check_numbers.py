@@ -115,6 +115,14 @@ FACTS = {
  "isaaclab_2025": cnt(lambda r: norm_sim(r.get("sim")) == "isaaclab" and r.get("year") == 2025),
  "isaaclab_2026": cnt(lambda r: norm_sim(r.get("sim")) == "isaaclab" and r.get("year") == 2026),
  "hand_named": cnt(lambda r: bool(r.get("hand"))),
+ # Counts of the raw hand strings, deliberately not normalised: both sentences that quote them
+ # say so, and both went unpinned until the corpus grew by one row and moved them.
+ "hand_strings": len({str(r.get("hand")) for r in M if r.get("hand")}),
+ "human_data_rows": cnt(lambda r: r.get("human_data")
+                        and str(r.get("human_data")).lower() not in ("none", "null")),
+ "human_data_hand_strings": len({str(r.get("hand")) for r in M
+                                 if r.get("hand") and r.get("human_data")
+                                 and str(r.get("human_data")).lower() not in ("none", "null")}),
  "allegro_rows": len(keys("allegro")),
  "shadow_rows": len(keys("shadow")),
  "inspire_rows": len(keys("inspire")),
@@ -256,6 +264,7 @@ CLAIMS = [
  ("states_trials", P(rf"{NUM} state how many real trials produced")),
  ("states_unseen", P(rf"only {NUM} state how many unseen objects were tested")),
  ("states_unseen", P(rf"{NUM} rows state a count of unseen test objects")),
+ ("states_unseen", P(rf"Only {NUM} rows state a count, and half of those are ten")),
  ("states_unseen", P(rf"[Oo]nly {NUM} rows state a count and the median")),
  ("states_criterion", P(rf"{NUM} state how a rollout is scored")),
  ("states_criterion", P(rf"the count rose from 79 to {NUM}")),
@@ -297,6 +306,11 @@ CLAIMS = [
  ("method_rows", P(rf"the {NUM} method papers actually differ")),
  ("method_rows", P(rf"Of {NUM} (?:(?:method row|paper)s|papers),")),
  ("hands", P(rf"of the {NUM} hands in Tables 2 and 3")),
+ ("hand_named", "hand_strings",
+  P(rf"The {NUM} papers that name their own hand give {NUM} distinct hand strings")),
+ ("hand_strings", P(rf"so {NUM} is a count of strings and not of hand designs")),
+ ("human_data_rows", "human_data_hand_strings",
+  P(rf"{NUM} papers use human data and name {NUM} distinct hand strings")),
  ("method_rows", "hand_named",
   P(rf"Of {NUM} (?:(?:method row|paper)s|papers), {NUM} name a hand")),
  ("hand_named", P(rf"The {NUM} (?:(?:method row|paper)s|papers) that name their own hand")),
