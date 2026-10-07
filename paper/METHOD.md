@@ -10,7 +10,7 @@ vendors, reinforcement learning, imitation and human data, bimanual, benchmarks 
 seeded with the canonical works in each area and extended by search up to 2026-09-17. Every
 arXiv identifier was checked by fetching the abstract page and matching the title, and entries
 that could not be checked that way are marked. The six lists were merged with deduplication on arXiv
-identifier and normalized title, giving 221 entries.
+identifier and normalized title, giving 222 entries.
 
 Seven further bibliography entries are not part of that corpus and are not counted anywhere in this
 survey. They are the prior audits and case studies section 1 positions this survey against, they
@@ -63,26 +63,26 @@ was written succeeded on 2026-09-18, so a seven-page PDF and its hash are in the
 note has been read from it. It is cited by metadata only for that reason and not because the
 source is unavailable.
 
-Three of the 221 bibliography entries carry no structured row. Two are the paywalled
+Three of the 222 bibliography entries carry no structured row. Two are the paywalled
 Bicchi 2000 and DLR-Hand II entries. The third is `bicchi_grasping_chapter_2001`, which was read
 into a note and quoted throughout but is a book chapter rather than a work with an embodiment, a
 method or a result to record in a row.
 
 The reference list of the typeset edition is shorter than the corpus, and the two numbers are
-different quantities. It prints 209 entries: the 201 corpus entries that some sentence, table
-or figure of this paper cites, plus the 8 prior-work entries from outside the corpus. The other
+different quantities. It prints 209 entries: the 202 corpus entries that some sentence, table
+or figure of this paper cites, plus the 7 prior-work entries from outside the corpus. The other
 20 corpus entries carry a row and a note and are counted in every statistic here, but no
 passage in the paper names them, so they have nothing to be cited from and do not appear in the
 list. This edition cites by key rather than by number and prints no list, so the place to count
-all 221 is `corpus/bib.json`. A reader counting the typeset reference list should get 209, and
-a reader counting the corpus should get 221.
+all 222 is `corpus/bib.json`. A reader counting the typeset reference list should get 209, and
+a reader counting the corpus should get 222.
 
 ## What this method cannot do
 Mention counts over the corpus are counts of mentions, not of use: a related-work sentence
 counts the same as an experiment. Vendor specifications are manufacturer claims and are labeled
 as such throughout, and where a page has since gone offline the note says so. The corpus is
 large but not exhaustive, and selection by search favours work that is indexed, in English, and
-posted as a preprint. It also favours recent work. Of the 221 bibliography entries, 138 are dated
+posted as a preprint. It also favours recent work. Of the 222 bibliography entries, 138 are dated
 2024 or later and 16 predate 2018, so this is a corpus of the learned era and any claim here
 about a trend over time is a claim about 2022 onward.
 
@@ -95,7 +95,9 @@ statistic the survey leads with. Of the 34 method rows that had a real robot and
 trial count, 15 carried a count in plain text in their own note, dropped because the paper
 reports it per task and the field takes a single integer. Those 15 have since been re-extracted,
 which moved the stated-trial-count row from 55 to 70. The success criterion and the unseen-object
-count were audited the same way, rising from 79 to 98 and from 32 to 39. What those 19 recovered criteria say is mostly
+count were audited the same way, rising from 79 to 98 and from 32 to 39. Both totals are one
+higher in the tables of this paper, because the row added after that audit states each of them.
+What those 19 recovered criteria say is mostly
 not a threshold: eleven score by rubric or staged partial credit, five judge binary completion
 against a task description by eye, two defer to a benchmark's own definition, and exactly one,
 `pistar06_2025`, states a verbatim numeric threshold. The audit counted only cases where the note
@@ -115,7 +117,7 @@ seed, each read again in its own parsed source and its released repository rathe
 note the field was written from, since the note is the artifact under suspicion. Not one of the
 25 reports a measurement of penetration depth, intersection volume or physical plausibility on
 its own rollouts. Zero recoveries in 25 bounds the rows that could be hiding one at 8 of the 85
-at 95 percent confidence, so the eleven is a floor and nineteen a ceiling; had this field
+at 95 percent confidence, so the twelve is a floor and twenty a ceiling; had this field
 under-counted at even the mildest rate the other audits found, a sample of 25 would have missed
 every recoverable row with probability 0.001. The nearest miss is worth naming, because it is
 the one a reader might count differently: `graspxl_2024` puts hand-object interpenetration to

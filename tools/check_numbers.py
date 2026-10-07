@@ -158,6 +158,7 @@ FACTS = {
  "sim_2024": _branch(2024, "sim"),
  "demo_2025": _branch(2025, "demo"),
  "reorient_2022": _fam(2022, "reorient"),
+ "rows_2022": cnt(lambda r: _year(r) == 2022),
  "reorient_2025": _fam(2025, "reorient"),
  "bimanual_2022": _fam(2022, "bimanual-coord"),
  "bimanual_2024": _fam(2024, "bimanual-coord"),
@@ -218,11 +219,13 @@ CLAIMS = [
  ("contradictions", rf"{NUM}\s+(?:are\s+)?(?:true\s+|hard\s+|real\s+)?contradictions?\b"),
  ("contradictions", rf"{NUM}\s+of\s+(?:the\s+)?\d+\s+(?:method\s+)?(?:papers|rows)\s+that\s+released\s+(?:parseable\s+)?code\s+contradict"),
  ("disagreements", rf"{NUM}\s+(?:recorded\s+)?(?:paper[ \-]?(?:versus|and|vs)?[ \-]?code\s+)?disagreements?\b(?!\s+that\s+are)"),
- ("disagreements", P(rf"{NUM} of the 112 (?:(?:method row|paper)s|papers) record a discrepancy")),
- ("disagreements", P(rf"{NUM} of the 112 (?:(?:method row|paper)s|papers) record a disagreement")),
+ ("disagreements", "method_rows",
+  P(rf"{NUM} of the {NUM} (?:(?:method row|paper)s|papers) record a discrepancy")),
+ ("disagreements", "method_rows",
+  P(rf"{NUM} of the {NUM} (?:(?:method row|paper)s|papers) record a disagreement")),
  ("disagreements", P(rf"{NUM} of those record a disagreement")),
  ("disagreements", P(rf"and {NUM} carry a recorded discrepancy")),
- ("disagreements", P(rf"{NUM} of the 112 rows record a disagreement")),
+ ("disagreements", "method_rows", P(rf"{NUM} of the {NUM} rows record a disagreement")),
  ("disagreements", P(rf"{NUM} of those record a discrepancy")),
  ("disagreements", P(rf"[Aa]ll {NUM} released code")),
  ("parse_limitation", rf"{NUM}\s+are\s+limitations\s+of\s+(?:this|the)\s+survey"),
@@ -257,7 +260,7 @@ CLAIMS = [
  ("states_criterion", P(rf"{NUM} state how a rollout is scored")),
  ("states_criterion", P(rf"the count rose from 79 to {NUM}")),
  ("states_envs", P(rf"only {NUM} rows state an environment count")),
- ("states_envs", P(rf"{NUM} of 112 rows state a parallel environment count")),
+ ("states_envs", "method_rows", P(rf"{NUM} of {NUM} rows state a parallel environment count")),
  ("real_robot", P(rf"{NUM} report a real-robot experiment")),
  ("real_robot", P(rf"of the {NUM} papers with a real robot")),
  # --- hands -------------------------------------------------------------------------------------
@@ -294,7 +297,8 @@ CLAIMS = [
  ("method_rows", P(rf"the {NUM} method papers actually differ")),
  ("method_rows", P(rf"Of {NUM} (?:(?:method row|paper)s|papers),")),
  ("hands", P(rf"of the {NUM} hands in Tables 2 and 3")),
- ("hand_named", P(rf"Of 112 (?:(?:method row|paper)s|papers), {NUM} name a hand")),
+ ("method_rows", "hand_named",
+  P(rf"Of {NUM} (?:(?:method row|paper)s|papers), {NUM} name a hand")),
  ("hand_named", P(rf"The {NUM} (?:(?:method row|paper)s|papers) that name their own hand")),
  ("hand_named", P(rf"of the {NUM} (?:(?:method row|paper)s|papers) that name a hand")),
  ("hand_named", P(rf"of the {NUM} hand-naming (?:(?:method row|paper)s|papers)")),
@@ -302,7 +306,8 @@ CLAIMS = [
  ("sim_2023", "demo_2023", P(rf"the simulator branch led {NUM} (?:rows|papers) to {NUM} in 2023")),
  ("sim_2024", "demo_2024", P(rf"trailed {NUM} to {NUM} in 2024")),
  ("demo_2025", P(rf"demonstration-trained work is {NUM} of the 34 (?:rows|papers) from 2025")),
- ("reorient_2022", P(rf"It was {NUM} of the 10 (?:(?:method row|paper)s|papers) in 2022")),
+ ("reorient_2022", "rows_2022",
+  P(rf"It was {NUM} of the {NUM} (?:(?:method row|paper)s|papers) in 2022")),
  ("reorient_2025", P(rf"and {NUM} of the 34 in 2025")),
  ("bimanual_2022", P(rf"from {NUM} row to 16")),
  ("bimanual_2024", P(rf"from 1 row to {NUM}")),
@@ -316,7 +321,8 @@ CLAIMS = [
  ("hands_unused", P(rf"none at all for the other {NUM} hands")),
  ("allegro_rows", P(rf"The Allegro accounts for {NUM}")),
  ("allegro_rows", P(rf"Allegro appears in {NUM},")),
- ("allegro_rows", P(rf"It appears in {NUM} of the 112 (?:(?:method row|paper)s|papers)")),
+ ("allegro_rows", "method_rows",
+  P(rf"It appears in {NUM} of the {NUM} (?:(?:method row|paper)s|papers)")),
  ("shadow_rows", P(rf"Shadow for {NUM},")),
  ("shadow_rows", P(rf"Shadow in {NUM},")),
  ("shadow_rows", P(rf"Shadow at {NUM} and \d+")),
@@ -342,13 +348,15 @@ CLAIMS = [
  ("vla_no_hand", P(rf"The {NUM} with no hand result")),
  ("vla_unsettled", P(rf"the remaining {NUM} (?:do not|never) say")),
  ("vla_unsettled", P(rf"The remaining {NUM} do not say")),
- ("rl_rows", P(rf"{NUM} of the 112 (?:(?:method row|paper)s|papers) learn from a reward")),
+ ("rl_rows", "method_rows",
+  P(rf"{NUM} of the {NUM} (?:(?:method row|paper)s|papers) learn from a reward")),
  ("rl_rows", "rl_dof_stated", P(rf"Of the {NUM} reward-learning rows, {NUM} state a count")),
  ("rl_dof_stated", P(rf"over the {NUM} reinforcement-learning rows that state one")),
  ("rl_dof_ge16", P(rf"{NUM} of those are 16 or above")),
  # --- bimanual: section 6 defines the denominator, every other section follows it -----------------
  ("bimanual_true", P(rf"{NUM} corpus (?:(?:method row|paper)s|papers) record `bimanual: true`")),
- ("bimanual_true", P(rf"{NUM} of the 112 (?:(?:method row|paper)s|papers) record two hands on the robot")),
+ ("bimanual_true", "method_rows",
+  P(rf"{NUM} of the {NUM} (?:(?:method row|paper)s|papers) record two hands on the robot")),
  ("bimanual_learned", P(rf"denominator for this section is {NUM}")),
  ("bimanual_learned", P(rf"to the {NUM} rows whose notes place a learned")),
  ("bimanual_learned", P(rf"Every row of the {NUM} is assigned")),
@@ -877,7 +885,7 @@ def sent_letter_problems():
 
 
 # --- the reporting figure, against the denominators the corpus gives ------------------------------
-# Six shares, and four of the six are not shares of 112: a row with no real robot cannot state a
+# Six shares, and four of the six are not shares of 113: a row with no real robot cannot state a
 # real trial count, and the real-robot, code-release and penetration fields carry nulls that mean
 # the note did not settle the question rather than "no". The LaTeX figure drew all six against 112
 # while the prose on the same page quoted the other four, so the bars printed 79, 62, 55 and 10 per

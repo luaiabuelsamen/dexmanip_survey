@@ -3334,10 +3334,10 @@
   "venue": "CVPR 2022",
   "arxiv": "2112.03028",
   "pdf_url": null,
-  "github": null,
-  "topic": "related",
-  "subtopic": "reinforcement-learning grasp synthesis reporting a penetration volume",
-  "why": "The one closed-loop policy found reporting a penetration volume for poses its own policy produced, which is why Section 7 no longer claims that none does. Table 1 reports Interpenetration in cubic centimetres, 1.74 for its method against 4.41 and 9.08 for its baselines, and the appendix states that the figure uses the original MANO mesh and high-resolution object meshes so that \"there is no physical simulation involved when measuring interpenetration\"; inside the simulation the paper reports zero, because the simulated meshes are simplified for speed. [RELATED WORK, NOT IN CORPUS: cited in Section 7, carries no structured row and enters no count. Read from the arXiv PDF on 2026-10-06; the evidence and the quotes are in reviews/penetration_claim_dgrasp.md.]",
+  "github": "https://github.com/christsa/dgrasp",
+  "topic": "rl",
+  "subtopic": "RL grasp synthesis in a physics simulator, reporting a penetration volume",
+  "why": "An RL policy that grasps and moves an object in a physics simulator and reports a penetration volume for the poses its own policy produced, which is why Section 7 no longer claims that none does. Table 2 reports Interpenetration in cubic centimetres on unseen objects, 1.74 for the method against 4.41 and 9.08 for its two baselines; Table 1 reports it per label source, 1.77 to 3.40 for the method on the test split. The appendix states that the figure uses the original MANO mesh and the high-resolution object mesh, so \"there is no physical simulation involved when measuring interpenetration\"; inside the simulation the paper reports zero, because the simulated meshes are simplified for speed.",
   "verified": true
  }
 ]

@@ -1,7 +1,7 @@
 # dexmanip-survey
 
 **A survey of learning-based dexterous manipulation, built so every claim traces to an artifact you
-can open.** 112 method papers, 33 hands, 15 simulators, read into a structured corpus; the paper's
+can open.** 113 method papers, 33 hands, 15 simulators, read into a structured corpus; the paper's
 counts are recomputed from that corpus at build time rather than typed in.
 
 ![What dexterous-manipulation papers train on](results/trend.png)
@@ -18,7 +18,7 @@ corpus by `tools/make_trend_figure.py`. The figure is drawn from the same file.
 
 ## The paper
 
-`tex/main.pdf`, 39 pages, self-contained: appendices A to E are in it, so the posted PDF carries
+`tex/main.pdf`, 40 pages, self-contained: appendices A to E are in it, so the posted PDF carries
 every record the body argues from. `tex/main.tex` is the submission source. The Markdown edition in
 `paper/` is a readable research edition assembled from the same sections; regenerate it with
 `tools/assemble.py` rather than editing `paper/survey.md` directly.
@@ -44,8 +44,8 @@ python3 tools/make_arxiv.py          # verified submission package
 Three results came out of opening the repositories and the vendor pages rather than reading the
 papers alone.
 
-Eight of the sixty-two method papers that released parseable code contradict their own paper
-about the objective that was trained. Thirty-eight disagreements were recorded in total, and
+Eight of the sixty-three method papers that released parseable code contradict their own paper
+about the objective that was trained. Thirty-nine disagreements were recorded in total, and
 the classification of every one is in the `mismatch_class` field of `corpus/rows/`.
 `CHANGELOG.md` records every claim this survey has revised and why. Nine sets of authors were
 written to on 19 September 2026, before the survey was posted, and each was given until 10
@@ -55,12 +55,15 @@ letters went out and eight claims stand. Silence from the other eight is recorde
 rather than as agreement. Each of the eight is also stated as a comparison between two public
 documents, a repository at a fetched commit against the paper's own table, which any reader can
 settle without asking anyone. Section 5.6 says that beside the finding, and `outreach/` holds
-the letters as they went out, with `outreach/RECIPIENTS.md` recording the address each one went
-to.
+the letters as they went out, with `outreach/RECIPIENTS.md` recording who each one went to and how
+the address was found.
 
-Closed-loop policies do not report interpenetration. Eleven of the ninety-six method rows whose
-notes settle it handle it at all, four inside a closed-loop policy, and none reports a penetration
-number for its own trained policy's rollouts. The scope of that claim matters. Grasp synthesis and
+No policy here reports how far its hand sinks into the object, measured in the physics it ran
+in. Twelve of the ninety-seven method rows whose notes settle it handle interpenetration at all,
+five of them closed-loop policies. One of those five, D-Grasp, does report a volume for a pose its
+own policy reached, and reports zero inside the simulator, because the meshes there are decimated
+for speed and the number it prints comes from re-measuring one frame against the original meshes
+with "no physical simulation involved". The scope of the claim matters. Grasp synthesis and
 hand-object reconstruction have reported penetration depth and intersection volume comparatively
 for years, so the gap is specific to learned closed-loop control, not to the field. The tooling is
 not the obstacle either: NVIDIA's own benchmark repository computes per-environment maximum
@@ -84,7 +87,7 @@ designs, eight appear in no method paper in this corpus.
 | `papers/notes/` | one structured note per work, written only from the parsed sources, plus the rules that govern them |
 | `code/md/` | one markdown per repository: README, file tree, task and reward configs, reward and observation bodies. Clones are deleted after parsing. |
 | `reviews/` | the adversarial reviews, the verification round, the claim ledger and the consistency list |
-| `outreach/` | the letters to the authors of the works named for a paper-against-code disagreement, as they went out on 19 September 2026, plus `RECIPIENTS.md` with the address each went to; kept so a reader can see exactly what every author was asked |
+| `outreach/` | the letters to the authors of the works named for a paper-against-code disagreement, as they went out on 19 September 2026, plus `RECIPIENTS.md` recording who each went to and how the address was found; kept so a reader can see exactly what every author was asked |
 | `tools/` | fetchers, parsers, and the generators for every table and figure |
 
 ## Rebuilding

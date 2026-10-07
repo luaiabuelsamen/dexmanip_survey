@@ -5,7 +5,7 @@
 Dexterous manipulation is not one task, and what separates its tasks is what makes some of them
 hard: what is held, what moves, which way gravity points, and what counts as failure. Six
 families cover most of the corpus. They are read off the rows, and the last paragraph here says
-what they miss. Grasping is the largest. Fifty-seven of the 112 papers carry the grasp
+what they miss. Grasping is the largest. Fifty-eight of the 113 papers carry the grasp
 label, the labels are not exclusive, and one paper can sit in several families. Success is a
 lift that survives a hold, and the thresholds differ by more than an order of magnitude.
 `dexgraspvla_2025` requires the object "held 10 cm above the table for 20 s", while
@@ -41,7 +41,7 @@ blames the gap in Sec. 5.4 on "occasional challenges encountered during the gras
 the catcher". Not every paper here learns both sides. In `dexterous_handover_2025` only the
 receiver is learned and the giver is a scripted arm.
 
-Those six families do not cover the corpus. Twenty-four of the 112 papers carry a label
+Those six families do not cover the corpus. Twenty-four of the 113 papers carry a label
 from outside them and eight carry no label from the six at all. Twenty fall in a catch-all
 class, mostly generalist policies evaluated on a task suite rather than on a dexterous task
 family, among them `pi0_2024`, `pi05_2025`, `pistar06_2025`, `openvla_2024` and
@@ -87,7 +87,7 @@ progressively from palm up and palm down, through base up and base down, to thum
 down.
 
 **The second hand, and three counts.** Three counts describe two hands and they measure
-different things. Fifty-three of the 112 papers record two hands on the robot, which is
+different things. Fifty-three of the 113 papers record two hands on the robot, which is
 all the corpus's two-hand flag claims. Forty-three carry the task label for bimanual
 coordination, the narrower claim that coordinating the hands is the task. Section 6 narrows
 again, to the 28 papers whose notes place a learned closed-loop controller on two multi-fingered
@@ -130,7 +130,7 @@ hand's object.
 Six terms recur in every section that follows, and each is used here in one sense only.
 
 **Method row.** One method paper read into this survey's structured record. It is the unit every
-count is taken over: 112 of the corpus's 218 rows are method rows, the rest being hands,
+count is taken over: 113 of the corpus's 219 rows are method rows, the rest being hands,
 simulators, datasets, benchmarks, surveys, tactile sensors and evaluation protocols.
 
 **Privileged state.** Information a simulator can supply and a robot cannot: object pose and
@@ -139,7 +139,7 @@ which is what makes the next term necessary.
 
 **Teacher-student distillation.** Training one policy on privileged state, then fitting a second
 that sees only deployable observations, usually camera images and joint encoders, to reproduce the
-first. Section 5 finds 23 of the 112 methods do this, and it is the second half of the recipe
+first. Section 5 finds 23 of the 113 methods do this, and it is the second half of the recipe
 section 1 describes.
 
 **Reference and rollout.** A reference is a pose or a trajectory scored before anything
@@ -187,7 +187,7 @@ of the 13 so far from 2026. The recipe section 1 describes is this field's matur
 rather than its growth area, and a reader who knows only that recipe is reading the field as it
 was in 2023.
 
-**In-hand reorientation is being abandoned as the canonical task.** It was 8 of the 10 method
+**In-hand reorientation is being abandoned as the canonical task.** It was 8 of the 11 method
 rows in 2022 and 3 of the 34 in 2025. The absolute count falls while the corpus triples, which
 is not a shift in emphasis but a change in what the field treats as worth publishing. Bimanual
 coordination moved the other way over the same span, from 1 row to 16, and functional and tool

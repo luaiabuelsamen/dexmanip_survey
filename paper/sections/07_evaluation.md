@@ -3,16 +3,16 @@
 ## 7.1 Reporting practice
 
 Most of this literature does test on hardware, which is the check that matters and the one a
-simulator cannot substitute for. Of the 112 papers in the corpus, 89 report a real-robot
-experiment, 22 do not and one row is unsettled, which is 80 percent of the 111 the note
+simulator cannot substitute for. Of the 113 papers in the corpus, 89 report a real-robot
+experiment, 23 do not and one row is unsettled, which is 80 percent of the 112 the note
 settled.
 
 Among those 89, 70 state how many real trials produced the headline number, 79 percent of them.
-The 89 is the denominator that belongs to this statistic: the 22 rows with no real robot cannot
+The 89 is the denominator that belongs to this statistic: the 23 rows with no real robot cannot
 state a real trial count, and counting them as silent turns a definitional impossibility into a
-reporting failure. Thirty-nine rows state a count of unseen test objects, 35 percent.
-Ninety-eight state how a rollout is scored, 88 percent. Sixty-two released code and 46 did not,
-with four rows unsettled, 57 percent of the 108 the note settled. Figure 6 draws these six
+reporting failure. Forty rows state a count of unseen test objects, 35 percent.
+Ninety-nine state how a rollout is scored, 88 percent. Sixty-three released code and 46 did not,
+with four rows unsettled, 58 percent of the 109 the note settled. Figure 6 draws these six
 shares, each against the denominator that belongs to it. Every bar is a lower bound, for the
 reason the next section gives. The two items flagged red there, unseen-object count and contact
 or penetration handling, are the pair a reader actually needs to compare two methods: no
@@ -69,7 +69,7 @@ not moved: the median has sat near twenty trials per cell every year since 2024,
 years rest on too few observations to read as a trend. A field can get better at disclosing a
 number without the number itself getting any better.
 
-The denominators also sit on different hardware. The 103 papers that name their own hand give
+The denominators also sit on different hardware. The 104 papers that name their own hand give
 78 distinct hand strings between them, and this survey applies no normalization to those strings,
 so 78 is a count of strings and not of hand designs. Matching on the string, Allegro appears in
 35, Shadow in 21, Inspire in 19 and LEAP in 12. A success rate on a 16-degree-of-freedom Allegro
@@ -105,12 +105,12 @@ under single perturbation factors and at least 75 percent under all 14 together.
 percent under combined shift, while π0.5 goes from 27.3 to 19.7 and retains the most at 72.1
 percent. The ranking at the anchor is not the ranking under shift.
 
-**Generalisation to unseen objects.** Only 39 rows state a count and the median is 11 objects.
+**Generalisation to unseen objects.** Only 40 rows state a count and the median is 11 objects.
 
-**Physical plausibility of the contact.** Eleven of the 96 papers whose contact handling the note
-settled address it, 11 percent, with 16 rows unknown. Section 7.2 takes them apart.
+**Physical plausibility of the contact.** Twelve of the 97 papers whose contact handling the note
+settled address it, 12 percent, with 16 rows unknown. Section 7.2 takes them apart.
 
-**Sample and wall-clock cost.** Thirty-one of the 112 papers state a parallel environment count
+**Sample and wall-clock cost.** Thirty-two of the 113 papers state a parallel environment count
 and 18 a simulated episode count. `robopianist_2023` is the exception, at 5 million samples per
 song and roughly 5 hours per run on four Tesla K80 GPUs.
 
@@ -120,58 +120,66 @@ Open-π0 on put-eggplant-in-sink at 6 of 50 in SIMPLER and 47 of 50 on the real 
 statistical inferences about real-world outcomes from simulation results alone".
 
 **Reproducibility.** Releasing code is not the same as releasing something that settles a
-question. 62 rows released code that could be parsed against the paper, and 38 of the 112 papers
-record a disagreement of some kind between the paper and that code. All 38 released code, so
-the raw rate among code-releasing rows is 61 percent. That raw rate is not the finding, because
-the 38 are not one thing. Section 5.6 classifies them: 8 contradictions, 14 limitations of this
-survey's own parsing, 8 components never released, 4 version skews and 4 inconsistencies
-internal to a paper. Only the contradictions are a finding about the work itself, so 9 of 62
-code-releasing rows, which is 15 percent, is the figure this section and Table 8 use.
-`physhoi_2023` is the clearest of the 9. It lists a non-zero object-orientation weight for GRAB
+question. 63 rows released code that could be parsed against the paper, and 39 of the 113 papers
+record a disagreement of some kind between the paper and that code. All 39 released code, so
+the raw rate among code-releasing rows is 62 percent. That raw rate is not the finding, because
+the 39 are not one thing. Section 5.6 classifies them: 8 contradictions, 14 limitations of this
+survey's own parsing, 8 components never released, 5 version skews and 4 inconsistencies
+internal to a paper. Only the contradictions are a finding about the work itself, so 8 of 63
+code-releasing rows, which is 13 percent, is the figure this section and Table 8 use.
+`physhoi_2023` is the clearest of the 8. It lists a non-zero object-orientation weight for GRAB
 in Table 4, and the reward function in the repository at the commit this survey fetched sets
 that orientation error to zero, so in that file the object is tracked in position only.
 
 ## 7.2 Physical plausibility
 
-One quantity is specific to hands, and it is the one closed-loop policies do not record: how
-far the hand passes into the object it is holding. Eleven of the 96 papers whose notes settle
-the question handle interpenetration at all, and every one of them measures it at a reference
-rather than at a rollout. That is a narrower claim than it sounds, and reading it more widely
-would be wrong. Outside closed-loop control the quantity is a standard comparative column and
-has been for years: `bimangrasp_2024` fails any grasp past 1.5 mm, `toporetarget_2026` reports
-a maximum depth and a share of frames past 2 mm against a baseline retargeter, and
-`oakink_2022` scores a dataset split on depth, intersection volume and simulation displacement.
-The gap is specific to learned closed-loop control: seven of the eleven score a pose, a
-trajectory or a contact model before anything executes, the four that are closed-loop policies
-score the references they were given, and none reports the measurement for rollouts of its own
-trained policy. One closed-loop policy outside this corpus does report it, and how it does so
-is the more useful finding. D-Grasp `dgrasp_2022` trains a reinforcement-learning grasping
-policy and reports a penetration volume in its Table 1, 1.74 cubic centimetres against 4.41 and
-9.08 for its two baselines. That number is not measured in the simulation the policy was
-trained in. Inside the physics it is zero, because the hand and object meshes are simplified
-for speed, and the reported figure comes from re-measuring the policy's output pose against the
-original hand mesh and full-resolution object meshes with, in the paper's words, "no physical
-simulation involved". So the quantity a reader wants, how far the hand sinks into the object in
-the physics that trained the policy, is zero by construction, and the quantity reported is a
-geometric re-measurement on geometry the policy never saw. Appendix A gives the audit behind
-that null, which sampled 25 of the 85 papers recorded as not addressing penetration and
-recovered nothing.
+One quantity is specific to hands and is almost never reported: how far the hand passes into
+the object it is holding. Twelve of the 97 papers whose notes settle the question handle
+interpenetration at all. Outside closed-loop control it is a standard comparative column and has
+been for years: `bimangrasp_2024` fails any grasp past 1.5 mm, `toporetarget_2026` reports a
+maximum depth and a share of frames past 2 mm against a baseline retargeter, and `oakink_2022`
+scores a dataset split on depth, intersection volume and simulation displacement. Seven of the
+twelve score a pose, a trajectory or a contact model before anything executes. Five are
+closed-loop policies, and four of those five measure the references they were given rather than
+anything their own policy produced.
 
-Where in the pipeline those eleven act is the reference-versus-rollout split that section 1 takes
+The fifth is the instructive one. D-Grasp `dgrasp_2022` trains a reinforcement-learning grasping
+policy in RaiSim and does report a penetration volume for the pose its own policy reached, 1.74
+cubic centimetres against 4.41 and 9.08 for its two baselines on unseen objects (its Table 2).
+The number does not come from the simulation the policy ran in. Inside that simulation the paper
+reports zero, because the hand and object meshes there are decimated for speed, and the figure it
+prints comes from re-measuring a single frame, the last of the grasping phase, against the
+original hand mesh and the full-resolution object mesh with, in the paper's words, "no physical
+simulation involved". The quantity a reader wants, how deep the hand sits in the object in the
+physics that trained the policy, is zero by construction; the quantity reported is a geometric
+re-measurement on geometry the simulator never used. No row in this corpus reports penetration
+measured in the physics its own policy ran in. Appendix A gives the audit behind that null, which
+sampled 25 of the 85 papers recorded as not addressing penetration and recovered nothing.
+
+The same paper also supplies the reason to want the number. Its appendix observes that a deeply
+penetrating reference grasp can raise a success rate instead of lowering it, because "if the
+interpenetration is large ... the objects can become entangled within the hand mesh and will
+therefore not be able to fall down", and concludes that "the success rate metric should always be
+interpreted in combination with the other metrics". A reported success rate with no plausibility
+number beside it can therefore be read two ways, which is why the protocol in Table 8 asks for
+both.
+
+Where in the pipeline those twelve act is the reference-versus-rollout split that section 1 takes
 from `zhao_dexhand_survey_2026`. A reference is a pose or a trajectory scored before execution,
 and a rollout is what the trained policy actually did. What this section supplies on that axis is
-a measurement method and a count, and it does not supply a threshold. The count is the eleven of
-96 above, with four closed-loop policies inside it and none we found reporting a number for its
-own rollouts. The method is the plausibility row of Table 8: maximum and mean penetration depth
-over the evaluation rollouts, on a dense surface sample, computed by code that never entered the
-reward or the termination rule. The threshold is borrowed, and section 7.4 says from where and why
-it does not bind. Six of the eleven are grasp synthesisers or trajectory optimisers, namely
-`bidexgrasp_2026`, `bimangrasp_2024`, `deximit_2026`, `pang_global_planning_2022`,
-`toporetarget_2026` and `unidexgrasp_2023`, and `castro_sap_contact_2021` is a contact model
-rather than a controller. That leaves four closed-loop policies in the whole corpus:
-`clutterdexgrasp_2025`, `dexmachina_2025`, `dextrack_2025` and `teledexter_2026`.
+a measurement method and a count, and it does not supply a threshold. The count is the twelve of
+97 above, five of them closed-loop policies, and one of those five reporting a number for a pose
+its own policy reached. The method is the plausibility row of Table 8: maximum and mean
+penetration depth over the evaluation rollouts, on a dense surface sample, computed by code that
+never entered the reward or the termination rule. The threshold is borrowed, and section 7.4 says
+from where and why it does not bind. Six of the twelve are grasp synthesisers or trajectory
+optimisers, namely `bidexgrasp_2026`, `bimangrasp_2024`, `deximit_2026`,
+`pang_global_planning_2022`, `toporetarget_2026` and `unidexgrasp_2023`, and
+`castro_sap_contact_2021` is a contact model rather than a controller. That leaves five
+closed-loop policies in the whole corpus: `clutterdexgrasp_2025`, `dexmachina_2025`,
+`dextrack_2025`, `dgrasp_2022` and `teledexter_2026`.
 
-The reason only four are closed-loop is a measurement trap: a quantity a policy optimizes
+The reason only five are closed-loop is a measurement trap: a quantity a policy optimizes
 cannot also judge it, because the policy learns the measure rather than the property the
 measure stands for. `physhoi_2023` documents the failure in the clean direction, its kinematic
 imitation reward maximized by not touching the object at all because contact perturbed the

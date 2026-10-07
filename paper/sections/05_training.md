@@ -3,14 +3,14 @@
 ## 5.1 Sources of supervision
 
 A dexterous policy is defined by what supervises it, and four sources are in use across the
-corpus's 112 papers: a reward function supervises reinforcement learning, a human
+corpus's 113 papers: a reward function supervises reinforcement learning, a human
 demonstration supervises imitation, a human reference trajectory supervises a physics-based
 tracker, which is imitation with a simulator in the loop, and nothing supervises a model-based
 planner, which is handed a cost and a model instead.
 
-The labels do not partition the corpus. Reinforcement learning is the largest at 53 of the 112
+The labels do not partition the corpus. Reinforcement learning is the largest at 54 of the 113
 papers, behavior cloning next at 27, distillation at 23, and ten further tags cover the rest.
-They sum to far more than 112, because most methods published since 2024 sit on two branches at
+They sum to far more than 113, because most methods published since 2024 sit on two branches at
 once: a reinforcement-learning teacher and a behavior-cloned student are one paper, not two.
 Figure 4 draws the tree and the cross-links. Table 7 is the row-by-row version of the same
 thing, and is the table to scan when looking for work comparable to your own.
@@ -19,8 +19,8 @@ What the deployed policy looks like once training is done matters more than the 
 itself, and on that axis the field has converged hard. Section 5.5 shows why.
 
 **What the tabulation does not record.** Table 7's emptiest columns are the ones a reader most
-needs: only 31 rows state an environment count, only 70 state how many real trials are behind
-the headline number, and only 39 state how many unseen objects were tested. The trial and
+needs: only 32 rows state an environment count, only 70 state how many real trials are behind
+the headline number, and only 40 state how many unseen objects were tested. The trial and
 unseen-object figures are the audited ones, after section 7.1 recovered 15 trial counts and 7
 unseen-object counts that the notes carried and the extraction had dropped. A mostly empty row
 is not a weak method, but it is one that cannot be compared with any other row here.
@@ -31,10 +31,10 @@ is not a weak method, but it is one that cannot be compared with any other row h
 
 ## 5.2 Reinforcement learning
 
-**The standard recipe.** Fifty-nine of the 112 papers learn from a reward. Forty-eight name PPO
+**The standard recipe.** Sixty of the 113 papers learn from a reward. Forty-nine name PPO
 as the algorithm, and the next most frequent, DAPG, appears four times. Forty-three run their
 own experiments in a GPU-parallel simulator from the Isaac family or Genesis, and 36 do both.
-Only 31 rows state an environment count, with a median of 8192 and a maximum of 64000.
+Only 32 rows state an environment count, with a median of 8192 and a maximum of 64000.
 Twenty-three rows distill a privileged teacher into a deployable student, and 16 combine all
 three of PPO, a GPU simulator and distillation. That 16-row intersection is the recipe as it is
 actually practised.
@@ -314,7 +314,7 @@ freedom rather than joints, for the reason section 3 opens with. Four are six, t
 among them actuating six of its twelve joints, and one is twelve, `dexora_2026`'s XHAND. Their
 median is 6. Two of the four rows that never settle the hand question do state a size, and both
 are large: 21 for `gr_dexter_2025`'s ByteDexter V2 and 22 for `egoscale_2026`'s Sharpa Wave. Of
-the 59 reward-learning rows, 48 state a count, 38 of those are 16 or above, and their median is
+the 60 reward-learning rows, 49 state a count, 39 of those are 16 or above, and their median is
 16: an Allegro and a LEAP actuate 16, and a Shadow actuates 20 of its 24 joints. So no row that
 settles the question reaches the band the reinforcement-learning literature of section 5.2 works
 in, and the two rows that reach it on paper are the two that never say whether the hand was in the
@@ -387,17 +387,17 @@ in section 5.2 now reaches the shipped policy through a dataset rather than a gr
 
 ## 5.6 Paper against released code
 
-Thirty-eight of the 112 papers record a disagreement between a paper and the code it
-released, and all 38 released code, so they sit inside the 62 rows that released anything. They
+Thirty-nine of the 113 papers record a disagreement between a paper and the code it
+released, and all 39 released code, so they sit inside the 63 rows that released anything. They
 are not one kind of thing. Eight are contradictions, where paper and code state different
 values or different terms. Fourteen are limits of this survey's own parse, where the body or
 config that would settle the question was never recovered and the row says so. Eight released
-code without the described component in it, four are version skew against a later repository,
+code without the described component in it, five are version skew against a later repository,
 and four are a paper disagreeing with itself. The fourth version skew is `groot_n16_2025`,
 which ships a main branch one generation later than the checkpoint its page describes.
 
 Eight is the number to quote, seven at high confidence and one, `penspin_2024`, held at medium.
-Eight of 62 is 13 percent, and it is a floor rather than a rate: the census covers method rows
+Eight of 63 is 13 percent, and it is a floor rather than a rate: the census covers method rows
 only, so `robopianist_2023`, whose row is a benchmark, does not enter it although it sums five
 reward terms against the three its Table 2 documents. It is also a screened count rather than a
 first pass. Sixteen rows were drawn at first and eight have since left the class. Six went
@@ -496,12 +496,12 @@ it is only worth marking where the paper claims the term. Weights differ as well
 printed at one value in a table and set to another in a config, an equation's term that is not
 in the released reward file, a term in the file that the table does not list. And in 14 rows
 the repository does not settle the question at all, which is this survey's limit and not a
-finding against the paper. Appendix C prints all 38 row by row in their five classes, each with
+finding against the paper. Appendix C prints all 39 row by row in their five classes, each with
 the file, the value on both sides, and the review note where a comparison was narrowed or
 withdrawn.
 
 A reward table is a claim about a training run and the code is a claim about a repository. Here
-the two state different things in eight cases, in the other 30 the released artifacts do not settle
+the two state different things in eight cases, in the other 31 the released artifacts do not settle
 the question, and in exactly one, `hora_2022`, the repository says so itself. Read the reward
 function before the reward table, and treat a printed weight as a hypothesis about the code.
 

@@ -110,7 +110,7 @@ def fig_reporting():
     these six items were audited by hand against their own notes (§7.1), so the bars are the
     audited counts, and every one of them is still a floor.
 
-    Three denominators are not 112. A paper with no real robot cannot state a real trial count, so
+    Three denominators are not 113. A paper with no real robot cannot state a real trial count, so
     that bar is drawn against the 89 rows that have one. The `penetration` and `code_released`
     fields carry nulls that mean "the note did not settle it" rather than "no", so those bars are
     drawn against the rows the note settled, with the unsettled rows as a grey tail.

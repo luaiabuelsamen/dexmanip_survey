@@ -1,5 +1,5 @@
 {
- "method_papers": 112,
+ "method_papers": 113,
  "by_year": {
   "2021": {
    "papers": 2,
@@ -7,8 +7,8 @@
    "demonstration_trained": 1
   },
   "2022": {
-   "papers": 10,
-   "simulator_trained": 6,
+   "papers": 11,
+   "simulator_trained": 7,
    "demonstration_trained": 3
   },
   "2023": {

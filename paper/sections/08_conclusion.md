@@ -30,7 +30,7 @@ its consequence are read together and stated once.
    contains no dexterous hand at all: of its seven corpus rows, one runs a parallel-jaw
    gripper and the other six state no hand (section 7.4, Table 8).
 
-6. Eight of the 62 papers that released parseable code state, in a named file at a named
+6. Eight of the 63 papers that released parseable code state, in a named file at a named
    commit, something other than the value their paper prints, and eight further rows have
    been withdrawn from that count since its first draft, one of them because an author
    replied, with two more narrowed. Table 11 gives each of the eight as a repository, a

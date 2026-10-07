@@ -239,7 +239,7 @@ if __name__ == "__main__":
     meth = [r for r in ROWS.values() if r.get("class") == "method"]
     mc = ["key","year","task_family","paradigm","algorithm","hand","hand_dof","bimanual","sim","real_robot","real_trials","objects_test_unseen","penetration","code_released"]
     mh = ["method","yr","task","paradigm","algorithm","hand","DoF","bi","sim","real","trials","unseen obj","penetration","code"]
-    # Fourteen columns over 112 rows: the categorical columns are narrow so the two free-text
+    # Fourteen columns over 113 rows: the categorical columns are narrow so the two free-text
     # columns, `algorithm` and `hand`, have room to wrap rather than to cut.
     mw = {"key": 26, "year": 6, "task_family": 24, "paradigm": 20, "algorithm": 48, "hand": 30,
           "hand_dof": 6, "bimanual": 6, "sim": 24, "real_robot": 6, "real_trials": 8,

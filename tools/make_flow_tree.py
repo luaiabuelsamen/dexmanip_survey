@@ -204,7 +204,7 @@ def fig4():
     # vision student. "To vision" is true of these five and of no other distillation row.
     VISION_STUDENT=("hora_2022","visual_dexterity_2022","rotateit_2023","robot_synesthesia_2023","viserdex_2026")
     # Sec. 5.7 again: the generators that need no reinforcement learning. dex1b_2025 is
-    # classed as a dataset row, so it is outside the 112 method papers this figure counts.
+    # classed as a dataset row, so it is outside the 113 method papers this figure counts.
     SYNTHETIC_GEN=("dexmimicgen_2024","dex1b_2025","deximit_2026")
     # Sec. 5.3.3, the rows trained from human video with no teleoperation at any stage.
     VIDEO_ONLY=("dexmv_2021","videodex_2022","dexvip_2022","okami_2024","human2sim2robot_2025",

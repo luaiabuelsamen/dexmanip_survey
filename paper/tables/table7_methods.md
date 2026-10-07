@@ -13,6 +13,7 @@
 | `dexpoint_2022` | 2022 | grasp, other | RL | PPO | Allegro Hand | 16 | no | SAPIEN | yes | 260 | 40 | not addressed | yes |
 | `dextreme_2022` | 2022 | reorient | RL | PPO (rl-games implementation, LSTM actor/critic, <br>asymmetric/state-privileged critic) | Allegro Hand | 16 | no | Isaac Gym (PhysX) | yes | 10 |   | not addressed | yes |
 | `dexvip_2022` | 2022 | grasp | RL | PPO with a video-mined consensus grasp-pose <br>auxiliary reward (R_pose) combined with an <br>affordance reward (R_aff) and a lift-success <br>reward (R_succ) | Adroit Hand | 30 | no | MuJoCo | no |   |   | not addressed | no |
+| `dgrasp_2022` | 2022 | grasp | RL | PPO (own implementation) | MANO hand model | 51 | no | RaiSim | no |   | 3 | measured | yes |
 | `dime_2022` | 2022 | reorient, grasp | teleop-system, BC, <br>RL+demo | INN/VINN (nearest-neighbor imitation) vs. BC; <br>DAPG/PPO/BCRL (simulation RL-finetuning) | Allegro Hand |   | no | MuJoCo | yes | 10 |   | not addressed | yes |
 | `holo_dex_2022` | 2022 | reorient, grasp, <br>functional/tool | teleop-system, BC | VINN (BYOL nearest-neighbor) vs. Behavior <br>Cloning / BC-Rep | Allegro Hand | 16 | no |   | yes | 10 | 10 | not addressed | yes |
 | `hora_2022` | 2022 | reorient | RL, distillation | PPO | Allegro Hand (Wonik Robotics) | 16 | no | IsaacGym | yes | 240 | 30 | not addressed | yes |
@@ -115,5 +116,5 @@
 | `unidex_2026` | 2026 | grasp, functional/tool | flow, VLA, <br>data-collection | UniDex-VLA: a pi0-style flow-matching VLA with a <br>Uni3D pointcloud encoder and Gemma-based <br>backbone, predicting actions in a unified <br>Function-Actuator-Aligned Space (FAAS) across 8 <br>dexterous hands | Inspire, Leap, Shadow, <br>Allegro, Ability, Oymotion, <br>XHand, Wuji (8 hands in <br>UniDex-Dataset); real-robot <br>eval uses Inspire, Wuji, and <br>Oymotion hands |   | no |   | yes | 20 | 1 |   | no |
 | `viserdex_2026` | 2026 | reorient | RL, distillation | PPO (RSL-RL) | Allegro Hand | 16 | no | Isaac Lab | yes | 50 |   | not addressed | no |
 
-*112 rows; 224 of 1568 cells (14%) are values no source stated.*
+*113 rows; 225 of 1582 cells (14%) are values no source stated.*
 *No cell is truncated. A value wider than its column is wrapped at a word boundary, so a cell that runs to several rendered lines is one value and not several.*

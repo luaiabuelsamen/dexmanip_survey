@@ -12,6 +12,7 @@ Table 5 marks nine recurring term families across the in-hand reorientation meth
 | `dexpoint_2022` | 2022 | RL | 4 | reach, contact, lift, action penalty |   |   | yes | parse-limitation | low |
 | `dextreme_2022` | 2022 | RL | 6 |   | Reward block, paper Table 2 against allegro_hand_dextreme.py and the two DR yamls | yes | yes | contradiction | high |
 | `dexvip_2022` | 2022 | RL | 4 |   |   |   | no |   |   |
+| `dgrasp_2022` | 2022 | RL | 4 | r_x, r_q, r_c, r_reg |   |   | yes | version-skew | high |
 | `hora_2022` | 2022 | RL, distillation | 5 |   | Block C, paper Sec 3.1/App. C against configs/task/AllegroHandHora.yaml | yes | yes | version-skew | high |
 | `mjpc_2022` | 2022 | MPC | 3 |   |   |   | yes |   |   |
 | `visual_dexterity_2022` | 2022 | RL, distillation | 7 | c1_sparse_task, c2_dense_task, c3_fingertip_dist, c4_energy, c5_push_away_penalty, c6_table_contact, c7_finger_height | Method, Table S1 against dexenv/envs/rewards.py and dexenv/conf/task/dclaw.yaml | yes | yes | contradiction | high |
@@ -84,7 +85,7 @@ Table 5 marks nine recurring term families across the in-hand reorientation meth
 | `toporetarget_2026` | 2026 | trajopt, RL | 4 | object, link-position, joint-position, action-smoothness |   |   | no |   |   |
 | `viserdex_2026` | 2026 | RL, distillation | 10 | orientation tracking, success bonus, object dropped, object distance, object velocity, joint velocity, action magnitude, action rate, joint work, joint torques | Method, reward (App. Table IX); no code released | yes | no |   |   |
 
-*77 rows. 253 of 770 cells (32 percent) are values no source stated. A blank `terms stated` with a filled `term names` column is a paper that names its terms without numbering them. `in reward matrix` marks the rows that are also in the reward-term matrix, which covers in-hand reorientation only.*
+*78 rows. 255 of 780 cells (32 percent) are values no source stated. A blank `terms stated` with a filled `term names` column is a paper that names its terms without numbering them. `in reward matrix` marks the rows that are also in the reward-term matrix, which covers in-hand reorientation only.*
 
 ### C.2 Paper against released code, in full
 
@@ -120,8 +121,10 @@ Each entry below is the disagreement text stored in the row, unedited. The class
 - `dexmachina_2025` (low). paper describes a plain weighted sum lambda_task*r_task + lambda_imi*r_imi + lambda_bc*r_bc + lambda_con*r_con with unspecified weights; code implements a multiplicative task term with per-component beta decay, an unmentioned 0.1 force-penalty term, and curriculum-driven decay of auxiliary weights not described as such in the paper
   Review: R3 adversarial review: the multiplicative form credited to the code is printed in the paper itself
 
-**version-skew, 4 rows.**
+**version-skew, 5 rows.**
 
+- `dgrasp_2022` (high). The README states that the released code updated RaiSim to 1.1.6 and that "training D-Grasp is more stable and faster now", so the parsed commit is not the one the paper's numbers were produced under; separately, the paper's single contact weight w_c = 1.0 (Table 5) is two coefficients in the shipped config, contact_reward 1.0 and impulse_reward 2.0, and the config's falling_reward 1.0 has no counterpart in the paper's reward description or table.
+  Review: The version skew is the authors' own statement in the README, not an inference, which is why it is recorded at high confidence. The reward-coefficient difference is recorded beside it rather than as the charge: the two extra coefficients plausibly implement the two parts the paper describes for its contact reward, and the C++ that would settle it is outside the parse. The same pattern is recorded for artigrasp_2023, which is built on this code base.
 - `hora_2022` (high). The parsed code commit's joint-noise range, disabled default disturbance force, and default cube object type differ from the paper's stated values; the code README itself says to use tag v0.0.1, not the parsed commit, to reproduce paper numbers.
 - `pi0_2024` (high). The released repo (openpi, commit 215abfb2) has evolved past this paper: it also documents pi0-FAST (autoregressive) and pi0.5 checkpoints/configs not described in this paper, which describes only the flow-matching pi0 and the non-VLM pi0-small ablation.
 - `groot_n16_2025` (high). code/md is the current Isaac-GR00T main branch (N1.7 generation, commit 51d4c89f), not the N1.6 checkpoint; the repo names a separate n1d6 branch for N1.6 that was not fetched. The page states N1.6's backbone is "an internal NVIDIA Cosmos-2B VLM variant," but the repo's own changelog states the Eagle backbone (nvidia/Eagle-Block2A-2B-v2) was used through N1.6 and only replaced by Cosmos-Reason2-2B in N1.7 -- whether the page's Cosmos-2B variant is a third distinct model or the page is describing N1.7 under an N1.6 headline is not resolvable from what was fetched.

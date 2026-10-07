@@ -1,6 +1,6 @@
 """Redraw and re-sweep the hand audit of the penetration field, so it can be checked.
 
-The survey's second headline finding is a null: of the 112 method rows, the 85 whose penetration
+The survey's second headline finding is a null: of the 113 method rows, the 85 whose penetration
 field says the work does not address it are counted as silence. A null is worth what the search
 behind it is worth, and every other field this extraction was audited against had under-counted by
 twenty to forty-five percent. This script reproduces the two mechanical halves of the audit whose

@@ -1,6 +1,6 @@
 ## Abstract
 
-A dexterous hand can change an object's pose without setting it down. This survey covers 112
+A dexterous hand can change an object's pose without setting it down. This survey covers 113
 learning-based methods that attempt it, the hands they run on, the simulators they train in,
 and how they report results. The field has largely converged on one recipe: reinforcement
 learning on privileged state in a GPU simulator, distilled into a vision-only student for

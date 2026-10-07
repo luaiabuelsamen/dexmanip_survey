@@ -1,0 +1,41 @@
+{
+ "key": "dgrasp_2022",
+ "year": 2022,
+ "class": "method",
+ "task_family": [
+  "grasp"
+ ],
+ "paradigm": [
+  "RL"
+ ],
+ "algorithm": "PPO (own implementation)",
+ "hand": "MANO hand model",
+ "hand_dof": 51,
+ "bimanual": false,
+ "arm": null,
+ "sim": "RaiSim",
+ "n_envs": 376,
+ "real_robot": false,
+ "real_trials": null,
+ "sim_episodes": 100,
+ "success_criterion": "the rate of sequences which maintain a stable grasp, i.e., where the object does not slip and fall down for a period of a 5s window",
+ "headline_metric": "Success rate, Simulated Distance (mm/s) and Interpenetration (cm^3)",
+ "headline_value": "Unseen objects: Ours 0.56 success, 9.0 mm/s, 1.74 cm^3 against GT+PD 0.30, 13.7, 4.41 and GT+IK 0.38, 11.7, 9.08 (Table 2); DexYCB test labels Ours 0.63 and 1.77 cm^3 against GT+PD 0.35 and 4.41 (Table 1)",
+ "objects_train": 20,
+ "objects_test_unseen": 3,
+ "human_data": "DexYCB",
+ "penetration": "measured",
+ "reward_terms": 4,
+ "reward_term_names": [
+  "r_x",
+  "r_q",
+  "r_c",
+  "r_reg"
+ ],
+ "code_released": true,
+ "paper_code_mismatch": "The README states that the released code updated RaiSim to 1.1.6 and that \"training D-Grasp is more stable and faster now\", so the parsed commit is not the one the paper's numbers were produced under; separately, the paper's single contact weight w_c = 1.0 (Table 5) is two coefficients in the shipped config, contact_reward 1.0 and impulse_reward 2.0, and the config's falling_reward 1.0 has no counterpart in the paper's reward description or table.",
+ "note_gaps": "The reward equations (Eqs. 3-8) are images in the PDF and absent from the layout parse; the reward body itself is C++ inside the RaiSim environment, which the code parse does not reach, so w_x,tip 4.0, w_x,j 1.0 and lambda 5.0 are checkable only against the paper. No seeds and no confidence intervals are reported for any success rate. Every shipped config sets num_envs 21 against the paper's 376, and the runner script that may override it is top-level code the parse does not capture.",
+ "mismatch_class": "version-skew",
+ "mismatch_confidence": "high",
+ "mismatch_review": "The version skew is the authors' own statement in the README, not an inference, which is why it is recorded at high confidence. The reward-coefficient difference is recorded beside it rather than as the charge: the two extra coefficients plausibly implement the two parts the paper describes for its contact reward, and the C++ that would settle it is outside the parse. The same pattern is recorded for artigrasp_2023, which is built on this code base."
+}

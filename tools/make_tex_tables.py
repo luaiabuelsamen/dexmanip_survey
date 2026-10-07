@@ -391,7 +391,7 @@ WITHDRAWN = {
         "the twenty most-mentioned methods. A ranked extract of a tabulation that is wholly "
         "reference material. paper/tables/table7_methods.md",
     "appendix_methods_full.tex":
-        "all 112 method rows. Eight pages of a table nobody reads through. corpus/rows/",
+        "all 113 method rows. Eight pages of a table nobody reads through. corpus/rows/",
     "appendix_hands_full.tex":
         "the source sentence behind every hand specification. Six pages of verbatim quotation, "
         "which is what the corpus is for. corpus/rows/ and papers/notes/",
@@ -1055,8 +1055,8 @@ def appendix_methods():
     The algorithm column is gone. It carried the corpus `algorithm` string cut at 110 characters,
     which made three rows in four two to four lines tall, took the table to eight pages, and
     ended most of its cells in an ellipsis that told a reader neither the method nor where the
-    rest of it was. A table whose job is to let 112 rows be compared on their columns is worth
-    more than a paragraph printed 112 times; the field is in \\texttt{corpus/rows/} in full, and
+    rest of it was. A table whose job is to let 113 rows be compared on their columns is worth
+    more than a paragraph printed 113 times; the field is in \\texttt{corpus/rows/} in full, and
     Section~V describes the algorithms in prose.
     """
     rows = sorted(METHODS, key=lambda r: (str(r.get("year")), r["key"]))
@@ -1448,7 +1448,7 @@ def appendix_surveys():
 # --- the stubs that stand where a placeholder table used to ------------------------------------
 # Four sections input a file by a name this generator never wrote. Each fell back to a hand-written
 # stand-in: two set a one-row table reading "Pending generation", which took a table number and
-# most of a page each, and one input the 112-row method table a second time, end to end. The
+# most of a page each, and one input the 113-row method table a second time, end to end. The
 # generator writes those names now, as files that emit nothing.
 STUBS = {
     "hands_full.tex": "the full hand table with its sources",

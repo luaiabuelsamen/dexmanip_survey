@@ -75,11 +75,11 @@ the URDF is released and the released API repository contains none `leap_hand_20
 
 {{figure:fig2_hands}}
 
-The two oldest designs in Table 2 carry 49 of the 103 papers that name a hand at all, and
+The two oldest designs in Table 2 carry 49 of the 104 papers that name a hand at all, and
 seven rows use both. Neither design's date is confirmed by its own sources, so 2005 and 2016 are
 the bibliography's. Figure 2 counts, per hand, the method papers whose own experiments use it. Of
-112 papers, 103 name a hand. The Allegro accounts for 35, Shadow for 21, the Inspire RH56
-family for 19, a parallel-jaw gripper for 12 and LEAP for 12. Seventy-five of the 103 name an
+113 papers, 104 name a hand. The Allegro accounts for 35, Shadow for 21, the Inspire RH56
+family for 19, a parallel-jaw gripper for 12 and LEAP for 12. Seventy-five of the 104 name an
 Allegro, a Shadow or Adroit model, LEAP or an Inspire.
 
 The Allegro's position is the uncomfortable part. Its product page at allegrohand.com/v4 returned
@@ -94,7 +94,7 @@ simulated cube rotation, LEAP reaches 0.2288 rad/s against the Allegro's 0.0828 
 `leap_hand_2023`, and RUKA reports a 2.74 N pinch against the Allegro's 1.60 N under the same
 three-trial pinch test `ruka_2025`. A method compared only on Allegro hardware is compared at
 one point in a space where a single axis moves the headline number two or three times over.
-Inspire, XHand and Sharpa take 29 of the 103 papers between them, four rows use two of the
+Inspire, XHand and Sharpa take 29 of the 104 papers between them, four rows use two of the
 three, and none is earlier than 2024. Eight take none at all: ORCA, RUKA, Ruka-v2, BiDexHand,
 DexHand, the Proception ProHand, the Tesollo DG-5F and the Unitree Dex5.
 
@@ -112,7 +112,7 @@ The expensive end of the collapse is secondhand throughout. The only six-figure 
 are RUKA's comparison table at $100,000 for a Shadow Hand and Faive's "steep price tag of 110k
 GBP" `ruka_2025` `faive_hand_2023`. Shadow's own page says to discuss pricing and Table 2's price
 cell for it is empty. The collapse is real at the cheap end and secondhand at the expensive one,
-and it has barely moved the literature. Twelve of the 103 hand-naming papers use an
+and it has barely moved the literature. Twelve of the 104 hand-naming papers use an
 open-hardware hand, and all twelve are LEAP.
 
 What the cheap hands give up is sensing. LEAP has none and names touch sensors as future work
@@ -150,7 +150,7 @@ physically on the hand, read by the deployed policy. Eight papers meet it:
 `rotating_without_seeing_2023`. The rule excludes `penspin_2024`, whose 20 binary contacts are
 simulated on an Allegro that has no tactile hardware and whose released config sets
 `enable_tactile: False`, and it excludes `dexndm_2025` and `dexplore_2025` for the same reason.
-Sixty-three of the 112 method papers use the word tactile somewhere in their parsed text and 35
+Sixty-three of the 113 method papers use the word tactile somewhere in their parsed text and 35
 carry it in their structured note. Against the eight that meet the rule above, either number is
 the gap worth quoting.
 
@@ -193,7 +193,7 @@ the best-specified vendor page in the corpus leaves its fingertip-force columns 
 **What is sold against what is published on.** The bottom rows of Figure 2 carry the finding.
 None of the nine company-announced hands in Table 3 appears in a single paper whose own
 experiments use it. Tesla, Figure, 1X, Sanctuary, Boston Dynamics, Xiaomi, Clone, Daxo and
-PaXini account for zero of the 112 method papers' experiments. The nearest thing to a
+PaXini account for zero of the 113 method papers' experiments. The nearest thing to a
 counterexample is `helix_2025`, a Figure blog post claiming a 35-DoF whole-upper-body action
 space at 200 Hz that includes individual finger control. It never names the hand, gives no
 per-hand DoF count, and reports no success rate or trial count for any task. It is the maker

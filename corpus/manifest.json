@@ -1864,5 +1864,15 @@
   "sha256": "949ad9341c94d5b02400826410d95868b62dbd8feec13c78716effec4e32ed29",
   "converter": "pymupdf-raw",
   "fetched": "2026-09-18"
+ },
+ "dgrasp_2022": {
+  "title": "D-Grasp: Physically Plausible Dynamic Grasp Synthesis for Hand-Object Interactions",
+  "arxiv": "2112.03028",
+  "source": "https://arxiv.org/pdf/2112.03028",
+  "pages": 20,
+  "md_chars": 92642,
+  "sha256": "4f0b919b7618731928f7b8d39f3adbe67bda217cbfe94efde649f6acdad0039f",
+  "converter": "pymupdf4llm",
+  "fetched": "2026-10-06"
  }
 }

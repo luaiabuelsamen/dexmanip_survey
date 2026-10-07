@@ -13,14 +13,14 @@
 % ---------------------------------------------------------------------------
 
 A dexterous policy is defined by what supervises it, and four sources are in use across the
-corpus's 112 papers: a reward function supervises reinforcement learning, a human
+corpus's 113 papers: a reward function supervises reinforcement learning, a human
 demonstration supervises imitation, a human reference trajectory supervises a physics-based
 tracker, which is imitation with a simulator in the loop, and nothing supervises a model-based
 planner, which is handed a cost and a model instead.
 
-The labels do not partition the corpus. Reinforcement learning is the largest at 53 of the 112
+The labels do not partition the corpus. Reinforcement learning is the largest at 54 of the 113
 papers, behavior cloning next at 27, distillation at 23, and ten further tags cover the rest.
-They sum to far more than 112, because most methods published since 2024 sit on two branches at
+They sum to far more than 113, because most methods published since 2024 sit on two branches at
 once: a reinforcement-learning teacher and a behavior-cloned student are one paper, not two.
 \figurename~\ref{fig:taxonomy} draws the tree and the cross-links. The repository carries the
 row-by-row version of the same thing, one row per method, and that is what to scan when looking
@@ -30,19 +30,19 @@ What the deployed policy looks like once training is done matters more than the 
 itself, and on that axis the field has converged hard. Section~\ref{sec:train:hybrids} shows why.
 
 \textbf{What the tabulation does not record.}\label{sec:train:master} The emptiest columns of
-the method tabulation are the ones a reader most needs: only 31 rows state an environment
-count, only 70 state how many real trials are behind the headline number, and only 39 state how
+the method tabulation are the ones a reader most needs: only 32 rows state an environment
+count, only 70 state how many real trials are behind the headline number, and only 40 state how
 many unseen objects were tested. The trial and unseen-object figures are the audited ones,
 after Section~\ref{subsec:reporting} recovered 15 trial counts and 7 unseen-object counts that
 the notes carried and the extraction had dropped. A mostly empty row is not a weak method, but
-it is one that cannot be compared with any other row here. All 112 rows carry the columns this
+it is one that cannot be compared with any other row here. All 113 rows carry the columns this
 survey reads, and Appendix~\ref{app:method} says where they are and how to read them.
 
 \begin{figure*}[!t]
   \centering
   \IfFileExists{figs/fig_taxonomy.tex}{\input{figs/fig_taxonomy}}{%
     \framebox[0.7\textwidth]{\rule{0pt}{2.2cm}\textit{figs/fig\_taxonomy.tex pending}}}
-  \caption{What supervises a dexterous policy, subdivided to where the 112 method papers actually
+  \caption{What supervises a dexterous policy, subdivided to where the 113 method papers actually
   differ; each leaf names two of its corpus keys and counts the rest, bars scaled by row count,
   dashed curves marking overlap.}
   \label{fig:taxonomy}
@@ -52,9 +52,9 @@ survey reads, and Appendix~\ref{app:method} says where they are and how to read 
 \label{sec:train:rl}
 
 \textbf{The standard recipe.}\label{sec:train:rl:recipe}
-Fifty-nine of the 112 papers learn from a reward. Forty-eight name PPO as the algorithm, and
+Sixty of the 113 papers learn from a reward. Forty-nine name PPO as the algorithm, and
 the next most frequent, DAPG, appears four times. Forty-three run their own experiments in a
-GPU-parallel simulator from the Isaac family or Genesis, and 36 do both. Only 31 rows state an
+GPU-parallel simulator from the Isaac family or Genesis, and 36 do both. Only 32 rows state an
 environment count, with a median of 8192 and a maximum of 64000. Twenty-three rows distill a
 privileged teacher into a deployable student, and 16 combine all three of PPO, a GPU simulator and
 distillation. That 16-row intersection is the recipe as it is actually practised.
@@ -373,7 +373,7 @@ freedom rather than joints, for the reason Section~III opens with. Four are six,
 RH56DFX among them actuating six of its twelve joints, and one is twelve, \cite{dexora_2026}'s
 XHAND. Their median is 6. Two of the four rows that never settle the hand question do state a
 size, and both are large: 21 for \cite{gr_dexter_2025}'s ByteDexter V2 and 22 for
-\cite{egoscale_2026}'s Sharpa Wave. Of the 59 reward-learning rows, 48 state a count, 38 of
+\cite{egoscale_2026}'s Sharpa Wave. Of the 60 reward-learning rows, 49 state a count, 39 of
 those are 16 or above, and their median is 16: an Allegro and a LEAP actuate 16, and a Shadow
 actuates 20 of its 24 joints. So no row that settles the question reaches the band the
 reinforcement-learning literature of Section~\ref{sec:train:rl} works in, and the two rows that
@@ -455,14 +455,14 @@ dataset rather than a gradient.
 \label{sec:train:code}
 
 % ---------------------------------------------------------------------------
-% The first finding as a picture: the funnel from 112 method rows to the eight
-% whose code contradicts the paper, with the 29 disagreements in the other four
-% classes drawn at the same weight as the eight. Those 29 are classified, not
+% The first finding as a picture: the funnel from 113 method rows to the eight
+% whose code contradicts the paper, with the 31 disagreements in the other four
+% classes drawn at the same weight as the eight. Those 31 are classified, not
 % retracted; the seven rows the survey withdrew are counted in section
 % 8.1 and in each row's mismatch_review field. Written by
 % tools/make_finding_figures.py from corpus/rows; the guard keeps the document
 % compiling until it is there. It sits in the subsection that argues the finding
-% and classifies the 38, which is where a reader needs it.
+% and classifies the 39, which is where a reader needs it.
 % ---------------------------------------------------------------------------
 \begin{figure}[!t]
   \centering
@@ -474,18 +474,18 @@ dataset rather than a gradient.
 
 \input{tables/table10_codegap}
 
-Thirty-eight of the 112 papers record a disagreement between a paper and the code it
-released, and all 38 released code, so they sit inside the 62 rows that released anything
+Thirty-nine of the 113 papers record a disagreement between a paper and the code it
+released, and all 39 released code, so they sit inside the 63 rows that released anything
 (\figurename~\ref{fig:codegap}). They are not one kind of thing. Eight are contradictions,
 where paper and code state different values or different terms. Fourteen are limits of this
 survey's own parse, where the body or config that would settle the question was never recovered
-and the row says so. Eight released code without the described component in it, four are
+and the row says so. Eight released code without the described component in it, five are
 version skew against a later repository, and four are a paper disagreeing with itself. The
 fourth version skew is \cite{groot_n16_2025}, which ships a main branch one generation later
 than the checkpoint its page describes.
 
 Eight is the number to quote, seven at high confidence and one, PenSpin \cite{penspin_2024},
-held at medium. Eight of 62 is 13 percent, and it is a floor rather than a rate: the census
+held at medium. Eight of 63 is 13 percent, and it is a floor rather than a rate: the census
 covers method rows only, so RoboPianist \cite{robopianist_2023}, whose row is a benchmark, does
 not enter it although it sums five reward terms against the three its Table~2 documents. It is
 also a screened count rather than a first pass. Sixteen rows were drawn at first and eight have
@@ -551,7 +551,7 @@ the next version of the text.
 The classification distinguishes a term that is absent, present with zero weight, or assigned a
 different weight. In 14 cases the parsed repository cannot settle the comparison, and those
 cases are recorded as limitations rather than conflicts. Appendix~\ref{app:rewards} prints all
-38 row by row in their five classes, each with the file, the value on both sides, the recorded
+39 row by row in their five classes, each with the file, the value on both sides, the recorded
 confidence, and the review note where a comparison was narrowed or withdrawn.
 
 \textbf{Review and correction.} This is a result about publishing practice in robot learning

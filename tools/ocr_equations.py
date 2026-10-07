@@ -5,10 +5,19 @@ separate file: notes quote the layout parse for prose and the OCR file for an eq
 which. Pages are selected as those whose native text is sparse relative to their image area,
 plus any page whose native text names an equation the note needs.
 """
-import sys, time
+import os, sys, time
 from pathlib import Path
 import pymupdf
 R = Path(__file__).resolve().parents[1]
+
+# Tesseract looks for its language data under TESSDATA_PREFIX and fails every page without
+# saying which variable is missing until you read the stderr of each one. The data ships in a
+# user directory on this machine, so point at it when the environment has not.
+if "TESSDATA_PREFIX" not in os.environ:
+    for _c in (Path.home() / ".local/share/tessdata", Path("/usr/share/tesseract-ocr/5/tessdata"),
+               Path("/usr/share/tessdata")):
+        if (_c / "eng.traineddata").exists():
+            os.environ["TESSDATA_PREFIX"] = str(_c); break
 
 def ocr_key(key, dpi=200, max_pages=40):
     pdf = R / f"papers/pdf/{key}.pdf"

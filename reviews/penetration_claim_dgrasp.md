@@ -12,10 +12,15 @@ the reference side of the reference-versus-rollout split.
 ## What D-Grasp reports
 
 D-Grasp (Christen, Kocabas, Aksan, Song, Hilliges; CVPR 2022; arXiv 2112.03028)
-trains a PPO grasping policy in a physics simulation and reports, in Table 1, a
-metric headed `Interpenetration [cm3]`. For the three DexYCB rows the values are
-GT+PD 4.41, GT+IK 9.08, Ours 1.74 cm^3, beside `SimDist [mm/s]` of 13.7, 11.7 and
-9.0 and success rates 0.30, 0.38, 0.56.
+trains a PPO grasping policy in a physics simulation and reports a metric headed
+`Interpenetration [cm3]` in two tables. The values quoted below and in the
+CHANGELOG, GT+PD 4.41, GT+IK 9.08 and Ours 1.74 cm^3, beside `SimDist [mm/s]` of
+13.7, 11.7 and 9.0 and success rates 0.30, 0.38 and 0.56, are **Table 2**, the
+generalisation experiment averaged over six held-out object sets. This review and
+the bibliography note first attributed them to Table 1; corrected 2026-10-06 when
+the paper entered the corpus and was read in full. Table 1 reports the metric per
+label source: on the test split the method is 1.77, 2.81, 3.40 and 2.08 cm^3
+against 4.41, 4.94, 5.40 and 14.00 for the corresponding baselines.
 
 Three verbatim statements fix what the number is:
 
@@ -92,3 +97,25 @@ So the corpus claim held and the headline was still wrong, because the headline
 generalised past the corpus and the one counterexample sits just outside it,
 reachable in one step from the corpus's own ArtiGrasp note. The fix was to stop
 claiming a null and report what the measurement actually is.
+
+
+## Update, 2026-10-06, later the same day
+
+The orchestrator's decision was to add D-Grasp to the corpus rather than to cite it
+from outside. It is now `corpus/rows/dgrasp_2022.json`, read under the protocol in
+`paper/METHOD.md`: PDF hashed into the manifest, equations recovered by OCR, the
+repository parsed at commit 8816d1ba, and a note in `papers/notes/dgrasp_2022.md`.
+
+The verdict above stands and sharpens. The claim is no longer scoped away from this
+paper by the corpus boundary, and it no longer needs to be: what Section 7.2 now
+says is that no row reports penetration measured in the physics its own policy ran
+in, and D-Grasp is the corpus's own demonstration of the distinction rather than a
+counterexample from outside it. The two halves are the paper's own, zero inside the
+simulation and 1.74 cm^3 outside it, on meshes the simulator never used.
+
+One further find from the full reading, now in the note and in Section 7.2: the
+paper's own Sec. C states that a deeply penetrating reference can *raise* a success
+rate, because "the objects can become entangled within the hand mesh and will
+therefore not be able to fall down", and concludes that "the success rate metric
+should always be interpreted in combination with the other metrics". That is the
+survey's own argument for pairing the two numbers, made by a paper in the corpus.
