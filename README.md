@@ -17,9 +17,9 @@ papers alone.
 
 Eight of the sixty-two method papers that released parseable code contradict their own paper
 about the objective that was trained. Thirty-eight disagreements were recorded in total, and
-the classification of every one is in the `mismatch_class` field of `corpus/rows/`, including
-the eight this survey has withdrawn after review and the two it narrowed. Nine sets of authors
-were written to on 19 September 2026, before the survey was posted, and each was given until 10
+the classification of every one is in the `mismatch_class` field of `corpus/rows/`.
+`CHANGELOG.md` records every claim this survey has revised and why. Nine sets of authors were
+written to on 19 September 2026, before the survey was posted, and each was given until 10
 October 2026 to reply. One has replied: the corresponding author of `dexpoint_2022` showed that
 three parts of the comparison did not hold, so that row left the count, which is why nine
 letters went out and eight claims stand. Silence from the other eight is recorded as silence
