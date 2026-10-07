@@ -63,3 +63,32 @@ Restate the claim along those lines, or drop it. Add a D-Grasp row to the corpus
 Search the corpus for other closed-loop policies reporting a rollout penetration
 number before restating, since one counterexample found this way implies the
 search was never done.
+
+## The systematic search the brief asked for
+
+Run 2026-10-06 over all 96 method notes mentioning a penetration quantity
+(`papers/notes/*.md`), looking for a reported number rather than a reward term or
+a passing mention. Result: every corpus paper that reports penetration as a
+metric measures it on a reference, not on a policy's rollouts.
+
+| row | field | what it reports |
+|---|---|---|
+| `toporetarget_2026` | constrained | max depth in mm and share of frames over 2 mm, on retargeted references |
+| `dextrack_2025` | measured | max depth over frames, on the input kinematic reference |
+| `bidexgrasp_2026` | measured | Penetration Depth and Self-Penetration Depth, grasp synthesis |
+| `unidexgrasp_2023` | penalised | object penetration depth in Table 1 and Table 2, a proposal-quality metric, "not a reward term for the execution policy" |
+| `teledexter_2026` | penalised | L_pen on hand-object mesh interpenetration, inside the retargeting pipeline |
+| `bimangrasp_2024` | penalised | a 1.5 mm hard gate, no number reported |
+| `omnigrasp_2024` | not addressed | declines the metric explicitly, with a stated rationale |
+| `graspxl_2024` | not addressed | 35 human raters score realism, one dimension of which is interpenetration |
+
+`unidexgrasp_2023` was the one worth checking closely, because it is an RL plus
+distillation row whose note says penetration depth is reported in Table 1 and
+Table 2. It is not a counterexample: Table 1 is proposal generation and the note
+records that the metric "is not a reward term for the execution policy". The
+corpus classification was right.
+
+So the corpus claim held and the headline was still wrong, because the headline
+generalised past the corpus and the one counterexample sits just outside it,
+reachable in one step from the corpus's own ArtiGrasp note. The fix was to stop
+claiming a null and report what the measurement actually is.

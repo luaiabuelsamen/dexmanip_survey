@@ -180,19 +180,27 @@ file the object is tracked in position only.
 \label{subsec:plausibility}
 
 One quantity is specific to hands, and it is the one closed-loop policies do not record: how
-far the hand passes into the object it is holding. Eleven of the 96 papers whose notes
-settle the question handle interpenetration at all, and every one of them measures at a
-reference rather than at a rollout. That is a narrower claim than it sounds, and reading it
-more widely would be wrong. Outside closed-loop control the quantity is a standard comparative
-column and has been for years: BimanGrasp \cite{bimangrasp_2024} fails any grasp past 1.5 mm,
-TopoRetarget \cite{toporetarget_2026} reports a maximum depth and a share of frames past 2 mm
-against a baseline retargeter, and OakInk \cite{oakink_2022} scores a dataset split on depth,
+far the hand passes into the object it is holding. Eleven of the 96 papers whose notes settle
+the question handle interpenetration at all, and every one of them measures at a reference
+rather than at a rollout. That is a narrower claim than it sounds, and reading it more widely
+would be wrong. Outside closed-loop control the quantity is a standard comparative column and
+has been for years: BimanGrasp \cite{bimangrasp_2024} fails any grasp past 1.5 mm, TopoRetarget
+\cite{toporetarget_2026} reports a maximum depth and a share of frames past 2 mm against a
+baseline retargeter, and OakInk \cite{oakink_2022} scores a dataset split on depth,
 intersection volume and simulation displacement. The gap is specific to learned closed-loop
 control: seven of the eleven score a pose, a trajectory or a contact model before anything
 executes, the four that are closed-loop policies score the references they were given, and none
-reports the measurement for rollouts of its own trained policy. Appendix~\ref{app:method} gives
-the audit behind that null, which sampled 25 of the 85 papers recorded as not addressing
-penetration and recovered nothing.
+reports the measurement for rollouts of its own trained policy. One closed-loop policy outside
+this corpus does report it, and how it does so is the more useful finding. D-Grasp
+\cite{dgrasp_2022} trains a reinforcement-learning grasping policy and reports a penetration
+volume in its Table~1, 1.74~cm\textsuperscript{3} against 4.41 and 9.08 for its two baselines.
+That number is not measured in the simulation the policy was trained in: inside the physics it
+is zero, because the hand and object meshes are simplified for speed, and the reported figure
+comes from re-measuring the policy's output pose against the original hand mesh and
+full-resolution object meshes with ``no physical simulation involved''. The quantity a reader
+wants is zero by construction, and the quantity reported is measured on geometry the policy
+never saw. Appendix~\ref{app:method} gives the audit behind that null, which sampled 25 of the
+85 papers recorded as not addressing penetration and recovered nothing.
 
 \textbf{The null result was audited.} Earlier audits showed that the extraction could miss
 reported values, so 25 of the 85 apparently silent methods were drawn with a fixed random seed

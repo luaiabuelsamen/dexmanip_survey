@@ -38,10 +38,11 @@ its consequence are read together and stated once.
    posted: section 5.6 says that beside the finding, with the letters in `outreach/` and the
    route by which a disputed case is corrected (section 5.6 and Appendix C).
 
-7. No closed-loop policy in the corpus reports interpenetration for the rollouts of its own
-   trained policy, and all eleven rows that handle penetration at all sit on the reference
-   side of the reference-versus-rollout split (section 7.2, and the contact-handling bar of
-   Figure 6).
+7. Where interpenetration is reported it is not measured in the physics that produced the
+motion: no closed-loop policy in this corpus reports it for its own rollouts, the one outside
+it that does measures the pose geometrically after the fact, and all eleven rows that handle
+penetration at all sit on the reference side of the reference-versus-rollout split (section
+7.2, and the contact-handling bar of Figure 6).
 
 Six of the seven are gaps in the literature. The sixth is a result about publishing practice,
 and this survey's own corrections to it are printed beside it in section 5.6 rather than kept

@@ -9,7 +9,7 @@ A survey of 221 bibliography entries, 218 of which carry a structured row read f
 "Method row" throughout means one of the 112, and every headline count here has one of those eight
 classes as its denominator.
 
-*Compiled 2026-10-05. Every claim traces to a note in `papers/notes/`, every note to a parsed source in
+*Compiled 2026-10-06. Every claim traces to a note in `papers/notes/`, every note to a parsed source in
 `papers/md/` or `code/md/`, and every source to a hash or commit in `corpus/manifest.json`. The
 method is in Appendix A.*
 
@@ -29,10 +29,10 @@ and systems whose contribution is the collection rig itself. Published work has 
 2022. Grasping remains the largest task family and bimanual coordination the fastest-rising,
 and almost every experiment runs on one of four hands. What the survey adds comes from reading
 released code and vendor specifications beside the papers. Eight hands that can be bought or
-built from published designs appear in no method paper here. No closed-loop policy in the
-corpus reports how far its hand passes into the object it holds, which a position-only success
-criterion cannot see. Section VII proposes a protocol for the unreported quantities; the body
-gives the counts behind every claim above.
+built from published designs appear in no method paper here. Where the depth a hand sinks into
+the object it holds is reported at all, it is not measured in the physics that produced the
+motion. Section VII proposes a protocol for the unreported quantities; the body gives the
+counts behind every claim above.
 
 ---
 
@@ -2021,18 +2021,28 @@ that orientation error to zero, so in that file the object is tracked in positio
 ## 7.2 Physical plausibility
 
 One quantity is specific to hands, and it is the one closed-loop policies do not record: how
-far the hand passes into the object it is holding. Eleven of the 96 papers whose notes
-settle the question handle interpenetration at all, and every one of them measures it at a
-reference rather than at a rollout. That is a narrower claim than it sounds, and reading it
-more widely would be wrong. Outside closed-loop control the quantity is a standard comparative
-column and has been for years: `bimangrasp_2024` fails any grasp past 1.5 mm,
-`toporetarget_2026` reports a maximum depth and a share of frames past 2 mm against a baseline
-retargeter, and `oakink_2022` scores a dataset split on depth, intersection volume and
-simulation displacement. The gap is specific to learned closed-loop control: seven of the
-eleven score a pose, a trajectory or a contact model before anything executes, the four that
-are closed-loop policies score the references they were given, and none reports the measurement
-for rollouts of its own trained policy. Appendix A gives the audit behind that null, which
-sampled 25 of the 85 papers recorded as not addressing penetration and recovered nothing.
+far the hand passes into the object it is holding. Eleven of the 96 papers whose notes settle
+the question handle interpenetration at all, and every one of them measures it at a reference
+rather than at a rollout. That is a narrower claim than it sounds, and reading it more widely
+would be wrong. Outside closed-loop control the quantity is a standard comparative column and
+has been for years: `bimangrasp_2024` fails any grasp past 1.5 mm, `toporetarget_2026` reports
+a maximum depth and a share of frames past 2 mm against a baseline retargeter, and
+`oakink_2022` scores a dataset split on depth, intersection volume and simulation displacement.
+The gap is specific to learned closed-loop control: seven of the eleven score a pose, a
+trajectory or a contact model before anything executes, the four that are closed-loop policies
+score the references they were given, and none reports the measurement for rollouts of its own
+trained policy. One closed-loop policy outside this corpus does report it, and how it does so
+is the more useful finding. D-Grasp `dgrasp_2022` trains a reinforcement-learning grasping
+policy and reports a penetration volume in its Table 1, 1.74 cubic centimetres against 4.41 and
+9.08 for its two baselines. That number is not measured in the simulation the policy was
+trained in. Inside the physics it is zero, because the hand and object meshes are simplified
+for speed, and the reported figure comes from re-measuring the policy's output pose against the
+original hand mesh and full-resolution object meshes with, in the paper's words, "no physical
+simulation involved". So the quantity a reader wants, how far the hand sinks into the object in
+the physics that trained the policy, is zero by construction, and the quantity reported is a
+geometric re-measurement on geometry the policy never saw. Appendix A gives the audit behind
+that null, which sampled 25 of the 85 papers recorded as not addressing penetration and
+recovered nothing.
 
 Where in the pipeline those eleven act is the reference-versus-rollout split that section 1 takes
 from `zhao_dexhand_survey_2026`. A reference is a pose or a trajectory scored before execution,
@@ -2258,10 +2268,11 @@ its consequence are read together and stated once.
    posted: section 5.6 says that beside the finding, with the letters in `outreach/` and the
    route by which a disputed case is corrected (section 5.6 and Appendix C).
 
-7. No closed-loop policy in the corpus reports interpenetration for the rollouts of its own
-   trained policy, and all eleven rows that handle penetration at all sit on the reference
-   side of the reference-versus-rollout split (section 7.2, and the contact-handling bar of
-   Figure 6).
+7. Where interpenetration is reported it is not measured in the physics that produced the
+motion: no closed-loop policy in this corpus reports it for its own rollouts, the one outside
+it that does measures the pose geometrically after the fact, and all eleven rows that handle
+penetration at all sit on the reference side of the reference-versus-rollout split (section
+7.2, and the contact-handling bar of Figure 6).
 
 Six of the seven are gaps in the literature. The sixth is a result about publishing practice,
 and this survey's own corrections to it are printed beside it in section 5.6 rather than kept
@@ -2375,12 +2386,12 @@ into a note and quoted throughout but is a book chapter rather than a work with 
 method or a result to record in a row.
 
 The reference list of the typeset edition is shorter than the corpus, and the two numbers are
-different quantities. It prints 208 entries: the 201 corpus entries that some sentence, table
-or figure of this paper cites, plus the 7 prior-work entries from outside the corpus. The other
+different quantities. It prints 209 entries: the 201 corpus entries that some sentence, table
+or figure of this paper cites, plus the 8 prior-work entries from outside the corpus. The other
 20 corpus entries carry a row and a note and are counted in every statistic here, but no
 passage in the paper names them, so they have nothing to be cited from and do not appear in the
 list. This edition cites by key rather than by number and prints no list, so the place to count
-all 221 is `corpus/bib.json`. A reader counting the typeset reference list should get 208, and
+all 221 is `corpus/bib.json`. A reader counting the typeset reference list should get 209, and
 a reader counting the corpus should get 221.
 
 ## What this method cannot do

@@ -647,9 +647,17 @@ def abstract_problems():
             out.append(f"the {name} abstract still says nobody measures interpenetration, which is "
                        "wider than the body: the claim is about this corpus and about a policy's "
                        "own rollouts")
-        if not re.search(r"[Nn]o\s+closed-loop\s+policy\s+in\s+the\s+corpus", body):
-            out.append(f"the {name} abstract no longer scopes the penetration claim to the corpus "
-                       "in the conclusion's words")
+        # The risk this guards is the abstract claiming nobody measures interpenetration, which is
+        # false: D-Grasp reports a penetration volume for its own policy's poses
+        # (reviews/penetration_claim_dgrasp.md). So the check is that the abstract makes no
+        # unscoped universal claim about the quantity, not that it uses one particular phrase.
+        bad = re.search(r"(?:nobody|no one|none of the|no policy|no method|no paper)\s+"
+                        r"(?:\w+\s+){0,4}(?:measures?|reports?)\s+(?:\w+\s+){0,3}"
+                        r"(?:inter)?penetration", body, re.I)
+        if bad and not re.search(r"in\s+(?:this\s+)?corpus|here\b", body):
+            out.append(f"the {name} abstract makes an unscoped claim about who measures "
+                       f"interpenetration ({bad.group(0)!r}); D-Grasp reports it for its own "
+                       "policy's poses, so the claim needs a scope or needs dropping")
         # The disclosure is pinned to the claim, not to the abstract: if the abstract states the
         # paper-versus-code finding it must also say the authors were written to, and if it does
         # not state the finding there is nothing for the clause to qualify.

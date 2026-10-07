@@ -11,7 +11,7 @@ and systems whose contribution is the collection rig itself. Published work has 
 2022. Grasping remains the largest task family and bimanual coordination the fastest-rising,
 and almost every experiment runs on one of four hands. What the survey adds comes from reading
 released code and vendor specifications beside the papers. Eight hands that can be bought or
-built from published designs appear in no method paper here. No closed-loop policy in the
-corpus reports how far its hand passes into the object it holds, which a position-only success
-criterion cannot see. Section VII proposes a protocol for the unreported quantities; the body
-gives the counts behind every claim above.
+built from published designs appear in no method paper here. Where the depth a hand sinks into
+the object it holds is reported at all, it is not measured in the physics that produced the
+motion. Section VII proposes a protocol for the unreported quantities; the body gives the
+counts behind every claim above.
