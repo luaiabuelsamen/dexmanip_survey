@@ -12,6 +12,13 @@ arXiv identifier was checked by fetching the abstract page and matching the titl
 that could not be checked that way are marked. The six lists were merged with deduplication on arXiv
 identifier and normalized title, giving 222 entries.
 
+One of those 222 was added after the search. `dgrasp_2022` entered the corpus on 2026-10-06,
+three weeks after the cutoff, and it turned out to be the clearest instance of the finding in
+section 7.2. It was not hard to find: a corpus paper's own note cites it as that paper's
+baseline, and the search still did not surface it. A search that missed the work most relevant
+to one of this survey's two findings has probably missed others, and that is the plainest
+statement available of what this corpus is worth as a sample.
+
 Seven further bibliography entries are not part of that corpus and are not counted anywhere in this
 survey. They are the prior audits and case studies section 1 positions this survey against, they
 carry the topic `related` in `corpus/bib_related.json`, and none of them carries a structured row.
