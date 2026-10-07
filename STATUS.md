@@ -4,9 +4,9 @@ Finish line: arXiv cs.RO posted by Luai. Agent work ends at a clean package plus
 Deadline: 2026-10-10 (author-reply window closes; brief item 3 then applies)
 Milestone: 4/5 done; item 3 waits on the date, item 5 waits on approval
 Last result: arXiv package PASS, 39 pages, 209/209 bibliography, 1.5 MB (reviews/penetration_claim_dgrasp.md; CHANGELOG.md)
-Blocked: needs Luai approval to post to arXiv. Also needs Luai: (1) correspondence address Berkeley vs McGill — the paper and every letter sent say berkeley.edu; (2) should D-Grasp become a corpus row rather than a cited related work? It moves 46 prose sites and 32 derived facts, and adding only the counterexample a reviewer found would misrepresent a sample whose own search missed it; (3) this session pushed tex/ to Overleaf by git all week at Luai's request and the brief forbids pushing — stopped, confirm whether Overleaf sync is exempt.
+Blocked: needs Luai approval to post to arXiv. No paid compute requested: this session needs none, now or later — the work is text, LaTeX and a corpus of JSON rows, and it all runs on the Jetson CPU in seconds. If that ever changes it will be requested here with job, GPU type, count, hours and dollar estimate. Also needs Luai: (1) correspondence address Berkeley vs McGill — the paper and every letter sent say berkeley.edu; (2) should D-Grasp become a corpus row rather than a cited related work? It moves 46 prose sites and 32 derived facts, and adding only the counterexample a reviewer found would misrepresent a sample whose own search missed it; (3) this session pushed tex/ to Overleaf by git all week at Luai's request and the brief forbids pushing — stopped, confirm whether Overleaf sync is exempt.
 Next: Nothing executable before 2026-10-10. On that date, record each of the nine letters as replied or silent in its row's mismatch_review, update CHANGELOG.md, and rebuild.
-Updated: 2026-10-06 21:20
+Updated: 2026-10-06 21:35
 
 ## Brief items
 1. D-Grasp vs the interpenetration headline — DONE. Claim restated in the abstract, section 7 and the conclusion; D-Grasp cited as related work; the search of all 96 penetration-mentioning notes is recorded and found no other counterexample.
@@ -22,3 +22,26 @@ Updated: 2026-10-06 21:20
 - The corpus is a sample whose search missed D-Grasp. Appendix A does not yet say
   so. That is a limitation worth one sentence, and it is a better disclosure than
   silently adding the one paper a reviewer found.
+
+## Paid-compute account for 2026-10-06 (requested by the orchestrator)
+
+Launched: nothing. No Modal app, no RunPod pod, no cloud GPU of any kind, no
+detached job. Zero dollars.
+
+Everything this session ran was local to the Jetson:
+- `pdftotext`, `grep`, `python3` for the corpus checkers, the assembler and the
+  figure generators (seconds each, CPU)
+- `pdflatex` and `bibtex` via `tools/build_tex.sh` (about 30 s per build, CPU)
+- headless Chromium once via `tools/make_pdf.py` to render the markdown edition
+  (a few minutes, CPU; this is the slowest thing here)
+- `git` commits, all local, no push
+
+One external network call: `WebFetch` of `arxiv.org/pdf/2112.03028` to read
+D-Grasp, which is a 6.2 MB download and not billable compute. The PDF was left in
+the tool-results cache rather than added to the repo, so it is not on the repo's
+disk budget.
+
+The stopped detached app did not come from this session. Per PLAN.md the sessions
+that train are `flagship` and `libphys`, and PLAN.md directs both to Modal
+("Train on Modal, not the Jetson"); `~/projects/_ops/board.sh` prints per-session
+state and would identify it.
