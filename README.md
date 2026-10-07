@@ -1,16 +1,45 @@
 # dexmanip-survey
 
-A literature review of learning-based dexterous manipulation, single-hand and bimanual:
-simulators, hands and their makers including announced ones, how policies are trained, how they
-are evaluated, and where the gaps are. The review is written only from material parsed onto disk.
+**A survey of learning-based dexterous manipulation, built so every claim traces to an artifact you
+can open.** 112 method papers, 33 hands, 15 simulators, read into a structured corpus; the paper's
+counts are recomputed from that corpus at build time rather than typed in.
 
-The submission manuscript is `tex/main.tex`, with the compiled article at `tex/main.pdf`. It is
-self-contained: appendices A to E are all in it, so the posted PDF carries every record the body
-argues from. The Markdown edition in `paper/` is a readable
-research edition assembled from its section sources; it is not the submission source. Regenerate
-it with `tools/assemble.py` rather than editing `paper/survey.md` directly.
+![What dexterous-manipulation papers train on](results/trend.png)
+
+## The headline
+
+**The field changed what it trains on in 2024.** The simulator branch, reinforcement learning
+on privileged state distilled to a vision student, led 13 papers to 4 in 2023 and trailed 15 to
+18 in 2024. It has trailed every year since. The recipe most readers associate with this field
+is its mature pipeline, not its growth area.
+
+Every number above is in [`results/trends.json`](results/trends.json), regenerated from the
+corpus by `tools/make_trend_figure.py`. The figure is drawn from the same file.
+
+## The paper
+
+`tex/main.pdf`, 39 pages, self-contained: appendices A to E are in it, so the posted PDF carries
+every record the body argues from. `tex/main.tex` is the submission source. The Markdown edition in
+`paper/` is a readable research edition assembled from the same sections; regenerate it with
+`tools/assemble.py` rather than editing `paper/survey.md` directly.
+
+[`CHANGELOG.md`](CHANGELOG.md) records every claim this survey has revised and why.
+
+## How to run it
+
+```sh
+python3 tools/make_trend_figure.py   # results/trends.json + results/trend.png
+python3 tools/assemble.py            # paper/survey.md from paper/sections/
+python3 tools/check_numbers.py       # every printed number against corpus/rows/
+bash    tools/build_tex.sh main      # tex/main.pdf
+python3 tools/make_arxiv.py          # verified submission package
+```
+
+`check_numbers.py` is the one that matters: it recomputes every load-bearing count from
+`corpus/rows/*.json` and fails if the prose disagrees with the corpus.
 
 ## What it found
+
 
 Three results came out of opening the repositories and the vendor pages rather than reading the
 papers alone.

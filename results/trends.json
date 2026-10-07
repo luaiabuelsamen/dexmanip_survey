@@ -1,0 +1,36 @@
+{
+ "method_papers": 112,
+ "by_year": {
+  "2021": {
+   "papers": 2,
+   "simulator_trained": 1,
+   "demonstration_trained": 1
+  },
+  "2022": {
+   "papers": 10,
+   "simulator_trained": 6,
+   "demonstration_trained": 3
+  },
+  "2023": {
+   "papers": 16,
+   "simulator_trained": 13,
+   "demonstration_trained": 4
+  },
+  "2024": {
+   "papers": 31,
+   "simulator_trained": 15,
+   "demonstration_trained": 18
+  },
+  "2025": {
+   "papers": 34,
+   "simulator_trained": 16,
+   "demonstration_trained": 22
+  },
+  "2026": {
+   "papers": 13,
+   "simulator_trained": 6,
+   "demonstration_trained": 8
+  }
+ },
+ "crossover_year": 2024
+}
