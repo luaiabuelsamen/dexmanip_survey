@@ -2,26 +2,23 @@
 Goal: Post the dexterous-manipulation survey to arXiv cs.RO, led by the taxonomy and findings, with every number traced to a committed results file.
 Finish line: arXiv cs.RO posted by Luai. Agent work ends at a clean package plus "Blocked: needs Luai approval to post".
 Deadline: 2026-10-10 (author-reply window closes; brief item 3 then applies)
-Milestone: 2/5 Reconcile README, PUBLISHING.md, claim ledger and outreach records
-Last result: Interpenetration headline restated against D-Grasp; search of all 96 penetration-mentioning notes found no other counterexample (reviews/penetration_claim_dgrasp.md)
-Blocked: (1) Correspondence address is Berkeley vs McGill — needs Luai. (2) Should D-Grasp become a corpus row? It moves 46 prose sites and 32 derived facts, and adding only the counterexample a reviewer found misrepresents a sample whose own search missed it — needs Luai. (3) This session pushed tex/ to Overleaf all week at Luai's request; the brief says never git push. Stopped. Confirm whether Overleaf sync is exempt.
-Next: Reconcile the nine-versus-eight count and the letters-sent state across README.md, PUBLISHING.md, outreach/README.md and the claim ledger.
-Updated: 2026-10-06 21:05
+Milestone: 4/5 done; item 3 waits on the date, item 5 waits on approval
+Last result: arXiv package PASS, 39 pages, 209/209 bibliography, 1.5 MB (reviews/penetration_claim_dgrasp.md; CHANGELOG.md)
+Blocked: needs Luai approval to post to arXiv. Also needs Luai: (1) correspondence address Berkeley vs McGill — the paper and every letter sent say berkeley.edu; (2) should D-Grasp become a corpus row rather than a cited related work? It moves 46 prose sites and 32 derived facts, and adding only the counterexample a reviewer found would misrepresent a sample whose own search missed it; (3) this session pushed tex/ to Overleaf by git all week at Luai's request and the brief forbids pushing — stopped, confirm whether Overleaf sync is exempt.
+Next: Nothing executable before 2026-10-10. On that date, record each of the nine letters as replied or silent in its row's mismatch_review, update CHANGELOG.md, and rebuild.
+Updated: 2026-10-06 21:20
 
 ## Brief items
-1. D-Grasp vs the interpenetration headline — DONE. Claim restated in abstract, section 7 and conclusion; D-Grasp cited as related work; systematic search recorded.
-2. Reconcile README / PUBLISHING.md / claim ledger / outreach — next
-3. After Oct 10, record replies or silence — blocked on date
-4. Cut length; lead with taxonomy and findings; move process narrative out — largely done (39 pages, taxonomy and trend section added, process narrative moved to Appendix A)
-5. Clean arXiv package, then Blocked for approval — package PASSes at 39 pages, 209/209 bibliography
+1. D-Grasp vs the interpenetration headline — DONE. Claim restated in the abstract, section 7 and the conclusion; D-Grasp cited as related work; the search of all 96 penetration-mentioning notes is recorded and found no other counterexample.
+2. Reconcile README / PUBLISHING.md / outreach / the paper — DONE. Nine letters sent, eight claims standing; every document now states both and why they differ. Two stale counts in section 5.6 fixed, one with its arithmetic (38 less 8 is 30, not 29).
+3. After Oct 10, record replies or silence — BLOCKED on the date. One reply is already in (DexPoint); eight outstanding.
+4. Cut length, lead with taxonomy and findings, move process narrative out — DONE. 39 pages from 42; sections 2.3 and 2.4 added for the vocabulary and the trend; retractions moved to CHANGELOG.md; no process narrative left in README.md or PUBLISHING.md.
+5. Clean arXiv package — DONE and PASSing; BLOCKED for approval to post.
 
-## Item 1 pass/fail — PASSED
-Pass condition was: the counterexample is found and recorded, and the headline is
-restated to something the corpus supports, or dropped. The headline now reads
-"Where interpenetration is reported it is not measured in the physics that
-produced the motion", which survives D-Grasp instead of being refuted by it.
-
-## Item 2 pass/fail
-Pass: README.md, PUBLISHING.md, outreach/README.md and the paper agree on the
-count (eight), on which letters went out and when, and on the reply state; every
-number traces to a committed file. Fail: any two disagree.
+## What a reviewer would still push on
+- Penetration is 9 percent of the paper, down from 25, but it is still the one
+  finding with a figure and a protocol slot attached. If the restated version is
+  not worth that much space, it should shrink again.
+- The corpus is a sample whose search missed D-Grasp. Appendix A does not yet say
+  so. That is a limitation worth one sentence, and it is a better disclosure than
+  silently adding the one paper a reviewer found.
