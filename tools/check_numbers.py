@@ -791,14 +791,21 @@ NEVER_SENT = re.compile(r"never\s+sent|was\s+not\s+sent|drafted\s+and\s+not\s+se
 
 
 def sent_letters():
-    """key -> the address its letter went to, from the file that records where each one went."""
+    """key -> who its letter went to, from the file that records each one.
+
+    The addresses themselves were removed from this file and from the history that reaches the
+    remote, because publishing a consolidated list of researchers' contact details serves no part
+    of auditing this survey. What has to stay checkable is that every named work got a letter, to
+    a described recipient, on a stated basis. So this reads the recipient and the provenance
+    rather than an address, and the caller checks those are present.
+    """
     out = {}
     f = R / "outreach/RECIPIENTS.md"
     if f.exists():
         for line in f.read_text().splitlines():
-            m = re.match(r"\|\s*`([a-z0-9_]+)`\s*\|\s*([^|]+?)\s*\|", line)
+            m = re.match(r"\|\s*`([a-z0-9_]+)`\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|", line)
             if m:
-                out[m.group(1)] = m.group(2)
+                out[m.group(1)] = {"recipient": m.group(2).strip(), "source": m.group(3).strip()}
     return out
 
 
@@ -827,10 +834,13 @@ def sent_letter_problems():
     if not sent:
         return ["outreach/RECIPIENTS.md records no letter at all, so nothing here can check the "
                 "paper's statement that the authors of the nine were written to"]
-    for k, addr in sorted(sent.items()):
-        if "@" not in addr:
-            out.append(f"outreach/RECIPIENTS.md gives `{k}` no address, so its letter cannot be "
-                       f"said to have gone anywhere")
+    for k, rec in sorted(sent.items()):
+        if not rec["recipient"] or not rec["source"]:
+            out.append(f"outreach/RECIPIENTS.md gives `{k}` no recipient or no account of how the "
+                       f"address was found, so its letter cannot be said to have gone anywhere")
+        if "@" in rec["recipient"] or "@" in rec["source"]:
+            out.append(f"outreach/RECIPIENTS.md prints an address for `{k}`; this file records who "
+                       f"was written to and on what basis, not contact details")
     # A letter to a work the survey no longer names is not an error. It is the correction route
     # working: the reply arrived, the claim did not survive it, and the row moved out of the
     # contradiction class. What would be wrong is a letter to a work that was never in the class,
