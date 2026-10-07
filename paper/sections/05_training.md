@@ -438,8 +438,7 @@ sets -0.01. `pianomime_2024`'s Table 3 prints two weighted terms, at two thirds 
 commit `c4abefac8d` of `sNiper-Qian/pianomime`, `_set_rewards` in
 `single_task/piano_with_shadow_hands_res.py` sums five, and two of the five,
 `_compute_energy_reward` and `_compute_fingering_reward`, compute a value and then end `return 0`
-and `return 0.0`. The remaining six are in Table 11 in the same four parts, and every one of the
-nine can be checked by opening the repository at the commit in that table.
+and `return 0.0`. The remaining six are in Table 11 in the same four parts, and every one of the eight can be checked by opening the repository at the commit in that table.
 
 **Everyone was written to first.** The authors of these nine works were written to on 19
 September 2026, before this survey was posted. Each letter quotes the claim, its evidence and
@@ -502,7 +501,7 @@ the file, the value on both sides, and the review note where a comparison was na
 withdrawn.
 
 A reward table is a claim about a training run and the code is a claim about a repository. Here
-the two state different things in nine cases, in the other 29 the released artifacts do not settle
+the two state different things in eight cases, in the other 30 the released artifacts do not settle
 the question, and in exactly one, `hora_2022`, the repository says so itself. Read the reward
 function before the reward table, and treat a printed weight as a hypothesis about the code.
 

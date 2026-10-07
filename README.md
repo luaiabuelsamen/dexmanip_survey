@@ -15,16 +15,19 @@ it with `tools/assemble.py` rather than editing `paper/survey.md` directly.
 Three results came out of opening the repositories and the vendor pages rather than reading the
 papers alone.
 
-Nine of the sixty-two method papers that released parseable code contradict their own paper about
-the objective that was trained. Thirty-eight disagreements were recorded in total, and the
-classification of every one is in the `mismatch_class` field of `corpus/rows/`, including the seven
-accusations this survey has withdrawn after review and the two it narrowed. All nine sets of authors
+Eight of the sixty-two method papers that released parseable code contradict their own paper
+about the objective that was trained. Thirty-eight disagreements were recorded in total, and
+the classification of every one is in the `mismatch_class` field of `corpus/rows/`, including
+the eight this survey has withdrawn after review and the two it narrowed. Nine sets of authors
 were written to on 19 September 2026, before the survey was posted, and each was given until 10
-October 2026 to reply; no reply had arrived when this was written, and silence is recorded as
-silence rather than as agreement. Each of the nine is also stated as a comparison between two public
+October 2026 to reply. One has replied: the corresponding author of `dexpoint_2022` showed that
+three parts of the comparison did not hold, so that row left the count, which is why nine
+letters went out and eight claims stand. Silence from the other eight is recorded as silence
+rather than as agreement. Each of the eight is also stated as a comparison between two public
 documents, a repository at a fetched commit against the paper's own table, which any reader can
-settle without asking anyone. Section 5.6 says that beside the finding, and `outreach/` holds the
-letters as they went out, with `outreach/RECIPIENTS.md` recording the address each one went to.
+settle without asking anyone. Section 5.6 says that beside the finding, and `outreach/` holds
+the letters as they went out, with `outreach/RECIPIENTS.md` recording the address each one went
+to.
 
 Closed-loop policies do not report interpenetration. Eleven of the ninety-six method rows whose
 notes settle it handle it at all, four inside a closed-loop policy, and none reports a penetration

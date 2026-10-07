@@ -89,14 +89,14 @@ reaching people in the meantime.
 
 ## What would make it land
 
-The finding people will repeat is the one sentence about nine papers whose code does not implement
-their published reward, and the one about nobody reporting penetration for their own rollouts.
-Those need to be in the abstract, in the first figure, and in whatever you post alongside the
-preprint. Everything else in the paper is the evidence that earns them.
+The finding people will repeat is the one sentence about eight papers whose code does not
+implement their published reward, and the one about where penetration is measured when it is
+measured at all. Those need to be in the abstract, in the first figure, and in whatever you
+post alongside the preprint. Everything else in the paper is the evidence that earns them.
 
 Do not oversell. The survey's own coverage statistics measure what its extraction captured, it
-has withdrawn eight accusations under review, and it re-ran no method. Saying all three plainly is what
-makes the rest credible.
+has withdrawn eight of the sixteen comparisons it first drew, one of them because an author
+replied, and it re-ran no method. Saying all three plainly is what makes the rest credible.
 
 ## A note on what belongs in the paper and what belongs in the repository
 

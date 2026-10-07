@@ -10,7 +10,7 @@ and points here.
 
 ## What they ask, and what they do not assume
 
-The letters do not ask permission. Each of the nine claims is stated as what it is, a
+The letters do not ask permission. Each claim is stated as what it is, a
 comparison between two public documents: a repository, the commit `corpus/code_manifest.json`
 records, the file inside it, and the two values. Nothing is attributed to intent, nothing is
 asserted about what any author did or trained, and any reader with a browser can settle a line
@@ -36,16 +36,17 @@ Each note was brought into step with what the paper prints before it went out, o
 2026. If the paper's wording moves again, a note quoted in a later exchange has to be brought
 into step again the same way.
 
-## The ten notes, and the two that are no longer nine
+## The ten notes, and why nine went out
 
 The directory holds ten notes: `dexpbt_2023`, `dexpoint_2022`, `dextreme_2022`, `omnih2o_2024`,
 `pddm_2019`, `penspin_2024`, `physhoi_2023`, `pianomime_2024`, `unidexgrasp_2023`,
-`visual_dexterity_2022`. The survey names nine. The tenth, `omnih2o_2024`, is the one that
-drafting the letter broke: writing it meant reading the evidence again, four of the five weight
-comparisons turned out to match the paper's own table to the digit once a systematic x1.25
-curriculum factor is applied, and the charge was withdrawn and the row reclassified as an
-internal inconsistency before it was ever sent. Its note is kept here with its doubt notice
-intact, because the withdrawal is part of the record and the note is the evidence for it.
+`visual_dexterity_2022`. Nine of the ten went out; the survey now names eight, because one of
+the nine replied. The tenth, `omnih2o_2024`, is the one that drafting the letter broke: writing
+it meant reading the evidence again, four of the five weight comparisons turned out to match
+the paper's own table to the digit once a systematic x1.25 curriculum factor is applied, and
+the charge was withdrawn and the row reclassified as an internal inconsistency before it was
+ever sent. Its note is kept here with its doubt notice intact, because the withdrawal is part
+of the record and the note is the evidence for it.
 
 `penspin_2024`'s note carries a doubt notice too, and half of that charge went the same way: the
 tactile-channel half is withdrawn, since the config that was read is consistent with the paper's
@@ -92,6 +93,6 @@ failure mode the parse-limitation class exists for, and it took an author's repl
 
 Everyone was asked, and every letter said so in terms: silence is recorded as silence. The
 survey does not treat the absence of a reply as agreement with a claim, as a defence of a
-claim, or as a reason to raise or lower a claim's confidence. Every one of the nine is
+claim, or as a reason to raise or lower a claim's confidence. Every surviving claim is
 published at exactly the confidence its own evidence supports, with the caveats that evidence
 carries.
