@@ -4,9 +4,9 @@ Finish line: arXiv cs.RO posted by Luai. Agent work ends at a verified package w
 Deadline: 2026-10-10 for the author-reply window; posting after that and after Luai's IP check.
 Milestone: 5/5 brief items done. D-Grasp is a corpus row, 113 method rows of 219, and section 7.2 is restated against the new corpus.
 Last result: check_numbers 0 problems over both editions, check_notes 220/0, make_arxiv PASS at 40 pages, 113 method rows (results/trends.json, paper/APPENDIX_C.md, corpus/rows/dgrasp_2022.json)
-Blocked: (1) arXiv posting needs Luai's approval and is held until after 2026-10-10 **and** Luai's Waymo/Tesla IP check. (2) Overleaf sync is allowed only while the project is private, and nothing available here reports a project's sharing state: the MCP server exposes files and sections, not visibility, and the sync path is git over git.overleaf.com. Needs one line from Luai confirming "Dexterous Manipulation Survey" (project 6aaef4d2) is private and not link-shared or published to the gallery; Overleaf is 15 commits behind, at a sync from a6b1022. (3) Pushing this round. The previous approval was scoped to the batch it named; these two commits are local and ready, plain push, no force.
+Blocked: (1) arXiv posting needs Luai's approval and is held until after 2026-10-10 **and** Luai's Waymo/Tesla IP check. (2) Overleaf sync is allowed only while the project is private, and nothing available here reports a project's sharing state: the MCP server exposes files and sections, not visibility, and the sync path is git over git.overleaf.com. Needs one line from Luai confirming "Dexterous Manipulation Survey" (project 6aaef4d2) is private and not link-shared or published to the gallery; Overleaf is 15 commits behind, at a sync from a6b1022. Push approval is now standing for incremental work on this repo with no history rewrites, so pushing is no longer a blocker.
 Next: On 2026-10-10, record each of the nine letters as replied or silent in its row's mismatch_review, update CHANGELOG.md, rebuild, re-run check_numbers and make_arxiv.
-Updated: 2026-10-06 23:30
+Updated: 2026-10-07 00:05
 
 ## Decisions taken 2026-10-06 (from the orchestrator)
 1. **D-Grasp becomes a corpus row.** Done, under the protocol in `paper/METHOD.md`:
@@ -75,7 +75,28 @@ that train are `flagship` and `libphys`, and PLAN.md directs both to Modal
 ("Train on Modal, not the Jetson"); `~/projects/_ops/board.sh` prints per-session
 state and would identify it.
 
-## Pushed 2026-10-06
+## Pushed 2026-10-06, second push
+
+`git push origin main`, plain, no force. Range `872e206..9febfb0`, 5 commits: the
+affiliation, the D-Grasp row with every count it moved, the Selection disclosure,
+four derived counts with pins, and the re-rendered markdown edition.
+
+The pre-push address check over `@{u}..HEAD` returned the author's own two
+addresses, the co-author trailer, and one third-party line: `wenzel.jakob@epfl.ch`,
+in `code/md/dgrasp_2022.md`. It was pushed deliberately. It is the pybind11 BSD
+copyright notice, reproduced verbatim where the D-Grasp repository vendors
+pybind11, and that licence requires the notice be retained on redistribution. The
+same line is already on `origin/main` in `code/md/raisim_2018.md`,
+`code/md/artigrasp_2023.md` and `code/md/graspxl_2024.md`, so nothing new was
+disclosed, and stripping one of four copies would have mangled a licence header
+without improving anyone's privacy. The rule this check enforces is about not
+publishing researchers' contact details gathered for outreach, which a vendored
+licence notice is not.
+
+Push approval is standing from 2026-10-06 for incremental work with no history
+rewrites, with the address check run before each push.
+
+## Pushed 2026-10-06, first push
 
 `git push origin main`, plain, no force. Range `46a3e6f..060a0ea`, 35 commits.
 Head now `060a0ea44bccbc41172bddee47375d4b7626090d`.
