@@ -121,6 +121,13 @@ address was found, and the reply state. `check_numbers.py` was changed to verify
 those three rather than to assert an address is present, and it now fails if an
 address appears in that file at all.
 
+## Pushed 2026-10-10
+
+`git push origin main`, plain, no force. Range `3572cba..71b5a91`, one commit: the closed reply
+window. The pre-push address check over `@{u}..HEAD` returned only the git author and the
+co-author trailer, no third-party address; nothing from the mailbox was written into the
+repository, and `outreach/RECIPIENTS.md` still prints no addresses.
+
 ## The reply window, closed 2026-10-10
 
 Nine letters went out on 19 September 2026, each giving until 10 October and each saying that
