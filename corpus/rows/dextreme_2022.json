@@ -21,7 +21,7 @@
  "sim_episodes": null,
  "success_criterion": "object orientation within 0.4 rad of target triggers a new goal at test time (training success tolerance 0.1 rad); episode resets as a 'fall' when goal_dist >= 0.24 m fallDistance",
  "headline_metric": "average consecutive successes over 10 real-world trials",
- "headline_value": "best real-world ADR model: 27.8±19.0 average consecutive successes (median 14.0, best rollout 112) (Table 7/9)",
+ "headline_value": "best real-world ADR model: 27.8\u00b119.0 average consecutive successes (median 14.0, best rollout 112) (Table 7/9)",
  "objects_train": 1,
  "objects_test_unseen": null,
  "human_data": "none",
@@ -39,5 +39,6 @@
   "locator": "actionDeltaPenaltyScale",
   "paper": "action-delta penalty weight -0.25, Table 2",
   "code": "`actionDeltaPenaltyScale: -0.2`, and -0.01 in the ManualDR yaml beside it"
- }
+ },
+ "mismatch_review": "Written to on 19 September 2026 with the claim, its evidence and the sentences this survey would print. The reply window closed on 10 October 2026 with no reply. Recorded as silence rather than as agreement; the claim rests on the two public documents it names and a reader can settle it without the authors. Delivery was partial: two of the three copied coauthor addresses were rejected by the recipient's mail server, so those two coauthors never received the letter. The address the letter was addressed to was not among the rejections and its copy was delivered."
 }

@@ -49,10 +49,14 @@ about the objective that was trained. Thirty-nine disagreements were recorded in
 the classification of every one is in the `mismatch_class` field of `corpus/rows/`.
 `CHANGELOG.md` records every claim this survey has revised and why. Nine sets of authors were
 written to on 19 September 2026, before the survey was posted, and each was given until 10
-October 2026 to reply. One has replied: the corresponding author of `dexpoint_2022` showed that
-three parts of the comparison did not hold, so that row left the count, which is why nine
-letters went out and eight claims stand. Silence from the other eight is recorded as silence
-rather than as agreement. Each of the eight is also stated as a comparison between two public
+October 2026 to reply. That window has closed: one substantive reply, one acknowledgement
+without an answer, seven silent. The reply, from the corresponding author of `dexpoint_2022`,
+showed that three parts of the comparison did not hold, so that row left the count, which is why
+nine letters went out and eight claims stand. On `unidexgrasp_2023` a coauthor forwarded the
+letter to two colleagues and asked them about the difference, copying the author, but no answer
+came; that row is recorded as unanswered, not agreed. Silence is recorded as silence rather than
+as agreement, and `outreach/RECIPIENTS.md` gives each letter's outcome, including two copied
+addresses that a recipient mail server rejected. Each of the eight is also stated as a comparison between two public
 documents, a repository at a fetched commit against the paper's own table, which any reader can
 settle without asking anyone. Section 5.6 says that beside the finding, and `outreach/` holds
 the letters as they went out, with `outreach/RECIPIENTS.md` recording who each one went to and how

@@ -2,8 +2,14 @@
  "key": "unidexgrasp_2023",
  "year": 2023,
  "class": "method",
- "task_family": ["grasp"],
- "paradigm": ["grasp-synthesis", "RL", "distillation"],
+ "task_family": [
+  "grasp"
+ ],
+ "paradigm": [
+  "grasp-synthesis",
+  "RL",
+  "distillation"
+ ],
  "algorithm": "PPO (teacher) + DAgger (student distillation)",
  "hand": "ShadowHand",
  "hand_dof": 26,
@@ -16,13 +22,18 @@
  "sim_episodes": null,
  "success_criterion": "the position difference between the object and the target is smaller than 0.05m at the final step of one sequence",
  "headline_metric": "simulation success rate",
- "headline_value": "teacher: train 0.74±0.07, unseen-obj/seen-cat 0.71±0.05, unseen-cat 0.66±0.06 (Table 3, state-based, 3 seeds)",
+ "headline_value": "teacher: train 0.74\u00b10.07, unseen-obj/seen-cat 0.71\u00b10.05, unseen-cat 0.66\u00b10.06 (Table 3, state-based, 3 seeds)",
  "objects_train": 3200,
  "objects_test_unseen": 241,
  "human_data": "none",
  "penetration": "penalised",
  "reward_terms": 4,
- "reward_term_names": ["goal", "reach", "lift", "move"],
+ "reward_term_names": [
+  "goal",
+  "reach",
+  "lift",
+  "move"
+ ],
  "code_released": true,
  "paper_code_mismatch": "The paper describes a four-term weighted reward (r_goal + r_reach + r_lift + r_move via Table 7's omega weights) but the released compute_hand_reward implements a different threshold-gated torch.where cascade with distinct hardcoded coefficients that do not map one-to-one onto the paper's weights.",
  "note_gaps": "Domain randomization is code-only and not mentioned in the paper text; the proposal-generation loss weights (L_cmap, L_pen, L_tpen, L_spen) were not cross-checked against a code loss-function source in this pass.",
@@ -35,5 +46,6 @@
   "locator": "compute_hand_reward, goal_cond branch",
   "paper": "seven named weights from 0.1 to 10, Table 7",
   "code": "a `torch.where` cascade on literals -0.5, -1.0, 0.9, 0.1, 0.2, none of the seven present"
- }
+ },
+ "mismatch_review": "Written to on 19 September 2026 with the claim, its evidence and the sentences this survey would print. On 2 October 2026 a copied coauthor forwarded the letter to two further coauthors, asked them whether they recalled the cause of the difference, and copied this survey's author on that forward. No answer had arrived when the window closed on 10 October 2026. The letter was therefore read and passed on rather than ignored, and the question it asks is open: a forward is neither a confirmation of the claim nor a dispute of it, so the row is unchanged and the claim is recorded as unanswered rather than as agreed."
 }

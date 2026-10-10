@@ -4,6 +4,43 @@ Corrections to claims this survey has made, newest first. Public-facing document
 state what the survey finds; this file states what it has changed its mind about.
 Every entry names the evidence and the commit.
 
+## 2026-10-10 — the author-reply window closed
+
+**Was:** nine letters out, one reply in, eight outstanding, and a note in section
+5.6 that a window closing in silence would be recorded as silence in the next
+version.
+
+**Now:** the window is closed and recorded. One substantive reply, one
+acknowledgement without an answer, seven silent.
+
+**The reply**, already in the paper since 20 September: the corresponding author of
+`dexpoint_2022` showed that three parts of that comparison did not hold. The row
+moved from contradiction to parse-limitation and the census went from nine to
+eight. The entry below records it in full.
+
+**The acknowledgement**, new here: on 2 October a copied coauthor of
+`unidexgrasp_2023` forwarded the letter to two further coauthors, asked whether
+they recalled the cause of the difference, and copied this survey's author on the
+forward. No answer arrived before the window closed. That row is unchanged. A
+forward is not a confirmation of a claim and not a dispute of one, so it is
+recorded as unanswered rather than as agreed, and the temptation to read the
+question in it as a concession is noted and refused.
+
+**Two qualifications on the seven silences.** The letters on `dexpbt_2023` and
+`dextreme_2022` went to one recipient with three coauthors in copy, and that mail
+server rejected two of the three copied addresses, so two coauthors never received
+them; in both cases the addressed recipient was not among the rejections, so each
+letter did reach a coauthor of the paper it concerns. On `dexpbt_2023` a copied
+coauthor's mailer returned an automatic out-of-office message, naming a week of
+travel that had already ended when the letter was sent. It is not an answer and is
+not counted as one.
+
+**What did not change:** every claim and every count. No row was altered by the
+close of the window. Silence is recorded as silence in each row's
+`mismatch_review` and in `outreach/RECIPIENTS.md`, and the eight contradictions
+stand on the comparison each one names, a repository at a fetched commit against
+the paper's own table, which a reader can settle without the authors.
+
 ## 2026-10-06 — D-Grasp is a corpus row, and the counts it moves
 
 **Was:** D-Grasp was cited as prior work from outside the corpus, carried no

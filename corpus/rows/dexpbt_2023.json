@@ -20,7 +20,7 @@
  "real_robot": false,
  "real_trials": null,
  "sim_episodes": null,
- "success_criterion": "all Nkp object keypoints (or object center) within tolerance ε* of target; ε*=1 cm for regrasping/reorientation, ε*=7.5 cm for grasp-and-throw; episode ends at N_max=50 consecutive successes or first failure/drop",
+ "success_criterion": "all Nkp object keypoints (or object center) within tolerance \u03b5* of target; \u03b5*=1 cm for regrasping/reorientation, \u03b5*=7.5 cm for grasp-and-throw; episode ends at N_max=50 consecutive successes or first failure/drop",
  "headline_metric": "N_succ (number of consecutive successes per episode)",
  "headline_value": "dual-arm PBT reorientation reaches almost 40 of N_max=50; scaling to |P|=32 over 10^10 steps reaches N_succ>42 for the best agent (Fig. 6); without PBT none of 8 single-GPU seeds reached the target tolerance (Sec. IV)",
  "objects_train": null,
@@ -39,7 +39,7 @@
   "r_targ",
   "r_vel"
  ],
- "mismatch_review": "R3 adversarial review: the disabled-randomisation half is withdrawn, since the note finds it consistent with the paper; the zeroed reward term stands",
+ "mismatch_review": "R3 adversarial review: the disabled-randomisation half is withdrawn, since the note finds it consistent with the paper; the zeroed reward term stands. Written to on 19 September 2026 with the claim, its evidence and the sentences this survey would print. The reply window closed on 10 October 2026 with no reply. Recorded as silence rather than as agreement; the claim rests on the two public documents it names and a reader can settle it without the authors. One copied coauthor's mailer returned an automatic out-of-office message, which is not an answer and is not counted as one. Delivery was partial: two of the three copied coauthor addresses were rejected by the recipient's mail server, so those two coauthors never received the letter. The address the letter was addressed to was not among the rejections and its copy was delivered.",
  "mismatch_artifact": {
   "repo": "https://github.com/NVIDIA-Omniverse/IsaacGymEnvs",
   "commit": "aeed298638a1f7b5421b38f5f3cc2d1079b6d9c3",

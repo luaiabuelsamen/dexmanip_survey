@@ -75,7 +75,10 @@ private: the repository is public and its history is the record of what changed 
 
 ## What the replies changed
 
-One reply has arrived and it changed the paper. Yuzhe Qin, corresponding author on DexPoint,
+The window closed on 10 October 2026: of nine letters, one substantive reply, one acknowledgement
+without an answer, seven silent.
+
+Only the reply changed anything. Yuzhe Qin, corresponding author on DexPoint,
 answered on 20 September 2026 and showed that three parts of the claim did not hold: the lift term
 this survey called a departure from the paper's formula *is* the paper's formula, because
 `object_lift` is already the height difference against a resting height fixed at reset; the rotation
@@ -88,6 +91,22 @@ The lift claim is the one worth dwelling on, because this survey should have cau
 captured the reward function body but not the line defining `object_lift`, so the claim rested on
 material the snapshot did not contain, and it was filed at high confidence anyway. That is the
 failure mode the parse-limitation class exists for, and it took an author's reply to find it.
+
+On UniDexGrasp a copied coauthor forwarded the letter to two further coauthors on 2 October,
+asked whether they recalled the cause of the difference, and copied this survey's author on the
+forward. No answer followed before the window closed, and that row is unchanged. The letter was
+read and passed on rather than ignored, which is worth recording, and the question in it is open:
+a forward is neither a confirmation of the claim nor a dispute of it, so the row is recorded as
+unanswered rather than as agreed. Reading the question in that forward as a concession would be
+exactly the kind of inference the rest of this file refuses.
+
+Two of the seven silences come with a delivery qualification. The letters on DexPBT and DeXtreme
+went to the same recipient with three coauthors in copy, and that mail server rejected two of the
+three copied addresses, so two coauthors never received them. In both cases the addressed
+recipient was not among the rejections, so each letter did reach a coauthor of the paper it
+concerns, and the bounces are in the sent threads. On DexPBT a copied coauthor's mailer returned
+an automatic out-of-office message, naming a week of travel that had already ended when the letter
+was sent; it is not an answer and is not counted as one.
 
 ## What silence does not mean
 

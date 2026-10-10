@@ -451,18 +451,33 @@ What a reply can add is what the artifacts cannot give: which shipped configurat
 which stage of a pipeline, whether the fetched commit is the one behind the reported numbers,
 and whether an untagged branch holds the code that was run. The letters are in `outreach/` in
 the corpus that accompanies this survey, so a reader can see exactly what every author was
-asked, and `outreach/RECIPIENTS.md` records the address each went to and where that address
-came from. A tenth letter was drafted and never sent, because drafting it broke its own claim;
-it is kept with the nine.
+asked, and `outreach/RECIPIENTS.md` records who each one went to and how the address was found.
+A tenth letter was drafted and never sent, because drafting it broke its own claim; it is kept
+with the nine.
 
-One reply has arrived, and it changed the paper. Yuzhe Qin, corresponding author on
-`dexpoint_2022`, answered on 20 September and showed that three parts of the comparison did not
-hold, including one where this survey had read a term as a departure from the paper's formula
-when it was the paper's formula. That row left the contradiction class, which is why the census
-here is eight and not nine. The other eight letters are unanswered as this version is written,
-and a window that closes in silence will be recorded in the next version as silence and not as
-assent. Any reply, and its effect on the row it concerns, is recorded in `mismatch_review` in
-`corpus/rows/`.
+The window closed on 10 October 2026. One letter drew a substantive reply, one drew an
+acknowledgement without an answer, and seven drew nothing.
+
+The reply changed the paper. Yuzhe Qin, corresponding author on `dexpoint_2022`, answered on 20
+September and showed that three parts of the comparison did not hold, including one where this
+survey had read a term as a departure from the paper's formula when it was the paper's formula.
+That row left the contradiction class, which is why the census here is eight and not nine.
+
+On `unidexgrasp_2023` a copied coauthor forwarded the letter to two further coauthors on 2
+October, asked whether they recalled the cause of the difference, and copied this survey's
+author on the forward. No answer followed. The letter was read and passed on, and the question
+in it is open: a forward is neither a confirmation nor a dispute, so that row stands as written
+and is recorded as unanswered rather than as agreed.
+
+Two of the seven silences carry a qualification. The letters on `dexpbt_2023` and
+`dextreme_2022` went to the same recipient with three coauthors in copy, and that mail server
+rejected two of the three copied addresses, so two coauthors never received them. In both cases
+the address the letter was addressed to was not among the rejections, so each letter did reach a
+coauthor of the paper it concerns. On `dexpbt_2023` one copied coauthor's mailer returned an
+automatic out-of-office message, which is not an answer and is not counted as one.
+
+Silence is recorded as silence. No row treats it as assent, and each letter's outcome, with the
+date and its effect on the row, is in `mismatch_review` in `corpus/rows/`.
 
 What this section claims is narrow: a repository, a commit, a file, and two values. It
 attributes nothing to intent, and a reader with a browser can confirm or refute any line of

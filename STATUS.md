@@ -2,11 +2,11 @@
 Goal: Post the dexterous-manipulation survey to arXiv cs.RO, led by the taxonomy and findings, with every number traced to a committed results file.
 Finish line: arXiv cs.RO posted by Luai. Agent work ends at a verified package with every count recomputed from the corpus.
 Deadline: 2026-10-10 for the author-reply window; posting after that and after Luai's IP check.
-Milestone: 5/5 brief items done. D-Grasp is a corpus row, 113 method rows of 219, and section 7.2 is restated against the new corpus.
-Last result: check_numbers 0 problems over both editions, check_notes 220/0, make_arxiv PASS at 40 pages, 113 method rows (results/trends.json, paper/APPENDIX_C.md, corpus/rows/dgrasp_2022.json)
-Blocked: (1) arXiv posting needs Luai's approval and is held until after 2026-10-10 **and** Luai's Waymo/Tesla IP check. (2) Overleaf sync is allowed only while the project is private, and nothing available here reports a project's sharing state: the MCP server exposes files and sections, not visibility, and the sync path is git over git.overleaf.com. Needs one line from Luai confirming "Dexterous Manipulation Survey" (project 6aaef4d2) is private and not link-shared or published to the gallery; Overleaf is 15 commits behind, at a sync from a6b1022. Push approval is now standing for incremental work on this repo with no history rewrites, so pushing is no longer a blocker.
-Next: On 2026-10-10, record each of the nine letters as replied or silent in its row's mismatch_review, update CHANGELOG.md, rebuild, re-run check_numbers and make_arxiv.
-Updated: 2026-10-07 00:05
+Milestone: all five brief items done, including item 3. The author-reply window closed on 2026-10-10 and every letter's outcome is in its row.
+Last result: nine letters, one substantive reply, one acknowledgement without an answer, seven silent; no claim changed at the close (outreach/RECIPIENTS.md, CHANGELOG.md, each row's mismatch_review). check_numbers 0 problems over both editions, check_notes 220/0, make_arxiv PASS at 40 pages.
+Blocked: (1) arXiv posting needs Luai's approval and his Waymo/Tesla IP check. The reply-window condition is satisfied as of 2026-10-10. (2) Overleaf sync is allowed only while the project is private, and nothing available here reports a project's sharing state: the MCP server exposes files and sections, not visibility, and the sync path is git over git.overleaf.com. Needs one line from Luai confirming "Dexterous Manipulation Survey" (project 6aaef4d2) is private and not link-shared or published to the gallery; Overleaf is 15 commits behind, at a sync from a6b1022. Push approval is now standing for incremental work on this repo with no history rewrites, so pushing is no longer a blocker.
+Next: Nothing. The agent work is finished at a verified package. Posting is Luai's, after the IP check.
+Updated: 2026-10-10 09:40
 
 ## Decisions taken 2026-10-06 (from the orchestrator)
 1. **D-Grasp becomes a corpus row.** Done, under the protocol in `paper/METHOD.md`:
@@ -32,7 +32,7 @@ Updated: 2026-10-07 00:05
 ## Brief items
 1. D-Grasp vs the interpenetration headline — DONE, twice. First restated with D-Grasp cited as related work; then, on the orchestrator's decision, D-Grasp was read into the corpus as a row and the claim restated against the larger corpus. The search of all 97 penetration-mentioning notes is recorded and found no other case.
 2. Reconcile README / PUBLISHING.md / outreach / the paper — DONE. Nine letters sent, eight claims standing; every document now states both and why they differ. Two stale counts in section 5.6 fixed, one with its arithmetic (39 less 8 is 31).
-3. After Oct 10, record replies or silence — BLOCKED on the date. One reply is already in (DexPoint); eight outstanding.
+3. After Oct 10, record replies or silence — DONE 2026-10-10. One substantive reply (DexPoint, already acted on), one acknowledgement without an answer (UniDexGrasp, forwarded to two coauthors on 2 October, copying the author), seven silent. Two of the seven come with a delivery qualification: the DexPBT and DeXtreme letters had two copied addresses rejected by the recipient's mail server, and DexPBT also drew an automatic out-of-office reply. Nothing in the paper changed at the close.
 4. Cut length, lead with taxonomy and findings, move process narrative out — DONE. 40 pages from 42, one page back for the new row; sections 2.3 and 2.4 added for the vocabulary and the trend; retractions moved to CHANGELOG.md; no process narrative left in README.md or PUBLISHING.md.
 5. Clean arXiv package — DONE and PASSing; BLOCKED for approval to post.
 
@@ -120,3 +120,30 @@ on `origin/main` before this push.
 address was found, and the reply state. `check_numbers.py` was changed to verify
 those three rather than to assert an address is present, and it now fails if an
 address appears in that file at all.
+
+## The reply window, closed 2026-10-10
+
+Nine letters went out on 19 September 2026, each giving until 10 October and each saying that
+silence would be recorded as silence. At the close: **one substantive reply, one acknowledgement
+without an answer, seven silent.** No claim and no count changed at the close.
+
+- `dexpoint_2022` — replied 20 September. Three parts of the comparison did not hold; the row
+  moved from contradiction to parse-limitation and the census went from nine to eight. This was
+  already in the paper before today.
+- `unidexgrasp_2023` — on 2 October a copied coauthor forwarded the letter to two further
+  coauthors, asked whether they recalled the cause of the difference, and copied this survey's
+  author on the forward. No answer followed. The row is unchanged and recorded as unanswered
+  rather than as agreed: a forward is neither a confirmation nor a dispute, and reading the
+  question in it as a concession is the inference the outreach policy exists to refuse.
+- `dexpbt_2023`, `dextreme_2022` — silent, with a delivery qualification. Both went to one
+  recipient with three coauthors in copy, and that mail server rejected two of the three copied
+  addresses, so two coauthors never received them. The addressed recipient was not among the
+  rejections in either case, so each letter did reach a coauthor of the paper it concerns.
+  `dexpbt_2023` also drew an automatic out-of-office message from a copied coauthor, naming a
+  week of travel that had ended before the letter was sent; it is not counted as an answer.
+- `physhoi_2023`, `pddm_2019`, `penspin_2024`, `pianomime_2024`, `visual_dexterity_2022` —
+  silent, no bounce, no auto-reply.
+
+Recorded in each row's `mismatch_review`, in `outreach/RECIPIENTS.md` per letter, in
+`CHANGELOG.md`, and in section 5.6 of both editions. `outreach/README.md` carries the policy and
+what silence does not mean.

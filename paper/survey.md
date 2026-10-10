@@ -11,7 +11,7 @@ A survey of 222 bibliography entries, 219 of which carry a structured row read f
 "Method row" throughout means one of the 113, and every headline count here has one of those eight
 classes as its denominator.
 
-*Compiled 2026-10-06. Every claim traces to a note in `papers/notes/`, every note to a parsed source in
+*Compiled 2026-10-10. Every claim traces to a note in `papers/notes/`, every note to a parsed source in
 `papers/md/` or `code/md/`, and every source to a hash or commit in `corpus/manifest.json`. The
 method is in Appendix A.*
 
@@ -1575,18 +1575,33 @@ What a reply can add is what the artifacts cannot give: which shipped configurat
 which stage of a pipeline, whether the fetched commit is the one behind the reported numbers,
 and whether an untagged branch holds the code that was run. The letters are in `outreach/` in
 the corpus that accompanies this survey, so a reader can see exactly what every author was
-asked, and `outreach/RECIPIENTS.md` records the address each went to and where that address
-came from. A tenth letter was drafted and never sent, because drafting it broke its own claim;
-it is kept with the nine.
+asked, and `outreach/RECIPIENTS.md` records who each one went to and how the address was found.
+A tenth letter was drafted and never sent, because drafting it broke its own claim; it is kept
+with the nine.
 
-One reply has arrived, and it changed the paper. Yuzhe Qin, corresponding author on
-`dexpoint_2022`, answered on 20 September and showed that three parts of the comparison did not
-hold, including one where this survey had read a term as a departure from the paper's formula
-when it was the paper's formula. That row left the contradiction class, which is why the census
-here is eight and not nine. The other eight letters are unanswered as this version is written,
-and a window that closes in silence will be recorded in the next version as silence and not as
-assent. Any reply, and its effect on the row it concerns, is recorded in `mismatch_review` in
-`corpus/rows/`.
+The window closed on 10 October 2026. One letter drew a substantive reply, one drew an
+acknowledgement without an answer, and seven drew nothing.
+
+The reply changed the paper. Yuzhe Qin, corresponding author on `dexpoint_2022`, answered on 20
+September and showed that three parts of the comparison did not hold, including one where this
+survey had read a term as a departure from the paper's formula when it was the paper's formula.
+That row left the contradiction class, which is why the census here is eight and not nine.
+
+On `unidexgrasp_2023` a copied coauthor forwarded the letter to two further coauthors on 2
+October, asked whether they recalled the cause of the difference, and copied this survey's
+author on the forward. No answer followed. The letter was read and passed on, and the question
+in it is open: a forward is neither a confirmation nor a dispute, so that row stands as written
+and is recorded as unanswered rather than as agreed.
+
+Two of the seven silences carry a qualification. The letters on `dexpbt_2023` and
+`dextreme_2022` went to the same recipient with three coauthors in copy, and that mail server
+rejected two of the three copied addresses, so two coauthors never received them. In both cases
+the address the letter was addressed to was not among the rejections, so each letter did reach a
+coauthor of the paper it concerns. On `dexpbt_2023` one copied coauthor's mailer returned an
+automatic out-of-office message, which is not an answer and is not counted as one.
+
+Silence is recorded as silence. No row treats it as assent, and each letter's outcome, with the
+date and its effect on the row, is in `mismatch_review` in `corpus/rows/`.
 
 What this section claims is narrow: a repository, a commit, a file, and two values. It
 attributes nothing to intent, and a reader with a browser can confirm or refute any line of
@@ -2681,22 +2696,28 @@ Each entry below is the disagreement text stored in the row, unedited. The class
 
 - `pddm_2019` (high). Table 2 states obs-dim 46 for In-hand Reorientation while the released cube_env.py code sums to 39; the Baoding reward code includes an extra -10*wrist_too_high term absent from Table 2's printed formula.
   Artefact: `google-research/pddm` at `06b88cdbaf`, `pddm/envs/cube/cube_env.py` (`_get_obs`).
+  Review: Written to on 19 September 2026 with the claim, its evidence and the sentences this survey would print. The reply window closed on 10 October 2026 with no reply. Recorded as silence rather than as agreement; the claim rests on the two public documents it names and a reader can settle it without the authors.
 - `dextreme_2022` (high). Action Delta Penalty weight is -0.25 in paper Table 2 but -0.2 in the ADR yaml and -0.01 in the ManualDR yaml; the Joint Velocity Penalty in code normalises velocity by (max_velocity-vel_tolerance) unlike the paper's stated formula; code has a timeout_rew term absent from the paper's reward table; Appendix Table 12 states critic learning rate 5e-4 and KL threshold 0.16, vs body text/code values of 5e-5 and 0.016.
   Artefact: `isaac-sim/IsaacGymEnvs` at `aeed298638`, `isaacgymenvs/cfg/task/AllegroHandDextremeADR.yaml` (`actionDeltaPenaltyScale`).
+  Review: Written to on 19 September 2026 with the claim, its evidence and the sentences this survey would print. The reply window closed on 10 October 2026 with no reply. Recorded as silence rather than as agreement; the claim rests on the two public documents it names and a reader can settle it without the authors. Delivery was partial: two of the three copied coauthor addresses were rejected by the recipient's mail server, so those two coauthors never received the letter. The address the letter was addressed to was not among the rejections and its copy was delivered.
 - `visual_dexterity_2022` (high). Table S1 states 32000 teacher training environments, but the released config sets alg.num_envs to 8000 (parent config 16384); fallDistance differs across two shipped configs (0.24 vs 0.15, only the latter matching Table S1's threshold); the paper's Eq 8 penultimate-joint penalty (c7=-2) does not appear anywhere in the released reward code; the config carries a dead distRewardScale=-10.0 key never used in compute_reward; and the paper's table-friction lower bound (0.05) differs by a factor of 10 from the code's randomized lower bound (0.005).
   Artefact: `Improbable-AI/dexenv` at `ad9634e9d2`, `dexenv/conf/dclaw.yaml` (`alg.num_envs`).
+  Review: Written to on 19 September 2026 with the claim, its evidence and the sentences this survey would print. The reply window closed on 10 October 2026 with no reply. Recorded as silence rather than as agreement; the claim rests on the two public documents it names and a reader can settle it without the authors.
 - `dexpbt_2023` (high). Paper presents the reward as 4 mutually exclusive stage terms (r_reach, r_pick, r_targ, -r_vel), but code's compute_kuka_reward sums 8 named components, one of which (hand_delta_penalty) is multiplied by 0 and disabled; there is no single r_vel term in code, instead separate kuka/allegro action penalties whose exact formula is not shown. Also, the paper reports zero experiments with domain randomization, yet the shipped AllegroKuka.yaml already carries a fully specified DR schedule (disabled via randomize: False).
   Artefact: `NVIDIA-Omniverse/IsaacGymEnvs` at `aeed298638`, `isaacgymenvs/tasks/allegro_kuka/allegro_kuka_base.py` (`compute_kuka_reward`).
-  Review: R3 adversarial review: the disabled-randomisation half is withdrawn, since the note finds it consistent with the paper; the zeroed reward term stands
+  Review: R3 adversarial review: the disabled-randomisation half is withdrawn, since the note finds it consistent with the paper; the zeroed reward term stands. Written to on 19 September 2026 with the claim, its evidence and the sentences this survey would print. The reply window closed on 10 October 2026 with no reply. Recorded as silence rather than as agreement; the claim rests on the two public documents it names and a reader can settle it without the authors. One copied coauthor's mailer returned an automatic out-of-office message, which is not an answer and is not counted as one. Delivery was partial: two of the three copied coauthor addresses were rejected by the recipient's mail server, so those two coauthors never received the letter. The address the letter was addressed to was not among the rejections and its copy was delivered.
 - `physhoi_2023` (high). The released compute_humanoid_reward sets the body position-velocity error and the object rotation and rotation-velocity errors to zeros_like, unconditionally, with the computation that would produce them commented out on the same lines, while Table 4 lists nonzero λ^or=0.1/λ^orv=0.01 weights for GRAB: in that file the object's orientation error is the constant zero and those weights cannot change the reward.
   Artefact: `wyhuai/PhysHOI` at `6095c605e2`, `physhoi/env/tasks/physhoi.py` (`compute_humanoid_reward`).
+  Review: Written to on 19 September 2026 with the claim, its evidence and the sentences this survey would print. The reply window closed on 10 October 2026 with no reply. Recorded as silence rather than as agreement; the claim rests on the two public documents it names and a reader can settle it without the authors.
 - `unidexgrasp_2023` (high). The paper describes a four-term weighted reward (r_goal + r_reach + r_lift + r_move via Table 7's omega weights) but the released compute_hand_reward implements a different threshold-gated torch.where cascade with distinct hardcoded coefficients that do not map one-to-one onto the paper's weights.
   Artefact: `PKU-EPIC/UniDexGrasp` at `36c9bfcf7c`, `dexgrasp_policy/dexgrasp/tasks/shadow_hand_grasp.py` (`compute_hand_reward, goal_cond branch`).
+  Review: Written to on 19 September 2026 with the claim, its evidence and the sentences this survey would print. On 2 October 2026 a copied coauthor forwarded the letter to two further coauthors, asked them whether they recalled the cause of the difference, and copied this survey's author on that forward. No answer had arrived when the window closed on 10 October 2026. The letter was therefore read and passed on rather than ignored, and the question it asks is open: a forward is neither a confirmation of the claim nor a dispute of it, so the row is unchanged and the claim is recorded as unanswered rather than as agreed.
 - `penspin_2024` (medium). The appendix states a randomised disturbance force, and the released configs/task/AllegroHandHora.yaml ships forceScale: 0.0, so no shipped configuration applies it.
   Artefact: `HaozhiQi/penspin` at `5035c52dc9`, `configs/task/AllegroHandHora.yaml` (`forceScale`).
-  Review: Narrowed while the letter to its authors was being drafted, before that letter went out on 19 September 2026. The original comparison also said the released code disables the paper's tactile channel, and that half is withdrawn: the config read has numObservations 96 and enable_tactile False, which is consistent with the proprioception-only student rather than the oracle, and the paper never claims the student has tactile input. The disturbance-force half is unaffected.
+  Review: Narrowed while the letter to its authors was being drafted, before that letter went out on 19 September 2026. The original comparison also said the released code disables the paper's tactile channel, and that half is withdrawn: the config read has numObservations 96 and enable_tactile False, which is consistent with the proprioception-only student rather than the oracle, and the paper never claims the student has tactile input. The disturbance-force half is unaffected. Written to on 19 September 2026 with the claim, its evidence and the sentences this survey would print. The reply window closed on 10 October 2026 with no reply. Recorded as silence rather than as agreement; the claim rests on the two public documents it names and a reader can settle it without the authors.
 - `pianomime_2024` (high). Paper's Table 3 states 2 weighted reward terms (Key Press 2/3, Mimic 1/3), but the released code sums roughly 5 unweighted terms (key press doubled, sustain, energy and fingering hardcoded to return 0, forearm-collision) plus a separately-added mimic wrapper term.
   Artefact: `sNiper-Qian/pianomime` at `c4abefac8d`, `single_task/piano_with_shadow_hands_res.py` (`_set_rewards`).
+  Review: Written to on 19 September 2026 with the claim, its evidence and the sentences this survey would print. The reply window closed on 10 October 2026 with no reply. Recorded as silence rather than as agreement; the claim rests on the two public documents it names and a reader can settle it without the authors.
 
 **internal-inconsistency, 4 rows.**
 
@@ -2733,7 +2754,7 @@ Each entry below is the disagreement text stored in the row, unedited. The class
 
 - `dexpoint_2022` (low). The released reward reshapes the paper's reach term into an inverse-distance form, 1.0/(0.06+finger_object_dist) in place of the plain distance of Eq. 5, and adds a 2 cm lift-threshold bonus, a target-distance term and an IK controller-tracking penalty that Eq. 5 does not list.
   Artefact: `yzqin/dexpoint-release` at `17f1e238bb`, `dexpoint/env/rl_env/relocate_env.py` (`AllegroRelocateRLEnv.get_reward`).
-  Review: Reclassified from contradiction to parse-limitation after the corresponding author replied, 2026-09-20. Three parts of the original claim do not stand. The lift term is not a departure: object_lift is already h_current minus h_init, set against a resting height fixed at reset, so 10*clip(object_lift,0,0.2) is the paper's formula with the stated weight plus a saturation, and this survey's parse captured the reward body but not the line defining object_lift, so the claim rested on material the snapshot did not contain. The rotation bonus is inactive at the paper's settings, since rotation_reward_weight defaults to zero and the term is multiplied by it, so it contributed nothing to the reported numbers. The reach-term difference is real but is version skew rather than a contradiction: the inverse form is a later, lower-variance revision and the paper's reported variance is that of the plain-distance formula the paper states. The remaining extra terms have stated purposes, the 2 cm bonus blocking a height reward hack on meshes with no flat resting surface and the IK penalty correcting a SAPIEN-specific controller mismatch.
+  Review: Reclassified from contradiction to parse-limitation after the corresponding author replied, 2026-09-20. Three parts of the original claim do not stand. The lift term is not a departure: object_lift is already h_current minus h_init, set against a resting height fixed at reset, so 10*clip(object_lift,0,0.2) is the paper's formula with the stated weight plus a saturation, and this survey's parse captured the reward body but not the line defining object_lift, so the claim rested on material the snapshot did not contain. The rotation bonus is inactive at the paper's settings, since rotation_reward_weight defaults to zero and the term is multiplied by it, so it contributed nothing to the reported numbers. The reach-term difference is real but is version skew rather than a contradiction: the inverse form is a later, lower-variance revision and the paper's reported variance is that of the plain-distance formula the paper states. The remaining extra terms have stated purposes, the 2 cm bonus blocking a height reward hack on meshes with no flat resting surface and the IK penalty correcting a SAPIEN-specific controller mismatch. The reply window closed on 10 October 2026 with no further correspondence.
 - `artigrasp_2023` (low). paper's two regulariser weights (w_rh=0.5, w_ro=0.2) correspond to five separate velocity penalties in code (-0.5,-0.2,-0.5,-0.5,-0.3); the fingertip weight 12.0 and lambda 5.0 in Table 6 do not appear in the yaml; reward weights differ between curriculum phase-1 and phase-2 configs though Table 6 reports only one set
   Review: R3 adversarial review: the reward body is C++ and absent from the parse; the weight split is the paper's documented curriculum
 - `diffusion_policy_2023` (high). the paper's core loss equations (DDPM training loss, EBM/InfoNCE, score-matching) are unrecovered images in the parsed text, and code/md is a signature-only API map, so compute_loss's body could not be verified from code; only the exact shipped noise-scheduler config (DDPMScheduler, 100 train steps) is confirmed.

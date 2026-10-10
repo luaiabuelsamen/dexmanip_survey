@@ -7,7 +7,7 @@ evaluation frame, and the gaps. Target: an arXiv preprint, cs.RO, CC BY.
 
 ## State
 Postable. `tex/main.pdf` is the submission edition, 40 pages, IEEEtran two-column. `paper/survey.pdf`
-is the longer markdown edition, 120 pages, kept because its numbers were checked by eight reviewers.
+is the longer markdown edition, 122 pages, kept because its numbers were checked by eight reviewers.
 Both build clean: no LaTeX errors, no undefined citations or references, no overfull boxes.
 `tools/check_numbers.py` recomputes every load-bearing number from `corpus/rows/` against **both**
 editions and reports zero disagreements. `tools/check_notes.py`: 220 notes, zero flagged.
@@ -31,6 +31,9 @@ repository; it last reported PASS.
 - Hardware: 33 hands tabulated, 19 in no method row, 8 of those buyable or buildable today.
 
 ## Known problems and overclaims
+- The reply window closed 2026-10-10: one substantive reply, one acknowledgement without an answer,
+  seven silent. No claim changed at the close. Per-letter outcomes are in `outreach/RECIPIENTS.md`
+  and in each row's `mismatch_review`.
 - **The sent letter to PenSpin quotes a sentence that was false.** Nine letters went out 19 Sept 2026;
   `outreach/penspin_2024.md` told those authors the letter "was never sent". The paper is fixed; the
   sent record is not, deliberately, because editing it would alter what actually went out. Your call.

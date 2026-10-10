@@ -2,8 +2,12 @@
  "key": "physhoi_2023",
  "year": 2023,
  "class": "method",
- "task_family": ["track-human-ref"],
- "paradigm": ["RL"],
+ "task_family": [
+  "track-human-ref"
+ ],
+ "paradigm": [
+  "RL"
+ ],
  "algorithm": "PPO",
  "hand": "SMPL-X humanoid (simulated, not a robot hand)",
  "hand_dof": 90,
@@ -22,9 +26,14 @@
  "human_data": "GRAB and BallPlay (authors' own mocap-style basketball dataset)",
  "penetration": "not addressed",
  "reward_terms": 4,
- "reward_term_names": ["body motion reward", "object motion reward", "ig reward", "cg reward"],
+ "reward_term_names": [
+  "body motion reward",
+  "object motion reward",
+  "ig reward",
+  "cg reward"
+ ],
  "code_released": true,
- "paper_code_mismatch": "The released compute_humanoid_reward sets the body position-velocity error and the object rotation and rotation-velocity errors to zeros_like, unconditionally, with the computation that would produce them commented out on the same lines, while Table 4 lists nonzero λ^or=0.1/λ^orv=0.01 weights for GRAB: in that file the object's orientation error is the constant zero and those weights cannot change the reward.",
+ "paper_code_mismatch": "The released compute_humanoid_reward sets the body position-velocity error and the object rotation and rotation-velocity errors to zeros_like, unconditionally, with the computation that would produce them commented out on the same lines, while Table 4 lists nonzero \u03bb^or=0.1/\u03bb^orv=0.01 weights for GRAB: in that file the object's orientation error is the constant zero and those weights cannot change the reward.",
  "note_gaps": "The reset/termination function compute_humanoid_reset is only a signature in code/md (body not extracted), so the stated 0.5 m termination threshold cannot be cross-checked against code; nearly all inline reward equations in Sec. 3.6 render blank in the parse, so the exp(-error*weight) functional form is confirmed from code, not the paper's own equations.",
  "mismatch_class": "contradiction",
  "mismatch_confidence": "high",
@@ -35,5 +44,6 @@
   "locator": "compute_humanoid_reward",
   "paper": "object-rotation weights 0.1 and 0.01 for GRAB, Table 4",
   "code": "`eor` and `eorv` set to `torch.zeros_like(ep)`, the computation commented out on the same lines"
- }
+ },
+ "mismatch_review": "Written to on 19 September 2026 with the claim, its evidence and the sentences this survey would print. The reply window closed on 10 October 2026 with no reply. Recorded as silence rather than as agreement; the claim rests on the two public documents it names and a reader can settle it without the authors."
 }

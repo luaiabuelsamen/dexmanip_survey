@@ -2,8 +2,13 @@
  "key": "pddm_2019",
  "year": 2019,
  "class": "method",
- "task_family": ["reorient", "other"],
- "paradigm": ["MPC"],
+ "task_family": [
+  "reorient",
+  "other"
+ ],
+ "paradigm": [
+  "MPC"
+ ],
  "algorithm": "PDDM: ensemble of feed-forward dynamics models + MPPI-style filtering/reward-weighted-refinement trajectory optimizer (no policy network, no policy-gradient training)",
  "hand": "Shadow Hand (24-DoF, real and sim); D'Claw (9-DoF, sim only, valve turning)",
  "hand_dof": null,
@@ -34,5 +39,6 @@
   "locator": "_get_obs",
   "paper": "observation dimension 46 for in-hand reorientation, Table 2",
   "code": "the six fields `_get_obs` concatenates sum to 39 on the code's own inline comments"
- }
+ },
+ "mismatch_review": "Written to on 19 September 2026 with the claim, its evidence and the sentences this survey would print. The reply window closed on 10 October 2026 with no reply. Recorded as silence rather than as agreement; the claim rests on the two public documents it names and a reader can settle it without the authors."
 }
