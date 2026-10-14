@@ -161,6 +161,13 @@ Recorded in each row's `mismatch_review`, in `outreach/RECIPIENTS.md` per letter
 `CHANGELOG.md`, and in section 5.6 of both editions. `outreach/README.md` carries the policy and
 what silence does not mean.
 
+## Overleaf synced 2026-10-14
+
+`ff3232b` to `2706e54`, "Sync from repository (471e3a5)": the prose pass, 9 files, 746 insertions
+and 976 deletions. Overleaf's head before the push was the previous sync, so nothing edited there
+was overwritten. Cloned back and compiled from what Overleaf now serves, `latexmk -pdf` with no
+`TEXINPUTS`: 37 pages, 0 errors, 0 undefined citations, 0 undefined references.
+
 ## Overleaf synced 2026-10-13
 
 `tools/overleaf_sync.sh push`. Overleaf went from `664dc2d` (a sync from `a6b1022`, 2026-10-05)
