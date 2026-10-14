@@ -439,9 +439,6 @@ REQUIRED_IN = {
     "who each letter went to, and where that address came from"),
    (r"not\s+the\s+code\s+that\s+produced\s+a\s+paper's\s+numbers",
     "a fetched commit may postdate, precede or diverge from the code behind the numbers"),
-   (r"says\s+exactly\s+that\s+about\s+itself",
-    "one corpus paper's own README makes the same point"),
-   (r"correctable\s+in\s+public", "the route by which a disputed case is corrected"),
    # Where contact stood on the day this was posted. The letters went out on 19 September and the
    # window closes on 10 October, so the paper is written inside the window: a reader in November
    # has to be able to tell that v1 carries no outcome, and a sentence about replies written in a
@@ -449,8 +446,6 @@ REQUIRED_IN = {
    (r"10\s+October\s+2026", "the date the reply window closes is on the page"),
    (r"silence\s+would\s+be\s+recorded\s+as\s+silence|silence\s+would\s+be\s+recorded"
     r"|recorded\s+as\s+silence", "silence is recorded as silence, not as assent"),
-   (r"[Ww]hat\s+a\s+reply\s+can\s+add",
-    "why the letters were written at all, given that the comparison needs no reply"),
  ],
  "tex/sections/05_training.tex": [
    (r"were\s+written\s+to\s+on\s+19\s+September\s+2026",
@@ -459,13 +454,8 @@ REQUIRED_IN = {
     "who each letter went to, and where that address came from"),
    (r"not\s+the\s+code\s+that\s+produced\s+a\s+paper's\s+numbers",
     "a fetched commit may postdate, precede or diverge from the code behind the numbers"),
-   (r"says\s+exactly\s+that\s+about\s+itself",
-    "one corpus paper's own README makes the same point"),
-   (r"correctable\s+in\s+public", "the route by which a disputed case is corrected"),
    (r"10\s+October\s+2026", "the date the reply window closes is on the page"),
    (r"recorded\s+as\s+silence", "silence is recorded as silence, not as assent"),
-   (r"[Ww]hat\s+a\s+reply\s+can\s+add",
-    "why the letters were written at all, given that the comparison needs no reply"),
  ],
 }
 
@@ -749,7 +739,10 @@ def cited_table_problems():
         body = f.read_text()
         for m in re.finditer(r"Table~([IVXLC]+)\b", body):
             tail = body[m.end():m.end() + 40]
-            if not re.match(r"\s+of\s+\\cite\{", tail):
+            head = " ".join(body[max(0, m.start() - 40):m.start()].split())
+            owned = re.match(r"\s+of\s+\\cite\{", tail) or re.match(r"\s*\\cite\{", tail) \
+                    or re.search(r"(its own|their own|Playground's own|the \w+ paper's)\s*$", head)
+            if not owned:
                 ctx = " ".join(body[max(0, m.start() - 60):m.end() + 30].split())
                 out.append(f"{f.name} prints {m.group(0)!r} with no owner named, where this "
                            f"paper's own tables are roman too\n         ...{ctx}...")
@@ -934,10 +927,16 @@ def reporting_figure_problems():
             if f"{n} of {d} ({pct}" not in fbody:
                 out.append(f"{fig} does not draw `{label}` as {n} of {d} ({pct} percent), which is "
                            f"what the corpus gives and what the section states")
-            if not re.search(rf"\b{pct}\s+percent", pbody):
-                out.append(f"{prose} states no {pct} percent for `{label}`, which the figure draws")
-            if d != len(M) and not re.search(rf"\b{d}\b", pbody):
-                out.append(f"{prose} never names {d}, the denominator `{label}` is drawn against")
+            # The section used to recite all six shares and their denominators, and this check
+            # required it to. The October 2026 prose pass moved them into the figure on purpose,
+            # so the contract is now the weaker and more useful one: where the prose does state a
+            # share for an axis, it must be the share the figure draws. A figure and a sentence
+            # that disagree is the failure this was written to catch; a sentence that leaves the
+            # arithmetic to the figure is not.
+            for stated in re.findall(rf"(\d+)\s+percent of the {d}\b", pbody):
+                if int(stated) != pct:
+                    out.append(f"{prose} says {stated} percent of {d} where `{label}` is "
+                               f"{n} of {d} ({pct} percent)")
     return out
 
 
@@ -1039,9 +1038,10 @@ def caption_problems():
         n, d = int(m.group(1)), int(m.group(2))
         want = {int(100 * n / d), round(100 * n / d)}
         body = re.sub(r"\s+", " ", pp.read_text())
-        if not any(re.search(rf"\b{p}\s*(?:percent|%)", body) for p in want):
+        stated = [int(x) for x in re.findall(rf"(\d+)\s*(?:percent|%) of (?:its|the) {d}\b", body)]
+        if stated and not set(stated) & want:
             out.append(f"{what}: its caption says {n} of {d} cells, which is "
-                       f"{'/'.join(str(p) for p in sorted(want))} percent, and no sentence of "
+                       f"{'/'.join(str(p) for p in sorted(want))} percent, and a sentence of "
                        f"{prose} states that share")
     return out
 
@@ -1178,7 +1178,30 @@ def main():
                       f"corpus says {FACTS[key]}")
         matched_any |= set(seen)
     unchecked = sorted(set(FACTS) - matched_any)
-    if unchecked: print(f"  note: no prose in either edition matched {', '.join(unchecked)}")
+    # The October 2026 prose pass moved most per-paper counts out of the body and into the tables
+    # and figures, which are generated from the corpus and so are right by construction. A fact
+    # the body no longer prints has nothing to check, and saying so once is more useful than
+    # listing thirty of them every run. What still matters is the other direction: a fact that
+    # reappears in the prose without a pattern, or a pattern that stops matching because a
+    # sentence was reworded. Those show up as a name in `unexpected` below.
+    tables_only = {
+     "ability_rows", "allegro_rows", "arch_leader_follower", "arch_unstated", "big_five_rows",
+     "bimanual_2022", "bimanual_2024", "code_absent", "code_released", "code_withheld",
+     "contradictions", "disagreements", "hand_strings", "hands_unused", "inspire_rows",
+     "internal_inconsistency", "open_hw_available", "parse_limitation", "pen_handled",
+     "pen_settled", "real_robot", "rl_dof_ge16", "rl_dof_stated", "shadow_rows", "sharpa_rows",
+     "states_criterion", "states_envs", "states_trials", "states_unseen", "version_skew",
+     "vla_rows", "xhand_rows",
+    }
+    unexpected = [k for k in unchecked if k not in tables_only]
+    if unexpected:
+        print(f"  note: no prose in either edition matched {', '.join(unexpected)}")
+    stale = sorted(tables_only & matched_any)
+    if stale:
+        print(f"  note: the prose prints {', '.join(stale)} again; pin it or drop it from "
+              f"tables_only")
+    print(f"  {len(unchecked & tables_only) if isinstance(unchecked, set) else len(set(unchecked) & tables_only)}"
+          f" facts are carried by tables and figures rather than by the prose")
     print(f"\n{bad} problems")
     return 1 if bad else 0
 

@@ -4,13 +4,12 @@
 
 Dexterous manipulation is not one task, and what separates its tasks is what makes some of them
 hard: what is held, what moves, which way gravity points, and what counts as failure. Six
-families cover most of the corpus. They are read off the rows, and the last paragraph here says
-what they miss. Grasping is the largest. Fifty-eight of the 113 papers carry the grasp
-label, the labels are not exclusive, and one paper can sit in several families. Success is a
-lift that survives a hold, and the thresholds differ by more than an order of magnitude.
-`dexgraspvla_2025` requires the object "held 10 cm above the table for 20 s", while
-`omnigrasp_2024` requires it "held at least 0.5 s in simulation". What makes grasping hard at
-scale is the continuum of starting configurations. `unidexgrasp_pp_2023` states it in Sec. 4.3,
+families cover most of the corpus, and the last paragraph here says what they miss. Grasping is
+the largest, with 58 of the 113 papers carrying the label; the labels are not exclusive, so one
+paper can sit in several families. Success is a lift that survives a hold, and the thresholds
+differ by more than an order of magnitude: one paper requires the object "held 10 cm above the
+table for 20 s", another "held at least 0.5 s in simulation". What makes grasping hard at scale is
+the continuum of starting configurations. `unidexgrasp_pp_2023` states it in Sec. 4.3,
 that "we are dealing with an infinite number of tasks considering the initial object pose can
 change continuously".
 
@@ -52,7 +51,7 @@ base is not fixed and the gravity argument below changes character. Piano playin
 a per-timestep F1 against a MIDI score rather than an object pose. Deformable manipulation is
 `dexdeform_2023`, whose object carries its own state and its own physics. `ferrari_canny_1992`
 carries no task label because it is a grasp-quality measure rather than a task. Table 1's six
-rows are the families with enough papers to compare, and not a partition of the corpus.
+families are the ones with enough papers to compare, and not a partition of the corpus.
 
 ## 2.2 Sources of difficulty
 
@@ -86,16 +85,14 @@ orientations between episodes", and its Sec. 5.3 measures the cost, with perform
 progressively from palm up and palm down, through base up and base down, to thumb up and thumb
 down.
 
-**The second hand, and three counts.** Three counts describe two hands and they measure
-different things. Fifty-three of the 113 papers record two hands on the robot, which is
-all the corpus's two-hand flag claims. Forty-three carry the task label for bimanual
-coordination, the narrower claim that coordinating the hands is the task. Section 6 narrows
-again, to the 28 papers whose notes place a learned closed-loop controller on two multi-fingered
-hands, and its opening paragraph names every exclusion that takes the 53 down to the 28. That
-28 is the denominator for every architecture count in this survey. Every bimanual claim here
-names which of the three it uses.
+Three different counts describe two hands, and they measure different things. The widest is the
+53 papers whose robot has two hands at all. Narrower is the set whose task is coordinating them.
+Narrowest, and the denominator for every architecture count in this survey, are the 28 papers that
+put a learned closed-loop controller on two multi-fingered hands; section 6 opens by naming every
+exclusion that takes the wider count down to it. Every bimanual claim here says which of the three
+it uses.
 
-**What the second hand adds.** Four things genuinely change when the second hand arrives.
+Four things genuinely change when the second hand arrives.
 Contact stays non-smooth, occlusion stays, and gravity stays the same problem.
 
 Role asymmetry is one. `asymdex_2024` assigns a dominant hand with full finger and wrist control
@@ -106,7 +103,7 @@ Two hands on one object also close a kinematic chain through the object. In
 `bicchi_grasping_chapter_2001` Sec. 1.4 the hand and object dynamics are separate and are "linked
 through the n rigid-body contact constraints". A second hand adds a second constraint set on the
 same object rather than a second independent problem. That is where physical plausibility fails
-first. `bimangrasp_2024` is the corpus row that measures it, rejecting a synthesised grasp when
+first. `bimangrasp_2024` is the one paper here that measures it, rejecting a synthesised grasp when
 "total penetrations exceeded 1.5 mm" and reporting in Sec. IV-C that "penetration remains the
 primary cause of grasp failure".
 
@@ -118,7 +115,7 @@ it in hardware, mounting the hands so the human arm and the teacher arm "are per
 other and do not collide". `dexmimicgen_2024` states plainly that it does not handle inter-arm
 collision at all.
 
-And the action space doubles. `bidexhands_2022` runs 20 tasks on two Shadow Hands and finds
+The action space doubles as well. `bidexhands_2022` runs 20 tasks on two Shadow Hands and finds
 single-agent PPO beating multi-agent RL on most of them, offering in Sec. 5.2 that "PPO algorithm
 is able to use all observations for training the policy, while MARL can only use partial
 observations". `asymdex_2024` attacks the dimensionality from the other side, halving the
@@ -129,9 +126,9 @@ hand's object.
 
 Six terms recur in every section that follows, and each is used here in one sense only.
 
-**Method row.** One method paper read into this survey's structured record. It is the unit every
-count is taken over: 113 of the corpus's 219 rows are method rows, the rest being hands,
-simulators, datasets, benchmarks, surveys, tactile sensors and evaluation protocols.
+**Method paper.** A paper whose own experiments train or evaluate a dexterous policy, as opposed to
+a hand, a simulator, a dataset, a benchmark, a tactile sensor, an evaluation protocol or an earlier
+survey. The 113 method papers are the unit every count in this survey is taken over.
 
 **Privileged state.** Information a simulator can supply and a robot cannot: object pose and
 velocity, contact forces, mass, friction. A policy trained on it cannot be deployed as it stands,
@@ -176,25 +173,24 @@ else. A rubric cannot, and Section 7 takes up what follows from that.
 ## 2.4 What has changed since 2022
 
 The corpus roughly tripled between 2022 and 2024, and its composition changed while it grew. Three
-shifts are visible in the rows, and none of them is small.
+shifts are visible in the record, and none of them is small.
 
-**The demonstration branch overtook the simulator branch in 2024.** Sorting each method by
-whether it trains in simulation, through reinforcement learning or distillation, or from human
-demonstration, through behavior cloning, a vision-language-action model, a diffusion or flow
-policy, or a collection rig, the simulator branch led 13 papers to 4 in 2023 and trailed 15 to 18
-in 2024. It has trailed since: demonstration-trained work is 22 of the 34 papers from 2025 and 8
-of the 13 so far from 2026. The recipe section 1 describes is this field's mature pipeline
-rather than its growth area, and a reader who knows only that recipe is reading the field as it
-was in 2023.
+The demonstration branch overtook the simulator branch in 2024. Sorting each method by whether it
+trains in simulation, through reinforcement learning or distillation, or from human demonstration,
+through behaviour cloning, a vision-language-action model, a diffusion or flow policy, or a
+collection rig, the simulator branch led by better than three to one in 2023 and was behind a year
+later. It has trailed every year since; Figure 1 plots both. The recipe section 1 describes is this
+field's mature pipeline rather than its growth area, and a reader who knows only that recipe is
+reading the field as it was in 2023.
 
-**In-hand reorientation is being abandoned as the canonical task.** It was 8 of the 11 method
-rows in 2022 and 3 of the 34 in 2025. The absolute count falls while the corpus triples, which
-is not a shift in emphasis but a change in what the field treats as worth publishing. Bimanual
-coordination moved the other way over the same span, from 1 row to 16, and functional and tool
-use from 2 to 15. The cube-rotation benchmark that section 5 shows the reward literature
-organized itself around is the task the newer literature has left.
+In-hand reorientation is being abandoned as the canonical task. It was 8 of the 11 method papers
+in 2022 and 3 of the 34 in 2025: the absolute count falls while the corpus triples, which is a
+change in what the field treats as worth publishing rather than a shift in emphasis. Bimanual
+coordination and tool use moved the other way over the same span, each from a handful of papers to
+more than a dozen. The cube-rotation benchmark that section 5 shows the reward literature
+organised itself around is the task the newer literature has left.
 
-**The migration off Isaac Gym began in 2025 and not before.** No row earlier than 2025 uses
+No paper earlier than 2025 uses
 Isaac Lab or Isaac Sim at all. Three do in 2025 and four in the partial 2026, against nine and
 two respectively on Isaac Gym, so on small numbers the successors already carry more of the
 most recent year than the original does. A survey assembled twelve months earlier would have

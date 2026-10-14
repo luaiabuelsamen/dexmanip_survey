@@ -14,7 +14,7 @@ its consequence are read together and stated once.
    Figure 2).
 
 2. Human data does not port across hands and the map is usually unstated: 33 of the 53 method
-   rows that use human data never say how the human motion reached the robot hand (section
+   papers that use human data never say how the human motion reached the robot hand (section
    5.3, Table 6).
 
 3. Twenty-one of the 28 papers that put a learned closed-loop controller on two multi-fingered
@@ -23,26 +23,25 @@ its consequence are read together and stated once.
 
 4. The generalist and vision-language-action policies that do evaluate on a multi-fingered
    hand run it at a median of 6 actuated degrees of freedom, against 16 across the
-   reinforcement-learning rows that state a count, and the two rows that reach the larger
+   reinforcement-learning papers that state a count, and the two papers that reach the larger
    band on paper never say whether the hand was in the evaluation (section 5.4).
 
 5. The evaluation-methodology literature the protocol of section 7.3 is assembled from
-   contains no dexterous hand at all: of its seven corpus rows, one runs a parallel-jaw
+   contains no dexterous hand at all: of its seven papers in this corpus, one runs a parallel-jaw
    gripper and the other six state no hand (section 7.4, Table 8).
 
 6. Eight of the 63 papers that released parseable code state, in a named file at a named
-   commit, something other than the value their paper prints, and eight further rows have
-   been withdrawn from that count since its first draft, one of them because an author
-   replied, with two more narrowed. Table 11 gives each of the eight as a repository, a
+   commit, something other than the value their paper prints. Table 11 gives each one as a repository, a
    commit, a file and two values, and all of their authors were written to before this was
    posted: section 5.6 says that beside the finding, with the letters in `outreach/` and the
    route by which a disputed case is corrected (section 5.6 and Appendix C).
 
-7. Where interpenetration is reported it is not measured in the physics that produced the
-motion: no closed-loop policy in this corpus reports it for its own rollouts, the one outside
-it that does measures the pose geometrically after the fact, and all eleven rows that handle
-penetration at all sit on the reference side of the reference-versus-rollout split (section
-7.2, and the contact-handling bar of Figure 6).
+7. Penetration is almost never measured where it would matter. No paper here reports how far
+   its hand sank into the object, measured in the physics its own policy ran in. The one that
+   does report a volume for a pose its own policy reached measures it outside the simulator, on
+   meshes the simulator never used, and reports zero inside it. On the reference-versus-rollout
+   split that frames this survey, every paper that handles penetration at all is still measuring a
+   reference (section 7.2, and the contact-handling bar of Figure 6).
 
 Six of the seven are gaps in the literature. The sixth is a result about publishing practice,
 and this survey's own corrections to it are printed beside it in section 5.6 rather than kept
@@ -62,9 +61,7 @@ field's own benchmark repository while the number goes unreported.
 What this survey cannot establish is which method is better than which. It re-runs nothing, and
 Section 7 argues that the published numbers do not compare. Six works are cited by metadata only,
 and a seventh, Ma and Dollar 2011, is on disk but unread; no claim rests on any of them. Every
-coverage statistic here counts what this survey's extraction captured rather than what the
-literature reported. Each is a floor and not a rate, because every miss converts a reporting paper
-into a silent one.
+coverage figure here is a floor rather than a rate, for the reason Appendix A sets out.
 
 Three things to do next week, cheapest first.
 
@@ -77,7 +74,7 @@ surface sample, and never let that measure become a reward. `toporetarget_2026` 
 number looks like when it is reported carefully, and what the widely used retargeters look like
 when it is not.
 
-If you are choosing hardware, the corpus names four hands and no more. The Allegro carries 35
-papers, the Shadow 21, the Inspire 19 and LEAP 12, and every other hand in Tables 2 and 3
-carries eight rows or fewer. An announced hand has no URDF, no datasheet that can be checked, and
-no paper in this corpus that used it.
+If you are choosing hardware, the corpus names four hands and no more: the Allegro, the Shadow,
+the Inspire RH56 family and LEAP, in that order, with the Allegro alone carrying 35 of the 113
+papers. Every other hand in Tables 2 and 3 carries eight papers or fewer. An announced hand has no
+URDF, no datasheet that can be checked, and no paper in this corpus that used it.

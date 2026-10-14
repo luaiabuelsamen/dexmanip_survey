@@ -18,7 +18,7 @@ corpus by `tools/make_trend_figure.py`. The figure is drawn from the same file.
 
 ## The paper
 
-`tex/main.pdf`, 40 pages, self-contained: appendices A to E are in it, so the posted PDF carries
+`tex/main.pdf`, 37 pages, self-contained: appendices A to E are in it, so the posted PDF carries
 every record the body argues from. `tex/main.tex` is the submission source. The Markdown edition in
 `paper/` is a readable research edition assembled from the same sections; regenerate it with
 `tools/assemble.py` rather than editing `paper/survey.md` directly.
@@ -50,11 +50,13 @@ the classification of every one is in the `mismatch_class` field of `corpus/rows
 `CHANGELOG.md` records every claim this survey has revised and why. Nine sets of authors were
 written to on 19 September 2026, before the survey was posted, and each was given until 10
 October 2026 to reply. That window has closed: one substantive reply, one acknowledgement
-without an answer, seven silent. The reply, from the corresponding author of `dexpoint_2022`,
+without an answer, one redirect, six silent. The reply, from the corresponding author of `dexpoint_2022`,
 showed that three parts of the comparison did not hold, so that row left the count, which is why
 nine letters went out and eight claims stand. On `unidexgrasp_2023` a coauthor forwarded the
 letter to two colleagues and asked them about the difference, copying the author, but no answer
-came; that row is recorded as unanswered, not agreed. Silence is recorded as silence rather than
+came; that paper is recorded as unanswered, not agreed. On `pianomime_2024` a coauthor redirected
+the letter to the first author, Cheng Qian, who had not been written to before the window closed,
+which is a miss by this survey rather than a non-reply. Silence is recorded as silence rather than
 as agreement, and `outreach/RECIPIENTS.md` gives each letter's outcome, including two copied
 addresses that a recipient mail server rejected. Each of the eight is also stated as a comparison between two public
 documents, a repository at a fetched commit against the paper's own table, which any reader can

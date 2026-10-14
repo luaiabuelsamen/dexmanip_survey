@@ -2,8 +2,8 @@
 Goal: Post the dexterous-manipulation survey to arXiv cs.RO, led by the taxonomy and findings, with every number traced to a committed results file.
 Finish line: arXiv cs.RO posted by Luai. Agent work ends at a verified package with every count recomputed from the corpus.
 Deadline: 2026-10-10 for the author-reply window; posting after that and after Luai's IP check.
-Milestone: all five brief items done, including item 3. The author-reply window closed on 2026-10-10 and every letter's outcome is in its row.
-Last result: nine letters, one substantive reply, one acknowledgement without an answer, seven silent; no claim changed at the close (outreach/RECIPIENTS.md, CHANGELOG.md, each row's mismatch_review). check_numbers 0 problems over both editions, check_notes 220/0, make_arxiv PASS at 40 pages.
+Milestone: all five brief items done, plus the prose pass of 2026-10-14. The survey reads as an introduction to the field: 37 pages, no bold label lead-ins outside the glossary, no paper called a row, and the per-paper counts in the tables rather than stacked in the sentences.
+Last result: nine letters, one substantive reply, one acknowledgement without an answer, one redirect, six silent; no claim changed at the close (outreach/RECIPIENTS.md, CHANGELOG.md, each row's mismatch_review). check_numbers 0 problems over both editions, check_notes 220/0, make_arxiv PASS at 40 pages.
 Blocked: (1) arXiv posting needs Luai's approval and his Waymo/Tesla IP check. The reply-window condition is satisfied as of 2026-10-10. Push approval is standing for incremental work on this repo with no history rewrites. Overleaf is no longer blocked: Luai approved the sync on 2026-10-13 and waived the privacy condition, and the sync is done.
 Next: Nothing. The agent work is finished at a verified package. Posting is Luai's, after the IP check.
 Updated: 2026-10-13 10:20
@@ -32,7 +32,7 @@ Updated: 2026-10-13 10:20
 ## Brief items
 1. D-Grasp vs the interpenetration headline — DONE, twice. First restated with D-Grasp cited as related work; then, on the orchestrator's decision, D-Grasp was read into the corpus as a row and the claim restated against the larger corpus. The search of all 97 penetration-mentioning notes is recorded and found no other case.
 2. Reconcile README / PUBLISHING.md / outreach / the paper — DONE. Nine letters sent, eight claims standing; every document now states both and why they differ. Two stale counts in section 5.6 fixed, one with its arithmetic (39 less 8 is 31).
-3. After Oct 10, record replies or silence — DONE 2026-10-10. One substantive reply (DexPoint, already acted on), one acknowledgement without an answer (UniDexGrasp, forwarded to two coauthors on 2 October, copying the author), seven silent. Two of the seven come with a delivery qualification: the DexPBT and DeXtreme letters had two copied addresses rejected by the recipient's mail server, and DexPBT also drew an automatic out-of-office reply. Nothing in the paper changed at the close.
+3. After Oct 10, record replies or silence — DONE 2026-10-10, corrected 2026-10-14. One substantive reply (DexPoint, already acted on), one acknowledgement without an answer (UniDexGrasp, forwarded to two coauthors on 2 October, copying the author), one redirect (PianoMime: a coauthor replied on 22 September for the senior author and pointed the question at first author Cheng Qian, who was never written to before the window closed), six silent. Two of the seven come with a delivery qualification: the DexPBT and DeXtreme letters had two copied addresses rejected by the recipient's mail server, and DexPBT also drew an automatic out-of-office reply. Nothing in the paper changed at the close.
 4. Cut length, lead with taxonomy and findings, move process narrative out — DONE. 40 pages from 42, one page back for the new row; sections 2.3 and 2.4 added for the vocabulary and the trend; retractions moved to CHANGELOG.md; no process narrative left in README.md or PUBLISHING.md.
 5. Clean arXiv package — DONE and PASSing; BLOCKED for approval to post.
 
@@ -132,7 +132,7 @@ repository, and `outreach/RECIPIENTS.md` still prints no addresses.
 
 Nine letters went out on 19 September 2026, each giving until 10 October and each saying that
 silence would be recorded as silence. At the close: **one substantive reply, one acknowledgement
-without an answer, seven silent.** No claim and no count changed at the close.
+without an answer, one redirect, six silent.** No claim and no count changed at the close.
 
 - `dexpoint_2022` — replied 20 September. Three parts of the comparison did not hold; the row
   moved from contradiction to parse-limitation and the census went from nine to eight. This was
@@ -148,8 +148,14 @@ without an answer, seven silent.** No claim and no count changed at the close.
   rejections in either case, so each letter did reach a coauthor of the paper it concerns.
   `dexpbt_2023` also drew an automatic out-of-office message from a copied coauthor, naming a
   week of travel that had ended before the letter was sent; it is not counted as an answer.
-- `physhoi_2023`, `pddm_2019`, `penspin_2024`, `pianomime_2024`, `visual_dexterity_2022` —
-  silent, no bounce, no auto-reply.
+- `pianomime_2024` — a redirect, recorded as silence until 2026-10-14 and corrected. On 22
+  September a coauthor replied on the senior author's behalf and pointed the question at the first
+  author, Cheng Qian, who had not been written to; the window closed before anyone asked him. The
+  letter reached the group and someone who could route it, not the person who could answer it in
+  time. That is this survey's miss and the cost of sending four of the nine letters to a senior
+  author for want of a published address for the first author. Luai is writing to him directly.
+- `physhoi_2023`, `pddm_2019`, `penspin_2024`, `visual_dexterity_2022` — silent, no bounce, no
+  auto-reply.
 
 Recorded in each row's `mismatch_review`, in `outreach/RECIPIENTS.md` per letter, in
 `CHANGELOG.md`, and in section 5.6 of both editions. `outreach/README.md` carries the policy and
@@ -180,3 +186,43 @@ than Overleaf's own compiler output.
 Luai waived the privacy condition. Worth noting for the record that the LaTeX sources were
 already public in the GitHub repository before this sync, so the sync disclosed nothing that was
 not already published. arXiv remains held for the IP check; an Overleaf project is not a posting.
+
+## The prose pass, 2026-10-14
+
+Luai's six rules, each with what it cost and where it stands.
+
+1. **No paper is ever called a row.** 115 replacements across both editions, then two more passes
+   for the awkward ones. "Row" now means a line in a table and nothing else, and the glossary entry
+   is "Method paper".
+2. **At most two figures a paragraph in the body.** Paragraphs carrying more than two:
+   markdown 107 of 215 before, 58 of 221 after; LaTeX 78 of 157 before, 42 of 177 after. Nothing in
+   either edition now carries more than six, and most of what is left is a single comparison
+   quoting two values and a unit, or the Wilson formula, whose symbols the counter reads as
+   figures. The surplus went into Tables 2, 3, 4, 7, 9 and 11 and into Figures 2 and 6, which are
+   generated from the corpus and so cannot drift from it.
+3. **No pipeline narration in the main text.** Gone: "the extraction", "recovered", "this survey's
+   own parsing", "withdrawn", the raw-versus-adjusted rate pair, and the two paragraphs of
+   screening and withdrawal history. They live in Appendix A and in `CHANGELOG.md`. What stayed in
+   the body is the floors-not-rates caveat in one clause with a pointer, because a reader who
+   misses it misreads every coverage figure.
+4. **Paper-against-code is one paragraph plus the table**, down from about 2,200 words of prose in
+   the markdown edition and 1,400 in the LaTeX one. Penetration is 6.7 percent of the body by
+   sentence in both editions, against a 10 percent ceiling. By paragraph it is 15 percent, because
+   several paragraphs mention it once in passing; the sentence measure is the honest one for a
+   share-of-the-paper claim and both are reported here.
+5. **The tics are out.** 46 bold label lead-ins reduced to the six glossary definitions, where bold
+   is correct typography. "Is the question this corpus cannot settle", "that is not X, since Y" and
+   "which is a selection effect rather than" are gone.
+6. **Section 1.1, "How to read this survey"**, is new: the shape of the paper, three reading paths
+   for a newcomer, for someone already in the field and for someone who wants the data, and three
+   things to carry while reading.
+
+The checker followed the paper rather than the reverse. Three checks that required the prose to
+restate a figure's or a caption's arithmetic now only forbid the prose from contradicting it, since
+moving that arithmetic into the figures is what rule 2 asked for. Three phrase pins were dropped
+with their sentences. 32 facts are now carried by tables and figures alone and are listed as such
+in `tools/check_numbers.py`, so a number returning to the prose unpinned still fails the build.
+
+Two things the pass found rather than made: Section 1 still said the corpus held 221 bibliography
+entries and 218 records, both stale since D-Grasp entered, and the LaTeX conclusion's penetration
+item had been left half-edited and ungrammatical since an earlier session.

@@ -6,50 +6,44 @@ A policy is only as dexterous as the hand it runs on, and the hands available di
 few that a laboratory can buy, a few more it can build from published designs, and a growing
 number that exist only in an announcement. What can be said about them is less than it looks.
 No degree-of-freedom, force, weight or price figure in Table 2 or Table 3 was measured by
-anyone outside the maker. Six rows are the exception, from peer-reviewed papers with stated
+anyone outside the maker. Six entries are the exception, from peer-reviewed papers with stated
 protocols: ILDA, Pisa/IIT, ORCA, RUKA, LEAP and BiDexHand. Table 2 dates every other claim.
 
-The degree-of-freedom count is the first number a vendor states and the least comparable one.
-Shadow's specification of 4 December 2024 reads "20 actuated DOF and a further 4 under-actuated
-movements for a total of 24 joints" `shadow_dexterous_hand_2005`. Table 2 prints joints first and
-actuated DoF second, and the gap is the informative number. Where a vendor's own DoF figure
-differs from the joint count, the joint count is what the table prints, as with Inspire's "Degrees
-of freedom 6, Numbers of joints 12" `inspire_rh56dfx_2023`. An actuator count is neither of those
-columns and has its own. DexHand states no joint count at all, only 16 finger micro-servos and two
-wrist servos, so 18 servos is the only count quotable for it `dexhand_open_source_2023`. Daxo
-states 120 actuators, no DoF figure, and a tendon structure with no rigid joints, which has far
-fewer kinematic degrees of freedom than actuators `daxo_muscle_v0_2025`.
+The degree-of-freedom count is the first number a vendor states and the least comparable one,
+because three different quantities get printed under that heading: joints, actuated joints and
+actuators. Shadow's own specification separates them, reading "20 actuated DOF and a further 4
+under-actuated movements for a total of 24 joints" `shadow_dexterous_hand_2005`; Inspire's page
+gives a DoF figure and a joint count that differ by a factor of two `inspire_rh56dfx_2023`; a
+tendon hand can list more actuators than it has kinematic degrees of freedom
+`daxo_muscle_v0_2025`. Table 2 therefore prints joints and actuated DoF in separate columns, with
+actuators in a third, and the gap between them is the informative number.
 
-The actuation ratio is the real decision. The Pisa/IIT SoftHand drives 19 joints from one motor
-and its authors state the cost plainly: "No in-hand dexterous manipulation is required for this
-prototype" `pisa_iit_softhand_2014`. Tendon drive moves the motors off the fingers and the mass
-follows them. Shadow's hand plus forearm weighs 4.3 kg, against 1.1 kg for the ILDA hand alone
-with every motor in its palm `shadow_dexterous_hand_2005` `ilda_hand_2021`. ILDA states an 18 kg
-payload against Shadow's 4 kg in a power grasp, and Shadow states no fingertip force at all. What
-tendons cost is state estimation. The Faive Hand estimated joint angles from tendon length through
+The actuation ratio is the real decision. The Pisa/IIT SoftHand drives nineteen joints from one
+motor, and its authors state the cost plainly: "No in-hand dexterous manipulation is required for
+this prototype". Tendon drive moves the motors off the fingers and the mass follows them, so a
+hand with every motor in its palm can weigh a quarter of a tendon hand with a forearm; Table 2
+gives both weights. What tendons cost is state estimation. The Faive Hand estimated joint angles from tendon length through
 a Kalman filter and its cube reorientation failed on hardware, which its authors blamed on "poor
 joint angle measurement from the EKFs, especially when there is contact" `faive_hand_2023`.
 Ruka-v2 adds detachable AS5600 encoders to measure that problem rather than close the loop on it,
 and those encoders put its open-loop linear joint-to-motor map at 8.26 degrees of error over seven
 joints `ruka_v2_2026`.
 
-Direct drive trades torque density for transparency. LEAP's Dynamixel joints resist 19.5 N in a
-pull-out test against the Allegro Hand's 8.5 N, at 595 g for the LEAP hand `leap_hand_2023`, and
-the Allegro's own weight has no reachable source. Linkage drive is the argument against the
-forearm. ILDA puts 15 motors, drivers and ball screws inside the palm and reports 34 N at the
-fingertip in the bent pose and 28 N stretched `ilda_hand_2021`. Linkages buy coupling for free, as
-in BiDexHand's four-bar that drives each DIP off its PIP, whose paper claims 16 actuated DoF and
-21 joints while its README describes 15 servos driving 15 joints `bidexhand_2025`.
+Direct drive trades torque density for transparency: LEAP's Dynamixel joints resist 19.5 N in a
+pull-out test against the Allegro's 8.5 N `leap_hand_2023`. Linkage drive is the argument against
+the forearm, putting motors, drivers and ball screws inside the palm and still reaching tens of
+newtons at the fingertip `ilda_hand_2021`. Linkages also buy joint coupling for free, as in
+BiDexHand's four-bar that drives each distal joint off the one behind it, though that hand's paper
+and its own README disagree about how many joints and servos it has `bidexhand_2025`.
 
-Fingertip force is the number a hand buyer reads first, and across these rows it is six different
-measurements. Table 2 puts the quantity beside the figure: pull-out resistance for LEAP's 19.5 N,
-pinch for RUKA's 2.74 N and BrainCo's 15 N, fingertip normal force under a 1 cm indenter for
-Unitree's 10 N, a calibrated five-trial fingertip force for BiDexHand's 2.14 N, a peak vendor
-claim for 1X's 45 N, and two unlabelled spec columns for Sharpa's "20 N | 12 N". BrainCo's
-whole-fist grip of 50 N is a separate figure and is no longer in the same column as a pinch.
-ORCA's 19.6 N was none of these. It is the newton equivalent of a 2 kg index-finger payload at a
-fixed 600 mA motor current, so its force cell is empty and its payload cell carries that protocol
-`orca_hand_2025`. No two hands in Table 2 report payload under the same test either.
+Fingertip force is the number a hand buyer reads first, and across these hands it is six
+different measurements wearing one name. Pull-out resistance, a pinch between two fingers,
+fingertip normal force under a standard indenter, a calibrated multi-trial measurement, a peak
+vendor claim and two unlabelled columns on a spec sheet all appear as "fingertip force". One
+vendor's figure turns out to be the newton equivalent of a payload at a fixed motor current, which
+is a different quantity again. Table 2 therefore prints the protocol beside every force it
+reports, and leaves the cell empty where the protocol cannot be recovered. No two hands in it
+report payload under the same test either.
 
 Compliance is repairability seen twice over, and both are mechanical fuses: the Pisa/IIT
 SoftHand's rolling-contact joints return to assembly after over-extension and ORCA's "poppable"
@@ -59,15 +53,14 @@ performance". What fails is rarely the motors. Its durability run found silicone
 two fingertips after about 2,000 to 4,000 grasp cycles and sensor wires snapping on three after
 about 4,500 to 7,000. The sensing wore out an order of magnitude sooner than the hand.
 
-Two columns matter before any of the above and were missing. The first is the rate a loop can be
-closed at, which spans 250 Hz on a Tesollo to 1 kHz on a Shadow, a Unitree or a Wuji, with the
-Allegro at 333 Hz on its own CAN clock and Inspire stating no rate at all. LEAP's 500 Hz is a
-serial query ceiling and its own sim-to-real policy runs at 20 Hz, which answer different
-questions `leap_hand_2023`. A reader deploying torque control is bitten by that first. The second
-column says whether a URDF or MJCF exists and who ships it, which is the bridge to section 4 and
-to this survey's recommendation to pick a hand a simulator already carries. Shadow, Sharpa, Wuji,
-the Ability Hand, RUKA, Faive and the Allegro driver ship one. LEAP is the warning: its paper says
-the URDF is released and the released API repository contains none `leap_hand_2023`.
+Two columns matter before any of the above, and no vendor comparison carries them. The first is
+the rate at which a control loop can actually be closed, which spans a factor of four across these
+hands and is not stated at all by some; one hand's quoted rate turns out to be a serial query
+ceiling while its own transferred policy runs at 20 Hz, which answer different questions. A reader
+deploying torque control is bitten by that first. The second column says whether a URDF or MJCF
+exists and who ships it, which is the bridge to section 4 and to this survey's recommendation:
+prefer a hand a simulator already carries. LEAP is the warning there, because its paper says the
+URDF is released and the released API repository contains none `leap_hand_2023`.
 
 {{table:table2_hands_available}}
 
@@ -75,12 +68,10 @@ the URDF is released and the released API repository contains none `leap_hand_20
 
 {{figure:fig2_hands}}
 
-The two oldest designs in Table 2 carry 49 of the 104 papers that name a hand at all, and
-seven rows use both. Neither design's date is confirmed by its own sources, so 2005 and 2016 are
-the bibliography's. Figure 2 counts, per hand, the method papers whose own experiments use it. Of
-113 papers, 104 name a hand. The Allegro accounts for 35, Shadow for 21, the Inspire RH56
-family for 19, a parallel-jaw gripper for 12 and LEAP for 12. Seventy-five of the 104 name an
-Allegro, a Shadow or Adroit model, LEAP or an Inspire.
+The two oldest designs in Table 2 carry 49 of the 104 papers that name a hand at all, and seven
+papers use both. Figure 2 counts, per hand, the papers whose own experiments use it, and the shape
+of that figure is the finding: four hands take three quarters of the corpus and everything else
+shares the remainder.
 
 The Allegro's position is the uncomfortable part. Its product page at allegrohand.com/v4 returned
 HTTP 404 while the Wonik wiki timed out `allegro_hand_v4_2016`. Everything Table 2 confirms about
@@ -90,30 +81,25 @@ price have no reachable source. The field's most common platform cannot be speci
 reader can open.
 
 Concentration would matter less if the hand did not move the result, and it does. On the same
-simulated cube rotation, LEAP reaches 0.2288 rad/s against the Allegro's 0.0828 rad/s
-`leap_hand_2023`, and RUKA reports a 2.74 N pinch against the Allegro's 1.60 N under the same
-three-trial pinch test `ruka_2025`. A method compared only on Allegro hardware is compared at
-one point in a space where a single axis moves the headline number two or three times over.
-Inspire, XHand and Sharpa take 29 of the 104 papers between them, four rows use two of the
-three, and none is earlier than 2024. Eight take none at all: ORCA, RUKA, Ruka-v2, BiDexHand,
-DexHand, the Proception ProHand, the Tesollo DG-5F and the Unitree Dex5.
+simulated cube rotation LEAP turns the cube nearly three times faster than the Allegro
+`leap_hand_2023`, and on the same three-trial pinch test RUKA reports almost twice the Allegro's
+force `ruka_2025`. A method compared only on Allegro hardware is compared at one point in a space
+where a single axis moves the headline number two or three times over. The three newest Chinese
+hands have arrived quickly and take a growing share, none of them before 2024, and eight hands
+that can be bought or built take no papers at all.
 
-**Open hardware and the collapse in cost.** Six rows in Table 2 are open hardware, and LEAP
-Hand V2 in Table 3 is a seventh. Five of the seven state a dollar cost: $2,000 for LEAP, $3,000
-for LEAP Hand V2, $1,500 for Ruka-v2, $1,300 for RUKA and $300 for DexHand. ORCA states a
-material cost below 2,000 CHF that the price column leaves unconverted, and BiDexHand states
-none `orca_hand_2025` `bidexhand_2025`. The Faive Hand states neither a cost nor a license that
-could be read, so it is not counted as open hardware here `faive_hand_2023`. Two of the stated
-bases need saying. DexHand's $300 is "additional total cost of components", excluding the
-printing and the wrist servos `dexhand_open_source_2023`, and ORCA's own figure sits against
-Ruka-v2's table listing ORCA at about $3.5K `ruka_v2_2026`.
+The cost of entry has collapsed at the open-hardware end. Seven hands in Tables 2 and 3 publish
+their designs, and the five that also publish a price run from a few hundred dollars to a few
+thousand, against six figures for the hands this literature actually runs on. Table 2 carries each
+price with what it includes, because the bases differ: the cheapest figure excludes printing and
+wrist servos `dexhand_open_source_2023`, and one vendor's own number sits against a third party's
+estimate several times higher `orca_hand_2025` `ruka_v2_2026`.
 
-The expensive end of the collapse is secondhand throughout. The only six-figure numbers on disk
-are RUKA's comparison table at $100,000 for a Shadow Hand and Faive's "steep price tag of 110k
-GBP" `ruka_2025` `faive_hand_2023`. Shadow's own page says to discuss pricing and Table 2's price
-cell for it is empty. The collapse is real at the cheap end and secondhand at the expensive one,
-and it has barely moved the literature. Twelve of the 104 hand-naming papers use an
-open-hardware hand, and all twelve are LEAP.
+The expensive end of that comparison is secondhand throughout: the six-figure prices for a
+Shadow Hand come from other people's comparison tables, because the vendor's own page asks buyers
+to discuss pricing. So the collapse is real at the cheap end and inferred at the expensive one,
+and it has barely moved the literature. Twelve of the 104 hand-naming papers use an open-hardware
+hand, and all twelve of those are LEAP.
 
 What the cheap hands give up is sensing. LEAP has none and names touch sensors as future work
 `leap_hand_2023`, RUKA states its design "lacks tactile sensing" `ruka_2025`, and BiDexHand's
@@ -123,25 +109,23 @@ whose threshold was measured as low as 0.05 N on a fresh fingertip, against the 
 
 ## 3.3 Tactile sensing
 
-DIGIT set the cost floor. Its paper states a "total estimated manufacturing cost is
-approximately 15 USD per sensor ... when manufactured in a batch of 1000" `digit_2020`, which
-is where the price of touch sensing stopped being the obstacle. Durability was as much of the
-contribution: its gel degraded by 0.3 percent over fifteen abrasion passes, where the two gels
-compared against it degraded by more than 800.
+DIGIT set the cost floor, stating a manufacturing cost of about 15 USD per sensor in batches of
+a thousand `digit_2020`, which is where the price of touch sensing stopped being the obstacle.
+Durability was as much of the contribution: its gel barely degraded over an abrasion test that
+destroyed the two gels compared against it.
 
-Digit 360 is the same lineage at a different operating point, claiming about 8.3 million taxels,
-spatial features to 7 um, normal and shear force resolution of 1.01 mN and 1.27 mN, and on-device
-processing that cuts event-to-action latency from 6 ms to 1.2 ms `digit360_2024`. It is also not
-for sale, and no corpus paper's parsed text names it.
+Digit 360 is the same lineage at a different operating point: millions of taxels, force
+resolution around a millinewton, and on-device processing that cuts event-to-action latency by
+most of an order of magnitude `digit360_2024`. It is also not for sale, and no paper in this
+corpus names it.
 
-XELA's uSkin is the non-camera alternative and the one that bolts onto hands the field already
-uses. Its curved fingertip kit for the Allegro V4 and LEAP carries 30 three-axis sensing points, a
-full Allegro integration reaches 368, resolution is 0.1 gram-force, and the kit runs at 275 Hz
-`xela_uskin_2020`. The 500 Hz figure often quoted belongs to the product family, not the curved
-fingertip. One corpus paper names it, `sparsh_2024`, whose self-supervised encoders are
-pre-trained on 462.7k tactile images and beat matched end-to-end models by 95.1 percent when both
-see 33 to 50 percent of the labels. Its own bead-maze policies never complete the maze on the real
-robot.
+XELA's uSkin is the non-camera alternative, and the one that bolts onto hands the field already
+uses: a curved fingertip kit for the Allegro and LEAP, with three-axis sensing points at
+gram-force resolution running at a few hundred hertz `xela_uskin_2020`. Table 3 gives the
+specification, including which figures belong to the product family rather than to the fingertip
+kit. One paper in this corpus uses it, and its self-supervised encoders beat matched end-to-end
+models when both see a fraction of the labels, though its own bead-maze policies never complete
+the maze on the real robot `sparsh_2024`.
 
 The usage number is the one to keep, and it needs its inclusion rule stated: a sensor
 physically on the hand, read by the deployed policy. Eight papers meet it:
@@ -165,7 +149,7 @@ magnitude while the policies consuming them have stayed at binary contact.
 
 ## 3.4 The catalog against the literature
 
-**Three classes of evidence.** Behind Table 3's rows sit three kinds of evidence, and
+Behind Table 3's entries sit three kinds of evidence, and
 conflating them is how a DoF figure with no source ends up in a survey. Vendor prose carrying
 numbers is the strongest, as on 1X's page of 9 July 2026 `onex_neo_hand_2026`. Video is second
 and carries none. Press or bibliography assertion is third, as with Tesla's V3 hand, known here
@@ -174,23 +158,24 @@ only through a paraphrase of patents because the USPTO PDF parsed empty
 who did the arithmetic.
 
 A survey can go one step past recording that a claim is unverified, which is to say which claims
-are implausible on their face. Daxo's 120 actuators in 750 g is about 6 g per actuator including
-structure, tendons, routing and skin `daxo_muscle_v0_2025`. Clone's 27 degrees of freedom under 2
-pounds excludes a 500 W pump the source does not confirm is excluded `clone_robotics_hand_2024`.
-Figure 03's "Degrees of freedom, hands | 20" sits on the same tracker page as "Number of fingers |
-10", so it is almost certainly the pair `figure_03_hand_2025`. Tesla's repeated 22 is one
-article's arithmetic of four DoF on each of five fingers plus two at the wrist, and Gen 2's own
-figure was 11 `tesla_optimus_hand_2025`.
+are implausible on their face. One vendor's actuator count and mass work out to about six grams
+per actuator including structure, tendons, routing and skin `daxo_muscle_v0_2025`. Another's mass
+figure appears to exclude a half-kilowatt pump `clone_robotics_hand_2024`. A third's
+degree-of-freedom figure sits on the same page as a finger count that is exactly half of it, so it
+is almost certainly the pair of hands `figure_03_hand_2025`. A fourth number, widely repeated for
+the Optimus hand, is one article's arithmetic rather than a vendor statement, and the previous
+generation's own figure was half of it `tesla_optimus_hand_2025`.
 
-Skepticism belongs to the evidence class, not to which table a row lands in. Sharpa's 22 of 22,
-Wuji's 20 of 20 and Tesollo's 20 of 20 are vendor claims about unmeasured hardware and they sit in
-Table 2, where Sharpa's page footnotes "Specifications may vary between products" and Wuji's says
-the spec "will continue to iterate" on a Beta1 product `sharpa_wave_2026` `wuji_hand_2025`. Even
-the best-specified vendor page in the corpus leaves its fingertip-force columns unlabelled.
+Skepticism belongs to the evidence class, not to which table an entry lands in. The
+fully-actuated claims from the newest vendors are claims about unmeasured hardware, and they sit
+in Table 2 beside the footnotes their own pages carry: "Specifications may vary between products"
+on one, a spec that "will continue to iterate" on a beta product on another `sharpa_wave_2026`
+`wuji_hand_2025`. Even the best-specified vendor page in the corpus leaves its fingertip-force
+columns unlabelled.
 
 {{table:table3_hands_announced}}
 
-**What is sold against what is published on.** The bottom rows of Figure 2 carry the finding.
+The bottom of Figure 2 carry the finding.
 None of the nine company-announced hands in Table 3 appears in a single paper whose own
 experiments use it. Tesla, Figure, 1X, Sanctuary, Boston Dynamics, Xiaomi, Clone, Daxo and
 PaXini account for zero of the 113 method papers' experiments. The nearest thing to a
@@ -212,29 +197,21 @@ piezoresistive fingertip channels in the action vector and real-robot success ra
 `gr_dexter_2025`, not through a product page. That mechanism is available to every vendor in Table
 3 and none has used it.
 
-The gap runs the other way too, and the last column of Table 2 shows it. Eight hands that can
-be bought or built from published designs take zero papers each: the Unitree Dex5 with 94
-pressure sensors on its P variant `unitree_dex5_2025`, the fully actuated Tesollo DG-5F
-`tesollo_dg5f_2024`, the 22-DoF Proception ProHand `proception_prohand_2026`, ORCA, RUKA,
-Ruka-v2, BiDexHand and DexHand. Cheapness is established only for RUKA, Ruka-v2 and DexHand,
-because Table 2's price cell is empty for Unitree, Tesollo, the ProHand, ORCA and BiDexHand,
-and the only Dex5 price on disk is Ruka-v2's secondhand "~$25K" `ruka_v2_2026`. A reader
-choosing a hand on this corpus's evidence has four options with published precedent behind
-them: the Allegro at 35 papers, a Shadow at 21 and 4 more for its Adroit model, the
-Inspire RH56 family at 19, and LEAP at 12, of which only LEAP has both a published design and a
-stated price. Below those four the record thins fast: eight rows for the XHand, seven for the
-Ability Hand, six for Sharpa, two each for Wuji and LEAP Hand v2, one each for five more, and
-none at all for the other 19 hands of Tables 2 and 3. Those 19 sit in the tables on their
-specifications alone, and no paper in this corpus runs on any of them.
+The gap runs the other way too, and the last column of Table 2 shows it. Eight hands that can be
+bought today or built from published designs take no papers at all: the Unitree Dex5
+`unitree_dex5_2025`, the Tesollo DG-5F `tesollo_dg5f_2024`, the Proception ProHand
+`proception_prohand_2026`, ORCA, RUKA, Ruka-v2, BiDexHand and DexHand. Cheapness is
+established for only three of those eight, because the price cell is empty for the rest. A reader
+choosing a hand on this corpus's evidence has four options with published precedent behind them,
+and only one of the four, LEAP, has both a published design and a stated price. Below those four
+the record thins fast, and 19 of the hands in Tables 2 and 3 sit there on their specifications
+alone, with no paper in this corpus running on any of them.
 
-**What would close the gap.** Nineteen of the 33 hands in Tables 2 and 3 appear in no method
-row, and 11 of those are neither sold nor open, so they appear in none for that reason and 33
-is not the denominator for a software-lag claim; the eight hands named just above are. What
-decides used from unused is one regular expression per hand run against the papers' own
-hand field, in `tools/hand_usage.py`, so the partition is recomputed and not argued about. The
-lag runs through the tooling too. Seven of the fifteen simulator rows ship a first-party hand
-model at all, six of those hands are real, Brax's being a synthetic claw, and every one of the
-six is an Allegro or a Shadow; only four of the 33 tabulated hands appear in any engine.
-`bench2dex_2026` meanwhile compares 12 hands and `dexverse_2026` six without stating a DoF
-count for any. What would close it is a conformance suite for hand models: one URDF or MJCF per
-hand, fixed joint-limit, mass and collision checks, and a published pass or fail per engine.
+What would close the gap is tooling rather than manufacturing. Nineteen of the 33 hands in
+Tables 2 and 3 appear in no paper here, and most of those are neither sold nor open, so the eight
+obtainable ones named above are the real measure of the lag. The lag runs through the simulators
+too: fewer than half of them ship a first-party hand model at all, and every model they do ship is
+an Allegro or a Shadow. Two recent benchmarks compare a dozen hands between them without stating a
+degree-of-freedom count for any. What would close it is a conformance suite for hand models: one
+URDF or MJCF per hand, fixed joint-limit, mass and collision checks, and a published pass or fail
+per engine.

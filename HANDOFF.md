@@ -6,8 +6,8 @@ including unreleased ones, the simulators and contact models, how policies are t
 evaluation frame, and the gaps. Target: an arXiv preprint, cs.RO, CC BY.
 
 ## State
-Postable. `tex/main.pdf` is the submission edition, 40 pages, IEEEtran two-column. `paper/survey.pdf`
-is the longer markdown edition, 122 pages, kept because its numbers were checked by eight reviewers.
+Postable. `tex/main.pdf` is the submission edition, 37 pages, IEEEtran two-column. `paper/survey.pdf`
+is the longer markdown edition, 119 pages, kept because its numbers were checked by eight reviewers.
 Both build clean: no LaTeX errors, no undefined citations or references, no overfull boxes.
 `tools/check_numbers.py` recomputes every load-bearing number from `corpus/rows/` against **both**
 editions and reports zero disagreements. `tools/check_notes.py`: 220 notes, zero flagged.

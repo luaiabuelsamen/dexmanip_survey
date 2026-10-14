@@ -21,7 +21,7 @@ between them, while the corpus's experiments concentrate on four designs
 (Section~\ref{sec:hands:gap}, \figurename~\ref{fig:hands}).
 
 \item Human data does not port across hands, and the map is usually unstated: 33 of the 53 method
-rows that use human data never say how the human motion reached the robot hand
+papers that use human data never say how the human motion reached the robot hand
 (Section~\ref{sec:train:human}).
 \item Twenty-one of the 28 papers that put a learned closed-loop controller on two multi-fingered
 hands run one policy over a concatenated two-hand observation, a choice compared twice with opposite
@@ -29,25 +29,25 @@ outcomes and ablated once (Section~\ref{subsec:coordination}, \figurename~\ref{f
 
 \item The generalist and vision-language-action policies that do evaluate on a multi-fingered hand
 run it at a median of 6 actuated degrees of freedom, against 16 across the reinforcement-learning
-rows that state a count, and the rows reaching the larger band on paper never say whether the hand
+papers that state a count, and the papers reaching the larger band on paper never say whether the hand
 was in the evaluation (Section~\ref{sec:train:vla}).
 
 \item The evaluation-methodology literature this survey builds its protocol on contains no
-dexterous hand at all: of its seven corpus rows, one runs a parallel-jaw gripper and the other six
+dexterous hand at all: of its seven papers in this corpus, one runs a parallel-jaw gripper and the other six
 state no hand (Section~\ref{subsec:what_would_be_true}, Table~\ref{tab:protocol}).
 
 \item Eight of the 63 papers that released parseable code state, in a named file at a named
-commit, something other than the value their paper prints, and eight further rows have been withdrawn from that count since its first draft, one of them because an author replied, with two more narrowed.
+commit, something other than the value their paper prints.
 Table~\ref{tab:codegap} gives each of the eight as a repository, a
 commit, a file and two values, and all of their authors were written to before this was posted: Section~\ref{sec:train:code} says that beside the finding, with the letters in
 \path{outreach/} and the route by which a disputed case is corrected
 (Section~\ref{sec:train:code}).
 
-\item Where interpenetration is reported it is not measured in the physics that produced the motion:
-no closed-loop policy in this corpus reports it for its own rollouts, the one outside it that does
-measures the pose geometrically after the fact, and all
-trained policy, and every one of the eleven rows that handles penetration at all sits on the
-reference side of the reference-versus-rollout split
+\item Penetration is almost never measured where it would matter. No paper here reports how far its
+hand sank into the object, measured in the physics its own policy ran in. The one that does report a
+volume for a pose its own policy reached measures it outside the simulator, on meshes the simulator
+never used, and reports zero inside it. On the reference-versus-rollout split that frames this
+survey, every paper that handles penetration at all is still measuring a reference
 (Section~\ref{subsec:plausibility}).
 
 \end{enumerate}
@@ -71,9 +71,8 @@ claim is eight hands and not nineteen.
 What this survey cannot establish is which method is better than which. It re-runs nothing, and
 Section~\ref{sec:evaluation} argues that the published numbers do not compare. Six works are cited
 by metadata only, and a seventh, Ma and Dollar 2011, is on disk but unread; no claim rests on any
-of them. Every coverage statistic here counts what this survey's extraction captured rather than
-what the literature reported. Each is a floor and not a rate, because every miss converts a
-reporting paper into a silent one.
+of them. Every coverage figure here is a floor rather than a rate, for the reason
+Appendix~\ref{app:method} sets out.
 
 Several practical changes require little additional computation. Authors can generate reward
 tables from the configurations used for the reported run, cite the exact revision, state the trial

@@ -11,7 +11,17 @@ Every entry names the evidence and the commit.
 version.
 
 **Now:** the window is closed and recorded. One substantive reply, one
-acknowledgement without an answer, seven silent.
+acknowledgement without an answer, one redirect, six silent.
+
+**Corrected 2026-10-14.** `pianomime_2024` was first recorded as silent and was
+not. On 22 September 2026 a coauthor replied on the senior author's behalf and
+redirected the question to the first author, Cheng Qian, who had not been written
+to; the window closed before anyone asked him. That is a miss by this survey
+rather than a non-reply by the authors, and it is the cost of a choice recorded in
+`outreach/RECIPIENTS.md`: four of the nine letters went to a senior author because
+no current address for the first author was published anywhere this survey could
+check. The comparison stands as written and is recorded as unanswered rather than
+as agreed.
 
 **The reply**, already in the paper since 20 September: the corresponding author of
 `dexpoint_2022` showed that three parts of that comparison did not hold. The row

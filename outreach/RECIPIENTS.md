@@ -18,7 +18,7 @@ that silence would be recorded as silence rather than as agreement.
 | `dextreme_2022` | a coauthor at NVIDIA, three more in copy | the paper's own PDF, page 1 | **silent**; two copied addresses rejected |
 | `pddm_2019` | senior author at UC Berkeley | his CV at people.eecs.berkeley.edu | **silent**, window closed 2026-10-10 |
 | `penspin_2024` | senior author at UC San Diego | UCSD CSE faculty profile | **silent**, window closed 2026-10-10 |
-| `pianomime_2024` | senior author at TU Darmstadt, a coauthor in copy | TU Darmstadt IAS team page; the coauthor's own site | **silent**, window closed 2026-10-10 |
+| `pianomime_2024` | senior author at TU Darmstadt, a coauthor in copy | TU Darmstadt IAS team page; the coauthor's own site | **redirected 2026-09-22** to first author Cheng Qian, who was not written to before the window closed |
 | `unidexgrasp_2023` | corresponding author at Peking University, first author in copy | the project page, pku-epic.github.io/UniDexGrasp | **forwarded to two coauthors 2026-10-02**, copying this survey's author; no answer |
 | `visual_dexterity_2022` | senior author at MIT | the paper's own PDF, page 1 | **silent**, window closed 2026-10-10 |
 
@@ -29,13 +29,16 @@ page the author controls.
 
 Four letters went to a senior author because the first author's current address is not published
 anywhere this survey could check: Petrenko (DexPBT), Nagabandi (PDDM), Jun Wang (PenSpin) and Cheng
-Qian (PianoMime). In each case the recipient is a coauthor of the paper the letter is about, so the
+Qian (PianoMime). The PianoMime case shows the cost of that choice: the reply that came back was a
+redirect to Cheng Qian, so the letter spent the window reaching the person it should have started
+with. In each case the recipient is a coauthor of the paper the letter is about, so the
 letter reached someone who can answer it, and each letter said so and asked to be forwarded.
 
 
 ## What came back, at the close of the window on 10 October 2026
 
-Of the nine letters: one substantive reply, one acknowledgement without an answer, seven silent.
+Of the nine letters: one substantive reply, one acknowledgement without an answer, one redirect,
+six silent.
 
 The reply was from the corresponding author of `dexpoint_2022`, on 20 September. It showed that
 three parts of that comparison did not hold, the row left the contradiction class, and the census
@@ -47,7 +50,14 @@ this survey's author on that forward. No answer followed before the window close
 read and passed on, and the question in it is open: a forward is neither a confirmation nor a
 dispute, so the row is unchanged and the claim is recorded as unanswered rather than as agreed.
 
-Two things qualify the seven silences, and both are recorded in the rows rather than smoothed over.
+The redirect is `pianomime_2024`. On 22 September 2026 a coauthor answered on the senior author's
+behalf and pointed the question at the first author, Cheng Qian, who had not been written to. The
+window closed before anyone asked him. That is this survey's miss rather than a non-reply: the
+letter went to the group and reached someone who could route it, and the person who could answer it
+was named too late for this version. The comparison stands as written and is recorded as unanswered
+rather than as agreed.
+
+Two things qualify the six silences, and both are recorded in the rows rather than smoothed over.
 
 On `dexpbt_2023` and `dextreme_2022`, which went to the same recipient with three coauthors in
 copy, the recipient's mail server rejected two of the three copied addresses. Those two coauthors
