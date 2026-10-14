@@ -3,7 +3,7 @@ Goal: Post the dexterous-manipulation survey to arXiv cs.RO, led by the taxonomy
 Finish line: arXiv cs.RO posted by Luai. Agent work ends at a verified package with every count recomputed from the corpus.
 Deadline: 2026-10-10 for the author-reply window; posting after that and after Luai's IP check.
 Milestone: all five brief items done, plus the prose pass of 2026-10-14. The survey reads as an introduction to the field: 37 pages, no bold label lead-ins outside the glossary, no paper called a row, and the per-paper counts in the tables rather than stacked in the sentences.
-Last result: nine letters, one substantive reply, one acknowledgement without an answer, one redirect, six silent; no claim changed at the close (outreach/RECIPIENTS.md, CHANGELOG.md, each row's mismatch_review). check_numbers 0 problems over both editions, check_notes 220/0, make_arxiv PASS at 40 pages.
+Last result: nine letters, two substantive replies, one acknowledgement without an answer, six silent; one of the eight contradictions is now author-confirmed and no count changed (outreach/RECIPIENTS.md, CHANGELOG.md, each row's mismatch_review). check_numbers 0 problems over both editions, check_notes 220/0, make_arxiv PASS at 40 pages.
 Blocked: (1) arXiv posting needs Luai's approval and his Waymo/Tesla IP check. The reply-window condition is satisfied as of 2026-10-10. Push approval is standing for incremental work on this repo with no history rewrites. Overleaf is no longer blocked: Luai approved the sync on 2026-10-13 and waived the privacy condition, and the sync is done.
 Next: Nothing. The agent work is finished at a verified package. Posting is Luai's, after the IP check.
 Updated: 2026-10-13 10:20
@@ -148,12 +148,16 @@ without an answer, one redirect, six silent.** No claim and no count changed at 
   rejections in either case, so each letter did reach a coauthor of the paper it concerns.
   `dexpbt_2023` also drew an automatic out-of-office message from a copied coauthor, naming a
   week of travel that had ended before the letter was sent; it is not counted as an answer.
-- `pianomime_2024` — a redirect, recorded as silence until 2026-10-14 and corrected. On 22
-  September a coauthor replied on the senior author's behalf and pointed the question at the first
-  author, Cheng Qian, who had not been written to; the window closed before anyone asked him. The
-  letter reached the group and someone who could route it, not the person who could answer it in
-  time. That is this survey's miss and the cost of sending four of the nine letters to a senior
-  author for want of a published address for the first author. Luai is writing to him directly.
+- `pianomime_2024` — recorded as silence, corrected to a redirect on 2026-10-14, and answered the
+  same day. On 22 September a coauthor replied on the senior author's behalf and pointed the
+  question at first author Cheng Qian, who had not been written to; the window closed on 10 October
+  before anyone asked him, which is the cost of sending four of the nine letters to a senior author
+  for want of a published address for the first author. He replied on 14 October, four days after
+  the window, and confirmed both halves of the entry: the released code is the implementation behind
+  the paper's results and its reward description "might be imprecise", and the conclusion's F1 is a
+  typo from a bug in an older scipy. The row stays a contradiction at high confidence, the census
+  stays at eight, and one of the eight is now author-checked. Personal communication, C. Qian, Oct
+  2026; nothing was sent in reply from this project and no address for him is in this repository.
 - `physhoi_2023`, `pddm_2019`, `penspin_2024`, `visual_dexterity_2022` — silent, no bounce, no
   auto-reply.
 
@@ -233,3 +237,24 @@ in `tools/check_numbers.py`, so a number returning to the prose unpinned still f
 Two things the pass found rather than made: Section 1 still said the corpus held 221 bibliography
 entries and 218 records, both stale since D-Grasp entered, and the LaTeX conclusion's penetration
 item had been left half-edited and ungrammatical since an earlier session.
+
+## The PianoMime reply, 2026-10-14
+
+The first author answered after the window and settled two things this survey had left open.
+
+On the reward, he states that the released code is the implementation behind the paper's results
+and that the paper's description of the reward "might be imprecise". That is the comparison the
+survey drew, with the direction now settled in the code's favour, so the entry is author-confirmed
+rather than inferred. The contradiction census is unchanged at eight; what changed is that one of
+the eight has been put to an author and held.
+
+On the F1 figures, the survey had recorded that the paper's abstract says 56 percent on unseen
+songs where its conclusion says 70, and that the two were unreconciled in the source. He confirms
+56 is correct and the 70 a typo from a bug in an older scipy. The row quotes 56 as author-confirmed
+and `papers/notes/pianomime_2024.md` carries the resolution in a section marked as correspondence
+rather than as a reading of the source, because the note protocol is that every value comes from a
+parsed file and this one does not.
+
+Both appear in the paper as two sentences in section 5.6 with a personal-communication credit. No
+new number entered the text: 56 and 70 stay in the corpus and the appendix, where a reader who
+wants them can find them.

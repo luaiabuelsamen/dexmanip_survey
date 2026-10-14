@@ -363,10 +363,11 @@ numbers, and nothing here is a claim about intent or about work that released no
 The authors of every paper named in the table were written to on 19 September 2026, before this
 survey was posted, with the claim, its evidence and the sentences the survey would print, and were
 given until 10 October 2026 to answer. One reply changed a comparison and removed it from the
-count. One letter was redirected by a coauthor to the first author of that paper, who had not been
-written to and whom the window closed before anyone asked, which is this survey's miss rather than
-a non-reply. The rest are recorded as they came, and silence is recorded as silence rather than as
-agreement. The letters as they went out are in `outreach/`, so a reader can see exactly what every
+count. A second confirmed one: the first author of `pianomime_2024` states that the released code
+is the implementation behind that paper's results and that its description of the reward "might be
+imprecise" (personal communication, C. Qian, Oct 2026), which settles the direction of the
+comparison in the code's favour. The rest are
+recorded as they came, and silence is recorded as silence rather than as agreement. The letters as they went out are in `outreach/`, so a reader can see exactly what every
 author was asked, and `outreach/RECIPIENTS.md` records who each one went to and how the address was
 found. A disputed line is corrected the same way it was made, in public: the route is the address in
 the author block, and Appendix C prints every comparison beside the review note that revised it.

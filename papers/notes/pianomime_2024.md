@@ -59,4 +59,20 @@ Code released (github.com/sNiper-Qian/pianomime, commit c4abefac). README docume
 - "Figure 8 shows the F1 score of all 184 trained song-specific policies (descending order)" (Appendix H) — 184 specialists were trained in total, more than the 60 songs / 431 clips headline count, consistent with per-clip specialists.
 
 ## Notes for the survey (which sections this feeds; contradictions with other notes)
-Feeds: bimanual dexterous-hand IL-from-video section, and the RL-reward-design comparison table (alongside RoboPianist [11], cited throughout as the source of the base reward/metric design). Key point for the reward-comparison table: PianoMime's paper-stated reward (2 weighted terms) does not match its released reward code (5 terms summed unweighted, with the energy and fingering terms present in the function bodies but hard-coded to return 0) — flag this when citing PianoMime's reward function elsewhere in the survey; do not merge the paper's Table 3 formula with the code's actual behavior without this caveat. The 56%-vs-70% headline F1 discrepancy (abstract/Table 1 vs. conclusion) should be carried as "56% (F1, Table 1/9, own test set)" in any cross-paper metrics table, with the 70% figure flagged as unreconciled.
+Feeds: bimanual dexterous-hand IL-from-video section, and the RL-reward-design comparison table (alongside RoboPianist [11], cited throughout as the source of the base reward/metric design). Key point for the reward-comparison table: PianoMime's paper-stated reward (2 weighted terms) does not match its released reward code (5 terms summed unweighted, with the energy and fingering terms present in the function bodies but hard-coded to return 0) — flag this when citing PianoMime's reward function elsewhere in the survey; do not merge the paper's Table 3 formula with the code's actual behavior without this caveat. The 56%-vs-70% headline F1 discrepancy (abstract/Table 1 vs. conclusion) should be carried as "56% (F1, Table 1/9, own test set)" in any cross-paper metrics table; the first author has since confirmed that 56% is correct and the 70% a typo (see the correspondence section below).
+
+## Author correspondence, not from the parsed source
+
+The protocol for these notes is that every value comes from a parsed source. This section is the
+exception and is marked as one: it records what the paper's first author said in reply to the
+letter of 19 September 2026, and nothing in it was read out of the PDF or the repository.
+
+Personal communication, C. Qian, Oct 2026 (received 14 October 2026):
+
+- The released code is the implementation behind the paper's results, and the paper's reward
+  description "might be imprecise". The reward comparison in this note therefore stands, with the
+  direction settled: where the two disagree, the code is the authoritative statement of what was
+  trained.
+- The conclusion's 70% F1 on unseen songs is a typo, produced by a bug in an older version of
+  scipy. 56% is the correct figure. The 56-against-70 inconsistency recorded above is resolved,
+  and 56% is what to quote.

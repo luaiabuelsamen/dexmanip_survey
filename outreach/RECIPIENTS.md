@@ -18,7 +18,7 @@ that silence would be recorded as silence rather than as agreement.
 | `dextreme_2022` | a coauthor at NVIDIA, three more in copy | the paper's own PDF, page 1 | **silent**; two copied addresses rejected |
 | `pddm_2019` | senior author at UC Berkeley | his CV at people.eecs.berkeley.edu | **silent**, window closed 2026-10-10 |
 | `penspin_2024` | senior author at UC San Diego | UCSD CSE faculty profile | **silent**, window closed 2026-10-10 |
-| `pianomime_2024` | senior author at TU Darmstadt, a coauthor in copy | TU Darmstadt IAS team page; the coauthor's own site | **redirected 2026-09-22** to first author Cheng Qian, who was not written to before the window closed |
+| `pianomime_2024` | senior author at TU Darmstadt, a coauthor in copy | TU Darmstadt IAS team page; the coauthor's own site | **redirected 2026-09-22** to first author Cheng Qian; **he replied 2026-10-14**, author-confirming both halves of the entry |
 | `unidexgrasp_2023` | corresponding author at Peking University, first author in copy | the project page, pku-epic.github.io/UniDexGrasp | **forwarded to two coauthors 2026-10-02**, copying this survey's author; no answer |
 | `visual_dexterity_2022` | senior author at MIT | the paper's own PDF, page 1 | **silent**, window closed 2026-10-10 |
 
@@ -37,8 +37,9 @@ letter reached someone who can answer it, and each letter said so and asked to b
 
 ## What came back, at the close of the window on 10 October 2026
 
-Of the nine letters: one substantive reply, one acknowledgement without an answer, one redirect,
-six silent.
+Of the nine letters, as of 14 October 2026: two substantive replies, one acknowledgement without
+an answer, six silent. One of the two replies arrived four days after the window closed and was
+acted on anyway.
 
 The reply was from the corresponding author of `dexpoint_2022`, on 20 September. It showed that
 three parts of that comparison did not hold, the row left the contradiction class, and the census
@@ -50,12 +51,15 @@ this survey's author on that forward. No answer followed before the window close
 read and passed on, and the question in it is open: a forward is neither a confirmation nor a
 dispute, so the row is unchanged and the claim is recorded as unanswered rather than as agreed.
 
-The redirect is `pianomime_2024`. On 22 September 2026 a coauthor answered on the senior author's
-behalf and pointed the question at the first author, Cheng Qian, who had not been written to. The
-window closed before anyone asked him. That is this survey's miss rather than a non-reply: the
-letter went to the group and reached someone who could route it, and the person who could answer it
-was named too late for this version. The comparison stands as written and is recorded as unanswered
-rather than as agreed.
+The second reply is `pianomime_2024`, and it arrived by way of a redirect. On 22 September 2026 a
+coauthor answered on the senior author's behalf and pointed the question at the first author, Cheng
+Qian, who had not been written to; the window closed on 10 October before anyone asked him. He
+replied on 14 October, and both halves of that entry are now author-confirmed rather than inferred:
+the released code is the implementation behind the paper's results and the paper's reward
+description "might be imprecise", and the conclusion's 70% F1 is a typo from a bug in an older
+scipy, with 56% correct. The reward comparison stands with its direction settled, the F1
+inconsistency this survey had recorded as unreconciled is resolved, and the row says so. Personal
+communication, C. Qian, Oct 2026.
 
 Two things qualify the six silences, and both are recorded in the rows rather than smoothed over.
 

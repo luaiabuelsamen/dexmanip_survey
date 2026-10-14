@@ -4,14 +4,50 @@ Corrections to claims this survey has made, newest first. Public-facing document
 state what the survey finds; this file states what it has changed its mind about.
 Every entry names the evidence and the commit.
 
+## 2026-10-14 — PianoMime's first author replied, and confirmed both halves
+
+**Was:** `pianomime_2024` was recorded as silent, then corrected the same week to a
+redirect: a coauthor had answered on the senior author's behalf on 22 September and
+pointed the question at the first author, Cheng Qian, who had not been written to
+before the window closed on 10 October.
+
+**Now:** he replied on 14 October, four days after the window, and both halves of
+that entry are author-confirmed rather than inferred.
+
+**On the reward.** He states that the released code is the implementation behind
+the paper's results and that the paper's description of the reward "might be
+imprecise". That is the comparison this survey drew, with the direction settled:
+where the two disagree, the code is the authoritative statement of what was
+trained. The row stays a contradiction at high confidence and the census stays at
+eight; what changed is that one of the eight has now been checked by an author and
+held.
+
+**On the F1 figures.** The survey had recorded that this paper's abstract says 56
+percent F1 on unseen songs while its conclusion says 70, and that the two were
+unreconciled in the source. He confirms that the 70 is a typo produced by a bug in
+an older version of scipy and that 56 is correct. The row now quotes 56 as
+author-confirmed and the note records the resolution.
+
+Personal communication, C. Qian, Oct 2026. The reply was unsolicited beyond the
+original letter, nothing was sent in response from this project, and no address
+for him is recorded anywhere in this repository.
+
+**What this says about the outreach.** Four of the nine letters went to a senior
+author because no current address for the first author was published anywhere this
+survey could check. For this paper that cost the reply four days against the stated
+window, and the answer, when it came, settled two open questions in one message.
+The window is a deadline for the survey, not for the authors: a reply after it is
+acted on the same way one before it would be.
+
 ## 2026-10-10 — the author-reply window closed
 
 **Was:** nine letters out, one reply in, eight outstanding, and a note in section
 5.6 that a window closing in silence would be recorded as silence in the next
 version.
 
-**Now:** the window is closed and recorded. One substantive reply, one
-acknowledgement without an answer, one redirect, six silent.
+**Now:** the window is closed and recorded. At the close: one substantive reply,
+one acknowledgement without an answer, one redirect, six silent. The redirect has
+since produced a second reply, recorded in the entry above.
 
 **Corrected 2026-10-14.** `pianomime_2024` was first recorded as silent and was
 not. On 22 September 2026 a coauthor replied on the senior author's behalf and

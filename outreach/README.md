@@ -75,8 +75,9 @@ private: the repository is public and its history is the record of what changed 
 
 ## What the replies changed
 
-The window closed on 10 October 2026: of nine letters, one substantive reply, one acknowledgement
-without an answer, one redirect, six silent.
+As of 14 October 2026, of nine letters: two substantive replies, one acknowledgement without an
+answer, six silent. One of the two arrived four days after the window closed and was acted on
+anyway, because the window is a deadline for this survey and not for the authors.
 
 Only the reply changed anything. Yuzhe Qin, corresponding author on DexPoint,
 answered on 20 September 2026 and showed that three parts of the claim did not hold: the lift term
@@ -100,12 +101,15 @@ a forward is neither a confirmation of the claim nor a dispute of it, so the row
 unanswered rather than as agreed. Reading the question in that forward as a concession would be
 exactly the kind of inference the rest of this file refuses.
 
-The redirect is PianoMime. A coauthor replied on 22 September on the senior author's behalf and
-pointed the question at the first author, Cheng Qian, who had not been written to, and the window
-closed before anyone asked him. The letter reached the group and someone who could route it; it did
-not reach the person who could answer it in time. That is this survey's miss, and it is the cost of
-sending four of the nine letters to a senior author because no current address for the first author
-was published anywhere that could be checked.
+The second reply is PianoMime, and it came by way of a redirect. A coauthor replied on 22 September
+on the senior author's behalf and pointed the question at the first author, Cheng Qian, who had not
+been written to; the window closed before anyone asked him, which is the cost of sending four of
+the nine letters to a senior author for want of a published address for the first author. He
+replied on 14 October and confirmed both halves of that entry: the released code is the
+implementation behind the paper's results and its reward description "might be imprecise", and the
+paper's conclusion misreports its own F1 because of a bug in an older scipy. Personal
+communication, C. Qian, Oct 2026. One of the eight comparisons has now been checked by an author
+and held.
 
 Two of the six silences come with a delivery qualification. The letters on DexPBT and DeXtreme
 went to the same recipient with three coauthors in copy, and that mail server rejected two of the

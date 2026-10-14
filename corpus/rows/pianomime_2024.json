@@ -21,15 +21,15 @@
  "sim_episodes": null,
  "success_criterion": null,
  "headline_metric": "F1 score",
- "headline_value": "56% F1 on unseen songs (abstract); Table 1/9 Two-stage Diff-res test mean F1 = 0.57",
+ "headline_value": "56% F1 on unseen songs (abstract), confirmed by the first author as the correct figure; Table 1/9 Two-stage Diff-res test mean F1 = 0.57",
  "objects_train": null,
  "objects_test_unseen": null,
  "human_data": "self-collected 'PianoX' YouTube dataset (60 songs, 431 clips, 258K state-action pairs)",
  "penetration": "not addressed",
  "reward_terms": 2,
  "code_released": true,
- "paper_code_mismatch": "Paper's Table 3 states 2 weighted reward terms (Key Press 2/3, Mimic 1/3), but the released code sums roughly 5 unweighted terms (key press doubled, sustain, energy and fingering hardcoded to return 0, forearm-collision) plus a separately-added mimic wrapper term.",
- "note_gaps": "The generalist's exact training-objective equation is not rendered in the extracted paper md (only 'optimized with DDPM' is stated); the abstract's 56% F1 and the conclusion's 70% F1 on unseen songs are inconsistent and unreconciled in the source.",
+ "paper_code_mismatch": "Paper's Table 3 states 2 weighted reward terms (Key Press 2/3, Mimic 1/3), but the released code sums roughly 5 unweighted terms (key press doubled, sustain, energy and fingering hardcoded to return 0, forearm-collision) plus a separately-added mimic wrapper term. Author-confirmed: the first author states the released code is the implementation behind the paper's results and that the paper's reward description \"might be imprecise\" (personal communication, C. Qian, Oct 2026), so the code is the authoritative statement of what was trained.",
+ "note_gaps": "The generalist's exact training-objective equation is not rendered in the extracted paper md (only 'optimized with DDPM' is stated). The abstract's 56% F1 and the conclusion's 70% on unseen songs disagree in the source; the first author confirms 56% is correct and that the 70% came from a bug in an older scipy (personal communication, C. Qian, Oct 2026). Quote 56%.",
  "mismatch_class": "contradiction",
  "mismatch_confidence": "high",
  "mismatch_artifact": {
@@ -40,5 +40,5 @@
   "paper": "two weighted terms, 2/3 and 1/3, Table 3",
   "code": "five summed terms; `_compute_energy_reward` ends `return 0` and `_compute_fingering_reward` `return 0.0`"
  },
- "mismatch_review": "Written to on 19 September 2026 with the claim, its evidence and the sentences this survey would print. This one is a redirect rather than a silence. A coauthor replied on 22 September 2026 on the senior author's behalf and pointed the question at the first author, Cheng Qian, who had not been written to and whom the window closed before anyone asked. So the letter reached the group and the person who could answer it was named too late for this version. The comparison stands as written, unanswered rather than agreed, and a reply from the first author would be acted on the same way any other correction is."
+ "mismatch_review": "Written to on 19 September 2026 with the claim, its evidence and the sentences this survey would print. This one is a redirect rather than a silence. A coauthor replied on 22 September 2026 on the senior author's behalf and pointed the question at the first author, Cheng Qian, who had not been written to and whom the window closed before anyone asked. So the letter reached the group and the person who could answer it was named too late for this version. The comparison stands as written, unanswered rather than agreed, and a reply from the first author would be acted on the same way any other correction is. Answered on 14 October 2026, four days after the window closed, by the first author the 22 September redirect had named. Both halves of this entry are now author-confirmed rather than inferred. On the reward, he states that the released code is the implementation behind the paper's results and that the paper's description of the reward \"might be imprecise\", which is the comparison this survey drew, with the direction settled: the code is authoritative. On the F1 figures, he confirms that the conclusion's 70% is a typo produced by a bug in an older scipy and that 56% is correct, which resolves an inconsistency this survey had recorded as unreconciled. Personal communication, C. Qian, Oct 2026; nothing in it was solicited beyond the original letter and no reply was sent from this project."
 }
