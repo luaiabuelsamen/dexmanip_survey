@@ -4,9 +4,9 @@ Finish line: arXiv cs.RO posted by Luai. Agent work ends at a verified package w
 Deadline: 2026-10-10 for the author-reply window; posting after that and after Luai's IP check.
 Milestone: all five brief items done, including item 3. The author-reply window closed on 2026-10-10 and every letter's outcome is in its row.
 Last result: nine letters, one substantive reply, one acknowledgement without an answer, seven silent; no claim changed at the close (outreach/RECIPIENTS.md, CHANGELOG.md, each row's mismatch_review). check_numbers 0 problems over both editions, check_notes 220/0, make_arxiv PASS at 40 pages.
-Blocked: (1) arXiv posting needs Luai's approval and his Waymo/Tesla IP check. The reply-window condition is satisfied as of 2026-10-10. (2) Overleaf sync is allowed only while the project is private, and nothing available here reports a project's sharing state: the MCP server exposes files and sections, not visibility, and the sync path is git over git.overleaf.com. Needs one line from Luai confirming "Dexterous Manipulation Survey" (project 6aaef4d2) is private and not link-shared or published to the gallery; Overleaf is 15 commits behind, at a sync from a6b1022. Push approval is now standing for incremental work on this repo with no history rewrites, so pushing is no longer a blocker.
+Blocked: (1) arXiv posting needs Luai's approval and his Waymo/Tesla IP check. The reply-window condition is satisfied as of 2026-10-10. Push approval is standing for incremental work on this repo with no history rewrites. Overleaf is no longer blocked: Luai approved the sync on 2026-10-13 and waived the privacy condition, and the sync is done.
 Next: Nothing. The agent work is finished at a verified package. Posting is Luai's, after the IP check.
-Updated: 2026-10-10 09:40
+Updated: 2026-10-13 10:20
 
 ## Decisions taken 2026-10-06 (from the orchestrator)
 1. **D-Grasp becomes a corpus row.** Done, under the protocol in `paper/METHOD.md`:
@@ -154,3 +154,29 @@ without an answer, seven silent.** No claim and no count changed at the close.
 Recorded in each row's `mismatch_review`, in `outreach/RECIPIENTS.md` per letter, in
 `CHANGELOG.md`, and in section 5.6 of both editions. `outreach/README.md` carries the policy and
 what silence does not mean.
+
+## Overleaf synced 2026-10-13
+
+`tools/overleaf_sync.sh push`. Overleaf went from `664dc2d` (a sync from `a6b1022`, 2026-10-05)
+to `ff3232b`, "Sync from repository (c01a997)". 19 files changed, 334 insertions, 269 deletions.
+
+Luai asked for `71b5a91` and the commit label says `c01a997`, which is the same sources: the one
+commit between them touches `STATUS.md` only, and `git diff 71b5a91 c01a997 -- tex/ sty/` is
+empty. Nothing outside `tex/` is part of the package.
+
+Nothing was overwritten. Overleaf's HEAD before the push was itself the previous sync commit, so
+no edit had been made on the Overleaf side since 2026-10-05. The push path replaces tracked
+content wholesale, so this was checked before running it rather than after.
+
+**Build check.** The project was cloned back from `git.overleaf.com` and compiled from what
+Overleaf now serves, with `latexmk -pdf` and no `TEXINPUTS`, which is the layout Overleaf and
+arXiv both use: 40 pages, 0 LaTeX errors, 0 undefined citations, 0 undefined references, no
+overfull box over 20pt, 209 `\bibitem` entries rendered, `IEEEtran.cls` read from the project
+root. Every file Overleaf holds is byte-identical to its counterpart in `tex/` (53 tracked
+files). What this does not do is press Recompile in Overleaf's own container: its TeX Live
+release may differ from this machine's, so the check is a faithful local reproduction rather
+than Overleaf's own compiler output.
+
+Luai waived the privacy condition. Worth noting for the record that the LaTeX sources were
+already public in the GitHub repository before this sync, so the sync disclosed nothing that was
+not already published. arXiv remains held for the IP check; an Overleaf project is not a posting.
